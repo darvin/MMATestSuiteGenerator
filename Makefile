@@ -8,6 +8,7 @@ WOLFRAM_DEB_FILE_RENAME=build/wolfram-engine.deb
 all : builder docker-tests generate-tests
 
 generate-tests-local :
+	rm output/*  || true
 	./export_tests_from_docs.m --local-wolfram
 
 generate-tests : builder white-listed-docs

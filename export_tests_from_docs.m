@@ -1,4 +1,5 @@
-#!/usr/bin/env wolframscript
+#!/Applications/Mathematica.app/Contents/MacOS/MathematicaScript
+
 
 
 
@@ -93,6 +94,5 @@ processDirectory[subDirectory_] := Module[{outFileName, fullDirName}, (
 
 
 
-Map[processDirectory, subDirectories];
+UsingFrontEnd[Map[processDirectory, subDirectories]];
 
-RUN:=Map[processDirectory, subDirectories]
