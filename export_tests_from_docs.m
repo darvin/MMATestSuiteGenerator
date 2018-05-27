@@ -30,12 +30,11 @@ subDirectories = {
 
 SetAttributes[ESimpleExamples, HoldAllComplete];
 exportTests[fileName_, noBroken_] := 
-  Module[{nb, processNotebook}, Print["getting tests from ", fileName];
+  Module[{nb, processNotebook}, 
    nb = NotebookImport[fileName, "ExampleText" | "Input" | "Output", 
      "StyleImportRules" -> {"ExampleText" -> "Text", 
        "Input" -> "Boxes", "Output" -> "Boxes"}, 
      "FlattenCellGroups" -> True];
-   Print[nb];
    processNotebook[nb_] := Module[{result, testFunc, finalResult},
      testFunc[in_, out_] := 
       Module[{isGood, inExpr, outExpr, inInact, outInact}, 
@@ -52,7 +51,6 @@ exportTests[fileName_, noBroken_] :=
       Module[{current, next},
        current = nb[[i]];
        next = nb[[i + 1]];
-       Print[" -  ", i, "  ", current];
        If[
         MatchQ[current, _BoxData] && 
          MatchQ[next, _BoxData], (result = 
@@ -66,7 +64,6 @@ exportTests[fileName_, noBroken_] :=
            Append[result, EComment[current]];)];
        ]];
      finalResult = ESimpleExamples @@ result;
-     Print["- Result: ", finalResult];
      finalResult = 
       finalResult /. {ESameTest[HoldComplete[in_], 
           HoldComplete[out_]] -> ESameTest[in, out], 
@@ -81,7 +78,7 @@ exportFile[nbFileName_, outputFile_] := Module[{exportedCode}, (
     exportedCode = exportTests[nbFileName, noBroken];
     If[FileExistsQ[outputFile], DeleteFile[outputFile]];
     Put[exportedCode, outputFile];
-    Print["Exported doc tests from", nbFileName, "to ", outputFile];
+    Print[">> ", nbFileName, " >>> ", outputFile];
     )];
 
 
