@@ -94,3 +94,5 @@ processDirectory[subDirectory_] := Module[{outFileName, fullDirName}, (
 
 
 Map[processDirectory, subDirectories];
+
+RUN:=Map[processDirectory, subDirectories]

@@ -1,0 +1,224 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      7949,        216]
+NotebookOptionsPosition[      6643,        188]
+NotebookOutlinePosition[      6997,        204]
+CellTagsIndexPosition[      6954,        201]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Import", "[", "\"\<export_tests_from_docs.m\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"RUN", "[", "]"}]}], "Input",
+ CellChangeTimes->{{3.736398649167753*^9, 3.73639867884995*^9}, {
+  3.73639883598429*^9, 3.7363988424023123`*^9}},
+ CellLabel->
+  "In[100]:=",ExpressionUUID->"52477a64-f3c5-4d53-b6c2-768940b12f8c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"whitelist: \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"$TemporaryPrefix\"\>", ",", "\<\"NotLessEqual\"\>", 
+     ",", "\<\"LineBreakChart\"\>", ",", "\<\"SampleDepth\"\>", 
+     ",", "\<\"Sqrt\"\>", ",", "\<\"Array\"\>", ",", "\<\"Table\"\>", 
+     ",", "\<\"Plus\"\>", ",", "\<\"Minus\"\>", ",", "\<\"Equal\"\>", 
+     ",", "\<\"MatchQ\"\>", ",", "\<\"For\"\>", ",", "\<\"Print\"\>"}], 
+    "}"}]}],
+  SequenceForm[
+  "whitelist: ", {
+   "$TemporaryPrefix", "NotLessEqual", "LineBreakChart", "SampleDepth", 
+    "Sqrt", "Array", "Table", "Plus", "Minus", "Equal", "MatchQ", "For", 
+    "Print"}],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.736398680822475*^9, 3.7363987178092947`*^9, {3.736398833336729*^9, 
+   3.736398843572961*^9}},
+ CellLabel->
+  "During evaluation of \
+In[100]:=",ExpressionUUID->"6d6ebc38-2c81-46fc-8758-88b12da7864f"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Documentation Root: \"\>", 
+   "\[InvisibleSpace]", \
+"\<\"/Users/darvin/Dev/MMADocTestSuite/build_docs\"\>"}],
+  SequenceForm[
+  "Documentation Root: ", "/Users/darvin/Dev/MMADocTestSuite/build_docs"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.736398680822475*^9, 3.7363987178092947`*^9, {3.736398833336729*^9, 
+   3.736398843588709*^9}},
+ CellLabel->
+  "During evaluation of \
+In[100]:=",ExpressionUUID->"94220caa-f060-4b29-a03c-054c7bc12888"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Processing directory: \"\>", 
+   "\[InvisibleSpace]", "\<\"ReferencePages/Symbols\"\>"}],
+  SequenceForm["Processing directory: ", "ReferencePages/Symbols"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.736398680822475*^9, 3.7363987178092947`*^9, {3.736398833336729*^9, 
+   3.736398843600622*^9}},
+ CellLabel->
+  "During evaluation of \
+In[100]:=",ExpressionUUID->"59ae8194-a9ae-42ee-8605-33062a4dc939"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\">> \"\>", 
+   "\[InvisibleSpace]", \
+"\<\"/Users/darvin/Dev/MMADocTestSuite/build_docs/ReferencePages/Symbols/\
+NotLessEqual.nb\"\>", "\[InvisibleSpace]", "\<\" >>> \"\>", 
+   "\[InvisibleSpace]", "\<\"output/NotLessEqual_Tests.m\"\>"}],
+  SequenceForm[
+  ">> ", "/Users/darvin/Dev/MMADocTestSuite/build_docs/ReferencePages/Symbols/\
+NotLessEqual.nb", " >>> ", "output/NotLessEqual_Tests.m"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.736398680822475*^9, 3.7363987178092947`*^9, {3.736398833336729*^9, 
+   3.736398848826089*^9}},
+ CellLabel->
+  "During evaluation of \
+In[100]:=",ExpressionUUID->"ac7bf072-0aec-4804-981b-41df24650665"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\">> \"\>", 
+   "\[InvisibleSpace]", \
+"\<\"/Users/darvin/Dev/MMADocTestSuite/build_docs/ReferencePages/Symbols/$\
+TemporaryPrefix.nb\"\>", "\[InvisibleSpace]", "\<\" >>> \"\>", 
+   "\[InvisibleSpace]", "\<\"output/$TemporaryPrefix_Tests.m\"\>"}],
+  SequenceForm[
+  ">> ", "/Users/darvin/Dev/MMADocTestSuite/build_docs/ReferencePages/Symbols/\
+$TemporaryPrefix.nb", " >>> ", "output/$TemporaryPrefix_Tests.m"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.736398680822475*^9, 3.7363987178092947`*^9, {3.736398833336729*^9, 
+   3.736398848873866*^9}},
+ CellLabel->
+  "During evaluation of \
+In[100]:=",ExpressionUUID->"547024f9-28d3-434b-a03f-821e5628ea17"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Processing directory: \"\>", 
+   "\[InvisibleSpace]", "\<\"ReferencePages/Symbols\"\>"}],
+  SequenceForm["Processing directory: ", "ReferencePages/Symbols"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.736398680822475*^9, 3.7363987178092947`*^9, {3.736398833336729*^9, 
+   3.736398848883585*^9}},
+ CellLabel->
+  "During evaluation of \
+In[100]:=",ExpressionUUID->"7cc5b202-7d32-49d1-bfc3-ad515c1dcd68"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\">> \"\>", 
+   "\[InvisibleSpace]", \
+"\<\"/Users/darvin/Dev/MMADocTestSuite/build_docs/ReferencePages/Symbols/\
+NotLessEqual.nb\"\>", "\[InvisibleSpace]", "\<\" >>> \"\>", 
+   "\[InvisibleSpace]", "\<\"output/NotLessEqual_Tests.m\"\>"}],
+  SequenceForm[
+  ">> ", "/Users/darvin/Dev/MMADocTestSuite/build_docs/ReferencePages/Symbols/\
+NotLessEqual.nb", " >>> ", "output/NotLessEqual_Tests.m"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.736398680822475*^9, 3.7363987178092947`*^9, {3.736398833336729*^9, 
+   3.736398854052602*^9}},
+ CellLabel->
+  "During evaluation of \
+In[100]:=",ExpressionUUID->"aa506dd2-dac5-4c99-bd39-adba07ec656d"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\">> \"\>", 
+   "\[InvisibleSpace]", \
+"\<\"/Users/darvin/Dev/MMADocTestSuite/build_docs/ReferencePages/Symbols/$\
+TemporaryPrefix.nb\"\>", "\[InvisibleSpace]", "\<\" >>> \"\>", 
+   "\[InvisibleSpace]", "\<\"output/$TemporaryPrefix_Tests.m\"\>"}],
+  SequenceForm[
+  ">> ", "/Users/darvin/Dev/MMADocTestSuite/build_docs/ReferencePages/Symbols/\
+$TemporaryPrefix.nb", " >>> ", "output/$TemporaryPrefix_Tests.m"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.736398680822475*^9, 3.7363987178092947`*^9, {3.736398833336729*^9, 
+   3.736398854091424*^9}},
+ CellLabel->
+  "During evaluation of \
+In[100]:=",ExpressionUUID->"32364482-32ce-409e-a7ec-65fa3f2bb3f8"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"{", "Null", "}"}], "[", "]"}]], "Output",
+ CellChangeTimes->{3.736398854100686*^9},
+ CellLabel->
+  "Out[102]=",ExpressionUUID->"fca906be-4e4e-46ee-bd15-596ae78d01c3"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{
+  3.736398674076787*^9},ExpressionUUID->"ca055ba1-a7ad-4317-8168-\
+31846fb2c756"]
+},
+WindowSize->{808, 613},
+WindowMargins->{{28, Automatic}, {36, Automatic}},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 490, 12, 73, "Input",ExpressionUUID->"52477a64-f3c5-4d53-b6c2-768940b12f8c"],
+Cell[CellGroupData[{
+Cell[1095, 38, 920, 21, 44, "Print",ExpressionUUID->"6d6ebc38-2c81-46fc-8758-88b12da7864f"],
+Cell[2018, 61, 506, 13, 24, "Print",ExpressionUUID->"94220caa-f060-4b29-a03c-054c7bc12888"],
+Cell[2527, 76, 461, 11, 24, "Print",ExpressionUUID->"59ae8194-a9ae-42ee-8605-33062a4dc939"],
+Cell[2991, 89, 696, 16, 44, "Print",ExpressionUUID->"ac7bf072-0aec-4804-981b-41df24650665"],
+Cell[3690, 107, 712, 16, 44, "Print",ExpressionUUID->"547024f9-28d3-434b-a03f-821e5628ea17"],
+Cell[4405, 125, 461, 11, 24, "Print",ExpressionUUID->"7cc5b202-7d32-49d1-bfc3-ad515c1dcd68"],
+Cell[4869, 138, 696, 16, 44, "Print",ExpressionUUID->"aa506dd2-dac5-4c99-bd39-adba07ec656d"],
+Cell[5568, 156, 712, 16, 44, "Print",ExpressionUUID->"32364482-32ce-409e-a7ec-65fa3f2bb3f8"]
+}, Open  ]],
+Cell[6295, 175, 201, 5, 68, "Output",ExpressionUUID->"fca906be-4e4e-46ee-bd15-596ae78d01c3"]
+}, Open  ]],
+Cell[6511, 183, 128, 3, 30, "Input",ExpressionUUID->"ca055ba1-a7ad-4317-8168-31846fb2c756"]
+}
+]
+*)
+
