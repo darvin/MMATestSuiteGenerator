@@ -7,16 +7,21 @@ WOLFRAM_DEB_FILE_RENAME=build/wolfram-engine.deb
 
 all : builder docker-tests generate-tests
 
+generate-tests-local :
+	./export_tests_from_docs.m --local-wolfram
 
-generate-tests : builder
+generate-tests : builder white-listed-docs
 	./wolfram -script ./export_tests_from_docs.m --no-broken
+
+white-listed-docs :
+	./download_documentation.sh
 
 builder :
 	echo "building docker image..." 
 	mkdir build || true
+	cp scripts_to_install/wolfram_wrapper build/
 	if [ ! -f $(WOLFRAM_DEB_FILE_RENAME) ]; then \
-		wget $(WOLFRAM_URL_PATH)/$(WOLFRAM_DEB_FILE) && \
-		mv $(WOLFRAM_DEB_FILE) $(WOLFRAM_DEB_FILE_RENAME)  && \
+		wget $(WOLFRAM_URL_PATH)/$(WOLFRAM_DEB_FILE) -O $(WOLFRAM_DEB_FILE_RENAME)  && \
         echo "dowloaded"; \
     fi
 	docker build -t $(DOCKER_BUILDER_NAME)  -f Dockerfile ./build	
@@ -28,6 +33,7 @@ install :
 docker-tests :
 	./wolfram -script docker_tests/plot.m	
 	./wolfram -script docker_tests/plot_graphics.m
+	test -s docker_tests/plot_graphics_output.png
 
 builder-sh :
 	docker run --rm -it --entrypoint "bash" -v `pwd`:/mnt $(DOCKER_BUILDER_NAME)

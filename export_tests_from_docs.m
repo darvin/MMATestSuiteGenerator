@@ -1,20 +1,27 @@
 #!/usr/bin/env wolframscript
-noBroken = Length@$ScriptCommandLine >1 && $ScriptCommandLine[[2]] == "--no-broken";
-
-Print["Parameters: ", $ScriptCommandLine[[2]]];
 
 
-whitelist = {
-  "Plus"
-}
+
+noBroken =  False;
+
+
+whitelist = Import["WHITELIST","List"];
+
+Print["whitelist: ", whitelist];
 
 outputDir = "output";
 If[! DirectoryQ[outputDir], CreateDirectory[outputDir]];
 
 
-rootDirectory = 
+rootDirectory = If[Length@$ScriptCommandLine==0, 
+  FileNameJoin[{Directory[], "build_docs/"}], 
   FileNameJoin[{$InstallationDirectory, "Documentation", "English", 
-    "System"}];
+    "System"}]
+  ]; (*  means we are running on docker *)
+
+  
+Print["Documentation Root: ", rootDirectory];
+
 subDirectories = {
    FileNameJoin[{"ReferencePages", "Symbols"}]
    };
@@ -28,6 +35,7 @@ exportTests[fileName_, noBroken_] :=
      "StyleImportRules" -> {"ExampleText" -> "Text", 
        "Input" -> "Boxes", "Output" -> "Boxes"}, 
      "FlattenCellGroups" -> True];
+   Print[nb];
    processNotebook[nb_] := Module[{result, testFunc, finalResult},
      testFunc[in_, out_] := 
       Module[{isGood, inExpr, outExpr, inInact, outInact}, 
@@ -40,9 +48,11 @@ exportTests[fileName_, noBroken_] :=
         If[! noBroken, ESameTestBROKEN[inInact, outInact], 
          Unevaluated@Sequence[]]]];
      result = {};
-     For[i = 0, i < Length[nb] - 1, i++, 
-      Module[{current, next}, current = nb[[i]];
+     For[i = 1, i < Length[nb], i++, 
+      Module[{current, next},
+       current = nb[[i]];
        next = nb[[i + 1]];
+       Print[" -  ", i, "  ", current];
        If[
         MatchQ[current, _BoxData] && 
          MatchQ[next, _BoxData], (result = 
@@ -56,6 +66,7 @@ exportTests[fileName_, noBroken_] :=
            Append[result, EComment[current]];)];
        ]];
      finalResult = ESimpleExamples @@ result;
+     Print["- Result: ", finalResult];
      finalResult = 
       finalResult /. {ESameTest[HoldComplete[in_], 
           HoldComplete[out_]] -> ESameTest[in, out], 
@@ -78,8 +89,11 @@ exportFile[nbFileName_, outputFile_] := Module[{exportedCode}, (
 processDirectory[subDirectory_] := Module[{outFileName, fullDirName}, (
     Print["Processing directory: ", subDirectory];
     fullDirName = FileNameJoin[{rootDirectory, subDirectory}];
-    Map[TimeConstrained[exportFile[#, FileNameJoin[{outputDir, FileBaseName[#]}] ], 5 ] &,
+    Map[TimeConstrained[exportFile[#, FileNameJoin[{outputDir, FileBaseName[#]<>"_Tests.m"}] ], 5 ] &,
       FileNames["*.nb", {fullDirName}]];
     )];
+
+
+
 
 Map[processDirectory, subDirectories];

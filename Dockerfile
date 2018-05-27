@@ -9,9 +9,9 @@ RUN apt-get install --yes  --no-install-recommends wolfram-engine
 
 
 ENV DEB_FILE wolfram-engine.deb
-
 COPY ./wolfram-engine.deb ./wolfram-engine.deb
-COPY scripts_to_install/wolfram_wrapper /usr/local/bin/
+
+COPY ./wolfram_wrapper /usr/local/bin/
 
 RUN dpkg --force-all -i  *.deb && rm *.deb
 
