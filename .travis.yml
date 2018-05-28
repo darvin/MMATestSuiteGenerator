@@ -9,12 +9,14 @@ deploy:
 
 services:
   - docker
-
+cache:
+  directories:
+    - build/
 addons:
   apt:
     packages:
       - docker-ce
-      
+
 install:
   - docker --version
   - make builder
