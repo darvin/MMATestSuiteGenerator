@@ -12,6 +12,7 @@ generate-tests-local :
 	./export_tests_from_docs.m --local-wolfram
 
 generate-tests : builder white-listed-docs
+	rm output/*  || true
 	./wolfram -script ./export_tests_from_docs.m --no-broken
 
 white-listed-docs :

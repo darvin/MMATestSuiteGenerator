@@ -1,6 +1,7 @@
 #!/bin/sh
 set -ex
-echo "hi"
+echo "downloading docs from personal online backup"
+rm -Rf build_docs/ || true
 while read SYMNAME; do
 	echo "Downloading $SYMNAME"
 	OUTPUT_FILE="build_docs/ReferencePages/Symbols/$SYMNAME.nb"
@@ -9,7 +10,7 @@ while read SYMNAME; do
 	    rm -r "$OUTPUT_FILE"
 	fi
 
-	wget --http-user="sergey.v.klimov+mathbackupbox@gmail.com" --http-password="mathematica" -nd -nH  "https://dav.box.com/dav/ReferencePages/Symbols/$SYMNAME.nb" -O "$OUTPUT_FILE"
+	wget --quiet --http-user="sergey.v.klimov+mathbackupbox@gmail.com" --http-password="mathematica" -nd -nH  "https://dav.box.com/dav/MMA10DocsBackup/ReferencePages/Symbols/$SYMNAME.nb" -O "$OUTPUT_FILE"
 
 done <WHITELIST
 

@@ -11,3 +11,6 @@ Equal
 MatchQ
 For
 Print
+FixedPoint
+Clear
+Map
