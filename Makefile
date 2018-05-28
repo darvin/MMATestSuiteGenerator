@@ -15,7 +15,7 @@ generate-tests : builder white-listed-docs
 	rm output/*  || true
 	./wolfram -script ./export_tests_from_docs.m --no-broken
 	echo "Generated tests:"
-	ls output/
+	ls output/Tests/
 
 white-listed-docs :
 	./download_documentation.sh
