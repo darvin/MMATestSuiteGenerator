@@ -1,4 +1,4 @@
-#!/Applications/Mathematica.app/Contents/MacOS/MathematicaScript
+#!/Applications/Mathematica.app/Contents/MacOS/WolframKernel  -script
 
 
 
@@ -14,12 +14,7 @@ outputDir = "output";
 If[! DirectoryQ[outputDir], CreateDirectory[outputDir]];
 
 
-rootDirectory = If[Length@$ScriptCommandLine==0, 
-  FileNameJoin[{Directory[], "build_docs/"}], 
-  FileNameJoin[{$InstallationDirectory, "Documentation", "English", 
-    "System"}]
-  ]; (*  means we are running on docker *)
-
+rootDirectory = FileNameJoin[{Directory[], "build_docs/"}]; 
   
 Print["Documentation Root: ", rootDirectory];
 
@@ -67,7 +62,7 @@ getExamplesFromNotebook[nbImported_] :=
     replaceExampleWithExampleAndText[any_List] := any;
     nb = FixedPoint[replaceInOutWithExample, nb];
     nb = FixedPoint[replaceExampleWithExampleAndText, nb];
-    nb = Select[nb, MatchQ[TEMPExample[___]]];
+    nb = Select[nb, MatchQ[#, _TEMPExample]&];
     nb
     )];
 
@@ -86,6 +81,8 @@ testFunc[in_, out_, noBroken_] :=
 SetAttributes[ESimpleExamples, HoldAllComplete];
 exportTests[fileName_, noBroken_] := Module[{nb, processNotebook},
    nb = getExamplesFromNotebook[Import[fileName]];
+     
+
    processNotebook[nb_] := Module[{result, finalResult},
      extractTextFromExample[{p___, TEMPExample[in_, out_, txt_], 
         n___}] := {p, EComment[txt], TEMPExample[in, out], n};
@@ -118,7 +115,7 @@ exportFile[nbFileName_, outputFile_] := Module[{exportedCode}, (
 processDirectory[subDirectory_] := Module[{outFileName, fullDirName}, (
     Print["Processing directory: ", subDirectory];
     fullDirName = FileNameJoin[{rootDirectory, subDirectory}];
-    Map[TimeConstrained[exportFile[#, FileNameJoin[{outputDir, FileBaseName[#]<>"_Tests.m"}] ], 5 ] &,
+    Map[TimeConstrained[exportFile[#, FileNameJoin[{outputDir, FileBaseName[#]<>"_Tests.m"}] ], 50 ] &,
       FileNames["*.nb", {fullDirName}]];
     )];
 

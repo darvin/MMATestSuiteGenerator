@@ -1,5 +1,5 @@
 #!/bin/sh
-set -ex
+set -e
 echo "downloading docs from personal online backup"
 rm -Rf build_docs/ || true
 while read SYMNAME; do
