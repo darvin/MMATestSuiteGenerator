@@ -25,3 +25,4 @@ install:
 
 script:
   - make generate-tests
+  - make run-tests
