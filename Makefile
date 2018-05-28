@@ -25,7 +25,7 @@ builder :
 	mkdir build || true
 	cp scripts_to_install/wolfram_wrapper build/
 	if [ ! -f $(WOLFRAM_DEB_FILE_RENAME) ]; then \
-		wget $(WOLFRAM_URL_PATH)/$(WOLFRAM_DEB_FILE) -O $(WOLFRAM_DEB_FILE_RENAME)  && \
+		wget --quiet $(WOLFRAM_URL_PATH)/$(WOLFRAM_DEB_FILE) -O $(WOLFRAM_DEB_FILE_RENAME)  && \
         echo "dowloaded"; \
     fi
 	docker build -t $(DOCKER_BUILDER_NAME)  -f Dockerfile ./build	
