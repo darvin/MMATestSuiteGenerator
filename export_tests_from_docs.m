@@ -10,7 +10,7 @@ whitelist = Import["WHITELIST","List"];
 
 Print["whitelist: ", whitelist];
 
-outputDir = "output";
+outputDir = "output/Tests/";
 If[! DirectoryQ[outputDir], CreateDirectory[outputDir]];
 
 
