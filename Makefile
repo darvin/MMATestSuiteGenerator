@@ -22,6 +22,7 @@ run-tests :
 	./wolfram -script ./run_generated_tests.m
 	echo "Test Results:"
 	ls output/Results/*/*
+	./generate_test_results_manifest.py > output/__index.json
 
 
 white-listed-docs :
