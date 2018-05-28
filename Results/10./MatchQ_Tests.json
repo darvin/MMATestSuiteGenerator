@@ -1,0 +1,68 @@
+{
+    "Tests": [
+        {
+            "Comment": "Test if an expression is an integer:"
+        },
+        {
+            "Test": [
+                "MatchQ[12345, _Integer]",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Test if an expression is a sum of two or more terms:"
+        },
+        {
+            "Test": [
+                "                             2\nMatchQ[(x - 1) (1 + 2 x + 3 x ), _ + __]",
+                "False",
+                "False",
+                "False",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "                              2\nMatchQ[Expand[x (1 + 2 x + 3 x )], _ + __]",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Test if an expression is explicitly zero:"
+        },
+        {
+            "Test": [
+                "                1\nMatchQ[1 + ----------- - GoldenRatio, 0]\n           GoldenRatio",
+                "False",
+                "False",
+                "False",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "                         1\nMatchQ[Simplify[1 + ----------- - GoldenRatio], 0]\n                    GoldenRatio",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        }
+    ],
+    "Stats": {
+        "Total": 5,
+        "Failed": 0,
+        "Disabled": 0
+    }
+}
