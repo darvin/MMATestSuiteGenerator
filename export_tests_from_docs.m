@@ -29,41 +29,72 @@ subDirectories = {
 
 
 
+Clear[ESimpleExamples, ESameTest, ESameTestBROKEN, EComment, 
+  getExamplesFromNotebook];
+getExamplesFromNotebook[nbImported_] := 
+  Module[{getInputFromCell, replaceInOutWithExample, 
+    replaceExampleWithExampleAndText, nb}, (
+    Clear[getInputFromCell, replaceInOutWithExample, 
+     replaceExampleWithExampleAndText];
+    getInputFromCell[Cell[content_,  "ExampleText", rest__]] := 
+     First[FrontEndExecute[
+        FrontEnd`ExportPacket[Cell[content,  "ExampleText", rest], 
+         "PlainText"]]] // TEMPTxt;
+    getInputFromCell[Cell[content_,  "Input", rest__]] := 
+     First[FrontEndExecute[
+        FrontEnd`ExportPacket[Cell[content,  "Input", rest], 
+         "PlainText"]]] // TEMPIn;
+    getInputFromCell[Cell[content_,  "Output", rest__]] := 
+     First[FrontEndExecute[
+        FrontEnd`ExportPacket[Cell[content,  "Output", rest], 
+         "PlainText"]]] // TEMPOut;
+    getInputFromCell[Cell[content_,  style_String, rest__]] := 
+     First[FrontEndExecute[
+        FrontEnd`ExportPacket[Cell[content,  style, rest], 
+         "PlainText"]]] // TEMPUNDEFINED;
+    nb = Cases[nbImported, 
+      Cell[content_, 
+        style_ /;  
+         MemberQ[{"Input", "Output", "ExampleText"}, style], 
+        rest__] -> getInputFromCell[Cell[content, style, rest]]
+      , {0, Infinity}];
+    replaceInOutWithExample[{p___, TEMPIn[in_], TEMPOut[out_], 
+       n___} ] := {p, TEMPExample[in, out], n};
+    replaceInOutWithExample[any_List] := any;
+    replaceExampleWithExampleAndText[{p___, TEMPTxt[txt_], 
+       TEMPExample[in_, out_], n___}] := {p, 
+      TEMPExample[in, out, txt], n};
+    replaceExampleWithExampleAndText[any_List] := any;
+    nb = FixedPoint[replaceInOutWithExample, nb];
+    nb = FixedPoint[replaceExampleWithExampleAndText, nb];
+    nb = Select[nb, MatchQ[TEMPExample[___]]];
+    nb
+    )];
+
+Clear[testFunc, exportTests];
+testFunc[in_, out_, noBroken_] := 
+  Module[{isGood, inExpr, outExpr, inInact, outInact},
+   inExpr = ToExpression[in, StandardForm];
+   outExpr = ToExpression[out, StandardForm];
+   inInact = ToExpression[in, StandardForm, HoldComplete];
+   outInact = ToExpression[out, StandardForm, HoldComplete];
+   isGood = inExpr === outExpr;
+   If[isGood, ESameTest[inInact, outInact], 
+    If[! noBroken, ESameTestBROKEN[inInact, outInact], 
+     Unevaluated@Sequence[]]]];
+
 SetAttributes[ESimpleExamples, HoldAllComplete];
-exportTests[fileName_, noBroken_] := 
-  Module[{nb, processNotebook}, 
-   nb = NotebookImport[fileName, "ExampleText" | "Input" | "Output", 
-     "StyleImportRules" -> {"ExampleText" -> "Text", 
-       "Input" -> "Boxes", "Output" -> "Boxes"}, 
-     "FlattenCellGroups" -> True];
-   processNotebook[nb_] := Module[{result, testFunc, finalResult},
-     testFunc[in_, out_] := 
-      Module[{isGood, inExpr, outExpr, inInact, outInact}, 
-       inExpr = ToExpression[in, StandardForm];
-       outExpr = ToExpression[out, StandardForm];
-       inInact = ToExpression[in, StandardForm, HoldComplete];
-       outInact = ToExpression[out, StandardForm, HoldComplete];
-       isGood = inExpr === outExpr;
-       If[isGood, ESameTest[inInact, outInact], 
-        If[! noBroken, ESameTestBROKEN[inInact, outInact], 
-         Unevaluated@Sequence[]]]];
-     result = {};
-     For[i = 1, i < Length[nb], i++, 
-      Module[{current, next},
-       current = nb[[i]];
-       next = nb[[i + 1]];
-       If[
-        MatchQ[current, _BoxData] && 
-         MatchQ[next, _BoxData], (result = 
-          Append[result, testFunc[current, next]];
-         i++;)];
-       If[
-        MatchQ[current, _String], (result = 
-           Append[result, EComment[current]];)];
-      If[
-        MatchQ[current, _TextData], (result = 
-           Append[result, EComment[current]];)];
-       ]];
+exportTests[fileName_, noBroken_] := Module[{nb, processNotebook},
+   nb = getExamplesFromNotebook[Import[fileName]];
+   processNotebook[nb_] := Module[{result, finalResult},
+     extractTextFromExample[{p___, TEMPExample[in_, out_, txt_], 
+        n___}] := {p, EComment[txt], TEMPExample[in, out], n};
+     replaceExampleWithTest[{p___, TEMPExample[in_, out_], 
+        n___}] := {p, testFunc[in, out, noBroken], n};
+     replaceExampleWithTest[any_List] := any;
+     extractTextFromExample[any_List] := any;
+     result = FixedPoint[extractTextFromExample, nb];
+     result = FixedPoint[replaceExampleWithTest, result];
      finalResult = ESimpleExamples @@ result;
      finalResult = 
       finalResult /. {ESameTest[HoldComplete[in_], 
