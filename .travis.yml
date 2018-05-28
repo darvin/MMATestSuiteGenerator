@@ -19,6 +19,7 @@ addons:
 
 install:
   - docker --version
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - make builder
   - make docker-tests
 
