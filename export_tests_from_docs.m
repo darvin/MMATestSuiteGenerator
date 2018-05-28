@@ -104,10 +104,11 @@ exportTests[fileName_, noBroken_] := Module[{nb, processNotebook},
 
 exportFile[nbFileName_, outputFile_] := Module[{exportedCode}, (
     If[!MemberQ[whitelist, FileBaseName@nbFileName], Return[]];
+    Print[">> ", nbFileName];
     exportedCode = exportTests[nbFileName, noBroken];
     If[FileExistsQ[outputFile], DeleteFile[outputFile]];
     Put[exportedCode, outputFile];
-    Print[">> ", nbFileName, " >>> ", outputFile];
+    Print["> >>> ", outputFile];
     )];
 
 
