@@ -10,8 +10,13 @@ deploy:
 services:
   - docker
 
-
+addons:
+  apt:
+    packages:
+      - docker-ce
+      
 install:
+  - docker --version
   - make builder
   - make docker-tests
 
