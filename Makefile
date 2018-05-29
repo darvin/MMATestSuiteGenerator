@@ -25,6 +25,7 @@ run-tests :
 	pwd
 	ls ./output/
 	touch hey.txt
+	chmod +rw output/
 	touch output/hey.txt
 	./generate_test_results_manifest.py
 	cp -R ./website/* ./output/
