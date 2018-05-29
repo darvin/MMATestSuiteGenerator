@@ -24,6 +24,8 @@ run-tests :
 	ls output/Results/*/*
 	pwd
 	ls ./output/
+	touch hey.txt
+	touch output/hey.txt
 	./generate_test_results_manifest.py
 	cp -R ./website/* ./output/
 
