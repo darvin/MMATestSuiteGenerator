@@ -23,6 +23,7 @@ run-tests :
 	echo "Test Results:"
 	ls output/Results/*/*
 	./generate_test_results_manifest.py > output/__index.json
+	cp -R ./website/* ./output/
 
 
 white-listed-docs :
