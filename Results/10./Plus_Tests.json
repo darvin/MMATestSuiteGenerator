@@ -1,0 +1,347 @@
+{
+    "Tests": [
+        {
+            "Test": [
+                "1 + 2 + 3",
+                "6",
+                "6",
+                "6",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "RefLink[Plus,paclet:ref/Plus] threads element-wise over lists:"
+        },
+        {
+            "Test": [
+                "{1, 2, 3} + x",
+                "{1 + x, 2 + x, 3 + x}",
+                "{1 + x, 2 + x, 3 + x}",
+                "{1 + x, 2 + x, 3 + x}",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "{10, 20, 30} + {1, 2, 3}",
+                "{11, 22, 33}",
+                "{11, 22, 33}",
+                "{11, 22, 33}",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Explicit RefLink[FullForm,paclet:ref/FullForm]:"
+        },
+        {
+            "Test": [
+                "1 + 2 + 3",
+                "6",
+                "6",
+                "6",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "If any number is approximate, the whole result will be as follows:"
+        },
+        {
+            "Test": [
+                "         3\n1. + 2 + -\n         4",
+                "3.75",
+                "3.75",
+                "3.75",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Complex numbers add their components:"
+        },
+        {
+            "Test": [
+                "(2 + I) + (3 - 7 I)",
+                "5 - 6 I",
+                "5 - 6 I",
+                "5 - 6 I",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "RefLink[Plus,paclet:ref/Plus] threads element-wise over lists:"
+        },
+        {
+            "Test": [
+                "{a, b} + {c, d}",
+                "{a + c, b + d}",
+                "{a + c, b + d}",
+                "{a + c, b + d}",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "{a, b, c} + x",
+                "{a + x, b + x, c + x}",
+                "{a + x, b + x, c + x}",
+                "{a + x, b + x, c + x}",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "{{a, b}, {c, d}} + x",
+                "{{a + x, b + x}, {c + x, d + x}}",
+                "{{a + x, b + x}, {c + x, d + x}}",
+                "{{a + x, b + x}, {c + x, d + x}}",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Matrices add element-wise:"
+        },
+        {
+            "Test": [
+                "{{1, 2}, {3, 4}} + {{a, b}, {c, d}}",
+                "{{1 + a, 2 + b}, {3 + c, 4 + d}}",
+                "{{1 + a, 2 + b}, {3 + c, 4 + d}}",
+                "{{1 + a, 2 + b}, {3 + c, 4 + d}}",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "RefLink[Plus,paclet:ref/Plus] sorts its arguments:"
+        },
+        {
+            "Test": [
+                "b + c + a",
+                "a + b + c",
+                "a + b + c",
+                "a + b + c",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "     n\nSum[x , {n, 0, 5}]",
+                "         2    3    4    5\n1 + x + x  + x  + x  + x",
+                "         2    3    4    5\n1 + x + x  + x  + x  + x",
+                "         2    3    4    5\n1 + x + x  + x  + x  + x",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "     i  j\nSum[x  y , {i, 3}, {j, 3}]",
+                "       2      3        2    2  2    3  2      3    2  3    3  3\nx y + x  y + x  y + x y  + x  y  + x  y  + x y  + x  y  + x  y",
+                "       2      3        2    2  2    3  2      3    2  3    3  3\nx y + x  y + x  y + x y  + x  y  + x  y  + x y  + x  y  + x  y",
+                "       2      3        2    2  2    3  2      3    2  3    3  3\nx y + x  y + x  y + x y  + x  y  + x  y  + x y  + x  y  + x  y",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Display terms in a sum in a traditional order:"
+        },
+        {
+            "Test": [
+                "5 n Sum[x n] = 0",
+                " 5    4    3    2\nx  + x  + x  + x  + x + 1",
+                "0",
+                "         2    3    4    5\n1 + x + x  + x  + x  + x",
+                false,
+                false
+            ]
+        },
+        {
+            "Test": [
+                "3 3 i j Sum[Sum[x y i j]]",
+                " 3  3    2  3      3    3  2    2  2      2    3      2\ny  x  + y  x  + y x  + y  x  + y  x  + y x  + y  x + y  x + y x",
+                "9 i j Sum[Sum[x y i j]]",
+                "       2      3        2    2  2    3  2      3    2  3    3  3\nx y + x  y + x  y + x y  + x  y  + x  y  + x y  + x  y  + x  y",
+                false,
+                false
+            ]
+        },
+        {
+            "Comment": "Display a sum without evaluation:"
+        },
+        {
+            "Test": [
+                "1 + 3 + 2",
+                "1 + 3 + 2",
+                "6",
+                "6",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Display the RefLink[FullForm,paclet:ref/FullForm] of a sum:"
+        },
+        {
+            "Test": [
+                "Plus[a, b, c, d]",
+                "a + b + c + d",
+                "Plus[a, b, c, d]",
+                "a + b + c + d",
+                false,
+                false
+            ]
+        },
+        {
+            "Comment": "Find the length of a sum:"
+        },
+        {
+            "Test": [
+                "Length[a + b + c + d]",
+                "4",
+                "4",
+                "4",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "RefLink[Total,paclet:ref/Total] applies RefLink[Plus,paclet:ref/Plus] to a list:"
+        },
+        {
+            "Test": [
+                "Plus @@ {a, b, c, d}",
+                "a + b + c + d",
+                "a + b + c + d",
+                "a + b + c + d",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "Total[{a, b, c, d}]",
+                "a + b + c + d",
+                "a + b + c + d",
+                "a + b + c + d",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Pattern matching works with RefLink[Plus,paclet:ref/Plus]:"
+        },
+        {
+            "Test": [
+                "a + b + c + d /. a + d -> x",
+                "b + c + x",
+                "b + c + x",
+                "b + c + x",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "a + b + c + d /. a + c + (x_) -> f[x]",
+                "f[b + d]",
+                "f[b + d]",
+                "f[b + d]",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "{a, a + b, a + b + c} /. a + (x_.) -> f[x]",
+                "{f[0], f[b], f[b + c]}",
+                "{f[0], f[b], f[b + c]}",
+                "{f[0], f[b], f[b + c]}",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Distribute a function over RefLink[Plus,paclet:ref/Plus]:"
+        },
+        {
+            "Test": [
+                "f[a + b, c + d]",
+                "f[a + b, c + d]",
+                "f[a + b, c + d]",
+                "f[a + b, c + d]",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "Distribute[f[a + b, c + d]]",
+                "f[a, c] + f[a, d] + f[b, c] + f[b, d]",
+                "f[a, c] + f[a, d] + f[b, c] + f[b, d]",
+                "f[a, c] + f[a, d] + f[b, c] + f[b, d]",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Distribute RefLink[Plus,paclet:ref/Plus] through a head:"
+        },
+        {
+            "Test": [
+                "(f + g)[x]",
+                "(f + g)[x]",
+                "(f + g)[x]",
+                "(f + g)[x]",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "Through[(f + g)[x]]",
+                "f[x] + g[x]",
+                "f[x] + g[x]",
+                "f[x] + g[x]",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "RefLink[Accumulate,paclet:ref/Accumulate] makes a cumulative sum:"
+        },
+        {
+            "Test": [
+                "FoldList[Plus, 0, {a, b, c}]",
+                "{0, a, a + b, a + b + c}",
+                "{0, a, a + b, a + b + c}",
+                "{0, a, a + b, a + b + c}",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "Accumulate[{a, b, c}]",
+                "{a, a + b, a + b + c}",
+                "{a, a + b, a + b + c}",
+                "{a, a + b, a + b + c}",
+                false,
+                true
+            ]
+        }
+    ],
+    "Stats": {
+        "Total": 29,
+        "Failed": 3,
+        "Disabled": 0
+    }
+}

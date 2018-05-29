@@ -1,11 +1,12 @@
 {
     "Stats": {
         "TestFiles": [
-            "MatchQ_Tests.json",
-            "Minus_Tests.json"
+            "Minus_Tests.json",
+            "Plus_Tests.json",
+            "Sqrt_Tests.json"
         ],
-        "Total": 0,
-        "Failed": 0,
+        "Total": 70,
+        "Failed": 13,
         "Disabled": 0
     }
 }
