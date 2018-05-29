@@ -76,6 +76,9 @@ runAllTestsInDir[dirPath_, outDirPath_] :=
    runTestsInFile[file_] := Module[{results, outFile},
      Print["Running: ", file];
      results = Import[file];
+     failed += "Failed" /. ("Stats" /. results);
+     total += "Total" /. ("Stats" /. results);
+     disabled += "Disabled" /. ("Stats" /. results);
      outFile = 
       FileNameJoin[{outDirPath, FileBaseName[file] <> ".json"}];
      Export[outFile, results];
