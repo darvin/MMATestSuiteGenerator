@@ -25,9 +25,9 @@ run-tests :
 	pwd
 	ls ./output/
 	touch hey.txt
-	chmod +rw output/
-	touch output/hey.txt
-	./generate_test_results_manifest.py
+	sudo chmod +rw output/
+	sudo touch output/hey.txt
+	sudo ./generate_test_results_manifest.py
 	cp -R ./website/* ./output/
 
 
