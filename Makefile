@@ -22,7 +22,8 @@ run-tests :
 	./wolfram -script ./run_generated_tests.m
 	echo "Test Results:"
 	ls output/Results/*/*
-	./generate_test_results_manifest.py > output/__index.json
+	touch ./output/__index.json
+	./generate_test_results_manifest.py > ./output/__index.json
 	cp -R ./website/* ./output/
 
 
