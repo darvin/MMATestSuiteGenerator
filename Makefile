@@ -24,7 +24,7 @@ run-tests :
 	ls output/Results/*/*
 	pwd
 	ls ./output/
-	sudo chown -R $USER:$USER output/
+	sudo chown -R $(USER):$(USER) output/
 	./generate_test_results_manifest.py
 	cp -R ./website/* ./output/
 
