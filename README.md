@@ -1,4 +1,4 @@
-
+[![Build Status](https://travis-ci.org/darvin/MMATestSuiteGenerator.svg?branch=master)](https://travis-ci.org/darvin/MMATestSuiteGenerator)
 
    -  Add file from `/Applications/Mathematica.app/Contents/Documentation/English/System/ReferencePages/Symbols/` to `./WHITELIST`
    - Run: `make generate-tests-local`
