@@ -23,7 +23,7 @@ run-tests :
 	echo "Test Results:"
 	ls output/Results/*/*
 	touch ./output/__index.json
-	./generate_test_results_manifest.py > ./output/__index.json
+	./generate_test_results_manifest.py
 	cp -R ./website/* ./output/
 
 

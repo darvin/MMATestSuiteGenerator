@@ -15,7 +15,10 @@ if __name__ == '__main__':
     import json
     import sys
     path = "output"
-    print(json.dumps({
+    file = open("output/__index.json","w") 
+
+    file.write(json.dumps({
         "ResultsVersions":get_versions(path),
         "Tests":get_tests(path),
         }, indent=2, sort_keys=True))
+    file.close()
