@@ -8,59 +8,55 @@ SetAttributes[ESameTestDISABLED, HoldAllComplete];
 EComment[txt_] := {"Comment", txt};
 
 ESameTest[in_, out_, isDisabled_] := 
-  Module[{inExpr, outExpr, inStr, outStr, result},
-   Clear[inExpr, outExpr, inStr, outStr, result];
+  Module[{inExpr, outExpr, inStrEvaluated, outStrEvaluated, inStr, 
+    outStr, result}, Clear[inExpr, outExpr, inStr, outStr, result];
    result = False;
-   inStr = ToString@HoldForm@in;
-   outStr = ToString@HoldForm@out;
-   
-   If[! isDisabled, (
-     inExpr = ReleaseHold[in];
+   inStr = ToString[Unevaluated@InputForm[in]];
+   outStr = ToString[Unevaluated@InputForm[out]];
+   If[! isDisabled, (inExpr = ReleaseHold[in];
      outExpr = ReleaseHold[out];
      result = inExpr === outExpr;
+     inStrEvaluated = ToString[InputForm[inExpr]];
+     outStrEvaluated = ToString[InputForm[outExpr]];
      )];
-   {"Test", inStr, outStr, inExpr, outExpr, isDisabled, result}
-   ];
+   {"Test", inStr, outStr, inStrEvaluated, outStrEvaluated, 
+    isDisabled, result}];
 ESameTest[in_, out_] := ESameTest[in, out, False];
-ESameTestBROKEN[in_, out_] := ESameTest[in, out, False];
+ESameTestBROKEN[in_, out_] := ESameTest[in, out, True];
 ESameTestDISABLED[in_, out_] := ESameTest[in, out, True];
 
 
 ESimpleExamples[tests__] := 
-  Module[{r, runTestOrComment, failed, total, disabled, testResults}, (
-    failed = 0;
+  Module[{r, runTestOrComment, failed, total, disabled, 
+    testResults}, (failed = 0;
     total = 0;
     disabled = 0;
     runTestOrComment[a_] := 
-     Module[{type,  comment, inStr, outStr, inExpr, outExpr, 
-       isDisabled, result},
-      If[a[[1]] == "Comment", (
-        {type, comment} = a;
+     Module[{type, comment, inStr, outStr, inExpr, outExpr, 
+       isDisabled, result}, 
+      If[a[[1]] == "Comment", ({type, comment} = a;
         Print["# ", comment];
-        {"Comment" -> comment}
-        ), (
-        {type, inStr, outStr, inExpr, outExpr, isDisabled, result} = a;
-        If[isDisabled, disabled++];
-        If[! result, failed++];
+        {"Comment" -> comment}), ({type, inStr, outStr, inExpr, 
+          outExpr, isDisabled, result} = a;
         total++;
-        If[! isDisabled, 
-         Print["  - TEST: r: ", result, "  IN: ", inStr, " (", 
-          inExpr, ")  OUT: ", outStr, "  (", outExpr, ")"]];
+        If[! isDisabled, (
+          
+          Print[If[result, "+ SUCCESS: ", "! FAILURE: "], 
+           "  \n  IN: ", inStr, " \n   (**  ", inExpr, 
+           "  **)  \n  OUT: ", outStr, "  \n   (**  ", outExpr, 
+           "  **)"];
+          If[! result, (
+            failed++
+              Print["FAILURE!"];
+            )];
+          ), disabled++
+         ];
         {"Test" -> {inStr, outStr, ToString[inExpr], 
-           ToString[outExpr], isDisabled, result}}
-        )]
-      
-      ];
+           ToString[outExpr], isDisabled, result}})]];
     testResults = Map[runTestOrComment, {tests}];
-    {
-     "Tests" -> testResults,
-     "Stats" -> {
-       "Total" -> total,
-       "Failed" -> failed,
-       "Disabled" -> disabled
-       }
-     }
-    )];
+    {"Tests" -> testResults, 
+     "Stats" -> {"Total" -> total, "Failed" -> failed, 
+       "Disabled" -> disabled}})];
 
 Clear[runAllTestsInDir];
 runAllTestsInDir[dirPath_, outDirPath_] := 
