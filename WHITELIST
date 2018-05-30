@@ -20,9 +20,7 @@ Negative
 Max
 Min
 PossibleZeroQ
-MinMax
 Element
-Inequality
 Rational
 Complex
 String
@@ -90,7 +88,6 @@ DeleteDuplicates
 Select
 Scan
 Join
-ListQ
 Last
 First
 Rest
@@ -136,7 +133,6 @@ PolynomialQuotient
 PolynomialRemainder
 FactorTermsList
 FactorTerms
-ExpreduceFactorConstant
 Variables
 PolynomialGCD
 SquareFreeQ
@@ -195,7 +191,6 @@ StringJoin
 Infix
 StringLength
 StringTake
-UnixTime
 MatchQ
 Pattern
 Blank
@@ -219,7 +214,6 @@ AllTrue
 Boole
 Simplify
 FullSimplify
-numbertheory documentation
 PrimeQ
 GCD
 LCM

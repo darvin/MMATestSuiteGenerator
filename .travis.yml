@@ -12,6 +12,7 @@ services:
 cache:
   directories:
     - build/
+    - build_docs/
 addons:
   apt:
     packages:

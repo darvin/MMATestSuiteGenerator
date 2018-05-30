@@ -95,7 +95,20 @@ runAllTestsInDir[dirPath_, outDirPath_] :=
    ];
 
 
+systemFullName[] := Module[{systemName, versionName},
+   systemName = Which[
+      MemberQ[Attributes[WolframLanguageData], Protected], 
+     "Mathematica",
+     MemberQ[Attributes[ExpreduceFactorConstant], Protected], 
+     "Mathematica"
+     ];
+   versionName = StringTrim[ToString[$VersionNumber], "."];
+   systemName <> "_" <> versionName
+   ];
+
+Print["RUNNING ON ",systemFullName[]];
+
 outBaseDir = "output/Results/";
-outDir = FileNameJoin[{outBaseDir, ToString[$VersionNumber]}];
+outDir = FileNameJoin[{outBaseDir, systemFullName[]}];
 UsingFrontEnd[runAllTestsInDir["output/Tests/", 
   outDir]];
