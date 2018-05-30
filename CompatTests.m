@@ -1,4 +1,15 @@
-#!/Applications/Mathematica.app/Contents/MacOS/MathematicaScript  -script
+systemFullName[] := Module[{systemName, versionName},
+   systemName = Which[
+      MemberQ[Attributes[WolframLanguageData], Protected], 
+     "Mathematica",
+     MemberQ[Attributes[ExpreduceFactorConstant], Protected], 
+     "Mathematica"
+     ];
+   versionName = StringTrim[ToString[$VersionNumber], "."];
+   systemName <> "_" <> versionName
+   ];
+
+
 Clear[ESimpleExamples, EComment, ESameTest, ESameTestBROKEN, 
   ESameTestDISABLED];
 SetAttributes[ESameTest, HoldAllComplete];
@@ -27,8 +38,10 @@ ESameTestDISABLED[in_, out_] := ESameTest[in, out, True];
 
 
 ESimpleExamples[tests__] := 
-  Module[{r, runTestOrComment, failed, total, disabled, 
-    testResults}, (failed = 0;
+  Module[{r, json, runTestOrComment, failed, total, disabled, 
+    testResults}, (
+    Print["RUNNING ON ",systemFullName[]];
+    failed = 0;
     total = 0;
     disabled = 0;
     runTestOrComment[a_] := 
@@ -54,17 +67,19 @@ ESimpleExamples[tests__] :=
         {"Test" -> {inStr, outStr, ToString[inExpr], 
            ToString[outExpr], isDisabled, result}})]];
     testResults = Map[runTestOrComment, {tests}];
-    {"Tests" -> testResults, 
+    json = {"Tests" -> testResults, 
      "Stats" -> {"Total" -> total, "Failed" -> failed, 
-       "Disabled" -> disabled}})];
+       "Disabled" -> disabled}};
+    
+
+       )];
 
 Clear[runAllTestsInDir];
 runAllTestsInDir[dirPath_, outDirPath_] := 
-  Module[{runTestsInFile, failed, total, disabled, testResults, 
+  UsingFrontEnd@Module[{runTestsInFile, failed, total, disabled, testResults, 
     testStats, testFilesResultsJSONs},
    Print["Running tests in dir: ", dirPath, "\nTest files: \n", 
     FileNames["*.m", {dirPath}]];
-   If[! DirectoryQ[outDirPath], CreateDirectory[outDirPath]];
    
    failed = 0;
    total = 0;
@@ -95,18 +110,8 @@ runAllTestsInDir[dirPath_, outDirPath_] :=
    ];
 
 
-systemFullName[] := Module[{systemName, versionName},
-   systemName = Which[
-      MemberQ[Attributes[WolframLanguageData], Protected], 
-     "Mathematica",
-     MemberQ[Attributes[ExpreduceFactorConstant], Protected], 
-     "Mathematica"
-     ];
-   versionName = StringTrim[ToString[$VersionNumber], "."];
-   systemName <> "_" <> versionName
-   ];
 
-Print["RUNNING ON ",systemFullName[]];
+
 
 outBaseDir = "output/Results/";
 outDir = FileNameJoin[{outBaseDir, systemFullName[]}];

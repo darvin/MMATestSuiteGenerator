@@ -95,12 +95,13 @@ exportTests[fileName_, noBroken_] :=
    processNotebook[nb]];
 
 
-exportFile[nbFileName_, outputFile_] := Module[{exportedCode}, (
+exportFile[nbFileName_, outputFile_] := Module[{exportedCode, shebang}, (
     If[!MemberQ[whitelist, FileBaseName@nbFileName], Return[]];
     Print[">> ", nbFileName];
     exportedCode = exportTests[nbFileName, noBroken];
+    shebang = ToString[Unevaluated@Import["CompatTests.m"]];
     If[FileExistsQ[outputFile], DeleteFile[outputFile]];
-    Put[exportedCode, outputFile];
+    Put[CompoundExpression[Unevaluated@Import["CompatTests.m"], exportedCode], outputFile];
     Print["> >>> ", outputFile];
     )];
 
