@@ -9,7 +9,7 @@ all : builder docker-tests generate-tests
 
 generate-tests : builder white-listed-docs
 	rm -Rf output/*  || true
-	docker run --rm --entrypoint "bash" -v `pwd`:/mnt $(DOCKER_BUILDER_NAME) ./export_all_tests_from_docs.sh
+	docker run --rm --entrypoint "xvfb-run" -v `pwd`:/mnt $(DOCKER_BUILDER_NAME) ./export_all_tests_from_docs.sh
 	echo "Generated tests:"
 	ls output/Tests/
 
@@ -32,7 +32,7 @@ white-listed-docs :
 builder :
 	echo "building docker image..." 
 	mkdir build || true
-	cp scripts_to_install/wolfram_wrapper build/
+	cp entrypoint.sh build/
 	if [ ! -f $(WOLFRAM_DEB_FILE_RENAME) ]; then \
 		wget --quiet $(WOLFRAM_URL_PATH)/$(WOLFRAM_DEB_FILE) -O $(WOLFRAM_DEB_FILE_RENAME)  && \
         echo "dowloaded"; \
@@ -44,6 +44,7 @@ install :
 	cp wolfram /usr/local/bin/wolfram-on-docker
 
 docker-tests :
+	rm docker_tests/plot_graphics_output.png || true
 	./wolfram -script docker_tests/plot.m	
 	./wolfram -script docker_tests/plot_graphics.m
 	test -s docker_tests/plot_graphics_output.png

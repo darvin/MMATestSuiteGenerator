@@ -11,11 +11,12 @@ RUN apt-get install --yes  --no-install-recommends wolfram-engine
 ENV DEB_FILE wolfram-engine.deb
 COPY ./wolfram-engine.deb ./wolfram-engine.deb
 
-COPY ./wolfram_wrapper /usr/local/bin/
-
 RUN dpkg --force-all -i  *.deb && rm *.deb
 
+COPY ./entrypoint.sh /opt/entrypoint.sh
 
 WORKDIR /mnt
 
-ENTRYPOINT ["/usr/local/bin/wolfram_wrapper"]
+ENV export DISPLAY=:0
+
+ENTRYPOINT ["/opt/entrypoint.sh"]

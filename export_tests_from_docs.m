@@ -89,5 +89,6 @@ exportFile[nbFileName_, outputFile_] := Module[{exportedCode}, (
 
 Print["command line ", $CommandLine];
 
-UsingFrontEnd[exportFile[$CommandLine[[-2]], $CommandLine[[-1]]]];
+run[]:=exportFile[$CommandLine[[-2]], $CommandLine[[-1]]];
+UsingFrontEnd[run[]];
 
