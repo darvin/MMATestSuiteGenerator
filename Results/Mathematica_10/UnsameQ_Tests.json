@@ -1,0 +1,146 @@
+{
+    "Tests": [
+        {
+            "Comment": "Test whether two expressions are not identically the same:"
+        },
+        {
+            "Test": [
+                "x =!= y",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "x =!= x",
+                "False",
+                "False",
+                "False",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "!= remains symbolic unless literal values are given:"
+        },
+        {
+            "Test": [
+                "x != y",
+                "x != y",
+                "x != y",
+                "x != y",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Full form:"
+        },
+        {
+            "Test": [
+                "x =!= y",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Test equivalence of strings:"
+        },
+        {
+            "Test": [
+                "\"abc\" =!= \"ABC\"",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Numbers in different representations are not the same:"
+        },
+        {
+            "Test": [
+                "0. =!= 0",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "!= nevertheless treats them as equal:"
+        },
+        {
+            "Test": [
+                "0. != 0",
+                "False",
+                "False",
+                "False",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Test whether multiple expressions are all distinct:"
+        },
+        {
+            "Test": [
+                "(x =!= x) =!= y",
+                "False",
+                "inStrEvaluated$400",
+                "outStrEvaluated$400",
+                true,
+                false
+            ]
+        },
+        {
+            "Test": [
+                "(x =!= y) =!= z",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Construct the permanent analog of the totally antisymmetric tensor:"
+        },
+        {
+            "Test": [
+                "Boole[Array[UnsameQ, {3, 3, 3}]]",
+                "{{{0, 0, 0}, {0, 0, 1}, {0, 1, 0}}, {{0, 0, 1}, {0, 0, 0}, {1, 0, 0}}, {{0, 1, 0}, {1, 0, 0}, {0, 0, 0}}}",
+                "{{{0, 0, 0}, {0, 0, 1}, {0, 1, 0}}, {{0, 0, 1}, {0, 0, 0}, {1, 0, 0}}, {{0, 1, 0}, {1, 0, 0}, {0, 0, 0}}}",
+                "{{{0, 0, 0}, {0, 0, 1}, {0, 1, 0}}, {{0, 0, 1}, {0, 0, 0}, {1, 0, 0}}, {{0, 1, 0}, {1, 0, 0}, {0, 0, 0}}}",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "1 appears at positions corresponding to permutations:"
+        },
+        {
+            "Test": [
+                "Position[%, 1]",
+                "{{1, 2, 3}, {1, 3, 2}, {2, 1, 3}, {2, 3, 1}, {3, 1, 2}, {3, 2, 1}}",
+                "inStrEvaluated$403",
+                "outStrEvaluated$403",
+                true,
+                false
+            ]
+        }
+    ],
+    "Stats": {
+        "Total": 11,
+        "Failed": 0,
+        "Disabled": 2
+    }
+}

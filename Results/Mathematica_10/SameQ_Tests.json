@@ -1,0 +1,156 @@
+{
+    "Tests": [
+        {
+            "Comment": "Test whether two expressions are identically the same:"
+        },
+        {
+            "Test": [
+                "x === y",
+                "False",
+                "False",
+                "False",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "x === x",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "== remains symbolic unless literal values are given:"
+        },
+        {
+            "Test": [
+                "x == y",
+                "x == y",
+                "x == y",
+                "x == y",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Full form:"
+        },
+        {
+            "Test": [
+                "x === y",
+                "False",
+                "False",
+                "False",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Test equivalence of strings:"
+        },
+        {
+            "Test": [
+                "\"abc\" === \"ABC\"",
+                "False",
+                "False",
+                "False",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Numbers in different representations are not the same:"
+        },
+        {
+            "Test": [
+                "0. === 0",
+                "False",
+                "False",
+                "False",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "== nevertheless treats them as equal:"
+        },
+        {
+            "Test": [
+                "0. == 0",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Approximate numbers that differ in their last bit are still considered identical:"
+        },
+        {
+            "Test": [
+                "1.`18.06179973983887 === 1.00000000000000000086736173799`18.06179973983887",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Test whether multiple expressions are all the same:"
+        },
+        {
+            "Test": [
+                "x === x === y",
+                "False",
+                "False",
+                "False",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "x === x === x",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Make a Kronecker delta (identity) tensor:"
+        },
+        {
+            "Test": [
+                "Boole[Array[SameQ, {3, 3, 3}]]",
+                "{{{1, 0, 0}, {0, 0, 0}, {0, 0, 0}}, {{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}, {{0, 0, 0}, {0, 0, 0}, {0, 0, 1}}}",
+                "{{{1, 0, 0}, {0, 0, 0}, {0, 0, 0}}, {{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}, {{0, 0, 0}, {0, 0, 0}, {0, 0, 1}}}",
+                "{{{1, 0, 0}, {0, 0, 0}, {0, 0, 0}}, {{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}, {{0, 0, 0}, {0, 0, 0}, {0, 0, 1}}}",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "Position[%, 1]",
+                "{{1, 1, 1}, {2, 2, 2}, {3, 3, 3}}",
+                "inStrEvaluated$404",
+                "outStrEvaluated$404",
+                true,
+                false
+            ]
+        }
+    ],
+    "Stats": {
+        "Total": 12,
+        "Failed": 0,
+        "Disabled": 1
+    }
+}

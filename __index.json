@@ -1,9 +1,18 @@
 {
   "ResultsVersions": [
-    "10."
+    "Mathematica_10"
   ], 
   "Tests": [
-    "MatchQ_Tests.m", 
-    "Minus_Tests.m"
+    "IntegerPartitions_Tests.m", 
+    "AtomQ_Tests.m", 
+    "D_Tests.m", 
+    "UnsameQ_Tests.m", 
+    "Integrate_Tests.m", 
+    "Permutations_Tests.m", 
+    "Unequal_Tests.m", 
+    "Multinomial_Tests.m", 
+    "Equal_Tests.m", 
+    "Factorial_Tests.m", 
+    "SameQ_Tests.m"
   ]
 }

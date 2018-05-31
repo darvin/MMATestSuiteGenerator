@@ -1,0 +1,491 @@
+{
+    "Tests": [
+        {
+            "Comment": "Returns RefLink[True,paclet:ref/True] if elements are guaranteed unequal, and otherwise stays unevaluated:"
+        },
+        {
+            "Test": [
+                "a != b",
+                "a != b",
+                "a != b",
+                "a != b",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Enter as !=\\[ThinSpace] or as Esc\\[ThinSpace]\\[ThinSpace]!=\\[ThinSpace]\\[ThinSpace]Esc:"
+        },
+        {
+            "Test": [
+                "1 != 2",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Test unequality of numbers:"
+        },
+        {
+            "Test": [
+                "3/2 != 5/3",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Approximate numbers that differ in at most their last eight binary digits are considered equal:"
+        },
+        {
+            "Test": [
+                "1. != 1. + 2^7/10^16",
+                "False",
+                "False",
+                "False",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "1. != 1. + 2^8/10^16",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Compare an exact numeric expression and an approximate number:"
+        },
+        {
+            "Test": [
+                "N[Pi, 20] != Pi",
+                "False",
+                "False",
+                "False",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "N[Pi, 20] != Pi*(1 + 2^8/10^20)",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Compare two exact numeric expressions; a numeric test may suffice to prove unequality:"
+        },
+        {
+            "Test": [
+                "Pi^E != E^Pi",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Proving equality requires symbolic methods:"
+        },
+        {
+            "Test": [
+                "Sqrt[2] + Sqrt[3] != Sqrt[5 + 2*Sqrt[6]]",
+                "False",
+                "False",
+                "False",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Symbolic methods used by RefLink[Unequal,paclet:ref/Unequal] are insufficient to prove this RefLink[False,paclet:ref/False]:"
+        },
+        {
+            "Test": [
+                "Sqrt[2] + Sqrt[3] != Root[#1^4 - 10*#1^2 + 1 & , 4]",
+                "Sqrt[2] + Sqrt[3] != Root[1 - 10*#1^2 + #1^4 & , 4]",
+                "Sqrt[2] + Sqrt[3] != Root[1 - 10*#1^2 + #1^4 & , 4, 0]",
+                "Sqrt[2] + Sqrt[3] != Root[1 - 10*#1^2 + #1^4 & , 4, 0]",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Use RefLink[RootReduce,paclet:ref/RootReduce] to decide whether two algebraic numbers are unequal:"
+        },
+        {
+            "Test": [
+                "RootReduce[%]",
+                "False",
+                "inStrEvaluated$484",
+                "outStrEvaluated$484",
+                true,
+                false
+            ]
+        },
+        {
+            "Comment": "Numeric methods used by RefLink[Unequal,paclet:ref/Unequal] do not use sufficient precision to prove this unequality:"
+        },
+        {
+            "Test": [
+                "Sqrt[2] + Sqrt[3] != Root[#1^4 - 10*#1^2 + 1 & , 4] + 10^(-100)",
+                "Sqrt[2] + Sqrt[3] != 1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Root[1 - 10*#1^2 + #1^4 & , 4]",
+                "Sqrt[2] + Sqrt[3] != 1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Root[1 - 10*#1^2 + #1^4 & , 4, 0]",
+                "Sqrt[2] + Sqrt[3] != 1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Root[1 - 10*#1^2 + #1^4 & , 4, 0]",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "RefLink[RootReduce,paclet:ref/RootReduce] proves that the two algebraic numbers are not equal:"
+        },
+        {
+            "Test": [
+                "RootReduce[%]",
+                "True",
+                "inStrEvaluated$546",
+                "outStrEvaluated$546",
+                true,
+                false
+            ]
+        },
+        {
+            "Comment": "Increasing RefLink[$MaxExtraPrecision,paclet:ref/$MaxExtraPrecision] may also prove unequality:"
+        },
+        {
+            "Test": [
+                "Block[{$MaxExtraPrecision = 100}, Sqrt[2] + Sqrt[3] != Root[#1^4 - 10*#1^2 + 1 & , 4] + 10^(-100)]",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "This symbolic unequality is always RefLink[False,paclet:ref/False]:"
+        },
+        {
+            "Test": [
+                "x != x",
+                "False",
+                "False",
+                "False",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "RefLink[Unequal,paclet:ref/Unequal] does not automatically prove this unequality:"
+        },
+        {
+            "Test": [
+                "(x + 1)^2 - x^2 - 2*x != 0",
+                "-2*x - x^2 + (1 + x)^2 != 0",
+                "-2*x - x^2 + (1 + x)^2 != 0",
+                "-2*x - x^2 + (1 + x)^2 != 0",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Use RefLink[Expand,paclet:ref/Expand] to prove it:"
+        },
+        {
+            "Test": [
+                "Expand[%]",
+                "True",
+                "inStrEvaluated$550",
+                "outStrEvaluated$550",
+                true,
+                false
+            ]
+        },
+        {
+            "Comment": "Compare more than two expressions:"
+        },
+        {
+            "Test": [
+                "3 != 4 != 5",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "x != y != z != t",
+                "x != y != z != t",
+                "x != y != z != t",
+                "x != y != z != t",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Compare lists:"
+        },
+        {
+            "Test": [
+                "{1, 2} != {1, 2}",
+                "False",
+                "False",
+                "False",
+                false,
+                true
+            ]
+        },
+        {
+            "Test": [
+                "{a, b, c} != {d, e}",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Compare strings:"
+        },
+        {
+            "Test": [
+                "\"abc\" != \"ABC\"",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "The negation of two-argument RefLink[Unequal,paclet:ref/Unequal] is RefLink[Equal,paclet:ref/Equal]:"
+        },
+        {
+            "Test": [
+                " !x != y",
+                "x == y",
+                "x == y",
+                "x == y",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "The negation of three-argument RefLink[Unequal,paclet:ref/Unequal] does not simplify automatically:"
+        },
+        {
+            "Test": [
+                " !x != y != z",
+                " !x != y != z",
+                " !x != y != z",
+                " !x != y != z",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Use RefLink[LogicalExpand,paclet:ref/LogicalExpand] to express it in terms of two-argument RefLink[Equal,paclet:ref/Equal]:"
+        },
+        {
+            "Test": [
+                "LogicalExpand[%]",
+                "y == x || z == x || z == y",
+                "inStrEvaluated$558",
+                "outStrEvaluated$558",
+                true,
+                false
+            ]
+        },
+        {
+            "Comment": "The negation of three-argument RefLink[Unequal,paclet:ref/Unequal] is not equivalent to three-argument RefLink[Equal,paclet:ref/Equal]:"
+        },
+        {
+            "Test": [
+                "LogicalExpand[x == y == z]",
+                "y == x && z == x",
+                "y == x && z == x",
+                "y == x && z == x",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "RefLink[Unequal,paclet:ref/Unequal] tests mathematical unequality of objects represented by expressions:"
+        },
+        {
+            "Test": [
+                "{x != x, x != y, Sqrt[2] + Sqrt[3] != Sqrt[5 + 2*Sqrt[6]], Pi != N[Pi]}",
+                "{False, x != y, False, False}",
+                "{False, x != y, False, False}",
+                "{False, x != y, False, False}",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "RefLink[UnsameQ,paclet:ref/UnsameQ] tests syntactic unequality of expressions:"
+        },
+        {
+            "Test": [
+                "{x =!= x, x =!= y, Sqrt[2] + Sqrt[3] =!= Sqrt[5 + 2*Sqrt[6]], Pi =!= N[Pi]}",
+                "{False, True, True, True}",
+                "{False, True, True, True}",
+                "{False, True, True, True}",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "When RefLink[Unequal,paclet:ref/Unequal] cannot decide whether two numeric expressions are equal it returns unchanged:"
+        },
+        {
+            "Test": [
+                "a = Log[Sqrt[2] + Sqrt[3]]; b = Log[5 + 2*Sqrt[6]]/2; a != b",
+                "Log[Sqrt[2] + Sqrt[3]] != (1/2)*Log[5 + 2*Sqrt[6]]",
+                "Log[Sqrt[2] + Sqrt[3]] != Log[5 + 2*Sqrt[6]]/2",
+                "Log[Sqrt[2] + Sqrt[3]] != Log[5 + 2*Sqrt[6]]/2",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "RefLink[FullSimplify,paclet:ref/FullSimplify] uses exact symbolic transformations to disprove the unequality:"
+        },
+        {
+            "Test": [
+                "FullSimplify[a != b]",
+                "False",
+                "False",
+                "False",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "RefLink[PossibleZeroQ,paclet:ref/PossibleZeroQ] uses numeric and symbolic heuristics to decide whether an expression is zero:"
+        },
+        {
+            "Test": [
+                "PossibleZeroQ[a - b]",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Numeric methods used by RefLink[PossibleZeroQ,paclet:ref/PossibleZeroQ] may incorrectly decide that a number is zero:"
+        },
+        {
+            "Test": [
+                "PossibleZeroQ[a - b + 10^(-100)]",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Unequality for machine-precision approximate numbers can be subtle: "
+        },
+        {
+            "Test": [
+                "2.00006 - 2.00005 != 0.00001",
+                "True",
+                "True",
+                "True",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "The extra digits disrupt equality:"
+        },
+        {
+            "Test": [
+                "InputForm[2.00006 - 2.00005]",
+                "0.000010000000000065512",
+                "inStrEvaluated$1003",
+                "outStrEvaluated$1003",
+                true,
+                false
+            ]
+        },
+        {
+            "Comment": "Arbitrary-precision approximate numbers do not have this problem:"
+        },
+        {
+            "Test": [
+                "2.00006`16. - 2.00005000000000000000000000001`16. != 1.`16.*^-5",
+                "False",
+                "False",
+                "False",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "Thanks to automatic-precision tracking, RefLink[Unequal,paclet:ref/Unequal] knows to look only at the first 10 digits:"
+        },
+        {
+            "Test": [
+                "Precision[2.00006`16. - 2.00005000000000000000000000001`16.]",
+                "10.3979",
+                "inStrEvaluated$1005",
+                "outStrEvaluated$1005",
+                true,
+                false
+            ]
+        },
+        {
+            "Comment": "In this case, the unequality test for machine numbers gives the expected result:"
+        },
+        {
+            "Test": [
+                "2.6 - 2.5 != 0.1",
+                "False",
+                "False",
+                "False",
+                false,
+                true
+            ]
+        },
+        {
+            "Comment": "The extra digits in this case are ignored by RefLink[Unequal,paclet:ref/Unequal]:"
+        },
+        {
+            "Test": [
+                "InputForm[2.6 - 2.5]",
+                "0.10000000000000009",
+                "inStrEvaluated$1007",
+                "outStrEvaluated$1007",
+                true,
+                false
+            ]
+        }
+    ],
+    "Stats": {
+        "Total": 38,
+        "Failed": 0,
+        "Disabled": 7
+    }
+}
