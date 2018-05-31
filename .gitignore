@@ -3,3 +3,4 @@ build_docker/
 build/
 docker_tests/plot_graphics_output.png
 build_docs/
+node_modules/

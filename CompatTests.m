@@ -1,3 +1,4 @@
+
 systemFullName[] := Module[{systemName, versionName},
    systemName = Which[
       MatchQ[SystemInformation["Kernel", "LicenseID"], _String], 
@@ -9,7 +10,16 @@ systemFullName[] := Module[{systemName, versionName},
    systemName <> "_" <> versionName
    ];
 
-outputFileName[] := FileNameJoin[{"output/Results/", systemFullName[], FileBaseName[$InputFileName]}]<>".json";
+
+outputFileNameNoExt[] := FileNameJoin[{"output/Results/", systemFullName[], FileBaseName[$InputFileName]}];
+outputFileName[] := outputFileNameNoExt[] <>".json";
+If[!DirectoryQ[DirectoryName[outputFileName[]]], CreateDirectory[DirectoryName[outputFileName[]]]];
+
+(* $Messages = {OpenWrite[outputFileNameNoExt[]<>".err.log", FormatType -> OutputForm]};
+ *)
+outputTapFileName[] := outputFileNameNoExt[] <>".tap";
+
+
 
 Clear[ESimpleExamples, EComment, ESameTest, ESameTestBROKEN, 
   ESameTestDISABLED];
@@ -39,12 +49,17 @@ ESameTestDISABLED[in_, out_] := ESameTest[in, out, True];
 
 
 ESimpleExamples[tests__] := 
-  Module[{r, json, testName, runTestOrComment, failed, total, disabled, 
+  Module[{outputTapStream, PrintTap, json, testName, runTestOrComment, failed, total, disabled, 
     testResults}, (
-    Print["# SYSTEM: ",systemFullName[]];
+    outputTapStream = OpenWrite[outputTapFileName[]];
+    PrintTap[arg___]:= (
+      WriteString["stdout", arg];
+      WriteString[outputTapStream, arg];
+      );
+    PrintTap["# SYSTEM: ",systemFullName[], "\n"];
     testName = FileBaseName[$InputFileName];
-    Print["# TEST: ", testName];
-    Print["# OUTPUT: ", outputFileName[]];
+    PrintTap["# TEST: ", testName, "\n"];
+    PrintTap["# OUTPUT: ", outputFileName[], "\n"];
     failed = 0;
     total = 0;
     disabled = 0;
@@ -52,30 +67,39 @@ ESimpleExamples[tests__] :=
      Module[{type, comment, inStr, outStr, inExpr, outExpr, 
        isDisabled, result}, 
       If[a[[1]] == "Comment", ({type, comment} = a;
-        Print["# ", comment];
-        {"Comment" -> comment}), ({type, inStr, outStr, inExpr, 
-          outExpr, isDisabled, result} = a;
+        PrintTap["# ", comment, "\n"];
+        {"Comment" -> comment}), (
+        {type, inStr, outStr, inExpr, outExpr, isDisabled, result} = a;
         total++;
         If[! isDisabled, (
-          
-          Print[If[result, "ok ", "not ok "], 
-           "\n ---\n IN: ", inStr, "\n (**  ", inExpr, 
-           "  **) \n  OUT: ", outStr, "  \n   (**  ", outExpr, 
-           "  **)"];
           If[! result, (
             failed++;
             )];
           ), disabled++
          ];
+
+        PrintTap[If[result||isDisabled, "ok ", "not ok "], 
+           " - ", inStr];
+
+        If[!isDisabled, PrintTap[
+           "\n  ---\n",
+           "  data:\n",
+           "    got: ",inExpr,"\n",
+           "    expect: ",outStr,"\n",
+           "    expect_evaluated: ",outExpr,"\n"
+           ], PrintTap[" # skip\n"]];
+
+
         {"Test" -> {inStr, outStr, ToString[inExpr], 
            ToString[outExpr], isDisabled, result}})]];
-    testResults = Map[runTestOrComment, {tests}];
-    json = {"Tests" -> testResults, 
+    (* testResults = Map[runTestOrComment, {tests}]; *)
+    Scan[runTestOrComment, {tests}];
+    json = {(* "Tests" -> testResults,  *)
      "Stats" -> {"Total" -> total, "Failed" -> failed, 
        "Disabled" -> disabled}};
-    If[!DirectoryQ[DirectoryName[outputFileName[]]], CreateDirectory[DirectoryName[outputFileName[]]]];
     Export[outputFileName[], json];
-    
-
+    Print[json];
+    Close[outputTapStream];
        )];
+
 

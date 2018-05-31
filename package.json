@@ -1,0 +1,23 @@
+{
+  "name": "mmadoctestsuite",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.org/darvin/MMATestSuiteGenerator.svg?branch=master)](https://travis-ci.org/darvin/MMATestSuiteGenerator)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darvin/MMATestSuiteGenerator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/darvin/MMATestSuiteGenerator/issues"
+  },
+  "homepage": "https://github.com/darvin/MMATestSuiteGenerator#readme",
+  "dependencies": {
+    "mochawesome": "^3.0.2",
+    "tap-mocha-reporter": "^3.0.7"
+  }
+}
