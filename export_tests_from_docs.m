@@ -87,8 +87,6 @@ exportFile[nbFileName_, outputFile_] := Module[{exportedCode}, (
     Export[outputFile, {HoldComplete[Import["CompatTests.m"];], HoldComplete@#&@exportedCode}, "HeldExpressions"]
     )];
 
-Print["command line ", $CommandLine];
-
 run[]:=exportFile[$CommandLine[[-2]], $CommandLine[[-1]]];
 UsingFrontEnd[run[]];
 

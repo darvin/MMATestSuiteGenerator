@@ -1,8 +1,17 @@
 [![Build Status](https://travis-ci.org/darvin/MMATestSuiteGenerator.svg?branch=master)](https://travis-ci.org/darvin/MMATestSuiteGenerator)
 
    -  Add file from `/Applications/Mathematica.app/Contents/Documentation/English/System/ReferencePages/Symbols/` to `./WHITELIST`
-   - Run: `make generate-tests-local`
+   - Test that your installation of Mathematica actually works:
+      - Local installation: `LOCAL=1 make mathematica-self-tests`
+      - Installation on Docker: `make mathematica-self-tests`
+   - Generate tests:
+      - `make generate-compat-tests`
+      - `LOCAL=1 make generate-compat-tests`
    - Find generated from docstrings tests in `./output/`.
+   - Run tests:
+      - `make run-compat-tests`
+      - `LOCAL=1 make run-compat-tests`
+
 
 ## [Website with automated build results](https://darvin.github.io/MMATestSuiteGenerator/)
    

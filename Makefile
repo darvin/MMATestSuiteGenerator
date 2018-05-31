@@ -2,21 +2,26 @@ DOCKER_BUILDER_NAME=darvin/mathematica
 WOLFRAM_DEB_FILE=wolfram-engine_10.0.0+2014012903_armhf.deb
 WOLFRAM_URL_PATH=http://archive.raspberrypi.org/debian/pool/main/w/wolfram-engine/
 WOLFRAM_DEB_FILE_RENAME=build/wolfram-engine.deb
+ifneq ($(LOCAL),1)
+MATHEMATICA_RUN_PREFIX=docker run --rm -v `pwd`:/mnt $(DOCKER_BUILDER_NAME)
+else
+
+endif
 
 .PHONY: builder install  docker-tests
 
-all : builder docker-tests generate-tests
+all : builder docker-tests generate-compat-tests run-compat-tests
 
-generate-tests : builder white-listed-docs
+generate-compat-tests : builder download-docs
 	rm -Rf output/*  || true
-	docker run --rm --entrypoint "xvfb-run" -v `pwd`:/mnt $(DOCKER_BUILDER_NAME) ./export_all_tests_from_docs.sh
+	$(MATHEMATICA_RUN_PREFIX) ./export_all_tests_from_docs.sh
 	echo "Generated tests:"
 	ls output/Tests/
 
-run-tests :
+run-compat-tests :
 	rm -Rf output/Results  || true
 	echo "Running tests in Mathematica on Docker"
-	./test_runners/mathematica-on-docker.sh
+	$(MATHEMATICA_RUN_PREFIX) ./test_runners/mathematica-on-docker.sh
 	echo "Test Results:"
 	ls output/Results/*/*
 	pwd
@@ -25,11 +30,16 @@ run-tests :
 	./generate_test_results_manifest.py
 	cp -R ./website/* ./output/
 
+mathematica-self-tests :
+	rm docker_tests/plot_graphics_output.png || true
+	$(MATHEMATICA_RUN_PREFIX) wolfram -script docker_tests/plot.m	
+	$(MATHEMATICA_RUN_PREFIX) wolfram -script docker_tests/plot_graphics.m
+	test -s docker_tests/plot_graphics_output.png
 
-white-listed-docs :
+download-docs :
 	./download_documentation.sh
 
-builder :
+docker :
 	echo "building docker image..." 
 	mkdir build || true
 	cp entrypoint.sh build/
@@ -43,12 +53,7 @@ builder :
 install :
 	cp wolfram /usr/local/bin/wolfram-on-docker
 
-docker-tests :
-	rm docker_tests/plot_graphics_output.png || true
-	./wolfram -script docker_tests/plot.m	
-	./wolfram -script docker_tests/plot_graphics.m
-	test -s docker_tests/plot_graphics_output.png
 
-builder-sh :
+docker-sh :
 	docker run --rm -it --entrypoint "bash" -v `pwd`:/mnt $(DOCKER_BUILDER_NAME)
 
