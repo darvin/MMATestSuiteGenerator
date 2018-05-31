@@ -1,7 +1,7 @@
 #!/Applications/Mathematica.app/Contents/MacOS/WolframKernel  -script
 
 
-
+Print["$CommandLine ", $CommandLine];
 
 noBroken =  False;
 
