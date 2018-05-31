@@ -1,14 +1,15 @@
 systemFullName[] := Module[{systemName, versionName},
    systemName = Which[
-      MemberQ[Attributes[WolframLanguageData], Protected], 
+      MatchQ[SystemInformation["Kernel", "LicenseID"], _String], 
      "Mathematica",
      MemberQ[Attributes[ExpreduceFactorConstant], Protected], 
-     "Mathematica"
+     "Expreduce"
      ];
    versionName = StringTrim[ToString[$VersionNumber], "."];
    systemName <> "_" <> versionName
    ];
 
+outputFileName[] := FileNameJoin[{"output/Results/", systemFullName[], FileBaseName[$InputFileName]}]<>".json";
 
 Clear[ESimpleExamples, EComment, ESameTest, ESameTestBROKEN, 
   ESameTestDISABLED];
@@ -38,11 +39,12 @@ ESameTestDISABLED[in_, out_] := ESameTest[in, out, True];
 
 
 ESimpleExamples[tests__] := 
-  Module[{r, json, testName runTestOrComment, failed, total, disabled, 
+  Module[{r, json, testName, runTestOrComment, failed, total, disabled, 
     testResults}, (
-    Print["# RUNNING ON ",systemFullName[]];
+    Print["# SYSTEM: ",systemFullName[]];
     testName = FileBaseName[$InputFileName];
     Print["# TEST: ", testName];
+    Print["# OUTPUT: ", outputFileName[]];
     failed = 0;
     total = 0;
     disabled = 0;
@@ -71,50 +73,9 @@ ESimpleExamples[tests__] :=
     json = {"Tests" -> testResults, 
      "Stats" -> {"Total" -> total, "Failed" -> failed, 
        "Disabled" -> disabled}};
+    If[!DirectoryQ[DirectoryName[outputFileName[]]], CreateDirectory[DirectoryName[outputFileName[]]]];
+    Export[outputFileName[], json];
     
 
        )];
 
-Clear[runAllTestsInDir];
-runAllTestsInDir[dirPath_, outDirPath_] := 
-  UsingFrontEnd@Module[{runTestsInFile, failed, total, disabled, testResults, 
-    testStats, testFilesResultsJSONs},
-   Print["Running tests in dir: ", dirPath, "\nTest files: \n", 
-    FileNames["*.m", {dirPath}]];
-   
-   failed = 0;
-   total = 0;
-   disabled = 0;
-   runTestsInFile[file_] := Module[{results, outFile},
-     Print["Running: ", file];
-     results = Import[file];
-     failed += "Failed" /. ("Stats" /. results);
-     total += "Total" /. ("Stats" /. results);
-     disabled += "Disabled" /. ("Stats" /. results);
-     outFile = 
-      FileNameJoin[{outDirPath, FileBaseName[file] <> ".json"}];
-     Export[outFile, results];
-     FileNameTake@outFile
-     ];
-   testFilesResultsJSONs = 
-    Map[TimeConstrained[runTestsInFile[#], 50] &, 
-     FileNames["*.m", {dirPath}]];
-   testStats = {
-     "Stats" -> {
-       "TestFiles" -> testFilesResultsJSONs,
-       "Total" -> total,
-       "Failed" -> failed,
-       "Disabled" -> disabled
-       }
-     };
-   Export[FileNameJoin[{outDirPath, "__index.json"}], testStats];
-   ];
-
-
-
-
-
-outBaseDir = "output/Results/";
-outDir = FileNameJoin[{outBaseDir, systemFullName[]}];
-UsingFrontEnd[runAllTestsInDir["output/Tests/", 
-  outDir]];

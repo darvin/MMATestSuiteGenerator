@@ -7,19 +7,16 @@ WOLFRAM_DEB_FILE_RENAME=build/wolfram-engine.deb
 
 all : builder docker-tests generate-tests
 
-generate-tests-local :
-	rm output/*  || true
-	./export_tests_from_docs.m --local-wolfram
-
 generate-tests : builder white-listed-docs
 	rm -Rf output/*  || true
-	./wolfram -script ./export_tests_from_docs.m --no-broken
+	docker run --rm --entrypoint "bash" -v `pwd`:/mnt $(DOCKER_BUILDER_NAME) ./export_all_tests_from_docs.sh
 	echo "Generated tests:"
 	ls output/Tests/
 
 run-tests :
 	rm -Rf output/Results  || true
-	./wolfram -script ./run_generated_tests.m
+	echo "Running tests in Mathematica on Docker"
+	./test_runners/mathematica-on-docker.sh
 	echo "Test Results:"
 	ls output/Results/*/*
 	pwd

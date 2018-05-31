@@ -1,26 +1,8 @@
 #!/Applications/Mathematica.app/Contents/MacOS/WolframKernel  -script
 
 
-Print["$CommandLine ", $CommandLine];
 
 noBroken =  False;
-
-
-whitelist = Import["WHITELIST","List"];
-
-Print["whitelist: ", whitelist];
-
-outputDir = "output/Tests/";
-If[! DirectoryQ[outputDir], CreateDirectory[outputDir]];
-
-
-rootDirectory = FileNameJoin[{Directory[], "build_docs/"}]; 
-  
-Print["Documentation Root: ", rootDirectory];
-
-subDirectories = {
-   FileNameJoin[{"ReferencePages", "Symbols"}]
-   };
 
 
 Clear[ESimpleExamples, ESameTest, ESameTestBROKEN, EComment, 
@@ -96,25 +78,16 @@ exportTests[fileName_, noBroken_] :=
 
 
 exportFile[nbFileName_, outputFile_] := Module[{exportedCode}, (
-    If[!MemberQ[whitelist, FileBaseName@nbFileName], Return[]];
-    Print[">> ", nbFileName];
+    Print["# GENERATING TESTS FROM: ", nbFileName];
+    Print["# WRITING OUTPUT TO:     ", outputFile];
+
     exportedCode = exportTests[nbFileName, noBroken];
+    If[!DirectoryQ[DirectoryName[outputFile]], CreateDirectory[DirectoryName[outputFile]]];
     If[FileExistsQ[outputFile], DeleteFile[outputFile]];
     Export[outputFile, {HoldComplete[Import["CompatTests.m"];], HoldComplete@#&@exportedCode}, "HeldExpressions"]
-    Print["> >>> ", outputFile];
     )];
 
+Print["command line ", $CommandLine];
 
-
-processDirectory[subDirectory_] := Module[{outFileName, fullDirName}, (
-    Print["Processing directory: ", subDirectory];
-    fullDirName = FileNameJoin[{rootDirectory, subDirectory}];
-    Map[TimeConstrained[exportFile[#, FileNameJoin[{outputDir, FileBaseName[#]<>"_Tests.m"}] ], 50 ] &,
-      FileNames["*.nb", {fullDirName}]];
-    )];
-
-
-
-
-UsingFrontEnd[Map[processDirectory, subDirectories]];
+UsingFrontEnd[exportFile[$CommandLine[[-2]], $CommandLine[[-1]]]];
 
