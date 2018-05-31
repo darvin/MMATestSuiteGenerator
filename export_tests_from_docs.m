@@ -64,7 +64,7 @@ testFunc[in_, out_, noBroken_] :=
    outInact = ToExpression[out, StandardForm, HoldComplete];
    isGood = inExpr === outExpr;
    
-   Print["EXAMPLE:", " SUCCESS: ", isGood, " IN: ", in];
+   Print["ok ", If[isGood, " "," # skip ERROR "], in];
    If[isGood, ESameTest[inInact, outInact], 
     If[! noBroken, ESameTestBROKEN[inInact, outInact], 
      Unevaluated@Sequence[]]]];
