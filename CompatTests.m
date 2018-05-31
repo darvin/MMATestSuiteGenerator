@@ -38,9 +38,11 @@ ESameTestDISABLED[in_, out_] := ESameTest[in, out, True];
 
 
 ESimpleExamples[tests__] := 
-  Module[{r, json, runTestOrComment, failed, total, disabled, 
+  Module[{r, json, testName runTestOrComment, failed, total, disabled, 
     testResults}, (
-    Print["RUNNING ON ",systemFullName[]];
+    Print["# RUNNING ON ",systemFullName[]];
+    testName = FileBaseName[$InputFileName];
+    Print["# TEST: ", testName];
     failed = 0;
     total = 0;
     disabled = 0;
@@ -54,13 +56,12 @@ ESimpleExamples[tests__] :=
         total++;
         If[! isDisabled, (
           
-          Print[If[result, "+ SUCCESS: ", "! FAILURE: "], 
-           "  \n  IN: ", inStr, " \n   (**  ", inExpr, 
-           "  **)  \n  OUT: ", outStr, "  \n   (**  ", outExpr, 
+          Print[If[result, "ok ", "not ok "], 
+           "\n ---\n IN: ", inStr, "\n (**  ", inExpr, 
+           "  **) \n  OUT: ", outStr, "  \n   (**  ", outExpr, 
            "  **)"];
           If[! result, (
-            failed++
-              Print["FAILURE!"];
+            failed++;
             )];
           ), disabled++
          ];
