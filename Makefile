@@ -14,7 +14,7 @@ all : builder docker-tests generate-compat-tests run-compat-tests
 
 generate-compat-tests : builder download-docs
 	rm -Rf output/*  || true
-	$(MATHEMATICA_RUN_PREFIX) ./export_all_tests_from_docs.sh
+	./export_all_tests_from_docs.sh
 	echo "Generated tests:"
 	ls output/Tests/
 

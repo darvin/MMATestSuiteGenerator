@@ -88,5 +88,5 @@ exportFile[nbFileName_, outputFile_] := Module[{exportedCode}, (
     )];
 
 run[]:=exportFile[$CommandLine[[-2]], $CommandLine[[-1]]];
-UsingFrontEnd[TimeConstrained[run[], 15];
+UsingFrontEnd[TimeConstrained[run[], 15]];
 
