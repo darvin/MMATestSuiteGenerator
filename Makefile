@@ -1,6 +1,6 @@
 .EXPORT_ALL_VARIABLES:
 
-DOCKER_BUILDER_NAME=darvin/mathematica
+DOCKER_BUILDER_NAME=mmacompat/mathematica
 WOLFRAM_DEB_FILE=wolfram-engine_10.0.0+2014012903_armhf.deb
 WOLFRAM_URL_PATH=http://archive.raspberrypi.org/debian/pool/main/w/wolfram-engine/
 WOLFRAM_DEB_FILE_RENAME=build/wolfram-engine.deb
