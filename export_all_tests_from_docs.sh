@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+export SHELL=$(type -p bash)
 
 task(){
 	SYMNAME=$1
