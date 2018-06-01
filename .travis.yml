@@ -10,8 +10,6 @@ before_install:
   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - docker pull mmacompat/mathematica || true
-
-after_install:
   - echo "trust_server_cert /opt/boxcert.pem" >> /etc/davfs2/davfs2.conf 
   - echo "https://dav.box.com/dav/ sergey.v.klimov+mathbackupbox@gmail.com mathematica" >> /etc/davfs2/secrets
   - openssl s_client -showcerts -servername dav.box.com -connect dav.box.com:443 </dev/null 2>/dev/null|openssl x509 -outform PEM > /opt/boxcert.pem
