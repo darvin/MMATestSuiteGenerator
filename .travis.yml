@@ -1,12 +1,3 @@
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
-  keep-history: true
-  on:
-    branch: master
-  local-dir: output/
-
 services:
   - docker
 cache:
@@ -41,5 +32,20 @@ jobs:
         - make mathematica-self-tests
         - make download-docs
     - stage: generate tests
-      script: make generate-compat-tests
+      script: 
+        - docker images darvin/mathematica
+        - ls build_docs/*/*/*
+        - make generate-compat-tests
+    - stage: deploy
+      script: skip
+      deploy: &pages
+        provider: pages
+        skip-cleanup: true
+        github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+        keep-history: true
+        on:
+          branch: master
+        local-dir: output/
+
+
 
