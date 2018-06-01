@@ -1,9 +1,11 @@
+.EXPORT_ALL_VARIABLES:
+
 DOCKER_BUILDER_NAME=darvin/mathematica
 WOLFRAM_DEB_FILE=wolfram-engine_10.0.0+2014012903_armhf.deb
 WOLFRAM_URL_PATH=http://archive.raspberrypi.org/debian/pool/main/w/wolfram-engine/
 WOLFRAM_DEB_FILE_RENAME=build/wolfram-engine.deb
 ifneq ($(LOCAL),1)
-MATHEMATICA_RUN_PREFIX=docker run --rm -v `pwd`:/mnt $(DOCKER_BUILDER_NAME)
+MATHEMATICA_RUN_PREFIX=docker run --rm -v $(shell pwd):/mnt $(DOCKER_BUILDER_NAME)
 else
 
 endif

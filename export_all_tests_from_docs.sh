@@ -10,7 +10,6 @@ task(){
    	INPUT_FILE="build_docs/ReferencePages/Symbols/$SYMNAME.nb"
 	OUTPUT_FILE="output/Tests/$SYMNAME""_Tests.m"
 	echo "Generating tests for $SYMNAME >>> $OUTPUT_FILE"
-	MATHEMATICA_RUN_PREFIX="docker run --rm -v `pwd`:/mnt darvin/mathematica"
 	$MATHEMATICA_RUN_PREFIX wolfram -script ./export_tests_from_docs.m $INPUT_FILE $OUTPUT_FILE
 }
 
