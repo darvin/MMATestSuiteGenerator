@@ -1,13 +1,18 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
-while read SYMNAME; do
-	
-	INPUT_FILE="build_docs/ReferencePages/Symbols/$SYMNAME.nb"
+
+task(){
+	SYMNAME=$1
+   	INPUT_FILE="build_docs/ReferencePages/Symbols/$SYMNAME.nb"
 	OUTPUT_FILE="output/Tests/$SYMNAME""_Tests.m"
 	echo "Generating tests for $SYMNAME >>> $OUTPUT_FILE"
 	wolfram -script ./export_tests_from_docs.m $INPUT_FILE $OUTPUT_FILE
+}
 
-done <WHITELIST
+export -f task
+
+cat WHITELIST | parallel --no-notice -j4 task 
+
 
 
