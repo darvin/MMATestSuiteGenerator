@@ -17,6 +17,7 @@ addons:
   apt:
     packages:
       - docker-ce
+      - parallel
 
 install:
   - docker --version
