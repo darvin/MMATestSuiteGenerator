@@ -24,6 +24,9 @@ before_cache:
 before_install:
   # Load cached docker images
   - if [[ -d $HOME/docker ]]; then ls $HOME/docker/*.tar.gz | xargs -I {file} sh -c "zcat {file} | docker load"; fi
+  - docker --version
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+
 
 addons:
   apt:
@@ -34,8 +37,6 @@ jobs:
   include:
     - stage: prepare cache
       script:
-        - docker --version
-        - docker run --rm --privileged multiarch/qemu-user-static:register --reset
         - make docker
         - make mathematica-self-tests
         - make download-docs
