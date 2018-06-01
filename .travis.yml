@@ -7,7 +7,9 @@ cache:
 
 
 before_install:
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWORD
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  - docker pull mmacompat/mathematica
 
 
 addons:
@@ -26,6 +28,7 @@ jobs:
         - make docker
         - make mathematica-self-tests
         - make download-docs
+        - docker push mmacompat/mathematica
     - stage: generate tests
       script: PORTION_INDEX=1 make generate-compat-tests
     - script: PORTION_INDEX=2 make generate-compat-tests
