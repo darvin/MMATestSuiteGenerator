@@ -3,8 +3,6 @@
 set -e
 export SHELL=$(type -p bash)
 
-
-
 task(){
 	SYMNAME=$1
    	INPUT_FILE="build_docs/ReferencePages/Symbols/$SYMNAME.nb"
@@ -15,7 +13,7 @@ task(){
 
 export -f task
 
-cat WHITELIST | parallel --will-cite -j8 task 
+cat WHITELIST | parallel --will-cite -j2 task 
 
 
 
