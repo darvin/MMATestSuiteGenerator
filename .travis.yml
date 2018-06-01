@@ -15,6 +15,9 @@ addons:
     packages:
       - docker-ce
       - parallel
+env:
+  - PORTION_COUNT=10
+
 jobs:
   include:
     - stage: prepare cache
@@ -22,11 +25,26 @@ jobs:
         - make docker
         - make mathematica-self-tests
         - make download-docs
-    - stage: generate tests
-      script: 
-        - docker images darvin/mathematica
-        - ls build_docs/*/*/*
-        - make generate-compat-tests
+    - env: PORTION_INDEX=1
+      script: make generate-compat-tests
+    - env: PORTION_INDEX=2
+      script: make generate-compat-tests
+    - env: PORTION_INDEX=3
+      script: make generate-compat-tests
+    - env: PORTION_INDEX=4
+      script: make generate-compat-tests
+    - env: PORTION_INDEX=5
+      script: make generate-compat-tests
+    - env: PORTION_INDEX=6
+      script: make generate-compat-tests
+    - env: PORTION_INDEX=7
+      script: make generate-compat-tests
+    - env: PORTION_INDEX=8
+      script: make generate-compat-tests
+    - env: PORTION_INDEX=9
+      script: make generate-compat-tests
+    - env: PORTION_INDEX=10
+      script: make generate-compat-tests
     - stage: deploy
       script: skip
       deploy: &pages
