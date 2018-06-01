@@ -15,7 +15,7 @@ task(){
 
 export -f task
 
-cat WHITELIST | parallel --will-cite -j+0 task 
+cat WHITELIST | parallel --will-cite -j8 task 
 
 
 
