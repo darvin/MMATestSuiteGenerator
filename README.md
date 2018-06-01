@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/darvin/MMATestSuiteGenerator.svg?branch=master)](https://travis-ci.org/darvin/MMATestSuiteGenerator)
 
+   - Install `parallel` : `apt-get install parallel` or `brew install parallel`
    -  Add file from `/Applications/Mathematica.app/Contents/Documentation/English/System/ReferencePages/Symbols/` to `./WHITELIST`
    - Test that your installation of Mathematica actually works:
       - Local installation: `LOCAL=1 make mathematica-self-tests`

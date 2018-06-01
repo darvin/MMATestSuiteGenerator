@@ -12,7 +12,7 @@ task(){
 
 export -f task
 
-cat WHITELIST | parallel --no-notice -j4 task 
+cat WHITELIST | parallel --no-notice -j+0 task 
 
 
 
