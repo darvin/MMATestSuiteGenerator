@@ -13,6 +13,8 @@ COPY ./wolfram-engine.deb ./wolfram-engine.deb
 
 RUN dpkg --force-all -i  *.deb && rm *.deb
 
+RUN apt-get install --yes  --no-install-recommends parallel
+
 COPY ./entrypoint.sh /opt/entrypoint.sh
 
 WORKDIR /mnt
