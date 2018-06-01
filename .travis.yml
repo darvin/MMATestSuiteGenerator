@@ -18,13 +18,14 @@ addons:
     packages:
       - docker-ce
       - parallel
+jobs:
+  include:
+    - stage: prepare cache
+      script:
+        - docker --version
+        - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+        - make docker
+        - make mathematica-self-tests
+    - stage: generate tests
+      script: make generate-compat-tests
 
-install:
-  - docker --version
-  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  - make docker
-  - make mathematica-self-tests
-
-script:
-  - make generate-compat-tests
-  - make run-compat-tests
