@@ -14,7 +14,7 @@ before_install:
   - docker pull mmacompat/mathematica || true
   - echo "trust_server_cert /opt/boxcert.pem" | sudo tee --append  /etc/davfs2/davfs2.conf 
   - echo "https://dav.box.com/dav/ sergey.v.klimov+mathbackupbox@gmail.com mathematica" | sudo tee --append  /etc/davfs2/secrets
-  - sudo openssl s_client -showcerts -servername dav.box.com -connect dav.box.com:443 </dev/null 2>/dev/null|openssl x509 -outform PEM > /opt/boxcert.pem
+  - openssl s_client -showcerts -servername dav.box.com -connect dav.box.com:443 </dev/null 2>/dev/null|openssl x509 -outform PEM > boxcert.pem && sudo mv boxcert.pem /opt/
   - sudo mount.davfs -o user=$USER,rw https://dav.box.com/dav/ /mnt/
   - cp -R /mnt/INTERMED/$TRAVIS_BUILD_NUMBER/output ./output || true
 
