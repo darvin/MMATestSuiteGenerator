@@ -20,6 +20,7 @@ after_install:
 
 
 after_script:
+  - mkdir -p /mnt/INTERMED/$TRAVIS_BUILD_NUMBER/ || true
   - cp -R ./output/ /mnt/INTERMED/$TRAVIS_BUILD_NUMBER/
 
 addons:
