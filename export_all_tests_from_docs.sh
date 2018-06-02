@@ -13,7 +13,7 @@ task(){
 
 export -f task
 
-bash ./cat_portion.sh WHITELIST | parallel --will-cite -j2 task 
+bash ./cat_portion.sh WHITELIST | parallel --will-cite -j1 task 
 
 
 
