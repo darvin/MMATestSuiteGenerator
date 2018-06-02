@@ -12,7 +12,9 @@ cache:
 
 before_install:
   - export AWS_DEFAULT_REGION=us-east-1
+  - mkdir output/ || true
   - aws s3 sync s3://buildjobs/$TRAVIS_BUILD_NUMBER output/
+  - mkdir build_docs/ || true
   - aws s3 sync s3://mmabackupdocs/MMA10 build_docs/
   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
