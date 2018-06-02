@@ -1,0 +1,311 @@
+# SYSTEM: Mathematica_10
+# TEST: Apply_Tests
+# OUTPUT: output/Results/Mathematica_10/Apply_Tests.json
+ok  f @@ {a, b, c, d}    ==>     f[a, b, c, d]
+    ---
+    data:
+        got: f[a, b, c, d]
+        expect: f[a, b, c, d]
+        expect_evaluated: f[a, b, c, d]
+    ...
+ok  f @@ {a, b, c, d}    ==>     f[a, b, c, d]
+    ---
+    data:
+        got: f[a, b, c, d]
+        expect: f[a, b, c, d]
+        expect_evaluated: f[a, b, c, d]
+    ...
+ok  Plus @@ {a, b, c, d}    ==>     a + b + c + d
+    ---
+    data:
+        got: a + b + c + d
+        expect: a + b + c + d
+        expect_evaluated: a + b + c + d
+    ...
+# RefLink[Apply,paclet:ref/Apply] gets rid of a level of lists:
+ok  f @@ {{a, b}, {c}, d}    ==>     f[{a, b}, {c}, d]
+    ---
+    data:
+        got: f[{a, b}, {c}, d]
+        expect: f[{a, b}, {c}, d]
+        expect_evaluated: f[{a, b}, {c}, d]
+    ...
+# Use the operator form of RefLink[Apply,paclet:ref/Apply]:
+ok  (Apply[f])[{{a, b}, {c}, d}]    ==>     f[{a, b}, {c}, d]
+    ---
+    data:
+        got: f[{a, b}, {c}, d]
+        expect: f[{a, b}, {c}, d]
+        expect_evaluated: f[{a, b}, {c}, d]
+    ...
+# Apply f to an RefLink[Association,paclet:ref/Association]:
+ok  List @@ <| 1 -> a, 2 -> b, 3 -> c, 4 -> {d} |>    ==>     {a, b, c, {d}}
+    ---
+    data:
+        got: {a, b, c, {d}}
+        expect: {a, b, c, {d}}
+        expect_evaluated: {a, b, c, {d}}
+    ...
+# RefLink[Apply,paclet:ref/Apply] is equivalent to RefLink[Values,paclet:ref/Values]:
+ok  Values[<| 1 -> a, 2 -> b, 3 -> c, 4 -> {d} |>]    ==>     {a, b, c, {d}}
+    ---
+    data:
+        got: {a, b, c, {d}}
+        expect: {a, b, c, {d}}
+        expect_evaluated: {a, b, c, {d}}
+    ...
+# RefLink[Apply,paclet:ref/Apply] f at the second level:
+ok  Apply[f, <| 1 -> a, 2 -> b, 3 -> c, 4 -> {d, {e}} |>, {2}]    ==>     <| 1 -> a, 2 -> b, 3 -> c, 4 -> {d, f[e]} |>
+    ---
+    data:
+        got: <|1 -> a, 2 -> b, 3 -> c, 4 -> {d, f[e]}|>
+        expect: <| 1 -> a, 2 -> b, 3 -> c, 4 -> {d, f[e]} |>
+        expect_evaluated: <|1 -> a, 2 -> b, 3 -> c, 4 -> {d, f[e]}|>
+    ...
+# Apply f at several levels:
+ok  Apply[f, <| 1 -> a, 2 -> b, 3 -> c, 4 -> {d, {e}} |>, {0, 2}]    ==>     f[{a, b, c, f[d, f[e]]}] # skip
+# Apply at level 0 (default):
+ok  f @@ {{a, b, c}, {d, e}}    ==>     f[{a, b, c}, {d, e}]
+    ---
+    data:
+        got: f[{a, b, c}, {d, e}]
+        expect: f[{a, b, c}, {d, e}]
+        expect_evaluated: f[{a, b, c}, {d, e}]
+    ...
+ok  f @@ {{a, b, c}, {d, e}}    ==>     f[{a, b, c}, {d, e}]
+    ---
+    data:
+        got: f[{a, b, c}, {d, e}]
+        expect: f[{a, b, c}, {d, e}]
+        expect_evaluated: f[{a, b, c}, {d, e}]
+    ...
+# Apply at level 1:
+ok  Apply[f, {{a, b, c}, {d, e}}, {1}]    ==>     {f[a, b, c], f[d, e]}
+    ---
+    data:
+        got: {f[a, b, c], f[d, e]}
+        expect: {f[a, b, c], f[d, e]}
+        expect_evaluated: {f[a, b, c], f[d, e]}
+    ...
+# The short form @@@ is equivalent to applying at level 1:
+ok  Apply[f, {{a, b, c}, {d, e}}, {1}]    ==>     {f[a, b, c], f[d, e]}
+    ---
+    data:
+        got: {f[a, b, c], f[d, e]}
+        expect: {f[a, b, c], f[d, e]}
+        expect_evaluated: {f[a, b, c], f[d, e]}
+    ...
+# Apply at levels 0 and 1:
+ok  Apply[f, {{a, b, c}, {d, e}}, {0, 1}]    ==>     f[f[a, b, c], f[d, e]]
+    ---
+    data:
+        got: f[f[a, b, c], f[d, e]]
+        expect: f[f[a, b, c], f[d, e]]
+        expect_evaluated: f[f[a, b, c], f[d, e]]
+    ...
+# Apply down to level 2 (excluding level 0):
+ok  Apply[f, {{{{{a}}}}}, 2]    ==>     {f[f[{{a}}]]}
+    ---
+    data:
+        got: {f[f[{{a}}]]}
+        expect: {f[f[{{a}}]]}
+        expect_evaluated: {f[f[{{a}}]]}
+    ...
+# Apply at levels 0 through 2:
+ok  Apply[f, {{{{{a}}}}}, {0, 2}]    ==>     f[f[f[{{a}}]]]
+    ---
+    data:
+        got: f[f[f[{{a}}]]]
+        expect: f[f[f[{{a}}]]]
+        expect_evaluated: f[f[f[{{a}}]]]
+    ...
+# Apply at all levels, starting at level 1:
+ok  Apply[f, {{{{{a}}}}}, Infinity]    ==>     {f[f[f[f[a]]]]}
+    ---
+    data:
+        got: {f[f[f[f[a]]]]}
+        expect: {f[f[f[f[a]]]]}
+        expect_evaluated: {f[f[f[f[a]]]]}
+    ...
+# Apply also at level 0:
+ok  Apply[f, {{{{{a}}}}}, {0, Infinity}]    ==>     f[f[f[f[f[a]]]]]
+    ---
+    data:
+        got: f[f[f[f[f[a]]]]]
+        expect: f[f[f[f[f[a]]]]]
+        expect_evaluated: f[f[f[f[f[a]]]]]
+    ...
+# Negative levels:
+ok  Apply[f, {{{{{a}}}}}, -1]    ==>     {f[f[f[f[a]]]]}
+    ---
+    data:
+        got: {f[f[f[f[a]]]]}
+        expect: {f[f[f[f[a]]]]}
+        expect_evaluated: {f[f[f[f[a]]]]}
+    ...
+ok  Apply[f, {{{{{a}}}}}, -2]    ==>     {f[f[f[f[a]]]]}
+    ---
+    data:
+        got: {f[f[f[f[a]]]]}
+        expect: {f[f[f[f[a]]]]}
+        expect_evaluated: {f[f[f[f[a]]]]}
+    ...
+ok  Apply[f, {{{{{a}}}}}, -3]    ==>     {f[f[f[{a}]]]}
+    ---
+    data:
+        got: {f[f[f[{a}]]]}
+        expect: {f[f[f[{a}]]]}
+        expect_evaluated: {f[f[f[{a}]]]}
+    ...
+# Positive and negative levels can be mixed:
+ok  Apply[f, {{{{{a}}}}}, {2, -3}]    ==>     {{f[f[{a}]]}}
+    ---
+    data:
+        got: {{f[f[{a}]]}}
+        expect: {{f[f[{a}]]}}
+        expect_evaluated: {{f[f[{a}]]}}
+    ...
+# Different heads at each level:
+ok  Apply[f, h0[h1[h2[h3[h4[a]]]]], {2, -3}]    ==>     h0[h1[f[f[h4[a]]]]]
+    ---
+    data:
+        got: h0[h1[f[f[h4[a]]]]]
+        expect: h0[h1[f[f[h4[a]]]]]
+        expect_evaluated: h0[h1[f[f[h4[a]]]]]
+    ...
+# Apply also inside heads at the levels specified:
+ok  Apply[f, p[x][q[y]], {1}, Heads -> True]    ==>     f[x][f[y]]
+    ---
+    data:
+        got: f[x][f[y]]
+        expect: f[x][f[y]]
+        expect_evaluated: f[x][f[y]]
+    ...
+# RefLink[Apply,paclet:ref/Apply] works with any head, not just RefLink[List,paclet:ref/List]:
+ok  Plus @@ g[x, y, z]    ==>     x + y + z
+    ---
+    data:
+        got: x + y + z
+        expect: x + y + z
+        expect_evaluated: x + y + z
+    ...
+# RefLink[Apply,paclet:ref/Apply] works on sparse arrays:
+ok  List @@ SparseArray[{1 -> 1, 2 -> 2, 10 -> 10}]    ==>     {1, 2, 0, 0, 0, 0, 0, 0, 0, 10}
+    ---
+    data:
+        got: {1, 2, 0, 0, 0, 0, 0, 0, 0, 10}
+        expect: {1, 2, 0, 0, 0, 0, 0, 0, 0, 10}
+        expect_evaluated: {1, 2, 0, 0, 0, 0, 0, 0, 0, 10}
+    ...
+# Apply inside heads as well as arguments:
+ok  Apply[f, p[x][q[y]], {1}, Heads -> True]    ==>     f[x][f[y]]
+    ---
+    data:
+        got: f[x][f[y]]
+        expect: f[x][f[y]]
+        expect_evaluated: f[x][f[y]]
+    ...
+ok  Apply[f, p[x][q[y]], {1}]    ==>     p[x][f[y]]
+    ---
+    data:
+        got: p[x][f[y]]
+        expect: p[x][f[y]]
+        expect_evaluated: p[x][f[y]]
+    ...
+# Display the factorization of an integer using superscripts:
+ok  FactorInteger[20!]    ==>     {{2, 18}, {3, 8}, {5, 4}, {7, 2}, {11, 1}, {13, 1}, {17, 1}, {19, 1}}
+    ---
+    data:
+        got: {{2, 18}, {3, 8}, {5, 4}, {7, 2}, {11, 1}, {13, 1}, {17, 1}, {19, 1}}
+        expect: {{2, 18}, {3, 8}, {5, 4}, {7, 2}, {11, 1}, {13, 1}, {17, 1}, {19, 1}}
+        expect_evaluated: {{2, 18}, {3, 8}, {5, 4}, {7, 2}, {11, 1}, {13, 1}, {17, 1}, {19, 1}}
+    ...
+ok  CenterDot @@ Apply[Superscript, %, {1}]    ==>     2^18 \[CenterDot] 3^8 \[CenterDot] 5^4 \[CenterDot] 7^2 \[CenterDot] 11^1 \[CenterDot] 13^1 \[CenterDot] 17^1 \[CenterDot] 19^1 # skip
+# Create a table from a list of range specifications:
+ok  (Table[i^j, ##1] & ) @@ {{i, 3}, {j, 4}}    ==>     {{1, 1, 1, 1}, {2, 4, 8, 16}, {3, 9, 27, 81}}
+    ---
+    data:
+        got: {{1, 1, 1, 1}, {2, 4, 8, 16}, {3, 9, 27, 81}}
+        expect: {{1, 1, 1, 1}, {2, 4, 8, 16}, {3, 9, 27, 81}}
+        expect_evaluated: {{1, 1, 1, 1}, {2, 4, 8, 16}, {3, 9, 27, 81}}
+    ...
+ok  cplus[{a, b, c}]    ==>     a + b + c # skip
+# Find random co-prime integers:
+ok  Select[RandomInteger[10, {20, 2}], Apply[CoprimeQ]]    ==>     {{5, 1}, {6, 7}, {9, 8}, {3, 10}, {7, 6}, {1, 8}, {1, 4}, {2, 3}, {1, 3}, {2, 1}, {1, 10}, {5, 8}, {4, 5}} # skip
+# RefLink[Total,paclet:ref/Total] does effectively the same thing as applying RefLink[Plus,paclet:ref/Plus] to a list:
+ok  Total[{a, b, c, d}]    ==>     a + b + c + d
+    ---
+    data:
+        got: a + b + c + d
+        expect: a + b + c + d
+        expect_evaluated: a + b + c + d
+    ...
+ok  Plus @@ {a, b, c, d}    ==>     a + b + c + d
+    ---
+    data:
+        got: a + b + c + d
+        expect: a + b + c + d
+        expect_evaluated: a + b + c + d
+    ...
+# Using ## in a pure function has the same effect as using RefLink[Apply,paclet:ref/Apply]:
+ok  Plus @@ {1, 2, 3, 4}    ==>     10
+    ---
+    data:
+        got: 10
+        expect: 10
+        expect_evaluated: 10
+    ...
+ok  (Plus[##1] & )[1, 2, 3, 4]    ==>     10
+    ---
+    data:
+        got: 10
+        expect: 10
+        expect_evaluated: 10
+    ...
+# Three ways to apply a function at level 1:
+ok  Apply[f, {{a, b}, {c, d}}, {1}]    ==>     {f[a, b], f[c, d]}
+    ---
+    data:
+        got: {f[a, b], f[c, d]}
+        expect: {f[a, b], f[c, d]}
+        expect_evaluated: {f[a, b], f[c, d]}
+    ...
+ok  (f @@ #1 & ) /@ {{a, b}, {c, d}}    ==>     {f[a, b], f[c, d]}
+    ---
+    data:
+        got: {f[a, b], f[c, d]}
+        expect: {f[a, b], f[c, d]}
+        expect_evaluated: {f[a, b], f[c, d]}
+    ...
+ok  Apply[f, {{a, b}, {c, d}}, {1}]    ==>     {f[a, b], f[c, d]}
+    ---
+    data:
+        got: {f[a, b], f[c, d]}
+        expect: {f[a, b], f[c, d]}
+        expect_evaluated: {f[a, b], f[c, d]}
+    ...
+# Ordinary function application takes the list as a single argument:
+ok  f[{a, b, c}]    ==>     f[{a, b, c}]
+    ---
+    data:
+        got: f[{a, b, c}]
+        expect: f[{a, b, c}]
+        expect_evaluated: f[{a, b, c}]
+    ...
+# RefLink[Apply,paclet:ref/Apply] takes the elements of the list as separate arguments:
+ok  f @@ {a, b, c}    ==>     f[a, b, c]
+    ---
+    data:
+        got: f[a, b, c]
+        expect: f[a, b, c]
+        expect_evaluated: f[a, b, c]
+    ...
+# Applying to atomic objects that do not have subparts effectively does nothing:
+ok  f @@ a    ==>     a
+    ---
+    data:
+        got: a
+        expect: a
+        expect_evaluated: a
+    ...
+ok  Apply[f, {a, "string", 3}, {-1}]    ==>     {a, string, 3} # skip

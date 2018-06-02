@@ -1,14 +1,14 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-ESimpleExamples[EComment["Commands to define a simple package:"], 
- ESameTestBROKEN[HoldComplete[originalcontext = Context[]], $Failed], 
- EComment["The context is now the same as the original:"], 
- ESameTest[Context[] === originalcontext, True], 
- EComment[
+TapSuite[TapComment["Commands to define a simple package:"], 
+ TapTestSameBROKEN[HoldComplete[originalcontext = Context[]], $Failed], 
+ TapComment["The context is now the same as the original:"], 
+ TapTestSame[Context[] === originalcontext, True], 
+ TapComment[
   "The context path is the same as the original, but with square` prepended:"]\
-, ESameTestBROKEN[HoldComplete[Complement[$ContextPath, originalcpath]], 
-  $Failed], EComment["Once loaded, the definitions work:"], 
- ESameTestBROKEN[Collatz[47], {47, 142, 71, 214, 107, 322, 161, 484, 242, 
+, TapTestSameBROKEN[HoldComplete[Complement[$ContextPath, originalcpath]], 
+  $Failed], TapComment["Once loaded, the definitions work:"], 
+ TapTestSameBROKEN[Collatz[47], {47, 142, 71, 214, 107, 322, 161, 484, 242, 
    121, 364, 182, 91, 274, 137, 412, 206, 103, 310, 155, 466, 233, 700, 350, 
    175, 526, 263, 790, 395, 1186, 593, 1780, 890, 445, 1336, 668, 334, 167, 
    502, 251, 754, 377, 1132, 566, 283, 850, 425, 1276, 638, 319, 958, 479, 

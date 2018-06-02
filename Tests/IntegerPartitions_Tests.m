@@ -1,86 +1,86 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-ESimpleExamples[EComment["All partitions of 5:"], 
- ESameTest[IntegerPartitions[5], {{5}, {4, 1}, {3, 2}, {3, 1, 1}, {2, 2, 1}, 
-   {2, 1, 1, 1}, {1, 1, 1, 1, 1}}], 
- EComment["Partitions of 8 into at most 3 integers:"], 
- ESameTest[IntegerPartitions[8, 3], {{8}, {7, 1}, {6, 2}, {6, 1, 1}, {5, 3}, 
-   {5, 2, 1}, {4, 4}, {4, 3, 1}, {4, 2, 2}, {3, 3, 2}}], 
- EComment["Partitions of 8 into exactly 3 integers:"], 
- ESameTest[IntegerPartitions[8, {3}], {{6, 1, 1}, {5, 2, 1}, {4, 3, 1}, 
+TapSuite[TapComment["All partitions of 5:"], 
+ TapTestSame[IntegerPartitions[5], {{5}, {4, 1}, {3, 2}, {3, 1, 1}, 
+   {2, 2, 1}, {2, 1, 1, 1}, {1, 1, 1, 1, 1}}], 
+ TapComment["Partitions of 8 into at most 3 integers:"], 
+ TapTestSame[IntegerPartitions[8, 3], {{8}, {7, 1}, {6, 2}, {6, 1, 1}, 
+   {5, 3}, {5, 2, 1}, {4, 4}, {4, 3, 1}, {4, 2, 2}, {3, 3, 2}}], 
+ TapComment["Partitions of 8 into exactly 3 integers:"], 
+ TapTestSame[IntegerPartitions[8, {3}], {{6, 1, 1}, {5, 2, 1}, {4, 3, 1}, 
    {4, 2, 2}, {3, 3, 2}}], 
- EComment["Find all partitions of 8 that involve only 1, 2, and 5:"], 
- ESameTest[IntegerPartitions[8, All, {1, 2, 5}], 
+ TapComment["Find all partitions of 8 that involve only 1, 2, and 5:"], 
+ TapTestSame[IntegerPartitions[8, All, {1, 2, 5}], 
   {{5, 2, 1}, {5, 1, 1, 1}, {2, 2, 2, 2}, {2, 2, 2, 1, 1}, 
    {2, 2, 1, 1, 1, 1}, {2, 1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1, 1, 1}}], 
- EComment["Find partitions of 6 of even length only:"], 
- ESameTest[IntegerPartitions[6, {2, Infinity, 2}], 
+ TapComment["Find partitions of 6 of even length only:"], 
+ TapTestSame[IntegerPartitions[6, {2, Infinity, 2}], 
   {{5, 1}, {4, 2}, {3, 3}, {3, 1, 1, 1}, {2, 2, 1, 1}, {1, 1, 1, 1, 1, 1}}], 
- EComment["Find ways to form 3 from combinations of rational numbers:"], 
- ESameTest[IntegerPartitions[3, 10, {1, 1/3, 3/4}], 
+ TapComment["Find ways to form 3 from combinations of rational numbers:"], 
+ TapTestSame[IntegerPartitions[3, 10, {1, 1/3, 3/4}], 
   {{3/4, 3/4, 3/4, 3/4}, {1/3, 1/3, 1/3, 1/3, 1/3, 1/3, 1/3, 1/3, 1/3}, 
    {1/3, 1/3, 1/3, 1/3, 1/3, 1/3, 1}, {1/3, 1/3, 1/3, 1, 1}, {1, 1, 1}}], 
- EComment["Find partitions involving negative numbers:"], 
- ESameTest[IntegerPartitions[5, 10, {1, -1}], {{-1, -1, 1, 1, 1, 1, 1, 1, 1}, 
-   {-1, 1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}}], 
- EComment["Find the first 10 partitions of 15:"], 
- ESameTest[IntegerPartitions[15, All, All, 10], 
+ TapComment["Find partitions involving negative numbers:"], 
+ TapTestSame[IntegerPartitions[5, 10, {1, -1}], 
+  {{-1, -1, 1, 1, 1, 1, 1, 1, 1}, {-1, 1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}}], 
+ TapComment["Find the first 10 partitions of 15:"], 
+ TapTestSame[IntegerPartitions[15, All, All, 10], 
   {{15}, {14, 1}, {13, 2}, {13, 1, 1}, {12, 3}, {12, 2, 1}, {12, 1, 1, 1}, 
    {11, 4}, {11, 3, 1}, {11, 2, 2}}], 
- EComment["Find the last 3 partitions of 15:"], 
- ESameTest[IntegerPartitions[15, All, All, -3], 
+ TapComment["Find the last 3 partitions of 15:"], 
+ TapTestSame[IntegerPartitions[15, All, All, -3], 
   {{2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
     1, 1, 1}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}}], 
- EComment["Find the ways to make change for 156 cents with 10 or fewer \
-standard coins:"], ESameTest[IntegerPartitions[156, 10, {1, 5, 10, 25}], 
+ TapComment["Find the ways to make change for 156 cents with 10 or fewer \
+standard coins:"], TapTestSame[IntegerPartitions[156, 10, {1, 5, 10, 25}], 
   {{25, 25, 25, 25, 25, 25, 5, 1}, {25, 25, 25, 25, 25, 10, 10, 10, 1}, 
    {25, 25, 25, 25, 25, 10, 10, 5, 5, 1}}], 
- EComment["Find \"McNugget partitions\" for 50:"], 
- ESameTest[IntegerPartitions[50, All, {6, 9, 20}], 
+ TapComment["Find \"McNugget partitions\" for 50:"], 
+ TapTestSame[IntegerPartitions[50, All, {6, 9, 20}], 
   {{20, 9, 9, 6, 6}, {20, 6, 6, 6, 6, 6}}], 
- EComment[
-  "Find the number of \"McNugget partitions\" for numbers up to 50:"], 
- ESameTest[Table[Length[IntegerPartitions[i, All, {6, 9, 20}]], {i, 50}], 
-  {0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 2, 0, 1, 1, 0, 0, 2, 0, 
-   1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 3, 0, 2, 2, 1, 1, 3, 0, 2, 3, 1, 2, 3, 1, 
-   2}], EComment["Show integers that are not \"McNuggetable\":"], 
- ESameTestBROKEN[Flatten[Position[%, 0]], {1, 2, 3, 4, 5, 7, 8, 10, 11, 13, 
+ TapComment["Find the number of \"McNugget partitions\" for numbers up to \
+50:"], TapTestSame[Table[Length[IntegerPartitions[i, All, {6, 9, 20}]], 
+   {i, 50}], {0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 2, 0, 1, 1, 
+   0, 0, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 3, 0, 2, 2, 1, 1, 3, 0, 2, 3, 1, 
+   2, 3, 1, 2}], TapComment["Show integers that are not \"McNuggetable\":"], 
+ TapTestSameBROKEN[Flatten[Position[%, 0]], {1, 2, 3, 4, 5, 7, 8, 10, 11, 13, 
    14, 16, 17, 19, 22, 23, 25, 28, 31, 34, 37, 43}], 
- EComment["The last case is exactly the corresponding Frobenius number:"], 
- ESameTest[FrobeniusNumber[{6, 9, 20}], 43], 
- EComment["Each sublist adds up to the original number:"], 
- ESameTest[IntegerPartitions[4], {{4}, {3, 1}, {2, 2}, {2, 1, 1}, 
-   {1, 1, 1, 1}}], ESameTestBROKEN[Total /@ %, {4, 4, 4, 4, 4}], 
- EComment["The length of \
+ TapComment["The last case is exactly the corresponding Frobenius number:"], 
+ TapTestSame[FrobeniusNumber[{6, 9, 20}], 43], 
+ TapComment["Each sublist adds up to the original number:"], 
+ TapTestSame[IntegerPartitions[4], {{4}, {3, 1}, {2, 2}, {2, 1, 1}, 
+   {1, 1, 1, 1}}], TapTestSameBROKEN[Total /@ %, {4, 4, 4, 4, 4}], 
+ TapComment["The length of \
 RefLink[IntegerPartitions,paclet:ref/IntegerPartitions][n] is \
 RefLink[PartitionsP,paclet:ref/PartitionsP][n]:"], 
- ESameTest[Length[IntegerPartitions[10]], 42], 
- ESameTest[PartitionsP[10], 42], EComment["RefLink[IntegerPartitions,paclet:r\
-ef/IntegerPartitions] gives results in reverse lexicographic order, not \
-RefLink[Sort,paclet:ref/Sort] order:"], ESameTest[IntegerPartitions[5], 
+ TapTestSame[Length[IntegerPartitions[10]], 42], 
+ TapTestSame[PartitionsP[10], 42], TapComment["RefLink[IntegerPartitions,pacl\
+et:ref/IntegerPartitions] gives results in reverse lexicographic order, not \
+RefLink[Sort,paclet:ref/Sort] order:"], TapTestSame[IntegerPartitions[5], 
   {{5}, {4, 1}, {3, 2}, {3, 1, 1}, {2, 2, 1}, {2, 1, 1, 1}, 
-   {1, 1, 1, 1, 1}}], ESameTestBROKEN[Sort[%], 
+   {1, 1, 1, 1, 1}}], TapTestSameBROKEN[Sort[%], 
   {{5}, {3, 2}, {4, 1}, {2, 2, 1}, {3, 1, 1}, {2, 1, 1, 1}, 
-   {1, 1, 1, 1, 1}}], EComment["For integers below 10, generate \
+   {1, 1, 1, 1, 1}}], TapComment["For integers below 10, generate \
 RefLink[IntegerPartitions,paclet:ref/IntegerPartitions] order by converting \
-to strings:"], ESameTestBROKEN[
+to strings:"], TapTestSameBROKEN[
   Reverse[Sort[ToString /@ IntegerPartitions[5]]], 
   {{5}, {4, 1}, {3, 2}, {3, 1, 1}, {2, 2, 1}, {2, 1, 1, 1}, 
-   {1, 1, 1, 1, 1}}], EComment["RefLink[FrobeniusSolve,paclet:ref/FrobeniusSo\
-lve] gives coefficient lists for \
+   {1, 1, 1, 1, 1}}], TapComment["RefLink[FrobeniusSolve,paclet:ref/Frobenius\
+Solve] gives coefficient lists for \
 RefLink[IntegerPartitions,paclet:ref/IntegerPartitions]:"], 
- ESameTest[FrobeniusSolve[{6, 9, 20}, 24], {{1, 2, 0}, {4, 0, 0}}], 
- ESameTest[IntegerPartitions[24, All, {6, 9, 20}], 
-  {{9, 9, 6}, {6, 6, 6, 6}}], EComment["RefLink[IntegerPartitions,paclet:ref/\
-IntegerPartitions] cannot give an infinite list of partitions:"], 
- ESameTest[IntegerPartitions[5, All, {1, -1}], IntegerPartitions[5, All, 
-   {1, -1}]], ESameTest[IntegerPartitions[5, 10, {1, -1}], 
+ TapTestSame[FrobeniusSolve[{6, 9, 20}, 24], {{1, 2, 0}, {4, 0, 0}}], 
+ TapTestSame[IntegerPartitions[24, All, {6, 9, 20}], 
+  {{9, 9, 6}, {6, 6, 6, 6}}], TapComment["RefLink[IntegerPartitions,paclet:re\
+f/IntegerPartitions] cannot give an infinite list of partitions:"], 
+ TapTestSame[IntegerPartitions[5, All, {1, -1}], 
+  IntegerPartitions[5, All, {1, -1}]], 
+ TapTestSame[IntegerPartitions[5, 10, {1, -1}], 
   {{-1, -1, 1, 1, 1, 1, 1, 1, 1}, {-1, 1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}}], 
- EComment["There are no integer partitions of 1/2:"], 
- ESameTest[IntegerPartitions[1/2], {}], 
- EComment["There are, however, partitions into rationals:"], 
- ESameTest[IntegerPartitions[1/2, All, {1/6, 1/3}], 
-  {{1/3, 1/6}, {1/6, 1/6, 1/6}}], EComment["If all items requested by the \
+ TapComment["There are no integer partitions of 1/2:"], 
+ TapTestSame[IntegerPartitions[1/2], {}], 
+ TapComment["There are, however, partitions into rationals:"], 
+ TapTestSame[IntegerPartitions[1/2, All, {1/6, 1/3}], 
+  {{1/3, 1/6}, {1/6, 1/6, 1/6}}], TapComment["If all items requested by the \
 fourth argument are not present, a warning message is issued:"], 
- ESameTest[IntegerPartitions[3, All, All, 7], {{3}, {2, 1}, {1, 1, 1}}], 
- ESameTest[IntegerPartitions[3, All, All, 7], {{3}, {2, 1}, {1, 1, 1}}]]
+ TapTestSame[IntegerPartitions[3, All, All, 7], {{3}, {2, 1}, {1, 1, 1}}], 
+ TapTestSame[IntegerPartitions[3, All, All, 7], {{3}, {2, 1}, {1, 1, 1}}]]

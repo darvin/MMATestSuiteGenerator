@@ -1,13 +1,13 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-ESimpleExamples[EComment[
+TapSuite[TapComment[
   "The context for symbol creation has been changed to square`:"], 
- ESameTestBROKEN[HoldComplete[Context[]], $Failed], 
- EComment["The context path for symbol lookup includes square`:"], 
- ESameTestBROKEN[HoldComplete[$ContextPath], $Failed], 
- EComment["Get the square of 12:"], ESameTestBROKEN[square[12], 144], 
- EComment["Once loaded, the definitions work:"], 
- ESameTestBROKEN[Collatz[47], {47, 142, 71, 214, 107, 322, 161, 484, 242, 
+ TapTestSameBROKEN[HoldComplete[Context[]], $Failed], 
+ TapComment["The context path for symbol lookup includes square`:"], 
+ TapTestSameBROKEN[HoldComplete[$ContextPath], $Failed], 
+ TapComment["Get the square of 12:"], TapTestSameBROKEN[square[12], 144], 
+ TapComment["Once loaded, the definitions work:"], 
+ TapTestSameBROKEN[Collatz[47], {47, 142, 71, 214, 107, 322, 161, 484, 242, 
    121, 364, 182, 91, 274, 137, 412, 206, 103, 310, 155, 466, 233, 700, 350, 
    175, 526, 263, 790, 395, 1186, 593, 1780, 890, 445, 1336, 668, 334, 167, 
    502, 251, 754, 377, 1132, 566, 283, 850, 425, 1276, 638, 319, 958, 479, 

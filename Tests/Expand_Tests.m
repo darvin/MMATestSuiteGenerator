@@ -1,58 +1,62 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-ESimpleExamples[EComment["Expand polynomial expressions:"], 
- ESameTest[Expand[(1 + x)^10], 1 + 10*x + 45*x^2 + 120*x^3 + 210*x^4 + 
+TapSuite[TapComment["Expand polynomial expressions:"], 
+ TapTestSame[Expand[(1 + x)^10], 1 + 10*x + 45*x^2 + 120*x^3 + 210*x^4 + 
    252*x^5 + 210*x^6 + 120*x^7 + 45*x^8 + 10*x^9 + x^10], 
- ESameTest[Expand[(1 + x + y)*(2 - x)^3], 8 - 4*x - 6*x^2 + 5*x^3 - x^4 + 
+ TapTestSame[Expand[(1 + x + y)*(2 - x)^3], 8 - 4*x - 6*x^2 + 5*x^3 - x^4 + 
    8*y - 12*x*y + 6*x^2*y - x^3*y], 
- EComment["Variables need not be symbols:"], 
- ESameTest[Expand[(f[Subscript[x, 1]] + f[Subscript[x, 2]])^3], 
+ TapComment["Variables need not be symbols:"], 
+ TapTestSame[Expand[(f[Subscript[x, 1]] + f[Subscript[x, 2]])^3], 
   f[Subscript[x, 1]]^3 + 3*f[Subscript[x, 1]]^2*f[Subscript[x, 2]] + 
    3*f[Subscript[x, 1]]*f[Subscript[x, 2]]^2 + f[Subscript[x, 2]]^3], 
- ESameTest[Expand[(x + y)/z], x/z + y/z], 
- EComment["Some powers can be symbolic:"], ESameTest[Expand[(x^s + y^s)^4], 
-  x^(4*s) + 4*x^(3*s)*y^s + 6*x^(2*s)*y^(2*s) + 4*x^s*y^(3*s) + y^(4*s)], 
- EComment["RefLink[Expand,paclet:ref/Expand] does not go into subexpressions; \
-RefLink[ExpandAll,paclet:ref/ExpandAll] does:"], 
- ESameTest[Expand[Sqrt[(1 + x)^2]], Sqrt[(1 + x)^2]], 
- ESameTest[ExpandAll[Sqrt[(1 + x)^2]], Sqrt[1 + 2*x + x^2]], 
- EComment["Leave parts free of x unexpanded:"], 
- ESameTest[Expand[(a + b)^2*(1 + x)^2, x], (a + b)^2 + 2*(a + b)^2*x + 
-   (a + b)^2*x^2], EComment["Leave parts free of 1+x unexpanded:"], 
- ESameTest[Expand[(1 + x)^2 + (2 + x)^2, 1 + x], 1 + 2*x + x^2 + (2 + x)^2], 
- EComment["Leave anything not matching x[_] unexpanded:"], 
- ESameTest[Expand[(a[1] + a[2])*(x[1] + x[2])^2, x[_]], 
+ TapTestSame[Expand[(x + y)/z], x/z + y/z], 
+ TapComment["Some powers can be symbolic:"], 
+ TapTestSame[Expand[(x^s + y^s)^4], x^(4*s) + 4*x^(3*s)*y^s + 
+   6*x^(2*s)*y^(2*s) + 4*x^s*y^(3*s) + y^(4*s)], 
+ TapComment["RefLink[Expand,paclet:ref/Expand] does not go into \
+subexpressions; RefLink[ExpandAll,paclet:ref/ExpandAll] does:"], 
+ TapTestSame[Expand[Sqrt[(1 + x)^2]], Sqrt[(1 + x)^2]], 
+ TapTestSame[ExpandAll[Sqrt[(1 + x)^2]], Sqrt[1 + 2*x + x^2]], 
+ TapComment["Leave parts free of x unexpanded:"], 
+ TapTestSame[Expand[(a + b)^2*(1 + x)^2, x], (a + b)^2 + 2*(a + b)^2*x + 
+   (a + b)^2*x^2], TapComment["Leave parts free of 1+x unexpanded:"], 
+ TapTestSame[Expand[(1 + x)^2 + (2 + x)^2, 1 + x], 
+  1 + 2*x + x^2 + (2 + x)^2], 
+ TapComment["Leave anything not matching x[_] unexpanded:"], 
+ TapTestSame[Expand[(a[1] + a[2])*(x[1] + x[2])^2, x[_]], 
   (a[1] + a[2])*x[1]^2 + 2*(a[1] + a[2])*x[1]*x[2] + (a[1] + a[2])*x[2]^2], 
- EComment["Work in the field GF(2):"], 
- ESameTest[Expand[(1 + x)^10, Modulus -> 2], 1 + x^2 + x^8 + x^10], 
- EComment["The modulus does not have to be a prime:"], 
- ESameTest[Expand[(1 + x)^10, Modulus -> 4], 1 + 2*x + x^2 + 2*x^4 + 2*x^6 + 
-   x^8 + 2*x^9 + x^10], EComment["Expand a trigonometric expression:"], 
- ESameTest[Expand[Sin[x + y], Trig -> True], Cos[y]*Sin[x] + Cos[x]*Sin[y]], 
- EComment["Many functions give results in unexpanded form:"], 
- ESameTest[Product[x + i, {i, 6}], (1 + x)*(2 + x)*(3 + x)*(4 + x)*(5 + x)*
-   (6 + x)], ESameTest[Expand[Product[x + i, {i, 6}]], 
+ TapComment["Work in the field GF(2):"], 
+ TapTestSame[Expand[(1 + x)^10, Modulus -> 2], 1 + x^2 + x^8 + x^10], 
+ TapComment["The modulus does not have to be a prime:"], 
+ TapTestSame[Expand[(1 + x)^10, Modulus -> 4], 
+  1 + 2*x + x^2 + 2*x^4 + 2*x^6 + x^8 + 2*x^9 + x^10], 
+ TapComment["Expand a trigonometric expression:"], 
+ TapTestSame[Expand[Sin[x + y], Trig -> True], 
+  Cos[y]*Sin[x] + Cos[x]*Sin[y]], 
+ TapComment["Many functions give results in unexpanded form:"], 
+ TapTestSame[Product[x + i, {i, 6}], (1 + x)*(2 + x)*(3 + x)*(4 + x)*(5 + x)*
+   (6 + x)], TapTestSame[Expand[Product[x + i, {i, 6}]], 
   720 + 1764*x + 1624*x^2 + 735*x^3 + 175*x^4 + 21*x^5 + x^6], 
- EComment["RefLink[Factor,paclet:ref/Factor] is essentially the inverse of \
+ TapComment["RefLink[Factor,paclet:ref/Factor] is essentially the inverse of \
 RefLink[Expand,paclet:ref/Expand]:"], 
- ESameTest[Expand[(1 + x + y)*(2 - x)^3], 8 - 4*x - 6*x^2 + 5*x^3 - x^4 + 
-   8*y - 12*x*y + 6*x^2*y - x^3*y], ESameTestBROKEN[Factor[%], 
-  (-(-2 + x)^3)*(1 + x + y)], EComment["When no powers are involved, \
+ TapTestSame[Expand[(1 + x + y)*(2 - x)^3], 8 - 4*x - 6*x^2 + 5*x^3 - x^4 + 
+   8*y - 12*x*y + 6*x^2*y - x^3*y], TapTestSameBROKEN[Factor[%], 
+  (-(-2 + x)^3)*(1 + x + y)], TapComment["When no powers are involved, \
 RefLink[Distribute,paclet:ref/Distribute] gives the same results as \
 RefLink[Expand,paclet:ref/Expand]:"], 
- ESameTest[Distribute[(1 + x)*(2 + x)*(3 + x)], 6 + 11*x + 6*x^2 + x^3], 
- ESameTest[Expand[(1 + x)*(2 + x)*(3 + x)], 6 + 11*x + 6*x^2 + x^3], 
- EComment["Direct application of the distributive law often generates far \
-more terms than are needed:"], ESameTest[Distribute[Factor[x^6 - 1], Plus, 
+ TapTestSame[Distribute[(1 + x)*(2 + x)*(3 + x)], 6 + 11*x + 6*x^2 + x^3], 
+ TapTestSame[Expand[(1 + x)*(2 + x)*(3 + x)], 6 + 11*x + 6*x^2 + x^3], 
+ TapComment["Direct application of the distributive law often generates far \
+more terms than are needed:"], TapTestSame[Distribute[Factor[x^6 - 1], Plus, 
    Times, List, Times], {-1, -x, -x^2, x, x^2, x^3, -x^2, -x^3, -x^4, -x, 
    -x^2, -x^3, x^2, x^3, x^4, -x^3, -x^4, -x^5, x, x^2, x^3, -x^2, -x^3, 
    -x^4, x^3, x^4, x^5, x^2, x^3, x^4, -x^3, -x^4, -x^5, x^4, x^5, x^6}], 
- ESameTestBROKEN[Total[%], -1 + x^6], ESameTestBROKEN[
+ TapTestSameBROKEN[Total[%], -1 + x^6], TapTestSameBROKEN[
   Style[Expand[(\[HappySmiley] + \[SadSmiley])^5], 20], 
   \[HappySmiley]^5 + 5*\[HappySmiley]^4*\[SadSmiley] + 
    10*\[HappySmiley]^3*\[SadSmiley]^2 + 10*\[HappySmiley]^2*\[SadSmiley]^3 + 
    5*\[HappySmiley]*\[SadSmiley]^4 + \[SadSmiley]^5], 
- ESameTest[Expand[(1 + x)^100], 1 + 100*x + 4950*x^2 + 161700*x^3 + 
+ TapTestSame[Expand[(1 + x)^100], 1 + 100*x + 4950*x^2 + 161700*x^3 + 
    3921225*x^4 + 75287520*x^5 + 1192052400*x^6 + 16007560800*x^7 + 
    186087894300*x^8 + 1902231808400*x^9 + 17310309456440*x^10 + 
    141629804643600*x^11 + 1050421051106700*x^12 + 7110542499799200*x^13 + 
@@ -96,8 +100,8 @@ more terms than are needed:"], ESameTest[Distribute[Factor[x^6 - 1], Plus,
    141629804643600*x^89 + 17310309456440*x^90 + 1902231808400*x^91 + 
    186087894300*x^92 + 16007560800*x^93 + 1192052400*x^94 + 75287520*x^95 + 
    3921225*x^96 + 161700*x^97 + 4950*x^98 + 100*x^99 + x^100], 
- EComment["Create a nested pattern corresponding to an additive cellular \
-automaton (rule 60):"], ESameTestBROKEN[
+ TapComment["Create a nested pattern corresponding to an additive cellular \
+automaton (rule 60):"], TapTestSameBROKEN[
   Column[Table[CoefficientList[Expand[(1 + x)^t, Modulus -> 2], x], 
     {t, 0, 31}]], {1}*{1, 1}*{1, 0, 1}*{1, 1, 1, 1}*{1, 0, 0, 0, 1}*
    {1, 1, 0, 0, 1, 1}*{1, 0, 1, 0, 1, 0, 1}*{1, 1, 1, 1, 1, 1, 1, 1}*

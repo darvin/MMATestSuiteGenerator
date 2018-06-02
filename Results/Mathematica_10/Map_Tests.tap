@@ -1,0 +1,329 @@
+# SYSTEM: Mathematica_10
+# TEST: Map_Tests
+# OUTPUT: output/Results/Mathematica_10/Map_Tests.json
+ok  f /@ {a, b, c, d, e}    ==>     {f[a], f[b], f[c], f[d], f[e]}
+    ---
+    data:
+        got: {f[a], f[b], f[c], f[d], f[e]}
+        expect: {f[a], f[b], f[c], f[d], f[e]}
+        expect_evaluated: {f[a], f[b], f[c], f[d], f[e]}
+    ...
+# Alternative input form:
+ok  f /@ {a, b, c, d, e}    ==>     {f[a], f[b], f[c], f[d], f[e]}
+    ---
+    data:
+        got: {f[a], f[b], f[c], f[d], f[e]}
+        expect: {f[a], f[b], f[c], f[d], f[e]}
+        expect_evaluated: {f[a], f[b], f[c], f[d], f[e]}
+    ...
+# Use explicit pure functions:
+ok  (1 + g[#1] & ) /@ {a, b, c, d, e}    ==>     {1 + g[a], 1 + g[b], 1 + g[c], 1 + g[d], 1 + g[e]}
+    ---
+    data:
+        got: {1 + g[a], 1 + g[b], 1 + g[c], 1 + g[d], 1 + g[e]}
+        expect: {1 + g[a], 1 + g[b], 1 + g[c], 1 + g[d], 1 + g[e]}
+        expect_evaluated: {1 + g[a], 1 + g[b], 1 + g[c], 1 + g[d], 1 + g[e]}
+    ...
+ok  Function[x, x^2] /@ {1, 2, 3, 4}    ==>     {1, 4, 9, 16}
+    ---
+    data:
+        got: {1, 4, 9, 16}
+        expect: {1, 4, 9, 16}
+        expect_evaluated: {1, 4, 9, 16}
+    ...
+# Map at top level:
+ok  f /@ {{a, b}, {c, d, e}}    ==>     {f[{a, b}], f[{c, d, e}]}
+    ---
+    data:
+        got: {f[{a, b}], f[{c, d, e}]}
+        expect: {f[{a, b}], f[{c, d, e}]}
+        expect_evaluated: {f[{a, b}], f[{c, d, e}]}
+    ...
+# Map at level 2:
+ok  Map[f, {{a, b}, {c, d, e}}, {2}]    ==>     {{f[a], f[b]}, {f[c], f[d], f[e]}}
+    ---
+    data:
+        got: {{f[a], f[b]}, {f[c], f[d], f[e]}}
+        expect: {{f[a], f[b]}, {f[c], f[d], f[e]}}
+        expect_evaluated: {{f[a], f[b]}, {f[c], f[d], f[e]}}
+    ...
+# Map at levels 1 and 2:
+ok  Map[f, {{a, b}, {c, d, e}}, 2]    ==>     {f[{f[a], f[b]}], f[{f[c], f[d], f[e]}]}
+    ---
+    data:
+        got: {f[{f[a], f[b]}], f[{f[c], f[d], f[e]}]}
+        expect: {f[{f[a], f[b]}], f[{f[c], f[d], f[e]}]}
+        expect_evaluated: {f[{f[a], f[b]}], f[{f[c], f[d], f[e]}]}
+    ...
+# Use a map operator:
+ok  (Map[f])[{a, b, c, d}]    ==>     {f[a], f[b], f[c], f[d]}
+    ---
+    data:
+        got: {f[a], f[b], f[c], f[d]}
+        expect: {f[a], f[b], f[c], f[d]}
+        expect_evaluated: {f[a], f[b], f[c], f[d]}
+    ...
+# Map a function over values in RefLink[Association,paclet:ref/Association]:
+ok  h /@ <| a -> b, c -> d |>    ==>     <| a -> h[b], c -> h[d] |>
+    ---
+    data:
+        got: <|a -> h[b], c -> h[d]|>
+        expect: <| a -> h[b], c -> h[d] |>
+        expect_evaluated: <|a -> h[b], c -> h[d]|>
+    ...
+# Map at the second level of a nested RefLink[Association,paclet:ref/Association]:
+ok  Map[h, <| a -> <| b -> c |>, d -> <| e -> f |> |>, {2}]    ==>     <| a -> <| b -> h[c] |>, d -> <| e -> h[f] |> |>
+    ---
+    data:
+        got: <|a -> <|b -> h[c]|>, d -> <|e -> h[f]|>|>
+        expect: <| a -> <| b -> h[c] |>, d -> <| e -> h[f] |> |>
+        expect_evaluated: <|a -> <|b -> h[c]|>, d -> <|e -> h[f]|>|>
+    ...
+# Map at several levels in an RefLink[Association,paclet:ref/Association]:
+ok  Map[h, <| a -> <| b -> c |>, d -> {<| e -> f |>} |>, {1, 3}]    ==>     <| a -> h[<| b -> h[c] |>], d -> h[{h[<| e -> h[f] |>]}] |>
+    ---
+    data:
+        got: <|a -> h[<|b -> h[c]|>], d -> h[{h[<|e -> h[f]|>]}]|>
+        expect: <| a -> h[<| b -> h[c] |>], d -> h[{h[<| e -> h[f] |>]}] |>
+        expect_evaluated: <|a -> h[<|b -> h[c]|>], d -> h[{h[<|e -> h[f]|>]}]|>
+    ...
+# Map at level 1 (default):
+ok  f /@ {{{{{a}}}}}    ==>     {f[{{{{a}}}}]}
+    ---
+    data:
+        got: {f[{{{{a}}}}]}
+        expect: {f[{{{{a}}}}]}
+        expect_evaluated: {f[{{{{a}}}}]}
+    ...
+# Map down to level 2:
+ok  Map[f, {{{{{a}}}}}, 2]    ==>     {f[{f[{{{a}}}]}]}
+    ---
+    data:
+        got: {f[{f[{{{a}}}]}]}
+        expect: {f[{f[{{{a}}}]}]}
+        expect_evaluated: {f[{f[{{{a}}}]}]}
+    ...
+# Map at level 2:
+ok  Map[f, {{{{{a}}}}}, {2}]    ==>     {{f[{{{a}}}]}}
+    ---
+    data:
+        got: {{f[{{{a}}}]}}
+        expect: {{f[{{{a}}}]}}
+        expect_evaluated: {{f[{{{a}}}]}}
+    ...
+# Map on levels 0 through 2:
+ok  Map[f, {{{{{a}}}}}, {0, 2}]    ==>     f[{f[{f[{{{a}}}]}]}]
+    ---
+    data:
+        got: f[{f[{f[{{{a}}}]}]}]
+        expect: f[{f[{f[{{{a}}}]}]}]
+        expect_evaluated: f[{f[{f[{{{a}}}]}]}]
+    ...
+# Map down to level 3:
+ok  Map[f, {{{{{a}}}}}, 3]    ==>     {f[{f[{f[{{a}}]}]}]}
+    ---
+    data:
+        got: {f[{f[{f[{{a}}]}]}]}
+        expect: {f[{f[{f[{{a}}]}]}]}
+        expect_evaluated: {f[{f[{f[{{a}}]}]}]}
+    ...
+# Map on all levels, starting at level 1:
+not ok  f //@ {{{{{a}}}}}    ==>     {f[{f[{f[{f[{f[a]}]}]}]}]}
+    ---
+    data:
+        got: f[{f[{f[{f[{f[{f[a]}]}]}]}]}]
+        expect: {f[{f[{f[{f[{f[a]}]}]}]}]}
+        expect_evaluated: {f[{f[{f[{f[{f[a]}]}]}]}]}
+    ...
+# Map also at level 0:
+ok  Map[f, {{{{{a}}}}}, {0, Infinity}]    ==>     f[{f[{f[{f[{f[{f[a]}]}]}]}]}]
+    ---
+    data:
+        got: f[{f[{f[{f[{f[{f[a]}]}]}]}]}]
+        expect: f[{f[{f[{f[{f[{f[a]}]}]}]}]}]
+        expect_evaluated: f[{f[{f[{f[{f[{f[a]}]}]}]}]}]
+    ...
+# Negative levels:
+ok  Map[f, {{{{{a}}}}}, -1]    ==>     {f[{f[{f[{f[{f[a]}]}]}]}]}
+    ---
+    data:
+        got: {f[{f[{f[{f[{f[a]}]}]}]}]}
+        expect: {f[{f[{f[{f[{f[a]}]}]}]}]}
+        expect_evaluated: {f[{f[{f[{f[{f[a]}]}]}]}]}
+    ...
+ok  Map[f, {{{{{a}}}}}, -2]    ==>     {f[{f[{f[{f[{a}]}]}]}]}
+    ---
+    data:
+        got: {f[{f[{f[{f[{a}]}]}]}]}
+        expect: {f[{f[{f[{f[{a}]}]}]}]}
+        expect_evaluated: {f[{f[{f[{f[{a}]}]}]}]}
+    ...
+ok  Map[f, {{{{{a}}}}}, -3]    ==>     {f[{f[{f[{{a}}]}]}]}
+    ---
+    data:
+        got: {f[{f[{f[{{a}}]}]}]}
+        expect: {f[{f[{f[{{a}}]}]}]}
+        expect_evaluated: {f[{f[{f[{{a}}]}]}]}
+    ...
+# Positive and negative levels can be mixed:
+ok  Map[f, {{{{{a}}}}}, {2, -3}]    ==>     {{f[{f[{{a}}]}]}}
+    ---
+    data:
+        got: {{f[{f[{{a}}]}]}}
+        expect: {{f[{f[{{a}}]}]}}
+        expect_evaluated: {{f[{f[{{a}}]}]}}
+    ...
+# Different heads at each level:
+ok  Map[f, h0[h1[h2[h3[h4[a]]]]], {2, -3}]    ==>     h0[h1[f[h2[f[h3[h4[a]]]]]]]
+    ---
+    data:
+        got: h0[h1[f[h2[f[h3[h4[a]]]]]]]
+        expect: h0[h1[f[h2[f[h3[h4[a]]]]]]]
+        expect_evaluated: h0[h1[f[h2[f[h3[h4[a]]]]]]]
+    ...
+# Include heads in the levels specified:
+ok  Map[f, {{{{a}}}}, 2, Heads -> True]    ==>     f[List][f[f[List][f[{{a}}]]]]
+    ---
+    data:
+        got: f[List][f[f[List][f[{{a}}]]]]
+        expect: f[List][f[f[List][f[{{a}}]]]]
+        expect_evaluated: f[List][f[f[List][f[{{a}}]]]]
+    ...
+# RefLink[Map,paclet:ref/Map] can be used on expressions with any head:
+ok  f /@ (a + b + c + d)    ==>     f[a] + f[b] + f[c] + f[d]
+    ---
+    data:
+        got: f[a] + f[b] + f[c] + f[d]
+        expect: f[a] + f[b] + f[c] + f[d]
+        expect_evaluated: f[a] + f[b] + f[c] + f[d]
+    ...
+ok  Map[f, x^2 + y^2, 2]    ==>     f[f[x]^f[2]] + f[f[y]^f[2]]
+    ---
+    data:
+        got: f[f[x]^f[2]] + f[f[y]^f[2]]
+        expect: f[f[x]^f[2]] + f[f[y]^f[2]]
+        expect_evaluated: f[f[x]^f[2]] + f[f[y]^f[2]]
+    ...
+# The function can be mapped onto the heads as well:
+ok  Map[f, {a, b, c}, Heads -> True]    ==>     f[List][f[a], f[b], f[c]]
+    ---
+    data:
+        got: f[List][f[a], f[b], f[c]]
+        expect: f[List][f[a], f[b], f[c]]
+        expect_evaluated: f[List][f[a], f[b], f[c]]
+    ...
+# Functions with attribute RefLink[Listable,paclet:ref/Listable] are mapped automatically:
+ok  Sqrt[{1, 2, 3, 4}]    ==>     {1, Sqrt[2], Sqrt[3], 2}
+    ---
+    data:
+        got: {1, Sqrt[2], Sqrt[3], 2}
+        expect: {1, Sqrt[2], Sqrt[3], 2}
+        expect_evaluated: {1, Sqrt[2], Sqrt[3], 2}
+    ...
+ok  Sqrt /@ {1, 2, 3, 4}    ==>     {1, Sqrt[2], Sqrt[3], 2}
+    ---
+    data:
+        got: {1, Sqrt[2], Sqrt[3], 2}
+        expect: {1, Sqrt[2], Sqrt[3], 2}
+        expect_evaluated: {1, Sqrt[2], Sqrt[3], 2}
+    ...
+# RefLink[Map,paclet:ref/Map] can be used on sparse arrays:
+not ok  HoldComplete[SparseArray[{1 -> 1, 2 -> 2, 100 -> 100}]]    ==>     $Failed
+    ---
+    data:
+        got: SparseArray[Automatic, {100}, 0, {1, {{0, 3}, {{1}, {2}, {100}}}, {1, 2, 100}}]
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
+ok  HoldComplete[f /@ %]    ==>     $Failed # skip
+ok  %[[2]]    ==>     f[2] # skip
+# By default, the function is not mapped onto the heads:
+ok  f /@ {a, b, c}    ==>     {f[a], f[b], f[c]}
+    ---
+    data:
+        got: {f[a], f[b], f[c]}
+        expect: {f[a], f[b], f[c]}
+        expect_evaluated: {f[a], f[b], f[c]}
+    ...
+ok  Map[f, {a, b, c}, Heads -> True]    ==>     f[List][f[a], f[b], f[c]]
+    ---
+    data:
+        got: f[List][f[a], f[b], f[c]]
+        expect: f[List][f[a], f[b], f[c]]
+        expect_evaluated: f[List][f[a], f[b], f[c]]
+    ...
+# Reverse all sublists:
+ok  Reverse /@ {{a, b}, {c, d}, {e, f}}    ==>     {{b, a}, {d, c}, {f, e}}
+    ---
+    data:
+        got: {{b, a}, {d, c}, {f, e}}
+        expect: {{b, a}, {d, c}, {f, e}}
+        expect_evaluated: {{b, a}, {d, c}, {f, e}}
+    ...
+# Add the same vector to every vector in a list:
+ok  (#1 + {x, y} & ) /@ {{1, 1}, {2, 2}, {3, 3}, {4, 4}}    ==>     {{1 + x, 1 + y}, {2 + x, 2 + y}, {3 + x, 3 + y}, {4 + x, 4 + y}}
+    ---
+    data:
+        got: {{1 + x, 1 + y}, {2 + x, 2 + y}, {3 + x, 3 + y}, {4 + x, 4 + y}}
+        expect: {{1 + x, 1 + y}, {2 + x, 2 + y}, {3 + x, 3 + y}, {4 + x, 4 + y}}
+        expect_evaluated: {{1 + x, 1 + y}, {2 + x, 2 + y}, {3 + x, 3 + y}, {4 + x, 4 + y}}
+    ...
+# Frame integers that are prime:
+ok  (If[PrimeQ[#1], Framed[#1], #1] & ) /@ Range[20]    ==>     {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20} # skip
+# A function of several arguments can be mapped with RefLink[MapThread,paclet:ref/MapThread]:
+ok  MapThread[f, {{1, 2, 3}, {a, b, c}}]    ==>     {f[1, a], f[2, b], f[3, c]}
+    ---
+    data:
+        got: {f[1, a], f[2, b], f[3, c]}
+        expect: {f[1, a], f[2, b], f[3, c]}
+        expect_evaluated: {f[1, a], f[2, b], f[3, c]}
+    ...
+# RefLink[MapIndexed,paclet:ref/MapIndexed] passes the index of an element to the mapped function:
+ok  MapIndexed[f, {a, b, c}]    ==>     {f[a, {1}], f[b, {2}], f[c, {3}]}
+    ---
+    data:
+        got: {f[a, {1}], f[b, {2}], f[c, {3}]}
+        expect: {f[a, {1}], f[b, {2}], f[c, {3}]}
+        expect_evaluated: {f[a, {1}], f[b, {2}], f[c, {3}]}
+    ...
+# RefLink[MapAll,paclet:ref/MapAll] is equivalent to a specific level specification in RefLink[Map,paclet:ref/Map]:
+ok  Map[f, {{a, b}, {c}, {{d}}}, {0, Infinity}]    ==>     f[{f[{f[a], f[b]}], f[{f[c]}], f[{f[{f[d]}]}]}]
+    ---
+    data:
+        got: f[{f[{f[a], f[b]}], f[{f[c]}], f[{f[{f[d]}]}]}]
+        expect: f[{f[{f[a], f[b]}], f[{f[c]}], f[{f[{f[d]}]}]}]
+        expect_evaluated: f[{f[{f[a], f[b]}], f[{f[c]}], f[{f[{f[d]}]}]}]
+    ...
+ok  f //@ {{a, b}, {c}, {{d}}}    ==>     f[{f[{f[a], f[b]}], f[{f[c]}], f[{f[{f[d]}]}]}]
+    ---
+    data:
+        got: f[{f[{f[a], f[b]}], f[{f[c]}], f[{f[{f[d]}]}]}]
+        expect: f[{f[{f[a], f[b]}], f[{f[c]}], f[{f[{f[d]}]}]}]
+        expect_evaluated: f[{f[{f[a], f[b]}], f[{f[c]}], f[{f[{f[d]}]}]}]
+    ...
+# RefLink[Scan,paclet:ref/Scan] does the same as RefLink[Map,paclet:ref/Map], but without returning a result:
+ok  Print /@ {a, b}    ==>     {Null, Null}
+    ---
+    data:
+        got: {Null, Null}
+        expect: {Null, Null}
+        expect_evaluated: {Null, Null}
+    ...
+# RefLink[Map,paclet:ref/Map] by default starts at level 1, so does not apply the function to the whole expression:
+ok  Map[f, h1[h2[h3[x]]], -1]    ==>     h1[f[h2[f[h3[f[x]]]]]]
+    ---
+    data:
+        got: h1[f[h2[f[h3[f[x]]]]]]
+        expect: h1[f[h2[f[h3[f[x]]]]]]
+        expect_evaluated: h1[f[h2[f[h3[f[x]]]]]]
+    ...
+ok  Map[f, h1[h2[h3[x]]], {0, -1}]    ==>     f[h1[f[h2[f[h3[f[x]]]]]]]
+    ---
+    data:
+        got: f[h1[f[h2[f[h3[f[x]]]]]]]
+        expect: f[h1[f[h2[f[h3[f[x]]]]]]]
+        expect_evaluated: f[h1[f[h2[f[h3[f[x]]]]]]]
+    ...
+# Show nesting structure of an expression:
+ok  Integrate[1/(x^3 - 1), x]    ==>     -(ArcTan[(1 + 2*x)/Sqrt[3]]/Sqrt[3]) + (1/3)*Log[-1 + x] - (1/6)*Log[1 + x + x^2] # skip
+ok  Framed //@ %    ==>     -(ArcTan[1/3^(1/2) + 2*x]/3^(1/2)) + (1/3)*Log[-1 + x] + (-(1/6))*Log[1 + x + x^2] # skip
