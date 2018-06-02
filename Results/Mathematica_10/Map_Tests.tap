@@ -136,12 +136,12 @@ not ok  f //@ {{{{{a}}}}}    ==>     {f[{f[{f[{f[{f[a]}]}]}]}]}
         expect_evaluated: {f[{f[{f[{f[{f[a]}]}]}]}]}
     ...
 # Map also at level 0:
-ok  Map[f, {{{{{a}}}}}, {0, Infinity}]    ==>     f[{f[{f[{f[{f[{f[a]}]}]}]}]}]
+not ok  HoldComplete[Map[f, {{{{{a}}}}}, {0, Infinity}]]    ==>     $Failed
     ---
     data:
         got: f[{f[{f[{f[{f[{f[a]}]}]}]}]}]
-        expect: f[{f[{f[{f[{f[{f[a]}]}]}]}]}]
-        expect_evaluated: f[{f[{f[{f[{f[{f[a]}]}]}]}]}]
+        expect: $Failed
+        expect_evaluated: $Failed
     ...
 # Negative levels:
 ok  Map[f, {{{{{a}}}}}, -1]    ==>     {f[{f[{f[{f[{f[a]}]}]}]}]}
@@ -228,13 +228,7 @@ ok  Sqrt /@ {1, 2, 3, 4}    ==>     {1, Sqrt[2], Sqrt[3], 2}
         expect_evaluated: {1, Sqrt[2], Sqrt[3], 2}
     ...
 # RefLink[Map,paclet:ref/Map] can be used on sparse arrays:
-not ok  HoldComplete[SparseArray[{1 -> 1, 2 -> 2, 100 -> 100}]]    ==>     $Failed
-    ---
-    data:
-        got: SparseArray[Automatic, {100}, 0, {1, {{0, 3}, {{1}, {2}, {100}}}, {1, 2, 100}}]
-        expect: $Failed
-        expect_evaluated: $Failed
-    ...
+ok  HoldComplete[SparseArray[{1 -> 1, 2 -> 2, 100 -> 100}]]    ==>     $Failed # skip
 ok  HoldComplete[f /@ %]    ==>     $Failed # skip
 ok  %[[2]]    ==>     f[2] # skip
 # By default, the function is not mapped onto the heads:

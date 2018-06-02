@@ -1,0 +1,203 @@
+# SYSTEM: Mathematica_10
+# TEST: Sort_Tests
+# OUTPUT: output/Results/Mathematica_10/Sort_Tests.json
+# Sort a list:
+ok  Sort[{d, b, c, a}]    ==>     {a, b, c, d}
+    ---
+    data:
+        got: {a, b, c, d}
+        expect: {a, b, c, d}
+        expect_evaluated: {a, b, c, d}
+    ...
+# Sort using RefLink[Greater,paclet:ref/Greater] as the ordering function:
+ok  Sort[{4, 1, 3, 2, 2}, Greater]    ==>     {4, 3, 2, 2, 1}
+    ---
+    data:
+        got: {4, 3, 2, 2, 1}
+        expect: {4, 3, 2, 2, 1}
+        expect_evaluated: {4, 3, 2, 2, 1}
+    ...
+ok  Sort[{4, 1, 3, 2, 2}, #1 > #2 & ]    ==>     {4, 3, 2, 2, 1}
+    ---
+    data:
+        got: {4, 3, 2, 2, 1}
+        expect: {4, 3, 2, 2, 1}
+        expect_evaluated: {4, 3, 2, 2, 1}
+    ...
+# Sort by comparing the second part of each element:
+ok  Sort[{{a, 2}, {c, 1}, {d, 3}}, #1[[2]] < #2[[2]] & ]    ==>     {{c, 1}, {a, 2}, {d, 3}}
+    ---
+    data:
+        got: {{c, 1}, {a, 2}, {d, 3}}
+        expect: {{c, 1}, {a, 2}, {d, 3}}
+        expect_evaluated: {{c, 1}, {a, 2}, {d, 3}}
+    ...
+# Sort elements in an RefLink[Association,paclet:ref/Association] according to their values:
+ok  HoldComplete[Sort[<| a -> 4, b -> 1, c -> 3, d -> 2, e -> 2 |>]]    ==>     $Failed # skip
+# Sort RefLink[Association,paclet:ref/Association] in reverse order:
+ok  HoldComplete[Sort[<| a -> 4, b -> 1, c -> 3, d -> 2, e -> 2 |>, Greater]]    ==>     $Failed # skip
+# Sort any expressions:
+ok  Sort[{y, x^2, x + y, y^3}]    ==>     {x^2, y, y^3, x + y}
+    ---
+    data:
+        got: {x^2, y, y^3, x + y}
+        expect: {x^2, y, y^3, x + y}
+        expect_evaluated: {x^2, y, y^3, x + y}
+    ...
+# Sort strings into dictionary order:
+ok  Sort[{"cat", "fish", "catfish", "Cat"}]    ==>     {cat, Cat, catfish, fish} # skip
+# Sort by structure:
+ok  Sort[{Pi, E, 2, 3, 1, Sqrt[2]}]    ==>     {1, 2, 3, Sqrt[2], E, Pi}
+    ---
+    data:
+        got: {1, 2, 3, Sqrt[2], E, Pi}
+        expect: {1, 2, 3, Sqrt[2], E, Pi}
+        expect_evaluated: {1, 2, 3, Sqrt[2], E, Pi}
+    ...
+# Sort by numerical value:
+ok  Sort[{Pi, E, 2, 3, 1, Sqrt[2]}, Less]    ==>     {1, Sqrt[2], 2, E, 3, Pi}
+    ---
+    data:
+        got: {1, Sqrt[2], 2, E, 3, Pi}
+        expect: {1, Sqrt[2], 2, E, 3, Pi}
+        expect_evaluated: {1, Sqrt[2], 2, E, 3, Pi}
+    ...
+# Sort expressions with any head:
+ok  Sort[f[4, 2, 1, 3]]    ==>     f[1, 2, 3, 4]
+    ---
+    data:
+        got: f[1, 2, 3, 4]
+        expect: f[1, 2, 3, 4]
+        expect_evaluated: f[1, 2, 3, 4]
+    ...
+ok  Sort[b . c . d . a]    ==>     a . b . c . d
+    ---
+    data:
+        got: a . b . c . d
+        expect: a . b . c . d
+        expect_evaluated: a . b . c . d
+    ...
+# Sort integers by magnitude:
+ok  Sort[{-11, 10, 2, 1, -4}]    ==>     {-11, -4, 1, 2, 10}
+    ---
+    data:
+        got: {-11, -4, 1, 2, 10}
+        expect: {-11, -4, 1, 2, 10}
+        expect_evaluated: {-11, -4, 1, 2, 10}
+    ...
+# Sort by absolute value:
+ok  Sort[{-11, 10, 2, 1, -4}, Abs[#1] < Abs[#2] & ]    ==>     {1, 2, -4, 10, -11}
+    ---
+    data:
+        got: {1, 2, -4, 10, -11}
+        expect: {1, 2, -4, 10, -11}
+        expect_evaluated: {1, 2, -4, 10, -11}
+    ...
+# Sort by structure:
+ok  Sort[Join[Log[Range[10]], Sqrt[Range[10]]]]    ==>     {0, 1, 2, 3, Sqrt[2], 2*Sqrt[2], Sqrt[3], Sqrt[5], Sqrt[6], Sqrt[7], Sqrt[10], Log[2], Log[3], Log[4], Log[5], Log[6], Log[7], Log[8], Log[9], Log[10]}
+    ---
+    data:
+        got: {0, 1, 2, 3, Sqrt[2], 2*Sqrt[2], Sqrt[3], Sqrt[5], Sqrt[6], Sqrt[7], Sqrt[10], Log[2], Log[3], Log[4], Log[5], Log[6], Log[7], Log[8], Log[9], Log[10]}
+        expect: {0, 1, 2, 3, Sqrt[2], 2*Sqrt[2], Sqrt[3], Sqrt[5], Sqrt[6], Sqrt[7], Sqrt[10], Log[2], Log[3], Log[4], Log[5], Log[6], Log[7], Log[8], Log[9], Log[10]}
+        expect_evaluated: {0, 1, 2, 3, Sqrt[2], 2*Sqrt[2], Sqrt[3], Sqrt[5], Sqrt[6], Sqrt[7], Sqrt[10], Log[2], Log[3], Log[4], Log[5], Log[6], Log[7], Log[8], Log[9], Log[10]}
+    ...
+# Sort by numerical value:
+ok  Sort[Join[Log[Range[10]], Sqrt[Range[10]]], Less]    ==>     {0, Log[2], 1, Log[3], Log[4], Sqrt[2], Log[5], Sqrt[3], Log[6], Log[7], 2, Log[8], Log[9], Sqrt[5], Log[10], Sqrt[6], Sqrt[7], 2*Sqrt[2], 3, Sqrt[10]}
+    ---
+    data:
+        got: {0, Log[2], 1, Log[3], Log[4], Sqrt[2], Log[5], Sqrt[3], Log[6], Log[7], 2, Log[8], Log[9], Sqrt[5], Log[10], Sqrt[6], Sqrt[7], 2*Sqrt[2], 3, Sqrt[10]}
+        expect: {0, Log[2], 1, Log[3], Log[4], Sqrt[2], Log[5], Sqrt[3], Log[6], Log[7], 2, Log[8], Log[9], Sqrt[5], Log[10], Sqrt[6], Sqrt[7], 2*Sqrt[2], 3, Sqrt[10]}
+        expect_evaluated: {0, Log[2], 1, Log[3], Log[4], Sqrt[2], Log[5], Sqrt[3], Log[6], Log[7], 2, Log[8], Log[9], Sqrt[5], Log[10], Sqrt[6], Sqrt[7], 2*Sqrt[2], 3, Sqrt[10]}
+    ...
+# Sort strings by dictionary order:
+ok  Sort[{"aa", "abb", "ba", "b", "aaa"}]    ==>     {aa, aaa, abb, b, ba} # skip
+# Sort strings by length:
+ok  Sort[{"aa", "abb", "ba", "b", "aaa"}, StringLength[#1] < StringLength[#2] & ]    ==>     {b, ba, aa, aaa, abb} # skip
+# Sort by norm:
+ok  RandomInteger[{-5, 5}, {10, 3}]    ==>     {{3, 1, 4}, {5, -3, -3}, {-4, 4, 3}, {5, 2, -3}, {3, 3, -1}, {2, -4, 4}, {0, 3, 5}, {-5, 5, -4}, {1, 0, 0}, {-2, -1, -3}} # skip
+ok  Sort[%, Norm[#1] < Norm[#2] & ]    ==>     {{1, 0, 0}, {-2, -1, -3}, {3, 3, -1}, {3, 1, 4}, {0, 3, 5}, {2, -4, 4}, {5, 2, -3}, {-4, 4, 3}, {5, -3, -3}, {-5, 5, -4}} # skip
+# Sort by real part:
+ok  Sort[{I, 1 + I, 1 - I, 2 + 3*I}, Re[#1] < Re[#2] & ]    ==>     {I, 1 - I, 1 + I, 2 + 3*I}
+    ---
+    data:
+        got: {I, 1 - I, 1 + I, 2 + 3*I}
+        expect: {I, 1 - I, 1 + I, 2 + 3*I}
+        expect_evaluated: {I, 1 - I, 1 + I, 2 + 3*I}
+    ...
+# Shorter expressions are sorted before longer ones:
+ok  Sort[{a + b + c, a + b, a + c}]    ==>     {a + b, a + c, a + b + c}
+    ---
+    data:
+        got: {a + b, a + c, a + b + c}
+        expect: {a + b, a + c, a + b + c}
+        expect_evaluated: {a + b, a + c, a + b + c}
+    ...
+# Explicit numbers are sorted in numerical order:
+ok  Sort[{5.6, 5, 2.3, -1, 4/3, 1}]    ==>     {-1, 1, 4/3, 2.3, 5, 5.6}
+    ---
+    data:
+        got: {-1, 1, 4/3, 2.3, 5, 5.6}
+        expect: {-1, 1, 4/3, 2.3, 5, 5.6}
+        expect_evaluated: {-1, 1, 4/3, 2.3, 5, 5.6}
+    ...
+# Sort in reverse order:
+ok  Sort[{a + b + c, a + b, a + c}, OrderedQ[{#2, #1}] & ]    ==>     {a + b + c, a + c, a + b}
+    ---
+    data:
+        got: {a + b + c, a + c, a + b}
+        expect: {a + b + c, a + c, a + b}
+        expect_evaluated: {a + b + c, a + c, a + b}
+    ...
+# Orderless functions sort in the same order as RefLink[Sort,paclet:ref/Sort]:
+ok  (a + b + c)*(a + b)*(a + c)    ==>     (a + b)*(a + c)*(a + b + c)
+    ---
+    data:
+        got: (a + b)*(a + c)*(a + b + c)
+        expect: (a + b)*(a + c)*(a + b + c)
+        expect_evaluated: (a + b)*(a + c)*(a + b + c)
+    ...
+# Print each comparison done:
+ok  Sort[{4, 1, 3, 2}, (Print[{#1, #2}]; #1 > #2) & ]    ==>     {4, 3, 2, 1}
+    ---
+    data:
+        got: {4, 3, 2, 1}
+        expect: {4, 3, 2, 1}
+        expect_evaluated: {4, 3, 2, 1}
+    ...
+# Collect a list of the comparisons done:
+ok  Reap[Sort[{4, 1, 3, 2}, (Sow[{#1, #2}]; #1 > #2) & ]]    ==>     {{4, 3, 2, 1}, {{{4, 1}, {1, 3}, {4, 1}, {3, 2}, {4, 3}, {1, 3}, {1, 2}}}} # skip
+ok  Sort[list]    ==>     {0, 0, 1, 3, 3, 6, 6, 7, 8, 10} # skip
+ok  list[[Ordering[list]]]    ==>     {0, 0, 1, 3, 3, 6, 6, 7, 8, 10} # skip
+# Numeric expressions are sorted by structure as well as numerical value:
+ok  Sort[{Infinity, Sqrt[2], 1, 2, -Infinity, 1/Sqrt[2]}]    ==>     {1, 2, 1/Sqrt[2], Sqrt[2], -Infinity, Infinity}
+    ---
+    data:
+        got: {1, 2, 1/Sqrt[2], Sqrt[2], -Infinity, Infinity}
+        expect: {1, 2, 1/Sqrt[2], Sqrt[2], -Infinity, Infinity}
+        expect_evaluated: {1, 2, 1/Sqrt[2], Sqrt[2], -Infinity, Infinity}
+    ...
+# Sort by numerical value only:
+ok  Sort[{Infinity, Sqrt[2], 1, 2, -Infinity, 1/Sqrt[2]}, Less]    ==>     {-Infinity, 1/Sqrt[2], 1, Sqrt[2], 2, Infinity}
+    ---
+    data:
+        got: {-Infinity, 1/Sqrt[2], 1, Sqrt[2], 2, Infinity}
+        expect: {-Infinity, 1/Sqrt[2], 1, Sqrt[2], 2, Infinity}
+        expect_evaluated: {-Infinity, 1/Sqrt[2], 1, Sqrt[2], 2, Infinity}
+    ...
+# Elements whose order is not determined by the ordering function may not be kept in order:
+ok  Sort[{4, 1, 3, 7, 9}, #1 > 3 & ]    ==>     {4, 7, 9, 3, 1}
+    ---
+    data:
+        got: {4, 7, 9, 3, 1}
+        expect: {4, 7, 9, 3, 1}
+        expect_evaluated: {4, 7, 9, 3, 1}
+    ...
+ok  Sort[{4, 3, 1, 7, 9}, #1 > 3 & ]    ==>     {4, 7, 9, 1, 3}
+    ---
+    data:
+        got: {4, 7, 9, 1, 3}
+        expect: {4, 7, 9, 1, 3}
+        expect_evaluated: {4, 7, 9, 1, 3}
+    ...
+# Show comparisons made in doing a sort:
+ok  HoldComplete[ListPlot[Reap[Sort[Table[Round[10*Sin[t]], {t, 0, 50}], (Sow[#1]; #1 > #2) & ]][[2,1]]]]    ==>     $Failed # skip

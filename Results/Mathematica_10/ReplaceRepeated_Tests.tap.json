@@ -1,0 +1,111 @@
+{
+    "stats": {
+        "suites": 0,
+        "tests": 3,
+        "passes": 3,
+        "pending": 0,
+        "failures": 0,
+        "start": "2018-06-02T18:11:01.065Z",
+        "end": "2018-06-02T18:11:01.065Z",
+        "duration": 0,
+        "testsRegistered": 3,
+        "passPercent": 100,
+        "pendingPercent": 0,
+        "other": 0,
+        "hasOther": false,
+        "skipped": 0,
+        "hasSkipped": false,
+        "passPercentClass": "danger",
+        "pendingPercentClass": "danger"
+    },
+    "suites": {
+        "title": "",
+        "suites": [],
+        "tests": [
+            {
+                "title": "Log[Sqrt[a*(b*c^d)^e]] //. rules    ➡️     (1/2)*(Log[a] + e*(Log[b] + d*Log[c]))",
+                "fullTitle": "Log[Sqrt[a*(b*c^d)^e]] //. rules    ➡️     (1/2)*(Log[a] + e*(Log[b] + d*Log[c]))",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "5c37ebe4-7e2f-401c-848b-6a91a5628149",
+                "parentUUID": "efb11322-f4ca-42a3-aee9-ab8edfaa94c8",
+                "skipped": true,
+                "isHook": false,
+                "context": "\"# SYSTEM: Mathematica_10\\n# TEST: ReplaceRepeated_Tests\\n# OUTPUT: output/Results/Mathematica_10/ReplaceRepeated_Tests.json\\n\"",
+                "state": "passed",
+                "err": {}
+            },
+            {
+                "title": "Log[Sqrt[a*(b*c^d)^e]] /. rules    ➡️     (1/2)*Log[a*(b*c^d)^e]",
+                "fullTitle": "Log[Sqrt[a*(b*c^d)^e]] /. rules    ➡️     (1/2)*Log[a*(b*c^d)^e]",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "821784f4-dee9-4477-8683-4f2f8de475c6",
+                "parentUUID": "efb11322-f4ca-42a3-aee9-ab8edfaa94c8",
+                "skipped": true,
+                "isHook": false,
+                "context": "\"# RefLink[ReplaceAll,paclet:ref/ReplaceAll] does just a single replacement:\\n\"",
+                "state": "passed",
+                "err": {}
+            },
+            {
+                "title": "f[a][b][c][d] //. (g_)[x_][y__] -> g[x, y]    ➡️     f[a, b, c, d]",
+                "fullTitle": "f[a][b][c][d] //. (g_)[x_][y__] -> g[x, y]    ➡️     f[a, b, c, d]",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "6d1ac463-0032-4708-8d49-f492bc0ffe24",
+                "parentUUID": "efb11322-f4ca-42a3-aee9-ab8edfaa94c8",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# Undo \\\"currying\\\" of function arguments:\\n\\n\\ndata: \\n  got:              f[a, b, c, d]\\n  expect:           f[a, b, c, d]\\n  expect_evaluated: f[a, b, c, d]\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": "f[a, b, c, d]",
+                    "expected": "f[a, b, c, d]"
+                }
+            }
+        ],
+        "root": true,
+        "fullFile": "",
+        "file": "",
+        "pending": [],
+        "passes": [
+            "5c37ebe4-7e2f-401c-848b-6a91a5628149",
+            "821784f4-dee9-4477-8683-4f2f8de475c6",
+            "6d1ac463-0032-4708-8d49-f492bc0ffe24"
+        ],
+        "failures": [],
+        "skipped": [
+            "5c37ebe4-7e2f-401c-848b-6a91a5628149",
+            "821784f4-dee9-4477-8683-4f2f8de475c6"
+        ],
+        "duration": 0,
+        "rootEmpty": false,
+        "_timeout": 0,
+        "uuid": "efb11322-f4ca-42a3-aee9-ab8edfaa94c8",
+        "beforeHooks": [],
+        "afterHooks": []
+    },
+    "copyrightYear": 2018
+}

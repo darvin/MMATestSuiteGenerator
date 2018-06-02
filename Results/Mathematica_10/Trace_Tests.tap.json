@@ -1,0 +1,85 @@
+{
+    "stats": {
+        "suites": 0,
+        "tests": 2,
+        "passes": 2,
+        "pending": 0,
+        "failures": 0,
+        "start": "2018-06-02T18:11:10.468Z",
+        "end": "2018-06-02T18:11:10.468Z",
+        "duration": 0,
+        "testsRegistered": 2,
+        "passPercent": 100,
+        "pendingPercent": 0,
+        "other": 0,
+        "hasOther": false,
+        "skipped": 0,
+        "hasSkipped": false,
+        "passPercentClass": "danger",
+        "pendingPercentClass": "danger"
+    },
+    "suites": {
+        "title": "",
+        "suites": [],
+        "tests": [
+            {
+                "title": "Trace[u = 2; Do[u = u*u, {3}]; u]    ➡️     {u = 2; Do[u = u*u, {3}]; u, {u = 2, 2}, {Do[u = u*u, {3}], {{{u, 2}, {u, 2}, 2*2, 4}, u = 4, 4}, {{{u, 4}, {u, 4}, 4*4, 16}, u = 16, 16}, {{{u, 16}, {u, 16}, 16*16, 256}, u = 256, 256}, Null}, {u, 256}, 256}",
+                "fullTitle": "Trace[u = 2; Do[u = u*u, {3}]; u]    ➡️     {u = 2; Do[u = u*u, {3}]; u, {u = 2, 2}, {Do[u = u*u, {3}], {{{u, 2}, {u, 2}, 2*2, 4}, u = 4, 4}, {{{u, 4}, {u, 4}, 4*4, 16}, u = 16, 16}, {{{u, 16}, {u, 16}, 16*16, 256}, u = 256, 256}, Null}, {u, 256}, 256}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "a31722fe-22ca-4c80-8fba-bcf814de3716",
+                "parentUUID": "f9d76a95-3afd-4a09-bd13-07e458af895f",
+                "skipped": true,
+                "isHook": false,
+                "context": "\"# SYSTEM: Mathematica_10\\n# TEST: Trace_Tests\\n# OUTPUT: output/Results/Mathematica_10/Trace_Tests.json\\n# Trace each step in an evaluation:\\n\"",
+                "state": "passed",
+                "err": {}
+            },
+            {
+                "title": "Trace[u = 2; Do[u = u*u, {3}]; u, Times]    ➡️     {{{{2*2, 4}}, {{4*4, 16}}, {{16*16, 256}}}}",
+                "fullTitle": "Trace[u = 2; Do[u = u*u, {3}]; u, Times]    ➡️     {{{{2*2, 4}}, {{4*4, 16}}, {{16*16, 256}}}}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "0f4af444-f586-4791-b7b8-6742054a87fb",
+                "parentUUID": "f9d76a95-3afd-4a09-bd13-07e458af895f",
+                "skipped": true,
+                "isHook": false,
+                "context": "\"# Trace only the computations with head RefLink[Times,paclet:ref/Times]:\\n\"",
+                "state": "passed",
+                "err": {}
+            }
+        ],
+        "root": true,
+        "fullFile": "",
+        "file": "",
+        "pending": [],
+        "passes": [
+            "a31722fe-22ca-4c80-8fba-bcf814de3716",
+            "0f4af444-f586-4791-b7b8-6742054a87fb"
+        ],
+        "failures": [],
+        "skipped": [
+            "a31722fe-22ca-4c80-8fba-bcf814de3716",
+            "0f4af444-f586-4791-b7b8-6742054a87fb"
+        ],
+        "duration": 0,
+        "rootEmpty": false,
+        "_timeout": 0,
+        "uuid": "f9d76a95-3afd-4a09-bd13-07e458af895f",
+        "beforeHooks": [],
+        "afterHooks": []
+    },
+    "copyrightYear": 2018
+}

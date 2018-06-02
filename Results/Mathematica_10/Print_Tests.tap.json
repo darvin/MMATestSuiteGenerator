@@ -1,0 +1,64 @@
+{
+    "stats": {
+        "suites": 0,
+        "tests": 1,
+        "passes": 1,
+        "pending": 0,
+        "failures": 0,
+        "start": "2018-06-02T18:10:58.398Z",
+        "end": "2018-06-02T18:10:58.398Z",
+        "duration": 0,
+        "testsRegistered": 1,
+        "passPercent": 100,
+        "pendingPercent": 0,
+        "other": 0,
+        "hasOther": false,
+        "skipped": 0,
+        "hasSkipped": false,
+        "passPercentClass": "danger",
+        "pendingPercentClass": "danger"
+    },
+    "suites": {
+        "title": "",
+        "suites": [],
+        "tests": [
+            {
+                "title": "InputForm[Print[x]]    ➡️     Null",
+                "fullTitle": "InputForm[Print[x]]    ➡️     Null",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "9dd0236b-cdea-46e8-8e0b-8b520383d0f8",
+                "parentUUID": "6ef5c278-8647-4a9d-b2c3-5ec0083fad9c",
+                "skipped": true,
+                "isHook": false,
+                "context": "\"# SYSTEM: Mathematica_10\\n# TEST: Print_Tests\\n# OUTPUT: output/Results/Mathematica_10/Print_Tests.json\\n# The actual expression returned by RefLink[Print,paclet:ref/Print] is RefLink[Null,paclet:ref/Null]:\\n\"",
+                "state": "passed",
+                "err": {}
+            }
+        ],
+        "root": true,
+        "fullFile": "",
+        "file": "",
+        "pending": [],
+        "passes": [
+            "9dd0236b-cdea-46e8-8e0b-8b520383d0f8"
+        ],
+        "failures": [],
+        "skipped": [
+            "9dd0236b-cdea-46e8-8e0b-8b520383d0f8"
+        ],
+        "duration": 0,
+        "rootEmpty": false,
+        "_timeout": 0,
+        "uuid": "6ef5c278-8647-4a9d-b2c3-5ec0083fad9c",
+        "beforeHooks": [],
+        "afterHooks": []
+    },
+    "copyrightYear": 2018
+}

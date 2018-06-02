@@ -1,0 +1,82 @@
+{
+    "stats": {
+        "suites": 0,
+        "tests": 2,
+        "passes": 2,
+        "pending": 0,
+        "failures": 0,
+        "start": "2018-06-02T18:10:52.923Z",
+        "end": "2018-06-02T18:10:52.923Z",
+        "duration": 0,
+        "testsRegistered": 2,
+        "passPercent": 100,
+        "pendingPercent": 0,
+        "other": 0,
+        "hasOther": false,
+        "skipped": 0,
+        "hasSkipped": false,
+        "passPercentClass": "danger",
+        "pendingPercentClass": "danger"
+    },
+    "suites": {
+        "title": "",
+        "suites": [],
+        "tests": [
+            {
+                "title": "Cases[{{1, 2, 3}, a, {4, 5}}, t:{__Integer} :> t^2]    ➡️     {{1, 4, 9}, {16, 25}}",
+                "fullTitle": "Cases[{{1, 2, 3}, a, {4, 5}}, t:{__Integer} :> t^2]    ➡️     {{1, 4, 9}, {16, 25}}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "a6f4945d-b811-452b-940e-e20a6972f448",
+                "parentUUID": "ebab888e-6bb7-4de5-90f5-02349349cef0",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# SYSTEM: Mathematica_10\\n# TEST: Pattern_Tests\\n# OUTPUT: output/Results/Mathematica_10/Pattern_Tests.json\\n# Give a name to lists of integers: \\n\"",
+                "state": "passed",
+                "err": {}
+            },
+            {
+                "title": "Cases[{{1, 2, 3}, a, {4, 5}}, t:{__Integer} :> t^2]    ➡️     {{1, 4, 9}, {16, 25}}",
+                "fullTitle": "Cases[{{1, 2, 3}, a, {4, 5}}, t:{__Integer} :> t^2]    ➡️     {{1, 4, 9}, {16, 25}}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "547ea6a4-e2ca-49b3-8a04-b3302332c180",
+                "parentUUID": "ebab888e-6bb7-4de5-90f5-02349349cef0",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"\"",
+                "state": "passed",
+                "err": {}
+            }
+        ],
+        "root": true,
+        "fullFile": "",
+        "file": "",
+        "pending": [],
+        "passes": [
+            "a6f4945d-b811-452b-940e-e20a6972f448",
+            "547ea6a4-e2ca-49b3-8a04-b3302332c180"
+        ],
+        "failures": [],
+        "skipped": [],
+        "duration": 0,
+        "rootEmpty": false,
+        "_timeout": 0,
+        "uuid": "ebab888e-6bb7-4de5-90f5-02349349cef0",
+        "beforeHooks": [],
+        "afterHooks": []
+    },
+    "copyrightYear": 2018
+}

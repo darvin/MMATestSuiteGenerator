@@ -1,0 +1,121 @@
+{
+    "stats": {
+        "suites": 0,
+        "tests": 3,
+        "passes": 3,
+        "pending": 0,
+        "failures": 0,
+        "start": "2018-06-02T18:10:59.555Z",
+        "end": "2018-06-02T18:10:59.555Z",
+        "duration": 0,
+        "testsRegistered": 3,
+        "passPercent": 100,
+        "pendingPercent": 0,
+        "other": 0,
+        "hasOther": false,
+        "skipped": 0,
+        "hasSkipped": false,
+        "passPercentClass": "danger",
+        "pendingPercentClass": "danger"
+    },
+    "suites": {
+        "title": "",
+        "suites": [],
+        "tests": [
+            {
+                "title": "ReadList[StringToStream[\"123\\n45\\nx\\ny\"]]    ➡️     {123, 45, x, y}",
+                "fullTitle": "ReadList[StringToStream[\"123\\n45\\nx\\ny\"]]    ➡️     {123, 45, x, y}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "b164c480-65f5-436d-a2ce-0c125cefb73d",
+                "parentUUID": "2ea977d0-44a8-4985-a116-bca32d9af45c",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# SYSTEM: Mathematica_10\\n# TEST: ReadList_Tests\\n# OUTPUT: output/Results/Mathematica_10/ReadList_Tests.json\\n# Read in each line as a separate expression:\\n\\n\\ndata: \\n  got: \\n    45:  null\\n    123: null\\n    x:   null\\n    y:   null\\n  expect: \\n    45:  null\\n    123: null\\n    x:   null\\n    y:   null\\n  expect_evaluated: \\n    45:  null\\n    123: null\\n    x:   null\\n    y:   null\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": {
+                        "45": null,
+                        "123": null,
+                        "x": null,
+                        "y": null
+                    },
+                    "expected": {
+                        "45": null,
+                        "123": null,
+                        "x": null,
+                        "y": null
+                    }
+                }
+            },
+            {
+                "title": "ReadList[StringToStream[\"123\\n45\\nx\\ny\"], String]    ➡️     {123, 45, x, y}",
+                "fullTitle": "ReadList[StringToStream[\"123\\n45\\nx\\ny\"], String]    ➡️     {123, 45, x, y}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "bacfb0a1-9ded-4286-90f1-94313e0ec288",
+                "parentUUID": "2ea977d0-44a8-4985-a116-bca32d9af45c",
+                "skipped": true,
+                "isHook": false,
+                "context": "\"# Read each line as a string:\\n\"",
+                "state": "passed",
+                "err": {}
+            },
+            {
+                "title": "InputForm[%]    ➡️     {\"123\", \"45\", \"x\", \"y\"}",
+                "fullTitle": "InputForm[%]    ➡️     {\"123\", \"45\", \"x\", \"y\"}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "8a2c56a2-4d61-4f99-a39b-6629271809d7",
+                "parentUUID": "2ea977d0-44a8-4985-a116-bca32d9af45c",
+                "skipped": true,
+                "isHook": false,
+                "context": "\"\"",
+                "state": "passed",
+                "err": {}
+            }
+        ],
+        "root": true,
+        "fullFile": "",
+        "file": "",
+        "pending": [],
+        "passes": [
+            "b164c480-65f5-436d-a2ce-0c125cefb73d",
+            "bacfb0a1-9ded-4286-90f1-94313e0ec288",
+            "8a2c56a2-4d61-4f99-a39b-6629271809d7"
+        ],
+        "failures": [],
+        "skipped": [
+            "bacfb0a1-9ded-4286-90f1-94313e0ec288",
+            "8a2c56a2-4d61-4f99-a39b-6629271809d7"
+        ],
+        "duration": 0,
+        "rootEmpty": false,
+        "_timeout": 0,
+        "uuid": "2ea977d0-44a8-4985-a116-bca32d9af45c",
+        "beforeHooks": [],
+        "afterHooks": []
+    },
+    "copyrightYear": 2018
+}

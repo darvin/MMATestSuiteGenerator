@@ -1,0 +1,324 @@
+{
+    "stats": {
+        "suites": 0,
+        "tests": 9,
+        "passes": 9,
+        "pending": 0,
+        "failures": 0,
+        "start": "2018-06-02T18:11:13.522Z",
+        "end": "2018-06-02T18:11:13.522Z",
+        "duration": 0,
+        "testsRegistered": 9,
+        "passPercent": 100,
+        "pendingPercent": 0,
+        "other": 0,
+        "hasOther": false,
+        "skipped": 0,
+        "hasSkipped": false,
+        "passPercentClass": "danger",
+        "pendingPercentClass": "danger"
+    },
+    "suites": {
+        "title": "",
+        "suites": [],
+        "tests": [
+            {
+                "title": "Variables[(x + y)^2 + 3*z^2 - y*z + 7]    ➡️     {x, y, z}",
+                "fullTitle": "Variables[(x + y)^2 + 3*z^2 - y*z + 7]    ➡️     {x, y, z}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "c29c49b5-afd4-4442-935d-d7aba726b122",
+                "parentUUID": "f583f551-ac0e-4b23-9499-1ce0827dc7fd",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# SYSTEM: Mathematica_10\\n# TEST: Variables_Tests\\n# OUTPUT: output/Results/Mathematica_10/Variables_Tests.json\\n# Find a list of variables of a polynomial:\\n\\n\\ndata: \\n  got: \\n    x: null\\n    y: null\\n    z: null\\n  expect: \\n    x: null\\n    y: null\\n    z: null\\n  expect_evaluated: \\n    x: null\\n    y: null\\n    z: null\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": {
+                        "x": null,
+                        "y": null,
+                        "z": null
+                    },
+                    "expected": {
+                        "x": null,
+                        "y": null,
+                        "z": null
+                    }
+                }
+            },
+            {
+                "title": "Variables[x^4 + y^4 + z^4 - 3*x*y*z]    ➡️     {x, y, z}",
+                "fullTitle": "Variables[x^4 + y^4 + z^4 - 3*x*y*z]    ➡️     {x, y, z}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "e242d0b5-3a7b-47a5-820b-88f01d3279cb",
+                "parentUUID": "f583f551-ac0e-4b23-9499-1ce0827dc7fd",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# A polynomial:\\n\\n\\ndata: \\n  got: \\n    x: null\\n    y: null\\n    z: null\\n  expect: \\n    x: null\\n    y: null\\n    z: null\\n  expect_evaluated: \\n    x: null\\n    y: null\\n    z: null\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": {
+                        "x": null,
+                        "y": null,
+                        "z": null
+                    },
+                    "expected": {
+                        "x": null,
+                        "y": null,
+                        "z": null
+                    }
+                }
+            },
+            {
+                "title": "Variables[{x^2 - a*y, y^2 - b*z, z^2 - c*x}]    ➡️     {a, b, c, x, y, z}",
+                "fullTitle": "Variables[{x^2 - a*y, y^2 - b*z, z^2 - c*x}]    ➡️     {a, b, c, x, y, z}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "36f10b08-f7e2-468b-9c02-67042a2abd95",
+                "parentUUID": "f583f551-ac0e-4b23-9499-1ce0827dc7fd",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# A list of polynomials:\\n\\n\\ndata: \\n  got: \\n    a: null\\n    b: null\\n    c: null\\n    x: null\\n    y: null\\n    z: null\\n  expect: \\n    a: null\\n    b: null\\n    c: null\\n    x: null\\n    y: null\\n    z: null\\n  expect_evaluated: \\n    a: null\\n    b: null\\n    c: null\\n    x: null\\n    y: null\\n    z: null\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": {
+                        "a": null,
+                        "b": null,
+                        "c": null,
+                        "x": null,
+                        "y": null,
+                        "z": null
+                    },
+                    "expected": {
+                        "a": null,
+                        "b": null,
+                        "c": null,
+                        "x": null,
+                        "y": null,
+                        "z": null
+                    }
+                }
+            },
+            {
+                "title": "Variables[(a - b)/(x + y) - 2/z]    ➡️     {a, b, x, y, z}",
+                "fullTitle": "Variables[(a - b)/(x + y) - 2/z]    ➡️     {a, b, x, y, z}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "f0c3c120-f257-48ed-975d-72bd18cf4f77",
+                "parentUUID": "f583f551-ac0e-4b23-9499-1ce0827dc7fd",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# A rational function:\\n\\n\\ndata: \\n  got: \\n    a: null\\n    b: null\\n    x: null\\n    y: null\\n    z: null\\n  expect: \\n    a: null\\n    b: null\\n    x: null\\n    y: null\\n    z: null\\n  expect_evaluated: \\n    a: null\\n    b: null\\n    x: null\\n    y: null\\n    z: null\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": {
+                        "a": null,
+                        "b": null,
+                        "x": null,
+                        "y": null,
+                        "z": null
+                    },
+                    "expected": {
+                        "a": null,
+                        "b": null,
+                        "x": null,
+                        "y": null,
+                        "z": null
+                    }
+                }
+            },
+            {
+                "title": "Variables[Sqrt[x + y - z^2] + (-2*t)^(2/3)]    ➡️     {t, x, y, z}",
+                "fullTitle": "Variables[Sqrt[x + y - z^2] + (-2*t)^(2/3)]    ➡️     {t, x, y, z}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "5f0c9d5d-fc2b-433f-bb6e-3919c22dc229",
+                "parentUUID": "f583f551-ac0e-4b23-9499-1ce0827dc7fd",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# Find variables in a radical expression:\\n\\n\\ndata: \\n  got: \\n    t: null\\n    x: null\\n    y: null\\n    z: null\\n  expect: \\n    t: null\\n    x: null\\n    y: null\\n    z: null\\n  expect_evaluated: \\n    t: null\\n    x: null\\n    y: null\\n    z: null\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": {
+                        "t": null,
+                        "x": null,
+                        "y": null,
+                        "z": null
+                    },
+                    "expected": {
+                        "t": null,
+                        "x": null,
+                        "y": null,
+                        "z": null
+                    }
+                }
+            },
+            {
+                "title": "Variables[x + 2*y + 3*z, Modulus -> 2]    ➡️     {x, z}",
+                "fullTitle": "Variables[x + 2*y + 3*z, Modulus -> 2]    ➡️     {x, z}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "ed82fa93-53e7-43c6-8eef-f0ab525f823e",
+                "parentUUID": "f583f551-ac0e-4b23-9499-1ce0827dc7fd",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# Find variables present after reducing coefficients modulo 2:\\n\\n\\ndata: \\n  got: \\n    x: null\\n    z: null\\n  expect: \\n    x: null\\n    z: null\\n  expect_evaluated: \\n    x: null\\n    z: null\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": {
+                        "x": null,
+                        "z": null
+                    },
+                    "expected": {
+                        "x": null,
+                        "z": null
+                    }
+                }
+            },
+            {
+                "title": "CoefficientList[f, Variables[f]]    ➡️     {{6, 5, 3}, {4, -2, 0}, {1, 0, 0}}",
+                "fullTitle": "CoefficientList[f, Variables[f]]    ➡️     {{6, 5, 3}, {4, -2, 0}, {1, 0, 0}}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "d042692c-d1fa-4319-addb-e0db04e29060",
+                "parentUUID": "f583f551-ac0e-4b23-9499-1ce0827dc7fd",
+                "skipped": true,
+                "isHook": false,
+                "context": "\"\"",
+                "state": "passed",
+                "err": {}
+            },
+            {
+                "title": "Variables[Sin[x] + Cos[x]]    ➡️     {Cos[x], Sin[x]}",
+                "fullTitle": "Variables[Sin[x] + Cos[x]]    ➡️     {Cos[x], Sin[x]}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "a77d00c3-2472-44ac-ba9c-9517567fb030",
+                "parentUUID": "f583f551-ac0e-4b23-9499-1ce0827dc7fd",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# RefLink[Variables,paclet:ref/Variables] looks for variables only inside sums, products, and rational powers:\\n\"",
+                "state": "passed",
+                "err": {}
+            },
+            {
+                "title": "Variables[E^x]    ➡️     {}",
+                "fullTitle": "Variables[E^x]    ➡️     {}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "6e7ee3a9-7931-482a-b471-b9af70ce7829",
+                "parentUUID": "f583f551-ac0e-4b23-9499-1ce0827dc7fd",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"\\n\\ndata: \\n  got: \\n  expect: \\n  expect_evaluated: \"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": {},
+                    "expected": {}
+                }
+            }
+        ],
+        "root": true,
+        "fullFile": "",
+        "file": "",
+        "pending": [],
+        "passes": [
+            "c29c49b5-afd4-4442-935d-d7aba726b122",
+            "e242d0b5-3a7b-47a5-820b-88f01d3279cb",
+            "36f10b08-f7e2-468b-9c02-67042a2abd95",
+            "f0c3c120-f257-48ed-975d-72bd18cf4f77",
+            "5f0c9d5d-fc2b-433f-bb6e-3919c22dc229",
+            "ed82fa93-53e7-43c6-8eef-f0ab525f823e",
+            "d042692c-d1fa-4319-addb-e0db04e29060",
+            "a77d00c3-2472-44ac-ba9c-9517567fb030",
+            "6e7ee3a9-7931-482a-b471-b9af70ce7829"
+        ],
+        "failures": [],
+        "skipped": [
+            "d042692c-d1fa-4319-addb-e0db04e29060"
+        ],
+        "duration": 0,
+        "rootEmpty": false,
+        "_timeout": 0,
+        "uuid": "f583f551-ac0e-4b23-9499-1ce0827dc7fd",
+        "beforeHooks": [],
+        "afterHooks": []
+    },
+    "copyrightYear": 2018
+}

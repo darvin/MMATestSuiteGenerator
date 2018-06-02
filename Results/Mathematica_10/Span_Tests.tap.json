@@ -1,0 +1,286 @@
+{
+    "stats": {
+        "suites": 0,
+        "tests": 7,
+        "passes": 7,
+        "pending": 0,
+        "failures": 0,
+        "start": "2018-06-02T18:11:06.579Z",
+        "end": "2018-06-02T18:11:06.579Z",
+        "duration": 0,
+        "testsRegistered": 7,
+        "passPercent": 100,
+        "pendingPercent": 0,
+        "other": 0,
+        "hasOther": false,
+        "skipped": 0,
+        "hasSkipped": false,
+        "passPercentClass": "danger",
+        "pendingPercentClass": "danger"
+    },
+    "suites": {
+        "title": "",
+        "suites": [],
+        "tests": [
+            {
+                "title": "{a, b, c, d, e, f, g, h}[[2 ;; 5]]    ➡️     {b, c, d, e}",
+                "fullTitle": "{a, b, c, d, e, f, g, h}[[2 ;; 5]]    ➡️     {b, c, d, e}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "b0059ae7-4665-4b66-ad57-fab6382e7f28",
+                "parentUUID": "d702b91a-db07-4968-b6ab-9f3443bb2dce",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# SYSTEM: Mathematica_10\\n# TEST: Span_Tests\\n# OUTPUT: output/Results/Mathematica_10/Span_Tests.json\\n# Take a span of elements from a list:\\n\\n\\ndata: \\n  got: \\n    b: null\\n    c: null\\n    d: null\\n    e: null\\n  expect: \\n    b: null\\n    c: null\\n    d: null\\n    e: null\\n  expect_evaluated: \\n    b: null\\n    c: null\\n    d: null\\n    e: null\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": {
+                        "b": null,
+                        "c": null,
+                        "d": null,
+                        "e": null
+                    },
+                    "expected": {
+                        "b": null,
+                        "c": null,
+                        "d": null,
+                        "e": null
+                    }
+                }
+            },
+            {
+                "title": "t = {a, b, c, d, e, f, g, h}    ➡️     {a, b, c, d, e, f, g, h}",
+                "fullTitle": "t = {a, b, c, d, e, f, g, h}    ➡️     {a, b, c, d, e, f, g, h}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "56a1e6bb-4140-41dd-8ce9-4cf19556360b",
+                "parentUUID": "d702b91a-db07-4968-b6ab-9f3443bb2dce",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# Assign to a span of elements:\\n\\n\\ndata: \\n  got: \\n    a: null\\n    b: null\\n    c: null\\n    d: null\\n    e: null\\n    f: null\\n    g: null\\n    h: null\\n  expect: \\n    a: null\\n    b: null\\n    c: null\\n    d: null\\n    e: null\\n    f: null\\n    g: null\\n    h: null\\n  expect_evaluated: \\n    a: null\\n    b: null\\n    c: null\\n    d: null\\n    e: null\\n    f: null\\n    g: null\\n    h: null\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": {
+                        "a": null,
+                        "b": null,
+                        "c": null,
+                        "d": null,
+                        "e": null,
+                        "f": null,
+                        "g": null,
+                        "h": null
+                    },
+                    "expected": {
+                        "a": null,
+                        "b": null,
+                        "c": null,
+                        "d": null,
+                        "e": null,
+                        "f": null,
+                        "g": null,
+                        "h": null
+                    }
+                }
+            },
+            {
+                "title": "t[[2 ;; 5]] = x    ➡️     x",
+                "fullTitle": "t[[2 ;; 5]] = x    ➡️     x",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "80ba7201-0e4b-42f7-918e-8bdf43995394",
+                "parentUUID": "d702b91a-db07-4968-b6ab-9f3443bb2dce",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"\\n\\ndata: \\n  got:              x\\n  expect:           x\\n  expect_evaluated: x\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": "x",
+                    "expected": "x"
+                }
+            },
+            {
+                "title": "t    ➡️     {a, x, x, x, x, f, g, h}",
+                "fullTitle": "t    ➡️     {a, x, x, x, x, f, g, h}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "4f9f0d7f-46b6-4205-a265-dfa48b50cdbb",
+                "parentUUID": "d702b91a-db07-4968-b6ab-9f3443bb2dce",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"\"",
+                "state": "passed",
+                "err": {}
+            },
+            {
+                "title": "t[[2 ;; 5]] = {p, q, r, s}    ➡️     {p, q, r, s}",
+                "fullTitle": "t[[2 ;; 5]] = {p, q, r, s}    ➡️     {p, q, r, s}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "1cd54c33-d0f4-42e8-b0c1-9d173b0d287a",
+                "parentUUID": "d702b91a-db07-4968-b6ab-9f3443bb2dce",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# Assign a sequence of different elements:\\n\\n\\ndata: \\n  got: \\n    p: null\\n    q: null\\n    r: null\\n    s: null\\n  expect: \\n    p: null\\n    q: null\\n    r: null\\n    s: null\\n  expect_evaluated: \\n    p: null\\n    q: null\\n    r: null\\n    s: null\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": {
+                        "p": null,
+                        "q": null,
+                        "r": null,
+                        "s": null
+                    },
+                    "expected": {
+                        "p": null,
+                        "q": null,
+                        "r": null,
+                        "s": null
+                    }
+                }
+            },
+            {
+                "title": "t    ➡️     {a, p, q, r, s, f, g, h}",
+                "fullTitle": "t    ➡️     {a, p, q, r, s, f, g, h}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "e2e2789e-3350-42f9-9d71-b95ea34505da",
+                "parentUUID": "d702b91a-db07-4968-b6ab-9f3443bb2dce",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"\\n\\ndata: \\n  got: \\n    a: null\\n    p: null\\n    q: null\\n    r: null\\n    s: null\\n    f: null\\n    g: null\\n    h: null\\n  expect: \\n    a: null\\n    p: null\\n    q: null\\n    r: null\\n    s: null\\n    f: null\\n    g: null\\n    h: null\\n  expect_evaluated: \\n    a: null\\n    p: null\\n    q: null\\n    r: null\\n    s: null\\n    f: null\\n    g: null\\n    h: null\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": {
+                        "a": null,
+                        "p": null,
+                        "q": null,
+                        "r": null,
+                        "s": null,
+                        "f": null,
+                        "g": null,
+                        "h": null
+                    },
+                    "expected": {
+                        "a": null,
+                        "p": null,
+                        "q": null,
+                        "r": null,
+                        "s": null,
+                        "f": null,
+                        "g": null,
+                        "h": null
+                    }
+                }
+            },
+            {
+                "title": "{a, b, c, d, e, f, g, h}[[2 ;; -3]]    ➡️     {b, c, d, e, f}",
+                "fullTitle": "{a, b, c, d, e, f, g, h}[[2 ;; -3]]    ➡️     {b, c, d, e, f}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "30ba87f6-756e-493d-a852-bf1307eaec7d",
+                "parentUUID": "d702b91a-db07-4968-b6ab-9f3443bb2dce",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# Negative indices count from the end:\\n\\n\\ndata: \\n  got: \\n    b: null\\n    c: null\\n    d: null\\n    e: null\\n    f: null\\n  expect: \\n    b: null\\n    c: null\\n    d: null\\n    e: null\\n    f: null\\n  expect_evaluated: \\n    b: null\\n    c: null\\n    d: null\\n    e: null\\n    f: null\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": {
+                        "b": null,
+                        "c": null,
+                        "d": null,
+                        "e": null,
+                        "f": null
+                    },
+                    "expected": {
+                        "b": null,
+                        "c": null,
+                        "d": null,
+                        "e": null,
+                        "f": null
+                    }
+                }
+            }
+        ],
+        "root": true,
+        "fullFile": "",
+        "file": "",
+        "pending": [],
+        "passes": [
+            "b0059ae7-4665-4b66-ad57-fab6382e7f28",
+            "56a1e6bb-4140-41dd-8ce9-4cf19556360b",
+            "80ba7201-0e4b-42f7-918e-8bdf43995394",
+            "4f9f0d7f-46b6-4205-a265-dfa48b50cdbb",
+            "1cd54c33-d0f4-42e8-b0c1-9d173b0d287a",
+            "e2e2789e-3350-42f9-9d71-b95ea34505da",
+            "30ba87f6-756e-493d-a852-bf1307eaec7d"
+        ],
+        "failures": [],
+        "skipped": [],
+        "duration": 0,
+        "rootEmpty": false,
+        "_timeout": 0,
+        "uuid": "d702b91a-db07-4968-b6ab-9f3443bb2dce",
+        "beforeHooks": [],
+        "afterHooks": []
+    },
+    "copyrightYear": 2018
+}

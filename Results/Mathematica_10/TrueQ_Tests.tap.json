@@ -1,0 +1,118 @@
+{
+    "stats": {
+        "suites": 0,
+        "tests": 3,
+        "passes": 3,
+        "pending": 0,
+        "failures": 0,
+        "start": "2018-06-02T18:11:11.230Z",
+        "end": "2018-06-02T18:11:11.230Z",
+        "duration": 0,
+        "testsRegistered": 3,
+        "passPercent": 100,
+        "pendingPercent": 0,
+        "other": 0,
+        "hasOther": false,
+        "skipped": 0,
+        "hasSkipped": false,
+        "passPercentClass": "danger",
+        "pendingPercentClass": "danger"
+    },
+    "suites": {
+        "title": "",
+        "suites": [],
+        "tests": [
+            {
+                "title": "TrueQ[True]    ➡️     True",
+                "fullTitle": "TrueQ[True]    ➡️     True",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "e09d620f-104b-40f1-b4ef-f3398cb37cca",
+                "parentUUID": "83dffc2e-5957-4a0b-acda-890da3d82d98",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# SYSTEM: Mathematica_10\\n# TEST: TrueQ_Tests\\n# OUTPUT: output/Results/Mathematica_10/TrueQ_Tests.json\\n# RefLink[TrueQ,paclet:ref/TrueQ] will return RefLink[True,paclet:ref/True] only if the input is explicitly RefLink[True,paclet:ref/True]:\\n\\n\\ndata: \\n  got:              true\\n  expect:           true\\n  expect_evaluated: true\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": true,
+                    "expected": true
+                }
+            },
+            {
+                "title": "TrueQ[False]    ➡️     False",
+                "fullTitle": "TrueQ[False]    ➡️     False",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "4f8c79bb-990e-4535-a96e-e369eec8c7b4",
+                "parentUUID": "83dffc2e-5957-4a0b-acda-890da3d82d98",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"\\n\\ndata: \\n  got:              false\\n  expect:           false\\n  expect_evaluated: false\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "expected": false
+                }
+            },
+            {
+                "title": "TrueQ[x]    ➡️     False",
+                "fullTitle": "TrueQ[x]    ➡️     False",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "2ade79b0-e78d-440c-894d-8b43766b5af8",
+                "parentUUID": "83dffc2e-5957-4a0b-acda-890da3d82d98",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"\\n\\ndata: \\n  got:              false\\n  expect:           false\\n  expect_evaluated: false\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "expected": false
+                }
+            }
+        ],
+        "root": true,
+        "fullFile": "",
+        "file": "",
+        "pending": [],
+        "passes": [
+            "e09d620f-104b-40f1-b4ef-f3398cb37cca",
+            "4f8c79bb-990e-4535-a96e-e369eec8c7b4",
+            "2ade79b0-e78d-440c-894d-8b43766b5af8"
+        ],
+        "failures": [],
+        "skipped": [],
+        "duration": 0,
+        "rootEmpty": false,
+        "_timeout": 0,
+        "uuid": "83dffc2e-5957-4a0b-acda-890da3d82d98",
+        "beforeHooks": [],
+        "afterHooks": []
+    },
+    "copyrightYear": 2018
+}
