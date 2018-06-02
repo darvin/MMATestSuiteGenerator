@@ -44,16 +44,16 @@ function getAllTests() {
 		return {
 			"failed":jsonObj.stats.failures>0,
 			"stats":jsonObj.stats,
-			"url":"/"+path.relative(rootPath,p),
+			"url":path.relative(rootPath,p),
 			"name":b.replace("_Tests.html",""),
-			"srcUrl": "/"+path.relative(rootPath,path.join(rootPath, "Tests", bNoExt+".m")),
-			"tapUrl":"/"+path.relative(rootPath,tapFile)
+			"srcUrl": path.relative(rootPath,path.join(rootPath, "Tests", bNoExt+".m")),
+			"tapUrl":path.relative(rootPath,tapFile)
 		}
 	}
 	function getSystem(p) {
 		return {
 			"name":path.basename(p).replace("_", " "),
-			"allTestsUrl":"/"+path.relative(rootPath, join(p, "ALL_TESTS.html")),
+			"allTestsUrl":path.relative(rootPath, join(p, "ALL_TESTS.html")),
 			"tests": getHtmls(p).map(getTest)
 		}
 	}
