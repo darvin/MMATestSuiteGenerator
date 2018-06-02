@@ -12,21 +12,11 @@ cache:
 
 
 before_install:
-  - echo "servercert /opt/boxcert.pem" | sudo tee --append  /etc/davfs2/davfs2.conf 
-  - echo "https://dav.box.com/dav/ sergey.v.klimov+mathbackupbox@gmail.com mathematica" | sudo tee --append  /etc/davfs2/secrets
-  - openssl s_client -showcerts -servername dav.box.com -connect dav.box.com:443 </dev/null 2>/dev/null|openssl x509 -outform PEM > boxcert.pem && sudo mv boxcert.pem /opt/
-  - sudo mount.davfs -o user=$USER,rw https://dav.box.com/dav/ /mnt/
-  - cp -R /mnt/INTERMED/$TRAVIS_BUILD_NUMBER/output ./output || true
-  - sudo chown $USER:$USER -R ./output || true
+  - aws s3 sync s3://buildjobs/$TRAVIS_BUILD_NUMBER output/
   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - docker pull mmacompat/mathematica || true
 
-
-after_script:
-  - sudo mkdir -p /mnt/INTERMED/$TRAVIS_BUILD_NUMBER/ || true
-  - sudo cp -R ./output/ /mnt/INTERMED/$TRAVIS_BUILD_NUMBER/ || true
-  - ls /mnt/INTERMED/$TRAVIS_BUILD_NUMBER/*/* || true
 
 addons:
   apt:
@@ -60,6 +50,8 @@ jobs:
     - script: PORTION_COUNT=5 PORTION_INDEX=5 make run-compat-tests    
     - stage: deploy
       script: make website
+      after_success:
+        - aws s3 rm --recursive s3://buildjobs/$TRAVIS_BUILD_NUMBER # clean up after ourselves
       deploy: &pages
         provider: pages
         skip-cleanup: true
@@ -70,4 +62,6 @@ jobs:
         local-dir: output/
 
 
+after_success:
+  - aws s3 sync output/ s3://buildjobs/$TRAVIS_BUILD_NUMBER
 
