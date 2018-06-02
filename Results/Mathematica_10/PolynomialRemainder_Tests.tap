@@ -1,0 +1,108 @@
+# SYSTEM: Mathematica_10
+# TEST: PolynomialRemainder_Tests
+# OUTPUT: output/Results/Mathematica_10/PolynomialRemainder_Tests.json
+# Find the remainder after dividing one polynomial by another:
+ok  PolynomialRemainder[x^2, x + a, x]    ==>     a^2
+    ---
+    data:
+        got: a^2
+        expect: a^2
+        expect_evaluated: a^2
+    ...
+# The resulting polynomial will have coefficients that are rational expressions of input coefficients:
+ok  PolynomialRemainder[x^2 + x + 1, 2*x + 1, x]    ==>     3/4
+    ---
+    data:
+        got: 3/4
+        expect: 3/4
+        expect_evaluated: 3/4
+    ...
+ok  PolynomialRemainder[x^2 + b*x + 1, a*x + 1, x]    ==>     1 + 1/a^2 - b/a
+    ---
+    data:
+        got: 1 + a^(-2) - b/a
+        expect: 1 + 1/a^2 - b/a
+        expect_evaluated: 1 + a^(-2) - b/a
+    ...
+ok  PolynomialRemainder[x^2 + x + 1, Pi*x + 1, x]    ==>     1 + 1/Pi^2 - 1/Pi
+    ---
+    data:
+        got: 1 + Pi^(-2) - Pi^(-1)
+        expect: 1 + 1/Pi^2 - 1/Pi
+        expect_evaluated: 1 + Pi^(-2) - Pi^(-1)
+    ...
+# RefLink[PolynomialRemainder,paclet:ref/PolynomialRemainder] also works for rational functions:
+ok  PolynomialRemainder[(x + 1)/(x + 2), (x + 1)/(x + 3), x]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+# Use a prime modulus:
+ok  PolynomialRemainder[x^2 + 4*x + 1, 2*x + 1, x, Modulus -> 2]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+ok  PolynomialRemainder[x^2 + 4*x + 1, 2*x + 1, x, Modulus -> 5]    ==>     3
+    ---
+    data:
+        got: 3
+        expect: 3
+        expect_evaluated: 3
+    ...
+ok  Euclid[(x + 1)*(x + 2), (x + 2)*(x + 3), x]    ==>     -4 - 2*x # skip
+# Divide by the leading coefficient:
+ok  Expand[%/Coefficient[%, x, 1]]    ==>     2 + x # skip
+ok  PolynomialGCD[(x + 1)*(x + 2), (x + 2)*(x + 3)]    ==>     2 + x
+    ---
+    data:
+        got: 2 + x
+        expect: 2 + x
+        expect_evaluated: 2 + x
+    ...
+ok  q = PolynomialQuotient[f, g, x]    ==>     2 + x # skip
+ok  r = PolynomialRemainder[f, g, x]    ==>     -3 # skip
+# Use RefLink[Expand,paclet:ref/Expand] to verify identity:
+not ok  Expand[q*g + r] == f    ==>     True
+    ---
+    data:
+        got: g*q + r == f
+        expect: True
+        expect_evaluated: True
+    ...
+# To get both quotient and remainder use RefLink[PolynomialQuotientRemainder,paclet:ref/PolynomialQuotientRemainder]:
+ok  PolynomialQuotientRemainder[f, g, x]    ==>     {2 + x, -3} # skip
+# RefLink[PolynomialReduce,paclet:ref/PolynomialReduce] generalizes RefLink[PolynomialRemainder,paclet:ref/PolynomialRemainder] for multivariate polynomials:
+ok  PolynomialReduce[x^2 + 4*x + 1, {x + 2}, {x}]    ==>     {{2 + x}, -3}
+    ---
+    data:
+        got: {{2 + x}, -3}
+        expect: {{2 + x}, -3}
+        expect_evaluated: {{2 + x}, -3}
+    ...
+ok  PolynomialRemainder[x^2, x + a, x]    ==>     a^2
+    ---
+    data:
+        got: a^2
+        expect: a^2
+        expect_evaluated: a^2
+    ...
+ok  PolynomialMod[x^2, x + a]    ==>     x^2
+    ---
+    data:
+        got: x^2
+        expect: x^2
+        expect_evaluated: x^2
+    ...
+# The variable assumed for the polynomials matters:
+ok  {PolynomialRemainder[x + y, x - y, x], PolynomialRemainder[x + y, x - y, y]}    ==>     {2*y, 2*x}
+    ---
+    data:
+        got: {2*y, 2*x}
+        expect: {2*y, 2*x}
+        expect_evaluated: {2*y, 2*x}
+    ...

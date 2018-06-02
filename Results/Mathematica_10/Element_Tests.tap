@@ -1,0 +1,161 @@
+# SYSTEM: Mathematica_10
+# TEST: Element_Tests
+# OUTPUT: output/Results/Mathematica_10/Element_Tests.json
+# Test whether \[Pi] is an element of the reals:
+ok  Element[Pi, Reals]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Test whether the point {1/2,1/3} belongs to the unit disk:
+ok  Element[{1/2, 1/3}, Disk[]]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Express domain membership for an expression:
+ok  Element[x + y, Reals]    ==>     Element[x + y, Reals]
+    ---
+    data:
+        got: Element[x + y, Reals]
+        expect: Element[x + y, Reals]
+        expect_evaluated: Element[x + y, Reals]
+    ...
+# Assert that the point {x,y,z} belongs to the unit ball:
+ok  Element[{x, y, z}, Ball[]]    ==>     Element[{x, y, z}, Ball[{0, 0, 0}]] # skip
+# Use element assertions to integrate over a region:
+ok  Integrate[1, Element[{x, y, z}, Ball[]]]    ==>     (4*Pi)/3 # skip
+# Or to optimize over a region:
+ok  MinValue[x + y, Element[{x, y, z}, Ball[]]]    ==>     -Sqrt[2] # skip
+# Enter using Esc\[ThinSpace]elem\[ThinSpace]Esc:
+ok  Element[x, Reals]    ==>     Element[x, Reals]
+    ---
+    data:
+        got: Element[x, Reals]
+        expect: Element[x, Reals]
+        expect_evaluated: Element[x, Reals]
+    ...
+# Test domain membership:
+ok  (Element[Sqrt[2], #1] & ) /@ {Complexes, Algebraics, Reals, Rationals, Integers, Primes}    ==>     {True, True, True, False, False, False}
+    ---
+    data:
+        got: {True, True, True, False, False, False}
+        expect: {True, True, True, False, False, False}
+        expect_evaluated: {True, True, True, False, False, False}
+    ...
+ok  (Element[{3/2, 3/2}, #1] & ) /@ {Subscript[\[ScriptCapitalR], 1], Subscript[\[ScriptCapitalR], 2], Subscript[\[ScriptCapitalR], 3], Subscript[\[ScriptCapitalR], 4]}    ==>     {True, False, True, True} # skip
+# Plot it:
+ok  HoldComplete[Show[{DiscretizeRegion[Subscript[\[ScriptCapitalR], 3]], Graphics[{{Opacity[0.5], {Orange, Subscript[\[ScriptCapitalR], 1]}, {Yellow, Subscript[\[ScriptCapitalR], 2]}, {Green, Disk[{-1, 0}], Line[{{0, 0}, {2, 2}}]}}, {Red, PointSize[Large], Point[{3/2, 3/2}]}}]}]]    ==>     $Failed # skip
+# Make domain membership assumptions:
+ok  Refine[Sin[Pi*x], Element[x, Integers]]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+ok  Integrate[Abs[1 - Abs[x + 2]], x, Assumptions -> Element[x, Reals]]    ==>     Inequality[Piecewise[-3]*x - (x^2/2)*x, LessEqual, -3*9 + 3*x + x^2/2 - 3, Less, x, LessEqual, -2*5 - x - x^2/2 - 2, Less, x, LessEqual, -1*6 + x + (x^2/2)*True] # skip
+# Express region membership:
+ok  Refine[Sqrt[(x + y - 2)^2], Element[{x, y}, Disk[]]]    ==>     2 - x - y
+    ---
+    data:
+        got: 2 - x - y
+        expect: 2 - x - y
+        expect_evaluated: 2 - x - y
+    ...
+ok  Solve[x + y == 1/2 && Element[{x, y}, Circle[]], {x, y}]    ==>     {{x -> (1/2)*(1 + (1/2)*(-1 - Sqrt[7])), y -> (1/4)*(1 + Sqrt[7])}, {x -> (1/2)*(1 + (1/2)*(-1 + Sqrt[7])), y -> (1/4)*(1 - Sqrt[7])}} # skip
+ok  Integrate[1, Element[{x, y}, Circle[]]]    ==>     2*Pi
+    ---
+    data:
+        got: 2*Pi
+        expect: 2*Pi
+        expect_evaluated: 2*Pi
+    ...
+# Test domain membership using assumptions:
+ok  Refine[Element[x^y + Log[x + y], Reals], x > 0 && y > 0]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Test region membership using assumptions:
+ok  Refine[Element[{x, y}, Rectangle[{-1, -1}, {1, 1}]], x^2 + y^2 <= 1]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Specify variable domains:
+ok  Reduce[E^x - 2*x == 3 && Element[x, Reals], x]    ==>     x == (1/2)*(-3 - 2*ProductLog[-(1/(2*E^(3/2)))]) || x == (1/2)*(-3 - 2*ProductLog[-1, -(1/(2*E^(3/2)))])
+    ---
+    data:
+        got: x == (-3 - 2*ProductLog[-1/(2*E^(3/2))])/2 || x == (-3 - 2*ProductLog[-1, -1/(2*E^(3/2))])/2
+        expect: x == (1/2)*(-3 - 2*ProductLog[-(1/(2*E^(3/2)))]) || x == (1/2)*(-3 - 2*ProductLog[-1, -(1/(2*E^(3/2)))])
+        expect_evaluated: x == (-3 - 2*ProductLog[-1/(2*E^(3/2))])/2 || x == (-3 - 2*ProductLog[-1, -1/(2*E^(3/2))])/2
+    ...
+ok  FindInstance[x^2 - 2*y^2 == 1 && x > 10^10 && Element[x | y, Integers], {x, y}]    ==>     {{x -> 26102926097, y -> 18457556052}}
+    ---
+    data:
+        got: {{x -> 26102926097, y -> 18457556052}}
+        expect: {{x -> 26102926097, y -> 18457556052}}
+        expect_evaluated: {{x -> 26102926097, y -> 18457556052}}
+    ...
+ok  Minimize[{x - y, x^2 + y^2 <= 100 && Element[x | y, Integers]}, {x, y}]    ==>     {-14, {x -> -8, y -> 6}}
+    ---
+    data:
+        got: {-14, {x -> -8, y -> 6}}
+        expect: {-14, {x -> -8, y -> 6}}
+        expect_evaluated: {-14, {x -> -8, y -> 6}}
+    ...
+# Specify assumptions on objects matching a pattern:
+ok  Simplify[Sin[2*Pi*x[1] + 4*x[2]*x[3]^2*Pi + a*Pi], Element[x[_], Integers]]    ==>     Sin[a*Pi]
+    ---
+    data:
+        got: Sin[a*Pi]
+        expect: Sin[a*Pi]
+        expect_evaluated: Sin[a*Pi]
+    ...
+# RefLink[TraditionalForm,paclet:ref/TraditionalForm] formatting:
+ok  Element[x, \[DoubleStruckCapitalR]]    ==>     Element[x, \[DoubleStruckCapitalR]] # skip
+# For a single variable, the negation of RefLink[Element,paclet:ref/Element] is automatically converted to RefLink[NotElement,paclet:ref/NotElement]:
+ok   !Element[a, Reals]    ==>     NotElement[a, Reals]
+    ---
+    data:
+        got: NotElement[a, Reals]
+        expect: NotElement[a, Reals]
+        expect_evaluated: NotElement[a, Reals]
+    ...
+# For multiple variables, the negation of RefLink[Element,paclet:ref/Element] is not automatically simplified:
+ok   !Element[a | b | c, Reals]    ==>      !Element[a | b | c, Reals]
+    ---
+    data:
+        got:  !Element[a | b | c, Reals]
+        expect:  !Element[a | b | c, Reals]
+        expect_evaluated:  !Element[a | b | c, Reals]
+    ...
+# Use RefLink[LogicalExpand,paclet:ref/LogicalExpand] to find the representation in terms of RefLink[NotElement,paclet:ref/NotElement]:
+ok  LogicalExpand[%]    ==>     NotElement[a, Reals] || NotElement[b, Reals] || NotElement[c, Reals] # skip
+# RefLink[Element,paclet:ref/Element] asserts region membership:
+ok  Element[{x, y}, Disk[]]    ==>     Element[{x, y}, Disk[{0, 0}]]
+    ---
+    data:
+        got: Element[{x, y}, Disk[{0, 0}]]
+        expect: Element[{x, y}, Disk[{0, 0}]]
+        expect_evaluated: Element[{x, y}, Disk[{0, 0}]]
+    ...
+# RefLink[RegionMember,paclet:ref/RegionMember] gives explicit region membership conditions:
+ok  RegionMember[Disk[], {x, y}]    ==>     x^2 + y^2 <= 1 # skip
+# When domain membership cannot be decided the RefLink[Element,paclet:ref/Element] statement remains unevaluated:
+ok  Element[I^Pi, Algebraics]    ==>     Element[I^Pi, Algebraics]
+    ---
+    data:
+        got: Element[I^Pi, Algebraics]
+        expect: Element[I^Pi, Algebraics]
+        expect_evaluated: Element[I^Pi, Algebraics]
+    ...

@@ -1,0 +1,30 @@
+# SYSTEM: Mathematica_10
+# TEST: HoldPattern_Tests
+# OUTPUT: output/Results/Mathematica_10/HoldPattern_Tests.json
+# Set up a pattern whose left-hand side is kept unevaluated:
+ok  HoldPattern[_ + _] -> 0    ==>     HoldPattern[_ + _] -> 0
+    ---
+    data:
+        got: 2*_ -> 0
+        expect: HoldPattern[_ + _] -> 0
+        expect_evaluated: 2*_ -> 0
+    ...
+# Use the pattern:
+ok  a + b /. %    ==>     0 # skip
+ok  f[a + b]    ==>     0 # skip
+# RefLink[Log,paclet:ref/Log][a,b] autoevaluates to RefLink[Log,paclet:ref/Log][b]/RefLink[Log,paclet:ref/Log][a], so there is a match: 
+ok  MatchQ[Log[a, b], HoldPattern[Log[_]/Log[_]]]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# RefLink[Cases,paclet:ref/Cases][e,patt->rhs] finds elements that match patt; use RefLink[HoldPattern,paclet:ref/HoldPattern] to find rules: 
+ok  Cases[{a -> b, c -> d}, HoldPattern[a -> _]]    ==>     {a -> b}
+    ---
+    data:
+        got: {a -> b}
+        expect: {a -> b}
+        expect_evaluated: {a -> b}
+    ...

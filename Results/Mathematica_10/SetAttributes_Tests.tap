@@ -1,0 +1,43 @@
+# SYSTEM: Mathematica_10
+# TEST: SetAttributes_Tests
+# OUTPUT: output/Results/Mathematica_10/SetAttributes_Tests.json
+ok  f[1 + 2]    ==>     f[1 + 2]
+    ---
+    data:
+        got: f[3]
+        expect: f[1 + 2]
+        expect_evaluated: f[3]
+    ...
+ok  plus[a, plus[c, b]]    ==>     plus[a, b, c] # skip
+ok  Attributes[f]    ==>     {Flat, Orderless} # skip
+ok  Attributes[{f, g}]    ==>     {{HoldAll, Listable}, {HoldAll}} # skip
+# RefLink[SetAttributes,paclet:ref/SetAttributes] is equivalent to this assignment to the attributes:
+ok  Attributes[f] = Union[Attributes[f], {HoldFirst, NHoldFirst}]    ==>     {HoldFirst, NHoldFirst}
+    ---
+    data:
+        got: {HoldFirst, NHoldFirst}
+        expect: {HoldFirst, NHoldFirst}
+        expect_evaluated: {HoldFirst, NHoldFirst}
+    ...
+ok  Attributes[f]    ==>     {Flat, Orderless} # skip
+ok  Attributes[{f, g}]    ==>     {{Protected}, {Protected}} # skip
+# A locked symbol can no longer be unprotected, as the RefLink[Protected,paclet:ref/Protected] attribute cannot be cleared:
+ok  Unprotect[f]    ==>     {}
+    ---
+    data:
+        got: {}
+        expect: {}
+        expect_evaluated: {}
+    ...
+# RefLink[SetAttributes,paclet:ref/SetAttributes] has the attribute RefLink[HoldFirst,paclet:ref/HoldFirst]:
+ok  Attributes[SetAttributes]    ==>     {HoldFirst, Protected}
+    ---
+    data:
+        got: {HoldFirst, Protected}
+        expect: {HoldFirst, Protected}
+        expect_evaluated: {HoldFirst, Protected}
+    ...
+ok  Attributes[syms]    ==>     {Protected} # skip
+ok  Attributes[{f, g, h}]    ==>     {{Protected}, {Protected}, {Protected}} # skip
+# The 10 system symbols with the most attributes:
+ok  TableForm[Take[Sort[({#1, Attributes[#1]} & ) /@ Names["System`*"], Length[#1[[2]]] > Length[#2[[2]]] & ], 10], TableDepth -> 2]    ==>     Times*{Flat, Listable, NumericFunction, OneIdentity, Orderless, Protected}*Plus*{Flat, Listable, NumericFunction, OneIdentity, Orderless, Protected}*Min*{Flat, NumericFunction, OneIdentity, Orderless, Protected}*Max*{Flat, NumericFunction, OneIdentity, Orderless, Protected}*LCM*{Flat, Listable, OneIdentity, Orderless, Protected}*GCD*{Flat, Listable, OneIdentity, Orderless, Protected}*BitXor*{Flat, Listable, OneIdentity, Orderless, Protected}*BitOr*{Flat, Listable, OneIdentity, Orderless, Protected}*BitAnd*{Flat, Listable, OneIdentity, Orderless, Protected}*ArithmeticGeometricMean*{Listable, NumericFunction, Orderless, Protected, ReadProtected} # skip

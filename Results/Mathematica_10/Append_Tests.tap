@@ -1,0 +1,56 @@
+# SYSTEM: Mathematica_10
+# TEST: Append_Tests
+# OUTPUT: output/Results/Mathematica_10/Append_Tests.json
+ok  Append[{a, b, c, d}, x]    ==>     {a, b, c, d, x}
+    ---
+    data:
+        got: {a, b, c, d, x}
+        expect: {a, b, c, d, x}
+        expect_evaluated: {a, b, c, d, x}
+    ...
+# Append to an RefLink[Association,paclet:ref/Association]:
+ok  Append[<| 1 -> a, 2 -> b |>, 3 -> d]    ==>     <| 1 -> a, 2 -> b, 3 -> d |>
+    ---
+    data:
+        got: <|1 -> a, 2 -> b, 3 -> d|>
+        expect: <| 1 -> a, 2 -> b, 3 -> d |>
+        expect_evaluated: <|1 -> a, 2 -> b, 3 -> d|>
+    ...
+# Append several rules to an RefLink[Association,paclet:ref/Association]:
+ok  Append[<| 1 -> a, 2 -> b |>, {3 -> d, 4 -> e}]    ==>     <| 1 -> a, 2 -> b, 3 -> d, 4 -> e |>
+    ---
+    data:
+        got: <|1 -> a, 2 -> b, 3 -> d, 4 -> e|>
+        expect: <| 1 -> a, 2 -> b, 3 -> d, 4 -> e |>
+        expect_evaluated: <|1 -> a, 2 -> b, 3 -> d, 4 -> e|>
+    ...
+# Use a head other than RefLink[List,paclet:ref/List]:
+ok  Append[f[a, b, c], x + y]    ==>     f[a, b, c, x + y]
+    ---
+    data:
+        got: f[a, b, c, x + y]
+        expect: f[a, b, c, x + y]
+        expect_evaluated: f[a, b, c, x + y]
+    ...
+# Append a row to a matrix:
+ok  MatrixForm[Append[{{a, b}, {c, d}}, {x, y}]]    ==>     a*b*c*d*x*y # skip
+# Append to each row in a matrix:
+ok  MatrixForm[(Append[#1, x] & ) /@ {{a, b}, {c, d}}]    ==>     a*b*x*c*d*x # skip
+# Append a vector to a matrix:
+ok  MatrixForm[MapThread[Append, {{{a, b}, {c, d}}, {x, y}}]]    ==>     a*b*x*c*d*y # skip
+# Successively append to a list:
+ok  NestList[Append[#1, x] & , {a}, 5]    ==>     {{a}, {a, x}, {a, x, x}, {a, x, x, x}, {a, x, x, x, x}, {a, x, x, x, x, x}}
+    ---
+    data:
+        got: {{a}, {a, x}, {a, x, x}, {a, x, x, x}, {a, x, x, x, x}, {a, x, x, x, x, x}}
+        expect: {{a}, {a, x}, {a, x, x}, {a, x, x, x}, {a, x, x, x, x}, {a, x, x, x, x, x}}
+        expect_evaluated: {{a}, {a, x}, {a, x, x}, {a, x, x, x}, {a, x, x, x, x}, {a, x, x, x, x, x}}
+    ...
+ok  Append[{a, b, c}, {x, y}]    ==>     {a, b, c, {x, y}}
+    ---
+    data:
+        got: {a, b, c, {x, y}}
+        expect: {a, b, c, {x, y}}
+        expect_evaluated: {a, b, c, {x, y}}
+    ...
+ok  Flatten[%]    ==>     {a, b, c, x, y} # skip

@@ -1,0 +1,49 @@
+# SYSTEM: Mathematica_10
+# TEST: Except_Tests
+# OUTPUT: output/Results/Mathematica_10/Except_Tests.json
+# This gives all elements except 0:
+ok  Cases[{1, 0, 2, 0, 3}, Except[0]]    ==>     {1, 2, 3}
+    ---
+    data:
+        got: {1, 2, 3}
+        expect: {1, 2, 3}
+        expect_evaluated: {1, 2, 3}
+    ...
+# Delete all nonvowel characters from a string:
+ok  StringReplace["the cat in the hat", Except[Characters["aeiou"]] -> ""]    ==>     eaiea # skip
+# RefLink[Except,paclet:ref/Except] works with patterns and string patterns:
+ok  Cases[{a, b, 0, 1, 2, x, y}, Except[_Integer]]    ==>     {a, b, x, y}
+    ---
+    data:
+        got: {a, b, x, y}
+        expect: {a, b, x, y}
+        expect_evaluated: {a, b, x, y}
+    ...
+ok  StringReplace["1a2b3c4", Except[DigitCharacter].. -> ""]    ==>     1234 # skip
+# Constraints on patterns:
+ok  Cases[{a, b, 0, 1, 2, x, y}, Except[0, _Integer]]    ==>     {1, 2}
+    ---
+    data:
+        got: {1, 2}
+        expect: {1, 2}
+        expect_evaluated: {1, 2}
+    ...
+ok  StringReplace["1a2b3c4", Except["a", LetterCharacter].. -> ""]    ==>     1*a234 # skip
+# Get all non-integers:
+ok  Cases[{1, 1, -5, EulerGamma, r, I, 0, Pi, 1/2}, Except[_Integer]]    ==>     {EulerGamma, r, I, Pi, 1/2}
+    ---
+    data:
+        got: {EulerGamma, r, I, Pi, 1/2}
+        expect: {EulerGamma, r, I, Pi, 1/2}
+        expect_evaluated: {EulerGamma, r, I, Pi, 1/2}
+    ...
+# Find words containing nonword characters:
+ok  StringMatchQ[{"ain't", "test", "A&M", "anybody"}, ___~~Except[WordCharacter]~~___]    ==>     {True, False, True, False}
+    ---
+    data:
+        got: {True, False, True, False}
+        expect: {True, False, True, False}
+        expect_evaluated: {True, False, True, False}
+    ...
+# Strip off all tags "<...>" from an HTML document:
+ok  StringReplace["<title>The Title</title>\n<h1>The <a href='link'>head</a></h1>\n<p>Some text follows here...</p>", "<"~~Except[">"]..~~">" -> ""]    ==>     The*Title*The*head*Some*text*follows*here... # skip

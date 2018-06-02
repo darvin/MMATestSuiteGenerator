@@ -1,0 +1,125 @@
+# SYSTEM: Mathematica_10
+# TEST: PossibleZeroQ_Tests
+# OUTPUT: output/Results/Mathematica_10/PossibleZeroQ_Tests.json
+# Test whether a numeric expression is zero:
+ok  PossibleZeroQ[E^(I*(Pi/4)) - (-1)^(1/4)]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Test whether a symbolic expression is likely to be identically zero:
+ok  PossibleZeroQ[(x + 1)*(x - 1) - x^2 + 1]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Show that a numeric expression is zero:
+ok  PossibleZeroQ[(E + Pi)^2 - E^2 - Pi^2 - 2*E*Pi]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Show that a numeric expression is nonzero: 
+ok  PossibleZeroQ[E^Pi - Pi^E]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# Decide that a numeric expression is zero based on approximate computations:
+ok  PossibleZeroQ[2^(2*I) - 2^(-2*I) - 2*I*Sin[Log[4]]]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Test whether symbolic expressions are likely to be identically zero:
+ok  PossibleZeroQ[1/x + 1/y - (x + y)/(x*y)]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok  PossibleZeroQ[Sqrt[x^2] - x]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  PossibleZeroQ[f]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# When RefLink[Re,paclet:ref/Re][x]>0, f is identically zero:
+ok  PossibleZeroQ[f, Assumptions -> Re[x] > 0]    ==>     True # skip
+# By default, numeric approximations may be used to decide that an algebraic number is zero:
+ok  zero = Sqrt[2] + Sqrt[3] - RootReduce[Sqrt[2] + Sqrt[3]]    ==>     Sqrt[2] + Sqrt[3] - Root[1 - 10*#1^2 + #1^4 & , 4]
+    ---
+    data:
+        got: Sqrt[2] + Sqrt[3] - Root[1 - 10*#1^2 + #1^4 & , 4, 0]
+        expect: Sqrt[2] + Sqrt[3] - Root[1 - 10*#1^2 + #1^4 & , 4]
+        expect_evaluated: Sqrt[2] + Sqrt[3] - Root[1 - 10*#1^2 + #1^4 & , 4, 0]
+    ...
+ok  PossibleZeroQ[zero]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Approximate methods may give incorrect positive answers:
+ok  PossibleZeroQ[zero + 10^(-100)]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# With RefLink[Method,paclet:ref/Method]->"ExactAlgebraics" exact methods are used for explicit algebraic numbers:
+ok  PossibleZeroQ[zero, Method -> "ExactAlgebraics"]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# For explicit algebraic numbers the answer is provably correct:
+ok  PossibleZeroQ[zero + 10^(-100), Method -> "ExactAlgebraics"]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  QuadraticRoots[2*Log[2]*x^2 - Log[4]*x^2 + x - 1 == 0, x]    ==>     x == 1 # skip
+# Wolfram Language equation solvers use zero testing automatically:
+ok  Reduce[2*Log[2]*x^2 - Log[4]*x^2 + x - 1 == 0, x]    ==>     x == 1 # skip
+ok  e === 0    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# RefLink[Equal,paclet:ref/Equal][e,0] uses simple tests to decide whether e is zero:
+ok  e == 0    ==>     True # skip
+ok  ee == 0    ==>     Log[4] - Log[2 - Sqrt[2]] + 2*Log[Sin[Pi/8]] == 0 # skip
+# RefLink[PossibleZeroQ,paclet:ref/PossibleZeroQ] uses numeric methods to test whether ee is zero:
+ok  PossibleZeroQ[ee]    ==>     True # skip
+# RefLink[FullSimplify,paclet:ref/FullSimplify] proves symbolically that ee is zero:
+ok  FullSimplify[ee]    ==>     0 # skip
+ok  PossibleZeroQ[e]    ==>     True # skip
+ok  FullSimplify[e]    ==>     1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 # skip

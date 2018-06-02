@@ -1,0 +1,67 @@
+# SYSTEM: Mathematica_10
+# TEST: Variables_Tests
+# OUTPUT: output/Results/Mathematica_10/Variables_Tests.json
+# Find a list of variables of a polynomial:
+ok  Variables[(x + y)^2 + 3*z^2 - y*z + 7]    ==>     {x, y, z}
+    ---
+    data:
+        got: {x, y, z}
+        expect: {x, y, z}
+        expect_evaluated: {x, y, z}
+    ...
+# A polynomial:
+ok  Variables[x^4 + y^4 + z^4 - 3*x*y*z]    ==>     {x, y, z}
+    ---
+    data:
+        got: {x, y, z}
+        expect: {x, y, z}
+        expect_evaluated: {x, y, z}
+    ...
+# A list of polynomials:
+ok  Variables[{x^2 - a*y, y^2 - b*z, z^2 - c*x}]    ==>     {a, b, c, x, y, z}
+    ---
+    data:
+        got: {a, b, c, x, y, z}
+        expect: {a, b, c, x, y, z}
+        expect_evaluated: {a, b, c, x, y, z}
+    ...
+# A rational function:
+ok  Variables[(a - b)/(x + y) - 2/z]    ==>     {a, b, x, y, z}
+    ---
+    data:
+        got: {a, b, x, y, z}
+        expect: {a, b, x, y, z}
+        expect_evaluated: {a, b, x, y, z}
+    ...
+# Find variables in a radical expression:
+ok  Variables[Sqrt[x + y - z^2] + (-2*t)^(2/3)]    ==>     {t, x, y, z}
+    ---
+    data:
+        got: {t, x, y, z}
+        expect: {t, x, y, z}
+        expect_evaluated: {t, x, y, z}
+    ...
+# Find variables present after reducing coefficients modulo 2:
+ok  Variables[x + 2*y + 3*z, Modulus -> 2]    ==>     {x, z}
+    ---
+    data:
+        got: {x, z}
+        expect: {x, z}
+        expect_evaluated: {x, z}
+    ...
+ok  CoefficientList[f, Variables[f]]    ==>     {{6, 5, 3}, {4, -2, 0}, {1, 0, 0}} # skip
+# RefLink[Variables,paclet:ref/Variables] looks for variables only inside sums, products, and rational powers:
+ok  Variables[Sin[x] + Cos[x]]    ==>     {Cos[x], Sin[x]}
+    ---
+    data:
+        got: {Cos[x], Sin[x]}
+        expect: {Cos[x], Sin[x]}
+        expect_evaluated: {Cos[x], Sin[x]}
+    ...
+ok  Variables[E^x]    ==>     {}
+    ---
+    data:
+        got: {}
+        expect: {}
+        expect_evaluated: {}
+    ...

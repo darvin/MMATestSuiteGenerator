@@ -1,0 +1,11 @@
+# SYSTEM: Mathematica_10
+# TEST: PrintTemporary_Tests
+# OUTPUT: output/Results/Mathematica_10/PrintTemporary_Tests.json
+# Print a temporary cell during an evaluation: 
+ok  PrintTemporary["text"]; Pause[2]; 17    ==>     17
+    ---
+    data:
+        got: 17
+        expect: 17
+        expect_evaluated: 17
+    ...

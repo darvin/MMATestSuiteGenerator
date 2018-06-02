@@ -1,0 +1,27 @@
+# SYSTEM: Mathematica_10
+# TEST: HoldForm_Tests
+# OUTPUT: output/Results/Mathematica_10/HoldForm_Tests.json
+# Addition in held form:
+ok  HoldForm[1 + 1]    ==>     1 + 1 # skip
+# An unevaluated assignment:
+ok  HoldForm[x = 3]    ==>     x = 3 # skip
+# An unevaluated power:
+ok  HoldForm[34^78]    ==>     34^78 # skip
+# Evaluate the expression by applying RefLink[ReleaseHold,paclet:ref/ReleaseHold]:
+ok  ReleaseHold[%]    ==>     285335317058486027411405324166464744463360460002598071329967949465250689557820764970048082035633315075321399848988573696 # skip
+# Show a formula and its evaluation: 
+ok  HoldForm[Integrate[x^2/E^x^2, x]] == Integrate[x^2/E^x^2, x]    ==>     Integrate[x^2/E^x^2, x] == ((-(1/2))*x)/E^x^2 + (1/4)*Sqrt[Pi]*Erf[x] # skip
+# Display a sum of squares in unevaluated form:
+ok  $Failed    ==>     HoldComplete[1^2 + 2^2 + 3^2 + 4^2 + 5^2 + 6^2 + 7^2 + 8^2 + 9^2 + 10^2] # skip
+# RefLink[HoldForm,paclet:ref/HoldForm] displays without a wrapper:
+ok  HoldForm[1 + 1]    ==>     1 + 1 # skip
+# See the RefLink[FullForm,paclet:ref/FullForm] expression:
+ok  FullForm[%]    ==>     HoldForm[1 + 1] # skip
+# RefLink[Hold,paclet:ref/Hold] gives the held expression with a wrapper:
+ok  Hold[1 + 1]    ==>     Hold[1 + 1]
+    ---
+    data:
+        got: 2
+        expect: Hold[1 + 1]
+        expect_evaluated: 2
+    ...

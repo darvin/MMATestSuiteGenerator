@@ -1,0 +1,59 @@
+# SYSTEM: Mathematica_10
+# TEST: IntegerQ_Tests
+# OUTPUT: output/Results/Mathematica_10/IntegerQ_Tests.json
+# RefLink[IntegerQ,paclet:ref/IntegerQ] tests whether an expression is explicitly an integer:
+ok  IntegerQ[4]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok  IntegerQ[4 + x]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# Test whether an array consists of all integers:
+ok  ArrayQ[{{1, 4}, {9, 16}}, _, IntegerQ]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok  ArrayQ[{{1., 4.}, {9., 16.}}, _, IntegerQ]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  gaussIntegerQ[1 + 2*I]    ==>     True # skip
+ok  {IntegerQ[x], Head[x]}    ==>     {True, Integer} # skip
+# An expression may have head RefLink[Integer,paclet:ref/Integer], but RefLink[IntegerQ,paclet:ref/IntegerQ] gives RefLink[False,paclet:ref/False]: 
+ok  IntegerQ[Integer[x]]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  IntegerQ[Integer[1.2]]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  IntegerQ[x]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# It is necessary to use symbolic simplification first:
+ok  FullSimplify[x]    ==>     1 # skip

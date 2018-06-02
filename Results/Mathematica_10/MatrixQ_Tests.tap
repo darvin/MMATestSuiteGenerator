@@ -1,0 +1,143 @@
+# SYSTEM: Mathematica_10
+# TEST: MatrixQ_Tests
+# OUTPUT: output/Results/Mathematica_10/MatrixQ_Tests.json
+# Test of whether an object is a matrix:
+ok  MatrixQ[{{a, b}, {3, 4}}]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok  MatrixQ[SparseArray[{{1, 1} -> a, {3, 3} -> b}]]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# These are not matrices:
+ok  MatrixQ[{{1}, {2, 3}}]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  MatrixQ[Array[a, {2, 2, 2}]]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# Use tests to generalize and specialize:
+ok  MatrixQ[Array[a, {2, 2, 2}], ListQ]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok  MatrixQ[RandomReal[1, {3, 3}], MachineNumberQ]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Test if a matrix has positive (real) entries:
+ok  MatrixQ[{{1, 2}, {3, 4}}, Positive]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok  MatrixQ[{{1, 2}, {3, 4 + 5*I}}, Positive]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# Test if a matrix has real numeric entries:
+ok  MatrixQ[{{Pi, Sin[1]}, {Cos[2], E}}, Im[#1] == 0 & ]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Faster test for real-valued numbers:
+ok  MatrixQ[{{1, 2.}, {3/4, 5.`20.}}, NumberQ[#1] &&  !MatchQ[#1, _Complex] & ]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# This represents the Hermitian part of a matrix symbolically:
+ok  hpart[a]    ==>     hpart[a]
+    ---
+    data:
+        got: hpart[a]
+        expect: hpart[a]
+        expect_evaluated: hpart[a]
+    ...
+# This gets the Hermitian part explicitly:
+ok  hpart[{{1, 2*I}, {3*I, 4}}]    ==>     {{1, -(I/2)}, {I/2, 4}} # skip
+ok  HermitianMatrixQ[%]    ==>     True # skip
+# RefLink[MatrixQ,paclet:ref/MatrixQ] is a special case of RefLink[ArrayQ,paclet:ref/ArrayQ]:
+ok  m = RandomReal[1, {2, 2}]    ==>     {{0.925264, 0.522118}, {0.188581, 0.921065}} # skip
+not ok  {ArrayQ[m, 2], MatrixQ[m]}    ==>     {True, True}
+    ---
+    data:
+        got: {False, False}
+        expect: {True, True}
+        expect_evaluated: {True, True}
+    ...
+not ok  {ArrayQ[m, 2, MachineNumberQ], MatrixQ[m, MachineNumberQ]}    ==>     {True, True}
+    ---
+    data:
+        got: {False, False}
+        expect: {True, True}
+        expect_evaluated: {True, True}
+    ...
+ok  {ArrayQ[m, 2, IntegerQ], MatrixQ[m, IntegerQ]}    ==>     {False, False}
+    ---
+    data:
+        got: {False, False}
+        expect: {False, False}
+        expect_evaluated: {False, False}
+    ...
+# A matrix is made up of vectors of equal length:
+ok  m = RandomReal[1, {3, 2}]    ==>     {{0.79747, 0.551327}, {0.551977, 0.103706}, {0.188657, 0.734707}} # skip
+not ok  vecs = VectorQ /@ m    ==>     {True, True, True}
+    ---
+    data:
+        got: m
+        expect: {True, True, True}
+        expect_evaluated: {True, True, True}
+    ...
+not ok  lens = Length /@ m    ==>     {2, 2, 2}
+    ---
+    data:
+        got: m
+        expect: {2, 2, 2}
+        expect_evaluated: {2, 2, 2}
+    ...
+not ok  And @@ Append[vecs, Equal @@ lens]    ==>     True
+    ---
+    data:
+        got: m && m
+        expect: True
+        expect_evaluated: True
+    ...
+not ok  MatrixQ[m]    ==>     True
+    ---
+    data:
+        got: False
+        expect: True
+        expect_evaluated: True
+    ...

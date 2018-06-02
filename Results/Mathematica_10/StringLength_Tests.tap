@@ -1,0 +1,53 @@
+# SYSTEM: Mathematica_10
+# TEST: StringLength_Tests
+# OUTPUT: output/Results/Mathematica_10/StringLength_Tests.json
+# Find the number of characters in a string:
+ok  StringLength["tiger"]    ==>     5
+    ---
+    data:
+        got: 5
+        expect: 5
+        expect_evaluated: 5
+    ...
+# Find lengths of all strings in a list:
+ok  StringLength[{"cat", "dog", "fish", "coelenterate"}]    ==>     {3, 3, 4, 12}
+    ---
+    data:
+        got: {3, 3, 4, 12}
+        expect: {3, 3, 4, 12}
+        expect_evaluated: {3, 3, 4, 12}
+    ...
+# RefLink[StringLength,paclet:ref/StringLength] treats special characters just like ordinary ones:
+ok  StringLength["\[FilledDiamond]\[Alpha]\[Beta]\[Gamma]<-->\[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC]\[ReturnIndicator]"]    ==>     9
+    ---
+    data:
+        got: 9
+        expect: 9
+        expect_evaluated: 9
+    ...
+# Newlines count as one character:
+ok  "ab\ncd"    ==>     ab*cd # skip
+ok  StringLength[%]    ==>     5 # skip
+# Find the growth rate of a string substitution system:
+ok  NestList[StringReplace[#1, {"A" -> "AB", "B" -> "A"}] & , "A", 5]    ==>     {A, AB, ABA, ABAAB, ABAABABA, ABAABABAABAAB} # skip
+ok  StringLength[%]    ==>     {1, 2, 3, 5, 8, 13} # skip
+# The empty string has zero length:
+ok  StringLength[""]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+# Formatting constructs are included in giving lengths of formatted strings:
+ok  FullForm["red"]    ==>     "\!\(\* StyleBox[\"red\",\nFontColor->RGBColor[1, 0, 0]]\)" # skip
+ok  StringLength["red"]    ==>     50 # skip
+# RefLink[StringLength,paclet:ref/StringLength] counts every character as length 1, regardless of the length of its full name:
+ok  FullForm["\[Alpha]\[Beta]\[Gamma]"]    ==>     "\[Alpha]\[Beta]\[Gamma]" # skip
+ok  StringLength["\[Alpha]\[Beta]\[Gamma]"]    ==>     3
+    ---
+    data:
+        got: 3
+        expect: 3
+        expect_evaluated: 3
+    ...

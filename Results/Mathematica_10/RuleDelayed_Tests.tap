@@ -1,0 +1,52 @@
+# SYSTEM: Mathematica_10
+# TEST: RuleDelayed_Tests
+# OUTPUT: output/Results/Mathematica_10/RuleDelayed_Tests.json
+# :> holds its right-hand side unevaluated:
+ok  x :> RandomReal[]    ==>     x :> RandomReal[]
+    ---
+    data:
+        got: x :> RandomReal[]
+        expect: x :> RandomReal[]
+        expect_evaluated: x :> RandomReal[]
+    ...
+# The right-hand side is evaluated separately each time it is used:
+ok  {x, x, x} /. x :> RandomReal[]    ==>     {0.378563, 0.0598703, 0.504099} # skip
+# Increment n each time x is replaced:
+ok  n = 1; {x, x, a, b, x, x, c, d} /. x :> n++    ==>     {1, 2, a, b, 3, 4, c, d}
+    ---
+    data:
+        got: {1, 2, a, b, 3, 4, c, d}
+        expect: {1, 2, a, b, 3, 4, c, d}
+        expect_evaluated: {1, 2, a, b, 3, 4, c, d}
+    ...
+# Evaluate the RefLink[StepMonitor,paclet:ref/StepMonitor] expression separately each time it is to be used:
+ok  FindRoot[Cos[x] == x, {x, 1}, StepMonitor :> Print[x]]    ==>     {x -> 0.739085} # skip
+# Generate a diagonal matrix with random elements:
+ok  MatrixForm[SparseArray[{{i_, i_} :> RandomReal[]}, {4, 4}]]    ==>     0.655978*0*0*0*0*0.339171*0*0*0*0*0.163612*0*0*0*0*0.371782 # skip
+# -> evaluates when it is first entered; :> when it is used:
+ok  {x, x, x, x} /. x -> RandomReal[]    ==>     {0.526621, 0.526621, 0.526621, 0.526621} # skip
+ok  {x, x, x, x} /. x :> RandomReal[]    ==>     {0.123567, 0.815383, 0.768442, 0.930826} # skip
+# RefLink[Module,paclet:ref/Module] and RefLink[With,paclet:ref/With] do not affect local variables of RefLink[RuleDelayed,paclet:ref/RuleDelayed]:
+ok  With[{x = 1}, a /. x_ :> x + 1]    ==>     1 + a
+    ---
+    data:
+        got: 1 + a
+        expect: 1 + a
+        expect_evaluated: 1 + a
+    ...
+# RefLink[Module,paclet:ref/Module] effectively uses a renamed instance of y: 
+ok  {incr[x], incr[y]} /. incr[x_] :> Module[{y = 1}, x + y]    ==>     {1 + x, 1 + y}
+    ---
+    data:
+        got: {1 + x, 1 + y}
+        expect: {1 + x, 1 + y}
+        expect_evaluated: {1 + x, 1 + y}
+    ...
+# By evaluating the arguments to RefLink[RuleDelayed,paclet:ref/RuleDelayed], local scoping is avoided: 
+ok  Module[{expr = x^2}, a /. RuleDelayed @@ {x_, expr}]    ==>     a^2
+    ---
+    data:
+        got: a^2
+        expect: a^2
+        expect_evaluated: a^2
+    ...

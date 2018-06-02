@@ -1,0 +1,38 @@
+# SYSTEM: Mathematica_10
+# TEST: Rule_Tests
+# OUTPUT: output/Results/Mathematica_10/Rule_Tests.json
+# Use a rule that replaces x by 3:
+ok  {x, x^2, a, b} /. x -> 3    ==>     {3, 9, a, b}
+    ---
+    data:
+        got: {3, 9, a, b}
+        expect: {3, 9, a, b}
+        expect_evaluated: {3, 9, a, b}
+    ...
+# Any expression or pattern can appear in a rule:
+ok  {x, x^2, x^3, a, b} /. x^2 -> y    ==>     {x, y, x^3, a, b}
+    ---
+    data:
+        got: {x, y, x^3, a, b}
+        expect: {x, y, x^3, a, b}
+        expect_evaluated: {x, y, x^3, a, b}
+    ...
+ok  {x, x^2, x^3, a, b} /. x^(n_) -> f[n]    ==>     {x, f[2], f[3], a, b}
+    ---
+    data:
+        got: {x, f[2], f[3], a, b}
+        expect: {x, f[2], f[3], a, b}
+        expect_evaluated: {x, f[2], f[3], a, b}
+    ...
+# -> evaluates when it is first entered; :> when it is used:
+ok  {x, x, x, x} /. x -> RandomReal[]    ==>     {0.526621, 0.526621, 0.526621, 0.526621} # skip
+ok  {x, x, x, x} /. x :> RandomReal[]    ==>     {0.123567, 0.815383, 0.768442, 0.930826} # skip
+# -> groups to the right:
+ok  FullForm[x -> y -> z]    ==>     x -> y -> z # skip
+ok  x /. x -> y -> z    ==>     y -> z
+    ---
+    data:
+        got: y -> z
+        expect: y -> z
+        expect_evaluated: y -> z
+    ...

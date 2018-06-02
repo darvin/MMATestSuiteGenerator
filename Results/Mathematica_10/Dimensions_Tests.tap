@@ -1,0 +1,69 @@
+# SYSTEM: Mathematica_10
+# TEST: Dimensions_Tests
+# OUTPUT: output/Results/Mathematica_10/Dimensions_Tests.json
+# Dimensions of a matrix:
+ok  Dimensions[{{a, b, c}, {d, e, f}}]    ==>     {2, 3}
+    ---
+    data:
+        got: {2, 3}
+        expect: {2, 3}
+        expect_evaluated: {2, 3}
+    ...
+# RefLink[Dimensions,paclet:ref/Dimensions] counts only dimensions at which an expression is not "ragged":
+ok  Dimensions[{{a, b, c}, {d, e}, {f}}]    ==>     {3}
+    ---
+    data:
+        got: {3}
+        expect: {3}
+        expect_evaluated: {3}
+    ...
+# RefLink[Dimensions,paclet:ref/Dimensions] works with arrays of any depth:
+ok  Dimensions[{{{{a, b}}}}]    ==>     {1, 1, 1, 2}
+    ---
+    data:
+        got: {1, 1, 1, 2}
+        expect: {1, 1, 1, 2}
+        expect_evaluated: {1, 1, 1, 2}
+    ...
+# Give dimensions only down to level 2:
+ok  Dimensions[{{{{a, b}}}}, 2]    ==>     {1, 1}
+    ---
+    data:
+        got: {1, 1}
+        expect: {1, 1}
+        expect_evaluated: {1, 1}
+    ...
+# RefLink[Dimensions,paclet:ref/Dimensions] works with any head, not just RefLink[List,paclet:ref/List]:
+ok  Dimensions[f[f[x, y], f[a, b], f[s, t]]]    ==>     {3, 2}
+    ---
+    data:
+        got: {3, 2}
+        expect: {3, 2}
+        expect_evaluated: {3, 2}
+    ...
+# The "array" is considered full only when it has the same head as at the top:
+ok  Dimensions[f[g[x, y], g[a, b], g[s, t]]]    ==>     {3}
+    ---
+    data:
+        got: {3}
+        expect: {3}
+        expect_evaluated: {3}
+    ...
+# RefLink[Dimensions,paclet:ref/Dimensions] works with RefLink[SparseArray,paclet:ref/SparseArray] objects:
+ok  HoldComplete[SparseArray[{{{a, b}}}]]    ==>     $Failed # skip
+ok  Dimensions[%]    ==>     {1, 1, 2} # skip
+# Find dimensions of regions filled by 10 steps of cellular automaton evolution:
+ok  Table[Dimensions[CellularAutomaton[n, {{1}, 0}, 10]], {n, 20}]    ==>     {{11, 3}, {11, 11}, {11, 6}, {11, 1}, {11, 3}, {11, 11}, {11, 2}, {11, 1}, {11, 12}, {11, 11}, {11, 11}, {11, 1}, {11, 12}, {11, 11}, {11, 11}, {11, 11}, {11, 6}, {11, 21}, {11, 1}, {11, 11}}
+    ---
+    data:
+        got: {{11, 3}, {11, 11}, {11, 6}, {11, 1}, {11, 3}, {11, 11}, {11, 2}, {11, 1}, {11, 12}, {11, 11}, {11, 11}, {11, 1}, {11, 12}, {11, 11}, {11, 11}, {11, 11}, {11, 6}, {11, 21}, {11, 1}, {11, 11}}
+        expect: {{11, 3}, {11, 11}, {11, 6}, {11, 1}, {11, 3}, {11, 11}, {11, 2}, {11, 1}, {11, 12}, {11, 11}, {11, 11}, {11, 1}, {11, 12}, {11, 11}, {11, 11}, {11, 11}, {11, 6}, {11, 21}, {11, 1}, {11, 11}}
+        expect_evaluated: {{11, 3}, {11, 11}, {11, 6}, {11, 1}, {11, 3}, {11, 11}, {11, 2}, {11, 1}, {11, 12}, {11, 11}, {11, 11}, {11, 1}, {11, 12}, {11, 11}, {11, 11}, {11, 11}, {11, 6}, {11, 21}, {11, 1}, {11, 11}}
+    ...
+ok  Dimensions[Array[a, {2, 1, 4, 3}]]    ==>     {2, 1, 4, 3}
+    ---
+    data:
+        got: {2, 1, 4, 3}
+        expect: {2, 1, 4, 3}
+        expect_evaluated: {2, 1, 4, 3}
+    ...

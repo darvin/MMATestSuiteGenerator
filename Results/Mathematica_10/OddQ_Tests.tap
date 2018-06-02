@@ -1,0 +1,73 @@
+# SYSTEM: Mathematica_10
+# TEST: OddQ_Tests
+# OUTPUT: output/Results/Mathematica_10/OddQ_Tests.json
+# Test whether 9 is odd:
+ok  OddQ[9]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# RefLink[OddQ,paclet:ref/OddQ] gives RefLink[False,paclet:ref/False] for non-numeric expressions:
+ok  OddQ[x]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# Test whether a vector consists of odd integers:
+ok  VectorQ[{1, 5, 7, 11}, OddQ]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok  VectorQ[{2, 5, 7, 11}, OddQ]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# An integer is either odd or even. Use RefLink[EvenQ,paclet:ref/EvenQ] to check that an integer is even:
+ok  OddQ[2]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  EvenQ[2]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Odd integers are not divisible by 2:
+ok  OddQ[15]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok   !Divisible[15, 2]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok  OddQ[x]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# It is necessary to use symbolic simplification first:
+ok  FullSimplify[x]    ==>     3 # skip

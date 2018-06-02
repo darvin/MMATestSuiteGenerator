@@ -1,0 +1,16 @@
+# SYSTEM: Mathematica_10
+# TEST: Begin_Tests
+# OUTPUT: output/Results/Mathematica_10/Begin_Tests.json
+# Define a function f in the MyContext` RefLink[Context,paclet:ref/Context]:
+ok  HoldComplete[Begin["MyContext`"]]    ==>     $Failed # skip
+# Restore the context:
+ok  HoldComplete[End[]]    ==>     $Failed # skip
+# The function can be called using its fully qualified name:
+ok  MyContext`f[a + b]    ==>     1 + (a + b)^2 # skip
+# Make symbols used for package function definitions private, reducing the possibility for conflict:
+ok  HoldComplete[BeginPackage["MyPackage`"]]    ==>     $Failed # skip
+# When the context given to RefLink[Begin,paclet:ref/Begin] starts with ` it extends from the current context:
+ok  HoldComplete[Begin["`Private`"]]    ==>     $Failed # skip
+ok  HoldComplete[End[]]    ==>     $Failed # skip
+# Since the symbol f is in the package context, the function works after RefLink[EndPackage,paclet:ref/EndPackage]:
+ok  f[a + b]    ==>     1 + (a + b)^2 # skip

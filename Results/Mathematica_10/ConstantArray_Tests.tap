@@ -1,0 +1,120 @@
+# SYSTEM: Mathematica_10
+# TEST: ConstantArray_Tests
+# OUTPUT: output/Results/Mathematica_10/ConstantArray_Tests.json
+# Make a vector of 10 c's:
+ok  ConstantArray[c, 10]    ==>     {c, c, c, c, c, c, c, c, c, c}
+    ---
+    data:
+        got: {c, c, c, c, c, c, c, c, c, c}
+        expect: {c, c, c, c, c, c, c, c, c, c}
+        expect_evaluated: {c, c, c, c, c, c, c, c, c, c}
+    ...
+# Make a 3*4 array of c's:
+ok  ConstantArray[c, {3, 4}]    ==>     {{c, c, c, c}, {c, c, c, c}, {c, c, c, c}}
+    ---
+    data:
+        got: {{c, c, c, c}, {c, c, c, c}, {c, c, c, c}}
+        expect: {{c, c, c, c}, {c, c, c, c}, {c, c, c, c}}
+        expect_evaluated: {{c, c, c, c}, {c, c, c, c}, {c, c, c, c}}
+    ...
+# A machine-zero vector:
+ok  ConstantArray[0., 10]    ==>     {0., 0., 0., 0., 0., 0., 0., 0., 0., 0.}
+    ---
+    data:
+        got: {0., 0., 0., 0., 0., 0., 0., 0., 0., 0.}
+        expect: {0., 0., 0., 0., 0., 0., 0., 0., 0., 0.}
+        expect_evaluated: {0., 0., 0., 0., 0., 0., 0., 0., 0., 0.}
+    ...
+# A vector of exact zeros:
+ok  ConstantArray[0, 10]    ==>     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+    ---
+    data:
+        got: {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+        expect: {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+        expect_evaluated: {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+    ...
+# A machine-zero matrix:
+ok  zm = ConstantArray[0., {3, 3}]    ==>     {{0., 0., 0.}, {0., 0., 0.}, {0., 0., 0.}}
+    ---
+    data:
+        got: {{0., 0., 0.}, {0., 0., 0.}, {0., 0., 0.}}
+        expect: {{0., 0., 0.}, {0., 0., 0.}, {0., 0., 0.}}
+        expect_evaluated: {{0., 0., 0.}, {0., 0., 0.}, {0., 0., 0.}}
+    ...
+# A matrix of exact zeros:
+ok  ConstantArray[0, {3, 3}]    ==>     {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}
+    ---
+    data:
+        got: {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}
+        expect: {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}
+        expect_evaluated: {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}
+    ...
+# A vector of ones:
+ok  ConstantArray[1, 10]    ==>     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    ---
+    data:
+        got: {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+        expect: {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+        expect_evaluated: {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    ...
+# A machine-number vector of ones:
+ok  ConstantArray[1., 10]    ==>     {1., 1., 1., 1., 1., 1., 1., 1., 1., 1.}
+    ---
+    data:
+        got: {1., 1., 1., 1., 1., 1., 1., 1., 1., 1.}
+        expect: {1., 1., 1., 1., 1., 1., 1., 1., 1., 1.}
+        expect_evaluated: {1., 1., 1., 1., 1., 1., 1., 1., 1., 1.}
+    ...
+# A deeply nested constant array:
+ok  ConstantArray[x, {2, 1, 2, 1, 2}]    ==>     {{{{{x, x}}, {{x, x}}}}, {{{{x, x}}, {{x, x}}}}}
+    ---
+    data:
+        got: {{{{{x, x}}, {{x, x}}}}, {{{{x, x}}, {{x, x}}}}}
+        expect: {{{{{x, x}}, {{x, x}}}}, {{{{x, x}}, {{x, x}}}}}
+        expect_evaluated: {{{{{x, x}}, {{x, x}}}}, {{{{x, x}}, {{x, x}}}}}
+    ...
+ok  HoldComplete[ListPlot[sol, DataRange -> {0, 1}]]    ==>     $Failed # skip
+# Find the sum of the elements in a list:
+ok  list = RandomInteger[9, 20]    ==>     {4, 0, 2, 3, 9, 3, 2, 9, 8, 2, 2, 7, 1, 6, 7, 9, 2, 3, 1, 1} # skip
+ok  list . ConstantArray[1, Length[list]]    ==>     81 # skip
+# This can also be done with RefLink[Total,paclet:ref/Total]:
+ok  Total[list]    ==>     81 # skip
+# Use a vector of ones to see the effects of conditioning on the solution of a linear system:
+ok  ones = ConstantArray[1, 10]    ==>     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    ---
+    data:
+        got: {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+        expect: {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+        expect_evaluated: {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    ...
+# The solution at machine precision has significant errors:
+ok  x = LinearSolve[N[m], b]    ==>     {1., 1., 1., 0.999971, 1.00014, 0.999631, 1.0006, 0.999422, 1.0003, 0.999934} # skip
+ok  Norm[x - ones]    ==>     0.00097329 # skip
+# At higher precision, the solution is much better:
+ok  x30 = LinearSolve[N[m, 30], b]; Norm[Block[{$MaxPrecision = 30, $MinPrecision = 30}, x30 - ones]]    ==>     3.42707739967263571112712880383`29.5349239129712/10^36 # skip
+# RefLink[ConstantArray,paclet:ref/ConstantArray][c,dims] has RefLink[Dimensions,paclet:ref/Dimensions][dims]:
+ok  dims = RandomInteger[{1, 4}, 5]    ==>     {3, 1, 3, 4, 3} # skip
+ok  Dimensions[ConstantArray[c, dims]]    ==>     {3, 1, 3, 4, 3} # skip
+ok  HoldComplete[s = SparseArray[{}, dims, c]]    ==>     $Failed # skip
+not ok  ConstantArray[c, dims] == s    ==>     True
+    ---
+    data:
+        got: ConstantArray[c, dims] == s
+        expect: True
+        expect_evaluated: True
+    ...
+# RefLink[Normal,paclet:ref/Normal][s] is identical to RefLink[ConstantArray,paclet:ref/ConstantArray][c,dims]:
+not ok  ConstantArray[c, dims] === Normal[s]    ==>     True
+    ---
+    data:
+        got: False
+        expect: True
+        expect_evaluated: True
+    ...
+not ok  ConstantArray[c, dims] === (Table[c, ##1] & ) @@ List /@ dims    ==>     True
+    ---
+    data:
+        got: False
+        expect: True
+        expect_evaluated: True
+    ...

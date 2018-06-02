@@ -1,0 +1,19 @@
+# SYSTEM: Mathematica_10
+# TEST: Positive_Tests
+# OUTPUT: output/Results/Mathematica_10/Positive_Tests.json
+# Evaluate different types of numbers:
+ok  Positive[{1.6, 3/4, Pi, 0, -5, 1 + I, Sin[10^5]}]    ==>     {True, True, True, False, False, False, True}
+    ---
+    data:
+        got: {True, True, True, False, False, False, True}
+        expect: {True, True, True, False, False, False, True}
+        expect_evaluated: {True, True, True, False, False, False, True}
+    ...
+# Quantities that are not RefLink[NumericQ,paclet:ref/NumericQ] remain unevaluated:
+ok  Positive[{x, Sin[y]}]    ==>     {Positive[x], Positive[Sin[y]]}
+    ---
+    data:
+        got: {Positive[x], Positive[Sin[y]]}
+        expect: {Positive[x], Positive[Sin[y]]}
+        expect_evaluated: {Positive[x], Positive[Sin[y]]}
+    ...

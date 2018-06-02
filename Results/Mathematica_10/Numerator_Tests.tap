@@ -1,0 +1,123 @@
+# SYSTEM: Mathematica_10
+# TEST: Numerator_Tests
+# OUTPUT: output/Results/Mathematica_10/Numerator_Tests.json
+# Extract the numerator of a rational number:
+ok  Numerator[2/3]    ==>     2
+    ---
+    data:
+        got: 2
+        expect: 2
+        expect_evaluated: 2
+    ...
+# Extract the numerator of a rational expression:
+ok  Numerator[(x - 1)*((x - 2)/(x - 3)^2)]    ==>     (-2 + x)*(-1 + x)
+    ---
+    data:
+        got: (-2 + x)*(-1 + x)
+        expect: (-2 + x)*(-1 + x)
+        expect_evaluated: (-2 + x)*(-1 + x)
+    ...
+# Rational numbers:
+ok  Numerator[3/7]    ==>     3
+    ---
+    data:
+        got: 3
+        expect: 3
+        expect_evaluated: 3
+    ...
+# Rational expressions:
+ok  Numerator[(x - 1)^2/((x - 2)*(x - 3))]    ==>     (-1 + x)^2
+    ---
+    data:
+        got: (-1 + x)^2
+        expect: (-1 + x)^2
+        expect_evaluated: (-1 + x)^2
+    ...
+# Select terms without syntactically negative exponents:
+ok  expr = (a*x^n*Exp[a - b - 2*c + 3*d])/y^m    ==>     (a*E^(a - b - 2*c + 3*d)*x^n)/y^m
+    ---
+    data:
+        got: (a*E^(a - b - 2*c + 3*d)*x^n)/y^m
+        expect: (a*E^(a - b - 2*c + 3*d)*x^n)/y^m
+        expect_evaluated: (a*E^(a - b - 2*c + 3*d)*x^n)/y^m
+    ...
+ok  Numerator[expr]    ==>     a*E^(a + 3*d)*x^n
+    ---
+    data:
+        got: a*E^(a + 3*d)*x^n
+        expect: a*E^(a + 3*d)*x^n
+        expect_evaluated: a*E^(a + 3*d)*x^n
+    ...
+# All exponents syntactically negative:
+ok  Numerator[1/(a^b*x)]    ==>     1
+    ---
+    data:
+        got: 1
+        expect: 1
+        expect_evaluated: 1
+    ...
+# No syntactically negative exponents:
+ok  Numerator[2*x^y*b^2]    ==>     2*b^2*x^y
+    ---
+    data:
+        got: 2*b^2*x^y
+        expect: 2*b^2*x^y
+        expect_evaluated: 2*b^2*x^y
+    ...
+# RefLink[Numerator,paclet:ref/Numerator] automatically threads over lists:
+ok  Numerator[{1, 2, 3, 4, 5, 6}/3]    ==>     {1, 2, 1, 4, 5, 2}
+    ---
+    data:
+        got: {1, 2, 1, 4, 5, 2}
+        expect: {1, 2, 1, 4, 5, 2}
+        expect_evaluated: {1, 2, 1, 4, 5, 2}
+    ...
+# Find numerators over integers modulo m:
+ok  Numerator[((1/3)*x + (3/4)*y)/((3/5)*x - (1/2)*y), Modulus -> 7]    ==>     5*x + 6*y
+    ---
+    data:
+        got: 5*x + 6*y
+        expect: 5*x + 6*y
+        expect_evaluated: 5*x + 6*y
+    ...
+# Numerators of trigonometric functions:
+ok  Numerator[{Sin[x], Cos[x], Tan[x], Csc[x], Sec[x], Cot[x]}, Trig -> True]    ==>     {Sin[x], Cos[x], Sin[x], 1, 1, Cos[x]}
+    ---
+    data:
+        got: {Sin[x], Cos[x], Sin[x], 1, 1, Cos[x]}
+        expect: {Sin[x], Cos[x], Sin[x], 1, 1, Cos[x]}
+        expect_evaluated: {Sin[x], Cos[x], Sin[x], 1, 1, Cos[x]}
+    ...
+# RefLink[Denominator,paclet:ref/Denominator] gives the terms with negative exponents:
+ok  Denominator[(2/3)*((x - 1)/(x - 2))]    ==>     3*(-2 + x)
+    ---
+    data:
+        got: 3*(-2 + x)
+        expect: 3*(-2 + x)
+        expect_evaluated: 3*(-2 + x)
+    ...
+ok  num = Numerator[expr]    ==>     5*a^b*(-1 + x)^2 # skip
+ok  den = Denominator[expr]    ==>     7*c^d*(-2 + x)^3 # skip
+not ok  expr === num/den    ==>     True
+    ---
+    data:
+        got: False
+        expect: True
+        expect_evaluated: True
+    ...
+# Use RefLink[Cancel,paclet:ref/Cancel] to cancel common factors between the numerator and the denominator:
+ok  Cancel[(x - 1)*((x - 2)/(x^2 - 1))]    ==>     (-2 + x)/(1 + x)
+    ---
+    data:
+        got: (-2 + x)/(1 + x)
+        expect: (-2 + x)/(1 + x)
+        expect_evaluated: (-2 + x)/(1 + x)
+    ...
+# RefLink[Together,paclet:ref/Together] writes an expression as a fraction and cancels common terms:
+ok  Together[x*((x - 2)/(x^2 - 1)) + x/(x^2 - 1) - 2/(x^2 - 1)]    ==>     (-2 + x)/(-1 + x)
+    ---
+    data:
+        got: (-2 + x)/(-1 + x)
+        expect: (-2 + x)/(-1 + x)
+        expect_evaluated: (-2 + x)/(-1 + x)
+    ...

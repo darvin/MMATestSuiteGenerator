@@ -1,0 +1,90 @@
+# SYSTEM: Mathematica_10
+# TEST: SameQ_Tests
+# OUTPUT: output/Results/Mathematica_10/SameQ_Tests.json
+# Test whether two expressions are identically the same:
+ok  x === y    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  x === x    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# == remains symbolic unless literal values are given:
+ok  x == y    ==>     x == y
+    ---
+    data:
+        got: x == y
+        expect: x == y
+        expect_evaluated: x == y
+    ...
+# Full form:
+ok  x === y    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# Test equivalence of strings:
+ok  "abc" === "ABC"    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# Numbers in different representations are not the same:
+ok  0. === 0    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# == nevertheless treats them as equal:
+ok  0. == 0    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Approximate numbers that differ in their last bit are still considered identical:
+ok  1.`18.06179973983887 === 1.00000000000000000086736173799`18.06179973983887    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Test whether multiple expressions are all the same:
+ok  x === x === y    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  x === x === x    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Make a Kronecker delta (identity) tensor:
+ok  Boole[Array[SameQ, {3, 3, 3}]]    ==>     {{{1, 0, 0}, {0, 0, 0}, {0, 0, 0}}, {{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}, {{0, 0, 0}, {0, 0, 0}, {0, 0, 1}}}
+    ---
+    data:
+        got: {{{1, 0, 0}, {0, 0, 0}, {0, 0, 0}}, {{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}, {{0, 0, 0}, {0, 0, 0}, {0, 0, 1}}}
+        expect: {{{1, 0, 0}, {0, 0, 0}, {0, 0, 0}}, {{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}, {{0, 0, 0}, {0, 0, 0}, {0, 0, 1}}}
+        expect_evaluated: {{{1, 0, 0}, {0, 0, 0}, {0, 0, 0}}, {{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}, {{0, 0, 0}, {0, 0, 0}, {0, 0, 1}}}
+    ...
+ok  Position[%, 1]    ==>     {{1, 1, 1}, {2, 2, 2}, {3, 3, 3}} # skip

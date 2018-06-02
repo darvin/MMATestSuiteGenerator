@@ -1,0 +1,37 @@
+# SYSTEM: Mathematica_10
+# TEST: Replace_Tests
+# OUTPUT: output/Results/Mathematica_10/Replace_Tests.json
+# RefLink[Replace,paclet:ref/Replace] by default applies rules only to complete expressions:
+ok  Replace[x^2, x^2 -> a + b]    ==>     a + b
+    ---
+    data:
+        got: a + b
+        expect: a + b
+        expect_evaluated: a + b
+    ...
+# It does not map down to subparts:
+ok  Replace[1 + x^2, x^2 -> a + b]    ==>     1 + x^2
+    ---
+    data:
+        got: 1 + x^2
+        expect: 1 + x^2
+        expect_evaluated: 1 + x^2
+    ...
+# A list of rules gives a list of results:
+ok  Replace[x, {{x -> a}, {x -> b}}]    ==>     {a, b}
+    ---
+    data:
+        got: {a, b}
+        expect: {a, b}
+        expect_evaluated: {a, b}
+    ...
+# Replace at level 1:
+ok  Replace[1 + x^2, x^2 -> a + b, {1}]    ==>     1 + a + b
+    ---
+    data:
+        got: 1 + a + b
+        expect: 1 + a + b
+        expect_evaluated: 1 + a + b
+    ...
+# RefLink[Replace,paclet:ref/Replace] also works with RefLink[RuleDelayed,paclet:ref/RuleDelayed]:
+ok  Replace[{x, x, x}, x :> RandomReal[], {1}]    ==>     {0.921434, 0.760332, 0.860225} # skip

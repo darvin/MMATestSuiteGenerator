@@ -1,0 +1,28 @@
+# SYSTEM: Mathematica_10
+# TEST: Unevaluated_Tests
+# OUTPUT: output/Results/Mathematica_10/Unevaluated_Tests.json
+# Feed an unevaluated expression to RefLink[Length,paclet:ref/Length]: 
+ok  Length[Unevaluated[5 + 6 + 7 + 8]]    ==>     4
+    ---
+    data:
+        got: 4
+        expect: 4
+        expect_evaluated: 4
+    ...
+ok  symbolLength[xyzzy]    ==>     5 # skip
+ok  f[Unevaluated[1 + 1]]    ==>     g[2] # skip
+# RefLink[Unevaluated,paclet:ref/Unevaluated] stops RefLink[Evaluate,paclet:ref/Evaluate]:
+ok  Hold[Evaluate[Unevaluated[1 + 2]]]    ==>     Hold[Unevaluated[1 + 2]]
+    ---
+    data:
+        got: Unevaluated[1 + 2]
+        expect: Hold[Unevaluated[1 + 2]]
+        expect_evaluated: Unevaluated[1 + 2]
+    ...
+ok  f[Unevaluated[1 + 2]]    ==>     f[Unevaluated[1 + 2]]
+    ---
+    data:
+        got: f[Unevaluated[1 + 2]]
+        expect: f[Unevaluated[1 + 2]]
+        expect_evaluated: f[Unevaluated[1 + 2]]
+    ...

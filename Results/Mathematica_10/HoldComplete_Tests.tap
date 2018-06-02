@@ -1,0 +1,97 @@
+# SYSTEM: Mathematica_10
+# TEST: HoldComplete_Tests
+# OUTPUT: output/Results/Mathematica_10/HoldComplete_Tests.json
+not ok  HoldComplete[1 + 1, Evaluate[1 + 2], Sequence[3, 4]]    ==>     HoldComplete[1 + 1, Evaluate[1 + 2], Sequence[3, 4]]
+    ---
+    data:
+        got: InputForm[2, 3, 3, 4]
+        expect: HoldComplete[1 + 1, Evaluate[1 + 2], Sequence[3, 4]]
+        expect_evaluated: InputForm[2, 3, 3, 4]
+    ...
+# RefLink[HoldComplete,paclet:ref/HoldComplete] is the standard container with attribute RefLink[HoldAllComplete,paclet:ref/HoldAllComplete]:
+ok  Attributes[HoldComplete]    ==>     {HoldAllComplete, Protected}
+    ---
+    data:
+        got: {HoldAllComplete, Protected}
+        expect: {HoldAllComplete, Protected}
+        expect_evaluated: {HoldAllComplete, Protected}
+    ...
+not ok  HoldComplete[Sequence[a, b], 1 + 2]    ==>     HoldComplete[Sequence[a, b], 1 + 2]
+    ---
+    data:
+        got: InputForm[a, b, 3]
+        expect: HoldComplete[Sequence[a, b], 1 + 2]
+        expect_evaluated: InputForm[a, b, 3]
+    ...
+# No form of evaluation control affects an expression with attribute RefLink[HoldAllComplete,paclet:ref/HoldAllComplete]:
+ok  HoldComplete[1 + 2]    ==>     HoldComplete[1 + 2]
+    ---
+    data:
+        got: 3
+        expect: HoldComplete[1 + 2]
+        expect_evaluated: 3
+    ...
+ok  HoldComplete[Evaluate[1 + 2]]    ==>     HoldComplete[Evaluate[1 + 2]]
+    ---
+    data:
+        got: 3
+        expect: HoldComplete[Evaluate[1 + 2]]
+        expect_evaluated: 3
+    ...
+not ok  HoldComplete[Sequence[a, b]]    ==>     HoldComplete[Sequence[a, b]]
+    ---
+    data:
+        got: InputForm[a, b]
+        expect: HoldComplete[Sequence[a, b]]
+        expect_evaluated: InputForm[a, b]
+    ...
+ok  HoldComplete[g[1]]    ==>     HoldComplete[g[1]]
+    ---
+    data:
+        got: g[1]
+        expect: HoldComplete[g[1]]
+        expect_evaluated: g[1]
+    ...
+# Substitution still happens inside RefLink[HoldComplete,paclet:ref/HoldComplete]:
+ok  HoldComplete[f[1 + 2]] /. f[x_] :> g[x]    ==>     HoldComplete[g[1 + 2]]
+    ---
+    data:
+        got: g[3]
+        expect: HoldComplete[g[1 + 2]]
+        expect_evaluated: g[3]
+    ...
+# RefLink[ReleaseHold,paclet:ref/ReleaseHold] removes one level of RefLink[HoldComplete,paclet:ref/HoldComplete]:
+ok  ReleaseHold[HoldComplete[Sequence[1, 2]]]    ==>     Sequence[1, 2] # skip
+# RefLink[Hold,paclet:ref/Hold] is a milder form of RefLink[HoldComplete,paclet:ref/HoldComplete] that allows for some form of evaluation:
+ok  Hold[1 + 2]    ==>     Hold[1 + 2]
+    ---
+    data:
+        got: 3
+        expect: Hold[1 + 2]
+        expect_evaluated: 3
+    ...
+ok  Hold[Evaluate[1 + 2]]    ==>     Hold[3]
+    ---
+    data:
+        got: 3
+        expect: Hold[3]
+        expect_evaluated: 3
+    ...
+not ok  Hold[Sequence[a, b]]    ==>     Hold[a, b]
+    ---
+    data:
+        got: InputForm[a, b]
+        expect: Hold[a, b]
+        expect_evaluated: InputForm[a, b]
+    ...
+ok  Hold[g[1]]    ==>     1 # skip
+# RefLink[HoldComplete,paclet:ref/HoldComplete] can be used to freeze the result of RefLink[ToExpression,paclet:ref/ToExpression] before it is evaluated:
+not ok  ToExpression["Sequence[a,b]", InputForm, HoldComplete]    ==>     HoldComplete[Sequence[a, b]]
+    ---
+    data:
+        got: InputForm[a, b]
+        expect: HoldComplete[Sequence[a, b]]
+        expect_evaluated: InputForm[a, b]
+    ...
+# RefLink[HoldComplete,paclet:ref/HoldComplete] affects only evaluation; input transformations are still applied:
+ok  FullForm[HoldComplete[a - b, a/b]]    ==>     HoldComplete[a - b, a/b] # skip

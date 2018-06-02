@@ -1,0 +1,43 @@
+(* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
+Import["CompatTests.m"]; 
+ESimpleExamples[ESameTest[77/11, 7], 
+ EComment["Enter in 2D form using Control+/:"], ESameTest[77/11, 7], 
+ EComment[
+  "RefLink[Divide,paclet:ref/Divide] reduces fractions to lowest terms:"], 
+ ESameTest[616/33, 56/3], 
+ EComment[
+  "Force a numerical result by including a decimal point in the input:"], 
+ ESameTestBROKEN[616./33, 18.6667], EComment["/ is applied sequentially:"], 
+ ESameTest[a/b/c/d, a/(b*c*d)], 
+ EComment["x/y is always converted to products and powers:"], 
+ ESameTestBROKEN[FullForm[a^2/b^3], a^2/b^3], 
+ EComment["Enter / using Esc\\[ThinSpace]div\\[ThinSpace]Esc:"], 
+ ESameTest[20/4, 5], 
+ EComment["RefLink[Divide,paclet:ref/Divide] threads element-wise over \
+lists:"], ESameTest[{2, 3, 4, 5}/3, {2/3, 1, 4/3, 5/3}], 
+ ESameTest[{x, y, z}/{a, b, c}, {x/a, y/b, z/c}], 
+ ESameTest[FoldList[Divide, 1, Range[10]], {1, 1, 1/2, 1/6, 1/24, 1/120, 
+   1/720, 1/5040, 1/40320, 1/362880, 1/3628800}], 
+ EComment["Successive ratios in a list:"], 
+ ESameTest[Apply[Divide, Partition[{a, b, c, d, e}, 2, 1], {1}], 
+  {a/b, b/c, c/d, d/e}], EComment["Expand quotients:"], 
+ ESameTest[(x + y)/z, (x + y)/z], ESameTestBROKEN[Expand[%], x/z + y/z], 
+ EComment["Cancel common factors in rational expressions:"], 
+ ESameTest[Cancel[(1 - x^2)/(1 - x)], 1 + x], 
+ EComment["Split into partial fractions:"], ESameTest[Apart[1/(x^2 - 1)], 
+  1/(2*(-1 + x)) - 1/(2*(1 + x))], ESameTest[1/0, ComplexInfinity], 
+ ESameTest[0/0, Indeterminate], ESameTest[1/Infinity, 0], 
+ EComment[
+  "Pattern matching relies on RefLink[FullForm,paclet:ref/FullForm]:"], 
+ ESameTest[Replace[x^2/y^3, (a_)/(b_) -> f[a, b]], x^2/y^3], 
+ ESameTestBROKEN[FullForm[x^2/y^3], x^2/y^3], 
+ ESameTest[Replace[x^2/y^3, (a:_^(_.))*(b:_^(_.)) -> f[a, b]], 
+  f[x^2, 1/y^3]], ESameTest[NestList[1/(1 + #1) & , x, 5], 
+  {x, 1/(1 + x), 1/(1 + 1/(1 + x)), 1/(1 + 1/(1 + 1/(1 + x))), 
+   1/(1 + 1/(1 + 1/(1 + 1/(1 + x)))), 
+   1/(1 + 1/(1 + 1/(1 + 1/(1 + 1/(1 + x)))))}], 
+ EComment["Array of possible fractions:"], ESameTest[Array[Divide, {4, 4}], 
+  {{1, 1/2, 1/3, 1/4}, {2, 1, 2/3, 1/2}, {3, 3/2, 1, 3/4}, {4, 2, 4/3, 1}}], 
+ EComment["Integers that divide exactly:"], 
+ ESameTestBROKEN[HoldComplete[ListPlot[Position[Array[Divide, {20, 20}], 
+     _Integer]]], $Failed]]

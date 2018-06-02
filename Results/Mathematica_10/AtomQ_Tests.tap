@@ -1,0 +1,168 @@
+# SYSTEM: Mathematica_10
+# TEST: AtomQ_Tests
+# OUTPUT: output/Results/Mathematica_10/AtomQ_Tests.json
+# Test if an expression cannot be subdivided:
+ok  e = x + 22/7    ==>     22/7 + x
+    ---
+    data:
+        got: 22/7 + x
+        expect: 22/7 + x
+        expect_evaluated: 22/7 + x
+    ...
+ok  AtomQ[e]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# Since it is not an atom, its parts can be extracted:
+ok  e[[1]]    ==>     22/7
+    ---
+    data:
+        got: 22/7
+        expect: 22/7
+        expect_evaluated: 22/7
+    ...
+# This is a number that is an atom:
+ok  AtomQ[%]    ==>     True # skip
+# Strings are not subdividable:
+ok  AtomQ["This is an atom"]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Symbols are not subdividable:
+ok  AtomQ[ThisIsAnAtom]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Numbers are not subdividable:
+ok  AtomQ[1.23]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# RefLink[Rational,paclet:ref/Rational] numbers appear to have a compound structure:
+ok  FullForm[22/7]    ==>     Rational[22, 7] # skip
+# As numbers, they are not subdividable:
+ok  AtomQ[22/7]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# The parts can be accessed through RefLink[Numerator,paclet:ref/Numerator] and RefLink[Denominator,paclet:ref/Denominator]:
+ok  {Numerator[22/7], Denominator[22/7]}    ==>     {22, 7}
+    ---
+    data:
+        got: {22, 7}
+        expect: {22, 7}
+        expect_evaluated: {22, 7}
+    ...
+# RefLink[Complex,paclet:ref/Complex] numbers appear to have a compound structure:
+ok  FullForm[1 + 2*I]    ==>     Complex[1, 2] # skip
+# As numbers, they are not subdividable:
+ok  AtomQ[1 + 2*I]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# The parts can be accessed through RefLink[Re,paclet:ref/Re] and RefLink[Im,paclet:ref/Im]:
+ok  {Re[1 + 2*I], Im[1 + 2*I]}    ==>     {1, 2}
+    ---
+    data:
+        got: {1, 2}
+        expect: {1, 2}
+        expect_evaluated: {1, 2}
+    ...
+# RefLink[SparseArray,paclet:ref/SparseArray] objects are atomic raw objects:
+ok  HoldComplete[s = SparseArray[{i_, i_} -> i, 3]]    ==>     $Failed # skip
+ok  AtomQ[s]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Commands that work with RefLink[SparseArray,paclet:ref/SparseArray] objects typically do so on the represented array:
+not ok  a = Normal[s]    ==>     {{1, 0, 0}, {0, 2, 0}, {0, 0, 3}}
+    ---
+    data:
+        got: s
+        expect: {{1, 0, 0}, {0, 2, 0}, {0, 0, 3}}
+        expect_evaluated: {{1, 0, 0}, {0, 2, 0}, {0, 0, 3}}
+    ...
+not ok  s[[2,2]]    ==>     2
+    ---
+    data:
+        got: s[[2,2]]
+        expect: 2
+        expect_evaluated: 2
+    ...
+not ok  a[[2,2]]    ==>     2
+    ---
+    data:
+        got: s[[2,2]]
+        expect: 2
+        expect_evaluated: 2
+    ...
+# The RefLink[FullForm,paclet:ref/FullForm] of a RefLink[SparseArray,paclet:ref/SparseArray] object is designed to be sufficient to reconstruct the raw object:
+ok  FullForm[s]    ==>     SparseArray[Automatic, {3, 3}, 0, {1, {{0, 1, 2, 3}, {{1}, {2}, {3}}}, {1, 2, 3}}] # skip
+ok  HoldComplete[s1 = SparseArray[Automatic, {3, 3}, 0, {1, {{0, 1, 2, 3}, {{1}, {2}, {3}}}, {1, 2, 3}}]]    ==>     $Failed # skip
+# A deeply nested expression:
+ok  e = Fold[f, x, Range[5]]    ==>     f[f[f[f[f[x, 1], 2], 3], 4], 5]
+    ---
+    data:
+        got: f[f[f[f[f[x, 1], 2], 3], 4], 5]
+        expect: f[f[f[f[f[x, 1], 2], 3], 4], 5]
+        expect_evaluated: f[f[f[f[f[x, 1], 2], 3], 4], 5]
+    ...
+ok  leaves[e]    ==>     11 # skip
+# This is equivalent to RefLink[LeafCount,paclet:ref/LeafCount]:
+ok  LeafCount[e]    ==>     11
+    ---
+    data:
+        got: 11
+        expect: 11
+        expect_evaluated: 11
+    ...
+# With the option RefLink[Heads,paclet:ref/Heads]->RefLink[False,paclet:ref/False], only atoms with no branches are counted:
+ok  leaves[e, Heads -> False]    ==>     6 # skip
+# This corresponds to the dangling leaves you see with RefLink[TreeForm,paclet:ref/TreeForm]:
+ok  HoldComplete[TreeForm[e]]    ==>     $Failed # skip
+ok  depth[1 + x + 2*x^2]    ==>     {1, 3} # skip
+ok  depth[{{1, 2}, {3, 4}}]    ==>     {2, 2} # skip
+# RefLink[Depth,paclet:ref/Depth] gives the maximum depth plus 1:
+ok  Depth[1 + x + 2*x^2]    ==>     4
+    ---
+    data:
+        got: 4
+        expect: 4
+        expect_evaluated: 4
+    ...
+# RefLink[Map,paclet:ref/Map][f,expr,{-1}] generally maps f on atoms in expr:
+ok  Map[f, 1 + x + 2*x^2, {-1}]    ==>     f[1] + f[x] + f[2]*f[x]^f[2]
+    ---
+    data:
+        got: f[1] + f[x] + f[2]*f[x]^f[2]
+        expect: f[1] + f[x] + f[2]*f[x]^f[2]
+        expect_evaluated: f[1] + f[x] + f[2]*f[x]^f[2]
+    ...
+ok  Map[f, 1 + x + 2*x^2, {-1}]    ==>     f[1] + f[x] + f[2]*f[x]^f[2]
+    ---
+    data:
+        got: f[1] + f[x] + f[2]*f[x]^f[2]
+        expect: f[1] + f[x] + f[2]*f[x]^f[2]
+        expect_evaluated: f[1] + f[x] + f[2]*f[x]^f[2]
+    ...

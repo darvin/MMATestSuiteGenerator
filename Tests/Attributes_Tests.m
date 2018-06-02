@@ -1,0 +1,28 @@
+(* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
+Import["CompatTests.m"]; 
+ESimpleExamples[EComment["Attributes for an existing symbol: "], 
+ ESameTest[Attributes[Plus], {Flat, Listable, NumericFunction, OneIdentity, 
+   Orderless, Protected}], EComment["Set attributes for a new symbol: "], 
+ ESameTest[Attributes[f] = {Listable, Protected}, {Listable, Protected}], 
+ ESameTest[Attributes[f], {Listable, Protected}], 
+ EComment["Attributes of a symbol:"], ESameTest[Attributes[Plus], 
+  {Flat, Listable, NumericFunction, OneIdentity, Orderless, Protected}], 
+ EComment["Attributes of several symbols in a list:"], 
+ ESameTest[Attributes[{Plus, Minus}], 
+  {{Flat, Listable, NumericFunction, OneIdentity, Orderless, Protected}, 
+   {Listable, NumericFunction, Protected}}], 
+ EComment["The symbol can be given as a string:"], 
+ ESameTest[Attributes["Set"], {HoldFirst, Protected, SequenceHold}], 
+ ESameTestBROKEN[Attributes[{f, g}], {{HoldAll, Listable}, {HoldAll}}], 
+ ESameTestBROKEN[Attributes[f] = {Listable}, Attributes[f] = {Listable}], 
+ ESameTestBROKEN[Attributes[f], {Protected}], ESameTestBROKEN[Attributes[f], 
+  {}], EComment["RefLink[Attributes,paclet:ref/Attributes] has the attribute \
+RefLink[HoldAll,paclet:ref/HoldAll]:"], ESameTest[Attributes[Attributes], 
+  {HoldAll, Listable, Protected}], 
+ EComment["This gives the attributes of the symbol syms itself:"], 
+ ESameTest[Attributes[syms], {}], 
+ EComment["This gives the attributes of all symbols in the list syms:"], 
+ ESameTestBROKEN[Attributes[Evaluate[syms]], 
+  {{Flat, Listable, NumericFunction, OneIdentity, Orderless, Protected}, 
+   {Flat, Listable, NumericFunction, OneIdentity, Orderless, Protected}, 
+   {Listable, NumericFunction, OneIdentity, Protected}}]]

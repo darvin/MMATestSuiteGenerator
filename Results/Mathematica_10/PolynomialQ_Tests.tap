@@ -1,0 +1,33 @@
+# SYSTEM: Mathematica_10
+# TEST: PolynomialQ_Tests
+# OUTPUT: output/Results/Mathematica_10/PolynomialQ_Tests.json
+# Test whether an expression is a polynomial in the specified variable:
+ok  PolynomialQ[x^3 - 2*(x/y) + 3*x*z, x]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok  PolynomialQ[x^3 - 2*(x/y) + 3*x*z, y]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# Test whether an expression is a polynomial in the specified set of variables:
+ok  PolynomialQ[x^2 + a*x*y^2 - b*Sin[c], {x, y}]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok  PolynomialQ[x^2 + a*x*y^2 - b*Sin[c], {a, b, c}]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...

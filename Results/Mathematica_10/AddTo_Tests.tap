@@ -1,0 +1,104 @@
+# SYSTEM: Mathematica_10
+# TEST: AddTo_Tests
+# OUTPUT: output/Results/Mathematica_10/AddTo_Tests.json
+ok  k = 1; k += 5    ==>     6
+    ---
+    data:
+        got: 6
+        expect: 6
+        expect_evaluated: 6
+    ...
+ok  k    ==>     6
+    ---
+    data:
+        got: 6
+        expect: 6
+        expect_evaluated: 6
+    ...
+# Add to a numerical value:
+ok  x = 1.5; x += 3.75; x    ==>     5.25
+    ---
+    data:
+        got: 5.25
+        expect: 5.25
+        expect_evaluated: 5.25
+    ...
+# Add to a symbolic value:
+ok  v = a; v += b; v    ==>     a + b
+    ---
+    data:
+        got: a + b
+        expect: a + b
+        expect_evaluated: a + b
+    ...
+# Add to all values in a list:
+ok  x = {1, 2, 3}    ==>     {1, 2, 3}
+    ---
+    data:
+        got: {1, 2, 3}
+        expect: {1, 2, 3}
+        expect_evaluated: {1, 2, 3}
+    ...
+ok  x += 17; x    ==>     {18, 19, 20}
+    ---
+    data:
+        got: {18, 19, 20}
+        expect: {18, 19, 20}
+        expect_evaluated: {18, 19, 20}
+    ...
+ok  x += {20, 21, 22}; x    ==>     {38, 40, 42}
+    ---
+    data:
+        got: {38, 40, 42}
+        expect: {38, 40, 42}
+        expect_evaluated: {38, 40, 42}
+    ...
+# Find the first prime above one million:
+ok  i = 10^6 - 1; While[ !PrimeQ[i], i += 2]; i    ==>     1000003
+    ---
+    data:
+        got: 1000003
+        expect: 1000003
+        expect_evaluated: 1000003
+    ...
+# RefLink[AddTo,paclet:ref/AddTo] is a short form of this assignment:
+ok  k = 1; k = k + 5    ==>     6
+    ---
+    data:
+        got: 6
+        expect: 6
+        expect_evaluated: 6
+    ...
+# RefLink[PreIncrement,paclet:ref/PreIncrement] is a special case of RefLink[AddTo,paclet:ref/AddTo]:
+ok  k = 1; k += 1    ==>     2
+    ---
+    data:
+        got: 2
+        expect: 2
+        expect_evaluated: 2
+    ...
+ok  ++k    ==>     3
+    ---
+    data:
+        got: 3
+        expect: 3
+        expect_evaluated: 3
+    ...
+# RefLink[SubtractFrom,paclet:ref/SubtractFrom] is closely related:
+ok  k = 10; k += -5    ==>     5
+    ---
+    data:
+        got: 5
+        expect: 5
+        expect_evaluated: 5
+    ...
+ok  k -= 5    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+ok  AppendTo[list, 4]; list    ==>     {1, 2, 3, 4} # skip
+# A variable to be incremented must have an initial value:
+ok  x += 2    ==>     x += 2 # skip

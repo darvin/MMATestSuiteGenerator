@@ -1,0 +1,75 @@
+# SYSTEM: Mathematica_10
+# TEST: Repeated_Tests
+# OUTPUT: output/Results/Mathematica_10/Repeated_Tests.json
+# Replace any list of a's by x:
+ok  {{}, {a, a}, {a, b}, {a, a, a}, {a}} /. {a..} -> x    ==>     {{}, x, {a, b}, x, x}
+    ---
+    data:
+        got: {{}, x, {a, b}, x, x}
+        expect: {{}, x, {a, b}, x, x}
+        expect_evaluated: {{}, x, {a, b}, x, x}
+    ...
+# Replace any list of f's with one argument:
+ok  {{}, {f[a], f[b]}, {f[a]}, {f[a, b]}, {f[a], g[b]}} /. {f[_]..} -> x    ==>     {{}, x, x, {f[a, b]}, {f[a], g[b]}}
+    ---
+    data:
+        got: {{}, x, x, {f[a, b]}, {f[a], g[b]}}
+        expect: {{}, x, x, {f[a, b]}, {f[a], g[b]}}
+        expect_evaluated: {{}, x, x, {f[a, b]}, {f[a], g[b]}}
+    ...
+# a.. represents a sequence of a's inside any head:
+ok  {f[a, a], f[a, b], f[a, a, a]} /. f[a..] -> x    ==>     {x, f[a, b], x}
+    ---
+    data:
+        got: {x, f[a, b], x}
+        expect: {x, f[a, b], x}
+        expect_evaluated: {x, f[a, b], x}
+    ...
+# Replace any list of a's with length up to 3:
+ok  {{}, {a}, {a, a}, {a, a, a}, {a, a, a, a}} /. {Repeated[a, 3]} -> x    ==>     {{}, x, x, x, {a, a, a, a}}
+    ---
+    data:
+        got: {{}, x, x, x, {a, a, a, a}}
+        expect: {{}, x, x, x, {a, a, a, a}}
+        expect_evaluated: {{}, x, x, x, {a, a, a, a}}
+    ...
+# Replace any list of a's with lengths between 2 and 3:
+ok  {{}, {a}, {a, a}, {a, a, a}, {a, a, a, a}} /. {Repeated[a, {2, 3}]} -> x    ==>     {{}, {a}, x, x, {a, a, a, a}}
+    ---
+    data:
+        got: {{}, {a}, x, x, {a, a, a, a}}
+        expect: {{}, {a}, x, x, {a, a, a, a}}
+        expect_evaluated: {{}, {a}, x, x, {a, a, a, a}}
+    ...
+# Replace lists with lengths between 0 and 3:
+ok  {{}, {a}, {a, a}, {a, a, a}, {a, a, a, a}} /. {Repeated[a, {0, 3}]} -> x    ==>     {x, x, x, x, {a, a, a, a}}
+    ---
+    data:
+        got: {x, x, x, x, {a, a, a, a}}
+        expect: {x, x, x, x, {a, a, a, a}}
+        expect_evaluated: {x, x, x, x, {a, a, a, a}}
+    ...
+# Replace lists of length exactly 3:
+ok  {{}, {a}, {a, a}, {a, a, a}, {a, a, a, a}} /. {Repeated[a, {3}]} -> x    ==>     {{}, {a}, {a, a}, x, {a, a, a, a}}
+    ---
+    data:
+        got: {{}, {a}, {a, a}, x, {a, a, a, a}}
+        expect: {{}, {a}, {a, a}, x, {a, a, a, a}}
+        expect_evaluated: {{}, {a}, {a, a}, x, {a, a, a, a}}
+    ...
+ok  f[{{1, 1}, {1, 2}, {1, 3}}]    ==>     4.07914 # skip
+ok  f[{{1, 1, 1}, {1, 2}, {1, 3}}]    ==>     f[{{1, 1, 1}, {1, 2}, {1, 3}}]
+    ---
+    data:
+        got: f[{{1, 1, 1}, {1, 2}, {1, 3}}]
+        expect: f[{{1, 1, 1}, {1, 2}, {1, 3}}]
+        expect_evaluated: f[{{1, 1, 1}, {1, 2}, {1, 3}}]
+    ...
+# Use parentheses or spaces to indicate that 1.. is not 1. followed by a dot:
+ok  {{1, 1}, {1}, {2, 1}} /. {(1)..} -> x    ==>     {x, x, {2, 1}}
+    ---
+    data:
+        got: {x, x, {2, 1}}
+        expect: {x, x, {2, 1}}
+        expect_evaluated: {x, x, {2, 1}}
+    ...

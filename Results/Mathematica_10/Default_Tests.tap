@@ -1,0 +1,35 @@
+# SYSTEM: Mathematica_10
+# TEST: Default_Tests
+# OUTPUT: output/Results/Mathematica_10/Default_Tests.json
+# Define 0 to be the default argument for a function f:
+ok  Default[f] = 0    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+# _. represents an argument that can be omitted:
+ok  f[x_., y_.] = {x, y}    ==>     {x, y}
+    ---
+    data:
+        got: {x, y}
+        expect: {x, y}
+        expect_evaluated: {x, y}
+    ...
+# If the second argument is omitted, the default value of 0 is used instead:
+ok  f[a]    ==>     {a, 0}
+    ---
+    data:
+        got: {a, 0}
+        expect: {a, 0}
+        expect_evaluated: {a, 0}
+    ...
+# If both arguments are omitted, both are taken to have the default value 0:
+ok  f[]    ==>     {0, 0}
+    ---
+    data:
+        got: {0, 0}
+        expect: {0, 0}
+        expect_evaluated: {0, 0}
+    ...

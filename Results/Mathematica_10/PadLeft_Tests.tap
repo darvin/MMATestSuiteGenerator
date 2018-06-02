@@ -1,0 +1,115 @@
+# SYSTEM: Mathematica_10
+# TEST: PadLeft_Tests
+# OUTPUT: output/Results/Mathematica_10/PadLeft_Tests.json
+# Pad with 0 to make the list be of length 10:
+ok  PadLeft[{a, b, c}, 10]    ==>     {0, 0, 0, 0, 0, 0, 0, a, b, c}
+    ---
+    data:
+        got: {0, 0, 0, 0, 0, 0, 0, a, b, c}
+        expect: {0, 0, 0, 0, 0, 0, 0, a, b, c}
+        expect_evaluated: {0, 0, 0, 0, 0, 0, 0, a, b, c}
+    ...
+# Pad with x:
+ok  PadLeft[{a, b, c}, 10, x]    ==>     {x, x, x, x, x, x, x, a, b, c}
+    ---
+    data:
+        got: {x, x, x, x, x, x, x, a, b, c}
+        expect: {x, x, x, x, x, x, x, a, b, c}
+        expect_evaluated: {x, x, x, x, x, x, x, a, b, c}
+    ...
+# Pad by repeating {x,y,z}:
+ok  PadLeft[{a, b, c}, 10, {x, y, z}]    ==>     {z, x, y, z, x, y, z, a, b, c}
+    ---
+    data:
+        got: {z, x, y, z, x, y, z, a, b, c}
+        expect: {z, x, y, z, x, y, z, a, b, c}
+        expect_evaluated: {z, x, y, z, x, y, z, a, b, c}
+    ...
+# Leave margin 2 on the right:
+ok  PadLeft[{a, b, c}, 10, x, 2]    ==>     {x, x, x, x, x, a, b, c, x, x}
+    ---
+    data:
+        got: {x, x, x, x, x, a, b, c, x, x}
+        expect: {x, x, x, x, x, a, b, c, x, x}
+        expect_evaluated: {x, x, x, x, x, a, b, c, x, x}
+    ...
+# Pad to make a 3*5 array:
+ok  TableForm[PadLeft[{{a, b}, {c}}, {3, 5}]]    ==>     0*0*0*0*0*0*0*0*a*b*0*0*0*0*c # skip
+# Pad to make a full array:
+ok  TableForm[PadLeft[{{a, b, c}, {d, e}, {f}}]]    ==>     a*b*c*0*d*e*0*0*f # skip
+# Negative length specifications pad on the right:
+ok  PadLeft[{a, b, c}, -10]    ==>     {a, b, c, 0, 0, 0, 0, 0, 0, 0}
+    ---
+    data:
+        got: {a, b, c, 0, 0, 0, 0, 0, 0, 0}
+        expect: {a, b, c, 0, 0, 0, 0, 0, 0, 0}
+        expect_evaluated: {a, b, c, 0, 0, 0, 0, 0, 0, 0}
+    ...
+# Lay down repetitions of the padding, then superimpose the original array:
+ok  TableForm[PadLeft[{{aa, bb}, {cc}}, {4, 4}, {{x, y}, {z}}]]    ==>     x*y*x*y*z*z*z*z*x*y*aa*bb*z*z*z*cc # skip
+# Use different margins for rows and columns:
+ok  TableForm[PadLeft[{{aa, bb}, {cc}}, {5, 5}, {{x, y}, {z}}, {1, 2}]]    ==>     y*x*y*x*y*z*z*z*z*z*y*aa*bb*x*y*z*z*cc*z*z*y*x*y*x*y # skip
+# Use a head other than RefLink[List,paclet:ref/List]:
+ok  PadLeft[f[a, b, c], 8, x]    ==>     f[x, x, x, x, x, a, b, c]
+    ---
+    data:
+        got: f[x, x, x, x, x, a, b, c]
+        expect: f[x, x, x, x, x, a, b, c]
+        expect_evaluated: f[x, x, x, x, x, a, b, c]
+    ...
+# Put a 1 at the center of a list of 0s:
+ok  PadLeft[{1}, 19, 0, 9]    ==>     {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+    ---
+    data:
+        got: {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+        expect: {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+        expect_evaluated: {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+    ...
+# Pad digit lists to be the same length:
+ok  PadLeft[Table[IntegerDigits[i^2, 2], {i, 5}]]    ==>     {{0, 0, 0, 0, 1}, {0, 0, 1, 0, 0}, {0, 1, 0, 0, 1}, {1, 0, 0, 0, 0}, {1, 1, 0, 0, 1}}
+    ---
+    data:
+        got: {{0, 0, 0, 0, 1}, {0, 0, 1, 0, 0}, {0, 1, 0, 0, 1}, {1, 0, 0, 0, 0}, {1, 1, 0, 0, 1}}
+        expect: {{0, 0, 0, 0, 1}, {0, 0, 1, 0, 0}, {0, 1, 0, 0, 1}, {1, 0, 0, 0, 0}, {1, 1, 0, 0, 1}}
+        expect_evaluated: {{0, 0, 0, 0, 1}, {0, 0, 1, 0, 0}, {0, 1, 0, 0, 1}, {1, 0, 0, 0, 0}, {1, 1, 0, 0, 1}}
+    ...
+# Lay out an array of tiles:
+ok  HoldComplete[ArrayPlot[PadLeft[{{}}, {15, 15}, {{1, 0, 1}, {0, 1, 1}, {1, 0, 0}}], Mesh -> True]]    ==>     $Failed # skip
+# RefLink[PadLeft,paclet:ref/PadLeft][list,n] and RefLink[PadRight,paclet:ref/PadRight][list,n] pad to make a list of length n:
+ok  PadLeft[{1, 2, 3}, 5]    ==>     {0, 0, 1, 2, 3}
+    ---
+    data:
+        got: {0, 0, 1, 2, 3}
+        expect: {0, 0, 1, 2, 3}
+        expect_evaluated: {0, 0, 1, 2, 3}
+    ...
+ok  PadRight[{1, 2, 3}, 5]    ==>     {1, 2, 3, 0, 0}
+    ---
+    data:
+        got: {1, 2, 3, 0, 0}
+        expect: {1, 2, 3, 0, 0}
+        expect_evaluated: {1, 2, 3, 0, 0}
+    ...
+# RefLink[ArrayPad,paclet:ref/ArrayPad][list,n] pads with n additional elements on each side:
+ok  ArrayPad[{1, 2, 3}, 5]    ==>     {0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0}
+    ---
+    data:
+        got: {0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0}
+        expect: {0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0}
+        expect_evaluated: {0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0}
+    ...
+# Pad with an element that is itself a list:
+ok  PadLeft[{a, b, c}, 7, {{u, v}}]    ==>     {{u, v}, {u, v}, {u, v}, {u, v}, a, b, c}
+    ---
+    data:
+        got: {{u, v}, {u, v}, {u, v}, {u, v}, a, b, c}
+        expect: {{u, v}, {u, v}, {u, v}, {u, v}, a, b, c}
+        expect_evaluated: {{u, v}, {u, v}, {u, v}, {u, v}, a, b, c}
+    ...
+ok  PadLeft[{a, b, c}, 7, {u, v}]    ==>     {v, u, v, u, a, b, c}
+    ---
+    data:
+        got: {v, u, v, u, a, b, c}
+        expect: {v, u, v, u, a, b, c}
+        expect_evaluated: {v, u, v, u, a, b, c}
+    ...

@@ -1,0 +1,34 @@
+# SYSTEM: Mathematica_10
+# TEST: StringTake_Tests
+# OUTPUT: output/Results/Mathematica_10/StringTake_Tests.json
+# Take the first 6 characters in a string:
+ok  StringTake["abcdefghijklm", 6]    ==>     abcdef # skip
+# Use RefLink[InputForm,paclet:ref/InputForm] to show quotes:
+ok  InputForm[%]    ==>     "abcdef" # skip
+# Take from the end of the string:
+ok  StringTake["abcdefghijklm", -4]    ==>     jklm # skip
+# Take characters 5 through 10:
+ok  StringTake["abcdefghijklm", {5, 10}]    ==>     efghij # skip
+# Find character 6 in a string:
+ok  StringTake["abcdefghijklm", {6}]    ==>     f # skip
+ok  InputForm[%]    ==>     "f" # skip
+# Take every other character:
+ok  StringTake["abcdefghijklm", {1, -1, 2}]    ==>     acegikm # skip
+# Take the last 2 characters from several strings:
+ok  StringTake[{"abcdef", "stuv", "xyzw"}, -2]    ==>     {ef, uv, zw} # skip
+# RefLink[StringTake,paclet:ref/StringTake] works with special characters:
+ok  StringTake["\[FilledDiamond]\[Alpha]\[Beta]\[Gamma]<-->\[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC]\[ReturnIndicator]", -4]    ==>     \[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC]\[ReturnIndicator] # skip
+# Newline (\n) counts as a single character:
+ok  StringTake["abc\ndef", 5]    ==>     abc*d # skip
+# RefLink[StringTake,paclet:ref/StringTake] can effectively do "part" extraction in strings:
+ok  Characters["abcdefghijklm"][[6]]    ==>     f # skip
+ok  StringTake["abcdefghijklm", {6}]    ==>     f # skip
+# RefLink[StringTake,paclet:ref/StringTake] works like applying RefLink[Take,paclet:ref/Take] to the list of characters:
+ok  Take[Characters["abcdefghijklm"], {5, -4}]    ==>     {e, f, g, h, i, j} # skip
+ok  StringTake["abcdefghijklm", {5, -4}]    ==>     efghij # skip
+# Taking between positions 1 and 0 gives a zero-length string:
+ok  StringTake["abcdef", {1, 0}]    ==>     Null # skip
+ok  FullForm[%]    ==>     "" # skip
+# RefLink[StringTake,paclet:ref/StringTake] operates on the raw characters in a string:
+ok  HoldComplete[StringTake["red", -20]]    ==>     $Failed # skip
+ok  FullForm["red"]    ==>     "\!\(\* StyleBox[\"red\",\nFontColor->RGBColor[1, 0, 0]]\)" # skip

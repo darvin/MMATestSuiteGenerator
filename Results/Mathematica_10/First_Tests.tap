@@ -1,0 +1,83 @@
+# SYSTEM: Mathematica_10
+# TEST: First_Tests
+# OUTPUT: output/Results/Mathematica_10/First_Tests.json
+# Extract the first element of a list:
+ok  First[{a, b, c}]    ==>     a
+    ---
+    data:
+        got: a
+        expect: a
+        expect_evaluated: a
+    ...
+# Extract the first row of a matrix:
+ok  First[{{a, b}, {c, d}}]    ==>     {a, b}
+    ---
+    data:
+        got: {a, b}
+        expect: {a, b}
+        expect_evaluated: {a, b}
+    ...
+# Extract the first element of an RefLink[Association,paclet:ref/Association]:
+ok  First[<| 1 -> a, 2 -> b |>]    ==>     a
+    ---
+    data:
+        got: a
+        expect: a
+        expect_evaluated: a
+    ...
+# The head need not be RefLink[List,paclet:ref/List]:
+ok  First[a^2 + b^2]    ==>     a^2
+    ---
+    data:
+        got: a^2
+        expect: a^2
+        expect_evaluated: a^2
+    ...
+# RefLink[First,paclet:ref/First] works on RefLink[SparseArray,paclet:ref/SparseArray] objects:
+ok  First[SparseArray[Range[100]]]    ==>     1
+    ---
+    data:
+        got: 1
+        expect: 1
+        expect_evaluated: 1
+    ...
+# RefLink[First,paclet:ref/First] extracts the first value in an RefLink[Association,paclet:ref/Association]:
+ok  First[<| a -> x, b -> y |>]    ==>     x
+    ---
+    data:
+        got: x
+        expect: x
+        expect_evaluated: x
+    ...
+# RefLink[First,paclet:ref/First][expr] is equivalent to expr[[1]]:
+ok  First[{a, b, c}]    ==>     a
+    ---
+    data:
+        got: a
+        expect: a
+        expect_evaluated: a
+    ...
+ok  {a, b, c}[[1]]    ==>     a
+    ---
+    data:
+        got: a
+        expect: a
+        expect_evaluated: a
+    ...
+# The expression is evaluated before RefLink[First,paclet:ref/First] is applied:
+ok  First[b^2 + a^2]    ==>     a^2
+    ---
+    data:
+        got: a^2
+        expect: a^2
+        expect_evaluated: a^2
+    ...
+# RefLink[First,paclet:ref/First] always operates on the RefLink[FullForm,paclet:ref/FullForm] of expressions: 
+ok  First[1/a^2]    ==>     a
+    ---
+    data:
+        got: a
+        expect: a
+        expect_evaluated: a
+    ...
+ok  FullForm[1/a^2]    ==>     a^(-2) # skip

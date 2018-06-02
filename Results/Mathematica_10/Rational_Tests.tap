@@ -1,0 +1,113 @@
+# SYSTEM: Mathematica_10
+# TEST: Rational_Tests
+# OUTPUT: output/Results/Mathematica_10/Rational_Tests.json
+# Enter a rational number:
+ok  22/7    ==>     22/7
+    ---
+    data:
+        got: 22/7
+        expect: 22/7
+        expect_evaluated: 22/7
+    ...
+# RefLink[Rational,paclet:ref/Rational] is the RefLink[Head,paclet:ref/Head] for rational numbers:
+ok  Head[%]    ==>     Rational # skip
+# Enter a rational number with very big integers in the numerator and denominator:
+ok  1237918739182739817238917127398123/12809812308120812038038101    ==>     1237918739182739817238917127398123/12809812308120812038038101
+    ---
+    data:
+        got: 1237918739182739817238917127398123/12809812308120812038038101
+        expect: 1237918739182739817238917127398123/12809812308120812038038101
+        expect_evaluated: 1237918739182739817238917127398123/12809812308120812038038101
+    ...
+# Rational numbers are represented with the smallest possible denominator:
+ok  7/49    ==>     1/7
+    ---
+    data:
+        got: 1/7
+        expect: 1/7
+        expect_evaluated: 1/7
+    ...
+# The RefLink[FullForm,paclet:ref/FullForm] of a rational number is RefLink[Rational,paclet:ref/Rational][numerator,denominator]:
+ok  FullForm[22/7]    ==>     Rational[22, 7] # skip
+# Enter a rational using the RefLink[FullForm,paclet:ref/FullForm]:
+ok  Rational[22, 7]    ==>     22/7
+    ---
+    data:
+        got: 22/7
+        expect: 22/7
+        expect_evaluated: 22/7
+    ...
+ok  {Numerator[r], Denominator[r]}    ==>     {22, 7} # skip
+# RefLink[Part,paclet:ref/Part] does not work:
+ok  r[[1]]    ==>     (22/7)[[1]] # skip
+# The pattern object _Rational can be used to stand for a rational number:
+ok  MatchQ[22/7, _Rational]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# It cannot stand for a single integer:
+ok  MatchQ[6/3, _Rational]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  f[22/7, 201/64, x/y] /. rule    ==>     f[7/22, 64/201, x/y] # skip
+# An alternate way to write the rule:
+ok  f[22/7, 201/64, x/y] /. Rational[n_, d_] :> d/n    ==>     f[7/22, 64/201, x/y]
+    ---
+    data:
+        got: f[7/22, 64/201, x/y]
+        expect: f[7/22, 64/201, x/y]
+        expect_evaluated: f[7/22, 64/201, x/y]
+    ...
+ok  Nest[f, 3/2, 6]    ==>     4946041176255201878775086487573351061418968498177/3497379255757941172020851852070562919437964212608 # skip
+# This is a close approximation to Sqrt[2]:
+ok  Block[{$MaxExtraPrecision = Infinity}, N[% - Sqrt[2], 20]]    ==>     2.8904771932153645533`19.460969547003025/10^98 # skip
+ok  Nest[g, 3/2, 6]    ==>     4946041176255201878775086487573351061418968498177/3497379255757941172020851852070562919437964212608 # skip
+# Rationals are numbers:
+ok  NumberQ[22/7]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Rationals are atomic objects with no subexpressions:
+ok  AtomQ[22/7]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Rationals are exact numbers:
+ok  ExactNumberQ[22/7]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Use RefLink[Rationals,paclet:ref/Rationals] to indicate assumptions and domain conditions: 
+ok  Reduce[1/2 - 6*x + 10*x^2 - x^99/2 + x^100 == 0, x, Rationals]    ==>     x == 1/2
+    ---
+    data:
+        got: x == 1/2
+        expect: x == 1/2
+        expect_evaluated: x == 1/2
+    ...
+ok  f[22/7]    ==>     f[22/7]
+    ---
+    data:
+        got: f[22/7]
+        expect: f[22/7]
+        expect_evaluated: f[22/7]
+    ...
+ok  f[Evaluate[22/7]]    ==>     15 # skip
+# The unevaluated form is expressed in terms of RefLink[Times,paclet:ref/Times] and RefLink[Power,paclet:ref/Power]:
+ok  FullForm[HoldForm[22/7]]    ==>     HoldForm[22/7] # skip

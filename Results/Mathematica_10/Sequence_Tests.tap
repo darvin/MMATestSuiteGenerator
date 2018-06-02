@@ -1,0 +1,63 @@
+# SYSTEM: Mathematica_10
+# TEST: Sequence_Tests
+# OUTPUT: output/Results/Mathematica_10/Sequence_Tests.json
+# RefLink[Sequence,paclet:ref/Sequence] is automatically spliced in:
+ok  f[a, Sequence[b, c], d]    ==>     f[a, b, c, d]
+    ---
+    data:
+        got: f[a, b, c, d]
+        expect: f[a, b, c, d]
+        expect_evaluated: f[a, b, c, d]
+    ...
+# Replace with a sequence that is automatically spliced in:
+ok  {u, u, u} /. u -> Sequence[a, b, c]    ==>     {a, b, c, a, b, c, a, b, c}
+    ---
+    data:
+        got: {a, b, c, a, b, c, a, b, c}
+        expect: {a, b, c, a, b, c, a, b, c}
+        expect_evaluated: {a, b, c, a, b, c, a, b, c}
+    ...
+ok  u = Sequence[a, b, c]    ==>     Sequence[a, b, c] # skip
+not ok  {u, u, u}    ==>     {a, b, c, a, b, c, a, b, c}
+    ---
+    data:
+        got: {u, u, u}
+        expect: {a, b, c, a, b, c, a, b, c}
+        expect_evaluated: {a, b, c, a, b, c, a, b, c}
+    ...
+# Completely flatten out all lists in the argument to a function:
+ok  f[{{a, b}, {c, d}, {a}}] /. List -> Sequence    ==>     f[a, b, c, d, a]
+    ---
+    data:
+        got: f[a, b, c, d, a]
+        expect: f[a, b, c, d, a]
+        expect_evaluated: f[a, b, c, d, a]
+    ...
+# A sequence of arguments matched by __ is treated as a RefLink[Sequence,paclet:ref/Sequence] object: 
+ok  f[a, b, c] /. f[x__] -> x    ==>     Sequence[a, b, c] # skip
+# ## represents sequences of arguments by RefLink[Sequence,paclet:ref/Sequence] objects:
+ok  (##1 & )[a, b, c]    ==>     Sequence[a, b, c] # skip
+# A sequence with one argument acts like RefLink[Identity,paclet:ref/Identity]:
+ok  {a, Sequence[b], c, Identity[d]}    ==>     {a, b, c, d}
+    ---
+    data:
+        got: {a, b, c, d}
+        expect: {a, b, c, d}
+        expect_evaluated: {a, b, c, d}
+    ...
+# Most Wolfram Language functions automatically splice in RefLink[Sequence,paclet:ref/Sequence] objects:
+ok  Head[Sequence[a, b]]    ==>     Head[a, b]
+    ---
+    data:
+        got: Head[a, b]
+        expect: Head[a, b]
+        expect_evaluated: Head[a, b]
+    ...
+# Assignment and replacement functions have the attribute RefLink[SequenceHold,paclet:ref/SequenceHold]:
+ok  u -> Sequence[a, b]    ==>     u -> Sequence[a, b]
+    ---
+    data:
+        got: u -> Sequence[a, b]
+        expect: u -> Sequence[a, b]
+        expect_evaluated: u -> Sequence[a, b]
+    ...

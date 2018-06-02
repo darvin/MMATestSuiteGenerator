@@ -1,0 +1,43 @@
+# SYSTEM: Mathematica_10
+# TEST: FreeQ_Tests
+# OUTPUT: output/Results/Mathematica_10/FreeQ_Tests.json
+# Test whether a list is free of 0:
+ok  FreeQ[{1, 2, 4, 1, 0}, 0]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# RefLink[FreeQ,paclet:ref/FreeQ] normally tests all levels in an expression:
+ok  FreeQ[{{1, 1, 3, 0}, {2, 1, 2, 2}}, 0]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# RefLink[FreeQ,paclet:ref/FreeQ] works with patterns:
+ok  FreeQ[{a, b, b, a, a, a}, _Integer]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok  FreeQ[{x^2, y^3, x^5, x^6}, y^_]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  {f[3*x, x], f[a*x, x], f[(1 + x)*x, x]}    ==>     {3*f[x, x], a*f[x, x], f[x*(1 + x), x]} # skip
+# Test which integrals are free of logarithms:
+ok  Table[FreeQ[Integrate[x^n, x], Log], {n, -5, 5}]    ==>     {True, True, True, True, False, True, True, True, True, True, True}
+    ---
+    data:
+        got: {True, True, True, True, False, True, True, True, True, True, True}
+        expect: {True, True, True, True, False, True, True, True, True, True, True}
+        expect_evaluated: {True, True, True, True, False, True, True, True, True, True, True}
+    ...

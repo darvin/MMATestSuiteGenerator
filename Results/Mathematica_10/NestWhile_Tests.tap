@@ -1,0 +1,168 @@
+# SYSTEM: Mathematica_10
+# TEST: NestWhile_Tests
+# OUTPUT: output/Results/Mathematica_10/NestWhile_Tests.json
+# Keep dividing by 2 until the result is no longer an even number:
+ok  NestWhile[#1/2 & , 123456, EvenQ]    ==>     1929
+    ---
+    data:
+        got: 1929
+        expect: 1929
+        expect_evaluated: 1929
+    ...
+# Iterate taking logarithms until the result is no longer positive:
+ok  NestWhile[Log, 100, #1 > 0 & ]    ==>     Log[Log[Log[Log[100]]]]
+    ---
+    data:
+        got: Log[Log[Log[Log[100]]]]
+        expect: Log[Log[Log[Log[100]]]]
+        expect_evaluated: Log[Log[Log[Log[100]]]]
+    ...
+# Compare the last two values generated:
+ok  NestWhile[Floor[#1/2] & , 10, UnsameQ, 2]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+# Always compare all values generated:
+ok  NestWhile[Floor[#1/2] & , 10, (Print[{##1}]; UnsameQ[##1]) & , All]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+# Start comparisons after 4 iterations, and compare using the 4 last values:
+ok  NestWhile[Floor[#1/2] & , 10, (Print[{##1}]; UnsameQ[##1]) & , 4]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+# Start comparisons after 4 iterations, and compare using the 6 last values:
+ok  NestWhile[Floor[#1/2] & , 10, (Print[{##1}]; UnsameQ[##1]) & , {4, 6}]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+# Stop after at most 4 iterations, even if the test is still RefLink[True,paclet:ref/True]:
+ok  NestWhile[#1/2 & , 123456, EvenQ, 1, 4]    ==>     7716
+    ---
+    data:
+        got: 7716
+        expect: 7716
+        expect_evaluated: 7716
+    ...
+# Continue until the result is no longer greater than 1:
+ok  NestWhile[Floor[#1/2] & , 20, #1 > 1 & , 1, Infinity]    ==>     1
+    ---
+    data:
+        got: 1
+        expect: 1
+        expect_evaluated: 1
+    ...
+# Perform one more step after the condition is no longer RefLink[True,paclet:ref/True]:
+ok  NestWhile[Floor[#1/2] & , 20, #1 > 1 & , 1, Infinity, 1]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+# Return the last value for which the condition was still RefLink[True,paclet:ref/True]:
+ok  NestWhile[Floor[#1/2] & , 20, #1 > 1 & , 1, Infinity, -1]    ==>     2
+    ---
+    data:
+        got: 2
+        expect: 2
+        expect_evaluated: 2
+    ...
+# Find the next prime after 888:
+ok  NestWhile[#1 + 1 & , 888,  !PrimeQ[#1] & ]    ==>     907
+    ---
+    data:
+        got: 907
+        expect: 907
+        expect_evaluated: 907
+    ...
+# Find the next twin prime after 888:
+ok  NestWhile[#1 + 1 & , 888,  !PrimeQ[#1] ||  !PrimeQ[#3] & , 3]    ==>     1021
+    ---
+    data:
+        got: 1021
+        expect: 1021
+        expect_evaluated: 1021
+    ...
+# Find the index of the first Fibonacci number above a million:
+ok  NestWhile[#1 + 1 & , 1, Fibonacci[#1] <= 10^6 & ]    ==>     31
+    ---
+    data:
+        got: 31
+        expect: 31
+        expect_evaluated: 31
+    ...
+ok  Fibonacci[%]    ==>     1346269 # skip
+ok  HoldComplete[ListLinePlot[Table[NestWhile[#1 + 1 & , 1, Fibonacci[#1] <= n & ], {n, 200}]]]    ==>     $Failed # skip
+# Find the index of the last Fibonacci number below a million:
+ok  NestWhile[#1 + 1 & , 1, Fibonacci[#1] <= 10^6 & , 1, Infinity, -1]    ==>     30
+    ---
+    data:
+        got: 30
+        expect: 30
+        expect_evaluated: 30
+    ...
+# These two forms are equivalent:
+ok  NestWhile[Floor[#1/2] & , 10, UnsameQ, {4, 4}]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+ok  NestWhile[Floor[#1/2] & , 10, UnsameQ, 4]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+# RefLink[NestWhile,paclet:ref/NestWhile] returns if the condition returns anything other then RefLink[True,paclet:ref/True]:
+ok  NestWhile[Floor[#1/2] & , a, Positive]    ==>     a
+    ---
+    data:
+        got: a
+        expect: a
+        expect_evaluated: a
+    ...
+# The outcome of a condition need not be RefLink[True,paclet:ref/True] or RefLink[False,paclet:ref/False]:
+ok  Positive[a]    ==>     Positive[a]
+    ---
+    data:
+        got: Positive[a]
+        expect: Positive[a]
+        expect_evaluated: Positive[a]
+    ...
+# RefLink[FixedPoint,paclet:ref/FixedPoint] always compares the last two values; these two forms are equivalent:
+ok  NestWhile[Cos, 1., UnsameQ, 2]    ==>     0.739085 # skip
+ok  FixedPoint[Cos, 1.]    ==>     0.739085 # skip
+# RefLink[NestWhileList,paclet:ref/NestWhileList] applies the same stopping criteria, but returns all values generated:
+ok  NestWhileList[(#1 + 3/#1)/2 & , 1., Unequal, 2]    ==>     {1., 2., 1.75, 1.73214, 1.73205, 1.73205, 1.73205} # skip
+# RefLink[NestWhile,paclet:ref/NestWhile] can be expressed in terms of a RefLink[While,paclet:ref/While] loop:
+ok  NestWhile[Floor[#1/2] & , 10, #1 > 0 & ]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+ok  x = 10; While[x > 0, x = Floor[x/2]]; x    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...

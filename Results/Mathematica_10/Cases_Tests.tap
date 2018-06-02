@@ -1,0 +1,162 @@
+# SYSTEM: Mathematica_10
+# TEST: Cases_Tests
+# OUTPUT: output/Results/Mathematica_10/Cases_Tests.json
+# Find cases that explicitly match integers:
+ok  Cases[{1, 1, f[a], 2, 3, y, f[8], 9, f[10]}, _Integer]    ==>     {1, 1, 2, 3, 9}
+    ---
+    data:
+        got: {1, 1, 2, 3, 9}
+        expect: {1, 1, 2, 3, 9}
+        expect_evaluated: {1, 1, 2, 3, 9}
+    ...
+# Find cases that do not match integers:
+ok  Cases[{1, 1, f[a], 2, 3, y, f[8], 9, f[10]}, Except[_Integer]]    ==>     {f[a], y, f[8], f[10]}
+    ---
+    data:
+        got: {f[a], y, f[8], f[10]}
+        expect: {f[a], y, f[8], f[10]}
+        expect_evaluated: {f[a], y, f[8], f[10]}
+    ...
+# Return the x from inside each f[x_] matched:
+ok  Cases[{1, 1, f[a], 2, 3, y, f[8], 9, f[10]}, f[x_] -> x]    ==>     {a, 8, 10}
+    ---
+    data:
+        got: {a, 8, 10}
+        expect: {a, 8, 10}
+        expect_evaluated: {a, 8, 10}
+    ...
+# Use the operator form of RefLink[Cases,paclet:ref/Cases]:
+ok  Cases[_Integer][{1, 1, f[a], 2, 3, y, f[8], 9, f[10]}]    ==>     {1, 1, 2, 3, 9}
+    ---
+    data:
+        got: {1, 1, 2, 3, 9}
+        expect: {1, 1, 2, 3, 9}
+        expect_evaluated: {1, 1, 2, 3, 9}
+    ...
+# Pick elements from an RefLink[Association,paclet:ref/Association]:
+ok  Cases[<| 1 -> "a", 2 -> "b", 3 -> c, 4 -> d |>, _Symbol]    ==>     {c, d}
+    ---
+    data:
+        got: {c, d}
+        expect: {c, d}
+        expect_evaluated: {c, d}
+    ...
+# Find all cases of lists of two elements:
+ok  Cases[{{1, 2}, {2}, {3, 4, 1}, {5, 4}, {3, 3}}, {_, _}]    ==>     {{1, 2}, {5, 4}, {3, 3}}
+    ---
+    data:
+        got: {{1, 2}, {5, 4}, {3, 3}}
+        expect: {{1, 2}, {5, 4}, {3, 3}}
+        expect_evaluated: {{1, 2}, {5, 4}, {3, 3}}
+    ...
+# Find the sum of every pair of elements:
+ok  Cases[{{1, 2}, {2}, {3, 4, 1}, {5, 4}, {3, 3}}, {a_, b_} -> a + b]    ==>     {3, 9, 6}
+    ---
+    data:
+        got: {3, 9, 6}
+        expect: {3, 9, 6}
+        expect_evaluated: {3, 9, 6}
+    ...
+# Pick out elements that are not 0:
+ok  Cases[{1, 0, 2, 0, 3, 5, 6, 7, 0, 0, 0}, Except[0]]    ==>     {1, 2, 3, 5, 6, 7}
+    ---
+    data:
+        got: {1, 2, 3, 5, 6, 7}
+        expect: {1, 2, 3, 5, 6, 7}
+        expect_evaluated: {1, 2, 3, 5, 6, 7}
+    ...
+# Pick out cases of integers down to level 2:
+ok  Cases[{{1, 4, a, 0}, {b, 3, 2, 2}, {c, c, 5, 5}}, _Integer, 2]    ==>     {1, 4, 0, 3, 2, 2, 5, 5}
+    ---
+    data:
+        got: {1, 4, 0, 3, 2, 2, 5, 5}
+        expect: {1, 4, 0, 3, 2, 2, 5, 5}
+        expect_evaluated: {1, 4, 0, 3, 2, 2, 5, 5}
+    ...
+# Return only the first three matching elements:
+ok  Cases[Sqrt[Range[100]], _Integer, {1}, 3]    ==>     {1, 2, 3}
+    ---
+    data:
+        got: {1, 2, 3}
+        expect: {1, 2, 3}
+        expect_evaluated: {1, 2, 3}
+    ...
+# Use :> to evaluate only after explicit elements have been found:
+ok  Cases[{f[{a, b}], f[{a}], g[{a}], f[{a, b, c, d}]}, f[x_] :> Length[x]]    ==>     {2, 1, 4}
+    ---
+    data:
+        got: {2, 1, 4}
+        expect: {2, 1, 4}
+        expect_evaluated: {2, 1, 4}
+    ...
+# Find all possible subexpressions at any level:
+ok  Cases[{1, 2, f[a, b]}, _, {0, Infinity}]    ==>     {1, 2, a, b, f[a, b], {1, 2, f[a, b]}}
+    ---
+    data:
+        got: {1, 2, a, b, f[a, b], {1, 2, f[a, b]}}
+        expect: {1, 2, a, b, f[a, b], {1, 2, f[a, b]}}
+        expect_evaluated: {1, 2, a, b, f[a, b], {1, 2, f[a, b]}}
+    ...
+# Find all possible subexpressions at any level, including the head of the expression:
+ok  Cases[{1, 2, f[a, b]}, _, {0, Infinity}, Heads -> True]    ==>     {List, 1, 2, f, a, b, f[a, b], {1, 2, f[a, b]}}
+    ---
+    data:
+        got: {List, 1, 2, f, a, b, f[a, b], {1, 2, f[a, b]}}
+        expect: {List, 1, 2, f, a, b, f[a, b], {1, 2, f[a, b]}}
+        expect_evaluated: {List, 1, 2, f, a, b, f[a, b], {1, 2, f[a, b]}}
+    ...
+# Pick elements from nested associations:
+ok  Cases[<| 1 -> c, 2 -> <| 3 -> 1, a -> b |> |>, _Symbol, Infinity]    ==>     {c, b}
+    ---
+    data:
+        got: {c, b}
+        expect: {c, b}
+        expect_evaluated: {c, b}
+    ...
+# Find symbols among the elements of an expression:
+ok  Cases[{a, 5, Pi}, _Symbol]    ==>     {a, Pi}
+    ---
+    data:
+        got: {a, Pi}
+        expect: {a, Pi}
+        expect_evaluated: {a, Pi}
+    ...
+# Also include the head of the expression in the search:
+ok  Cases[{a, 5, Pi}, _Symbol, Heads -> True]    ==>     {List, a, Pi}
+    ---
+    data:
+        got: {List, a, Pi}
+        expect: {List, a, Pi}
+        expect_evaluated: {List, a, Pi}
+    ...
+# RefLink[Count,paclet:ref/Count] returns the length of the result given by RefLink[Cases,paclet:ref/Cases]:
+ok  Length[Cases[{1, "f", g, "h", "7"}, _?StringQ]]    ==>     3
+    ---
+    data:
+        got: 3
+        expect: 3
+        expect_evaluated: 3
+    ...
+ok  Count[{1, "f", g, "h", "7"}, _?StringQ]    ==>     3
+    ---
+    data:
+        got: 3
+        expect: 3
+        expect_evaluated: 3
+    ...
+# A rule transforms the matching elements into its right side:
+ok  Cases[{1, b -> Automatic, c -> 3}, _ -> Automatic]    ==>     {Automatic, Automatic, Automatic}
+    ---
+    data:
+        got: {Automatic, Automatic, Automatic}
+        expect: {Automatic, Automatic, Automatic}
+        expect_evaluated: {Automatic, Automatic, Automatic}
+    ...
+# Use RefLink[HoldPattern,paclet:ref/HoldPattern] to treat the rule itself as a pattern:
+ok  Cases[{1, b -> Automatic, c -> 3}, HoldPattern[_ -> Automatic]]    ==>     {b -> Automatic}
+    ---
+    data:
+        got: {b -> Automatic}
+        expect: {b -> Automatic}
+        expect_evaluated: {b -> Automatic}
+    ...

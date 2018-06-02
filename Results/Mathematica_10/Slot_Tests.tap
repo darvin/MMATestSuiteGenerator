@@ -1,0 +1,212 @@
+# SYSTEM: Mathematica_10
+# TEST: Slot_Tests
+# OUTPUT: output/Results/Mathematica_10/Slot_Tests.json
+# # represents the first argument of a pure function:
+ok  (f[#1, a, #1, b] & )[x, y]    ==>     f[x, a, x, b]
+    ---
+    data:
+        got: f[x, a, x, b]
+        expect: f[x, a, x, b]
+        expect_evaluated: f[x, a, x, b]
+    ...
+# Use numbered arguments:
+ok  (f[#1, #2, #1, #3] & )[x, y, z]    ==>     f[x, y, x, z]
+    ---
+    data:
+        got: f[x, y, x, z]
+        expect: f[x, y, x, z]
+        expect_evaluated: f[x, y, x, z]
+    ...
+# Used named arguments from an association:
+ok  (f[u, v, u] & )[<| "u" -> x, "v" -> y |>]    ==>     f[x, y, x] # skip
+# # is short for #1, the first argument:
+ok  (#1 & )[1, 2, 3]    ==>     1
+    ---
+    data:
+        got: 1
+        expect: 1
+        expect_evaluated: 1
+    ...
+ok  (#1 & )[1, 2, 3]    ==>     1
+    ---
+    data:
+        got: 1
+        expect: 1
+        expect_evaluated: 1
+    ...
+# #name is effectively a short form of #["name"]:
+ok  (x & )[<| "x" -> a, "y" -> b |>]    ==>     a # skip
+ok  (#1["x"] & )[<| "x" -> a, "y" -> b |>]    ==>     a
+    ---
+    data:
+        got: a
+        expect: a
+        expect_evaluated: a
+    ...
+# #name is interpreted as RefLink[Slot,paclet:ref/Slot]["name"]:
+ok  FullForm[z & ]    ==>     Slot["z"] &  # skip
+# #name always refers to the association in the first argument:
+ok  (y & )[<| "x" -> 1, "y" -> 2 |>, <| "x" -> 3, "y" -> 4 |>]    ==>     2 # skip
+# Extract from an association slot other than the first:
+ok  (#2["y"] & )[<| "x" -> 1, "y" -> 2 |>, <| "x" -> 3, "y" -> 4 |>]    ==>     4
+    ---
+    data:
+        got: 4
+        expect: 4
+        expect_evaluated: 4
+    ...
+# #0 stands for the whole pure function:
+ok  (f[#0] & )[x]    ==>     f[f[#0] & ]
+    ---
+    data:
+        got: f[f[#0] & ]
+        expect: f[f[#0] & ]
+        expect_evaluated: f[f[#0] & ]
+    ...
+# Programmatically create a pure function of 5 arguments:
+ok  Evaluate[f @@ Array[Slot, 5]] &     ==>     f[#1, #2, #3, #4, #5] & 
+    ---
+    data:
+        got: f[#1, #2, #3, #4, #5] & 
+        expect: f[#1, #2, #3, #4, #5] & 
+        expect_evaluated: f[#1, #2, #3, #4, #5] & 
+    ...
+ok  % @@ Range[10]    ==>     f[1, 2, 3, 4, 5] # skip
+# # allows function arguments to be referenced without giving them names:
+ok  Function[u, 1 + u][x]    ==>     1 + x
+    ---
+    data:
+        got: 1 + x
+        expect: 1 + x
+        expect_evaluated: 1 + x
+    ...
+ok  (1 + #1 & )[x]    ==>     1 + x
+    ---
+    data:
+        got: 1 + x
+        expect: 1 + x
+        expect_evaluated: 1 + x
+    ...
+# Additional arguments are ignored:
+ok  (f[#1, #2] & )[a, b, c, d]    ==>     f[a, b]
+    ---
+    data:
+        got: f[a, b]
+        expect: f[a, b]
+        expect_evaluated: f[a, b]
+    ...
+# ## stands for the sequence of all arguments:
+ok  ({#1, #2, #3} & )[a, b, c]    ==>     {a, b, c}
+    ---
+    data:
+        got: {a, b, c}
+        expect: {a, b, c}
+        expect_evaluated: {a, b, c}
+    ...
+ok  ({##1} & )[a, b, c]    ==>     {a, b, c}
+    ---
+    data:
+        got: {a, b, c}
+        expect: {a, b, c}
+        expect_evaluated: {a, b, c}
+    ...
+# Use explicit names to set up nested pure functions:
+ok  Function[u, Function[v, f[u, v]]][x]    ==>     Function[v$, f[x, v$]]
+    ---
+    data:
+        got: Function[v$, f[x, v$]]
+        expect: Function[v$, f[x, v$]]
+        expect_evaluated: Function[v$, f[x, v$]]
+    ...
+ok  Function[u, Function[v, f[u, v]]][x][y]    ==>     f[x, y]
+    ---
+    data:
+        got: f[x, y]
+        expect: f[x, y]
+        expect_evaluated: f[x, y]
+    ...
+# Use # for the inner function:
+ok  Function[u, f[u, #1] & ][x]    ==>     f[x, #1] & 
+    ---
+    data:
+        got: f[x, #1] & 
+        expect: f[x, #1] & 
+        expect_evaluated: f[x, #1] & 
+    ...
+ok  Function[u, f[u, #1] & ][x][y]    ==>     f[x, y]
+    ---
+    data:
+        got: f[x, y]
+        expect: f[x, y]
+        expect_evaluated: f[x, y]
+    ...
+# Use # for the outer function: 
+ok  (Function[v, f[#1, v]] & )[x]    ==>     Function[v, f[x, v]]
+    ---
+    data:
+        got: Function[v, f[x, v]]
+        expect: Function[v, f[x, v]]
+        expect_evaluated: Function[v, f[x, v]]
+    ...
+ok  (Function[v, f[#1, v]] & )[x][y]    ==>     f[x, y]
+    ---
+    data:
+        got: f[x, y]
+        expect: f[x, y]
+        expect_evaluated: f[x, y]
+    ...
+# Using nested # notation behaves differently:
+ok  ((f[#1, #1] & ) & )[x]    ==>     f[#1, #1] & 
+    ---
+    data:
+        got: f[#1, #1] & 
+        expect: f[#1, #1] & 
+        expect_evaluated: f[#1, #1] & 
+    ...
+ok  ((f[#1, #1] & ) & )[x][y]    ==>     f[y, y]
+    ---
+    data:
+        got: f[y, y]
+        expect: f[y, y]
+        expect_evaluated: f[y, y]
+    ...
+# If too few arguments are provided, a message is generated:
+ok  (f[#4] & )[a, b, c]    ==>     f[#4]
+    ---
+    data:
+        got: f[#4]
+        expect: f[#4]
+        expect_evaluated: f[#4]
+    ...
+ok  (f[#4] & )[a, b, c, d]    ==>     f[d]
+    ---
+    data:
+        got: f[d]
+        expect: f[d]
+        expect_evaluated: f[d]
+    ...
+# A space between # and the following token will be interpreted as multiplication:
+ok  InputForm[#1*2]    ==>     2*#1 # skip
+ok  InputForm[#1*name]    ==>     name*#1 # skip
+# A recursive definition for factorial using #0:
+ok  f = If[#1 == 1, 1, #1*#0[#1 - 1]] &     ==>     If[#1 == 1, 1, #1*#0[#1 - 1]] & 
+    ---
+    data:
+        got: If[#1 == 1, 1, #1*#0[#1 - 1]] & 
+        expect: If[#1 == 1, 1, #1*#0[#1 - 1]] & 
+        expect_evaluated: If[#1 == 1, 1, #1*#0[#1 - 1]] & 
+    ...
+ok  f[10]    ==>     3628800
+    ---
+    data:
+        got: 3628800
+        expect: 3628800
+        expect_evaluated: 3628800
+    ...
+ok  10!    ==>     3628800
+    ---
+    data:
+        got: 3628800
+        expect: 3628800
+        expect_evaluated: 3628800
+    ...

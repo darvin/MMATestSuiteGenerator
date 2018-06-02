@@ -1,0 +1,56 @@
+# SYSTEM: Mathematica_10
+# TEST: While_Tests
+# OUTPUT: output/Results/Mathematica_10/While_Tests.json
+# The body can be included as part of the test:
+ok  n = 1; While[++n < 4]; n    ==>     4
+    ---
+    data:
+        got: 4
+        expect: 4
+        expect_evaluated: 4
+    ...
+ok  n = 1; While[n < 4, n++]; n    ==>     4
+    ---
+    data:
+        got: 4
+        expect: 4
+        expect_evaluated: 4
+    ...
+ok  n    ==>     11 # skip
+# Compute the GCD of two numbers:
+ok  {a, b} = {27, 6}; While[b != 0, {a, b} = {b, Mod[a, b]}]; a    ==>     3
+    ---
+    data:
+        got: 3
+        expect: 3
+        expect_evaluated: 3
+    ...
+# Count the number of iterations in a fixed-point calculation:
+ok  x = 1.; i = 0; While[Cos[x] != x, x = Cos[x]; i++]; {x, i}    ==>     {0.739085, 80} # skip
+# RefLink[While,paclet:ref/While] returns RefLink[Null,paclet:ref/Null]:
+ok  FullForm[n = 1; While[n < 5, n++]]    ==>     Null # skip
+# Use RefLink[Print,paclet:ref/Print] to see the iterations:
+ok  n = 17; While[(n = Floor[n/2]) != 0, Print[n]]; n    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+# RefLink[Do,paclet:ref/Do] iterates a fixed number of times:
+ok  x = 1.; Do[x = (x + 2/x)/2, {5}]; x    ==>     1.41421 # skip
+# RefLink[NestWhile,paclet:ref/NestWhile] is a functional form of RefLink[While,paclet:ref/While]:
+ok  NestWhile[Floor[#1/2] & , 10, #1 > 0 & ]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+ok  x = 10; While[x > 0, x = Floor[x/2]]; x    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...

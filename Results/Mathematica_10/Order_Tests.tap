@@ -1,0 +1,34 @@
+# SYSTEM: Mathematica_10
+# TEST: Order_Tests
+# OUTPUT: output/Results/Mathematica_10/Order_Tests.json
+ok  {Order[a, a], Order[a, b], Order[b, a]}    ==>     {0, 1, -1}
+    ---
+    data:
+        got: {0, 1, -1}
+        expect: {0, 1, -1}
+        expect_evaluated: {0, 1, -1}
+    ...
+# Find which tuples are in order:
+ok  Tuples[{0, 1, 2}, 2]    ==>     {{0, 0}, {0, 1}, {0, 2}, {1, 0}, {1, 1}, {1, 2}, {2, 0}, {2, 1}, {2, 2}}
+    ---
+    data:
+        got: {{0, 0}, {0, 1}, {0, 2}, {1, 0}, {1, 1}, {1, 2}, {2, 0}, {2, 1}, {2, 2}}
+        expect: {{0, 0}, {0, 1}, {0, 2}, {1, 0}, {1, 1}, {1, 2}, {2, 0}, {2, 1}, {2, 2}}
+        expect_evaluated: {{0, 0}, {0, 1}, {0, 2}, {1, 0}, {1, 1}, {1, 2}, {2, 0}, {2, 1}, {2, 2}}
+    ...
+ok  Apply[Order, %, {1}]    ==>     {0, 1, 1, -1, 0, 1, -1, -1, 0} # skip
+# RefLink[Order,paclet:ref/Order] operates structurally, not by numerical value:
+ok  Order[6, Pi]    ==>     1
+    ---
+    data:
+        got: 1
+        expect: 1
+        expect_evaluated: 1
+    ...
+ok  Order[6, N[Pi]]    ==>     -1
+    ---
+    data:
+        got: -1
+        expect: -1
+        expect_evaluated: -1
+    ...

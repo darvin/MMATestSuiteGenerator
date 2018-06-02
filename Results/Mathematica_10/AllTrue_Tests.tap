@@ -1,0 +1,32 @@
+# SYSTEM: Mathematica_10
+# TEST: AllTrue_Tests
+# OUTPUT: output/Results/Mathematica_10/AllTrue_Tests.json
+# Test if all elements of a list satisfy a condition: 
+ok  AllTrue[{2, 3, 4, 6, 8}, EvenQ]    ==>     False # skip
+ok  AllTrue[{2, 4, 6, 8}, EvenQ]    ==>     True # skip
+# Test if all values of an association satisfy a condition: 
+ok  AllTrue[<| "a" -> 1, "b" -> 3, "c" -> 5 |>, OddQ]    ==>     True # skip
+# If the condition applied to no element produces RefLink[False,paclet:ref/False], a symbolic result may be returned:
+ok  AllTrue[{2, 6, x, 4, y}, #1 < 10 & ]    ==>     x < 10 && y < 10 # skip
+ok  % /. {x -> 3, y -> 7}    ==>     True # skip
+# Even when the condition applied to some elements is symbolic, a definitive result may be deduced: 
+ok  AllTrue[{2, 6, x, 4, y, 15}, #1 < 10 & ]    ==>     False # skip
+# RefLink[TrueQ,paclet:ref/TrueQ] may be used to avoid getting a symbolic result:
+ok  AllTrue[{2, 6, x, 4, y}, TrueQ[#1 < 10] & ]    ==>     False # skip
+# RefLink[AllTrue,paclet:ref/AllTrue] may be applied to expressions with any head:
+ok  AllTrue[f[1, 7, 3], OddQ]    ==>     True # skip
+ok  AllTrue[f[x, y, z], #1 < 10 & ]    ==>     x < 10 && y < 10 && z < 10 # skip
+# RefLink[AllTrue,paclet:ref/AllTrue] always operates at level 1:
+ok  AllTrue[3, EvenQ]    ==>     True # skip
+ok  AllTrue[{}, EvenQ]    ==>     True # skip
+# Compose the predicate with RefLink[TrueQ,paclet:ref/TrueQ] to make the predicate stronger:
+ok  AllTrue[{x, y, z}, Composition[TrueQ, f]]    ==>     False # skip
+# RefLink[AllTrue,paclet:ref/AllTrue][list,f] is equivalent to RefLink[NoneTrue,paclet:ref/NoneTrue][list,RefLink[Composition,paclet:ref/Composition][RefLink[Not,paclet:ref/Not],f]]:
+ok  LogicalExpand /@ {AllTrue[{x, y, z}, f], NoneTrue[{x, y, z},  !f[#1] & ]}    ==>     {f[x] && f[y] && f[z], f[x] && f[y] && f[z]} # skip
+# RefLink[AllTrue,paclet:ref/AllTrue][list,f] is equivalent to RefLink[VectorQ,paclet:ref/VectorQ][list,f] when f evaluates to RefLink[True,paclet:ref/True] or RefLink[False,paclet:ref/False]:
+ok  AllTrue[Range[10], IntegerQ]*VectorQ[Range[10], IntegerQ]    ==>     True # skip
+ok  AllTrue[{x, y, z}, #1 < 10 & ]*VectorQ[{x, y, z}, #1 < 10 & ]    ==>     x < 10 && y < 10 && z < 10 # skip
+# RefLink[AllTrue,paclet:ref/AllTrue][list,f] works efficiently on sparse vectors:
+ok  AllTrue[SparseArray[{1000 -> 2}, {1000000000000}], EvenQ]    ==>     True # skip
+# A symbolic result may be returned:
+ok  AllTrue[{x, y, z}, f]    ==>     f[x] && f[y] && f[z] # skip

@@ -1,0 +1,75 @@
+# SYSTEM: Mathematica_10
+# TEST: Last_Tests
+# OUTPUT: output/Results/Mathematica_10/Last_Tests.json
+# Extract the last element of a list:
+ok  Last[{a, b, c}]    ==>     c
+    ---
+    data:
+        got: c
+        expect: c
+        expect_evaluated: c
+    ...
+# Extract the last row of a matrix:
+ok  Last[{{a, b}, {c, d}, {e, f}}]    ==>     {e, f}
+    ---
+    data:
+        got: {e, f}
+        expect: {e, f}
+        expect_evaluated: {e, f}
+    ...
+# Extract the last element of an Association:
+ok  Last[<| 1 -> a, 2 -> b |>]    ==>     b
+    ---
+    data:
+        got: b
+        expect: b
+        expect_evaluated: b
+    ...
+# The head need not be RefLink[List,paclet:ref/List]:
+ok  Last[a^2 + b^2]    ==>     b^2
+    ---
+    data:
+        got: b^2
+        expect: b^2
+        expect_evaluated: b^2
+    ...
+# RefLink[Last,paclet:ref/Last] works on RefLink[SparseArray,paclet:ref/SparseArray] objects:
+ok  Last[SparseArray[Range[100]]]    ==>     100
+    ---
+    data:
+        got: 100
+        expect: 100
+        expect_evaluated: 100
+    ...
+# RefLink[Last,paclet:ref/Last][expr] is equivalent to expr[[-1]]:
+ok  Last[{a, b, c}]    ==>     c
+    ---
+    data:
+        got: c
+        expect: c
+        expect_evaluated: c
+    ...
+ok  {a, b, c}[[-1]]    ==>     c
+    ---
+    data:
+        got: c
+        expect: c
+        expect_evaluated: c
+    ...
+# The expression is evaluated before RefLink[Last,paclet:ref/Last] is applied:
+ok  Last[b^2 + a^2]    ==>     b^2
+    ---
+    data:
+        got: b^2
+        expect: b^2
+        expect_evaluated: b^2
+    ...
+# RefLink[Last,paclet:ref/Last] always operates on the RefLink[FullForm,paclet:ref/FullForm] of expressions:
+ok  Last[1/b]    ==>     -1
+    ---
+    data:
+        got: -1
+        expect: -1
+        expect_evaluated: -1
+    ...
+ok  FullForm[1/b]    ==>     b^(-1) # skip

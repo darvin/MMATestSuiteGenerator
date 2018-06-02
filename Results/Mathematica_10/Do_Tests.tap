@@ -1,0 +1,46 @@
+# SYSTEM: Mathematica_10
+# TEST: Do_Tests
+# OUTPUT: output/Results/Mathematica_10/Do_Tests.json
+# Generate a symbolic continued fraction:
+ok  t = x; Do[t = 1/(1 + t), {5}]; t    ==>     1/(1 + 1/(1 + 1/(1 + 1/(1 + 1/(1 + x)))))
+    ---
+    data:
+        got: (1 + (1 + (1 + (1 + (1 + x)^(-1))^(-1))^(-1))^(-1))^(-1)
+        expect: 1/(1 + 1/(1 + 1/(1 + 1/(1 + 1/(1 + x)))))
+        expect_evaluated: (1 + (1 + (1 + (1 + (1 + x)^(-1))^(-1))^(-1))^(-1))^(-1)
+    ...
+ok  Nest[1/(1 + #1) & , x, 5]    ==>     1/(1 + 1/(1 + 1/(1 + 1/(1 + 1/(1 + x)))))
+    ---
+    data:
+        got: (1 + (1 + (1 + (1 + (1 + x)^(-1))^(-1))^(-1))^(-1))^(-1)
+        expect: 1/(1 + 1/(1 + 1/(1 + 1/(1 + 1/(1 + x)))))
+        expect_evaluated: (1 + (1 + (1 + (1 + (1 + x)^(-1))^(-1))^(-1))^(-1))^(-1)
+    ...
+# Build up a list of primes:
+ok  t = {}; Do[If[PrimeQ[2^n - 1], AppendTo[t, n]], {n, 100}]; t    ==>     {2, 3, 5, 7, 13, 17, 19, 31, 61, 89}
+    ---
+    data:
+        got: {2, 3, 5, 7, 13, 17, 19, 31, 61, 89}
+        expect: {2, 3, 5, 7, 13, 17, 19, 31, 61, 89}
+        expect_evaluated: {2, 3, 5, 7, 13, 17, 19, 31, 61, 89}
+    ...
+# Alternatively use RefLink[Reap,paclet:ref/Reap] and RefLink[Sow,paclet:ref/Sow]:
+ok  Reap[Do[If[PrimeQ[2^n - 1], Sow[n]], {n, 100}]][[2,1]]    ==>     {2, 3, 5, 7, 13, 17, 19, 31, 61, 89}
+    ---
+    data:
+        got: {2, 3, 5, 7, 13, 17, 19, 31, 61, 89}
+        expect: {2, 3, 5, 7, 13, 17, 19, 31, 61, 89}
+        expect_evaluated: {2, 3, 5, 7, 13, 17, 19, 31, 61, 89}
+    ...
+ok  upperTriangularLinearSolve[{{1, 2}, {0, 3}}, {1, 2}]    ==>     {-(1/3), 2/3} # skip
+ok  {l, u} = lu[{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}]    ==>     {{{1, 0, 0}, {4, 1, 0}, {7, 2, 1}}, {{1, 2, 3}, {0, -3, -6}, {0, 0, 0}}} # skip
+ok  l . u    ==>     {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}} # skip
+# The selection sort algorithm:
+ok  list = RandomSample[Range[10], 10]    ==>     {5, 7, 1, 10, 4, 9, 6, 3, 2, 8} # skip
+not ok  Do[If[list[[i]] > list[[j]], list[[{i, j}]] = list[[{j, i}]]], {i, Length[list]}, {j, i + 1, Length[list]}]; list    ==>     {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+    ---
+    data:
+        got: list
+        expect: {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+        expect_evaluated: {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+    ...

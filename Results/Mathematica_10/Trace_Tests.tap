@@ -1,0 +1,7 @@
+# SYSTEM: Mathematica_10
+# TEST: Trace_Tests
+# OUTPUT: output/Results/Mathematica_10/Trace_Tests.json
+# Trace each step in an evaluation:
+ok  Trace[u = 2; Do[u = u*u, {3}]; u]    ==>     {u = 2; Do[u = u*u, {3}]; u, {u = 2, 2}, {Do[u = u*u, {3}], {{{u, 2}, {u, 2}, 2*2, 4}, u = 4, 4}, {{{u, 4}, {u, 4}, 4*4, 16}, u = 16, 16}, {{{u, 16}, {u, 16}, 16*16, 256}, u = 256, 256}, Null}, {u, 256}, 256} # skip
+# Trace only the computations with head RefLink[Times,paclet:ref/Times]:
+ok  Trace[u = 2; Do[u = u*u, {3}]; u, Times]    ==>     {{{{2*2, 4}}, {{4*4, 16}}, {{16*16, 256}}}} # skip

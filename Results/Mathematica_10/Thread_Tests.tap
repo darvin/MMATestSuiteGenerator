@@ -1,0 +1,259 @@
+# SYSTEM: Mathematica_10
+# TEST: Thread_Tests
+# OUTPUT: output/Results/Mathematica_10/Thread_Tests.json
+ok  Thread[f[{a, b, c}]]    ==>     {f[a], f[b], f[c]}
+    ---
+    data:
+        got: {f[a], f[b], f[c]}
+        expect: {f[a], f[b], f[c]}
+        expect_evaluated: {f[a], f[b], f[c]}
+    ...
+ok  Thread[f[{a, b, c}, x]]    ==>     {f[a, x], f[b, x], f[c, x]}
+    ---
+    data:
+        got: {f[a, x], f[b, x], f[c, x]}
+        expect: {f[a, x], f[b, x], f[c, x]}
+        expect_evaluated: {f[a, x], f[b, x], f[c, x]}
+    ...
+ok  Thread[f[{a, b, c}, {x, y, z}]]    ==>     {f[a, x], f[b, y], f[c, z]}
+    ---
+    data:
+        got: {f[a, x], f[b, y], f[c, z]}
+        expect: {f[a, x], f[b, y], f[c, z]}
+        expect_evaluated: {f[a, x], f[b, y], f[c, z]}
+    ...
+# Convert equations for lists to lists of equations:
+ok  Thread[{a, b, c} == {x, y, z}]    ==>     {a == x, b == y, c == z}
+    ---
+    data:
+        got: {a == x, b == y, c == z}
+        expect: {a == x, b == y, c == z}
+        expect_evaluated: {a == x, b == y, c == z}
+    ...
+# Apply a function to both sides of an equation:
+ok  Thread[Log[x == y], Equal]    ==>     Log[x] == Log[y]
+    ---
+    data:
+        got: Log[x] == Log[y]
+        expect: Log[x] == Log[y]
+        expect_evaluated: Log[x] == Log[y]
+    ...
+# By default, thread over all arguments:
+ok  Thread[f[{a, b}, {r, s}, {u, v}, {x, y}], List]    ==>     {f[a, r, u, x], f[b, s, v, y]}
+    ---
+    data:
+        got: {f[a, r, u, x], f[b, s, v, y]}
+        expect: {f[a, r, u, x], f[b, s, v, y]}
+        expect_evaluated: {f[a, r, u, x], f[b, s, v, y]}
+    ...
+ok  Thread[f[{a, b}, {r, s}, {u, v}, {x, y}], List, All]    ==>     {f[a, r, u, x], f[b, s, v, y]}
+    ---
+    data:
+        got: {f[a, r, u, x], f[b, s, v, y]}
+        expect: {f[a, r, u, x], f[b, s, v, y]}
+        expect_evaluated: {f[a, r, u, x], f[b, s, v, y]}
+    ...
+# Do not thread at all:
+ok  Thread[f[{a, b}, {r, s}, {u, v}, {x, y}], List, None]    ==>     f[{a, b}, {r, s}, {u, v}, {x, y}]
+    ---
+    data:
+        got: f[{a, b}, {r, s}, {u, v}, {x, y}]
+        expect: f[{a, b}, {r, s}, {u, v}, {x, y}]
+        expect_evaluated: f[{a, b}, {r, s}, {u, v}, {x, y}]
+    ...
+# Thread over the first two arguments only:
+ok  Thread[f[{a, b}, {r, s}, {u, v}, {x, y}], List, 2]    ==>     {f[a, r, {u, v}, {x, y}], f[b, s, {u, v}, {x, y}]}
+    ---
+    data:
+        got: {f[a, r, {u, v}, {x, y}], f[b, s, {u, v}, {x, y}]}
+        expect: {f[a, r, {u, v}, {x, y}], f[b, s, {u, v}, {x, y}]}
+        expect_evaluated: {f[a, r, {u, v}, {x, y}], f[b, s, {u, v}, {x, y}]}
+    ...
+# Thread over the last two arguments only:
+ok  Thread[f[{a, b}, {r, s}, {u, v}, {x, y}], List, -2]    ==>     {f[{a, b}, {r, s}, u, x], f[{a, b}, {r, s}, v, y]}
+    ---
+    data:
+        got: {f[{a, b}, {r, s}, u, x], f[{a, b}, {r, s}, v, y]}
+        expect: {f[{a, b}, {r, s}, u, x], f[{a, b}, {r, s}, v, y]}
+        expect_evaluated: {f[{a, b}, {r, s}, u, x], f[{a, b}, {r, s}, v, y]}
+    ...
+# Thread over argument 2 only:
+ok  Thread[f[{a, b}, {r, s}, {u, v}, {x, y}], List, {2}]    ==>     {f[{a, b}, r, {u, v}, {x, y}], f[{a, b}, s, {u, v}, {x, y}]}
+    ---
+    data:
+        got: {f[{a, b}, r, {u, v}, {x, y}], f[{a, b}, s, {u, v}, {x, y}]}
+        expect: {f[{a, b}, r, {u, v}, {x, y}], f[{a, b}, s, {u, v}, {x, y}]}
+        expect_evaluated: {f[{a, b}, r, {u, v}, {x, y}], f[{a, b}, s, {u, v}, {x, y}]}
+    ...
+# Thread over arguments 2 through 4:
+ok  Thread[f[{a, b}, {r, s}, {u, v}, {x, y}], List, {2, 4}]    ==>     {f[{a, b}, r, u, x], f[{a, b}, s, v, y]}
+    ---
+    data:
+        got: {f[{a, b}, r, u, x], f[{a, b}, s, v, y]}
+        expect: {f[{a, b}, r, u, x], f[{a, b}, s, v, y]}
+        expect_evaluated: {f[{a, b}, r, u, x], f[{a, b}, s, v, y]}
+    ...
+# Thread over every other argument:
+ok  Thread[f[{a, b}, {r, s}, {u, v}, {x, y}], List, {1, -1, 2}]    ==>     {f[a, {r, s}, u, {x, y}], f[b, {r, s}, v, {x, y}]}
+    ---
+    data:
+        got: {f[a, {r, s}, u, {x, y}], f[b, {r, s}, v, {x, y}]}
+        expect: {f[a, {r, s}, u, {x, y}], f[b, {r, s}, v, {x, y}]}
+        expect_evaluated: {f[a, {r, s}, u, {x, y}], f[b, {r, s}, v, {x, y}]}
+    ...
+# By default, thread over lists:
+ok  Thread[f[{a, b}, {c, d}]]    ==>     {f[a, c], f[b, d]}
+    ---
+    data:
+        got: {f[a, c], f[b, d]}
+        expect: {f[a, c], f[b, d]}
+        expect_evaluated: {f[a, c], f[b, d]}
+    ...
+ok  Thread[f[{a, b}, {c, d}], List]    ==>     {f[a, c], f[b, d]}
+    ---
+    data:
+        got: {f[a, c], f[b, d]}
+        expect: {f[a, c], f[b, d]}
+        expect_evaluated: {f[a, c], f[b, d]}
+    ...
+# By default, does not thread over heads other than RefLink[List,paclet:ref/List]:
+ok  Thread[f[a + b, c + d]]    ==>     f[a + b, c + d]
+    ---
+    data:
+        got: f[a + b, c + d]
+        expect: f[a + b, c + d]
+        expect_evaluated: f[a + b, c + d]
+    ...
+# Thread with respect to RefLink[Plus,paclet:ref/Plus]:
+ok  Thread[f[a + b, c + d], Plus]    ==>     f[a, c] + f[b, d]
+    ---
+    data:
+        got: f[a, c] + f[b, d]
+        expect: f[a, c] + f[b, d]
+        expect_evaluated: f[a, c] + f[b, d]
+    ...
+# Elements that are not lists are repeated:
+ok  Thread[f[{a, b, c}, h, {x, y, z}]]    ==>     {f[a, h, x], f[b, h, y], f[c, h, z]}
+    ---
+    data:
+        got: {f[a, h, x], f[b, h, y], f[c, h, z]}
+        expect: {f[a, h, x], f[b, h, y], f[c, h, z]}
+        expect_evaluated: {f[a, h, x], f[b, h, y], f[c, h, z]}
+    ...
+ok  {1, 2, 3}^2    ==>     {1, 4, 9}
+    ---
+    data:
+        got: {1, 4, 9}
+        expect: {1, 4, 9}
+        expect_evaluated: {1, 4, 9}
+    ...
+# Build a list of rules:
+ok  Thread[{a, b, c} -> {1, 2, 3}]    ==>     {a -> 1, b -> 2, c -> 3}
+    ---
+    data:
+        got: {a -> 1, b -> 2, c -> 3}
+        expect: {a -> 1, b -> 2, c -> 3}
+        expect_evaluated: {a -> 1, b -> 2, c -> 3}
+    ...
+# Equate coefficients in a polynomial equation:
+ok  (CoefficientList[#1, x] & ) /@ (1 + 2*x + 3*x^2 == a + b*x + c*x^2)    ==>     {1, 2, 3} == {a, b, c}
+    ---
+    data:
+        got: {1, 2, 3} == {a, b, c}
+        expect: {1, 2, 3} == {a, b, c}
+        expect_evaluated: {1, 2, 3} == {a, b, c}
+    ...
+ok  Thread[%]    ==>     {1 == a, 2 == b, 3 == c} # skip
+# Alternatively, use RefLink[SolveAlways,paclet:ref/SolveAlways]:
+ok  SolveAlways[1 + 2*x + 3*x^2 == a + b*x + c*x^2, x]    ==>     {{a -> 1, b -> 2, c -> 3}}
+    ---
+    data:
+        got: {{a -> 1, b -> 2, c -> 3}}
+        expect: {{a -> 1, b -> 2, c -> 3}}
+        expect_evaluated: {{a -> 1, b -> 2, c -> 3}}
+    ...
+# Form pairs with a constant second element:
+ok  Thread[{{a, b, c}, 0}]    ==>     {{a, 0}, {b, 0}, {c, 0}}
+    ---
+    data:
+        got: {{a, 0}, {b, 0}, {c, 0}}
+        expect: {{a, 0}, {b, 0}, {c, 0}}
+        expect_evaluated: {{a, 0}, {b, 0}, {c, 0}}
+    ...
+# Functions with attribute RefLink[Listable,paclet:ref/Listable] are threaded automatically over lists:
+ok  Sqrt[{1, 2, 3, 4}]    ==>     {1, Sqrt[2], Sqrt[3], 2}
+    ---
+    data:
+        got: {1, Sqrt[2], Sqrt[3], 2}
+        expect: {1, Sqrt[2], Sqrt[3], 2}
+        expect_evaluated: {1, Sqrt[2], Sqrt[3], 2}
+    ...
+ok  {1, 2, 3, 4} + 1    ==>     {2, 3, 4, 5}
+    ---
+    data:
+        got: {2, 3, 4, 5}
+        expect: {2, 3, 4, 5}
+        expect_evaluated: {2, 3, 4, 5}
+    ...
+ok  {1, 2, 3, 4} + {a, b, c, d}    ==>     {1 + a, 2 + b, 3 + c, 4 + d}
+    ---
+    data:
+        got: {1 + a, 2 + b, 3 + c, 4 + d}
+        expect: {1 + a, 2 + b, 3 + c, 4 + d}
+        expect_evaluated: {1 + a, 2 + b, 3 + c, 4 + d}
+    ...
+# RefLink[MapThread,paclet:ref/MapThread] works like RefLink[Thread,paclet:ref/Thread], but takes the function and arguments separately:
+ok  MapThread[f, {{a, b, c}, {x, y, z}}]    ==>     {f[a, x], f[b, y], f[c, z]}
+    ---
+    data:
+        got: {f[a, x], f[b, y], f[c, z]}
+        expect: {f[a, x], f[b, y], f[c, z]}
+        expect_evaluated: {f[a, x], f[b, y], f[c, z]}
+    ...
+ok  Thread[f[{a, b, c}, {x, y, z}]]    ==>     {f[a, x], f[b, y], f[c, z]}
+    ---
+    data:
+        got: {f[a, x], f[b, y], f[c, z]}
+        expect: {f[a, x], f[b, y], f[c, z]}
+        expect_evaluated: {f[a, x], f[b, y], f[c, z]}
+    ...
+# The function to thread over can be RefLink[List,paclet:ref/List] as well:
+ok  Thread[{{a, b, c}, {x, y, z}}]    ==>     {{a, x}, {b, y}, {c, z}}
+    ---
+    data:
+        got: {{a, x}, {b, y}, {c, z}}
+        expect: {{a, x}, {b, y}, {c, z}}
+        expect_evaluated: {{a, x}, {b, y}, {c, z}}
+    ...
+# In this case, the result is the same as a transposition:
+ok  Transpose[{{a, b, c}, {x, y, z}}]    ==>     {{a, x}, {b, y}, {c, z}}
+    ---
+    data:
+        got: {{a, x}, {b, y}, {c, z}}
+        expect: {{a, x}, {b, y}, {c, z}}
+        expect_evaluated: {{a, x}, {b, y}, {c, z}}
+    ...
+# RefLink[Thread,paclet:ref/Thread] evaluates the whole expression before threading:
+ok  Thread[D[{x, x*y, x*z}, {x, y, z}]]    ==>     {1, x, x}
+    ---
+    data:
+        got: {1, x, x}
+        expect: {1, x, x}
+        expect_evaluated: {1, x, x}
+    ...
+# RefLink[MapThread,paclet:ref/MapThread] takes the function and its arguments separately:
+ok  MapThread[D, {{x, x*y, x*z}, {x, y, z}}]    ==>     {1, x, x}
+    ---
+    data:
+        got: {1, x, x}
+        expect: {1, x, x}
+        expect_evaluated: {1, x, x}
+    ...
+# Suppressing evaluation has a similar effect:
+ok  Thread[Unevaluated[D[{x, x*y, x*z}, {x, y, z}]]]    ==>     {1, x, x}
+    ---
+    data:
+        got: {1, x, x}
+        expect: {1, x, x}
+        expect_evaluated: {1, x, x}
+    ...

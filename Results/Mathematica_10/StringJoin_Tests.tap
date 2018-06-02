@@ -1,0 +1,38 @@
+# SYSTEM: Mathematica_10
+# TEST: StringJoin_Tests
+# OUTPUT: output/Results/Mathematica_10/StringJoin_Tests.json
+# Join strings:
+ok  StringJoin["abcd", "ABCD", "xyz"]    ==>     abcdABCDxyz # skip
+# Use RefLink[InputForm,paclet:ref/InputForm] to show string quotes:
+ok  InputForm[%]    ==>     "abcdABCDxyz" # skip
+# All lists are ignored:
+ok  StringJoin[{{"AB", "CD"}, "XY"}]    ==>     ABCDXY # skip
+# RefLink[StringJoin,paclet:ref/StringJoin] works with special characters:
+ok  StringJoin["\[Alpha]\[Beta]\[Gamma]", "(+)(x)", " \[ReturnIndicator]"]    ==>     \[Alpha]\[Beta]\[Gamma] (+) (x)\[ReturnIndicator] # skip
+# Join strings, with a newline in between:
+ok  StringJoin["one", "\n", "two"]    ==>     one*two # skip
+# RefLink[StringJoin,paclet:ref/StringJoin] preserves formatting information embedded in strings:
+ok  StringJoin["red", "blue"]    ==>     redblue # skip
+# Iteratively join a string to its reverse:
+ok  NestList[StringJoin[#1, StringReverse[#1]] & , "AB", 5]    ==>     {AB, ABBA, ABBAABBA, ABBAABBAABBAABBA, ABBAABBAABBAABBAABBAABBAABBAABBA, ABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBA} # skip
+# Find trigrams in a string:
+ok  data = Partition[Characters["aabcaabc"], 3, 1]    ==>     {{a, a, b}, {a, b, c}, {b, c, a}, {c, a, a}, {a, a, b}, {a, b, c}} # skip
+ok  StringJoin /@ data    ==>     {aab, abc, bca, caa, aab, abc} # skip
+# Join a list of words, after inserting spaces in between:
+ok  Riffle[{"dog", "cat", "sheep", "cow"}, " "]    ==>     {dog, Null, cat, Null, sheep, Null, cow} # skip
+ok  StringJoin[%]    ==>     dog*cat*sheep*cow # skip
+# Create a Champernowne number:
+ok  ToExpression[StringJoin["0.", ToString /@ Range[30]]]    ==>     0.12345678910111213141516171819202122232425262728293`50.091514977524966
+    ---
+    data:
+        got: 0.12345678910111213141516171819202122232425262728293`50.091514977524966
+        expect: 0.12345678910111213141516171819202122232425262728293`50.091514977524966
+        expect_evaluated: 0.12345678910111213141516171819202122232425262728293`50.091514977524966
+    ...
+# RefLink[StringJoin,paclet:ref/StringJoin] acts as a kind of inverse to RefLink[Characters,paclet:ref/Characters]:
+ok  Characters["abcdefg"]    ==>     {a, b, c, d, e, f, g} # skip
+ok  StringJoin[%]    ==>     abcdefg # skip
+# RefLink[StringJoin,paclet:ref/StringJoin] works only with explicit strings:
+ok  StringJoin["item ", 456]    ==>     StringJoin[item, 456] # skip
+# Use RefLink[ToString,paclet:ref/ToString] to convert to a string:
+ok  StringJoin["item ", ToString[456]]    ==>     item*456 # skip

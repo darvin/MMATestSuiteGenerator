@@ -1,0 +1,79 @@
+# SYSTEM: Mathematica_10
+# TEST: Increment_Tests
+# OUTPUT: output/Results/Mathematica_10/Increment_Tests.json
+# Increment the value by one, and return the old value:
+ok  k = 1; k++    ==>     1
+    ---
+    data:
+        got: 1
+        expect: 1
+        expect_evaluated: 1
+    ...
+ok  k    ==>     2
+    ---
+    data:
+        got: 2
+        expect: 2
+        expect_evaluated: 2
+    ...
+# Increment a numerical value:
+ok  x = 1.5; x++; x    ==>     2.5
+    ---
+    data:
+        got: 2.5
+        expect: 2.5
+        expect_evaluated: 2.5
+    ...
+# Increment a symbolic value:
+ok  v = a; v++; v    ==>     1 + a
+    ---
+    data:
+        got: 1 + a
+        expect: 1 + a
+        expect_evaluated: 1 + a
+    ...
+# Increment all values in a list:
+ok  x = {1, 2, 3}    ==>     {1, 2, 3}
+    ---
+    data:
+        got: {1, 2, 3}
+        expect: {1, 2, 3}
+        expect_evaluated: {1, 2, 3}
+    ...
+ok  x++; x    ==>     {2, 3, 4}
+    ---
+    data:
+        got: {2, 3, 4}
+        expect: {2, 3, 4}
+        expect_evaluated: {2, 3, 4}
+    ...
+# Find the first integer with a certain property:
+ok  i = 1; While[Prime[i] < 10^6, i++]; i    ==>     78499
+    ---
+    data:
+        got: 78499
+        expect: 78499
+        expect_evaluated: 78499
+    ...
+ok  {a++, ++b}    ==>     {1, 2} # skip
+ok  {a, b}    ==>     {2, 2} # skip
+# RefLink[Increment,paclet:ref/Increment] is a short form of this assignment:
+ok  k = 1; k = k + 1    ==>     2
+    ---
+    data:
+        got: 2
+        expect: 2
+        expect_evaluated: 2
+    ...
+# RefLink[Increment,paclet:ref/Increment] is a special case of RefLink[AddTo,paclet:ref/AddTo]:
+ok  k = 1; k += 1    ==>     2
+    ---
+    data:
+        got: 2
+        expect: 2
+        expect_evaluated: 2
+    ...
+ok  {a++, ++b, c--, --d}    ==>     {1, 2, 1, 0} # skip
+ok  {a, b, c, d}    ==>     {2, 2, 0, 0} # skip
+# A variable to be incremented must have an initial value:
+ok  x++    ==>     x++ # skip

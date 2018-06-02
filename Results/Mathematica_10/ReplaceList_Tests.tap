@@ -1,0 +1,67 @@
+# SYSTEM: Mathematica_10
+# TEST: ReplaceList_Tests
+# OUTPUT: output/Results/Mathematica_10/ReplaceList_Tests.json
+# Give the results of all possible replacements:
+ok  ReplaceList[{a, b, c, d, e, f}, {x__, y__} -> {{x}, {y}}]    ==>     {{{a}, {b, c, d, e, f}}, {{a, b}, {c, d, e, f}}, {{a, b, c}, {d, e, f}}, {{a, b, c, d}, {e, f}}, {{a, b, c, d, e}, {f}}}
+    ---
+    data:
+        got: {{{a}, {b, c, d, e, f}}, {{a, b}, {c, d, e, f}}, {{a, b, c}, {d, e, f}}, {{a, b, c, d}, {e, f}}, {{a, b, c, d, e}, {f}}}
+        expect: {{{a}, {b, c, d, e, f}}, {{a, b}, {c, d, e, f}}, {{a, b, c}, {d, e, f}}, {{a, b, c, d}, {e, f}}, {{a, b, c, d, e}, {f}}}
+        expect_evaluated: {{{a}, {b, c, d, e, f}}, {{a, b}, {c, d, e, f}}, {{a, b, c}, {d, e, f}}, {{a, b, c, d}, {e, f}}, {{a, b, c, d, e}, {f}}}
+    ...
+# Give only the first replacement that applies:
+ok  Replace[{a, b, c, d, e, f}, {x__, y__} -> {{x}, {y}}]    ==>     {{a}, {b, c, d, e, f}}
+    ---
+    data:
+        got: {{a}, {b, c, d, e, f}}
+        expect: {{a}, {b, c, d, e, f}}
+        expect_evaluated: {{a}, {b, c, d, e, f}}
+    ...
+# Use all rules that apply:
+ok  ReplaceList[x, {x -> a, x -> b, x -> c}]    ==>     {a, b, c}
+    ---
+    data:
+        got: {a, b, c}
+        expect: {a, b, c}
+        expect_evaluated: {a, b, c}
+    ...
+# Use only the first rule:
+ok  Replace[x, {x -> a, x -> b, x -> c}]    ==>     a
+    ---
+    data:
+        got: a
+        expect: a
+        expect_evaluated: a
+    ...
+# Find the possible values to break a sum of terms in two:
+ok  ReplaceList[a + b + c, (x_) + (y_) -> g[x, y]]    ==>     {g[a, b + c], g[b, a + c], g[c, a + b], g[a + b, c], g[a + c, b], g[b + c, a]}
+    ---
+    data:
+        got: {g[a, b + c], g[b, a + c], g[c, a + b], g[a + b, c], g[a + c, b], g[b + c, a]}
+        expect: {g[a, b + c], g[b, a + c], g[c, a + b], g[a + b, c], g[a + c, b], g[b + c, a]}
+        expect_evaluated: {g[a, b + c], g[b, a + c], g[c, a + b], g[a + b, c], g[a + c, b], g[b + c, a]}
+    ...
+# Generate all consecutive nonempty sublists:
+ok  ReplaceList[{a, b, c, d}, {___, x__, ___} -> {x}]    ==>     {{a}, {a, b}, {a, b, c}, {a, b, c, d}, {b}, {b, c}, {b, c, d}, {c}, {c, d}, {d}}
+    ---
+    data:
+        got: {{a}, {a, b}, {a, b, c}, {a, b, c, d}, {b}, {b, c}, {b, c, d}, {c}, {c, d}, {d}}
+        expect: {{a}, {a, b}, {a, b, c}, {a, b, c, d}, {b}, {b, c}, {b, c, d}, {c}, {c, d}, {d}}
+        expect_evaluated: {{a}, {a, b}, {a, b, c}, {a, b, c, d}, {b}, {b, c}, {b, c, d}, {c}, {c, d}, {d}}
+    ...
+# Find all elements that appear twice:
+ok  ReplaceList[{a, b, b, b, c, c, a}, {___, x_, x_, ___} -> x]    ==>     {b, b, c}
+    ---
+    data:
+        got: {b, b, c}
+        expect: {b, b, c}
+        expect_evaluated: {b, b, c}
+    ...
+# Find all sublists flanked by the same element:
+ok  ReplaceList[{a, b, c, a, d, b, d}, {___, x_, y__, x_, ___} -> {x, {y}}]    ==>     {{a, {b, c}}, {b, {c, a, d}}, {d, {b}}}
+    ---
+    data:
+        got: {{a, {b, c}}, {b, {c, a, d}}, {d, {b}}}
+        expect: {{a, {b, c}}, {b, {c, a, d}}, {d, {b}}}
+        expect_evaluated: {{a, {b, c}}, {b, {c, a, d}}, {d, {b}}}
+    ...

@@ -1,0 +1,103 @@
+# SYSTEM: Mathematica_10
+# TEST: SubtractFrom_Tests
+# OUTPUT: output/Results/Mathematica_10/SubtractFrom_Tests.json
+ok  k = 1; k -= 5    ==>     -4
+    ---
+    data:
+        got: -4
+        expect: -4
+        expect_evaluated: -4
+    ...
+ok  k    ==>     -4
+    ---
+    data:
+        got: -4
+        expect: -4
+        expect_evaluated: -4
+    ...
+# Subtract from a numerical value:
+ok  x = 1.5; x -= 0.75; x    ==>     0.75
+    ---
+    data:
+        got: 0.75
+        expect: 0.75
+        expect_evaluated: 0.75
+    ...
+# Subtract from a symbolic value:
+ok  v = a; v -= b; v    ==>     a - b
+    ---
+    data:
+        got: a - b
+        expect: a - b
+        expect_evaluated: a - b
+    ...
+# Subtract from all values in a list:
+ok  x = {100, 200, 300}    ==>     {100, 200, 300}
+    ---
+    data:
+        got: {100, 200, 300}
+        expect: {100, 200, 300}
+        expect_evaluated: {100, 200, 300}
+    ...
+ok  x -= 17; x    ==>     {83, 183, 283}
+    ---
+    data:
+        got: {83, 183, 283}
+        expect: {83, 183, 283}
+        expect_evaluated: {83, 183, 283}
+    ...
+ok  x -= {20, 21, 22}; x    ==>     {63, 162, 261}
+    ---
+    data:
+        got: {63, 162, 261}
+        expect: {63, 162, 261}
+        expect_evaluated: {63, 162, 261}
+    ...
+# Find the last prime below one million:
+ok  i = 10^6 + 1; While[ !PrimeQ[i], i -= 2]; i    ==>     999983
+    ---
+    data:
+        got: 999983
+        expect: 999983
+        expect_evaluated: 999983
+    ...
+# RefLink[SubtractFrom,paclet:ref/SubtractFrom] is a short form of this assignment:
+ok  k = 1; k = k - 5    ==>     -4
+    ---
+    data:
+        got: -4
+        expect: -4
+        expect_evaluated: -4
+    ...
+# RefLink[PreDecrement,paclet:ref/PreDecrement] is a special case of RefLink[SubtractFrom,paclet:ref/SubtractFrom]:
+ok  k = 10; k -= 1    ==>     9
+    ---
+    data:
+        got: 9
+        expect: 9
+        expect_evaluated: 9
+    ...
+ok  --k    ==>     8
+    ---
+    data:
+        got: 8
+        expect: 8
+        expect_evaluated: 8
+    ...
+# RefLink[AddTo,paclet:ref/AddTo] is closely related:
+ok  k = 10; k -= 5    ==>     5
+    ---
+    data:
+        got: 5
+        expect: 5
+        expect_evaluated: 5
+    ...
+ok  k += -5    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+# A variable to be decremented must have an initial value:
+ok  x -= 2    ==>     x -= 2 # skip

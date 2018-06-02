@@ -1,0 +1,17 @@
+# SYSTEM: Mathematica_10
+# TEST: Unique_Tests
+# OUTPUT: output/Results/Mathematica_10/Unique_Tests.json
+ok  Unique["x"]    ==>     x1 # skip
+ok  Unique[sym]    ==>     sym$149 # skip
+# Create a unique symbol with no particular name:
+ok  Unique[]    ==>     $1 # skip
+# Create a unique symbol whose name begins with x:
+ok  Unique["x"]    ==>     x1 # skip
+# Create a unique symbol in the way RefLink[Module,paclet:ref/Module] does:
+ok  Unique[x]    ==>     x$160 # skip
+# Each use of RefLink[Unique,paclet:ref/Unique][symbol] increments RefLink[$ModuleNumber,paclet:ref/$ModuleNumber]:
+ok  {$ModuleNumber, Unique[x], $ModuleNumber}    ==>     {171, x$171, 172} # skip
+# RefLink[Unique,paclet:ref/Unique][symbol] creates symbols in the same way RefLink[Module,paclet:ref/Module] does:
+ok  {Module[{x}, x], Unique[x]}    ==>     {x$1672, x$1673} # skip
+# RefLink[Unique,paclet:ref/Unique]["x"] uses the first unused symbol of the form xnnn:
+ok  {x1, x2, x4}; Unique["x"]    ==>     x3 # skip

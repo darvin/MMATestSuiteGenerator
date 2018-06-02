@@ -1,0 +1,134 @@
+# SYSTEM: Mathematica_10
+# TEST: Union_Tests
+# OUTPUT: output/Results/Mathematica_10/Union_Tests.json
+# Give a sorted list of distinct elements:
+ok  Union[{1, 2, 1, 3, 6, 2, 2}]    ==>     {1, 2, 3, 6}
+    ---
+    data:
+        got: {1, 2, 3, 6}
+        expect: {1, 2, 3, 6}
+        expect_evaluated: {1, 2, 3, 6}
+    ...
+# Give a sorted list of distinct elements from all the lists:
+ok  Union[{a, b, a, c}, {d, a, e, b}, {c, a}]    ==>     {a, b, c, d, e}
+    ---
+    data:
+        got: {a, b, c, d, e}
+        expect: {a, b, c, d, e}
+        expect_evaluated: {a, b, c, d, e}
+    ...
+# Enter using Esc\[ThinSpace]un\[ThinSpace]Esc:
+ok  Union[{a, b, c}, {b, c, d}]    ==>     {a, b, c, d}
+    ---
+    data:
+        got: {a, b, c, d}
+        expect: {a, b, c, d}
+        expect_evaluated: {a, b, c, d}
+    ...
+# Give a list of the distinct lists:
+ok  Union[{{1, 2}, {1, 2, 3}}, {{2, 1}, {1, 2}}, {{3, 2, 1}, {1, 2, 3}}]    ==>     {{1, 2}, {2, 1}, {1, 2, 3}, {3, 2, 1}}
+    ---
+    data:
+        got: {{1, 2}, {2, 1}, {1, 2, 3}, {3, 2, 1}}
+        expect: {{1, 2}, {2, 1}, {1, 2, 3}, {3, 2, 1}}
+        expect_evaluated: {{1, 2}, {2, 1}, {1, 2, 3}, {3, 2, 1}}
+    ...
+# RefLink[Union,paclet:ref/Union] works with any head, not just RefLink[List,paclet:ref/List]:
+ok  Union[f[a, b], f[c, a], f[b, b, a]]    ==>     f[a, b, c]
+    ---
+    data:
+        got: f[a, b, c]
+        expect: f[a, b, c]
+        expect_evaluated: f[a, b, c]
+    ...
+# Use equivalence classes based on absolute value: 
+ok  Union[{2, -2, 1, 3, 1}, SameTest -> (Abs[#1] == Abs[#2] & )]    ==>     {-2, 1, 3}
+    ---
+    data:
+        got: {-2, 1, 3}
+        expect: {-2, 1, 3}
+        expect_evaluated: {-2, 1, 3}
+    ...
+# Use equivalence classes based on RefLink[Floor,paclet:ref/Floor]:
+ok  Union[{1.1, 3.4, 0.5, 7.6, 7.1, 1.9}, SameTest -> (Floor[#1] == Floor[#2] & )]    ==>     {0.5, 1.1, 3.4, 7.1}
+    ---
+    data:
+        got: {0.5, 1.1, 3.4, 7.1}
+        expect: {0.5, 1.1, 3.4, 7.1}
+        expect_evaluated: {0.5, 1.1, 3.4, 7.1}
+    ...
+# Use RefLink[Total,paclet:ref/Total] of list elements:
+ok  Union[{{1, 2}, {3}, {4, 5, 6}, {9, 6}}, SameTest -> (Total[#1] == Total[#2] & )]    ==>     {{3}, {9, 6}}
+    ---
+    data:
+        got: {{3}, {9, 6}}
+        expect: {{3}, {9, 6}}
+        expect_evaluated: {{3}, {9, 6}}
+    ...
+# Use equality of last and first elements:
+ok  Union[{{1, 2}, {2, 1}, {3, 2, 1}, {3}, {4, 5}, {5, 4, 3, 2, 1}}, SameTest -> (First[#1] == Last[#2] & )]    ==>     {{3}, {1, 2}, {4, 5}}
+    ---
+    data:
+        got: {{3}, {1, 2}, {4, 5}}
+        expect: {{3}, {1, 2}, {4, 5}}
+        expect_evaluated: {{3}, {1, 2}, {4, 5}}
+    ...
+# Find divisors that occur in any of 10, 12, and 20:
+ok  Union[Divisors[10], Divisors[12], Divisors[20]]    ==>     {1, 2, 3, 4, 5, 6, 10, 12, 20}
+    ---
+    data:
+        got: {1, 2, 3, 4, 5, 6, 10, 12, 20}
+        expect: {1, 2, 3, 4, 5, 6, 10, 12, 20}
+        expect_evaluated: {1, 2, 3, 4, 5, 6, 10, 12, 20}
+    ...
+# Find all the triples of bits that occur in the binary decomposition of 10!:
+ok  Union[Partition[IntegerDigits[10!, 2], 3, 1]]    ==>     {{0, 0, 0}, {0, 1, 0}, {0, 1, 1}, {1, 0, 0}, {1, 0, 1}, {1, 1, 0}, {1, 1, 1}}
+    ---
+    data:
+        got: {{0, 0, 0}, {0, 1, 0}, {0, 1, 1}, {1, 0, 0}, {1, 0, 1}, {1, 1, 0}, {1, 1, 1}}
+        expect: {{0, 0, 0}, {0, 1, 0}, {0, 1, 1}, {1, 0, 0}, {1, 0, 1}, {1, 1, 0}, {1, 1, 1}}
+        expect_evaluated: {{0, 0, 0}, {0, 1, 0}, {0, 1, 1}, {1, 0, 0}, {1, 0, 1}, {1, 1, 0}, {1, 1, 1}}
+    ...
+# Find the distinct elements in the iteration:
+ok  Union[NestList[Mod[5*#1, 11] & , 1, 100]]    ==>     {1, 3, 4, 5, 9}
+    ---
+    data:
+        got: {1, 3, 4, 5, 9}
+        expect: {1, 3, 4, 5, 9}
+        expect_evaluated: {1, 3, 4, 5, 9}
+    ...
+# Find what options are used by a list of functions:
+ok  Union[Flatten[(Options[#1][[All,1]] & ) /@ {FindFit, FindMinimum, FindRoot}]]    ==>     {AccuracyGoal, Compiled, DampingFactor, Evaluated, EvaluationMonitor, Gradient, Jacobian, MaxIterations, Method, NormFunction, PrecisionGoal, StepMonitor, WorkingPrecision}
+    ---
+    data:
+        got: {AccuracyGoal, Compiled, DampingFactor, Evaluated, EvaluationMonitor, Gradient, Jacobian, MaxIterations, Method, NormFunction, PrecisionGoal, StepMonitor, WorkingPrecision}
+        expect: {AccuracyGoal, Compiled, DampingFactor, Evaluated, EvaluationMonitor, Gradient, Jacobian, MaxIterations, Method, NormFunction, PrecisionGoal, StepMonitor, WorkingPrecision}
+        expect_evaluated: {AccuracyGoal, Compiled, DampingFactor, Evaluated, EvaluationMonitor, Gradient, Jacobian, MaxIterations, Method, NormFunction, PrecisionGoal, StepMonitor, WorkingPrecision}
+    ...
+# Split on the sorted set gives lists of the same elements:
+ok  ints = RandomInteger[9, 10]    ==>     {0, 3, 1, 7, 1, 4, 7, 0, 9, 5} # skip
+ok  splits = Split[Sort[ints]]    ==>     {{0, 0}, {1, 1}, {3}, {4}, {5}, {7, 7}, {9}} # skip
+# The union is equivalent to the first elements of these lists:
+not ok  Union[ints] === splits[[All,1]]    ==>     True
+    ---
+    data:
+        got: False
+        expect: True
+        expect_evaluated: True
+    ...
+# RefLink[Tally,paclet:ref/Tally] gets the count of identical elements and returns them in the original order:
+ok  ints = RandomInteger[9, 10]    ==>     {0, 4, 7, 0, 6, 1, 3, 0, 1, 5} # skip
+ok  tally = Tally[ints]    ==>     {{0, 3}, {4, 1}, {7, 1}, {6, 1}, {1, 2}, {3, 1}, {5, 1}} # skip
+# The union is the sorted list of the elements returned by RefLink[Tally,paclet:ref/Tally]:
+not ok  Union[ints] === Sort[tally[[All,1]]]    ==>     True
+    ---
+    data:
+        got: False
+        expect: True
+        expect_evaluated: True
+    ...
+ok  Timing[Length[u = Union[ints, SameTest -> (Floor[#1/2] == Floor[#2/2] & )]]]    ==>     {0.719, 429} # skip
+# When equivalence class representatives can be found, it may be faster to use RefLink[Union,paclet:ref/Union] on these:
+ok  Timing[Length[fu = 2*Union[Floor[ints/2]]]]    ==>     {0., 429} # skip
+# The results are the same except for the choice of representative:
+ok  Union[u - fu]    ==>     {0, 1} # skip

@@ -1,0 +1,21 @@
+# SYSTEM: Mathematica_10
+# TEST: Blank_Tests
+# OUTPUT: output/Results/Mathematica_10/Blank_Tests.json
+# A pattern that matches any expression:
+ok  MatchQ[any[expression], _]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# A pattern that matches any symbol:
+ok  MatchQ[symbol, _Symbol]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok  {f[1], f[a + b*c]}    ==>     {4, (1 + a + b*c)^2} # skip
+ok  {g[10], g[z]}    ==>     {19, g[z]} # skip

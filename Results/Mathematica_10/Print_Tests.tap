@@ -1,0 +1,5 @@
+# SYSTEM: Mathematica_10
+# TEST: Print_Tests
+# OUTPUT: output/Results/Mathematica_10/Print_Tests.json
+# The actual expression returned by RefLink[Print,paclet:ref/Print] is RefLink[Null,paclet:ref/Null]:
+ok  InputForm[Print[x]]    ==>     Null # skip

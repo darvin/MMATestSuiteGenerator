@@ -1,0 +1,147 @@
+# SYSTEM: Mathematica_10
+# TEST: Catch_Tests
+# OUTPUT: output/Results/Mathematica_10/Catch_Tests.json
+# Exit to the enclosing RefLink[Catch,paclet:ref/Catch] as soon as the RefLink[Throw,paclet:ref/Throw] is evaluated:
+ok  Catch[a; b; Throw[c]; d; e]    ==>     c
+    ---
+    data:
+        got: c
+        expect: c
+        expect_evaluated: c
+    ...
+# The result of the RefLink[Catch,paclet:ref/Catch] is just what is thrown by RefLink[Throw,paclet:ref/Throw]:
+ok  Catch[f[2] + f[11]]    ==>     overflow # skip
+ok  Catch[f[2] + f[3]]    ==>     8 # skip
+# Use RefLink[Throw,paclet:ref/Throw] to exit a loop when a criterion is satisfied:
+ok  Catch[Do[If[i! > 10^10, Throw[i]], {i, 100}]]    ==>     14
+    ---
+    data:
+        got: 14
+        expect: 14
+        expect_evaluated: 14
+    ...
+# RefLink[Catch,paclet:ref/Catch] can catch a RefLink[Throw,paclet:ref/Throw] from inside essentially any function:
+ok  Catch[(If[#1 < 0, Throw[#1]] & ) /@ {1, 2, 0, -1, 5, 6}]    ==>     -1
+    ---
+    data:
+        got: -1
+        expect: -1
+        expect_evaluated: -1
+    ...
+ok  Catch[{a, Throw[b], c}]    ==>     b
+    ---
+    data:
+        got: b
+        expect: b
+        expect_evaluated: b
+    ...
+ok  Catch[a^2 + b^2 + c^2 /. b :> Throw[bbb]]    ==>     bbb
+    ---
+    data:
+        got: bbb
+        expect: bbb
+        expect_evaluated: bbb
+    ...
+# The nearest enclosing RefLink[Catch,paclet:ref/Catch] catches the RefLink[Throw,paclet:ref/Throw]:
+ok  Catch[{Catch[{a, Throw[b], c}], d, e}]    ==>     {b, d, e}
+    ---
+    data:
+        got: {b, d, e}
+        expect: {b, d, e}
+        expect_evaluated: {b, d, e}
+    ...
+# RefLink[Catch,paclet:ref/Catch] picks up the first RefLink[Throw,paclet:ref/Throw] that is evaluated:
+ok  Catch[{Throw[a], Throw[b], Throw[c]}]    ==>     a
+    ---
+    data:
+        got: a
+        expect: a
+        expect_evaluated: a
+    ...
+ok  Catch[Throw /@ {a, b, c}]    ==>     a
+    ---
+    data:
+        got: a
+        expect: a
+        expect_evaluated: a
+    ...
+ok  Catch[Sum[f[i], {i, 5, -5, -1}]]    ==>     negative # skip
+ok  ff /@ {-1, 0, 1}    ==>     {Indeterminate, Infinity, 1} # skip
+# Catch the RefLink[Throw,paclet:ref/Throw] with tag u:
+ok  Catch[Throw[a, u], u]    ==>     a
+    ---
+    data:
+        got: a
+        expect: a
+        expect_evaluated: a
+    ...
+# The inner RefLink[Catch,paclet:ref/Catch] catches the RefLink[Throw,paclet:ref/Throw]:
+ok  Catch[f[Catch[Throw[a, u], u]], v]    ==>     f[a]
+    ---
+    data:
+        got: f[a]
+        expect: f[a]
+        expect_evaluated: f[a]
+    ...
+# The outer RefLink[Catch,paclet:ref/Catch] catches the RefLink[Throw,paclet:ref/Throw]:
+ok  Catch[f[Catch[Throw[a, u], v]], u]    ==>     a
+    ---
+    data:
+        got: a
+        expect: a
+        expect_evaluated: a
+    ...
+# Keep the tag local:
+ok  Module[{u}, Catch[Throw[a, u], u]]    ==>     a
+    ---
+    data:
+        got: a
+        expect: a
+        expect_evaluated: a
+    ...
+# Find the next prime after 10^10:
+ok  Catch[Do[If[PrimeQ[i], Throw[i]], {i, 10^10, 10^10 + 1000}]]    ==>     10000000019
+    ---
+    data:
+        got: 10000000019
+        expect: 10000000019
+        expect_evaluated: 10000000019
+    ...
+# Find the first power of 17 equal to 1 mod 19:
+ok  Catch[Do[If[Mod[17^i, 19] == 1, Throw[i]], {i, 19}]]    ==>     9
+    ---
+    data:
+        got: 9
+        expect: 9
+        expect_evaluated: 9
+    ...
+# Stop if an iteration gets too large:
+ok  NestList[#1^2 + 1 & , 2, 6]    ==>     {2, 5, 26, 677, 458330, 210066388901, 44127887745906175987802}
+    ---
+    data:
+        got: {2, 5, 26, 677, 458330, 210066388901, 44127887745906175987802}
+        expect: {2, 5, 26, 677, 458330, 210066388901, 44127887745906175987802}
+        expect_evaluated: {2, 5, 26, 677, 458330, 210066388901, 44127887745906175987802}
+    ...
+ok  Catch[NestList[If[#1 > 1000, Throw[#1], #1^2 + 1] & , 2, 6]]    ==>     458330
+    ---
+    data:
+        got: 458330
+        expect: 458330
+        expect_evaluated: 458330
+    ...
+# Use RefLink[Check,paclet:ref/Check] to throw an exception if a message is generated:
+ok  Catch[2 + Check[1/(1 + 1/0), Throw[error]]]    ==>     error
+    ---
+    data:
+        got: error
+        expect: error
+        expect_evaluated: error
+    ...
+ok  Catch[2 + Check[1/(1 + 1/2), Throw[error]]]    ==>     8/3
+    ---
+    data:
+        got: 8/3
+        expect: 8/3
+        expect_evaluated: 8/3
+    ...

@@ -1,0 +1,215 @@
+# SYSTEM: Mathematica_10
+# TEST: Distribute_Tests
+# OUTPUT: output/Results/Mathematica_10/Distribute_Tests.json
+# Apply the distributive law:
+ok  Distribute[(a + b) . (x + y + z)]    ==>     a . x + a . y + a . z + b . x + b . y + b . z
+    ---
+    data:
+        got: a . x + a . y + a . z + b . x + b . y + b . z
+        expect: a . x + a . y + a . z + b . x + b . y + b . z
+        expect_evaluated: a . x + a . y + a . z + b . x + b . y + b . z
+    ...
+# Distribute f over RefLink[Plus,paclet:ref/Plus]:
+ok  Distribute[f[a + b, c + d + e]]    ==>     f[a, c] + f[a, d] + f[a, e] + f[b, c] + f[b, d] + f[b, e]
+    ---
+    data:
+        got: f[a, c] + f[a, d] + f[a, e] + f[b, c] + f[b, d] + f[b, e]
+        expect: f[a, c] + f[a, d] + f[a, e] + f[b, c] + f[b, d] + f[b, e]
+        expect_evaluated: f[a, c] + f[a, d] + f[a, e] + f[b, c] + f[b, d] + f[b, e]
+    ...
+# Distribute f over g:
+ok  Distribute[f[g[a, b], g[c, d, e]], g]    ==>     g[f[a, c], f[a, d], f[a, e], f[b, c], f[b, d], f[b, e]]
+    ---
+    data:
+        got: g[f[a, c], f[a, d], f[a, e], f[b, c], f[b, d], f[b, e]]
+        expect: g[f[a, c], f[a, d], f[a, e], f[b, c], f[b, d], f[b, e]]
+        expect_evaluated: g[f[a, c], f[a, d], f[a, e], f[b, c], f[b, d], f[b, e]]
+    ...
+# By default, distribute over RefLink[Plus,paclet:ref/Plus]:
+ok  Distribute[(a + b + c)*(u + v), Plus]    ==>     a*u + b*u + c*u + a*v + b*v + c*v
+    ---
+    data:
+        got: a*u + b*u + c*u + a*v + b*v + c*v
+        expect: a*u + b*u + c*u + a*v + b*v + c*v
+        expect_evaluated: a*u + b*u + c*u + a*v + b*v + c*v
+    ...
+# Distribute only a product of sums:
+ok  Distribute[(a + b + c)*(u + v), Plus, Times]    ==>     a*u + b*u + c*u + a*v + b*v + c*v
+    ---
+    data:
+        got: a*u + b*u + c*u + a*v + b*v + c*v
+        expect: a*u + b*u + c*u + a*v + b*v + c*v
+        expect_evaluated: a*u + b*u + c*u + a*v + b*v + c*v
+    ...
+ok  Distribute[(a + b + c)^(u + v), Plus, Times]    ==>     (a + b + c)^(u + v)
+    ---
+    data:
+        got: (a + b + c)^(u + v)
+        expect: (a + b + c)^(u + v)
+        expect_evaluated: (a + b + c)^(u + v)
+    ...
+# Distributive laws for logical operators: 
+ok  Distribute[(a || b || c) && (u || v), Or, And]    ==>     (a && u) || (a && v) || (b && u) || (b && v) || (c && u) || (c && v)
+    ---
+    data:
+        got: (a && u) || (a && v) || (b && u) || (b && v) || (c && u) || (c && v)
+        expect: (a && u) || (a && v) || (b && u) || (b && v) || (c && u) || (c && v)
+        expect_evaluated: (a && u) || (a && v) || (b && u) || (b && v) || (c && u) || (c && v)
+    ...
+ok  Distribute[(a && b && c) || (u && v), And, Or]    ==>     (a || u) && (a || v) && (b || u) && (b || v) && (c || u) && (c || v)
+    ---
+    data:
+        got: (a || u) && (a || v) && (b || u) && (b || v) && (c || u) && (c || v)
+        expect: (a || u) && (a || v) && (b || u) && (b || v) && (c || u) && (c || v)
+        expect_evaluated: (a || u) && (a || v) && (b || u) && (b || v) && (c || u) && (c || v)
+    ...
+ok  Distribute[(Xor[a, b, c]) && (Xor[u, v]), Xor, And]    ==>     Xor[a && u, a && v, b && u, b && v, c && u, c && v]
+    ---
+    data:
+        got: Xor[a && u, a && v, b && u, b && v, c && u, c && v]
+        expect: Xor[a && u, a && v, b && u, b && v, c && u, c && v]
+        expect_evaluated: Xor[a && u, a && v, b && u, b && v, c && u, c && v]
+    ...
+# Apply the distributive law to arbitrary operators:
+ok  Distribute[(a (+) b (+) c) (x) (u (+) v), CirclePlus, CircleTimes]    ==>     a (x) u (+) a (x) v (+) b (x) u (+) b (x) v (+) c (x) u (+) c (x) v
+    ---
+    data:
+        got: a (x) u (+) a (x) v (+) b (x) u (+) b (x) v (+) c (x) u (+) c (x) v
+        expect: a (x) u (+) a (x) v (+) b (x) u (+) b (x) v (+) c (x) u (+) c (x) v
+        expect_evaluated: a (x) u (+) a (x) v (+) b (x) u (+) b (x) v (+) c (x) u (+) c (x) v
+    ...
+# Distribute f over g to give fp and gp:
+ok  Distribute[f[g[a, b], g[c, d, e]], g, f, gp, fp]    ==>     gp[fp[a, c], fp[a, d], fp[a, e], fp[b, c], fp[b, d], fp[b, e]]
+    ---
+    data:
+        got: gp[fp[a, c], fp[a, d], fp[a, e], fp[b, c], fp[b, d], fp[b, e]]
+        expect: gp[fp[a, c], fp[a, d], fp[a, e], fp[b, c], fp[b, d], fp[b, e]]
+        expect_evaluated: gp[fp[a, c], fp[a, d], fp[a, e], fp[b, c], fp[b, d], fp[b, e]]
+    ...
+ok  Distribute[(a + b + c)*(u + v), Plus, Times, plus, times]    ==>     plus[times[a, u], times[a, v], times[b, u], times[b, v], times[c, u], times[c, v]]
+    ---
+    data:
+        got: plus[times[a, u], times[a, v], times[b, u], times[b, v], times[c, u], times[c, v]]
+        expect: plus[times[a, u], times[a, v], times[b, u], times[b, v], times[c, u], times[c, v]]
+        expect_evaluated: plus[times[a, u], times[a, v], times[b, u], times[b, v], times[c, u], times[c, v]]
+    ...
+# Expand symbolic matrix and vector expressions: 
+ok  Distribute[(m1 + m2) . (m3 + m4)]    ==>     m1 . m3 + m1 . m4 + m2 . m3 + m2 . m4
+    ---
+    data:
+        got: m1 . m3 + m1 . m4 + m2 . m3 + m2 . m4
+        expect: m1 . m3 + m1 . m4 + m2 . m3 + m2 . m4
+        expect_evaluated: m1 . m3 + m1 . m4 + m2 . m3 + m2 . m4
+    ...
+ok  Distribute[Cross[v1 + v2, v3 + v4]]    ==>     Cross[v1, v3] + Cross[v1, v4] + Cross[v2, v3] + Cross[v2, v4]
+    ---
+    data:
+        got: Cross[v1, v3] + Cross[v1, v4] + Cross[v2, v3] + Cross[v2, v4]
+        expect: Cross[v1, v3] + Cross[v1, v4] + Cross[v2, v3] + Cross[v2, v4]
+        expect_evaluated: Cross[v1, v3] + Cross[v1, v4] + Cross[v2, v3] + Cross[v2, v4]
+    ...
+# Apply the distributive law with any operator:
+ok  Distribute[(a + b) (+) (x + y + z) (+) (s + t)]    ==>     a (+) x (+) s + a (+) x (+) t + a (+) y (+) s + a (+) y (+) t + a (+) z (+) s + a (+) z (+) t + b (+) x (+) s + b (+) x (+) t + b (+) y (+) s + b (+) y (+) t + b (+) z (+) s + b (+) z (+) t
+    ---
+    data:
+        got: a (+) x (+) s + a (+) x (+) t + a (+) y (+) s + a (+) y (+) t + a (+) z (+) s + a (+) z (+) t + b (+) x (+) s + b (+) x (+) t + b (+) y (+) s + b (+) y (+) t + b (+) z (+) s + b (+) z (+) t
+        expect: a (+) x (+) s + a (+) x (+) t + a (+) y (+) s + a (+) y (+) t + a (+) z (+) s + a (+) z (+) t + b (+) x (+) s + b (+) x (+) t + b (+) y (+) s + b (+) y (+) t + b (+) z (+) s + b (+) z (+) t
+        expect_evaluated: a (+) x (+) s + a (+) x (+) t + a (+) y (+) s + a (+) y (+) t + a (+) z (+) s + a (+) z (+) t + b (+) x (+) s + b (+) x (+) t + b (+) y (+) s + b (+) y (+) t + b (+) z (+) s + b (+) z (+) t
+    ...
+# Find the list of all possible combinations of elements:
+ok  Distribute[{{a, b}, {x, y, z}, {s, t}}, List]    ==>     {{a, x, s}, {a, x, t}, {a, y, s}, {a, y, t}, {a, z, s}, {a, z, t}, {b, x, s}, {b, x, t}, {b, y, s}, {b, y, t}, {b, z, s}, {b, z, t}}
+    ---
+    data:
+        got: {{a, x, s}, {a, x, t}, {a, y, s}, {a, y, t}, {a, z, s}, {a, z, t}, {b, x, s}, {b, x, t}, {b, y, s}, {b, y, t}, {b, z, s}, {b, z, t}}
+        expect: {{a, x, s}, {a, x, t}, {a, y, s}, {a, y, t}, {a, z, s}, {a, z, t}, {b, x, s}, {b, x, t}, {b, y, s}, {b, y, t}, {b, z, s}, {b, z, t}}
+        expect_evaluated: {{a, x, s}, {a, x, t}, {a, y, s}, {a, y, t}, {a, z, s}, {a, z, t}, {b, x, s}, {b, x, t}, {b, y, s}, {b, y, t}, {b, z, s}, {b, z, t}}
+    ...
+# Generate a powerset:
+ok  Distribute[({{}, {#1}} & ) /@ {a, b, c}, List, List, List, Join]    ==>     {{}, {c}, {b}, {b, c}, {a}, {a, c}, {a, b}, {a, b, c}}
+    ---
+    data:
+        got: {{}, {c}, {b}, {b, c}, {a}, {a, c}, {a, b}, {a, b, c}}
+        expect: {{}, {c}, {b}, {b, c}, {a}, {a, c}, {a, b}, {a, b, c}}
+        expect_evaluated: {{}, {c}, {b}, {b, c}, {a}, {a, c}, {a, b}, {a, b, c}}
+    ...
+# Find intermediate terms from a direct application of the distributive law:
+ok  Distribute[Factor[x^6 - 1], Plus, Times, List, Times]    ==>     {-1, -x, -x^2, x, x^2, x^3, -x^2, -x^3, -x^4, -x, -x^2, -x^3, x^2, x^3, x^4, -x^3, -x^4, -x^5, x, x^2, x^3, -x^2, -x^3, -x^4, x^3, x^4, x^5, x^2, x^3, x^4, -x^3, -x^4, -x^5, x^4, x^5, x^6}
+    ---
+    data:
+        got: {-1, -x, -x^2, x, x^2, x^3, -x^2, -x^3, -x^4, -x, -x^2, -x^3, x^2, x^3, x^4, -x^3, -x^4, -x^5, x, x^2, x^3, -x^2, -x^3, -x^4, x^3, x^4, x^5, x^2, x^3, x^4, -x^3, -x^4, -x^5, x^4, x^5, x^6}
+        expect: {-1, -x, -x^2, x, x^2, x^3, -x^2, -x^3, -x^4, -x, -x^2, -x^3, x^2, x^3, x^4, -x^3, -x^4, -x^5, x, x^2, x^3, -x^2, -x^3, -x^4, x^3, x^4, x^5, x^2, x^3, x^4, -x^3, -x^4, -x^5, x^4, x^5, x^6}
+        expect_evaluated: {-1, -x, -x^2, x, x^2, x^3, -x^2, -x^3, -x^4, -x, -x^2, -x^3, x^2, x^3, x^4, -x^3, -x^4, -x^5, x, x^2, x^3, -x^2, -x^3, -x^4, x^3, x^4, x^5, x^2, x^3, x^4, -x^3, -x^4, -x^5, x^4, x^5, x^6}
+    ...
+ok  Plus @@ %    ==>     -1 + x^6 # skip
+# For pure products, RefLink[Distribute,paclet:ref/Distribute] gives the same results as RefLink[Expand,paclet:ref/Expand]:
+ok  Factor[x^10 - 1]    ==>     (-1 + x)*(1 + x)*(1 - x + x^2 - x^3 + x^4)*(1 + x + x^2 + x^3 + x^4)
+    ---
+    data:
+        got: (-1 + x)*(1 + x)*(1 - x + x^2 - x^3 + x^4)*(1 + x + x^2 + x^3 + x^4)
+        expect: (-1 + x)*(1 + x)*(1 - x + x^2 - x^3 + x^4)*(1 + x + x^2 + x^3 + x^4)
+        expect_evaluated: (-1 + x)*(1 + x)*(1 - x + x^2 - x^3 + x^4)*(1 + x + x^2 + x^3 + x^4)
+    ...
+ok  Distribute[%]    ==>     -1 + x^10 # skip
+# RefLink[PowerExpand,paclet:ref/PowerExpand] corresponds to distribution over RefLink[Times,paclet:ref/Times]:
+ok  PowerExpand[(x*y*z)^n]    ==>     x^n*y^n*z^n
+    ---
+    data:
+        got: x^n*y^n*z^n
+        expect: x^n*y^n*z^n
+        expect_evaluated: x^n*y^n*z^n
+    ...
+ok  Distribute[(x*y*z)^n, Times]    ==>     x^n*y^n*z^n
+    ---
+    data:
+        got: x^n*y^n*z^n
+        expect: x^n*y^n*z^n
+        expect_evaluated: x^n*y^n*z^n
+    ...
+# RefLink[Outer,paclet:ref/Outer] forms the same combinations of all elements, but in a nested structure:
+ok  Outer[List, {a, b, c}, {x, y}]    ==>     {{{a, x}, {a, y}}, {{b, x}, {b, y}}, {{c, x}, {c, y}}}
+    ---
+    data:
+        got: {{{a, x}, {a, y}}, {{b, x}, {b, y}}, {{c, x}, {c, y}}}
+        expect: {{{a, x}, {a, y}}, {{b, x}, {b, y}}, {{c, x}, {c, y}}}
+        expect_evaluated: {{{a, x}, {a, y}}, {{b, x}, {b, y}}, {{c, x}, {c, y}}}
+    ...
+ok  Distribute[{{a, b, c}, {x, y}}, List]    ==>     {{a, x}, {a, y}, {b, x}, {b, y}, {c, x}, {c, y}}
+    ---
+    data:
+        got: {{a, x}, {a, y}, {b, x}, {b, y}, {c, x}, {c, y}}
+        expect: {{a, x}, {a, y}, {b, x}, {b, y}, {c, x}, {c, y}}
+        expect_evaluated: {{a, x}, {a, y}, {b, x}, {b, y}, {c, x}, {c, y}}
+    ...
+# This use of RefLink[Distribute,paclet:ref/Distribute] does not give the expected result:
+ok  Distribute[(a + b)*(a + b)]    ==>     a^2 + b^2
+    ---
+    data:
+        got: a^2 + b^2
+        expect: a^2 + b^2
+        expect_evaluated: a^2 + b^2
+    ...
+# The reason is that the argument is evaluated first and the product vanishes:
+ok  (a + b)*(a + b)    ==>     (a + b)^2
+    ---
+    data:
+        got: (a + b)^2
+        expect: (a + b)^2
+        expect_evaluated: (a + b)^2
+    ...
+ok  Distribute[%]    ==>     a^2 + b^2 # skip
+# Prevent evaluation of the argument before RefLink[Distribute,paclet:ref/Distribute] sees it:
+ok  Distribute[Unevaluated[(a + b)*(a + b)]]    ==>     a^2 + 2*a*b + b^2
+    ---
+    data:
+        got: a^2 + 2*a*b + b^2
+        expect: a^2 + 2*a*b + b^2
+        expect_evaluated: a^2 + 2*a*b + b^2
+    ...
+# Find all possible sums of sublists of a list:
+ok  Union[Distribute[Thread[{{1, 2, 2, 8}, 0}], List, List, List, Plus]]    ==>     {0, 1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13}
+    ---
+    data:
+        got: {0, 1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13}
+        expect: {0, 1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13}
+        expect_evaluated: {0, 1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13}
+    ...

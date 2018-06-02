@@ -1,0 +1,72 @@
+# SYSTEM: Mathematica_10
+# TEST: Tally_Tests
+# OUTPUT: output/Results/Mathematica_10/Tally_Tests.json
+# Obtain tallies for a list of symbols:
+ok  Tally[{a, a, b, a, c, b, a}]    ==>     {{a, 4}, {b, 2}, {c, 1}}
+    ---
+    data:
+        got: {{a, 4}, {b, 2}, {c, 1}}
+        expect: {{a, 4}, {b, 2}, {c, 1}}
+        expect_evaluated: {{a, 4}, {b, 2}, {c, 1}}
+    ...
+# Use test argument to count expressions with the same RefLink[Head,paclet:ref/Head]:
+ok  Tally[{{a, b}, {w, x, y, z}, E, {w, x, y, z}, E}, Head[#1] === Head[#2] & ]    ==>     {{{a, b}, 3}, {E, 2}}
+    ---
+    data:
+        got: {{{a, b}, 3}, {E, 2}}
+        expect: {{{a, b}, 3}, {E, 2}}
+        expect_evaluated: {{{a, b}, 3}, {E, 2}}
+    ...
+# Results are returned in order of first occurrence in the list:
+ok  Tally[{b, a, b, a, c, b, a}]    ==>     {{b, 3}, {a, 3}, {c, 1}}
+    ---
+    data:
+        got: {{b, 3}, {a, 3}, {c, 1}}
+        expect: {{b, 3}, {a, 3}, {c, 1}}
+        expect_evaluated: {{b, 3}, {a, 3}, {c, 1}}
+    ...
+# Count the instances of randomly generated integers:
+ok  Tally[RandomInteger[10, 50]]    ==>     {{7, 9}, {2, 6}, {0, 6}, {8, 2}, {6, 4}, {5, 2}, {10, 5}, {1, 2}, {3, 3}, {4, 4}, {9, 7}} # skip
+# Elements of the list can be any expression:
+ok  Tally[{{a, b}, {w, x, y, z}, E, {w, x, y, z}, E}]    ==>     {{{a, b}, 1}, {{w, x, y, z}, 2}, {E, 2}}
+    ---
+    data:
+        got: {{{a, b}, 1}, {{w, x, y, z}, 2}, {E, 2}}
+        expect: {{{a, b}, 1}, {{w, x, y, z}, 2}, {E, 2}}
+        expect_evaluated: {{{a, b}, 1}, {{w, x, y, z}, 2}, {E, 2}}
+    ...
+ok  HoldComplete[Tally[Characters[s]]]    ==>     $Failed # skip
+# Elements with highest frequencies are given by RefLink[Commonest,paclet:ref/Commonest]:
+ok  Tally[{b, a, c, b, a, c, b, a}]    ==>     {{b, 3}, {a, 3}, {c, 2}}
+    ---
+    data:
+        got: {{b, 3}, {a, 3}, {c, 2}}
+        expect: {{b, 3}, {a, 3}, {c, 2}}
+        expect_evaluated: {{b, 3}, {a, 3}, {c, 2}}
+    ...
+ok  Commonest[{b, a, c, b, a, c, b, a}]    ==>     {b, a}
+    ---
+    data:
+        got: {b, a}
+        expect: {b, a}
+        expect_evaluated: {b, a}
+    ...
+# A sorted RefLink[Tally,paclet:ref/Tally] is equivalent to a list of counts for the RefLink[Union,paclet:ref/Union]:
+ok  Sort[Tally[{b, a, c, b, a, c, b, a}]]    ==>     {{a, 3}, {b, 3}, {c, 2}}
+    ---
+    data:
+        got: {{a, 3}, {b, 3}, {c, 2}}
+        expect: {{a, 3}, {b, 3}, {c, 2}}
+        expect_evaluated: {{a, 3}, {b, 3}, {c, 2}}
+    ...
+ok  ({#1, Count[{b, a, c, b, a, c, b, a}, #1]} & ) /@ Union[{b, a, c, b, a, c, b, a}]    ==>     {{a, 3}, {b, 3}, {c, 2}}
+    ---
+    data:
+        got: {{a, 3}, {b, 3}, {c, 2}}
+        expect: {{a, 3}, {b, 3}, {c, 2}}
+        expect_evaluated: {{a, 3}, {b, 3}, {c, 2}}
+    ...
+# RefLink[Tally,paclet:ref/Tally] is a discrete analog of RefLink[BinCounts,paclet:ref/BinCounts]:
+ok  data = RandomReal[10, 20]    ==>     {5.2463, 6.90299, 2.04446, 1.00571, 0.744409, 0.595887, 1.04772, 0.345916, 9.45821, 3.81133, 5.64206, 0.759455, 5.38873, 2.11686, 1.68955, 9.9494, 0.99969, 3.97087, 3.95308, 7.51713} # skip
+ok  Sort[Tally[Ceiling[data]]]    ==>     {{1, 5}, {2, 3}, {3, 2}, {4, 3}, {6, 3}, {7, 1}, {8, 1}, {10, 2}} # skip
+ok  BinCounts[data, {0, 10}]    ==>     {5, 3, 2, 3, 0, 3, 1, 1, 0, 2} # skip

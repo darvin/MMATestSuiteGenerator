@@ -1,0 +1,16 @@
+# SYSTEM: Mathematica_10
+# TEST: MessageName_Tests
+# OUTPUT: output/Results/Mathematica_10/MessageName_Tests.json
+# Process messages generated during an evaluation:
+ok  {Sin[1, 2.], BesselJ[3, 4.], Log[5, 6.], Exp[7, 8.]}    ==>     {Sin[1, 2.], 0.430171, 1.11328, Exp[7, 8.]} # skip
+ok  mess = MessageList[-1]    ==>     {Sin::argx, Exp::argx} # skip
+ok  mest = Cases[mess, HoldForm[MessageName[f_, s_]] -> {f, s}]    ==>     {{Sin, argx}, {Exp, argx}} # skip
+ok  oneargtest[g, 1, 2]    ==>     False # skip
+ok  g[1, 2]    ==>     g[1, 2]
+    ---
+    data:
+        got: g[1, 2]
+        expect: g[1, 2]
+        expect_evaluated: g[1, 2]
+    ...
+ok  g[1.5]    ==>     1.25 # skip

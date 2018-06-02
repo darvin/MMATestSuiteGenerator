@@ -1,0 +1,86 @@
+# SYSTEM: Mathematica_10
+# TEST: Head_Tests
+# OUTPUT: output/Results/Mathematica_10/Head_Tests.json
+ok  Head[f[a, b]]    ==>     f
+    ---
+    data:
+        got: f
+        expect: f
+        expect_evaluated: f
+    ...
+ok  Head[a + b + c]    ==>     Plus
+    ---
+    data:
+        got: Plus
+        expect: Plus
+        expect_evaluated: Plus
+    ...
+ok  Head[{a, b, c}]    ==>     List
+    ---
+    data:
+        got: List
+        expect: List
+        expect_evaluated: List
+    ...
+ok  Head[45]    ==>     Integer
+    ---
+    data:
+        got: Integer
+        expect: Integer
+        expect_evaluated: Integer
+    ...
+ok  Head[x]    ==>     Symbol
+    ---
+    data:
+        got: Symbol
+        expect: Symbol
+        expect_evaluated: Symbol
+    ...
+# Heads need not be symbols:
+ok  Head[f[x][y][z]]    ==>     f[x][y]
+    ---
+    data:
+        got: f[x][y]
+        expect: f[x][y]
+        expect_evaluated: f[x][y]
+    ...
+# Find the cases with a head of RefLink[Integer,paclet:ref/Integer]:
+ok  Cases[{2, 1, x, 3, y}, _Integer]    ==>     {2, 1, 3}
+    ---
+    data:
+        got: {2, 1, 3}
+        expect: {2, 1, 3}
+        expect_evaluated: {2, 1, 3}
+    ...
+# The head is the part with index 0:
+ok  (a + b + c)[[0]]    ==>     Plus
+    ---
+    data:
+        got: Plus
+        expect: Plus
+        expect_evaluated: Plus
+    ...
+# The head is based on RefLink[FullForm,paclet:ref/FullForm]:
+ok  Head[a/b]    ==>     Times
+    ---
+    data:
+        got: Times
+        expect: Times
+        expect_evaluated: Times
+    ...
+ok  FullForm[a/b]    ==>     a/b # skip
+# RefLink[Head,paclet:ref/Head] always eventually burrows to a symbol:
+ok  FixedPoint[Head, f[x][y][z]]    ==>     Symbol
+    ---
+    data:
+        got: Symbol
+        expect: Symbol
+        expect_evaluated: Symbol
+    ...
+ok  FixedPoint[Head, {3, 4, 5}]    ==>     Symbol
+    ---
+    data:
+        got: Symbol
+        expect: Symbol
+        expect_evaluated: Symbol
+    ...

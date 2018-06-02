@@ -1,0 +1,26 @@
+# SYSTEM: Mathematica_10
+# TEST: ExpandAll_Tests
+# OUTPUT: output/Results/Mathematica_10/ExpandAll_Tests.json
+# Expand polynomials anywhere inside an expression: 
+ok  ExpandAll[1/(1 + x)^3 + Sin[(1 + x)^3]]    ==>     1/(1 + 3*x + 3*x^2 + x^3) + Sin[1 + 3*x + 3*x^2 + x^3]
+    ---
+    data:
+        got: (1 + 3*x + 3*x^2 + x^3)^(-1) + Sin[1 + 3*x + 3*x^2 + x^3]
+        expect: 1/(1 + 3*x + 3*x^2 + x^3) + Sin[1 + 3*x + 3*x^2 + x^3]
+        expect_evaluated: (1 + 3*x + 3*x^2 + x^3)^(-1) + Sin[1 + 3*x + 3*x^2 + x^3]
+    ...
+ok  Expand[1/(1 + x)^3 + Sin[(1 + x)^3]]    ==>     1/(1 + x)^3 + Sin[(1 + x)^3]
+    ---
+    data:
+        got: (1 + x)^(-3) + Sin[(1 + x)^3]
+        expect: 1/(1 + x)^3 + Sin[(1 + x)^3]
+        expect_evaluated: (1 + x)^(-3) + Sin[(1 + x)^3]
+    ...
+# RefLink[ExpandAll,paclet:ref/ExpandAll] goes into heads:
+ok  ExpandAll[((1 + a)*(1 + b))[x]]    ==>     (1 + a + b + a*b)[x]
+    ---
+    data:
+        got: (1 + a + b + a*b)[x]
+        expect: (1 + a + b + a*b)[x]
+        expect_evaluated: (1 + a + b + a*b)[x]
+    ...
