@@ -30,7 +30,7 @@ SetAttributes[TapTestSameDISABLED, HoldAllComplete];
 TapComment[txt_] := {"Comment", txt};
 
 TapTestSame[in_, out_, isDisabled_] := 
-  UsingFrontEnd[TimeConstrained[Module[{inExpr, outExpr, inStrEvaluated, outStrEvaluated, inStr, 
+  Module[{inExpr, outExpr, inStrEvaluated, outStrEvaluated, inStr, 
     outStr, result}, Clear[inExpr, outExpr, inStr, outStr, result];
    result = False;
    inStr = ToString[Unevaluated@InputForm[in]];
@@ -42,14 +42,14 @@ TapTestSame[in_, out_, isDisabled_] :=
      outStrEvaluated = ToString[InputForm[outExpr]];
      )];
    {"Test", inStr, outStr, inStrEvaluated, outStrEvaluated, 
-    isDisabled, result}], 15]];
+    isDisabled, result}];
 TapTestSame[in_, out_] := TapTestSame[in, out, False];
 TapTestSameBROKEN[in_, out_] := TapTestSame[in, out, True];
 TapTestSameDISABLED[in_, out_] := TapTestSame[in, out, True];
 
 
 TapSuite[tests__] := 
-  Module[{outputTapStream, PrintTap, json, testName, runTestOrComment, failed, total, disabled, 
+  UsingFrontEnd[TimeConstrained[Module[{outputTapStream, PrintTap, json, testName, runTestOrComment, failed, total, disabled, 
     testResults}, (
     outputTapStream = OpenWrite[outputTapFileName[]];
     PrintTap[arg___]:= (
@@ -101,6 +101,6 @@ TapSuite[tests__] :=
   (*   Export[outputFileName[], json];
     Print[json]; *)
     Close[outputTapStream];
-       )];
+       )], 60]];
 
 
