@@ -18,8 +18,7 @@ endif
 
 all : builder docker-tests generate-compat-tests run-compat-tests
 
-generate-compat-tests : builder download-docs
-	rm -Rf output/*  || true
+generate-compat-tests : builder
 	./export_all_tests_from_docs.sh
 	echo "Generated tests:"
 	ls output/Tests/
@@ -38,9 +37,6 @@ mathematica-self-tests :
 	$(MATHEMATICA_RUN_PREFIX) wolfram -script docker_tests/plot.m	
 	$(MATHEMATICA_RUN_PREFIX) wolfram -script docker_tests/plot_graphics.m
 	test -s docker_tests/plot_graphics_output.png
-
-download-docs :
-	./download_documentation.sh
 
 docker :
 	echo "building docker image..." 

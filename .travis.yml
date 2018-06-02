@@ -35,7 +35,6 @@ jobs:
       script:
         - make docker
         - make mathematica-self-tests
-        - make download-docs
         - docker push mmacompat/mathematica
     - stage: generate tests
       script: PORTION_COUNT=5 PORTION_INDEX=1 make generate-compat-tests
