@@ -42,7 +42,7 @@ jobs:
     - script: PORTION_COUNT=5 PORTION_INDEX=3 make generate-compat-tests
     - script: PORTION_COUNT=5 PORTION_INDEX=4 make generate-compat-tests
     - script: PORTION_COUNT=5 PORTION_INDEX=5 make generate-compat-tests
-    - stage: run tests in Mathematica
+    - stage: run tests in Mathematica 10
       script: PORTION_COUNT=5 PORTION_INDEX=1 make run-compat-tests
     - script: PORTION_COUNT=5 PORTION_INDEX=2 make run-compat-tests
     - script: PORTION_COUNT=5 PORTION_INDEX=3 make run-compat-tests

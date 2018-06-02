@@ -14,7 +14,7 @@ CORES=+0
 MATHEMATICA_RUN_PREFIX=
 endif
 
-.PHONY: builder install  docker-tests
+.PHONY: builder install  docker-tests website 
 
 all : builder docker-tests generate-compat-tests run-compat-tests
 
