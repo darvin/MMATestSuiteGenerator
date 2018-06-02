@@ -6,11 +6,16 @@ fi
 set -e
 export SHELL=$(type -p bash)
 
+
+export OUTPUT_DIR=output/Results/Mathematica_10
+mkdir -p $OUTPUT_DIR || true
+
 task(){
 	SYMNAME=$1
 	TEST_FILE="output/Tests/$SYMNAME""_Tests.m"
+	TAP_FILE="$OUTPUT_DIR/$SYMNAME""_Tests.tap"
 	echo "Running test file $TEST_FILE"
-	$MATHEMATICA_RUN_PREFIX wolfram -script $TEST_FILE
+	$MATHEMATICA_RUN_PREFIX wolfram -script $TEST_FILE > $TAP_FILE
 }
 
 export -f task

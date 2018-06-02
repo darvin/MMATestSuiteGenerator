@@ -1,12 +1,9 @@
 #!/Applications/Mathematica.app/Contents/MacOS/WolframKernel  -script
 
 
-
 noBroken =  False;
 
 
-Clear[TapSuite, TapTestSame, TapTestSameBROKEN, TapComment, 
-  getExamplesFromNotebook];
 getExamplesFromNotebook[nbImported_] := 
   Module[{getInputFromCell, nb}, (Clear[getInputFromCell];
     getInputFromCell[Cell[content_, "ExampleText", rest__]] := 
@@ -45,8 +42,8 @@ testFunc[in_, out_, noBroken_] :=
    inInact = ToExpression[in, StandardForm, HoldComplete];
    outInact = ToExpression[out, StandardForm, HoldComplete];
    isGood = inExpr === outExpr;
-   
-   Print["ok ", If[isGood, " "," # skip ERROR "], in];
+   Print[If[isGood, "ok ", "not ok "], 
+           " ", in, "    \[DoubleLongRightArrow]     ", out];
    If[isGood, TapTestSame[inInact, outInact], 
     If[! noBroken, TapTestSameBROKEN[inInact, outInact], 
      Unevaluated@Sequence[]]]];

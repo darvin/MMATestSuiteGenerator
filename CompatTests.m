@@ -11,15 +11,6 @@ systemFullName[] := Module[{systemName, versionName},
    ];
 
 
-outputFileNameNoExt[] := FileNameJoin[{"output/Results/", systemFullName[], FileBaseName[$InputFileName]}];
-outputFileName[] := outputFileNameNoExt[] <>".json";
-If[!DirectoryQ[DirectoryName[outputFileName[]]], CreateDirectory[DirectoryName[outputFileName[]]]];
-
-(* $Messages = {OpenWrite[outputFileNameNoExt[]<>".err.log", FormatType -> OutputForm]};
- *)
-outputTapFileName[] := outputFileNameNoExt[] <>".tap";
-
-
 
 Clear[TapSuite, TapComment, TapTestSame, TapTestSameBROKEN, 
   TapTestSameDISABLED];
@@ -51,15 +42,12 @@ TapTestSameDISABLED[in_, out_] := TapTestSame[in, out, True];
 TapSuite[tests__] := 
   UsingFrontEnd[TimeConstrained[Module[{outputTapStream, PrintTap, json, testName, runTestOrComment, failed, total, disabled, 
     testResults}, (
-    outputTapStream = OpenWrite[outputTapFileName[]];
     PrintTap[arg___]:= (
       WriteString["stdout", arg];
-      WriteString[outputTapStream, arg];
       );
     PrintTap["# SYSTEM: ",systemFullName[], "\n"];
     testName = FileBaseName[$InputFileName];
     PrintTap["# TEST: ", testName, "\n"];
-    PrintTap["# OUTPUT: ", outputFileName[], "\n"];
     failed = 0;
     total = 0;
     disabled = 0;
@@ -93,14 +81,10 @@ TapSuite[tests__] :=
 
         {"Test" -> {inStr, outStr, ToString[inExpr], 
            ToString[outExpr], isDisabled, result}})]];
-    (* testResults = Map[runTestOrComment, {tests}]; *)
     Scan[runTestOrComment, {tests}];
     json = {(* "Tests" -> testResults,  *)
      "Stats" -> {"Total" -> total, "Failed" -> failed, 
        "Disabled" -> disabled}};
-  (*   Export[outputFileName[], json];
-    Print[json]; *)
-    Close[outputTapStream];
        )], 60]];
 
 
