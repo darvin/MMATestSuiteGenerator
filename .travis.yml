@@ -14,14 +14,15 @@ before_install:
   - openssl s_client -showcerts -servername dav.box.com -connect dav.box.com:443 </dev/null 2>/dev/null|openssl x509 -outform PEM > boxcert.pem && sudo mv boxcert.pem /opt/
   - sudo mount.davfs -o user=$USER,rw https://dav.box.com/dav/ /mnt/
   - cp -R /mnt/INTERMED/$TRAVIS_BUILD_NUMBER/output ./output || true
+  - sudo chown $USER:$USER -R ./output
   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - docker pull mmacompat/mathematica || true
 
 
 after_script:
-  - mkdir -p /mnt/INTERMED/$TRAVIS_BUILD_NUMBER/ || true
-  - cp -R ./output/ /mnt/INTERMED/$TRAVIS_BUILD_NUMBER/ || true
+  - sudo mkdir -p /mnt/INTERMED/$TRAVIS_BUILD_NUMBER/ || true
+  - sudo cp -R ./output/ /mnt/INTERMED/$TRAVIS_BUILD_NUMBER/ || true
   - ls /mnt/INTERMED/$TRAVIS_BUILD_NUMBER/*/* || true
 
 addons:
