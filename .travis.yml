@@ -21,11 +21,9 @@ before_install:
 addons:
   apt:
     packages:
-      - davfs2
+      - awscli
       - docker-ce
       - parallel
-      - openssl
-
   
  
 jobs:
