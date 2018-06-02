@@ -6,7 +6,7 @@ WOLFRAM_URL_PATH=http://archive.raspberrypi.org/debian/pool/main/w/wolfram-engin
 WOLFRAM_DEB_FILE_RENAME=build/wolfram-engine.deb
 ifneq ($(LOCAL),1)
 MATHEMATICA_RUN_PREFIX=docker run --rm -v $(shell pwd):/mnt $(DOCKER_BUILDER_NAME)
-CORES=3
+CORES=2
 DOC_PATH=build_docs
 else
 DOC_PATH=/Applications/Mathematica.app/Documentation/English/System
