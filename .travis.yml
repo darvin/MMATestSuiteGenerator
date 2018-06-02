@@ -44,16 +44,11 @@ jobs:
         - make download-docs
         - docker push mmacompat/mathematica
     - stage: generate tests
-      script: PORTION_COUNT=10 PORTION_INDEX=1 make generate-compat-tests
-    - script: PORTION_COUNT=10 PORTION_INDEX=2 make generate-compat-tests
-    - script: PORTION_COUNT=10 PORTION_INDEX=3 make generate-compat-tests
-    - script: PORTION_COUNT=10 PORTION_INDEX=4 make generate-compat-tests
-    - script: PORTION_COUNT=10 PORTION_INDEX=5 make generate-compat-tests
-    - script: PORTION_COUNT=10 PORTION_INDEX=6 make generate-compat-tests
-    - script: PORTION_COUNT=10 PORTION_INDEX=7 make generate-compat-tests
-    - script: PORTION_COUNT=10 PORTION_INDEX=8 make generate-compat-tests
-    - script: PORTION_COUNT=10 PORTION_INDEX=9 make generate-compat-tests
-    - script: PORTION_COUNT=10 PORTION_INDEX=10 make generate-compat-tests
+      script: PORTION_COUNT=5 PORTION_INDEX=1 make generate-compat-tests
+    - script: PORTION_COUNT=5 PORTION_INDEX=2 make generate-compat-tests
+    - script: PORTION_COUNT=5 PORTION_INDEX=3 make generate-compat-tests
+    - script: PORTION_COUNT=5 PORTION_INDEX=4 make generate-compat-tests
+    - script: PORTION_COUNT=5 PORTION_INDEX=5 make generate-compat-tests
     - stage: deploy
       script: skip
       deploy: &pages
