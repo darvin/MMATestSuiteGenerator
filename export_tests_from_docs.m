@@ -5,7 +5,7 @@
 noBroken =  False;
 
 
-Clear[ESimpleExamples, ESameTest, ESameTestBROKEN, EComment, 
+Clear[TapSuite, TapTestSame, TapTestSameBROKEN, TapComment, 
   getExamplesFromNotebook];
 getExamplesFromNotebook[nbImported_] := 
   Module[{getInputFromCell, nb}, (Clear[getInputFromCell];
@@ -47,11 +47,11 @@ testFunc[in_, out_, noBroken_] :=
    isGood = inExpr === outExpr;
    
    Print["ok ", If[isGood, " "," # skip ERROR "], in];
-   If[isGood, ESameTest[inInact, outInact], 
-    If[! noBroken, ESameTestBROKEN[inInact, outInact], 
+   If[isGood, TapTestSame[inInact, outInact], 
+    If[! noBroken, TapTestSameBROKEN[inInact, outInact], 
      Unevaluated@Sequence[]]]];
 
-SetAttributes[ESimpleExamples, HoldAllComplete];
+SetAttributes[TapSuite, HoldAllComplete];
 exportTests[fileName_, noBroken_] := 
   Module[{nb, processNotebook}, 
    nb = getExamplesFromNotebook[Import[fileName]];
@@ -60,19 +60,19 @@ exportTests[fileName_, noBroken_] :=
      Clear[replaceExampleWithTest, result, finalResult];
      result = 
       nb //. {p___, TEMPExample[in_, out_, txt_], n___} -> {p, 
-         EComment[txt], TEMPExample[in, out], n};
+         TapComment[txt], TEMPExample[in, out], n};
      replaceExampleWithTest[{p___, TEMPExample[in_, out_], 
         n___}] := {p, testFunc[in, out, noBroken], n};
      replaceExampleWithTest[any_List] := any;
      
      result = FixedPoint[replaceExampleWithTest, result];
      
-     finalResult = ESimpleExamples @@ result;
+     finalResult = TapSuite @@ result;
      finalResult = 
-      finalResult /. {ESameTest[HoldComplete[in_], 
-          HoldComplete[out_]] -> ESameTest[in, out], 
-        ESameTestBROKEN[HoldComplete[in_], HoldComplete[out_]] -> 
-         ESameTestBROKEN[in, out]};
+      finalResult /. {TapTestSame[HoldComplete[in_], 
+          HoldComplete[out_]] -> TapTestSame[in, out], 
+        TapTestSameBROKEN[HoldComplete[in_], HoldComplete[out_]] -> 
+         TapTestSameBROKEN[in, out]};
      finalResult];
    processNotebook[nb]];
 

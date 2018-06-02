@@ -21,15 +21,15 @@ outputTapFileName[] := outputFileNameNoExt[] <>".tap";
 
 
 
-Clear[ESimpleExamples, EComment, ESameTest, ESameTestBROKEN, 
-  ESameTestDISABLED];
-SetAttributes[ESameTest, HoldAllComplete];
-SetAttributes[ESameTestBROKEN, HoldAllComplete];
-SetAttributes[ESameTestDISABLED, HoldAllComplete];
+Clear[TapSuite, TapComment, TapTestSame, TapTestSameBROKEN, 
+  TapTestSameDISABLED];
+SetAttributes[TapTestSame, HoldAllComplete];
+SetAttributes[TapTestSameBROKEN, HoldAllComplete];
+SetAttributes[TapTestSameDISABLED, HoldAllComplete];
 
-EComment[txt_] := {"Comment", txt};
+TapComment[txt_] := {"Comment", txt};
 
-ESameTest[in_, out_, isDisabled_] := 
+TapTestSame[in_, out_, isDisabled_] := 
   UsingFrontEnd[TimeConstrained[Module[{inExpr, outExpr, inStrEvaluated, outStrEvaluated, inStr, 
     outStr, result}, Clear[inExpr, outExpr, inStr, outStr, result];
    result = False;
@@ -43,12 +43,12 @@ ESameTest[in_, out_, isDisabled_] :=
      )];
    {"Test", inStr, outStr, inStrEvaluated, outStrEvaluated, 
     isDisabled, result}], 15]];
-ESameTest[in_, out_] := ESameTest[in, out, False];
-ESameTestBROKEN[in_, out_] := ESameTest[in, out, True];
-ESameTestDISABLED[in_, out_] := ESameTest[in, out, True];
+TapTestSame[in_, out_] := TapTestSame[in, out, False];
+TapTestSameBROKEN[in_, out_] := TapTestSame[in, out, True];
+TapTestSameDISABLED[in_, out_] := TapTestSame[in, out, True];
 
 
-ESimpleExamples[tests__] := 
+TapSuite[tests__] := 
   Module[{outputTapStream, PrintTap, json, testName, runTestOrComment, failed, total, disabled, 
     testResults}, (
     outputTapStream = OpenWrite[outputTapFileName[]];
