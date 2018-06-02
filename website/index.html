@@ -7,6 +7,37 @@
   .test-disabled {background-color: lightgrey;}
   .test-failure {background-color: pink;}
 
+ul.tests 
+{
+    list-style-type: none;
+    counter-reset: section;
+
+    -moz-column-count: 3;
+    -moz-column-gap: 20px;
+    -webkit-column-count: 3;
+    -webkit-column-gap: 20px;
+    column-count: 3;
+    column-gap: 20px;
+}
+
+ul.tests li 
+{
+    padding-left: 30px;
+    position: relative;
+}
+
+ul.tests li:before 
+{
+    counter-increment: section;
+    content: counter(section) ".";
+    margin: 0 0 0 -34px;
+    text-align: right;
+    width: 2em;
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+}
+
 dl {
   display: grid;
   grid-template-columns: max-content auto;
@@ -24,7 +55,7 @@ dd {
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>MMATestSuite</title>
+  <title>MMA Compatibility Test Suite</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -42,11 +73,6 @@ dd {
   <!-- Scripts
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="./index.js"></script>
-
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="../../dist/images/favicon.png">
 
 </head>
 <body>
@@ -58,15 +84,23 @@ dd {
   <!-- there are a few shorthand columns widths as well -->
   <div class="row">
     <div class="u-full-width">
-            <H1>Results</H1>
+      <H1>MMA Compatibility Test Suite</H1>
     <div class="u-full-width" id="results">
+        {{#each systems}}
+          <H2><a href="{{allTestsUrl}}">{{name}}</a></H2>
+          <ul class="tests">
+            {{#each tests}}
+              <li class="test {{#if failed}}test-failure{{/if}}"> <a  href="{{url}}">{{name}}</a> {{stats.passes}}/{{stats.tests}}
+               (<a  href="{{srcUrl}}">src</a>) 
+               (<a  href="{{tapUrl}}">tap</a>) 
+             </li>
+            {{/each}}
+
+          </ul>
+
+        {{/each}}
+
     </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="u-full-width">
-      <H1>Tests</H1>
-      <ul id="tests"></ul>
     </div>
   </div>
 </div>

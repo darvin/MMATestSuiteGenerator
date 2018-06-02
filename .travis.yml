@@ -1,11 +1,14 @@
 sudo: required
 dist: trusty
+language: node_js
+
 services:
   - docker
 cache:
   directories:
     - build/
     - build_docs/
+    - node_modules/
 
 
 before_install:
@@ -54,9 +57,9 @@ jobs:
     - script: PORTION_COUNT=5 PORTION_INDEX=2 make run-compat-tests
     - script: PORTION_COUNT=5 PORTION_INDEX=3 make run-compat-tests
     - script: PORTION_COUNT=5 PORTION_INDEX=4 make run-compat-tests
-    - script: PORTION_COUNT=5 PORTION_INDEX=5 make run-compat-tests
+    - script: PORTION_COUNT=5 PORTION_INDEX=5 make run-compat-tests    
     - stage: deploy
-      script: skip
+      script: make website
       deploy: &pages
         provider: pages
         skip-cleanup: true
