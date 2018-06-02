@@ -1,0 +1,371 @@
+# SYSTEM: Mathematica_10
+# TEST: D_Tests
+# OUTPUT: output/Results/Mathematica_10/D_Tests.json
+# Derivative with respect to x:
+ok  D[x^n, x]    ==>     n*x^(-1 + n)
+    ---
+    data:
+        got: n*x^(-1 + n)
+        expect: n*x^(-1 + n)
+        expect_evaluated: n*x^(-1 + n)
+    ...
+# Fourth derivative with respect to x:
+ok  D[Sin[x]^10, {x, 4}]    ==>     5040*Cos[x]^4*Sin[x]^6 - 4680*Cos[x]^2*Sin[x]^8 + 280*Sin[x]^10
+    ---
+    data:
+        got: 5040*Cos[x]^4*Sin[x]^6 - 4680*Cos[x]^2*Sin[x]^8 + 280*Sin[x]^10
+        expect: 5040*Cos[x]^4*Sin[x]^6 - 4680*Cos[x]^2*Sin[x]^8 + 280*Sin[x]^10
+        expect_evaluated: 5040*Cos[x]^4*Sin[x]^6 - 4680*Cos[x]^2*Sin[x]^8 + 280*Sin[x]^10
+    ...
+# Derivative with respect to x and y:
+ok  D[Sin[x*y]/(x^2 + y^2), x, y]    ==>     -((2*x^2*Cos[x*y])/(x^2 + y^2)^2) - (2*y^2*Cos[x*y])/(x^2 + y^2)^2 + Cos[x*y]/(x^2 + y^2) + (8*x*y*Sin[x*y])/(x^2 + y^2)^3 - (x*y*Sin[x*y])/(x^2 + y^2)
+    ---
+    data:
+        got: (-2*x^2*Cos[x*y])/(x^2 + y^2)^2 - (2*y^2*Cos[x*y])/(x^2 + y^2)^2 + Cos[x*y]/(x^2 + y^2) + (8*x*y*Sin[x*y])/(x^2 + y^2)^3 - (x*y*Sin[x*y])/(x^2 + y^2)
+        expect: -((2*x^2*Cos[x*y])/(x^2 + y^2)^2) - (2*y^2*Cos[x*y])/(x^2 + y^2)^2 + Cos[x*y]/(x^2 + y^2) + (8*x*y*Sin[x*y])/(x^2 + y^2)^3 - (x*y*Sin[x*y])/(x^2 + y^2)
+        expect_evaluated: (-2*x^2*Cos[x*y])/(x^2 + y^2)^2 - (2*y^2*Cos[x*y])/(x^2 + y^2)^2 + Cos[x*y]/(x^2 + y^2) + (8*x*y*Sin[x*y])/(x^2 + y^2)^3 - (x*y*Sin[x*y])/(x^2 + y^2)
+    ...
+# Derivative involving a symbolic function f:
+ok  D[x*f[x]*Derivative[1][f][x], x]    ==>     f[x]*(f^,)[x] + x*(f^,)[x]^2 + x*f[x]*(f^,,)[x] # skip
+# Vector derivative (gradient vector):
+ok  D[x^2*Sin[y], {{x, y}}]    ==>     {2*x*Sin[y], x^2*Cos[y]}
+    ---
+    data:
+        got: {2*x*Sin[y], x^2*Cos[y]}
+        expect: {2*x*Sin[y], x^2*Cos[y]}
+        expect_evaluated: {2*x*Sin[y], x^2*Cos[y]}
+    ...
+# Second-order derivative tensor:
+ok  D[{Sin[y], Sin[x] + Cos[y]}, {{x, y}, 2}]    ==>     {{{0, 0}, {0, -Sin[y]}}, {{-Sin[x], 0}, {0, -Cos[y]}}}
+    ---
+    data:
+        got: {{{0, 0}, {0, -Sin[y]}}, {{-Sin[x], 0}, {0, -Cos[y]}}}
+        expect: {{{0, 0}, {0, -Sin[y]}}, {{-Sin[x], 0}, {0, -Cos[y]}}}
+        expect_evaluated: {{{0, 0}, {0, -Sin[y]}}, {{-Sin[x], 0}, {0, -Cos[y]}}}
+    ...
+# Evaluate derivatives numerically:
+ok  N[Derivative[1][Zeta][2]]    ==>     -0.937548 # skip
+# Enter \[PartialD] using Esc\[ThinSpace]pd\[ThinSpace]Esc, and subscripts using Control+_:
+ok  $Failed    ==>     HoldComplete[-((2*x)/(1 + x^2)^2)] # skip
+# Polynomial and rational functions:
+ok  D[a*x^4 + b*x^3 + c, x]    ==>     3*b*x^2 + 4*a*x^3
+    ---
+    data:
+        got: 3*b*x^2 + 4*a*x^3
+        expect: 3*b*x^2 + 4*a*x^3
+        expect_evaluated: 3*b*x^2 + 4*a*x^3
+    ...
+ok  Together[D[(x - 7)/(2*x^2 + 3*x + 11), x]]    ==>     -((2*(-16 - 14*x + x^2))/(11 + 3*x + 2*x^2)^2)
+    ---
+    data:
+        got: (-2*(-16 - 14*x + x^2))/(11 + 3*x + 2*x^2)^2
+        expect: -((2*(-16 - 14*x + x^2))/(11 + 3*x + 2*x^2)^2)
+        expect_evaluated: (-2*(-16 - 14*x + x^2))/(11 + 3*x + 2*x^2)^2
+    ...
+# Algebraic functions:
+ok  D[Sqrt[1 + x^3], x]    ==>     (3*x^2)/(2*Sqrt[1 + x^3])
+    ---
+    data:
+        got: (3*x^2)/(2*Sqrt[1 + x^3])
+        expect: (3*x^2)/(2*Sqrt[1 + x^3])
+        expect_evaluated: (3*x^2)/(2*Sqrt[1 + x^3])
+    ...
+ok  Together[D[(1 + x^(3/5))^(1/2)/(3*x + 1)^5, x]]    ==>     -((3*(-1 + 50*x^(2/5) + 47*x))/(10*Sqrt[1 + x^(3/5)]*x^(2/5)*(1 + 3*x)^6))
+    ---
+    data:
+        got: (-3*(-1 + 50*x^(2/5) + 47*x))/(10*Sqrt[1 + x^(3/5)]*x^(2/5)*(1 + 3*x)^6)
+        expect: -((3*(-1 + 50*x^(2/5) + 47*x))/(10*Sqrt[1 + x^(3/5)]*x^(2/5)*(1 + 3*x)^6))
+        expect_evaluated: (-3*(-1 + 50*x^(2/5) + 47*x))/(10*Sqrt[1 + x^(3/5)]*x^(2/5)*(1 + 3*x)^6)
+    ...
+# Trigonometric and inverse trigonometric functions:
+ok  D[Sin[x]*Cos[x + y], x, y]    ==>     (-Cos[x + y])*Sin[x] - Cos[x]*Sin[x + y]
+    ---
+    data:
+        got: -(Cos[x + y]*Sin[x]) - Cos[x]*Sin[x + y]
+        expect: (-Cos[x + y])*Sin[x] - Cos[x]*Sin[x + y]
+        expect_evaluated: -(Cos[x + y]*Sin[x]) - Cos[x]*Sin[x + y]
+    ...
+ok  D[ArcTan[x], x]    ==>     1/(1 + x^2)
+    ---
+    data:
+        got: (1 + x^2)^(-1)
+        expect: 1/(1 + x^2)
+        expect_evaluated: (1 + x^2)^(-1)
+    ...
+# Exponential and logarithmic functions:
+ok  Together[D[(2*x + 5)*E^x^2, x]]    ==>     2*E^x^2*(1 + 5*x + 2*x^2)
+    ---
+    data:
+        got: 2*E^x^2*(1 + 5*x + 2*x^2)
+        expect: 2*E^x^2*(1 + 5*x + 2*x^2)
+        expect_evaluated: 2*E^x^2*(1 + 5*x + 2*x^2)
+    ...
+ok  Together[D[Log[(x + 1)/(x - 5)], x]]    ==>     -(6/((-5 + x)*(1 + x)))
+    ---
+    data:
+        got: -6/((-5 + x)*(1 + x))
+        expect: -(6/((-5 + x)*(1 + x)))
+        expect_evaluated: -6/((-5 + x)*(1 + x))
+    ...
+ok  Together[D[x*E^x^x^x, x]]    ==>     E^x^x^x*(1 + x^(x + x^x) + x^(1 + x + x^x)*Log[x] + x^(1 + x + x^x)*Log[x]^2)
+    ---
+    data:
+        got: E^x^x^x*(1 + x^(x + x^x) + x^(1 + x + x^x)*Log[x] + x^(1 + x + x^x)*Log[x]^2)
+        expect: E^x^x^x*(1 + x^(x + x^x) + x^(1 + x + x^x)*Log[x] + x^(1 + x + x^x)*Log[x]^2)
+        expect_evaluated: E^x^x^x*(1 + x^(x + x^x) + x^(1 + x + x^x)*Log[x] + x^(1 + x + x^x)*Log[x]^2)
+    ...
+# Hyperbolic functions:
+ok  D[Sinh[x^2], x]    ==>     2*x*Cosh[x^2]
+    ---
+    data:
+        got: 2*x*Cosh[x^2]
+        expect: 2*x*Cosh[x^2]
+        expect_evaluated: 2*x*Cosh[x^2]
+    ...
+ok  D[ArcCoth[x], {x, 2}]    ==>     (2*x)/(1 - x^2)^2
+    ---
+    data:
+        got: (2*x)/(1 - x^2)^2
+        expect: (2*x)/(1 - x^2)^2
+        expect_evaluated: (2*x)/(1 - x^2)^2
+    ...
+# The logarithmic derivative of RefLink[Gamma,paclet:ref/Gamma] is the RefLink[PolyGamma,paclet:ref/PolyGamma] function:
+ok  D[Log[Gamma[x]], x]    ==>     PolyGamma[0, x]
+    ---
+    data:
+        got: PolyGamma[0, x]
+        expect: PolyGamma[0, x]
+        expect_evaluated: PolyGamma[0, x]
+    ...
+# Derivatives of Airy functions are given in terms of RefLink[AiryAiPrime,paclet:ref/AiryAiPrime] and RefLink[AiryBiPrime,paclet:ref/AiryBiPrime]:
+ok  D[AiryAi[x], {x, 7}]    ==>     9*x^2*AiryAi[x] + 10*AiryAiPrime[x] + x^3*AiryAiPrime[x]
+    ---
+    data:
+        got: 9*x^2*AiryAi[x] + 10*AiryAiPrime[x] + x^3*AiryAiPrime[x]
+        expect: 9*x^2*AiryAi[x] + 10*AiryAiPrime[x] + x^3*AiryAiPrime[x]
+        expect_evaluated: 9*x^2*AiryAi[x] + 10*AiryAiPrime[x] + x^3*AiryAiPrime[x]
+    ...
+ok  D[(x + 1)*AiryBi[Sin[x]], x]    ==>     AiryBi[Sin[x]] + (1 + x)*AiryBiPrime[Sin[x]]*Cos[x]
+    ---
+    data:
+        got: AiryBi[Sin[x]] + (1 + x)*AiryBiPrime[Sin[x]]*Cos[x]
+        expect: AiryBi[Sin[x]] + (1 + x)*AiryBiPrime[Sin[x]]*Cos[x]
+        expect_evaluated: AiryBi[Sin[x]] + (1 + x)*AiryBiPrime[Sin[x]]*Cos[x]
+    ...
+# The derivative of RefLink[Zeta,paclet:ref/Zeta] has a closed form expression at the origin:
+ok  der = D[Zeta[x], x]    ==>     (Zeta^,)[x] # skip
+not ok  der /. x -> 0    ==>     (-(1/2))*Log[2*Pi]
+    ---
+    data:
+        got: der
+        expect: (-(1/2))*Log[2*Pi]
+        expect_evaluated: -Log[2*Pi]/2
+    ...
+ok  (Zeta^,)[0]    ==>     (-(1/2))*Log[2*Pi] # skip
+# Special functions with elementary derivatives:
+ok  D[EllipticF[x, m], x]    ==>     1/Sqrt[1 - m*Sin[x]^2]
+    ---
+    data:
+        got: 1/Sqrt[1 - m*Sin[x]^2]
+        expect: 1/Sqrt[1 - m*Sin[x]^2]
+        expect_evaluated: 1/Sqrt[1 - m*Sin[x]^2]
+    ...
+ok  D[Erf[x^2], x]    ==>     (4*x)/(E^x^4*Sqrt[Pi])
+    ---
+    data:
+        got: (4*x)/(E^x^4*Sqrt[Pi])
+        expect: (4*x)/(E^x^4*Sqrt[Pi])
+        expect_evaluated: (4*x)/(E^x^4*Sqrt[Pi])
+    ...
+# Special functions with derivatives expressed in terms of the same functions:
+ok  D[BesselJ[n, x], x]    ==>     (1/2)*(BesselJ[-1 + n, x] - BesselJ[1 + n, x])
+    ---
+    data:
+        got: (BesselJ[-1 + n, x] - BesselJ[1 + n, x])/2
+        expect: (1/2)*(BesselJ[-1 + n, x] - BesselJ[1 + n, x])
+        expect_evaluated: (BesselJ[-1 + n, x] - BesselJ[1 + n, x])/2
+    ...
+ok  D[GegenbauerC[n, m, x], x]    ==>     2*m*GegenbauerC[-1 + n, 1 + m, x]
+    ---
+    data:
+        got: 2*m*GegenbauerC[-1 + n, 1 + m, x]
+        expect: 2*m*GegenbauerC[-1 + n, 1 + m, x]
+        expect_evaluated: 2*m*GegenbauerC[-1 + n, 1 + m, x]
+    ...
+ok  D[Hypergeometric2F1[a, b, c, x], x]    ==>     (a*b*Hypergeometric2F1[1 + a, 1 + b, 1 + c, x])/c
+    ---
+    data:
+        got: (a*b*Hypergeometric2F1[1 + a, 1 + b, 1 + c, x])/c
+        expect: (a*b*Hypergeometric2F1[1 + a, 1 + b, 1 + c, x])/c
+        expect_evaluated: (a*b*Hypergeometric2F1[1 + a, 1 + b, 1 + c, x])/c
+    ...
+# Derivative of RefLink[JacobiSN,paclet:ref/JacobiSN]:
+ok  D[JacobiSN[x, m]^2, x]    ==>     2*JacobiCN[x, m]*JacobiDN[x, m]*JacobiSN[x, m]
+    ---
+    data:
+        got: 2*JacobiCN[x, m]*JacobiDN[x, m]*JacobiSN[x, m]
+        expect: 2*JacobiCN[x, m]*JacobiDN[x, m]*JacobiSN[x, m]
+        expect_evaluated: 2*JacobiCN[x, m]*JacobiDN[x, m]*JacobiSN[x, m]
+    ...
+# Derivative of a piecewise function:
+ok  D[Max[x, x^2], x]    ==>     Inequality[Piecewise[2]*x*x, Less, 0*1*0, Less, x, Less, 1*2*x*x, Greater, 1*Indeterminate*True] # skip
+# Distributional derivatives of expressions involving the RefLink[HeavisideTheta,paclet:ref/HeavisideTheta] function:
+ok  D[HeavisideTheta[x], x]    ==>     DiracDelta[x]
+    ---
+    data:
+        got: DiracDelta[x]
+        expect: DiracDelta[x]
+        expect_evaluated: DiracDelta[x]
+    ...
+ok  D[x*HeavisideTheta[x - 2], x]    ==>     x*DiracDelta[-2 + x] + HeavisideTheta[-2 + x]
+    ---
+    data:
+        got: x*DiracDelta[-2 + x] + HeavisideTheta[-2 + x]
+        expect: x*DiracDelta[-2 + x] + HeavisideTheta[-2 + x]
+        expect_evaluated: x*DiracDelta[-2 + x] + HeavisideTheta[-2 + x]
+    ...
+ok  Solve[D[eqn, x], Derivative[1][y][x]]    ==>     {{(y^,)[x] -> (2*x)/(3 + 2*y[x])}} # skip
+ok  HoldComplete[Solve[D[eqn, y], D[z[x, y], y]]]    ==>     $Failed # skip
+# Gradient of a scalar function:
+ok  vars = Array[Subscript[x, #1] & , 5]; f = (#1 . #1 & )[Differences[vars]]    ==>     (-Subscript[x, 1] + Subscript[x, 2])^2 + (-Subscript[x, 2] + Subscript[x, 3])^2 + (-Subscript[x, 3] + Subscript[x, 4])^2 + (-Subscript[x, 4] + Subscript[x, 5])^2
+    ---
+    data:
+        got: (-Subscript[x, 1] + Subscript[x, 2])^2 + (-Subscript[x, 2] + Subscript[x, 3])^2 + (-Subscript[x, 3] + Subscript[x, 4])^2 + (-Subscript[x, 4] + Subscript[x, 5])^2
+        expect: (-Subscript[x, 1] + Subscript[x, 2])^2 + (-Subscript[x, 2] + Subscript[x, 3])^2 + (-Subscript[x, 3] + Subscript[x, 4])^2 + (-Subscript[x, 4] + Subscript[x, 5])^2
+        expect_evaluated: (-Subscript[x, 1] + Subscript[x, 2])^2 + (-Subscript[x, 2] + Subscript[x, 3])^2 + (-Subscript[x, 3] + Subscript[x, 4])^2 + (-Subscript[x, 4] + Subscript[x, 5])^2
+    ...
+ok  D[f, {vars}]    ==>     {-2*(-Subscript[x, 1] + Subscript[x, 2]), 2*(-Subscript[x, 1] + Subscript[x, 2]) - 2*(-Subscript[x, 2] + Subscript[x, 3]), 2*(-Subscript[x, 2] + Subscript[x, 3]) - 2*(-Subscript[x, 3] + Subscript[x, 4]), 2*(-Subscript[x, 3] + Subscript[x, 4]) - 2*(-Subscript[x, 4] + Subscript[x, 5]), 2*(-Subscript[x, 4] + Subscript[x, 5])}
+    ---
+    data:
+        got: {-2*(-Subscript[x, 1] + Subscript[x, 2]), 2*(-Subscript[x, 1] + Subscript[x, 2]) - 2*(-Subscript[x, 2] + Subscript[x, 3]), 2*(-Subscript[x, 2] + Subscript[x, 3]) - 2*(-Subscript[x, 3] + Subscript[x, 4]), 2*(-Subscript[x, 3] + Subscript[x, 4]) - 2*(-Subscript[x, 4] + Subscript[x, 5]), 2*(-Subscript[x, 4] + Subscript[x, 5])}
+        expect: {-2*(-Subscript[x, 1] + Subscript[x, 2]), 2*(-Subscript[x, 1] + Subscript[x, 2]) - 2*(-Subscript[x, 2] + Subscript[x, 3]), 2*(-Subscript[x, 2] + Subscript[x, 3]) - 2*(-Subscript[x, 3] + Subscript[x, 4]), 2*(-Subscript[x, 3] + Subscript[x, 4]) - 2*(-Subscript[x, 4] + Subscript[x, 5]), 2*(-Subscript[x, 4] + Subscript[x, 5])}
+        expect_evaluated: {-2*(-Subscript[x, 1] + Subscript[x, 2]), 2*(-Subscript[x, 1] + Subscript[x, 2]) - 2*(-Subscript[x, 2] + Subscript[x, 3]), 2*(-Subscript[x, 2] + Subscript[x, 3]) - 2*(-Subscript[x, 3] + Subscript[x, 4]), 2*(-Subscript[x, 3] + Subscript[x, 4]) - 2*(-Subscript[x, 4] + Subscript[x, 5]), 2*(-Subscript[x, 4] + Subscript[x, 5])}
+    ...
+# Hessian matrix:
+ok  MatrixForm[D[f, {vars, 2}]]    ==>     2 - 2*0*0*0 - 2*4 - 2*0*0*0 - 2*4 - 2*0*0*0 - 2*4 - 2*0*0*0 - 2*2 # skip
+# Jacobian of a vector valued function:
+ok  vars = Array[Subscript[x, #1] & , 5]; f = Drop[vars, 1]*Differences[vars]    ==>     {Subscript[x, 2]*(-Subscript[x, 1] + Subscript[x, 2]), Subscript[x, 3]*(-Subscript[x, 2] + Subscript[x, 3]), Subscript[x, 4]*(-Subscript[x, 3] + Subscript[x, 4]), Subscript[x, 5]*(-Subscript[x, 4] + Subscript[x, 5])}
+    ---
+    data:
+        got: {Subscript[x, 2]*(-Subscript[x, 1] + Subscript[x, 2]), Subscript[x, 3]*(-Subscript[x, 2] + Subscript[x, 3]), Subscript[x, 4]*(-Subscript[x, 3] + Subscript[x, 4]), Subscript[x, 5]*(-Subscript[x, 4] + Subscript[x, 5])}
+        expect: {Subscript[x, 2]*(-Subscript[x, 1] + Subscript[x, 2]), Subscript[x, 3]*(-Subscript[x, 2] + Subscript[x, 3]), Subscript[x, 4]*(-Subscript[x, 3] + Subscript[x, 4]), Subscript[x, 5]*(-Subscript[x, 4] + Subscript[x, 5])}
+        expect_evaluated: {Subscript[x, 2]*(-Subscript[x, 1] + Subscript[x, 2]), Subscript[x, 3]*(-Subscript[x, 2] + Subscript[x, 3]), Subscript[x, 4]*(-Subscript[x, 3] + Subscript[x, 4]), Subscript[x, 5]*(-Subscript[x, 4] + Subscript[x, 5])}
+    ...
+ok  MatrixForm[D[f, {vars}]]    ==>     -Subscript[x, 2] - Subscript[x, 1] + 2*Subscript[x, 2]*0*0*0*0 - Subscript[x, 3] - Subscript[x, 2] + 2*Subscript[x, 3]*0*0*0*0 - Subscript[x, 4] - Subscript[x, 3] + 2*Subscript[x, 4]*0*0*0*0 - Subscript[x, 5] - Subscript[x, 4] + 2*Subscript[x, 5] # skip
+# Second-order derivative tensor:
+ok  D[f, {vars, 2}]    ==>     {{{0, -1, 0, 0, 0}, {-1, 2, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0}, {0, 0, -1, 0, 0}, {0, -1, 2, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, -1, 0}, {0, 0, -1, 2, 0}, {0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, -1}, {0, 0, 0, -1, 2}}}
+    ---
+    data:
+        got: {{{0, -1, 0, 0, 0}, {-1, 2, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0}, {0, 0, -1, 0, 0}, {0, -1, 2, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, -1, 0}, {0, 0, -1, 2, 0}, {0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, -1}, {0, 0, 0, -1, 2}}}
+        expect: {{{0, -1, 0, 0, 0}, {-1, 2, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0}, {0, 0, -1, 0, 0}, {0, -1, 2, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, -1, 0}, {0, 0, -1, 2, 0}, {0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, -1}, {0, 0, 0, -1, 2}}}
+        expect_evaluated: {{{0, -1, 0, 0, 0}, {-1, 2, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0}, {0, 0, -1, 0, 0}, {0, -1, 2, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, -1, 0}, {0, 0, -1, 2, 0}, {0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, -1}, {0, 0, 0, -1, 2}}}
+    ...
+ok  HoldComplete[D[f, {SparseArray[vars], 2}]]    ==>     $Failed # skip
+# The gradient can also be computed as a RefLink[SparseArray,paclet:ref/SparseArray], but in this case it is effectively dense:
+ok  HoldComplete[D[f, {SparseArray[vars]}]]    ==>     $Failed # skip
+ok  HoldComplete[D[f, {SparseArray[vars]}]]    ==>     $Failed # skip
+# Differentiate with respect to different formal variables: 
+ok  D[Sin[f[x]] + Derivative[1][Derivative[1][f]][x], x]    ==>     Cos[f[x]]*(f^,)[x] + (f^3)[x] # skip
+ok  D[Sin[f[x]] + Derivative[1][Derivative[1][f]][x], f[x]]    ==>     Cos[f[x]]
+    ---
+    data:
+        got: Cos[{Subscript[x, 2]*(-Subscript[x, 1] + Subscript[x, 2]), Subscript[x, 3]*(-Subscript[x, 2] + Subscript[x, 3]), Subscript[x, 4]*(-Subscript[x, 3] + Subscript[x, 4]), Subscript[x, 5]*(-Subscript[x, 4] + Subscript[x, 5])}[x]]
+        expect: Cos[f[x]]
+        expect_evaluated: Cos[{Subscript[x, 2]*(-Subscript[x, 1] + Subscript[x, 2]), Subscript[x, 3]*(-Subscript[x, 2] + Subscript[x, 3]), Subscript[x, 4]*(-Subscript[x, 3] + Subscript[x, 4]), Subscript[x, 5]*(-Subscript[x, 4] + Subscript[x, 5])}[x]]
+    ...
+ok  D[Sin[f[x]] + Derivative[1][Derivative[1][f]][x], Derivative[1][Derivative[1][f]][x]]    ==>     1
+    ---
+    data:
+        got: 1
+        expect: 1
+        expect_evaluated: 1
+    ...
+# Differentiate with y considered as depending on x:
+ok  D[x^2 + y^2 == 1, x, NonConstants -> y]    ==>     2*x + 2*y*D[y, x, NonConstants -> {y}] == 0
+    ---
+    data:
+        got: 2*x + 2*y*D[y, x, NonConstants -> {y}] == 0
+        expect: 2*x + 2*y*D[y, x, NonConstants -> {y}] == 0
+        expect_evaluated: 2*x + 2*y*D[y, x, NonConstants -> {y}] == 0
+    ...
+# Solve for the derivative of y to effect implicit differentiation:
+ok  Solve[%, D[y, x, NonConstants -> {y}]]    ==>     {{D[y, x, NonConstants -> {y}] -> -(x/y)}} # skip
+ok  HoldComplete[Plot[f[x], {x, -4, 2}]]    ==>     $Failed # skip
+ok  Solve[D[f[x], x] == 0, x]    ==>     {{x -> -1 - Sqrt[2]}, {x -> -1 + Sqrt[2]}} # skip
+# Perform the change of variable t=x^2 in an integral:
+ok  Integrate[x*Exp[x^2], {x, 0, 2}]    ==>     (1/2)*(-1 + E^4)
+    ---
+    data:
+        got: (-1 + E^4)/2
+        expect: (1/2)*(-1 + E^4)
+        expect_evaluated: (-1 + E^4)/2
+    ...
+ok  Integrate[t^(1/2)*Exp[t]*D[t^(1/2), t], {t, 0, 4}]    ==>     (1/2)*(-1 + E^4)
+    ---
+    data:
+        got: (-1 + E^4)/2
+        expect: (1/2)*(-1 + E^4)
+        expect_evaluated: (-1 + E^4)/2
+    ...
+ok  HoldComplete[ParametricPlot3D[Helix[1, 1/11, t], {t, 0, 30}, Boxed -> False, Axes -> False]]    ==>     $Failed # skip
+ok  FullSimplify[Curvature[Helix[r, c, t], t], 0 < t < Pi/2 && r > 0 && c > 0]    ==>     r/(c^2 + r^2) # skip
+# Compute the coefficients of a power series:
+ok  Table[D[Exp[x^3]*Sin[x], {x, n}]/n!, {n, 0, 8}] /. {x -> 0}    ==>     {0, 1, 0, -(1/6), 1, 1/120, -(1/6), 2519/5040, 1/120}
+    ---
+    data:
+        got: {0, 1, 0, -1/6, 1, 1/120, -1/6, 2519/5040, 1/120}
+        expect: {0, 1, 0, -(1/6), 1, 1/120, -(1/6), 2519/5040, 1/120}
+        expect_evaluated: {0, 1, 0, -1/6, 1, 1/120, -1/6, 2519/5040, 1/120}
+    ...
+ok  Series[Exp[x^3]*Sin[x], {x, 0, 8}]    ==>     x - x^3/6 + x^4 + x^5/120 - x^6/6 + (2519*x^7)/5040 + x^8/120 + O[x]^9
+    ---
+    data:
+        got: SeriesData[x, 0, {1, 0, -1/6, 1, 1/120, -1/6, 2519/5040, 1/120}, 1, 9, 1]
+        expect: x - x^3/6 + x^4 + x^5/120 - x^6/6 + (2519*x^7)/5040 + x^8/120 + O[x]^9
+        expect_evaluated: SeriesData[x, 0, {1, 0, -1/6, 1, 1/120, -1/6, 2519/5040, 1/120}, 1, 9, 1]
+    ...
+ok  Derivative[1][y][x] == Apart[Derivative[1][y][x] /. Solve[D[eqn, x], Derivative[1][y][x]][[1]]]    ==>     (y^,)[x] == -((x*y[x]^2)/(-1 + x)) + y[x]^3 # skip
+ok  HoldComplete[Plot[Evaluate[{x[t], velocity, acceleration, jerk, snap, crackle, pop}], {t, 0, 3}, Exclusions -> None, PlotLegends -> {"position", "velocity", "acceleration", "jerk", "snap", "crackle", "pop"}, PlotRange -> All]]    ==>     $Failed # skip
+# The fundamental theorem of calculus:
+ok  D[Integrate[f[t], {t, 0, x}], x]    ==>     f[x] # skip
+# Differentiation inside of RefLink[Integrate,paclet:ref/Integrate]:
+ok  HoldComplete[D[Integrate[f[a, t], t], a]]    ==>     $Failed # skip
+# Compute the derivative using the definition:
+ok  D[x^2, x]    ==>     2*x
+    ---
+    data:
+        got: 2*x
+        expect: 2*x
+        expect_evaluated: 2*x
+    ...
+ok  Limit[((x + h)^2 - x^2)/h, h -> 0]    ==>     2*x
+    ---
+    data:
+        got: 2*x
+        expect: 2*x
+        expect_evaluated: 2*x
+    ...
+# Results may not immediately be given in the simplest possible form:
+ok  D[Sin[x]^10, {x, 4}]    ==>     5040*Cos[x]^4*Sin[x]^6 - 4680*Cos[x]^2*Sin[x]^8 + 280*Sin[x]^10
+    ---
+    data:
+        got: 5040*Cos[x]^4*Sin[x]^6 - 4680*Cos[x]^2*Sin[x]^8 + 280*Sin[x]^10
+        expect: 5040*Cos[x]^4*Sin[x]^6 - 4680*Cos[x]^2*Sin[x]^8 + 280*Sin[x]^10
+        expect_evaluated: 5040*Cos[x]^4*Sin[x]^6 - 4680*Cos[x]^2*Sin[x]^8 + 280*Sin[x]^10
+    ...
+ok  FullSimplify[%]    ==>     10*(141 + 238*Cos[2*x] + 125*Cos[4*x])*Sin[x]^6 # skip
+# Functions given in different forms can yield the same derivatives:
+ok  Simplify[D[ArcTan[x], x]]    ==>     1/(1 + x^2)
+    ---
+    data:
+        got: (1 + x^2)^(-1)
+        expect: 1/(1 + x^2)
+        expect_evaluated: (1 + x^2)^(-1)
+    ...
+ok  Simplify[D[-ArcTan[1/x], x]]    ==>     1/(1 + x^2)
+    ---
+    data:
+        got: (1 + x^2)^(-1)
+        expect: 1/(1 + x^2)
+        expect_evaluated: (1 + x^2)^(-1)
+    ...

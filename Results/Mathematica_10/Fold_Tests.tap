@@ -1,0 +1,206 @@
+# SYSTEM: Mathematica_10
+# TEST: Fold_Tests
+# OUTPUT: output/Results/Mathematica_10/Fold_Tests.json
+ok  Fold[f, x, {a, b, c, d}]    ==>     f[f[f[f[x, a], b], c], d]
+    ---
+    data:
+        got: f[f[f[f[x, a], b], c], d]
+        expect: f[f[f[f[x, a], b], c], d]
+        expect_evaluated: f[f[f[f[x, a], b], c], d]
+    ...
+ok  Fold[List, x, {a, b, c, d}]    ==>     {{{{x, a}, b}, c}, d}
+    ---
+    data:
+        got: {{{{x, a}, b}, c}, d}
+        expect: {{{{x, a}, b}, c}, d}
+        expect_evaluated: {{{{x, a}, b}, c}, d}
+    ...
+ok  Fold[Times, 1, {a, b, c, d}]    ==>     a*b*c*d
+    ---
+    data:
+        got: a*b*c*d
+        expect: a*b*c*d
+        expect_evaluated: a*b*c*d
+    ...
+ok  Fold[#1^#2 & , x, {a, b, c, d}]    ==>     (((x^a)^b)^c)^d
+    ---
+    data:
+        got: (((x^a)^b)^c)^d
+        expect: (((x^a)^b)^c)^d
+        expect_evaluated: (((x^a)^b)^c)^d
+    ...
+# The head need not be RefLink[List,paclet:ref/List]:
+ok  Fold[f, x, p[a, b, c, d]]    ==>     f[f[f[f[x, a], b], c], d]
+    ---
+    data:
+        got: f[f[f[f[x, a], b], c], d]
+        expect: f[f[f[f[x, a], b], c], d]
+        expect_evaluated: f[f[f[f[x, a], b], c], d]
+    ...
+# Use RefLink[Throw,paclet:ref/Throw] to exit a RefLink[Fold,paclet:ref/Fold]:
+ok  FoldList[#1^2 + #1 & , 2, Range[6]]    ==>     {2, 6, 42, 1806, 3263442, 10650056950806, 113423713055421844361000442}
+    ---
+    data:
+        got: {2, 6, 42, 1806, 3263442, 10650056950806, 113423713055421844361000442}
+        expect: {2, 6, 42, 1806, 3263442, 10650056950806, 113423713055421844361000442}
+        expect_evaluated: {2, 6, 42, 1806, 3263442, 10650056950806, 113423713055421844361000442}
+    ...
+ok  Catch[Fold[If[#1 > 10^6, Throw[#1], #1^2 + #1] & , 2, Range[6]]]    ==>     3263442
+    ---
+    data:
+        got: 3263442
+        expect: 3263442
+        expect_evaluated: 3263442
+    ...
+# Fold to the right:
+ok  Fold[g[#2, #1] & , x, {a, b, c, d}]    ==>     g[d, g[c, g[b, g[a, x]]]]
+    ---
+    data:
+        got: g[d, g[c, g[b, g[a, x]]]]
+        expect: g[d, g[c, g[b, g[a, x]]]]
+        expect_evaluated: g[d, g[c, g[b, g[a, x]]]]
+    ...
+# Create a nested polynomial (Horner form):
+ok  Fold[x*#1 + #2 & , 0, {a, b, c, d, e}]    ==>     e + x*(d + x*(c + x*(b + a*x)))
+    ---
+    data:
+        got: e + x*(d + x*(c + x*(b + a*x)))
+        expect: e + x*(d + x*(c + x*(b + a*x)))
+        expect_evaluated: e + x*(d + x*(c + x*(b + a*x)))
+    ...
+# RefLink[HornerForm,paclet:ref/HornerForm] directly produces this output:
+ok  HornerForm[Reverse[{a, b, c, d, e}] . x^Range[0, 4], x]    ==>     e + x*(d + x*(c + x*(b + a*x)))
+    ---
+    data:
+        got: e + x*(d + x*(c + x*(b + a*x)))
+        expect: e + x*(d + x*(c + x*(b + a*x)))
+        expect_evaluated: e + x*(d + x*(c + x*(b + a*x)))
+    ...
+# Form a continued fraction:
+ok  Fold[1/(#2 + #1) & , x, Reverse[{a, b, c, d}]]    ==>     1/(a + 1/(b + 1/(c + 1/(d + x))))
+    ---
+    data:
+        got: (a + (b + (c + (d + x)^(-1))^(-1))^(-1))^(-1)
+        expect: 1/(a + 1/(b + 1/(c + 1/(d + x))))
+        expect_evaluated: (a + (b + (c + (d + x)^(-1))^(-1))^(-1))^(-1)
+    ...
+# Form a number from digits:
+ok  Fold[10*#1 + #2 & , 0, {4, 5, 1, 6, 7, 8}]    ==>     451678
+    ---
+    data:
+        got: 451678
+        expect: 451678
+        expect_evaluated: 451678
+    ...
+# Form an alternating sum:
+ok  Fold[#2 - #1 & , 0, Reverse[{a, b, c, d, e}]]    ==>     a - b + c - d + e
+    ---
+    data:
+        got: a - b + c - d + e
+        expect: a - b + c - d + e
+        expect_evaluated: a - b + c - d + e
+    ...
+# Form a binary tree:
+ok  Fold[List, x, {a, b, c, d}]    ==>     {{{{x, a}, b}, c}, d}
+    ---
+    data:
+        got: {{{{x, a}, b}, c}, d}
+        expect: {{{{x, a}, b}, c}, d}
+        expect_evaluated: {{{{x, a}, b}, c}, d}
+    ...
+# Form a left-branching binary tree:
+ok  Fold[{#2, #1} & , x, {a, b, c, d}]    ==>     {d, {c, {b, {a, x}}}}
+    ---
+    data:
+        got: {d, {c, {b, {a, x}}}}
+        expect: {d, {c, {b, {a, x}}}}
+        expect_evaluated: {d, {c, {b, {a, x}}}}
+    ...
+# Form a function composition:
+ok  Fold[#2[#1] & , x, {a, b, c, d}]    ==>     d[c[b[a[x]]]]
+    ---
+    data:
+        got: d[c[b[a[x]]]]
+        expect: d[c[b[a[x]]]]
+        expect_evaluated: d[c[b[a[x]]]]
+    ...
+# Apply an indexed sequence of functions:
+ok  Fold[{f[#1, #1], g[#1]}[[#2]] & , e, {1, 1, 2, 1, 2}]    ==>     g[f[g[f[f[e, e], f[e, e]]], g[f[f[e, e], f[e, e]]]]]
+    ---
+    data:
+        got: g[f[g[f[f[e, e], f[e, e]]], g[f[f[e, e], f[e, e]]]]]
+        expect: g[f[g[f[f[e, e], f[e, e]]], g[f[f[e, e], f[e, e]]]]]
+        expect_evaluated: g[f[g[f[f[e, e], f[e, e]]], g[f[f[e, e], f[e, e]]]]]
+    ...
+# Successively partition a list:
+ok  Fold[Partition, Range[30], {2, 4, 3}]    ==>     {{{{1, 2}, {3, 4}, {5, 6}, {7, 8}}, {{9, 10}, {11, 12}, {13, 14}, {15, 16}}, {{17, 18}, {19, 20}, {21, 22}, {23, 24}}}}
+    ---
+    data:
+        got: {{{{1, 2}, {3, 4}, {5, 6}, {7, 8}}, {{9, 10}, {11, 12}, {13, 14}, {15, 16}}, {{17, 18}, {19, 20}, {21, 22}, {23, 24}}}}
+        expect: {{{{1, 2}, {3, 4}, {5, 6}, {7, 8}}, {{9, 10}, {11, 12}, {13, 14}, {15, 16}}, {{17, 18}, {19, 20}, {21, 22}, {23, 24}}}}
+        expect_evaluated: {{{{1, 2}, {3, 4}, {5, 6}, {7, 8}}, {{9, 10}, {11, 12}, {13, 14}, {15, 16}}, {{17, 18}, {19, 20}, {21, 22}, {23, 24}}}}
+    ...
+ok  Dimensions[%]    ==>     {1, 3, 4, 2} # skip
+# Folding with an empty list does not apply the function at all:
+ok  Fold[f, x, {}]    ==>     x
+    ---
+    data:
+        got: x
+        expect: x
+        expect_evaluated: x
+    ...
+# RefLink[Fold,paclet:ref/Fold] returns the last element of RefLink[FoldList,paclet:ref/FoldList]:
+ok  Fold[f, x, {a, b, c}]    ==>     f[f[f[x, a], b], c]
+    ---
+    data:
+        got: f[f[f[x, a], b], c]
+        expect: f[f[f[x, a], b], c]
+        expect_evaluated: f[f[f[x, a], b], c]
+    ...
+ok  FoldList[f, x, {a, b, c}]    ==>     {x, f[x, a], f[f[x, a], b], f[f[f[x, a], b], c]}
+    ---
+    data:
+        got: {x, f[x, a], f[f[x, a], b], f[f[f[x, a], b], c]}
+        expect: {x, f[x, a], f[f[x, a], b], f[f[f[x, a], b], c]}
+        expect_evaluated: {x, f[x, a], f[f[x, a], b], f[f[f[x, a], b], c]}
+    ...
+# Functions that ignore their second argument give the same result as in RefLink[Nest,paclet:ref/Nest]:
+ok  Fold[f[#1] & , x, Range[5]]    ==>     f[f[f[f[f[x]]]]]
+    ---
+    data:
+        got: f[f[f[f[f[x]]]]]
+        expect: f[f[f[f[f[x]]]]]
+        expect_evaluated: f[f[f[f[f[x]]]]]
+    ...
+# An explicit form of the primitive recursive function r[z,r[s,r[s,r[s,p[2]]]]] [WebLink[more info,http://www.wolframscience.com/nksonline/page-907b-text]]:
+ok  Array[Fold[Fold[2^Ceiling[Log[2, Ceiling[(#1 + 2)/(#2 + 2)]]]*(#2 + 2) - 2 - #1 & , #2, Range[#1]] & , 0, Range[#1]] & , 100]    ==>     {1, 2, 1, 0, 5, 2, 3, 3, 2, 2, 3, 4, 1, 8, 5, 4, 2, 2, 3, 3, 2, 2, 7, 2, 9, 5, 2, 12, 9, 7, 5, 4, 2, 2, 3, 4, 1, 8, 5, 4, 2, 2, 3, 3, 2, 2, 15, 8, 5, 1, 43, 20, 13, 10, 3, 14, 7, 3, 11, 8, 3, 8, 5, 4, 2, 2, 3, 4, 1, 24, 13, 5, 4, 2, 11, 4, 5, 5, 4, 1, 13, 6, 5, 5, 4, 2, 7, 5, 3, 1, 3, 3, 2, 2, 31, 14, 10, 3, 3, 2}
+    ---
+    data:
+        got: {1, 2, 1, 0, 5, 2, 3, 3, 2, 2, 3, 4, 1, 8, 5, 4, 2, 2, 3, 3, 2, 2, 7, 2, 9, 5, 2, 12, 9, 7, 5, 4, 2, 2, 3, 4, 1, 8, 5, 4, 2, 2, 3, 3, 2, 2, 15, 8, 5, 1, 43, 20, 13, 10, 3, 14, 7, 3, 11, 8, 3, 8, 5, 4, 2, 2, 3, 4, 1, 24, 13, 5, 4, 2, 11, 4, 5, 5, 4, 1, 13, 6, 5, 5, 4, 2, 7, 5, 3, 1, 3, 3, 2, 2, 31, 14, 10, 3, 3, 2}
+        expect: {1, 2, 1, 0, 5, 2, 3, 3, 2, 2, 3, 4, 1, 8, 5, 4, 2, 2, 3, 3, 2, 2, 7, 2, 9, 5, 2, 12, 9, 7, 5, 4, 2, 2, 3, 4, 1, 8, 5, 4, 2, 2, 3, 3, 2, 2, 15, 8, 5, 1, 43, 20, 13, 10, 3, 14, 7, 3, 11, 8, 3, 8, 5, 4, 2, 2, 3, 4, 1, 24, 13, 5, 4, 2, 11, 4, 5, 5, 4, 1, 13, 6, 5, 5, 4, 2, 7, 5, 3, 1, 3, 3, 2, 2, 31, 14, 10, 3, 3, 2}
+        expect_evaluated: {1, 2, 1, 0, 5, 2, 3, 3, 2, 2, 3, 4, 1, 8, 5, 4, 2, 2, 3, 3, 2, 2, 7, 2, 9, 5, 2, 12, 9, 7, 5, 4, 2, 2, 3, 4, 1, 8, 5, 4, 2, 2, 3, 3, 2, 2, 15, 8, 5, 1, 43, 20, 13, 10, 3, 14, 7, 3, 11, 8, 3, 8, 5, 4, 2, 2, 3, 4, 1, 24, 13, 5, 4, 2, 11, 4, 5, 5, 4, 1, 13, 6, 5, 5, 4, 2, 7, 5, 3, 1, 3, 3, 2, 2, 31, 14, 10, 3, 3, 2}
+    ...
+# Generate all subsets of a set:
+ok  Fold[Function[{s, e}, Join[s, (Append[#1, e] & ) /@ s]], {{}}, {a, b, c}]    ==>     {{}, {a}, {b}, {a, b}, {c}, {a, c}, {b, c}, {a, b, c}}
+    ---
+    data:
+        got: {{}, {a}, {b}, {a, b}, {c}, {a, c}, {b, c}, {a, b, c}}
+        expect: {{}, {a}, {b}, {a, b}, {c}, {a, c}, {b, c}, {a, b, c}}
+        expect_evaluated: {{}, {a}, {b}, {a, b}, {c}, {a, c}, {b, c}, {a, b, c}}
+    ...
+# Find all possible sums of any of the elements of a list of numbers:
+ok  Fold[Union[#1, #1 + #2] & , {0}, {1, 2, 2, 8}]    ==>     {0, 1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13}
+    ---
+    data:
+        got: {0, 1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13}
+        expect: {0, 1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13}
+        expect_evaluated: {0, 1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13}
+    ...
+# The fourth Swinnerton-Dyer polynomial [WebLink[more info,http://mathworld.wolfram.com/Swinnerton-DyerPolynomial.html]]:
+ok  Fold[Expand[(#1 /. x -> x + #2)*(#1 /. x -> x - #2)] & , x, Sqrt[Prime[Range[4]]]]    ==>     46225 - 5596840*x^2 + 13950764*x^4 - 7453176*x^6 + 1513334*x^8 - 141912*x^10 + 6476*x^12 - 136*x^14 + x^16
+    ---
+    data:
+        got: 46225 - 5596840*x^2 + 13950764*x^4 - 7453176*x^6 + 1513334*x^8 - 141912*x^10 + 6476*x^12 - 136*x^14 + x^16
+        expect: 46225 - 5596840*x^2 + 13950764*x^4 - 7453176*x^6 + 1513334*x^8 - 141912*x^10 + 6476*x^12 - 136*x^14 + x^16
+        expect_evaluated: 46225 - 5596840*x^2 + 13950764*x^4 - 7453176*x^6 + 1513334*x^8 - 141912*x^10 + 6476*x^12 - 136*x^14 + x^16
+    ...

@@ -1,0 +1,179 @@
+# SYSTEM: Mathematica_10
+# TEST: Real_Tests
+# OUTPUT: output/Results/Mathematica_10/Real_Tests.json
+# Enter a real number:
+ok  1.23    ==>     1.23
+    ---
+    data:
+        got: 1.23
+        expect: 1.23
+        expect_evaluated: 1.23
+    ...
+# RefLink[Real,paclet:ref/Real] is the RefLink[Head,paclet:ref/Head] for real numbers:
+ok  Head[%]    ==>     Real # skip
+# Real numbers entered with just a few digits are generally represented as machine reals:
+ok  1.23456789    ==>     1.23457 # skip
+ok  MachineNumberQ[%]    ==>     True # skip
+# Enter a real number with many significant digits:
+ok  x = 9.87654321123456789987654321123456789`35.994604968173014*^17    ==>     9.87654321123456789987654321123456789`35.994604968173014*10^17
+    ---
+    data:
+        got: 9.87654321123456789987654321123456789`35.994604968173014*^17
+        expect: 9.87654321123456789987654321123456789`35.994604968173014*10^17
+        expect_evaluated: 9.87654321123456789987654321123456789`35.994604968173014*^17
+    ...
+# Arbitrary-precision reals are used when too many digits are given for a machine number:
+ok  MachineNumberQ[x]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# Its RefLink[Accuracy,paclet:ref/Accuracy] is based on the number of digits to the right of the decimal point:
+ok  Accuracy[%%]    ==>     18. # skip
+# Enter a real number with a specified RefLink[Precision,paclet:ref/Precision]:
+ok  x = 1.`23.    ==>     1.`22.
+    ---
+    data:
+        got: 1.`23.
+        expect: 1.`22.
+        expect_evaluated: 1.`22.
+    ...
+ok  Precision[x]    ==>     23.
+    ---
+    data:
+        got: 23.
+        expect: 23.
+        expect_evaluated: 23.
+    ...
+# Enter a real number with a specified RefLink[Accuracy,paclet:ref/Accuracy]:
+ok  x = 0``12.    ==>     0./10^12
+    ---
+    data:
+        got: 0``12.
+        expect: 0./10^12
+        expect_evaluated: 0.
+    ...
+ok  Accuracy[x]    ==>     12.
+    ---
+    data:
+        got: 12.
+        expect: 12.
+        expect_evaluated: 12.
+    ...
+# Enter a real number with an exponent:
+ok  1.23*^45    ==>     1.23*10^45
+    ---
+    data:
+        got: 1.23*^45
+        expect: 1.23*10^45
+        expect_evaluated: 1.23*^45
+    ...
+# Enter a real number with an exponent and specified precision:
+ok  1.23`45.*^67    ==>     1.23`44.0899051114394*10^67
+    ---
+    data:
+        got: 1.23`45.*^67
+        expect: 1.23`44.0899051114394*10^67
+        expect_evaluated: 1.23`44.0899051114394*^67
+    ...
+# Enter a real number in binary:
+ok  21025.358366012573    ==>     21025.4 # skip
+# Enter a real number in binary with precision specified in terms of bits:
+ok  21025.3583660125732421875`30.102999566398122    ==>     21025.3583660125732421875`29.32274340685071
+    ---
+    data:
+        got: 21025.3583660125732421875`30.102999566398122
+        expect: 21025.3583660125732421875`29.32274340685071
+        expect_evaluated: 21025.3583660125732421875`29.32274340685071
+    ...
+ok  Precision[%]    ==>     30.103 # skip
+ok  %*Log[2, 10]    ==>     100. # skip
+# Enter a real number in hexadecimal:
+ok  4011.744827270508    ==>     4011.74 # skip
+# Enter a real number in base 35:
+ok  2.74967454112402596165414538191822888`35.43928129260896*^35    ==>     2.7496745411240259616541453819182289`34.43928129260896*10^35
+    ---
+    data:
+        got: 2.74967454112402596165414538191822888`35.43928129260896*^35
+        expect: 2.7496745411240259616541453819182289`34.43928129260896*10^35
+        expect_evaluated: 2.7496745411240259616541453819182289`34.43928129260896*^35
+    ...
+ok  MachineNumberQ[%]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# Format a real number using base 2:
+ok  BaseForm[1.2345, 2]    ==>     Subscript[1.001111000000100001`18.000482233338396, 2] # skip
+# _RefLink[Real,paclet:ref/Real] can be used to represent a real number in a pattern:
+ok  MatchQ[1.23, _Real]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# A rule that replaces real numbers with nearby rationals:
+ok  1.4142135623730951*E^(3.141592653589793*t) /. x_Real :> Rationalize[x, 0]    ==>     (77227930*E^(245850922*(t/78256779)))/54608393
+    ---
+    data:
+        got: (77227930*E^((245850922*t)/78256779))/54608393
+        expect: (77227930*E^(245850922*(t/78256779)))/54608393
+        expect_evaluated: (77227930*E^((245850922*t)/78256779))/54608393
+    ...
+ok  MatrixQ[m, MatchQ[#1, _Real] & ]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  MatrixQ[N[m], MatchQ[#1, _Real] & ]    ==>     True # skip
+# Divide a restaurant bill to the nearest penny:
+ok  123.5/7 /. rule    ==>     17.64 # skip
+ok  {f[1.2], f[4]}    ==>     {3, f[4]} # skip
+ok  HoldComplete[Plot[f[x], {x, 0, 1}]]    ==>     $Failed # skip
+ok  sqrt[2.`47.]    ==>     1.4142135623730950488016887242096980785696718754000000000001`46.150514997832 # skip
+ok  sqrt[2]    ==>     1.41421 # skip
+# Reals are numbers:
+ok  NumberQ[12.34]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# RefLink[Real,paclet:ref/Real] is used for approximate reals:
+ok  ExactNumberQ[12.34]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# Reals are atomic objects with no subexpressions:
+ok  AtomQ[12.34]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Use different formats for displaying a real number: 
+ok  r = -Pi^10.    ==>     -93648. # skip
+ok  Table[f[r], {f, {ScientificForm, EngineeringForm, AccountingForm}}]    ==>     {-9.3648*10^4, -93.648*10^3, 93648.} # skip
+# Use RefLink[Reals,paclet:ref/Reals] in assumptions and to indicate domain conditions: 
+ok  Reduce[x*Log[x] < 1, x, Reals]    ==>     0 < x < E^ProductLog[1] # skip
+# RefLink[Real,paclet:ref/Real] is only the head for approximate real numbers:
+ok  MatchQ[3/4, Real]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  realAxisQ[3/4]    ==>     True # skip

@@ -1,0 +1,145 @@
+# SYSTEM: Mathematica_10
+# TEST: LeafCount_Tests
+# OUTPUT: output/Results/Mathematica_10/LeafCount_Tests.json
+# Find the number of "leaves" in an expression tree:
+ok  LeafCount[1 + a + b^2]    ==>     6
+    ---
+    data:
+        got: 6
+        expect: 6
+        expect_evaluated: 6
+    ...
+ok  Level[1 + a + b^2, {-1}, Heads -> True]    ==>     {Plus, 1, a, Power, b, 2}
+    ---
+    data:
+        got: {Plus, 1, a, Power, b, 2}
+        expect: {Plus, 1, a, Power, b, 2}
+        expect_evaluated: {Plus, 1, a, Power, b, 2}
+    ...
+# Find leafcount measures of the sizes of successive integrals:
+ok  Table[LeafCount[Integrate[1/(x^n - 1), x]], {n, 10}]    ==>     {4, 17, 39, 23, 146, 73, 164, 97, 184, 287} # skip
+# Make RefLink[Simplify,paclet:ref/Simplify] pick expressions with minimum RefLink[LeafCount,paclet:ref/LeafCount]:
+ok  Simplify[4*Log[10]]    ==>     4*Log[10]
+    ---
+    data:
+        got: 4*Log[10]
+        expect: 4*Log[10]
+        expect_evaluated: 4*Log[10]
+    ...
+ok  Simplify[4*Log[10], ComplexityFunction -> LeafCount]    ==>     Log[10000]
+    ---
+    data:
+        got: Log[10000]
+        expect: Log[10000]
+        expect_evaluated: Log[10000]
+    ...
+# Find leafcounts in combinator expressions WebLink[[more info]:,http://www.wolframscience.com/nksonline/page-1122a-text]
+ok  NestList[#1 /. s[x_][y_][z_] -> x[z][y[z]] & , s[s][s][s[s]][s][s], 4]    ==>     {s[s][s][s[s]][s][s], s[s[s]][s[s[s]]][s][s], s[s][s][s[s[s]][s]][s], s[s[s[s]][s]][s[s[s[s]][s]]][s], s[s[s]][s][s][s[s[s[s]][s]][s]]}
+    ---
+    data:
+        got: {s[s][s][s[s]][s][s], s[s[s]][s[s[s]]][s][s], s[s][s][s[s[s]][s]][s], s[s[s[s]][s]][s[s[s[s]][s]]][s], s[s[s]][s][s][s[s[s[s]][s]][s]]}
+        expect: {s[s][s][s[s]][s][s], s[s[s]][s[s[s]]][s][s], s[s][s][s[s[s]][s]][s], s[s[s[s]][s]][s[s[s[s]][s]]][s], s[s[s]][s][s][s[s[s[s]][s]][s]]}
+        expect_evaluated: {s[s][s][s[s]][s][s], s[s[s]][s[s[s]]][s][s], s[s][s][s[s[s]][s]][s], s[s[s[s]][s]][s[s[s[s]][s]]][s], s[s[s]][s][s][s[s[s[s]][s]][s]]}
+    ...
+ok  LeafCount /@ %    ==>     {7, 8, 8, 11, 11} # skip
+# RefLink[LeafCount,paclet:ref/LeafCount] includes the head and all elements inside it:
+ok  LeafCount[f[x, y]]    ==>     3
+    ---
+    data:
+        got: 3
+        expect: 3
+        expect_evaluated: 3
+    ...
+ok  LeafCount[f[a, b][x, y]]    ==>     5
+    ---
+    data:
+        got: 5
+        expect: 5
+        expect_evaluated: 5
+    ...
+# For most expressions, RefLink[LeafCount,paclet:ref/LeafCount] equals the count matching RefLink[Blank,paclet:ref/Blank][] at level {-1}:
+ok  LeafCount[1 + a + b^2]    ==>     6
+    ---
+    data:
+        got: 6
+        expect: 6
+        expect_evaluated: 6
+    ...
+ok  Count[1 + a + b^2, _, {-1}, Heads -> True]    ==>     6
+    ---
+    data:
+        got: 6
+        expect: 6
+        expect_evaluated: 6
+    ...
+# RefLink[LeafCount,paclet:ref/LeafCount] counts RefLink[Rational,paclet:ref/Rational] and RefLink[Complex,paclet:ref/Complex] numbers using their RefLink[FullForm,paclet:ref/FullForm]:
+ok  FullForm[{1/2, 1 + I}]    ==>     {Rational[1, 2], Complex[1, 1]} # skip
+ok  LeafCount[{1/2, 1 + I}]    ==>     7
+    ---
+    data:
+        got: 7
+        expect: 7
+        expect_evaluated: 7
+    ...
+# RefLink[Count,paclet:ref/Count] treats RefLink[Rational,paclet:ref/Rational] and RefLink[Complex,paclet:ref/Complex] as atoms:
+ok  AtomQ /@ {1/2, 1 + I}    ==>     {True, True}
+    ---
+    data:
+        got: {True, True}
+        expect: {True, True}
+        expect_evaluated: {True, True}
+    ...
+ok  Count[{1/2, 1 + I}, _, {-1}, Heads -> True]    ==>     3
+    ---
+    data:
+        got: 3
+        expect: 3
+        expect_evaluated: 3
+    ...
+# RefLink[LeafCount,paclet:ref/LeafCount] is based on the RefLink[FullForm,paclet:ref/FullForm] of expressions:
+ok  Sqrt[x]    ==>     Sqrt[x]
+    ---
+    data:
+        got: Sqrt[x]
+        expect: Sqrt[x]
+        expect_evaluated: Sqrt[x]
+    ...
+ok  LeafCount[Sqrt[x]]    ==>     5
+    ---
+    data:
+        got: 5
+        expect: 5
+        expect_evaluated: 5
+    ...
+ok  FullForm[Sqrt[x]]    ==>     Sqrt[x] # skip
+# RefLink[LeafCount,paclet:ref/LeafCount] counts elements in rational and complex numbers just as in RefLink[FullForm,paclet:ref/FullForm]:
+ok  LeafCount[10 + I]    ==>     3
+    ---
+    data:
+        got: 3
+        expect: 3
+        expect_evaluated: 3
+    ...
+ok  FullForm[10 + I]    ==>     Complex[10, 1] # skip
+# Integers of any size are still treated as single expression leaves:
+ok  LeafCount[1000!]    ==>     1
+    ---
+    data:
+        got: 1
+        expect: 1
+        expect_evaluated: 1
+    ...
+# RefLink[LeafCount,paclet:ref/LeafCount] treats RefLink[SparseArray,paclet:ref/SparseArray] objects as single expression leaves:
+ok  HoldComplete[SparseArray[{a, b, c, d}]]    ==>     $Failed # skip
+ok  LeafCount[%]    ==>     1 # skip
+# Unlike RefLink[TreeForm,paclet:ref/TreeForm], RefLink[LeafCount,paclet:ref/LeafCount] takes into consideration the structure of expression heads:
+ok  HoldComplete[TreeForm[f[a[b]][c, d]]]    ==>     $Failed # skip
+ok  LeafCount[f[a[b]][c, d]]    ==>     5
+    ---
+    data:
+        got: 5
+        expect: 5
+        expect_evaluated: 5
+    ...
+# This shows the expression tree whose leaves are counted by RefLink[LeafCount,paclet:ref/LeafCount]:
+ok  HoldComplete[LayeredGraphPlot[{f[a[b]][c, d] -> f[a[b]], f[a[b]][c, d] -> c, f[a[b]][c, d] -> d, f[a[b]] -> f, f[a[b]] -> a[b], a[b] -> a, a[b] -> b}, VertexLabeling -> True, DirectedEdges -> True, VertexCoordinateRules -> {{0, 0}, {-1, -1}, {0, -1}, {1, -1}, {-2, -2}, {0, -2}, {-1, -3}, {1, -3}}]]    ==>     $Failed # skip

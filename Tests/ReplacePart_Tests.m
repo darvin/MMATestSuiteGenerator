@@ -1,0 +1,117 @@
+(* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
+Import["CompatTests.m"]; 
+TapSuite[TapComment["Replace part 3:"], 
+ TapTestSame[ReplacePart[{a, b, c, d, e}, 3 -> xxx], {a, b, xxx, d, e}], 
+ TapComment["Replace parts 2 and 5:"], 
+ TapTestSame[ReplacePart[{a, b, c, d, e}, {2 -> xx, 5 -> yy}], 
+  {a, xx, c, d, yy}], TapComment["Replace part {2,1} of an array:"], 
+ TapTestSame[ReplacePart[{{a, b}, {c, d}}, {2, 1} -> xx], {{a, b}, {xx, d}}], 
+ TapComment["Replace parts whose positions match a pattern:"], 
+ TapTestSame[ReplacePart[{{a, b}, {c, d}}, {i_, i_} -> xx], 
+  {{xx, b}, {c, xx}}], TapComment["Replace parts in any expression:"], 
+ TapTestSame[ReplacePart[a + b + c^n, {{3, 2} -> x + y, 2 -> b^100}], 
+  a + b^100 + c^(x + y)], TapComment["Replace a part 3 from the end:"], 
+ TapTestSame[ReplacePart[{a, b, c, d, e, f, g}, -3 -> xxx], 
+  {a, b, c, d, xxx, f, g}], 
+ TapComment["Replace several parts by the same expression:"], 
+ TapTestSame[ReplacePart[{a, b, c, d, e, f, g}, {{1}, {3}, {5}} -> xxx], 
+  {xxx, b, xxx, d, xxx, f, g}], 
+ TapComment["Part specifications can be patterns:"], 
+ TapTestSame[ReplacePart[{a, b, c, d, e, f, g}, 1 | 3 | 5 -> xxx], 
+  {xxx, b, xxx, d, xxx, f, g}], 
+ TapComment["Replace every part except those with indices 1, 3, or 5:"], 
+ TapTestSame[ReplacePart[{a, b, c, d, e, f, g}, Except[1 | 3 | 5] -> xxx], 
+  {a, xxx, c, xxx, e, xxx, xxx}], 
+ TapComment["Replace every part whose index is even:"], 
+ TapTestSame[ReplacePart[{a, b, c, d, e, f, g}, _?EvenQ -> xxx], 
+  {a, xxx, c, xxx, e, xxx, g}], 
+ TapComment["Replace all elements in the first sublist:"], 
+ TapTestSame[ReplacePart[{{a, b, c}, {d, e}, {f}}, {1, _} -> xx], 
+  {{xx, xx, xx}, {d, e}, {f}}], 
+ TapComment["Replace the last element in each sublist:"], 
+ TapTestSame[ReplacePart[{{a, b, c}, {d, e}, {f}}, {_, -1} -> xx], 
+  {{a, b, xx}, {d, xx}, {xx}}], 
+ TapComment["Replace elements on the diagonal:"], 
+ TapTestSame[ReplacePart[{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}, {i_, i_} -> x], 
+  {{x, 0, 0}, {0, x, 0}, {0, 0, x}}], TapComment["Part specification patterns \
+can contain variables that are used in the replacements:"], 
+ TapTestSame[ReplacePart[{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}, 
+   {i_, i_} -> f[i]], {{f[1], 0, 0}, {0, f[2], 0}, {0, 0, f[3]}}], 
+ TapComment["Patterns can represent part lists of variable length: "], 
+ TapTestSame[ReplacePart[{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}, 
+   {___, 2, ___} -> x], {{0, x, 0}, x, {0, x, 0}}], 
+ TapTestSame[ReplacePart[{{a, b, c}, {d, e}, {f}}, i__ -> s[i]], 
+  {s[1], s[2], s[3]}], TapComment["The right-hand side of the rule is \
+evaluated separately for each replacement done:"], 
+ TapTestSameBROKEN[ReplacePart[{{a, b}, {c, d}}, {i_, i_} :> RandomReal[]], 
+  {{0.519879, b}, {c, 0.319308}}], TapComment["RefLink[ReplacePart,paclet:ref\
+/ReplacePart] works with RefLink[SparseArray,paclet:ref/SparseArray] \
+objects:"], TapTestSameBROKEN[HoldComplete[
+   ReplacePart[SparseArray[5 -> a, 10], 7 -> b]], $Failed], 
+ TapTestSameBROKEN[Normal[%], {0, 0, 0, 0, a, 0, b, 0, 0, 0}], 
+ TapComment["RefLink[ReplacePart,paclet:ref/ReplacePart] works on heads:"], 
+ TapTestSame[ReplacePart[f[x, y], 0 -> g], g[x, y]], 
+ TapTestSame[ReplacePart[f[g][x, y], {0, 1} -> hh], f[hh][x, y]], 
+ TapComment["Replace all heads by RefLink[List,paclet:ref/List]:"], 
+ TapTestSame[ReplacePart[a*x^2 + y^2 + c*z^2, {___, 0} -> List], 
+  {{a, {x, 2}}, {y, 2}, {c, {z, 2}}}], 
+ TapComment["Replace all ordinary parts, but not heads:"], 
+ TapTestSame[ReplacePart[f[x, y], _ -> g], f[g, g]], 
+ TapComment["Also replace heads:"], 
+ TapTestSame[ReplacePart[f[x, y], _ -> g, Heads -> True], g[g, g]], 
+ TapComment["Never replace heads:"], 
+ TapTestSame[ReplacePart[f[x, y], 0 -> g, Heads -> False], f[x, y]], 
+ TapComment["Border a matrix with x's:"], 
+ TapTestSameBROKEN[MatrixForm[ReplacePart[IdentityMatrix[5], 
+    {_, 1 | 5} -> x]], x*0*0*0*x*x*1*0*0*x*x*0*1*0*x*x*0*0*1*x*x*0*0*0*x], 
+ TapComment["Highlight two squares in an array:"], 
+ TapTestSameBROKEN[HoldComplete[ArrayPlot[ReplacePart[Array[GCD, {15, 15}], 
+     {{6, 6}, {12, 12}} -> Red]]], $Failed], 
+ TapComment["Generate a difference pattern for two cellular automaton initial \
+conditions differing by one bit:"], TapTestSameBROKEN[
+  HoldComplete[With[{u = RandomInteger[1, 100]}, 
+    ArrayPlot[Sum[(-1)^i*CellularAutomaton[30, ReplacePart[u, 50 -> i], 50], 
+      {i, 0, 1}]]]], $Failed], 
+ TapComment["Insert a black cell at a random position at each step:"], 
+ TapTestSameBROKEN[HoldComplete[
+   ArrayPlot[NestList[ReplacePart[#1, RandomInteger[{1, 30}] -> 1] & , 
+     Table[0, {30}], 20], Mesh -> All]], $Failed], 
+ TapComment["Successively replace parts of a list:"], 
+ TapTestSame[FoldList[ReplacePart[#1, #2 -> x] & , {a, b, c, d, e}, 
+   {5, 2, 3, 1, 4}], {{a, b, c, d, e}, {a, b, c, d, x}, {a, x, c, d, x}, 
+   {a, x, x, d, x}, {x, x, x, d, x}, {x, x, x, x, x}}], 
+ TapComment["Successively replace disks in a graphic by circles:"], 
+ TapTestSameBROKEN[HoldComplete[
+   g = Graphics[{Gray, Table[Disk[RandomReal[5, 2]], {5}]}, 
+     ImageSize -> Tiny]], $Failed], TapTestSame[Position[g, Disk], 
+  {{1, 2, 1, 0}, {1, 2, 2, 0}, {1, 2, 3, 0}, {1, 2, 4, 0}, {1, 2, 5, 0}}], 
+ TapTestSameBROKEN[HoldComplete[FoldList[ReplacePart[#1, #2 -> Circle] & , g, 
+    %]], $Failed], TapComment["Successively replace entries in a 2D array:"], 
+ TapTestSameBROKEN[HoldComplete[
+   (ArrayPlot[#1, Mesh -> True, ImageSize -> 50] & ) /@ 
+    NestList[ReplacePart[#1, RandomInteger[{1, 5}, {2}] -> 1] & , 
+     ConstantArray[0, {5, 5}], 10]], $Failed], 
+ TapComment["Replace elements whose indices are not relatively prime:"], 
+ TapTestSame[ReplacePart[ConstantArray[0, {5, 5}], 
+   {x_, y_} /; CoprimeQ[x, y] -> x + y], {{2, 3, 4, 5, 6}, {3, 0, 5, 0, 7}, 
+   {4, 5, 0, 7, 8}, {5, 0, 7, 0, 9}, {6, 7, 8, 9, 0}}], 
+ TapComment[
+  "RefLink[ReplacePart,paclet:ref/ReplacePart] uses rules in the order \
+given:"], TapTestSame[ReplacePart[{a, b, c, d, e}, {3 -> u, _ -> x}], 
+  {x, x, u, x, x}], TapComment["RefLink[ReplacePart,paclet:ref/ReplacePart] \
+takes lists of positions in the same form as generated by \
+RefLink[Position,paclet:ref/Position]:"], 
+ TapTestSame[Position[{a, b, x, c, d, x, e}, x], {{3}, {6}}], 
+ TapTestSame[ReplacePart[{a, b, x, c, d, x, e}, {{3}, {6}} -> yy], 
+  {a, b, yy, c, d, yy, e}], TapComment["RefLink[ReplacePart,paclet:ref/Replac\
+ePart] takes the same part rules as \
+RefLink[SparseArray,paclet:ref/SparseArray]:"], 
+ TapTestSame[Normal[SparseArray[{1 -> x, 5 -> y}, 10]], 
+  {x, 0, 0, 0, y, 0, 0, 0, 0, 0}], 
+ TapTestSame[ReplacePart[Array[0 & , 10], {1 -> x, 5 -> y}], 
+  {x, 0, 0, 0, y, 0, 0, 0, 0, 0}], TapComment["RefLink[ReplacePart,paclet:ref\
+/ReplacePart] only affects parts that are already present:"], 
+ TapTestSame[ReplacePart[{a, b, c, d}, 5 -> x], {a, b, c, d}], 
+ TapComment["Particularly in an RefLink[Orderless,paclet:ref/Orderless] \
+function, the order of parts may change when they are replaced:"], 
+ TapTestSame[ReplacePart[ReplacePart[a + b + c, 1 -> x], 3 -> y], b + c + y]]

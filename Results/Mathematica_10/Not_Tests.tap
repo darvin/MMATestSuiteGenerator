@@ -1,0 +1,115 @@
+# SYSTEM: Mathematica_10
+# TEST: Not_Tests
+# OUTPUT: output/Results/Mathematica_10/Not_Tests.json
+# Negate assertions:
+ok   !x > 1    ==>     x <= 1
+    ---
+    data:
+        got: x <= 1
+        expect: x <= 1
+        expect_evaluated: x <= 1
+    ...
+# Symbolic negation:
+ok   !x    ==>      !x
+    ---
+    data:
+        got:  !x
+        expect:  !x
+        expect_evaluated:  !x
+    ...
+# Enter using Esc\[ThinSpace]not\[ThinSpace]Esc:
+ok   !p    ==>      !p
+    ---
+    data:
+        got:  !p
+        expect:  !p
+        expect_evaluated:  !p
+    ...
+# Double negation simplifies to the identity:
+ok   !( !a)    ==>     a
+    ---
+    data:
+        got: a
+        expect: a
+        expect_evaluated: a
+    ...
+# Negate equations and inequalities:
+ok   !a == b    ==>     a != b
+    ---
+    data:
+        got: a != b
+        expect: a != b
+        expect_evaluated: a != b
+    ...
+ok   !a >= b    ==>     a < b
+    ---
+    data:
+        got: a < b
+        expect: a < b
+        expect_evaluated: a < b
+    ...
+# Negate quantifiers:
+ok  HoldComplete[ !Exists[x, f[x]]]    ==>     $Failed # skip
+ok  HoldComplete[ !ForAll[x, f[x]]]    ==>     $Failed # skip
+# RefLink[TraditionalForm,paclet:ref/TraditionalForm] formatting:
+ok   !x    ==>      !x # skip
+# Negate conditions in Wolfram Language code:
+ok  Select[{1, Pi, 2.3, 3 + 7*I, x},  !NumberQ[#1] & ]    ==>     {Pi, x}
+    ---
+    data:
+        got: {Pi, x}
+        expect: {Pi, x}
+        expect_evaluated: {Pi, x}
+    ...
+# Find the area of the complement of a set given by algebraic conditions:
+ok  Integrate[Boole[ !y^2 - 4*x^2 + 4*x^4 <= 0], {x, -1, 1}, {y, -1, 1}]    ==>     4/3
+    ---
+    data:
+        got: 4/3
+        expect: 4/3
+        expect_evaluated: 4/3
+    ...
+# This shows the set:
+ok  HoldComplete[RegionPlot[ !y^2 - 4*x^2 + 4*x^4 <= 0, {x, -1, 1}, {y, -1, 1}]]    ==>     $Failed # skip
+# Truth table for RefLink[Not,paclet:ref/Not]:
+ok  TableForm[Not /@ {False, True}]    ==>     True*False # skip
+# Use RefLink[BooleanConvert,paclet:ref/BooleanConvert] to simplify the negation of RefLink[Implies,paclet:ref/Implies]:
+ok  BooleanConvert[ !Implies[a, b]]    ==>     a &&  !b
+    ---
+    data:
+        got: a &&  !b
+        expect: a &&  !b
+        expect_evaluated: a &&  !b
+    ...
+# De Morgan's laws relate RefLink[And,paclet:ref/And], RefLink[Or,paclet:ref/Or], and RefLink[Not,paclet:ref/Not]:
+ok  BooleanConvert[ !(a && b)]    ==>      !a ||  !b
+    ---
+    data:
+        got:  !a ||  !b
+        expect:  !a ||  !b
+        expect_evaluated:  !a ||  !b
+    ...
+ok  BooleanConvert[ !(a || b || c)]    ==>      !a &&  !b &&  !c
+    ---
+    data:
+        got:  !a &&  !b &&  !c
+        expect:  !a &&  !b &&  !c
+        expect_evaluated:  !a &&  !b &&  !c
+    ...
+# Negation of the condition for RefLink[Boole,paclet:ref/Boole] function:
+ok  Boole[ !a] == 1 - Boole[a]    ==>     Boole[ !a] == 1 - Boole[a]
+    ---
+    data:
+        got: Boole[ !a] == 1 - Boole[a]
+        expect: Boole[ !a] == 1 - Boole[a]
+        expect_evaluated: Boole[ !a] == 1 - Boole[a]
+    ...
+ok  Simplify[%]    ==>     True # skip
+# Use parentheses to ensure ! beginning a line is not taken as a shell escape when using a terminal interface: 
+ok   !True    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...

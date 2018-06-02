@@ -1,0 +1,123 @@
+# SYSTEM: Mathematica_10
+# TEST: E_Tests
+# OUTPUT: output/Results/Mathematica_10/E_Tests.json
+# RefLink[E,paclet:ref/E] can be entered as Esc\[ThinSpace]ee\[ThinSpace]Esc (for "exponential e"):
+ok  E    ==>     E
+    ---
+    data:
+        got: E
+        expect: E
+        expect_evaluated: E
+    ...
+# Evaluate to any precision:
+ok  N[E, 50]    ==>     2.7182818284590452353602874713526624977572470937`49.43429448190326
+    ---
+    data:
+        got: 2.718281828459045235360287471352662497757247093699959574958422296476`50.
+        expect: 2.7182818284590452353602874713526624977572470937`49.43429448190326
+        expect_evaluated: 2.7182818284590452353602874713526624977572470937`49.43429448190326
+    ...
+# Do an exact numerical computation:
+ok  Round[E^100]    ==>     26881171418161354484126255515800135873611119
+    ---
+    data:
+        got: 26881171418161354484126255515800135873611119
+        expect: 26881171418161354484126255515800135873611119
+        expect_evaluated: 26881171418161354484126255515800135873611119
+    ...
+# The first 20 digits of E in base 10:
+ok  RealDigits[E, 10, 20]    ==>     {{2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4, 5, 9, 0, 4, 5, 2, 3, 5, 3}, 1}
+    ---
+    data:
+        got: {{2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4, 5, 9, 0, 4, 5, 2, 3, 5, 3}, 1}
+        expect: {{2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4, 5, 9, 0, 4, 5, 2, 3, 5, 3}, 1}
+        expect_evaluated: {{2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4, 5, 9, 0, 4, 5, 2, 3, 5, 3}, 1}
+    ...
+# E has a very regular continued fraction:
+ok  ContinuedFraction[E, 20]    ==>     {2, 1, 2, 1, 1, 4, 1, 1, 6, 1, 1, 8, 1, 1, 10, 1, 1, 12, 1, 1}
+    ---
+    data:
+        got: {2, 1, 2, 1, 1, 4, 1, 1, 6, 1, 1, 8, 1, 1, 10, 1, 1, 12, 1, 1}
+        expect: {2, 1, 2, 1, 1, 4, 1, 1, 6, 1, 1, 8, 1, 1, 10, 1, 1, 12, 1, 1}
+        expect_evaluated: {2, 1, 2, 1, 1, 4, 1, 1, 6, 1, 1, 8, 1, 1, 10, 1, 1, 12, 1, 1}
+    ...
+# Evaluate symbolic relations involving E:
+ok  E^Pi > Pi^E    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Mathematical functions and operations often give results involving E:
+ok  Limit[(1 + z)^(1/z), z -> 0]    ==>     E
+    ---
+    data:
+        got: E
+        expect: E
+        expect_evaluated: E
+    ...
+# Solve the Steiner problem:
+ok  Maximize[{x^(1/x), x > 0}, x]    ==>     {E^(1/E), {x -> E}}
+    ---
+    data:
+        got: {E^E^(-1), {x -> E}}
+        expect: {E^(1/E), {x -> E}}
+        expect_evaluated: {E^E^(-1), {x -> E}}
+    ...
+# RefLink[Exp,paclet:ref/Exp][z] is automatically converted to E^z:
+ok  Exp[z]    ==>     E^z
+    ---
+    data:
+        got: E^z
+        expect: E^z
+        expect_evaluated: E^z
+    ...
+# E is not an algebraic number:
+ok  Element[E, Algebraics]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# Use RefLink[TrigToExp,paclet:ref/TrigToExp] to obtain RefLink[E,paclet:ref/E] from hyperbolic and trigonometric functions: 
+ok  TrigToExp[Sinh[1]]    ==>     -(1/(2*E)) + E/2
+    ---
+    data:
+        got: -1/(2*E) + E/2
+        expect: -(1/(2*E)) + E/2
+        expect_evaluated: -1/(2*E) + E/2
+    ...
+# Find twenty base-10 digits after the millionth one:
+ok  RealDigits[E, 10, 20, -1000000]    ==>     {{8, 8, 3, 7, 4, 7, 1, 1, 5, 1, 5, 6, 2, 3, 9, 6, 8, 2, 7, 1}, -999999}
+    ---
+    data:
+        got: {{8, 8, 3, 7, 4, 7, 1, 1, 5, 1, 5, 6, 2, 3, 9, 6, 8, 2, 7, 1}, -999999}
+        expect: {{8, 8, 3, 7, 4, 7, 1, 1, 5, 1, 5, 6, 2, 3, 9, 6, 8, 2, 7, 1}, -999999}
+        expect_evaluated: {{8, 8, 3, 7, 4, 7, 1, 1, 5, 1, 5, 6, 2, 3, 9, 6, 8, 2, 7, 1}, -999999}
+    ...
+# E arises in many limiting results:
+ok  Limit[z^z/(z - 1)^(z - 1) - (z - 1)^(z - 1)/(z - 2)^(z - 2), z -> Infinity]    ==>     E
+    ---
+    data:
+        got: E
+        expect: E
+        expect_evaluated: E
+    ...
+ok  Sum[1/k!, {k, 0, Infinity}]    ==>     E
+    ---
+    data:
+        got: E
+        expect: E
+        expect_evaluated: E
+    ...
+ok  FullSimplify[Sum[(2*k + 1)/(2*k)!, {k, 0, Infinity}]]    ==>     E
+    ---
+    data:
+        got: E
+        expect: E
+        expect_evaluated: E
+    ...
+# Weyl-type sum involving RefLink[E,paclet:ref/E]:
+ok  HoldComplete[ListLinePlot[({Re[#1], Im[#1]} & ) /@ Accumulate[Exp[I*10.^3*E*Sqrt[Range[2000]]]]]]    ==>     $Failed # skip

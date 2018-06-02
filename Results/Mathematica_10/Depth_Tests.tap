@@ -1,0 +1,154 @@
+# SYSTEM: Mathematica_10
+# TEST: Depth_Tests
+# OUTPUT: output/Results/Mathematica_10/Depth_Tests.json
+ok  Depth[a]    ==>     1
+    ---
+    data:
+        got: 1
+        expect: 1
+        expect_evaluated: 1
+    ...
+ok  Depth[{a}]    ==>     2
+    ---
+    data:
+        got: 2
+        expect: 2
+        expect_evaluated: 2
+    ...
+ok  Depth[{{{a}}}]    ==>     4
+    ---
+    data:
+        got: 4
+        expect: 4
+        expect_evaluated: 4
+    ...
+ok  Depth[{{{a}, b}}]    ==>     4
+    ---
+    data:
+        got: 4
+        expect: 4
+        expect_evaluated: 4
+    ...
+# Depth of an RefLink[Association,paclet:ref/Association]:
+ok  Depth[<| 1 -> a |>]    ==>     2
+    ---
+    data:
+        got: 2
+        expect: 2
+        expect_evaluated: 2
+    ...
+ok  Depth[<| 1 -> {a} |>]    ==>     3
+    ---
+    data:
+        got: 3
+        expect: 3
+        expect_evaluated: 3
+    ...
+# Depth of a nested RefLink[Association,paclet:ref/Association]:
+ok  Depth[<| 1 -> <| 2 -> 3 |> |>]    ==>     3
+    ---
+    data:
+        got: 3
+        expect: 3
+        expect_evaluated: 3
+    ...
+# RefLink[Depth,paclet:ref/Depth] works on any expression, not just lists:
+ok  Depth[1 + x + x^2 + x^5]    ==>     3
+    ---
+    data:
+        got: 3
+        expect: 3
+        expect_evaluated: 3
+    ...
+# RefLink[Depth,paclet:ref/Depth] does not distinguish heads:
+ok  Depth[f[g[h[x]]]]    ==>     4
+    ---
+    data:
+        got: 4
+        expect: 4
+        expect_evaluated: 4
+    ...
+# All numbers have depth 1:
+ok  Depth[12345]    ==>     1
+    ---
+    data:
+        got: 1
+        expect: 1
+        expect_evaluated: 1
+    ...
+ok  Depth[3 + I]    ==>     1
+    ---
+    data:
+        got: 1
+        expect: 1
+        expect_evaluated: 1
+    ...
+# RefLink[Depth,paclet:ref/Depth] works with RefLink[SparseArray,paclet:ref/SparseArray] objects:
+ok  HoldComplete[SparseArray[{{{{x}}}}]]    ==>     $Failed # skip
+ok  Depth[%]    ==>     5 # skip
+# Find how deeply nested results from integrals are:
+ok  Table[Depth[Integrate[1/(x^n - 1), x]], {n, 10}]    ==>     {3, 5, 7, 5, 10, 8, 8, 8, 9, 10} # skip
+# Find the depths of combinator expressions WebLink[[more info]:,http://www.wolframscience.com/nksonline/page-1122a-text]
+ok  NestList[#1 /. s[x_][y_][z_] -> x[z][y[z]] & , s[s][s][s[s]][s][s], 4]    ==>     {s[s][s][s[s]][s][s], s[s[s]][s[s[s]]][s][s], s[s][s][s[s[s]][s]][s], s[s[s[s]][s]][s[s[s[s]][s]]][s], s[s[s]][s][s][s[s[s[s]][s]][s]]}
+    ---
+    data:
+        got: {s[s][s][s[s]][s][s], s[s[s]][s[s[s]]][s][s], s[s][s][s[s[s]][s]][s], s[s[s[s]][s]][s[s[s[s]][s]]][s], s[s[s]][s][s][s[s[s[s]][s]][s]]}
+        expect: {s[s][s][s[s]][s][s], s[s[s]][s[s[s]]][s][s], s[s][s][s[s[s]][s]][s], s[s[s[s]][s]][s[s[s[s]][s]]][s], s[s[s]][s][s][s[s[s[s]][s]][s]]}
+        expect_evaluated: {s[s][s][s[s]][s][s], s[s[s]][s[s[s]]][s][s], s[s][s][s[s[s]][s]][s], s[s[s[s]][s]][s[s[s[s]][s]]][s], s[s[s]][s][s][s[s[s[s]][s]][s]]}
+    ...
+ok  Depth /@ %    ==>     {2, 2, 2, 2, 3} # skip
+ok  Depth /@ NestList[#1 /. s[x_][y_][z_] -> x[z][y[z]] & , s[s][s][s[s]][s][s], 30]    ==>     {2, 2, 2, 2, 3, 3, 3, 4, 5, 6, 6, 6, 7, 8, 8, 8, 9, 10, 11, 11, 11, 12, 13, 13, 13, 14, 14, 14, 14, 14, 14}
+    ---
+    data:
+        got: {2, 2, 2, 2, 3, 3, 3, 4, 5, 6, 6, 6, 7, 8, 8, 8, 9, 10, 11, 11, 11, 12, 13, 13, 13, 14, 14, 14, 14, 14, 14}
+        expect: {2, 2, 2, 2, 3, 3, 3, 4, 5, 6, 6, 6, 7, 8, 8, 8, 9, 10, 11, 11, 11, 12, 13, 13, 13, 14, 14, 14, 14, 14, 14}
+        expect_evaluated: {2, 2, 2, 2, 3, 3, 3, 4, 5, 6, 6, 6, 7, 8, 8, 8, 9, 10, 11, 11, 11, 12, 13, 13, 13, 14, 14, 14, 14, 14, 14}
+    ...
+# RefLink[Depth,paclet:ref/Depth] gives the length of the maximum index, plus 1:
+ok  Position[(1 + x)*(2 + y^3), _]    ==>     {{0}, {1, 0}, {1, 1}, {1, 2}, {1}, {2, 0}, {2, 1}, {2, 2, 0}, {2, 2, 1}, {2, 2, 2}, {2, 2}, {2}, {}}
+    ---
+    data:
+        got: {{0}, {1, 0}, {1, 1}, {1, 2}, {1}, {2, 0}, {2, 1}, {2, 2, 0}, {2, 2, 1}, {2, 2, 2}, {2, 2}, {2}, {}}
+        expect: {{0}, {1, 0}, {1, 1}, {1, 2}, {1}, {2, 0}, {2, 1}, {2, 2, 0}, {2, 2, 1}, {2, 2, 2}, {2, 2}, {2}, {}}
+        expect_evaluated: {{0}, {1, 0}, {1, 1}, {1, 2}, {1}, {2, 0}, {2, 1}, {2, 2, 0}, {2, 2, 1}, {2, 2, 2}, {2, 2}, {2}, {}}
+    ...
+ok  Depth[(1 + x)*(2 + y^3)]    ==>     4
+    ---
+    data:
+        got: 4
+        expect: 4
+        expect_evaluated: 4
+    ...
+# Successive elements from RefLink[NestList,paclet:ref/NestList] have larger depths:
+ok  NestList[f, x, 5]    ==>     {x, f[x], f[f[x]], f[f[f[x]]], f[f[f[f[x]]]], f[f[f[f[f[x]]]]]}
+    ---
+    data:
+        got: {x, f[x], f[f[x]], f[f[f[x]]], f[f[f[f[x]]]], f[f[f[f[f[x]]]]]}
+        expect: {x, f[x], f[f[x]], f[f[f[x]]], f[f[f[f[x]]]], f[f[f[f[f[x]]]]]}
+        expect_evaluated: {x, f[x], f[f[x]], f[f[f[x]]], f[f[f[f[x]]]], f[f[f[f[f[x]]]]]}
+    ...
+ok  Depth /@ %    ==>     {1, 2, 3, 4, 5, 6} # skip
+# RefLink[Depth,paclet:ref/Depth] does not count depth in the head:
+ok  Depth[h[{{{a}}}][x, y]]    ==>     2
+    ---
+    data:
+        got: 2
+        expect: 2
+        expect_evaluated: 2
+    ...
+# RefLink[Depth,paclet:ref/Depth] counts an RefLink[Association,paclet:ref/Association] as a single level:
+ok  Depth[<| a -> x, b -> y |>]    ==>     2
+    ---
+    data:
+        got: 2
+        expect: 2
+        expect_evaluated: 2
+    ...
+# It counts a list of rules as two levels:
+ok  Depth[{a -> x, b -> y}]    ==>     3
+    ---
+    data:
+        got: 3
+        expect: 3
+        expect_evaluated: 3
+    ...

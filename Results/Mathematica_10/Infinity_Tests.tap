@@ -1,0 +1,184 @@
+# SYSTEM: Mathematica_10
+# TEST: Infinity_Tests
+# OUTPUT: output/Results/Mathematica_10/Infinity_Tests.json
+# Use as iterator limit:
+ok  Sum[1/n^2, {n, Infinity}]    ==>     Pi^2/6
+    ---
+    data:
+        got: Pi^2/6
+        expect: Pi^2/6
+        expect_evaluated: Pi^2/6
+    ...
+# Do arithmetic with infinite quantities:
+ok  1/Infinity    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+# Use Esc\[ThinSpace]inf\[ThinSpace]Esc to enter \[Infinity]:
+ok  Limit[1/x, x -> Infinity]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+# Series expansion at \[Infinity]:
+ok  Series[1/(x^2 + x + 1), {x, Infinity, 5}]    ==>     (1/x)^2 - (1/x)^3 + (1/x)^5 + O[1/x]^6 # skip
+# Infinite limits of integration and summation:
+ok  Integrate[Exp[-x^2], {x, -Infinity, Infinity}]    ==>     Sqrt[Pi]
+    ---
+    data:
+        got: Sqrt[Pi]
+        expect: Sqrt[Pi]
+        expect_evaluated: Sqrt[Pi]
+    ...
+ok  NIntegrate[Exp[-(x^4/(x^2 + 1))], {x, -Infinity, Infinity}]    ==>     2.31402 # skip
+ok  Sum[Exp[-n^2], {n, -Infinity, Infinity}]    ==>     EllipticTheta[3, 0, 1/E]
+    ---
+    data:
+        got: EllipticTheta[3, 0, E^(-1)]
+        expect: EllipticTheta[3, 0, 1/E]
+        expect_evaluated: EllipticTheta[3, 0, E^(-1)]
+    ...
+ok  NSum[Exp[-(n^4/(n^2 + 1))], {n, -Infinity, Infinity}]    ==>     2.29519 # skip
+# Extended arithmetic with infinite quantities:
+ok  Infinity*Infinity    ==>     Infinity
+    ---
+    data:
+        got: Infinity
+        expect: Infinity
+        expect_evaluated: Infinity
+    ...
+ok  2*Infinity - Infinity    ==>     Indeterminate
+    ---
+    data:
+        got: Indeterminate
+        expect: Indeterminate
+        expect_evaluated: Indeterminate
+    ...
+# In this case the result depends on the growth rates of the two terms:
+ok  Limit[2*t - (t^2 + 1), t -> Infinity]    ==>     -Infinity
+    ---
+    data:
+        got: -Infinity
+        expect: -Infinity
+        expect_evaluated: -Infinity
+    ...
+ok  Limit[2*t - (t + 1), t -> Infinity]    ==>     Infinity
+    ---
+    data:
+        got: Infinity
+        expect: Infinity
+        expect_evaluated: Infinity
+    ...
+# Use infinite quantities in predicates:
+ok  10^100 < Infinity    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Find values of mathematical functions at infinities:
+ok  Exp[-Infinity]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+ok  Exp[Infinity]    ==>     Infinity
+    ---
+    data:
+        got: Infinity
+        expect: Infinity
+        expect_evaluated: Infinity
+    ...
+# For some functions there is no definite limit, but a limiting interval:
+ok  Sin[Infinity]    ==>     Interval[{-1, 1}]
+    ---
+    data:
+        got: Interval[{-1, 1}]
+        expect: Interval[{-1, 1}]
+        expect_evaluated: Interval[{-1, 1}]
+    ...
+ok  Tan[Infinity]    ==>     Interval[{-Infinity, Infinity}]
+    ---
+    data:
+        got: Interval[{-Infinity, Infinity}]
+        expect: Interval[{-Infinity, Infinity}]
+        expect_evaluated: Interval[{-Infinity, Infinity}]
+    ...
+# In this case no limiting interval exists:
+ok  Exp[I*Infinity]    ==>     Indeterminate
+    ---
+    data:
+        got: Indeterminate
+        expect: Indeterminate
+        expect_evaluated: Indeterminate
+    ...
+# Mathematical functions can also return infinite quantities at finite points:
+ok  Log[0]    ==>     -Infinity
+    ---
+    data:
+        got: -Infinity
+        expect: -Infinity
+        expect_evaluated: -Infinity
+    ...
+ok  Gamma[0]    ==>     ComplexInfinity
+    ---
+    data:
+        got: ComplexInfinity
+        expect: ComplexInfinity
+        expect_evaluated: ComplexInfinity
+    ...
+# RefLink[Cases,paclet:ref/Cases] finds matches only at the first level by default:
+ok  e = x*Gamma[x] + (x + 1)*Gamma[x^2 + 1]    ==>     x*Gamma[x] + (1 + x)*Gamma[1 + x^2]
+    ---
+    data:
+        got: x*Gamma[x] + (1 + x)*Gamma[1 + x^2]
+        expect: x*Gamma[x] + (1 + x)*Gamma[1 + x^2]
+        expect_evaluated: x*Gamma[x] + (1 + x)*Gamma[1 + x^2]
+    ...
+ok  Cases[e, _Gamma]    ==>     {}
+    ---
+    data:
+        got: {}
+        expect: {}
+        expect_evaluated: {}
+    ...
+# Set the level to RefLink[Infinity,paclet:ref/Infinity] to include all levels:
+ok  Cases[e, _Gamma, Infinity]    ==>     {Gamma[x], Gamma[1 + x^2]}
+    ---
+    data:
+        got: {Gamma[x], Gamma[1 + x^2]}
+        expect: {Gamma[x], Gamma[1 + x^2]}
+        expect_evaluated: {Gamma[x], Gamma[1 + x^2]}
+    ...
+# Stirling's asymptotic approximation:
+ok  Series[n!, {n, Infinity, 2}]    ==>     E^(-1 - Log[1/n])*n + O[1/n]^3*(Sqrt[2*Pi]*Sqrt[n] + Sqrt[Pi/2]/(6*Sqrt[n]) + Sqrt[Pi/2]/(144*n^(3/2)) + O[1/n]^(5/2)) # skip
+# Setting the precision to RefLink[Infinity,paclet:ref/Infinity] will produce a rational approximation:
+ok  SetPrecision[3.14, Infinity]    ==>     7070651414971679/2251799813685248
+    ---
+    data:
+        got: 7070651414971679/2251799813685248
+        expect: 7070651414971679/2251799813685248
+        expect_evaluated: 7070651414971679/2251799813685248
+    ...
+ok  N[%]    ==>     3.14 # skip
+# Some functions require infinite precision or exact input:
+ok  CylindricalDecomposition[y^2 + 2.5*x^2 < 1.5, {x, y}]    ==>     CylindricalDecomposition[2.5*x^2 + y^2 < 1.5, {x, y}]
+    ---
+    data:
+        got: CylindricalDecomposition[2.5*x^2 + y^2 < 1.5, {x, y}]
+        expect: CylindricalDecomposition[2.5*x^2 + y^2 < 1.5, {x, y}]
+        expect_evaluated: CylindricalDecomposition[2.5*x^2 + y^2 < 1.5, {x, y}]
+    ...
+# Apply RefLink[SetPrecision,paclet:ref/SetPrecision] to the whole expression to rationalize all inexact numbers:
+ok  CylindricalDecomposition[SetPrecision[y^2 + 2.5*x^2 < 1.5, Infinity], {x, y}]    ==>     -Sqrt[3/5] < x < Sqrt[3/5] && -(Sqrt[3 - 5*x^2]/Sqrt[2]) < y < Sqrt[3 - 5*x^2]/Sqrt[2] # skip
+# Use an infinite RefLink[WorkingPrecision,paclet:ref/WorkingPrecision] in RefLink[Plot,paclet:ref/Plot]:
+ok  HoldComplete[Reap[Plot[2*x + 1, {x, 0, 1}, WorkingPrecision -> Infinity, EvaluationMonitor :> Sow[x], PlotPoints -> 3, MaxRecursion -> 0]]]    ==>     $Failed # skip
+ok  HoldComplete[Plot[Numerator[x], {x, 0, 10}, WorkingPrecision -> Infinity, PlotPoints -> 1000, MaxRecursion -> 0]]    ==>     $Failed # skip

@@ -1,0 +1,120 @@
+# SYSTEM: Mathematica_10
+# TEST: Complex_Tests
+# OUTPUT: output/Results/Mathematica_10/Complex_Tests.json
+# Enter a complex number:
+ok  1 + 2*I    ==>     1 + 2*I
+    ---
+    data:
+        got: 1 + 2*I
+        expect: 1 + 2*I
+        expect_evaluated: 1 + 2*I
+    ...
+# RefLink[Complex,paclet:ref/Complex] is the RefLink[Head,paclet:ref/Head] for complex numbers:
+ok  Head[%]    ==>     Complex # skip
+# Enter a purely imaginary number:
+ok  4*I    ==>     4*I
+    ---
+    data:
+        got: 4*I
+        expect: 4*I
+        expect_evaluated: 4*I
+    ...
+# Even though there is no real part it has RefLink[Head,paclet:ref/Head] RefLink[Complex,paclet:ref/Complex]:
+ok  Head[%]    ==>     Complex # skip
+# The RefLink[FullForm,paclet:ref/FullForm] of a complex number x+RefLink[I,paclet:ref/I]y is RefLink[Complex,paclet:ref/Complex][x,y]:
+ok  FullForm[1 + 2*I]    ==>     Complex[1, 2] # skip
+# Enter a complex number using the RefLink[FullForm,paclet:ref/FullForm]:
+ok  Complex[2, 1]    ==>     2 + I
+    ---
+    data:
+        got: 2 + I
+        expect: 2 + I
+        expect_evaluated: 2 + I
+    ...
+# If the imaginary part is exactly zero, then the result is not RefLink[Complex,paclet:ref/Complex]:
+ok  Complex[2, 0]    ==>     2
+    ---
+    data:
+        got: 2
+        expect: 2
+        expect_evaluated: 2
+    ...
+ok  Head[%]    ==>     Integer # skip
+ok  {Re[x], Im[x]}    ==>     {1, 2} # skip
+# RefLink[Part,paclet:ref/Part] does not work:
+ok  x[[1]]    ==>     (1 + 2*I)[[1]] # skip
+# Enter a complex number with machine-number real and imaginary parts:
+ok  1. + 2.*I    ==>     1. + 2.*I
+    ---
+    data:
+        got: 1. + 2.*I
+        expect: 1. + 2.*I
+        expect_evaluated: 1. + 2.*I
+    ...
+# It is considered to be a machine number when both its real and imaginary parts are machine numbers:
+ok  MachineNumberQ[%]    ==>     True # skip
+# Enter a complex number with arbitrary-precision real and imaginary parts:
+ok  1.`20. + 2.`30.*I    ==>     1.`19. + 2.`29.301029995663985*I
+    ---
+    data:
+        got: 1.`20. + 2.`30.*I
+        expect: 1.`19. + 2.`29.301029995663985*I
+        expect_evaluated: 1.`19. + 2.`29.301029995663985*I
+    ...
+# The precision is based on the error in the complex plane:
+ok  Precision[%]    ==>     20.3495 # skip
+# Enter a complex number with an exact real part and an approximate imaginary part:
+ok  x = 1 + 2.*I    ==>     1. + 2.*I
+    ---
+    data:
+        got: 1. + 2.*I
+        expect: 1. + 2.*I
+        expect_evaluated: 1. + 2.*I
+    ...
+# _Complex can be used to stand for a complex number in a pattern:
+ok  MatchQ[1 + 2*I, _Complex]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok  f[1 + 2*I, 3 + 4*I, 5] /. rule    ==>     f[2 + I, 4 + 3*I, 5] # skip
+# An alternate definition:
+ok  f[1 + 2*I, 3 + 4*I, 5] /. Complex[r_, i_] :> Complex[i, r]    ==>     f[2 + I, 4 + 3*I, 5]
+    ---
+    data:
+        got: f[2 + I, 4 + 3*I, 5]
+        expect: f[2 + I, 4 + 3*I, 5]
+        expect_evaluated: f[2 + I, 4 + 3*I, 5]
+    ...
+ok  HoldComplete[Plot3D[Abs[cosine[x + I*y]], {x, -3, 3}, {y, -1, 1}]]    ==>     $Failed # skip
+# Complexes are numbers:
+ok  1 + 2*I    ==>     1 + 2*I
+    ---
+    data:
+        got: 1 + 2*I
+        expect: 1 + 2*I
+        expect_evaluated: 1 + 2*I
+    ...
+ok  NumberQ[%]    ==>     True # skip
+# Complexes are atomic objects with no subexpressions:
+ok  AtomQ[1 + 2*I]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Use RefLink[Complexes,paclet:ref/Complexes] to indicate assumptions on domain conditions: 
+ok  Reduce[z*Conjugate[z] < 1, z, Complexes]    ==>     -1 < Re[z] < 1 && -Sqrt[1 - Re[z]^2] < Im[z] < Sqrt[1 - Re[z]^2] # skip
+ok  f[1 + 2*I]    ==>     f[1 + 2*I]
+    ---
+    data:
+        got: f[1 + 2*I]
+        expect: f[1 + 2*I]
+        expect_evaluated: f[1 + 2*I]
+    ...
+ok  f[Evaluate[1 + 2*I]]    ==>     -1 # skip
+# The unevaluated form is expressed in terms of RefLink[Plus,paclet:ref/Plus] and RefLink[Times,paclet:ref/Times]:
+ok  FullForm[HoldForm[1 + 2*I]]    ==>     HoldForm[1 + 2*I] # skip

@@ -1,0 +1,526 @@
+# SYSTEM: Mathematica_10
+# TEST: Part_Tests
+# OUTPUT: output/Results/Mathematica_10/Part_Tests.json
+# Pick out a part of a list:
+ok  {a, b, c, d, e, f}[[3]]    ==>     c
+    ---
+    data:
+        got: c
+        expect: c
+        expect_evaluated: c
+    ...
+# Pick out a sequence of parts:
+ok  {a, b, c, d, e, f}[[2 ;; 4]]    ==>     {b, c, d}
+    ---
+    data:
+        got: {b, c, d}
+        expect: {b, c, d}
+        expect_evaluated: {b, c, d}
+    ...
+# Pick out a part of a matrix:
+ok  {{a, b, c}, {d, e, f}, {g, h, i}}[[2,3]]    ==>     f
+    ---
+    data:
+        got: f
+        expect: f
+        expect_evaluated: f
+    ...
+# The second row of a matrix:
+ok  {{a, b, c}, {d, e, f}, {g, h, i}}[[2]]    ==>     {d, e, f}
+    ---
+    data:
+        got: {d, e, f}
+        expect: {d, e, f}
+        expect_evaluated: {d, e, f}
+    ...
+# The second column of a matrix:
+ok  {{a, b, c}, {d, e, f}, {g, h, i}}[[All,2]]    ==>     {b, e, h}
+    ---
+    data:
+        got: {b, e, h}
+        expect: {b, e, h}
+        expect_evaluated: {b, e, h}
+    ...
+# An element 2 from the end of a list:
+ok  {a, b, c, d, e, f}[[-2]]    ==>     e
+    ---
+    data:
+        got: e
+        expect: e
+        expect_evaluated: e
+    ...
+# A list of parts:
+ok  {a, b, c, d, e, f}[[{1, 3, 1, 2, -1, -1}]]    ==>     {a, c, a, b, f, f}
+    ---
+    data:
+        got: {a, c, a, b, f, f}
+        expect: {a, c, a, b, f, f}
+        expect_evaluated: {a, c, a, b, f, f}
+    ...
+# A part of an RefLink[Association,paclet:ref/Association] corresponding to key "a":
+ok  <| "a" -> 5, "b" -> 6 |>[["a"]]    ==>     5
+    ---
+    data:
+        got: 5
+        expect: 5
+        expect_evaluated: 5
+    ...
+# The first part of an RefLink[Association,paclet:ref/Association]: 
+ok  <| 2 -> b, 1 -> a |>[[1]]    ==>     b
+    ---
+    data:
+        got: b
+        expect: b
+        expect_evaluated: b
+    ...
+# The part associated with the key 1:
+ok  <| 2 -> b, 1 -> a |>[[Key[1]]]    ==>     a
+    ---
+    data:
+        got: a
+        expect: a
+        expect_evaluated: a
+    ...
+# Take several parts in an RefLink[Association,paclet:ref/Association]:
+ok  HoldComplete[<| "a" -> 1, "b" -> 2, "c" -> 3, "d" -> 4 |>[[1 ;; 2]]]    ==>     $Failed # skip
+# Extract parts by keys:
+ok  HoldComplete[<| "a" -> 1, "b" -> 2, "c" -> 3 |>[[{Key["a"], Key["c"]}]]]    ==>     $Failed # skip
+# Extract subexpressions from an RefLink[Association,paclet:ref/Association]:
+ok  HoldComplete[<| "a" -> <| 1 -> "a1" |>, "b" -> <| 1 -> "b1" |> |>[[All,Key[1]]]]    ==>     $Failed # skip
+# Reassign a part:
+ok  m = {{a, b}, {c, d}}    ==>     {{a, b}, {c, d}}
+    ---
+    data:
+        got: {{a, b}, {c, d}}
+        expect: {{a, b}, {c, d}}
+        expect_evaluated: {{a, b}, {c, d}}
+    ...
+ok  m[[2,2]] = x    ==>     x
+    ---
+    data:
+        got: x
+        expect: x
+        expect_evaluated: x
+    ...
+ok  m    ==>     {{a, b}, {c, x}}
+    ---
+    data:
+        got: {{a, b}, {c, x}}
+        expect: {{a, b}, {c, x}}
+        expect_evaluated: {{a, b}, {c, x}}
+    ...
+# Reassign a sequence of parts:
+ok  v = {a, b, c, d, e, f}    ==>     {a, b, c, d, e, f}
+    ---
+    data:
+        got: {a, b, c, d, e, f}
+        expect: {a, b, c, d, e, f}
+        expect_evaluated: {a, b, c, d, e, f}
+    ...
+ok  v[[2 ;; 4]] = x    ==>     x
+    ---
+    data:
+        got: x
+        expect: x
+        expect_evaluated: x
+    ...
+ok  v    ==>     {a, x, x, x, e, f}
+    ---
+    data:
+        got: {a, x, x, x, e, f}
+        expect: {a, x, x, x, e, f}
+        expect_evaluated: {a, x, x, x, e, f}
+    ...
+# RefLink[Part,paclet:ref/Part] works with expressions of any kind, not just lists:
+ok  f[g[a, b], g[c, d]][[2,1]]    ==>     c
+    ---
+    data:
+        got: c
+        expect: c
+        expect_evaluated: c
+    ...
+ok  (1 + 2*x^2 + y^2)[[2]]    ==>     2*x^2
+    ---
+    data:
+        got: 2*x^2
+        expect: 2*x^2
+        expect_evaluated: 2*x^2
+    ...
+ok  {x -> 4, y -> 5}[[1,2]]    ==>     4
+    ---
+    data:
+        got: 4
+        expect: 4
+        expect_evaluated: 4
+    ...
+# RefLink[Part,paclet:ref/Part] always operates on the RefLink[FullForm,paclet:ref/FullForm] of expressions:
+ok  (x/y)[[2]]    ==>     1/y
+    ---
+    data:
+        got: y^(-1)
+        expect: 1/y
+        expect_evaluated: y^(-1)
+    ...
+ok  FullForm[x/y]    ==>     x/y # skip
+# Equivalent forms:
+ok  {{a, b, c}, {d, e, f}}[[1]][[2]]    ==>     b
+    ---
+    data:
+        got: b
+        expect: b
+        expect_evaluated: b
+    ...
+ok  {{a, b, c}, {d, e, f}}[[1,2]]    ==>     b
+    ---
+    data:
+        got: b
+        expect: b
+        expect_evaluated: b
+    ...
+# Pick out parts 1 and 3:
+ok  {{a, b, c}, {d, e, f}, {g, h, i}}[[{1, 3}]]    ==>     {{a, b, c}, {g, h, i}}
+    ---
+    data:
+        got: {{a, b, c}, {g, h, i}}
+        expect: {{a, b, c}, {g, h, i}}
+        expect_evaluated: {{a, b, c}, {g, h, i}}
+    ...
+# Pick out parts 2 and 3 of parts 1 and 3:
+ok  {{a, b, c}, {d, e, f}, {g, h, i}}[[{1, 3},{2, 3}]]    ==>     {{b, c}, {h, i}}
+    ---
+    data:
+        got: {{b, c}, {h, i}}
+        expect: {{b, c}, {h, i}}
+        expect_evaluated: {{b, c}, {h, i}}
+    ...
+# Parts 1 through third-to-last:
+ok  {a, b, c, d, e, f}[[1 ;; -3]]    ==>     {a, b, c, d}
+    ---
+    data:
+        got: {a, b, c, d}
+        expect: {a, b, c, d}
+        expect_evaluated: {a, b, c, d}
+    ...
+# Shorter notation:
+ok  {a, b, c, d, e, f}[[1 ;; -3]]    ==>     {a, b, c, d}
+    ---
+    data:
+        got: {a, b, c, d}
+        expect: {a, b, c, d}
+        expect_evaluated: {a, b, c, d}
+    ...
+# Parts 3 through third-to-last extracted in steps of 2:
+ok  {a, b, c, d, e, f, g, h, i, j, k}[[3 ;; -3 ;; 2]]    ==>     {c, e, g, i}
+    ---
+    data:
+        got: {c, e, g, i}
+        expect: {c, e, g, i}
+        expect_evaluated: {c, e, g, i}
+    ...
+# Parts extracted in steps of 2 starting at the beginning:
+ok  {a, b, c, d, e, f, g, h, i, j, k}[[1 ;; All ;; 2]]    ==>     {a, c, e, g, i, k}
+    ---
+    data:
+        got: {a, c, e, g, i, k}
+        expect: {a, c, e, g, i, k}
+        expect_evaluated: {a, c, e, g, i, k}
+    ...
+# Enter in RefLink[FullForm,paclet:ref/FullForm]:
+ok  {a, b, c, d, e}[[3]]    ==>     c
+    ---
+    data:
+        got: c
+        expect: c
+        expect_evaluated: c
+    ...
+# Enter using Esc\[ThinSpace][[\[ThinSpace]Esc and Esc\[ThinSpace]]]\[ThinSpace]Esc:
+ok  {a, b, c, d, e}[[3]]    ==>     c
+    ---
+    data:
+        got: c
+        expect: c
+        expect_evaluated: c
+    ...
+# Enter as a subscript:
+ok  $Failed    ==>     HoldComplete[c] # skip
+# Assign several parts at once:
+ok  m = {a, b, c, d}    ==>     {a, b, c, d}
+    ---
+    data:
+        got: {a, b, c, d}
+        expect: {a, b, c, d}
+        expect_evaluated: {a, b, c, d}
+    ...
+# Assign parts 2 and 3 to be x:
+ok  m[[{2, 3}]] = x    ==>     x
+    ---
+    data:
+        got: x
+        expect: x
+        expect_evaluated: x
+    ...
+ok  m    ==>     {a, x, x, d}
+    ---
+    data:
+        got: {a, x, x, d}
+        expect: {a, x, x, d}
+        expect_evaluated: {a, x, x, d}
+    ...
+# Assign different values to parts 1, 3, and 4:
+ok  m[[{1, 3, 4}]] = {s, t, u}    ==>     {s, t, u}
+    ---
+    data:
+        got: {s, t, u}
+        expect: {s, t, u}
+        expect_evaluated: {s, t, u}
+    ...
+ok  m    ==>     {s, x, t, u}
+    ---
+    data:
+        got: {s, x, t, u}
+        expect: {s, x, t, u}
+        expect_evaluated: {s, x, t, u}
+    ...
+ok  m[[2]] += x    ==>     b + x # skip
+ok  m    ==>     {a, b + x, c, d} # skip
+ok  m[[{1, 2}]] = m[[{3, 1}]]    ==>     {c, a} # skip
+ok  m    ==>     {c, a, c, d} # skip
+# For RefLink[SparseArray,paclet:ref/SparseArray] objects, RefLink[Part,paclet:ref/Part] gives the parts in the corresponding ordinary array:
+ok  HoldComplete[s = SparseArray[{{i_, j_} /; Abs[i - j] == 1 -> i - j}, {4, 4}]]    ==>     $Failed # skip
+ok  MatrixForm[s]    ==>     0 - 1*0*0*1*0 - 1*0*0*1*0 - 1*0*0*1*0 # skip
+not ok  s[[1,2]]    ==>     -1
+    ---
+    data:
+        got: s[[1,2]]
+        expect: -1
+        expect_evaluated: -1
+    ...
+# Rows or columns are represented as sparse vectors:
+ok  HoldComplete[s[[All,2]]]    ==>     $Failed # skip
+# Values can also be set:
+ok  s[[{1, 2},{3, 4}]] = 1    ==>     1
+    ---
+    data:
+        got: 1
+        expect: 1
+        expect_evaluated: 1
+    ...
+ok  MatrixForm[s]    ==>     0 - 1*1*1*1*0*1*1*0*1*0 - 1*0*0*1*0 # skip
+# The zeroth part of an expression is its head:
+ok  (a + b + c)[[0]]    ==>     Plus
+    ---
+    data:
+        got: Plus
+        expect: Plus
+        expect_evaluated: Plus
+    ...
+ok  {a, b, c}[[0]]    ==>     List
+    ---
+    data:
+        got: List
+        expect: List
+        expect_evaluated: List
+    ...
+# Reassign the head:
+ok  t = {a, b, c}    ==>     {a, b, c}
+    ---
+    data:
+        got: {a, b, c}
+        expect: {a, b, c}
+        expect_evaluated: {a, b, c}
+    ...
+ok  t[[0]] = f    ==>     f
+    ---
+    data:
+        got: f
+        expect: f
+        expect_evaluated: f
+    ...
+ok  t    ==>     f[a, b, c]
+    ---
+    data:
+        got: f[a, b, c]
+        expect: f[a, b, c]
+        expect_evaluated: f[a, b, c]
+    ...
+# Heads in the original expression are reused when "lists" of parts are extracted:
+ok  f[a, b, c][[{2, 3}]]    ==>     f[b, c]
+    ---
+    data:
+        got: f[b, c]
+        expect: f[b, c]
+        expect_evaluated: f[b, c]
+    ...
+ok  f[g[a, b], h[c, d]][[{1, 2},{2}]]    ==>     f[g[b], h[d]]
+    ---
+    data:
+        got: f[g[b], h[d]]
+        expect: f[g[b], h[d]]
+        expect_evaluated: f[g[b], h[d]]
+    ...
+# Pick out the first solution from an equation:
+ok  Solve[x^2 + 5*x + 1 == 0, x]    ==>     {{x -> (1/2)*(-5 - Sqrt[21])}, {x -> (1/2)*(-5 + Sqrt[21])}}
+    ---
+    data:
+        got: {{x -> (-5 - Sqrt[21])/2}, {x -> (-5 + Sqrt[21])/2}}
+        expect: {{x -> (1/2)*(-5 - Sqrt[21])}, {x -> (1/2)*(-5 + Sqrt[21])}}
+        expect_evaluated: {{x -> (-5 - Sqrt[21])/2}, {x -> (-5 + Sqrt[21])/2}}
+    ...
+ok  %[[1,1,2]]    ==>     (1/2)*(-5 - Sqrt[21]) # skip
+# Pick out all solutions for a univariate equation:
+ok  Solve[x^2 + 5*x + 1 == 0, x]    ==>     {{x -> (1/2)*(-5 - Sqrt[21])}, {x -> (1/2)*(-5 + Sqrt[21])}}
+    ---
+    data:
+        got: {{x -> (-5 - Sqrt[21])/2}, {x -> (-5 + Sqrt[21])/2}}
+        expect: {{x -> (1/2)*(-5 - Sqrt[21])}, {x -> (1/2)*(-5 + Sqrt[21])}}
+        expect_evaluated: {{x -> (-5 - Sqrt[21])/2}, {x -> (-5 + Sqrt[21])/2}}
+    ...
+ok  %[[All,1,2]]    ==>     {(1/2)*(-5 - Sqrt[21]), (1/2)*(-5 + Sqrt[21])} # skip
+ok  m    ==>     {245, 1, 253, 0, 1, 0, 254, 0, 246, 0} # skip
+# Another way to get the same result:
+ok  Table[Count[Table[Mod[Prime[i], 10], {i, 1000}], j], {j, 0, 9}]    ==>     {0, 245, 1, 253, 0, 1, 0, 254, 0, 246}
+    ---
+    data:
+        got: {0, 245, 1, 253, 0, 1, 0, 254, 0, 246}
+        expect: {0, 245, 1, 253, 0, 1, 0, 254, 0, 246}
+        expect_evaluated: {0, 245, 1, 253, 0, 1, 0, 254, 0, 246}
+    ...
+# Apply a permutation:
+ok  {a, b, c, d, e}[[{4, 5, 1, 2, 3}]]    ==>     {d, e, a, b, c}
+    ---
+    data:
+        got: {d, e, a, b, c}
+        expect: {d, e, a, b, c}
+        expect_evaluated: {d, e, a, b, c}
+    ...
+# Invert a permutation:
+ok  pinv = ConstantArray[0, 5]; pinv[[{4, 5, 1, 2, 3}]] = Range[5]; pinv    ==>     {3, 4, 5, 1, 2}
+    ---
+    data:
+        got: {3, 4, 5, 1, 2}
+        expect: {3, 4, 5, 1, 2}
+        expect_evaluated: {3, 4, 5, 1, 2}
+    ...
+ok  {d, e, a, b, c}[[pinv]]    ==>     {a, b, c, d, e}
+    ---
+    data:
+        got: {a, b, c, d, e}
+        expect: {a, b, c, d, e}
+        expect_evaluated: {a, b, c, d, e}
+    ...
+# Pick out parts cyclically by using RefLink[Mod,paclet:ref/Mod] with offset 1:
+ok  Table[{a, b, c, d}[[Mod[i, 4, 1]]], {i, 15}]    ==>     {a, b, c, d, a, b, c, d, a, b, c, d, a, b, c}
+    ---
+    data:
+        got: {a, b, c, d, a, b, c, d, a, b, c, d, a, b, c}
+        expect: {a, b, c, d, a, b, c, d, a, b, c, d, a, b, c}
+        expect_evaluated: {a, b, c, d, a, b, c, d, a, b, c, d, a, b, c}
+    ...
+# RefLink[Take,paclet:ref/Take] picks out ranges of parts:
+ok  {a, b, c, d, e, f, g}[[2 ;; 5]]    ==>     {b, c, d, e}
+    ---
+    data:
+        got: {b, c, d, e}
+        expect: {b, c, d, e}
+        expect_evaluated: {b, c, d, e}
+    ...
+ok  {a, b, c, d, e, f, g}[[Range[2, 5]]]    ==>     {b, c, d, e}
+    ---
+    data:
+        got: {b, c, d, e}
+        expect: {b, c, d, e}
+        expect_evaluated: {b, c, d, e}
+    ...
+ok  Take[{a, b, c, d, e, f, g}, {2, 5}]    ==>     {b, c, d, e}
+    ---
+    data:
+        got: {b, c, d, e}
+        expect: {b, c, d, e}
+        expect_evaluated: {b, c, d, e}
+    ...
+# RefLink[Part,paclet:ref/Part] operates on the RefLink[FullForm,paclet:ref/FullForm] of expressions, not their formatted forms:
+ok  FullForm[x/y]    ==>     x/y # skip
+ok  (x/y)[[2]]    ==>     1/y
+    ---
+    data:
+        got: y^(-1)
+        expect: 1/y
+        expect_evaluated: y^(-1)
+    ...
+# RefLink[Position,paclet:ref/Position] does not return part specifications in a form that can immediately be used by RefLink[Part,paclet:ref/Part]:
+ok  Position[{1, 0, 0, 1, 0, 0, 1, 1}, 1]    ==>     {{1}, {4}, {7}, {8}}
+    ---
+    data:
+        got: {{1}, {4}, {7}, {8}}
+        expect: {{1}, {4}, {7}, {8}}
+        expect_evaluated: {{1}, {4}, {7}, {8}}
+    ...
+ok  Apply[{1, 0, 0, 1, 0, 0, 1, 1}[[##1]] & , %, {1}]    ==>     {1, 1, 1, 1} # skip
+# RefLink[Extract,paclet:ref/Extract] extracts parts specified in the way returned by RefLink[Position,paclet:ref/Position]:
+ok  Extract[{1, 0, 0, 1, 0, 0, 1, 1}, {{1}, {4}, {7}, {8}}]    ==>     {1, 1, 1, 1}
+    ---
+    data:
+        got: {1, 1, 1, 1}
+        expect: {1, 1, 1, 1}
+        expect_evaluated: {1, 1, 1, 1}
+    ...
+# Successive part extraction is not always equivalent to direct part extraction:
+ok  {{a, b, c}, {d, e, f}, {g, h, i}}[[{1, 3}]][[{2, 3}]]    ==>     {{a, b, c}, {g, h, i}}[[{2, 3}]]
+    ---
+    data:
+        got: {{a, b, c}, {g, h, i}}[[{2, 3}]]
+        expect: {{a, b, c}, {g, h, i}}[[{2, 3}]]
+        expect_evaluated: {{a, b, c}, {g, h, i}}[[{2, 3}]]
+    ...
+ok  {{a, b, c}, {d, e, f}, {g, h, i}}[[{1, 3},{2, 3}]]    ==>     {{b, c}, {h, i}}
+    ---
+    data:
+        got: {{b, c}, {h, i}}
+        expect: {{b, c}, {h, i}}
+        expect_evaluated: {{b, c}, {h, i}}
+    ...
+# If an expression contains held parts, extraction may cause them to evaluate:
+ok  a = Hold[2*x + 2*3]    ==>     Hold[2*x + 2*3]
+    ---
+    data:
+        got: 6 + 2*x
+        expect: Hold[2*x + 2*3]
+        expect_evaluated: 6 + 2*x
+    ...
+ok  a[[1]]    ==>     6 + 2*x
+    ---
+    data:
+        got: 6 + 2*x
+        expect: 6 + 2*x
+        expect_evaluated: 6 + 2*x
+    ...
+# This can lead to a difference between direct part extraction and successive part extraction:
+ok  a[[1,1]]    ==>     2*x
+    ---
+    data:
+        got: 2*x
+        expect: 2*x
+        expect_evaluated: 2*x
+    ...
+ok  a[[1]][[1]]    ==>     6
+    ---
+    data:
+        got: 6
+        expect: 6
+        expect_evaluated: 6
+    ...
+# Only parts that already exist can be reassigned:
+ok  m = {a, b, c, d}    ==>     {a, b, c, d}
+    ---
+    data:
+        got: {6 + 2*x, b, c, d}
+        expect: {a, b, c, d}
+        expect_evaluated: {6 + 2*x, b, c, d}
+    ...
+ok  m[[5]] = x    ==>     x
+    ---
+    data:
+        got: x
+        expect: x
+        expect_evaluated: x
+    ...

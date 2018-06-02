@@ -1,0 +1,134 @@
+# SYSTEM: Mathematica_10
+# TEST: Dot_Tests
+# OUTPUT: output/Results/Mathematica_10/Dot_Tests.json
+# Scalar product of vectors:
+ok  {a, b, c} . {x, y, z}    ==>     a*x + b*y + c*z
+    ---
+    data:
+        got: a*x + b*y + c*z
+        expect: a*x + b*y + c*z
+        expect_evaluated: a*x + b*y + c*z
+    ...
+# Products of matrices and vectors:
+ok  {{a, b}, {c, d}} . {x, y}    ==>     {a*x + b*y, c*x + d*y}
+    ---
+    data:
+        got: {a*x + b*y, c*x + d*y}
+        expect: {a*x + b*y, c*x + d*y}
+        expect_evaluated: {a*x + b*y, c*x + d*y}
+    ...
+ok  {x, y} . {{a, b}, {c, d}}    ==>     {a*x + c*y, b*x + d*y}
+    ---
+    data:
+        got: {a*x + c*y, b*x + d*y}
+        expect: {a*x + c*y, b*x + d*y}
+        expect_evaluated: {a*x + c*y, b*x + d*y}
+    ...
+ok  {x, y} . {{a, b}, {c, d}} . {r, s}    ==>     r*(a*x + c*y) + s*(b*x + d*y)
+    ---
+    data:
+        got: r*(a*x + c*y) + s*(b*x + d*y)
+        expect: r*(a*x + c*y) + s*(b*x + d*y)
+        expect_evaluated: r*(a*x + c*y) + s*(b*x + d*y)
+    ...
+# Matrix product:
+ok  {{a, b}, {c, d}} . {{r, s}, {t, u}}    ==>     {{a*r + b*t, a*s + b*u}, {c*r + d*t, c*s + d*u}}
+    ---
+    data:
+        got: {{a*r + b*t, a*s + b*u}, {c*r + d*t, c*s + d*u}}
+        expect: {{a*r + b*t, a*s + b*u}, {c*r + d*t, c*s + d*u}}
+        expect_evaluated: {{a*r + b*t, a*s + b*u}, {c*r + d*t, c*s + d*u}}
+    ...
+# Use exact arithmetic to find the matrix product of a and b:
+ok  MatrixForm[a . b]    ==>     2*3*1*1*1*2*2*1*1*0*1*1*1*1*1*1*2*0*0*1*1*3*1*0*1 # skip
+# Use machine arithmetic:
+ok  MatrixForm[N[a] . N[b]]    ==>     2.*3.*1.*1.*1.*2.*2.*1.*1.*0.*1.*1.*1.*1.*1.*1.*2.*0.*0.*1.*1.*3.*1.*0.*1. # skip
+# Use higher-precision arithmetic:
+ok  MatrixForm[N[a, 20] . N[b, 20]]    ==>     2.`19.30102999566398*3.`19.477121254719663*1.`19.*1.`19.*1.`19.*2.`19.30102999566398*2.`19.30102999566398*1.`19.*1.`19.*0*1.`19.*1.`19.*1.`19.*1.`19.*1.`19.*1.`19.*2.`19.30102999566398*0*0*1.`19.*1.`19.*3.`19.477121254719663*1.`19.*0*1.`19. # skip
+# Use RefLink[SparseArray,paclet:ref/SparseArray] objects:
+ok  HoldComplete[SparseArray[a] . SparseArray[b]]    ==>     $Failed # skip
+ok  Normal[%]    ==>     {{2, 3, 1, 1, 1}, {2, 2, 1, 1, 0}, {1, 1, 1, 1, 1}, {1, 2, 0, 0, 1}, {1, 3, 1, 0, 1}} # skip
+# Compute the matrix product of random real and complex rectangular matrices:
+ok  MatrixForm[RandomReal[1, {2, 3}] . RandomComplex[4 + 5*I, {3, 4}]]    ==>     0.79005 + 7.12673*I*2.71719 + 4.95134*I*4.41983 + 1.46947*I*5.61652 + 1.33687*I*1.32312 + 5.60335*I*1.95402 + 5.11821*I*2.01812 + 2.82809*I*3.84393 + 2.30291*I # skip
+ok  a . b    ==>     {{{{56, 70}, {40, 54}, {86, 69}, {34, 47}, {62, 58}}, {{88, 112}, {66, 88}, {142, 105}, {49, 70}, {99, 94}}, {{78, 147}, {59, 96}, {133, 128}, {65, 81}, {137, 121}}}, {{{74, 103}, {65, 108}, {143, 115}, {76, 75}, {150, 103}}, {{78, 88}, {54, 80}, {116, 106}, {65, 75}, {101, 78}}, {{21, 105}, {28, 63}, {70, 70}, {35, 35}, {112, 91}}}} # skip
+# The dimensions of the result are those of the input with the common dimension collapsed:
+ok  Dimensions[%]    ==>     {2, 3, 5, 2} # skip
+# Any combination is allowed as long as products are done with a common dimension:
+ok  c . a . b . c    ==>     {{1648, 1728, 1840, 1200, 1648}, {1408, 1280, 1696, 1200, 1248}, {1680, 1008, 1120, 560, 1456}} # skip
+# A linear mapping R^n->R^n:
+ok  n = 10; u = Array[Subscript[x, #1] & , n]; lm = ListConvolve[{1, -2, 1}*n^2, u, {2, 2}]    ==>     {-200*Subscript[x, 1] + 100*Subscript[x, 2] + 100*Subscript[x, 10], 100*Subscript[x, 1] - 200*Subscript[x, 2] + 100*Subscript[x, 3], 100*Subscript[x, 2] - 200*Subscript[x, 3] + 100*Subscript[x, 4], 100*Subscript[x, 3] - 200*Subscript[x, 4] + 100*Subscript[x, 5], 100*Subscript[x, 4] - 200*Subscript[x, 5] + 100*Subscript[x, 6], 100*Subscript[x, 5] - 200*Subscript[x, 6] + 100*Subscript[x, 7], 100*Subscript[x, 6] - 200*Subscript[x, 7] + 100*Subscript[x, 8], 100*Subscript[x, 7] - 200*Subscript[x, 8] + 100*Subscript[x, 9], 100*Subscript[x, 8] - 200*Subscript[x, 9] + 100*Subscript[x, 10], 100*Subscript[x, 1] + 100*Subscript[x, 9] - 200*Subscript[x, 10]}
+    ---
+    data:
+        got: {-200*Subscript[x, 1] + 100*Subscript[x, 2] + 100*Subscript[x, 10], 100*Subscript[x, 1] - 200*Subscript[x, 2] + 100*Subscript[x, 3], 100*Subscript[x, 2] - 200*Subscript[x, 3] + 100*Subscript[x, 4], 100*Subscript[x, 3] - 200*Subscript[x, 4] + 100*Subscript[x, 5], 100*Subscript[x, 4] - 200*Subscript[x, 5] + 100*Subscript[x, 6], 100*Subscript[x, 5] - 200*Subscript[x, 6] + 100*Subscript[x, 7], 100*Subscript[x, 6] - 200*Subscript[x, 7] + 100*Subscript[x, 8], 100*Subscript[x, 7] - 200*Subscript[x, 8] + 100*Subscript[x, 9], 100*Subscript[x, 8] - 200*Subscript[x, 9] + 100*Subscript[x, 10], 100*Subscript[x, 1] + 100*Subscript[x, 9] - 200*Subscript[x, 10]}
+        expect: {-200*Subscript[x, 1] + 100*Subscript[x, 2] + 100*Subscript[x, 10], 100*Subscript[x, 1] - 200*Subscript[x, 2] + 100*Subscript[x, 3], 100*Subscript[x, 2] - 200*Subscript[x, 3] + 100*Subscript[x, 4], 100*Subscript[x, 3] - 200*Subscript[x, 4] + 100*Subscript[x, 5], 100*Subscript[x, 4] - 200*Subscript[x, 5] + 100*Subscript[x, 6], 100*Subscript[x, 5] - 200*Subscript[x, 6] + 100*Subscript[x, 7], 100*Subscript[x, 6] - 200*Subscript[x, 7] + 100*Subscript[x, 8], 100*Subscript[x, 7] - 200*Subscript[x, 8] + 100*Subscript[x, 9], 100*Subscript[x, 8] - 200*Subscript[x, 9] + 100*Subscript[x, 10], 100*Subscript[x, 1] + 100*Subscript[x, 9] - 200*Subscript[x, 10]}
+        expect_evaluated: {-200*Subscript[x, 1] + 100*Subscript[x, 2] + 100*Subscript[x, 10], 100*Subscript[x, 1] - 200*Subscript[x, 2] + 100*Subscript[x, 3], 100*Subscript[x, 2] - 200*Subscript[x, 3] + 100*Subscript[x, 4], 100*Subscript[x, 3] - 200*Subscript[x, 4] + 100*Subscript[x, 5], 100*Subscript[x, 4] - 200*Subscript[x, 5] + 100*Subscript[x, 6], 100*Subscript[x, 5] - 200*Subscript[x, 6] + 100*Subscript[x, 7], 100*Subscript[x, 6] - 200*Subscript[x, 7] + 100*Subscript[x, 8], 100*Subscript[x, 7] - 200*Subscript[x, 8] + 100*Subscript[x, 9], 100*Subscript[x, 8] - 200*Subscript[x, 9] + 100*Subscript[x, 10], 100*Subscript[x, 1] + 100*Subscript[x, 9] - 200*Subscript[x, 10]}
+    ...
+# Get the matrix representation m for the linear mapping:
+ok  HoldComplete[{c, m} = N[CoefficientArrays[%, u]]]    ==>     $Failed # skip
+ok  ListConvolve[{1, -2, 1}*n^2, v, {2, 2}]    ==>     {-22.4514, -36.3271, -36.3271, -22.4514, 0., 22.4514, 36.3271, 36.3271, 22.4514, 2.84217/10^14} # skip
+ok  lm /. Thread[u -> v]    ==>     {-22.4514, -36.3271, -36.3271, -22.4514, 0., 22.4514, 36.3271, 36.3271, 22.4514, 2.76696/10^14} # skip
+ok  m . v    ==>     {-22.4514, -36.3271, -36.3271, -22.4514, 0., 22.4514, 36.3271, 36.3271, 22.4514, 2.76696/10^14} # skip
+# Using the matrix with RefLink[Dot,paclet:ref/Dot] is faster:
+ok  trials = 10000; First /@ {Timing[Do[m . v, {trials}]], Timing[Do[ListConvolve[{1, -2, 1}*n^2, v, {2, 2}], {trials}]], Timing[Do[lm /. Thread[u -> v], {trials}]]}    ==>     {0.296, 0.92, 1.088} # skip
+# The result of applying RefLink[Dot,paclet:ref/Dot] to two tensors Subscript[T, Subscript[i, 1] Subscript[i, 2]...Subscript[i, n]] and Subscript[U, Subscript[j, 1] Subscript[j, 2]...Subscript[j, m]] is the tensor Underscript[\[Sum], k] Subscript[T, Subscript[i, 1] Subscript[i, 2]...Subscript[i, n-1]k] Subscript[U, k Subscript[j, 2]...Subscript[j, m]]:
+ok  Table[Sum[a[[i1,i2,k]]*b[[k,j2]], {k, 4}], {i1, 2}, {i2, 3}, {j2, 5}]    ==>     {{{60, 70, 74, 85, 108}, {39, 31, 41, 37, 59}, {54, 31, 41, 40, 68}}, {{6, 40, 67, 63, 71}, {63, 32, 27, 61, 74}, {32, 29, 3, 50, 38}}} # skip
+ok  a . b    ==>     {{{60, 70, 74, 85, 108}, {39, 31, 41, 37, 59}, {54, 31, 41, 40, 68}}, {{6, 40, 67, 63, 71}, {63, 32, 27, 61, 74}, {32, 29, 3, 50, 38}}} # skip
+# Applying RefLink[Dot,paclet:ref/Dot] to a rank n tensor and a rank m tensor gives a rank n+m-2 tensor.
+ok  ArrayDepth[a . b] == 3 + 2 - 2    ==>     True # skip
+# v is a random complex vector:
+ok  v = RandomComplex[1 + 2*I, {3}]    ==>     {0.734966 + 0.319542*I, 0.443465 + 0.0186486*I, 0.765872 + 0.292549*I} # skip
+# RefLink[Norm,paclet:ref/Norm][v] is given by Sqrt[v.v^\[Conjugate]]:
+ok  Sqrt[v . Conjugate[v]]    ==>     1.2294 + 0.*I # skip
+ok  Norm[v]    ==>     1.2294 # skip
+# Compute the matrix product a.a.a:
+ok  b = a . a . a    ==>     {{1, 3, 3}, {0, 1, 3}, {0, 0, 1}} # skip
+# This is the same as RefLink[MatrixPower,paclet:ref/MatrixPower]:
+ok  MatrixPower[a, 3]    ==>     {{1, 3, 3}, {0, 1, 3}, {0, 0, 1}} # skip
+# This is equivalent to composing the action of a on a vector three times:
+ok  x = {1, 2, 3}; Do[x = a . x, {3}]; x    ==>     {16, 11, 3} # skip
+ok  b . {1, 2, 3}    ==>     {16, 11, 3} # skip
+# RefLink[Dot,paclet:ref/Dot] is a special case of RefLink[Inner,paclet:ref/Inner]:
+ok  Inner[Times, {a, b, c}, {x, y, z}, Plus]    ==>     a*x + b*y + c*z
+    ---
+    data:
+        got: a*x + b*y + c*z
+        expect: a*x + b*y + c*z
+        expect_evaluated: a*x + b*y + c*z
+    ...
+ok  {a, b, c} . {x, y, z}    ==>     a*x + b*y + c*z
+    ---
+    data:
+        got: a*x + b*y + c*z
+        expect: a*x + b*y + c*z
+        expect_evaluated: a*x + b*y + c*z
+    ...
+ok  Simplify[v . a . m == TensorContract[v \[TensorProduct] a \[TensorProduct] m, {{1, 2}, {4, 5}}]]    ==>     True # skip
+ok  a . {1, 1}    ==>     {3, 7, 11} # skip
+ok  a . {{1}, {1}}    ==>     {{3}, {7}, {11}} # skip
+# RefLink[Dot,paclet:ref/Dot] effectively treats vectors multiplied from the left as row vectors: 
+ok  {1, 1, 1} . a    ==>     {9, 12} # skip
+ok  {{1, 1, 1}} . a    ==>     {{9, 12}} # skip
+# To get an outer product, you need to form the inputs as matrices:
+ok  {{1}, {2}, {3}} . {{4, 5, 6}}    ==>     {{4, 5, 6}, {8, 10, 12}, {12, 15, 18}}
+    ---
+    data:
+        got: {{4, 5, 6}, {8, 10, 12}, {12, 15, 18}}
+        expect: {{4, 5, 6}, {8, 10, 12}, {12, 15, 18}}
+        expect_evaluated: {{4, 5, 6}, {8, 10, 12}, {12, 15, 18}}
+    ...
+# Or you can use RefLink[KroneckerProduct,paclet:ref/KroneckerProduct]:
+ok  KroneckerProduct[{1, 2, 3}, {4, 5, 6}]    ==>     {{4, 5, 6}, {8, 10, 12}, {12, 15, 18}}
+    ---
+    data:
+        got: {{4, 5, 6}, {8, 10, 12}, {12, 15, 18}}
+        expect: {{4, 5, 6}, {8, 10, 12}, {12, 15, 18}}
+        expect_evaluated: {{4, 5, 6}, {8, 10, 12}, {12, 15, 18}}
+    ...
+# Or RefLink[Outer,paclet:ref/Outer]:
+ok  Outer[Times, {1, 2, 3}, {4, 5, 6}]    ==>     {{4, 5, 6}, {8, 10, 12}, {12, 15, 18}}
+    ---
+    data:
+        got: {{4, 5, 6}, {8, 10, 12}, {12, 15, 18}}
+        expect: {{4, 5, 6}, {8, 10, 12}, {12, 15, 18}}
+        expect_evaluated: {{4, 5, 6}, {8, 10, 12}, {12, 15, 18}}
+    ...

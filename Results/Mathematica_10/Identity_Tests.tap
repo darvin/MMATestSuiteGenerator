@@ -1,0 +1,46 @@
+# SYSTEM: Mathematica_10
+# TEST: Identity_Tests
+# OUTPUT: output/Results/Mathematica_10/Identity_Tests.json
+ok  Identity[x + y]    ==>     x + y
+    ---
+    data:
+        got: x + y
+        expect: x + y
+        expect_evaluated: x + y
+    ...
+# Plot a collection of functions together with the y=x line:
+ok  HoldComplete[Plot[Evaluate[Through[{Identity, Exp, Log}[x]]], {x, -2, 2}, AspectRatio -> Automatic, PlotRange -> 2]]    ==>     $Failed # skip
+# RefLink[Identity,paclet:ref/Identity] is removed from functional composition:
+ok  Composition[f, g, Identity, h, Identity]    ==>     Composition[f, g, h]
+    ---
+    data:
+        got: Composition[f, g, h]
+        expect: Composition[f, g, h]
+        expect_evaluated: Composition[f, g, h]
+    ...
+# The first derivative of the identity is the constant 1:
+ok  Derivative[1][Identity]    ==>     1 & 
+    ---
+    data:
+        got: 1 & 
+        expect: 1 & 
+        expect_evaluated: 1 & 
+    ...
+# RefLink[Sequence,paclet:ref/Sequence] acts as a general identity for several arguments:
+ok  {a, Sequence[b, c, d], e}    ==>     {a, b, c, d, e}
+    ---
+    data:
+        got: {a, b, c, d, e}
+        expect: {a, b, c, d, e}
+        expect_evaluated: {a, b, c, d, e}
+    ...
+# RefLink[Identity,paclet:ref/Identity] as a pure function:
+ok  (#1 & )[a]    ==>     a
+    ---
+    data:
+        got: a
+        expect: a
+        expect_evaluated: a
+    ...
+# Tabulate square roots of values without using auxiliary variables:
+ok  TableForm[Composition[Through, {Identity, Sqrt}] /@ {0, 1., 2., 3., 4.}]    ==>     0*0*1.*1.*2.*1.41421*3.*1.73205*4.*2. # skip

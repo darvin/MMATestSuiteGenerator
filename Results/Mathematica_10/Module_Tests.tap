@@ -1,0 +1,64 @@
+# SYSTEM: Mathematica_10
+# TEST: Module_Tests
+# OUTPUT: output/Results/Mathematica_10/Module_Tests.json
+ok  f[2.]    ==>     -0.366513 # skip
+ok  fib[5]    ==>     5 # skip
+ok  gcd[18, 21]    ==>     3 # skip
+# Every time a module is evaluated, a new temporary symbol is created:
+ok  {Module[{x}, x], Module[{x}, x]}    ==>     {x$100, x$101} # skip
+# Module symbols are temporary and are removed if they are no longer referenced:
+ok  Module[{x}, Print[x]; Attributes[x]]    ==>     {Temporary}
+    ---
+    data:
+        got: {Temporary}
+        expect: {Temporary}
+        expect_evaluated: {Temporary}
+    ...
+ok  Names["x$*"]    ==>     {} # skip
+# Each use of RefLink[Module,paclet:ref/Module] increments RefLink[$ModuleNumber,paclet:ref/$ModuleNumber]:
+ok  {$ModuleNumber, Module[{x}, x], $ModuleNumber}    ==>     {37, x$37, 38} # skip
+# If there is no need to assign to a local variable, a constant should be used instead:
+ok  With[{x = 2.}, Sqrt[x] + 1]    ==>     2.41421 # skip
+# RefLink[With,paclet:ref/With] is faster than RefLink[Module,paclet:ref/Module]:
+ok  Timing[Do[Module[{x = 5}, x; ], {10^5}]]    ==>     {0.312, Null} # skip
+ok  Timing[Do[With[{x = 5}, x; ], {10^5}]]    ==>     {0.093, Null} # skip
+# RefLink[Block,paclet:ref/Block] localizes values only; it does not create new symbols:
+ok  x = 7; Block[{x = 5}, Print[x]]; x    ==>     7
+    ---
+    data:
+        got: 7
+        expect: 7
+        expect_evaluated: 7
+    ...
+# RefLink[Unique,paclet:ref/Unique] creates new variables in a way similar to RefLink[Module,paclet:ref/Module]:
+ok  {Unique[x], Module[{x}, x]}    ==>     {x$949, x$950} # skip
+# Local variables are not affected by global ones, and vice versa:
+ok  x = 17; Module[{x = x}, x = x + 1; x]    ==>     18
+    ---
+    data:
+        got: 18
+        expect: 18
+        expect_evaluated: 18
+    ...
+ok  x    ==>     17
+    ---
+    data:
+        got: 17
+        expect: 17
+        expect_evaluated: 17
+    ...
+ok  Module[{x = 5}, x + y]    ==>     5 + x^2 # skip
+# Variables are renamed in nested scopes:
+ok  Module[{e = Expand[(1 + x)^5]}, Function[x, e]]    ==>     Function[x$, e$100477] # skip
+ok  %[10]    ==>     1 + 5*x + 10*x^2 + 10*x^3 + 5*x^4 + x^5 # skip
+# Build the function from its parts to avoid the renaming:
+ok  Module[{e = Expand[(1 + x)^5]}, Function @@ {x, e}]    ==>     Function[x, 1 + 5*x + 10*x^2 + 10*x^3 + 5*x^4 + x^5] # skip
+ok  %[10]    ==>     161051 # skip
+ok  Module[{{x, y} = v}, x^2 + y^2]    ==>     Module[{{x, y} = v}, x^2 + y^2]
+    ---
+    data:
+        got: Module[{{x, y} = v}, x^2 + y^2]
+        expect: Module[{{x, y} = v}, x^2 + y^2]
+        expect_evaluated: Module[{{x, y} = v}, x^2 + y^2]
+    ...
+ok  Module[{x = v[[1]], y = v[[2]]}, x^2 + y^2]    ==>     a^2 + b^2 # skip

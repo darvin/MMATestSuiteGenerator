@@ -1,0 +1,147 @@
+# SYSTEM: Mathematica_10
+# TEST: Listable_Tests
+# OUTPUT: output/Results/Mathematica_10/Listable_Tests.json
+# RefLink[Log,paclet:ref/Log] is listable:
+ok  Log[{a, b, c}]    ==>     {Log[a], Log[b], Log[c]}
+    ---
+    data:
+        got: {Log[a], Log[b], Log[c]}
+        expect: {Log[a], Log[b], Log[c]}
+        expect_evaluated: {Log[a], Log[b], Log[c]}
+    ...
+ok  Attributes[Log]    ==>     {Listable, NumericFunction, Protected}
+    ---
+    data:
+        got: {Listable, NumericFunction, Protected}
+        expect: {Listable, NumericFunction, Protected}
+        expect_evaluated: {Listable, NumericFunction, Protected}
+    ...
+# Listable functions combine corresponding elements:
+ok  {a, b, c} + {x, y, z}    ==>     {a + x, b + y, c + z}
+    ---
+    data:
+        got: {a + x, b + y, c + z}
+        expect: {a + x, b + y, c + z}
+        expect_evaluated: {a + x, b + y, c + z}
+    ...
+# Arguments that are not lists are replicated as needed:
+ok  {a, b, c} + x    ==>     {a + x, b + x, c + x}
+    ---
+    data:
+        got: {a + x, b + x, c + x}
+        expect: {a + x, b + x, c + x}
+        expect_evaluated: {a + x, b + x, c + x}
+    ...
+ok  {{a, b}, {c, d}} + x    ==>     {{a + x, b + x}, {c + x, d + x}}
+    ---
+    data:
+        got: {{a + x, b + x}, {c + x, d + x}}
+        expect: {{a + x, b + x}, {c + x, d + x}}
+        expect_evaluated: {{a + x, b + x}, {c + x, d + x}}
+    ...
+ok  f[{3, 0, -2}]    ==>     {Sqrt[3], 0, Sqrt[2]} # skip
+# Most built-in mathematical functions are listable:
+ok  Attributes[Power]    ==>     {Listable, NumericFunction, OneIdentity, Protected}
+    ---
+    data:
+        got: {Listable, NumericFunction, OneIdentity, Protected}
+        expect: {Listable, NumericFunction, OneIdentity, Protected}
+        expect_evaluated: {Listable, NumericFunction, OneIdentity, Protected}
+    ...
+ok  {a, b, c}^{1, 2, 3}    ==>     {a, b^2, c^3}
+    ---
+    data:
+        got: {a, b^2, c^3}
+        expect: {a, b^2, c^3}
+        expect_evaluated: {a, b^2, c^3}
+    ...
+ok  {a, b, c}^5    ==>     {a^5, b^5, c^5}
+    ---
+    data:
+        got: {a^5, b^5, c^5}
+        expect: {a^5, b^5, c^5}
+        expect_evaluated: {a^5, b^5, c^5}
+    ...
+# Listability works for any nesting depth of lists:
+ok  Sqrt[{{1, 2}, {3, 4}}]    ==>     {{1, Sqrt[2]}, {Sqrt[3], 2}}
+    ---
+    data:
+        got: {{1, Sqrt[2]}, {Sqrt[3], 2}}
+        expect: {{1, Sqrt[2]}, {Sqrt[3], 2}}
+        expect_evaluated: {{1, Sqrt[2]}, {Sqrt[3], 2}}
+    ...
+# The nesting level of the different arguments need not be the same:
+ok  {{a, b}, {c, d}}^{2, 3}    ==>     {{a^2, b^2}, {c^3, d^3}}
+    ---
+    data:
+        got: {{a^2, b^2}, {c^3, d^3}}
+        expect: {{a^2, b^2}, {c^3, d^3}}
+        expect_evaluated: {{a^2, b^2}, {c^3, d^3}}
+    ...
+# Listability works also with sparse arrays:
+ok  HoldComplete[Exp[SparseArray[{1 -> 1, 2 -> 2, 10 -> 10}]]]    ==>     $Failed # skip
+ok  Normal[%]    ==>     {E, E^2, 1, 1, 1, 1, 1, 1, 1, E^10} # skip
+# Use the listability of RefLink[Plus,paclet:ref/Plus], RefLink[Power,paclet:ref/Power], RefLink[Sin,paclet:ref/Sin], and RefLink[Times,paclet:ref/Times]:
+ok  Timing[fvl = Sin[2*Pi*(v - 0.5)^2]; ]    ==>     {0.151, Null} # skip
+# Use RefLink[Map,paclet:ref/Map]:
+ok  Timing[fvm = (Sin[2*Pi*(#1 - 0.5)^2] & ) /@ v; ]    ==>     {0.53, Null} # skip
+# Use RefLink[Table,paclet:ref/Table]:
+ok  Timing[fvt = Table[Sin[2*Pi*(x - 0.5)^2], {x, v}]; ]    ==>     {0.571, Null} # skip
+# Use RefLink[Table,paclet:ref/Table] and RefLink[Part,paclet:ref/Part] to access elements of v as might be done in a lower-level language:
+ok  Timing[fvp = Table[Sin[2*Pi*(v[[i]] - 0.5)^2], {i, Length[v]}]; ]    ==>     {0.631, Null} # skip
+# The results are the same up to numerical roundoff:
+ok  {Norm[fvl - fvm], Norm[fvl - fvt], Norm[fvl - fvp]}    ==>     {1.12688/10^15, 1.12688/10^15, 1.12688/10^15} # skip
+# Matrix for a second-order approximation to the second derivative on the grid x:
+ok  HoldComplete[d2 = n^2*SparseArray[{{i_, i_} -> -2., {i_, j_} /; Abs[i - j] == 1 -> 1.}, {n + 1, n + 1}, 0.]]    ==>     $Failed # skip
+# Incorporate Dirichlet boundary conditions to form the Jacobian J:
+ok  HoldComplete[j = d2; j[[1,{1, 2}]] = 0.; j[[-1,{-1, -2}]] = 0.; j = SparseArray[j]]    ==>     $Failed # skip
+# The sparse identity matrix:
+ok  HoldComplete[id = IdentityMatrix[n + 1, SparseArray]]    ==>     $Failed # skip
+# Form sparse matrix m=I-h J for h=0.01 using the listability of arithmetic:
+ok  HoldComplete[m = id - 0.001*j]    ==>     $Failed # skip
+# LU decomposition of m in a functional form:
+ok  HoldComplete[lu = LinearSolve[m]]    ==>     $Failed # skip
+# Step initial condition on spatial grid x using the listability of RefLink[UnitStep,paclet:ref/UnitStep]:
+ok  HoldComplete[init = UnitStep[x - 0.5]; ListPlot[init, DataRange -> {0, 1}]]    ==>     $Failed # skip
+ok  HoldComplete[ListPlot[sol, DataRange -> {0, 1}]]    ==>     $Failed # skip
+ok  f[{1, 2, 3}]    ==>     {f[1], f[2], f[3]} # skip
+ok  g[{1, 2, 3}]    ==>     g[{1, 2, 3}]
+    ---
+    data:
+        got: g[{1, 2, 3}]
+        expect: g[{1, 2, 3}]
+        expect_evaluated: g[{1, 2, 3}]
+    ...
+ok  Thread[g[{1, 2, 3}]]    ==>     {g[1], g[2], g[3]}
+    ---
+    data:
+        got: {g[1], g[2], g[3]}
+        expect: {g[1], g[2], g[3]}
+        expect_evaluated: {g[1], g[2], g[3]}
+    ...
+ok  g[{1, 2, 3}]    ==>     {1, 4, 9} # skip
+ok  Attributes[Power]    ==>     {Listable, NumericFunction, OneIdentity, Protected}
+    ---
+    data:
+        got: {Listable, NumericFunction, OneIdentity, Protected}
+        expect: {Listable, NumericFunction, OneIdentity, Protected}
+        expect_evaluated: {Listable, NumericFunction, OneIdentity, Protected}
+    ...
+# The system symbols with the RefLink[Listable,paclet:ref/Listable] attribute: 
+ok  HoldComplete[listable = Select[Names["System`*"], MemberQ[Attributes[#1], Listable] & ]; Short[listable, 4]]    ==>     $Failed # skip
+# Many of these are arithmetic or numerical functions:
+ok  {Length[listable], Length[Select[listable, MemberQ[Attributes[#1], NumericFunction] & ]]}    ==>     {308, 191} # skip
+# The inner product of two vectors:
+ok  u . v    ==>     a + 2*b + 3*c + 4*d # skip
+# The vector resulting from the product of corresponding elements:
+ok  u*v    ==>     {a, 2*b, 3*c, 4*d} # skip
+# The matrix resulting from the outer product of the vectors:
+ok  MatrixForm[KroneckerProduct[u, v]]    ==>     a*2*a*3*a*4*a*b*2*b*3*b*4*b*c*2*c*3*c*4*c*d*2*d*3*d*4*d # skip
+# All list arguments must have the same length:
+ok  {a, b, c}^{1, 2}    ==>     {a, b, c}^{1, 2}
+    ---
+    data:
+        got: {a, b, c}^{1, 2}
+        expect: {a, b, c}^{1, 2}
+        expect_evaluated: {a, b, c}^{1, 2}
+    ...

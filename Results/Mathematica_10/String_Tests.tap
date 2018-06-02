@@ -1,0 +1,107 @@
+# SYSTEM: Mathematica_10
+# TEST: String_Tests
+# OUTPUT: output/Results/Mathematica_10/String_Tests.json
+# Enter a string:
+ok  HoldComplete["This is a string."]    ==>     $Failed # skip
+# RefLink[InputForm,paclet:ref/InputForm] shows quotes:
+ok  InputForm[%]    ==>     "This is a string." # skip
+# Enter explicit newlines using \n:
+ok  "one\ntwo\nthree"    ==>     one*two*three # skip
+# "" is the empty string, which normally does not print:
+ok  {"", x, "", ""}    ==>     {Null, x, Null, Null} # skip
+# RefLink[InputForm,paclet:ref/InputForm] explicitly shows the empty strings:
+ok  InputForm[%]    ==>     {"", x, "", ""} # skip
+# Strings can contain any sequence of ordinary and special characters:
+ok  "\[FilledDiamond] String \[Alpha]\[Beta]\[Gamma] <--> \[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC] \[ReturnIndicator]"    ==>     \[FilledDiamond]*String*\[Alpha]\[Beta]\[Gamma] <--> \[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC]*\[ReturnIndicator] # skip
+# In RefLink[FullForm,paclet:ref/FullForm], full character names are used:
+ok  FullForm[%]    ==>     "\[FilledDiamond] String \[Alpha]\[Beta]\[Gamma] <--> \[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC] \[ReturnIndicator]" # skip
+# Strings preserve internal formatting:
+ok  "red blue green italic"    ==>     red*blue*green*italic # skip
+# All strings have head RefLink[String,paclet:ref/String]:
+ok  Head["a string"]    ==>     String
+    ---
+    data:
+        got: String
+        expect: String
+        expect_evaluated: String
+    ...
+# _String matches any string, but not a symbol:
+ok  Cases[{1, 2, "ab", "cd", x, y}, _String]    ==>     {ab, cd} # skip
+# Strings can have any expression embedded:
+ok  HoldComplete["ab \[Integral]1/xdx cd"]    ==>     $Failed # skip
+ok  FullForm[%]    ==>     "ab \[Integral]\!\(\*FractionBox[\(1\), \(x\)]\)dx cd" # skip
+# Strings can contain graphics:
+ok  HoldComplete["ab \!\(\*\nGraphicsBox[DiskBox[{0, 0}],\nImageSize->{34., Automatic}]\) cd"]    ==>     $Failed # skip
+ok  FullForm[%]    ==>     "ab \!\(\*\nGraphicsBox[DiskBox[{0, 0}],\nImageSize->{34., Automatic}]\) cd" # skip
+# Create formatted text:
+ok  HoldComplete[Style["This is a string.", FontSize -> 25, FontFamily -> "Helvetica"]]    ==>     $Failed # skip
+ok  {f["X"], f["ABCDEF"], f[x], f[{a, b, c}]}    ==>     {X, BCDEFA, f[x], f[{a, b, c}]} # skip
+# Use strings as plot markers:
+ok  HoldComplete[ListPlot[{{1, 2, 3}, {3, 1, 4}}, PlotMarkers -> {"A", "B"}]]    ==>     $Failed # skip
+# Give text in graphics:
+ok  HoldComplete[Graphics[{Text["abcde", {0, -2}], Disk[{0, 0}], Text["ABCDE", {0, 2}]}]]    ==>     $Failed # skip
+# Break a string into characters:
+ok  HoldComplete[Characters["This is a string."]]    ==>     $Failed # skip
+# Reconstruct the string:
+ok  HoldComplete[StringJoin[%]]    ==>     $Failed # skip
+# Find character codes for characters in a string:
+ok  ToCharacterCode["This is a string."]    ==>     {84, 104, 105, 115, 32, 105, 115, 32, 97, 32, 115, 116, 114, 105, 110, 103, 46}
+    ---
+    data:
+        got: {84, 104, 105, 115, 32, 105, 115, 32, 97, 32, 115, 116, 114, 105, 110, 103, 46}
+        expect: {84, 104, 105, 115, 32, 105, 115, 32, 97, 32, 115, 116, 114, 105, 110, 103, 46}
+        expect_evaluated: {84, 104, 105, 115, 32, 105, 115, 32, 97, 32, 115, 116, 114, 105, 110, 103, 46}
+    ...
+# Reconstruct the string:
+ok  HoldComplete[FromCharacterCode[%]]    ==>     $Failed # skip
+# Turn a string into an expression:
+ok  ToExpression["1+x^4"]    ==>     1 + x^4
+    ---
+    data:
+        got: 1 + x^4
+        expect: 1 + x^4
+        expect_evaluated: 1 + x^4
+    ...
+# RefLink[ToString,paclet:ref/ToString] creates strings, by default with RefLink[OutputForm,paclet:ref/OutputForm]:
+ok  ToString[1 + x^4]    ==>     4*1 + x # skip
+ok  FullForm[%]    ==>     "     4\n1 + x" # skip
+# Create a string containing RefLink[InputForm,paclet:ref/InputForm]:
+ok  ToString[1 + x^4, InputForm]    ==>     1 + x^4 # skip
+ok  FullForm[%]    ==>     "1 + x^4" # skip
+# Use \" to enter a " inside a string:
+ok  "a string with \"quotes\""    ==>     a*string*with*"quotes" # skip
+# Strings are treated as "atoms" with no parts:
+ok  Length["a string"]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+# Use RefLink[StringLength,paclet:ref/StringLength] to find the character length of a string:
+ok  StringLength["a string"]    ==>     8
+    ---
+    data:
+        got: 8
+        expect: 8
+        expect_evaluated: 8
+    ...
+# Strings do not automatically insert spacing around operator characters:
+ok  "x->a+b+c+d"    ==>     x -> a + b + c + d # skip
+ok  x -> a + b + c + d    ==>     x -> a + b + c + d
+    ---
+    data:
+        got: x -> a + b + c + d
+        expect: x -> a + b + c + d
+        expect_evaluated: x -> a + b + c + d
+    ...
+# An RefLink[InputForm,paclet:ref/InputForm] string contains explicit space characters:
+ok  ToString[%, InputForm]    ==>     x -> a + b + c + d # skip
+# The actual sequences of characters in a formatted string can be fairly complicated:
+ok  FullForm["red italic"]    ==>     "\!\(\*\nStyleBox[\"red\",\nFontColor->RGBColor[1, 0, 0]]\) \!\(\*\nStyleBox[\"italic\",\nFontSlant->\"Italic\"]\)" # skip
+ok  FullForm["ab \!\(\*\nGraphicsBox[DiskBox[{0, 0}],\nImageSize->{34., Automatic}]\) cd"]    ==>     "ab \!\(\*\nGraphicsBox[DiskBox[{0, 0}],\nImageSize->{34., Automatic}]\) cd" # skip
+# A string with special characters usually does not include the long form of the character: 
+ok  "\[Alpha]"    ==>     \[Alpha] # skip
+# Force long form names to be used: 
+ok  ToString[FullForm["\[Alpha]"]]    ==>     "\[Alpha]" # skip
+ok  ToString["\[Alpha]", InputForm, CharacterEncoding -> None]    ==>     "\[Alpha]" # skip

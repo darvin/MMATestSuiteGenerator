@@ -136,12 +136,12 @@ not ok  f //@ {{{{{a}}}}}    ==>     {f[{f[{f[{f[{f[a]}]}]}]}]}
         expect_evaluated: {f[{f[{f[{f[{f[a]}]}]}]}]}
     ...
 # Map also at level 0:
-not ok  HoldComplete[Map[f, {{{{{a}}}}}, {0, Infinity}]]    ==>     $Failed
+ok  Map[f, {{{{{a}}}}}, {0, Infinity}]    ==>     f[{f[{f[{f[{f[{f[a]}]}]}]}]}]
     ---
     data:
         got: f[{f[{f[{f[{f[{f[a]}]}]}]}]}]
-        expect: $Failed
-        expect_evaluated: $Failed
+        expect: f[{f[{f[{f[{f[{f[a]}]}]}]}]}]
+        expect_evaluated: f[{f[{f[{f[{f[{f[a]}]}]}]}]}]
     ...
 # Negative levels:
 ok  Map[f, {{{{{a}}}}}, -1]    ==>     {f[{f[{f[{f[{f[a]}]}]}]}]}

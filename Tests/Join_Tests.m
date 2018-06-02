@@ -66,17 +66,27 @@ with RefLink[SparseArray,paclet:ref/SparseArray] objects:"],
    Subscript[c, 3]*Subscript[c, 3]*Subscript[c, 3]*Subscript[d, 3]*
    Subscript[d, 3]*Subscript[d, 3]], TapComment["This can also be done with \
 RefLink[ArrayFlatten,paclet:ref/ArrayFlatten]:"], 
- TapTestSameBROKEN[$Failed, HoldComplete[Subscript[a, 1]*Subscript[a, 1]*
-    Subscript[a, 1]*Subscript[b, 1]*Subscript[b, 1]*Subscript[b, 1]*
-    Subscript[a, 2]*Subscript[a, 2]*Subscript[a, 2]*Subscript[b, 2]*
-    Subscript[b, 2]*Subscript[b, 2]*Subscript[a, 3]*Subscript[a, 3]*
-    Subscript[a, 3]*Subscript[b, 3]*Subscript[b, 3]*Subscript[b, 3]*
-    Subscript[c, 1]*Subscript[c, 1]*Subscript[c, 1]*Subscript[d, 1]*
-    Subscript[d, 1]*Subscript[d, 1]*Subscript[c, 2]*Subscript[c, 2]*
-    Subscript[c, 2]*Subscript[d, 2]*Subscript[d, 2]*Subscript[d, 2]*
-    Subscript[c, 3]*Subscript[c, 3]*Subscript[c, 3]*Subscript[d, 3]*
-    Subscript[d, 3]*Subscript[d, 3]]], TapComment["RefLink[Join,paclet:ref/Jo\
-in][Subscript[list, 1],Subscript[list, 2],\\[Ellipsis]] is equivalent to \
+ TapTestSameBROKEN[MatrixForm[ArrayFlatten[
+    (Subscript[a, 1]*Subscript[a, 1]*Subscript[a, 1]*Subscript[a, 2]*
+      Subscript[a, 2]*Subscript[a, 2]*Subscript[a, 3]*Subscript[a, 3]*
+      Subscript[a, 3])*(Subscript[b, 1]*Subscript[b, 1]*Subscript[b, 1]*
+      Subscript[b, 2]*Subscript[b, 2]*Subscript[b, 2]*Subscript[b, 3]*
+      Subscript[b, 3]*Subscript[b, 3])*(Subscript[c, 1]*Subscript[c, 1]*
+      Subscript[c, 1]*Subscript[c, 2]*Subscript[c, 2]*Subscript[c, 2]*
+      Subscript[c, 3]*Subscript[c, 3]*Subscript[c, 3])*
+     (Subscript[d, 1]*Subscript[d, 1]*Subscript[d, 1]*Subscript[d, 2]*
+      Subscript[d, 2]*Subscript[d, 2]*Subscript[d, 3]*Subscript[d, 3]*
+      Subscript[d, 3])]], Subscript[a, 1]*Subscript[a, 1]*Subscript[a, 1]*
+   Subscript[b, 1]*Subscript[b, 1]*Subscript[b, 1]*Subscript[a, 2]*
+   Subscript[a, 2]*Subscript[a, 2]*Subscript[b, 2]*Subscript[b, 2]*
+   Subscript[b, 2]*Subscript[a, 3]*Subscript[a, 3]*Subscript[a, 3]*
+   Subscript[b, 3]*Subscript[b, 3]*Subscript[b, 3]*Subscript[c, 1]*
+   Subscript[c, 1]*Subscript[c, 1]*Subscript[d, 1]*Subscript[d, 1]*
+   Subscript[d, 1]*Subscript[c, 2]*Subscript[c, 2]*Subscript[c, 2]*
+   Subscript[d, 2]*Subscript[d, 2]*Subscript[d, 2]*Subscript[c, 3]*
+   Subscript[c, 3]*Subscript[c, 3]*Subscript[d, 3]*Subscript[d, 3]*
+   Subscript[d, 3]], TapComment["RefLink[Join,paclet:ref/Join][Subscript[list\
+, 1],Subscript[list, 2],\\[Ellipsis]] is equivalent to \
 RefLink[Flatten,paclet:ref/Flatten][{Subscript[list, 1],Subscript[list, \
 2],\\[Ellipsis]},1]:"], TapTestSame[Join[{1, 2}, {{a, b}, {c, d}}, 
    {3, 4, 5}], {1, 2, {a, b}, {c, d}, 3, 4, 5}], 

@@ -1,0 +1,94 @@
+# SYSTEM: Mathematica_10
+# TEST: Reap_Tests
+# OUTPUT: output/Results/Mathematica_10/Reap_Tests.json
+# Evaluate a sequence of expressions, "reaping" ones that have been "sown":
+ok  Reap[Sow[a]; b; Sow[c]; Sow[d]; e]    ==>     {e, {{a, c, d}}}
+    ---
+    data:
+        got: {e, {{a, c, d}}}
+        expect: {e, {{a, c, d}}}
+        expect_evaluated: {e, {{a, c, d}}}
+    ...
+# Compute a sum, "reaping" i^2 "sown" at each step:
+ok  Reap[Sum[Sow[i^2] + 1, {i, 10}]]    ==>     {395, {{1, 4, 9, 16, 25, 36, 49, 64, 81, 100}}}
+    ---
+    data:
+        got: {395, {{1, 4, 9, 16, 25, 36, 49, 64, 81, 100}}}
+        expect: {395, {{1, 4, 9, 16, 25, 36, 49, 64, 81, 100}}}
+        expect_evaluated: {395, {{1, 4, 9, 16, 25, 36, 49, 64, 81, 100}}}
+    ...
+# Make a separate sublist for each tag being reaped:
+ok  Reap[Sow[1, {x, x}]; Sow[2, y]; Sow[3, x], {x, x, y}]    ==>     {3, {{{1, 1, 3}}, {{1, 1, 3}}, {{2}}}}
+    ---
+    data:
+        got: {3, {{{1, 1, 3}}, {{1, 1, 3}}, {{2}}}}
+        expect: {3, {{{1, 1, 3}}, {{1, 1, 3}}, {{2}}}}
+        expect_evaluated: {3, {{{1, 1, 3}}, {{1, 1, 3}}, {{2}}}}
+    ...
+# Count the number of instances of each integer separating the negative:
+ok  Reap[Sow[1, RandomInteger[{-9, 9}, 100]], {_?Negative, _?NonNegative}, #1 -> Total[#2] & ]    ==>     {1, {{-1 -> 4, -3 -> 5, -2 -> 5, -9 -> 6, -4 -> 4, -7 -> 3, -8 -> 3, -5 -> 8, -6 -> 1}, {1 -> 7, 0 -> 7, 6 -> 6, 4 -> 7, 8 -> 9, 9 -> 2, 7 -> 12, 2 -> 3, 5 -> 2, 3 -> 6}}} # skip
+# Apply f to each distinct tag and list of values:
+ok  Reap[Sow[1, {x, x}]; Sow[2, y]; Sow[3, x], _, f]    ==>     {3, {f[x, {1, 1, 3}], f[y, {2}]}}
+    ---
+    data:
+        got: {3, {f[x, {1, 1, 3}], f[y, {2}]}}
+        expect: {3, {f[x, {1, 1, 3}], f[y, {2}]}}
+        expect_evaluated: {3, {f[x, {1, 1, 3}], f[y, {2}]}}
+    ...
+ok  Reap[Sow[1, {x, x}]; Sow[2, y]; Sow[3, x], _, Rule]    ==>     {3, {x -> {1, 1, 3}, y -> {2}}}
+    ---
+    data:
+        got: {3, {x -> {1, 1, 3}, y -> {2}}}
+        expect: {3, {x -> {1, 1, 3}, y -> {2}}}
+        expect_evaluated: {3, {x -> {1, 1, 3}, y -> {2}}}
+    ...
+# Find the unique elements in a list, in the order they first occur (unsorted union):
+ok  Reap[Sow[1, {a, a, b, d, c, a}], _, #1 & ][[2]]    ==>     {a, b, d, c}
+    ---
+    data:
+        got: {a, b, d, c}
+        expect: {a, b, d, c}
+        expect_evaluated: {a, b, d, c}
+    ...
+# Find the list of values sampled by RefLink[Plot,paclet:ref/Plot]:
+ok  HoldComplete[Short[Reap[Plot[Sin[x], {x, 0, 10}, EvaluationMonitor :> Sow[x]]; ]]]    ==>     $Failed # skip
+ok  unsortedUnion[{b, b, c, a, c, a, b, d}]    ==>     {b, c, a, d} # skip
+# This is like RefLink[Union,paclet:ref/Union] without the sorting:
+ok  Union[{b, b, c, a, c, a, b, d}]    ==>     {a, b, c, d}
+    ---
+    data:
+        got: {a, b, c, d}
+        expect: {a, b, c, d}
+        expect_evaluated: {a, b, c, d}
+    ...
+# If no expressions are sown, RefLink[Reap,paclet:ref/Reap] returns an empty list of expressions it has reaped:
+ok  Reap[x]    ==>     {x, {}}
+    ---
+    data:
+        got: {x, {}}
+        expect: {x, {}}
+        expect_evaluated: {x, {}}
+    ...
+# RefLink[Reap,paclet:ref/Reap] collects expressions in exactly the order they are sown:
+ok  Reap[Sow //@ ((a + b)*(c + x^2)); ]    ==>     {Null, {{a, b, a + b, c, x, 2, x^2, c + x^2, (a + b)*(c + x^2)}}}
+    ---
+    data:
+        got: {Null, {{a, b, a + b, c, x, 2, x^2, c + x^2, (a + b)*(c + x^2)}}}
+        expect: {Null, {{a, b, a + b, c, x, 2, x^2, c + x^2, (a + b)*(c + x^2)}}}
+        expect_evaluated: {Null, {{a, b, a + b, c, x, 2, x^2, c + x^2, (a + b)*(c + x^2)}}}
+    ...
+# The list associated with the first tag to be encountered is given first:
+ok  Reap[Sow[1, y]; Sow[2, x]; Sow[3, y]]    ==>     {3, {{1, 3}, {2}}}
+    ---
+    data:
+        got: {3, {{1, 3}, {2}}}
+        expect: {3, {{1, 3}, {2}}}
+        expect_evaluated: {3, {{1, 3}, {2}}}
+    ...
+ok  Reap[Sow[1, y]; Sow[2, x]; Sow[3, y], _, Rule]    ==>     {3, {y -> {1, 3}, x -> {2}}}
+    ---
+    data:
+        got: {3, {y -> {1, 3}, x -> {2}}}
+        expect: {3, {y -> {1, 3}, x -> {2}}}
+        expect_evaluated: {3, {y -> {1, 3}, x -> {2}}}
+    ...

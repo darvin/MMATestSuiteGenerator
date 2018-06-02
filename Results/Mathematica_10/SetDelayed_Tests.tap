@@ -1,0 +1,92 @@
+# SYSTEM: Mathematica_10
+# TEST: SetDelayed_Tests
+# OUTPUT: output/Results/Mathematica_10/SetDelayed_Tests.json
+ok  f[a + b]    ==>     a^2 + 2*a*b + b^2 # skip
+ok  {r, r, r}    ==>     {0.964064, 0.797772, 0.472486} # skip
+ok  fact[10]    ==>     3628800 # skip
+ok  {f[2], f[-2]}    ==>     {2, f[-2]} # skip
+ok  {unit[-2], unit[0], unit[1], unit[a]}    ==>     {0, 1, 1, unit[a]} # skip
+ok  OwnValues[r]    ==>     {HoldPattern[r] :> Random[]} # skip
+ok  DownValues[f]    ==>     {HoldPattern[f[x_]] :> x^2} # skip
+ok  SubValues[derivative]    ==>     {HoldPattern[derivative[1][f][x_]] :> fg[x]} # skip
+ok  UpValues[mod]    ==>     {HoldPattern[(a_mod) + (b_mod)] :> modPlus[a, b]} # skip
+ok  NValues[f]    ==>     {HoldPattern[N[f[x_], {MachinePrecision, MachinePrecision}]] :> (1 - 1/x^10)*(1 - 1/x^9)*(1 - 1/x^8)*(1 - 1/x^7)*(1 - 1/x^6)*(1 - 1/x^5)*(1 - 1/x^4)*(1 - 1/x^3)*(1 - 1/x^2)} # skip
+ok  N[f[2]]    ==>     0.578141 # skip
+ok  newton[5.]    ==>     2.23607 # skip
+ok  pi2    ==>     9.8696044010893586188344909998761511353136994072408`49.994299745388275 # skip
+ok  pi2 = 9.8696044010893586188344909998761511353136994072408`49.994299745388275    ==>     pi2 = 9.8696044010893586188344909998761511353136994072408`49.994299745388275 # skip
+ok  f[x, 5]    ==>     25 # skip
+# The global variable has been modified:
+ok  x    ==>     25 # skip
+ok  {x, x, x}    ==>     {0.446837, 0.446837, 0.446837} # skip
+ok  {y, y, y}    ==>     {0.72466, 0.646934, 0.872933} # skip
+ok  Attributes[f] = {Listable}*f[5] := 17*f[x_] := %    ==>     f[5] := 17 # skip
+ok  f[2]    ==>     8 # skip
+ok  Attributes[f] = {Listable}*f[5] := 17*f[x_] := %    ==>     f[x$_] := x^2 # skip
+ok  f[5]    ==>     x^2 # skip
+ok  {f[2], x}    ==>     {4, 5} # skip
+ok  {g[2], x}    ==>     {25, 5} # skip
+# Use a rule to do a transformation to a particular expression:
+ok  f[2*x*y] + f[x*y] //. f[(a_)*(b_)] :> f[a] + f[b]    ==>     f[2] + 2*f[x] + 2*f[y] # skip
+ok  g[2*x*y] + g[x*y] + f[x*y]    ==>     f[x*y] + g[2] + 2*g[x] + 2*g[y] # skip
+ok  fact[1] = $Failed    ==>     fact[1] = 1*fact[n_] := n*fact[n - 1] # skip
+ok  fact[10]    ==>     3628800 # skip
+ok  Attributes[f] = {Listable}*f[5] := 17*f[x_] := %    ==>     f[x_] := x^2 # skip
+# RefLink[DownValues,paclet:ref/DownValues] returns a list of rules corresponding to any downvalues defined:
+ok  DownValues[f]    ==>     {HoldPattern[f[x_]] :> x^2} # skip
+ok  Attributes[f] = {Listable}*f[5] := 17*f[x_] := %    ==>     Attributes[f] = {Listable}*f[x_] := x^2 # skip
+ok  Attributes[f] = {Listable}*f[5] := 17*f[x_] := %    ==>     Attributes[f] = {Listable} # skip
+ok  Attributes[f] = {Listable}*f[5] := 17*f[x_] := %    ==>     Null # skip
+ok  {f[x], g[x]}    ==>     {x^2, x^2} # skip
+ok  {f[2], g[2]}    ==>     {f[2], 4} # skip
+# Using delayed definitions may have unexpected consequences:
+ok  Expand[(x + 1)^3]    ==>     1 + 3*x + 3*x^2 + x^3
+    ---
+    data:
+        got: 1 + 3*x + 3*x^2 + x^3
+        expect: 1 + 3*x + 3*x^2 + x^3
+        expect_evaluated: 1 + 3*x + 3*x^2 + x^3
+    ...
+# The definition actually made and its behavior: 
+ok  Attributes[f] = {Listable}*f[5] := 17*f[x_] := %    ==>     f[x_] := % # skip
+ok  f[1]    ==>     f[x_] := % # skip
+# Use RefLink[Evaluate,paclet:ref/Evaluate] to force evaluation of the right-hand side: 
+ok  Expand[(x + 1)^3]    ==>     1 + 3*x + 3*x^2 + x^3
+    ---
+    data:
+        got: 1 + 3*x + 3*x^2 + x^3
+        expect: 1 + 3*x + 3*x^2 + x^3
+        expect_evaluated: 1 + 3*x + 3*x^2 + x^3
+    ...
+ok  g[x_] := 1 + 3*x + 3*x^2 + x^3    ==>     g[x_] := 1 + 3*x + 3*x^2 + x^3 # skip
+not ok  g[1]    ==>     8
+    ---
+    data:
+        got: g[1]
+        expect: 8
+        expect_evaluated: 8
+    ...
+# Or use RefLink[Set,paclet:ref/Set] to force evaluation of the right-hand side: 
+ok  Expand[(x + 1)^3]    ==>     1 + 3*x + 3*x^2 + x^3
+    ---
+    data:
+        got: 1 + 3*x + 3*x^2 + x^3
+        expect: 1 + 3*x + 3*x^2 + x^3
+        expect_evaluated: 1 + 3*x + 3*x^2 + x^3
+    ...
+ok  h[x_] = %    ==>     1 + 3*x + 3*x^2 + x^3 # skip
+ok  h[x_] = 1 + 3*x + 3*x^2 + x^3    ==>     h[x_] = 1 + 3*x + 3*x^2 + x^3 # skip
+not ok  h[1]    ==>     8
+    ---
+    data:
+        got: h[1]
+        expect: 8
+        expect_evaluated: 8
+    ...
+ok  f[1]    ==>     Hold[f[4096 + 1]] # skip
+ok  g[1]    ==>     10 # skip
+ok  f[10]    ==>     255 + Hold[Hold[f[Floor[0/2]]]] # skip
+ok  g[10]    ==>     3 # skip
+ok  fib[5]    ==>     5 # skip
+# New definitions have been added during the calculation:
+ok  fib[1] = $Failed    ==>     fib[1] = 1*fib[2] = 1*fib[3] = 2*fib[4] = 3*fib[5] = 5*fib[n_] := fib[n] = fib[n - 1] + fib[n - 2] # skip

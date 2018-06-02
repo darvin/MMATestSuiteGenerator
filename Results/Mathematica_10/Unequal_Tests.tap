@@ -1,0 +1,261 @@
+# SYSTEM: Mathematica_10
+# TEST: Unequal_Tests
+# OUTPUT: output/Results/Mathematica_10/Unequal_Tests.json
+# Returns RefLink[True,paclet:ref/True] if elements are guaranteed unequal, and otherwise stays unevaluated:
+ok  a != b    ==>     a != b
+    ---
+    data:
+        got: a != b
+        expect: a != b
+        expect_evaluated: a != b
+    ...
+# Enter as !=\[ThinSpace] or as Esc\[ThinSpace]\[ThinSpace]!=\[ThinSpace]\[ThinSpace]Esc:
+ok  1 != 2    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Test unequality of numbers:
+ok  3/2 != 5/3    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Approximate numbers that differ in at most their last eight binary digits are considered equal:
+ok  1. != 1. + 2^7/10^16    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  1. != 1. + 2^8/10^16    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Compare an exact numeric expression and an approximate number:
+ok  N[Pi, 20] != Pi    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  N[Pi, 20] != Pi*(1 + 2^8/10^20)    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Compare two exact numeric expressions; a numeric test may suffice to prove unequality:
+ok  Pi^E != E^Pi    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Proving equality requires symbolic methods:
+ok  Sqrt[2] + Sqrt[3] != Sqrt[5 + 2*Sqrt[6]]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# Symbolic methods used by RefLink[Unequal,paclet:ref/Unequal] are insufficient to prove this RefLink[False,paclet:ref/False]:
+ok  Sqrt[2] + Sqrt[3] != Root[#1^4 - 10*#1^2 + 1 & , 4]    ==>     Sqrt[2] + Sqrt[3] != Root[1 - 10*#1^2 + #1^4 & , 4]
+    ---
+    data:
+        got: Sqrt[2] + Sqrt[3] != Root[1 - 10*#1^2 + #1^4 & , 4, 0]
+        expect: Sqrt[2] + Sqrt[3] != Root[1 - 10*#1^2 + #1^4 & , 4]
+        expect_evaluated: Sqrt[2] + Sqrt[3] != Root[1 - 10*#1^2 + #1^4 & , 4, 0]
+    ...
+# Use RefLink[RootReduce,paclet:ref/RootReduce] to decide whether two algebraic numbers are unequal:
+ok  RootReduce[%]    ==>     False # skip
+# Numeric methods used by RefLink[Unequal,paclet:ref/Unequal] do not use sufficient precision to prove this unequality:
+ok  Sqrt[2] + Sqrt[3] != Root[#1^4 - 10*#1^2 + 1 & , 4] + 10^(-100)    ==>     Sqrt[2] + Sqrt[3] != 1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Root[1 - 10*#1^2 + #1^4 & , 4]
+    ---
+    data:
+        got: Sqrt[2] + Sqrt[3] != 1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Root[1 - 10*#1^2 + #1^4 & , 4, 0]
+        expect: Sqrt[2] + Sqrt[3] != 1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Root[1 - 10*#1^2 + #1^4 & , 4]
+        expect_evaluated: Sqrt[2] + Sqrt[3] != 1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Root[1 - 10*#1^2 + #1^4 & , 4, 0]
+    ...
+# RefLink[RootReduce,paclet:ref/RootReduce] proves that the two algebraic numbers are not equal:
+ok  RootReduce[%]    ==>     True # skip
+# Increasing RefLink[$MaxExtraPrecision,paclet:ref/$MaxExtraPrecision] may also prove unequality:
+ok  Block[{$MaxExtraPrecision = 100}, Sqrt[2] + Sqrt[3] != Root[#1^4 - 10*#1^2 + 1 & , 4] + 10^(-100)]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# This symbolic unequality is always RefLink[False,paclet:ref/False]:
+ok  x != x    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# RefLink[Unequal,paclet:ref/Unequal] does not automatically prove this unequality:
+ok  (x + 1)^2 - x^2 - 2*x != 0    ==>     -2*x - x^2 + (1 + x)^2 != 0
+    ---
+    data:
+        got: -2*x - x^2 + (1 + x)^2 != 0
+        expect: -2*x - x^2 + (1 + x)^2 != 0
+        expect_evaluated: -2*x - x^2 + (1 + x)^2 != 0
+    ...
+# Use RefLink[Expand,paclet:ref/Expand] to prove it:
+ok  Expand[%]    ==>     True # skip
+# Compare more than two expressions:
+ok  3 != 4 != 5    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok  x != y != z != t    ==>     x != y != z != t
+    ---
+    data:
+        got: x != y != z != t
+        expect: x != y != z != t
+        expect_evaluated: x != y != z != t
+    ...
+# Compare lists:
+ok  {1, 2} != {1, 2}    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  {a, b, c} != {d, e}    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Compare strings:
+ok  "abc" != "ABC"    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# The negation of two-argument RefLink[Unequal,paclet:ref/Unequal] is RefLink[Equal,paclet:ref/Equal]:
+ok   !x != y    ==>     x == y
+    ---
+    data:
+        got: x == y
+        expect: x == y
+        expect_evaluated: x == y
+    ...
+# The negation of three-argument RefLink[Unequal,paclet:ref/Unequal] does not simplify automatically:
+ok   !x != y != z    ==>      !x != y != z
+    ---
+    data:
+        got:  !x != y != z
+        expect:  !x != y != z
+        expect_evaluated:  !x != y != z
+    ...
+# Use RefLink[LogicalExpand,paclet:ref/LogicalExpand] to express it in terms of two-argument RefLink[Equal,paclet:ref/Equal]:
+ok  LogicalExpand[%]    ==>     y == x || z == x || z == y # skip
+# The negation of three-argument RefLink[Unequal,paclet:ref/Unequal] is not equivalent to three-argument RefLink[Equal,paclet:ref/Equal]:
+ok  LogicalExpand[x == y == z]    ==>     y == x && z == x
+    ---
+    data:
+        got: y == x && z == x
+        expect: y == x && z == x
+        expect_evaluated: y == x && z == x
+    ...
+# RefLink[Unequal,paclet:ref/Unequal] tests mathematical unequality of objects represented by expressions:
+ok  {x != x, x != y, Sqrt[2] + Sqrt[3] != Sqrt[5 + 2*Sqrt[6]], Pi != N[Pi]}    ==>     {False, x != y, False, False}
+    ---
+    data:
+        got: {False, x != y, False, False}
+        expect: {False, x != y, False, False}
+        expect_evaluated: {False, x != y, False, False}
+    ...
+# RefLink[UnsameQ,paclet:ref/UnsameQ] tests syntactic unequality of expressions:
+ok  {x =!= x, x =!= y, Sqrt[2] + Sqrt[3] =!= Sqrt[5 + 2*Sqrt[6]], Pi =!= N[Pi]}    ==>     {False, True, True, True}
+    ---
+    data:
+        got: {False, True, True, True}
+        expect: {False, True, True, True}
+        expect_evaluated: {False, True, True, True}
+    ...
+# When RefLink[Unequal,paclet:ref/Unequal] cannot decide whether two numeric expressions are equal it returns unchanged:
+ok  a = Log[Sqrt[2] + Sqrt[3]]; b = Log[5 + 2*Sqrt[6]]/2; a != b    ==>     Log[Sqrt[2] + Sqrt[3]] != (1/2)*Log[5 + 2*Sqrt[6]]
+    ---
+    data:
+        got: Log[Sqrt[2] + Sqrt[3]] != Log[5 + 2*Sqrt[6]]/2
+        expect: Log[Sqrt[2] + Sqrt[3]] != (1/2)*Log[5 + 2*Sqrt[6]]
+        expect_evaluated: Log[Sqrt[2] + Sqrt[3]] != Log[5 + 2*Sqrt[6]]/2
+    ...
+# RefLink[FullSimplify,paclet:ref/FullSimplify] uses exact symbolic transformations to disprove the unequality:
+ok  FullSimplify[a != b]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# RefLink[PossibleZeroQ,paclet:ref/PossibleZeroQ] uses numeric and symbolic heuristics to decide whether an expression is zero:
+ok  PossibleZeroQ[a - b]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Numeric methods used by RefLink[PossibleZeroQ,paclet:ref/PossibleZeroQ] may incorrectly decide that a number is zero:
+ok  PossibleZeroQ[a - b + 10^(-100)]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Unequality for machine-precision approximate numbers can be subtle: 
+ok  2.00006 - 2.00005 != 0.00001    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# The extra digits disrupt equality:
+ok  InputForm[2.00006 - 2.00005]    ==>     0.000010000000000065512 # skip
+# Arbitrary-precision approximate numbers do not have this problem:
+ok  2.00006`16. - 2.00005000000000000000000000001`16. != 1.`16.*^-5    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# Thanks to automatic-precision tracking, RefLink[Unequal,paclet:ref/Unequal] knows to look only at the first 10 digits:
+ok  Precision[2.00006`16. - 2.00005000000000000000000000001`16.]    ==>     10.3979 # skip
+# In this case, the unequality test for machine numbers gives the expected result:
+ok  2.6 - 2.5 != 0.1    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# The extra digits in this case are ignored by RefLink[Unequal,paclet:ref/Unequal]:
+ok  InputForm[2.6 - 2.5]    ==>     0.10000000000000009 # skip

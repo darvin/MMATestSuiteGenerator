@@ -1,0 +1,339 @@
+# SYSTEM: Mathematica_10
+# TEST: I_Tests
+# OUTPUT: output/Results/Mathematica_10/I_Tests.json
+# RefLink[I,paclet:ref/I] can be entered as Esc\[ThinSpace]ii\[ThinSpace]Esc (for "imaginary i"):
+ok  I    ==>     I
+    ---
+    data:
+        got: I
+        expect: I
+        expect_evaluated: I
+    ...
+# Generate from square roots of negative real numbers:
+ok  Sqrt[-16]    ==>     4*I
+    ---
+    data:
+        got: 4*I
+        expect: 4*I
+        expect_evaluated: 4*I
+    ...
+# Use RefLink[I,paclet:ref/I] in exact and approximate calculations:
+ok  (3 + I)^2/(5 - I)    ==>     17/13 + (19*I)/13
+    ---
+    data:
+        got: 17/13 + (19*I)/13
+        expect: 17/13 + (19*I)/13
+        expect_evaluated: 17/13 + (19*I)/13
+    ...
+ok  Tan[3.5 + I]    ==>     0.145477 + 0.803096*I # skip
+# Built-in mathematical functions work with complex numbers:
+ok  Log[4.5 + 2*I]    ==>     1.59421 + 0.418224*I # skip
+ok  GCD[3 - I, 66 + 2*I]    ==>     1 + I
+    ---
+    data:
+        got: 1 + I
+        expect: 1 + I
+        expect_evaluated: 1 + I
+    ...
+# Extract imaginary parts:
+ok  Im[(E + I*Pi)^3]    ==>     3*E^2*Pi - Pi^3
+    ---
+    data:
+        got: 3*E^2*Pi - Pi^3
+        expect: 3*E^2*Pi - Pi^3
+        expect_evaluated: 3*E^2*Pi - Pi^3
+    ...
+# Use Esc\[ThinSpace]jj\[ThinSpace]Esc to enter the engineering notation \[ImaginaryJ] for RefLink[I,paclet:ref/I]:
+ok  I    ==>     I
+    ---
+    data:
+        got: I
+        expect: I
+        expect_evaluated: I
+    ...
+# Use as a direction in infinite quantities:
+ok  DirectedInfinity[I]    ==>     I*Infinity
+    ---
+    data:
+        got: DirectedInfinity[I]
+        expect: I*Infinity
+        expect_evaluated: DirectedInfinity[I]
+    ...
+ok  Exp[I*%]    ==>     0 # skip
+# Use as a direction in RefLink[Limit,paclet:ref/Limit]:
+ok  Limit[Exp[I/x], x -> 0, Direction -> I]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+# Use as a generator of extension fields:
+ok  Factor[x^2 + 1]    ==>     1 + x^2
+    ---
+    data:
+        got: 1 + x^2
+        expect: 1 + x^2
+        expect_evaluated: 1 + x^2
+    ...
+ok  Factor[x^2 + 1, Extension -> {I}]    ==>     (-I + x)*(I + x)
+    ---
+    data:
+        got: (-I + x)*(I + x)
+        expect: (-I + x)*(I + x)
+        expect_evaluated: (-I + x)*(I + x)
+    ...
+# Factor integers over the Gaussians:
+ok  FactorInteger[Prime[100], GaussianIntegers -> True]    ==>     {{-I, 1}, {10 + 21*I, 1}, {21 + 10*I, 1}}
+    ---
+    data:
+        got: {{-I, 1}, {10 + 21*I, 1}, {21 + 10*I, 1}}
+        expect: {{-I, 1}, {10 + 21*I, 1}, {21 + 10*I, 1}}
+        expect_evaluated: {{-I, 1}, {10 + 21*I, 1}, {21 + 10*I, 1}}
+    ...
+# Use as an expansion point for series:
+ok  Series[ArcTan[z], {z, I, 2}]    ==>     Pi*Floor[(Pi/2 - Arg[-I + z])/(2*Pi)] + ((1/4)*(Pi + 2*I*Log[2] - 2*I*Log[-I + z]) + (z - I)/4 + (1/16)*I*(z - I)^2 + O[z - I]^3) # skip
+# Convert a complex number from polar to rectangular form:
+ok  2.5*Exp[I*30*Degree]    ==>     2.16506 + 1.25*I # skip
+# Flow around a cylinder as the real part of a complex-valued function:
+ok  HoldComplete[ContourPlot[Im[(#1 + 1/#1 & )[I*x - y]], {x, -3, 3}, {y, -3, 3}, Contours -> 25, Epilog -> Disk[{0, 0}, 1]]]    ==>     $Failed # skip
+# RefLink[I,paclet:ref/I] is represented as a complex number with vanishing real part:
+ok  FullForm[I]    ==>     Complex[0, 1] # skip
+# RefLink[I,paclet:ref/I] is an exact number:
+ok  ExactNumberQ[I]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Use RefLink[ComplexExpand,paclet:ref/ComplexExpand] to extract real and imaginary parts:
+ok  ComplexExpand[I^I^I]    ==>     Cos[((1/2)*Pi)/E^(Pi/2)] + I*Sin[((1/2)*Pi)/E^(Pi/2)]
+    ---
+    data:
+        got: Cos[Pi/(2*E^(Pi/2))] + I*Sin[Pi/(2*E^(Pi/2))]
+        expect: Cos[((1/2)*Pi)/E^(Pi/2)] + I*Sin[((1/2)*Pi)/E^(Pi/2)]
+        expect_evaluated: Cos[Pi/(2*E^(Pi/2))] + I*Sin[Pi/(2*E^(Pi/2))]
+    ...
+# Use RefLink[ExpToTrig,paclet:ref/ExpToTrig] to convert exponentials containing RefLink[I,paclet:ref/I] into trigonometric form:
+ok  ExpToTrig[Exp[I*x]]    ==>     Cos[x] + I*Sin[x]
+    ---
+    data:
+        got: Cos[x] + I*Sin[x]
+        expect: Cos[x] + I*Sin[x]
+        expect_evaluated: Cos[x] + I*Sin[x]
+    ...
+# Simplify expressions containing RefLink[I,paclet:ref/I]:
+ok  {x*Im[Exp[I*(Pi/3)]*x], Im[2 + 3*I*x]}    ==>     {x*Im[E^((I*Pi)/3)*x], 3*Re[x]}
+    ---
+    data:
+        got: {x*Im[E^((I/3)*Pi)*x], 3*Re[x]}
+        expect: {x*Im[E^((I*Pi)/3)*x], 3*Re[x]}
+        expect_evaluated: {x*Im[E^((I/3)*Pi)*x], 3*Re[x]}
+    ...
+ok  Simplify[%, x > 3]    ==>     {(Sqrt[3]*x^2)/2, 3*x} # skip
+# RefLink[I,paclet:ref/I] is an algebraic number:
+ok  Element[I, Algebraics]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Trigonometric functions with purely imaginary arguments evaluate to simpler forms:
+ok  Cos[I*x]    ==>     Cosh[x]
+    ---
+    data:
+        got: Cosh[x]
+        expect: Cosh[x]
+        expect_evaluated: Cosh[x]
+    ...
+ok  Sech[I*x]    ==>     Sec[x]
+    ---
+    data:
+        got: Sec[x]
+        expect: Sec[x]
+        expect_evaluated: Sec[x]
+    ...
+# Obtain RefLink[I,paclet:ref/I] in solutions of polynomial equations:
+ok  Solve[x^2 + 1 == 0, x]    ==>     {{x -> -I}, {x -> I}}
+    ---
+    data:
+        got: {{x -> -I}, {x -> I}}
+        expect: {{x -> -I}, {x -> I}}
+        expect_evaluated: {{x -> -I}, {x -> I}}
+    ...
+# Roots of quadratic polynomials can evaluate to complex numbers:
+ok  Root[#1^2 + 1 & , 2]    ==>     I
+    ---
+    data:
+        got: I
+        expect: I
+        expect_evaluated: I
+    ...
+# Use RefLink[Chop,paclet:ref/Chop] to remove small imaginary parts:
+ok  N[2 + I/10^12]    ==>     2. + (1.*I)/10^12
+    ---
+    data:
+        got: 2. + 1.*^-12*I
+        expect: 2. + (1.*I)/10^12
+        expect_evaluated: 2. + 1.*^-12*I
+    ...
+ok  Chop[%]    ==>     2. # skip
+# Use RefLink[I,paclet:ref/I] as limits of integration:
+ok  Integrate[Abs[x], {x, -I, I}]    ==>     I
+    ---
+    data:
+        got: I
+        expect: I
+        expect_evaluated: I
+    ...
+ok  NIntegrate[Abs[x], {x, -I, I}]    ==>     0. + 1.*I # skip
+# Sort numbers by increasing imaginary parts:
+ok  SortBy[{3 - 2*I, 5 + 3*I, 2*I, -4, -6 + 6*I}, Im]    ==>     {3 - 2*I, -4, 2*I, 5 + 3*I, -6 + 6*I}
+    ---
+    data:
+        got: {3 - 2*I, -4, 2*I, 5 + 3*I, -6 + 6*I}
+        expect: {3 - 2*I, -4, 2*I, 5 + 3*I, -6 + 6*I}
+        expect_evaluated: {3 - 2*I, -4, 2*I, 5 + 3*I, -6 + 6*I}
+    ...
+# Machine-precision evaluation of RefLink[I,paclet:ref/I] yields an approximate zero real part:
+ok  N[I]    ==>     0. + 1.*I
+    ---
+    data:
+        got: 0. + 1.*I
+        expect: 0. + 1.*I
+        expect_evaluated: 0. + 1.*I
+    ...
+# Arbitrary-precision evaluation yields an exact zero real part:
+ok  N[I, 20]    ==>     1.`19.*I
+    ---
+    data:
+        got: 1.`20.*I
+        expect: 1.`19.*I
+        expect_evaluated: 1.`19.*I
+    ...
+# Real and imaginary parts of complex numbers can have different precisions:
+ok  1.64 + I    ==>     1.64 + I
+    ---
+    data:
+        got: 1.64 + 1.*I
+        expect: 1.64 + I
+        expect_evaluated: 1.64 + 1.*I
+    ...
+# Arithmetic operations will typically mix them:
+ok  %^4    ==>     -7.90365 + 11.0838*I # skip
+# The overall precision of a complex number depends on both real and imaginary parts:
+ok  SetPrecision[1, 10] + I*SetPrecision[100, 20]    ==>     1. + 100.`19.*I
+    ---
+    data:
+        got: 1.`10. + 100.`20.*I
+        expect: 1. + 100.`19.*I
+        expect_evaluated: 1. + 100.*I
+    ...
+ok  Precision[%]    ==>     12. # skip
+# Complex numbers are atomic objects and do not explicitly contain RefLink[I,paclet:ref/I]:
+ok  FullForm[2 + I]    ==>     Complex[2, 1] # skip
+ok  MatchQ[2 + I, _ + I]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  MemberQ[2 + I, I]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# Disguised purely real quantities that contain RefLink[I,paclet:ref/I] cannot be used in numerical comparisons:
+ok  ComplexExpand[I^I]    ==>     E^(-(Pi/2))
+    ---
+    data:
+        got: E^(-Pi/2)
+        expect: E^(-(Pi/2))
+        expect_evaluated: E^(-Pi/2)
+    ...
+ok  I^I < 1    ==>     I^I < 1
+    ---
+    data:
+        got: I^I < 1
+        expect: I^I < 1
+        expect_evaluated: I^I < 1
+    ...
+# Real roots of irreducible cubics still contain RefLink[I,paclet:ref/I] in their algebraic forms:
+ok  Solve[-61 + 110*x - 60*x^2 + 10*x^3 == 0, x]    ==>     {{x -> 2 + ((1/5)*(9 + I*Sqrt[1119]))^(1/3)/6^(2/3) + 2^(2/3)/((3/5)*(9 + I*Sqrt[1119]))^(1/3)}, {x -> 2 - ((1 + I*Sqrt[3])*((1/5)*(9 + I*Sqrt[1119]))^(1/3))/(2*6^(2/3)) - (1 - I*Sqrt[3])/((6/5)*(9 + I*Sqrt[1119]))^(1/3)}, {x -> 2 - ((1 - I*Sqrt[3])*((1/5)*(9 + I*Sqrt[1119]))^(1/3))/(2*6^(2/3)) - (1 + I*Sqrt[3])/((6/5)*(9 + I*Sqrt[1119]))^(1/3)}}
+    ---
+    data:
+        got: {{x -> 2 + ((9 + I*Sqrt[1119])/5)^(1/3)/6^(2/3) + 2^(2/3)/((3*(9 + I*Sqrt[1119]))/5)^(1/3)}, {x -> 2 - ((1 + I*Sqrt[3])*((9 + I*Sqrt[1119])/5)^(1/3))/(2*6^(2/3)) - (1 - I*Sqrt[3])/((6*(9 + I*Sqrt[1119]))/5)^(1/3)}, {x -> 2 - ((1 - I*Sqrt[3])*((9 + I*Sqrt[1119])/5)^(1/3))/(2*6^(2/3)) - (1 + I*Sqrt[3])/((6*(9 + I*Sqrt[1119]))/5)^(1/3)}}
+        expect: {{x -> 2 + ((1/5)*(9 + I*Sqrt[1119]))^(1/3)/6^(2/3) + 2^(2/3)/((3/5)*(9 + I*Sqrt[1119]))^(1/3)}, {x -> 2 - ((1 + I*Sqrt[3])*((1/5)*(9 + I*Sqrt[1119]))^(1/3))/(2*6^(2/3)) - (1 - I*Sqrt[3])/((6/5)*(9 + I*Sqrt[1119]))^(1/3)}, {x -> 2 - ((1 - I*Sqrt[3])*((1/5)*(9 + I*Sqrt[1119]))^(1/3))/(2*6^(2/3)) - (1 + I*Sqrt[3])/((6/5)*(9 + I*Sqrt[1119]))^(1/3)}}
+        expect_evaluated: {{x -> 2 + ((9 + I*Sqrt[1119])/5)^(1/3)/6^(2/3) + 2^(2/3)/((3*(9 + I*Sqrt[1119]))/5)^(1/3)}, {x -> 2 - ((1 + I*Sqrt[3])*((9 + I*Sqrt[1119])/5)^(1/3))/(2*6^(2/3)) - (1 - I*Sqrt[3])/((6*(9 + I*Sqrt[1119]))/5)^(1/3)}, {x -> 2 - ((1 - I*Sqrt[3])*((9 + I*Sqrt[1119])/5)^(1/3))/(2*6^(2/3)) - (1 + I*Sqrt[3])/((6*(9 + I*Sqrt[1119]))/5)^(1/3)}}
+    ...
+# Machine-precision numerical evaluation gives a spurious imaginary part:
+ok  N[%]    ==>     {{x -> 3.04668 - (8.32667*I)/10^17}, {x -> 1.89897 + (1.11022*I)/10^16}, {x -> 1.05435 - (1.11022*I)/10^16}} # skip
+# Arbitrary-precision evaluation still leaves an imaginary part:
+ok  N[%%, 20]    ==>     {{x -> 3.0466805318046022612`19.483826917449353 + (0.*I)/10^20}, {x -> 1.89896874211898918230000000001`19.278517816113027 + (0.*I)/10^20}, {x -> 1.05435072607640855653`20.02298510144839 + (0.*I)/10^21}} # skip
+# Use RefLink[Reduce,paclet:ref/Reduce] with an option to get explicitly real roots:
+ok  Reduce[-61 + 110*x - 60*x^2 + 10*x^3 == 0, x, Cubics -> False]    ==>     x == Root[-61 + 110*#1 - 60*#1^2 + 10*#1^3 & , 1] || x == Root[-61 + 110*#1 - 60*#1^2 + 10*#1^3 & , 2] || x == Root[-61 + 110*#1 - 60*#1^2 + 10*#1^3 & , 3]
+    ---
+    data:
+        got: x == Root[-61 + 110*#1 - 60*#1^2 + 10*#1^3 & , 1, 0] || x == Root[-61 + 110*#1 - 60*#1^2 + 10*#1^3 & , 2, 0] || x == Root[-61 + 110*#1 - 60*#1^2 + 10*#1^3 & , 3, 0]
+        expect: x == Root[-61 + 110*#1 - 60*#1^2 + 10*#1^3 & , 1] || x == Root[-61 + 110*#1 - 60*#1^2 + 10*#1^3 & , 2] || x == Root[-61 + 110*#1 - 60*#1^2 + 10*#1^3 & , 3]
+        expect_evaluated: x == Root[-61 + 110*#1 - 60*#1^2 + 10*#1^3 & , 1, 0] || x == Root[-61 + 110*#1 - 60*#1^2 + 10*#1^3 & , 2, 0] || x == Root[-61 + 110*#1 - 60*#1^2 + 10*#1^3 & , 3, 0]
+    ...
+ok  N[%]    ==>     x == 1.05435 || x == 1.89897 || x == 3.04668 # skip
+# Finite imaginary quantities are absorbed by infinite real or complex quantities:
+ok  Infinity + I    ==>     Infinity
+    ---
+    data:
+        got: Infinity
+        expect: Infinity
+        expect_evaluated: Infinity
+    ...
+ok  Im[%]    ==>     0 # skip
+# RefLink[I,paclet:ref/I] cannot be used in intervals:
+ok  IntervalMemberQ[Interval[{-I, I}], 0]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# The symbol RefLink[I,paclet:ref/I] needs to be evaluated to become a complex number:
+ok  NumberQ[Unevaluated[I]]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  Head[Unevaluated[I]]    ==>     Symbol
+    ---
+    data:
+        got: Symbol
+        expect: Symbol
+        expect_evaluated: Symbol
+    ...
+# Nested powers of RefLink[I,paclet:ref/I]:
+ok  HoldComplete[ListPlot[({Re[#1], Im[#1]} & ) /@ NestList[I^#1 & , N[I], 100]]]    ==>     $Failed # skip
+# Find the limit in closed form:
+ok  Solve[I^w == w, w]    ==>     {{w -> (2*I*ProductLog[-((I*Pi)/2)])/Pi}}
+    ---
+    data:
+        got: {{w -> ((2*I)*ProductLog[(-I/2)*Pi])/Pi}}
+        expect: {{w -> (2*I*ProductLog[-((I*Pi)/2)])/Pi}}
+        expect_evaluated: {{w -> ((2*I)*ProductLog[(-I/2)*Pi])/Pi}}
+    ...
+ok  N[%]    ==>     {{w -> 0.438283 + 0.360592*I}} # skip
+# Generate all possible nestings of powers of RefLink[I,paclet:ref/I]:
+ok  Union[Flatten[Nest[Flatten[(ReplaceList[#1, {a___, b_, c_, d___} :> {a, b^c, d}] & ) /@ #1, 1] & , {{I, I, I, I, I, I, I}}, 5]]]    ==>     {-I, I, (-I)^(-I), (-I)^I, (-I)^I^I, (-I)^I^I^I, I^(-I), I^I, I^(-I)^I, I^(-I)^I^I, I^I^(-I), I^I^I, I^I^(-I)^I, I^I^I^(-I), I^I^I^I, I^I^I^I^I, I^I^I^I^I^I, I^I^(I^I)^I^I, I^I^(I^I^I)^I, I^(I^I)^I^I, I^(I^I)^I^I^I, I^(I^I^I)^I, I^(I^I^I)^I^I, I^(I^I^I^I)^I, I^((I^I)^I^I)^I, I^((I^I^I)^I)^I, ((-I)^I)^I^I, ((-I)^I^I)^I, (I^(-I))^I^I, (I^I)^(-I)^I, (I^I)^I^(-I), (I^I)^I^I, (I^I)^I^I^I, (I^I)^I^I^I^I, (I^I)^(I^I)^I^I, (I^I)^(I^I^I)^I, (I^(-I)^I)^I, (I^I^(-I))^I, (I^I^I)^(-I), (I^I^I)^I, (I^I^I)^I^I, (I^I^I)^I^I^I, (I^I^I^I)^I, (I^I^I^I)^I^I, (I^I^I^I^I)^I, (I^(I^I)^I^I)^I, (I^(I^I^I)^I)^I, ((I^I)^I^I)^I, ((I^I)^I^I)^I^I, ((I^I)^I^I^I)^I, ((I^I^I)^I)^I, ((I^I^I)^I)^I^I, ((I^I^I)^I^I)^I, ((I^I^I^I)^I)^I, (((I^I)^I^I)^I)^I, (((I^I^I)^I)^I)^I}
+    ---
+    data:
+        got: {-I, I, (-I)^(-I), (-I)^I, (-I)^I^I, (-I)^I^I^I, I^(-I), I^I, I^(-I)^I, I^(-I)^I^I, I^I^(-I), I^I^I, I^I^(-I)^I, I^I^I^(-I), I^I^I^I, I^I^I^I^I, I^I^I^I^I^I, I^I^(I^I)^I^I, I^I^(I^I^I)^I, I^(I^I)^I^I, I^(I^I)^I^I^I, I^(I^I^I)^I, I^(I^I^I)^I^I, I^(I^I^I^I)^I, I^((I^I)^I^I)^I, I^((I^I^I)^I)^I, ((-I)^I)^I^I, ((-I)^I^I)^I, (I^(-I))^I^I, (I^I)^(-I)^I, (I^I)^I^(-I), (I^I)^I^I, (I^I)^I^I^I, (I^I)^I^I^I^I, (I^I)^(I^I)^I^I, (I^I)^(I^I^I)^I, (I^(-I)^I)^I, (I^I^(-I))^I, (I^I^I)^(-I), (I^I^I)^I, (I^I^I)^I^I, (I^I^I)^I^I^I, (I^I^I^I)^I, (I^I^I^I)^I^I, (I^I^I^I^I)^I, (I^(I^I)^I^I)^I, (I^(I^I^I)^I)^I, ((I^I)^I^I)^I, ((I^I)^I^I)^I^I, ((I^I)^I^I^I)^I, ((I^I^I)^I)^I, ((I^I^I)^I)^I^I, ((I^I^I)^I^I)^I, ((I^I^I^I)^I)^I, (((I^I)^I^I)^I)^I, (((I^I^I)^I)^I)^I}
+        expect: {-I, I, (-I)^(-I), (-I)^I, (-I)^I^I, (-I)^I^I^I, I^(-I), I^I, I^(-I)^I, I^(-I)^I^I, I^I^(-I), I^I^I, I^I^(-I)^I, I^I^I^(-I), I^I^I^I, I^I^I^I^I, I^I^I^I^I^I, I^I^(I^I)^I^I, I^I^(I^I^I)^I, I^(I^I)^I^I, I^(I^I)^I^I^I, I^(I^I^I)^I, I^(I^I^I)^I^I, I^(I^I^I^I)^I, I^((I^I)^I^I)^I, I^((I^I^I)^I)^I, ((-I)^I)^I^I, ((-I)^I^I)^I, (I^(-I))^I^I, (I^I)^(-I)^I, (I^I)^I^(-I), (I^I)^I^I, (I^I)^I^I^I, (I^I)^I^I^I^I, (I^I)^(I^I)^I^I, (I^I)^(I^I^I)^I, (I^(-I)^I)^I, (I^I^(-I))^I, (I^I^I)^(-I), (I^I^I)^I, (I^I^I)^I^I, (I^I^I)^I^I^I, (I^I^I^I)^I, (I^I^I^I)^I^I, (I^I^I^I^I)^I, (I^(I^I)^I^I)^I, (I^(I^I^I)^I)^I, ((I^I)^I^I)^I, ((I^I)^I^I)^I^I, ((I^I)^I^I^I)^I, ((I^I^I)^I)^I, ((I^I^I)^I)^I^I, ((I^I^I)^I^I)^I, ((I^I^I^I)^I)^I, (((I^I)^I^I)^I)^I, (((I^I^I)^I)^I)^I}
+        expect_evaluated: {-I, I, (-I)^(-I), (-I)^I, (-I)^I^I, (-I)^I^I^I, I^(-I), I^I, I^(-I)^I, I^(-I)^I^I, I^I^(-I), I^I^I, I^I^(-I)^I, I^I^I^(-I), I^I^I^I, I^I^I^I^I, I^I^I^I^I^I, I^I^(I^I)^I^I, I^I^(I^I^I)^I, I^(I^I)^I^I, I^(I^I)^I^I^I, I^(I^I^I)^I, I^(I^I^I)^I^I, I^(I^I^I^I)^I, I^((I^I)^I^I)^I, I^((I^I^I)^I)^I, ((-I)^I)^I^I, ((-I)^I^I)^I, (I^(-I))^I^I, (I^I)^(-I)^I, (I^I)^I^(-I), (I^I)^I^I, (I^I)^I^I^I, (I^I)^I^I^I^I, (I^I)^(I^I)^I^I, (I^I)^(I^I^I)^I, (I^(-I)^I)^I, (I^I^(-I))^I, (I^I^I)^(-I), (I^I^I)^I, (I^I^I)^I^I, (I^I^I)^I^I^I, (I^I^I^I)^I, (I^I^I^I)^I^I, (I^I^I^I^I)^I, (I^(I^I)^I^I)^I, (I^(I^I^I)^I)^I, ((I^I)^I^I)^I, ((I^I)^I^I)^I^I, ((I^I)^I^I^I)^I, ((I^I^I)^I)^I, ((I^I^I)^I)^I^I, ((I^I^I)^I^I)^I, ((I^I^I^I)^I)^I, (((I^I)^I^I)^I)^I, (((I^I^I)^I)^I)^I}
+    ...
+# Plot the points in the complex plane:
+ok  HoldComplete[ListPlot[({Re[#1], Im[#1]} & ) /@ N[%]]]    ==>     $Failed # skip

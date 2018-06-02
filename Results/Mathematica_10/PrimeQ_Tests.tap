@@ -1,0 +1,56 @@
+# SYSTEM: Mathematica_10
+# TEST: PrimeQ_Tests
+# OUTPUT: output/Results/Mathematica_10/PrimeQ_Tests.json
+# Test whether a number is prime:
+ok  PrimeQ[13]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok  PrimeQ[10^100 + 1]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# RefLink[PrimeQ,paclet:ref/PrimeQ] threads itself element-wise over lists:
+ok  PrimeQ[{1, 2, 3, 4, 5, 6}]    ==>     {False, True, True, False, True, False}
+    ---
+    data:
+        got: {False, True, True, False, True, False}
+        expect: {False, True, True, False, True, False}
+        expect_evaluated: {False, True, True, False, True, False}
+    ...
+# Test for primality over the Gaussian integers:
+ok  PrimeQ[13, GaussianIntegers -> True]    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  FactorInteger[13, GaussianIntegers -> True]    ==>     {{-I, 1}, {2 + 3*I, 1}, {3 + 2*I, 1}}
+    ---
+    data:
+        got: {{-I, 1}, {2 + 3*I, 1}, {3 + 2*I, 1}}
+        expect: {{-I, 1}, {2 + 3*I, 1}, {3 + 2*I, 1}}
+        expect_evaluated: {{-I, 1}, {2 + 3*I, 1}, {3 + 2*I, 1}}
+    ...
+# Only some numbers of the form 2^2^n+1 are prime:
+ok  Table[PrimeQ[2^2^n + 1], {n, 10}]    ==>     {True, True, True, True, False, False, False, False, False, False}
+    ---
+    data:
+        got: {True, True, True, True, False, False, False, False, False, False}
+        expect: {True, True, True, True, False, False, False, False, False, False}
+        expect_evaluated: {True, True, True, True, False, False, False, False, False, False}
+    ...
+# Highlight numbers that are prime:
+ok  (If[PrimeQ[#1], Framed[#1], #1] & ) /@ Range[20]    ==>     {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20} # skip
+# The distribution of Gaussian primes:
+ok  HoldComplete[ArrayPlot[Boole[Table[PrimeQ[a + b*I], {a, 100}, {b, 100}]]]]    ==>     $Failed # skip
+ok  HoldComplete[ArrayPlot[Boole[Table[PrimeQ[a^2 + b^2], {a, 100}, {b, 100}]]]]    ==>     $Failed # skip
+ok  HoldComplete[ArrayPlot[Boole[Table[PrimeQ[a^b + 3], {a, 100}, {b, 100}]]]]    ==>     $Failed # skip
+ok  HoldComplete[Graphics3D[Cuboid /@ Position[Array[PrimeQ[#1 + #2^#3] & , {30, 30, 30}], True]]]    ==>     $Failed # skip

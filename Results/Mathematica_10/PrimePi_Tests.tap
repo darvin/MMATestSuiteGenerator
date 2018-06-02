@@ -1,0 +1,65 @@
+# SYSTEM: Mathematica_10
+# TEST: PrimePi_Tests
+# OUTPUT: output/Results/Mathematica_10/PrimePi_Tests.json
+# The number of primes up to a billion:
+ok  PrimePi[10^9]    ==>     50847534
+    ---
+    data:
+        got: 50847534
+        expect: 50847534
+        expect_evaluated: 50847534
+    ...
+# RefLink[PrimePi,paclet:ref/PrimePi] increases every time there is a prime:
+ok  Table[PrimePi[n], {n, 20}]    ==>     {0, 1, 2, 2, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 6, 6, 7, 7, 8, 8}
+    ---
+    data:
+        got: {0, 1, 2, 2, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 6, 6, 7, 7, 8, 8}
+        expect: {0, 1, 2, 2, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 6, 6, 7, 7, 8, 8}
+        expect_evaluated: {0, 1, 2, 2, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 6, 6, 7, 7, 8, 8}
+    ...
+# RefLink[PrimePi,paclet:ref/PrimePi] takes continuous arguments, but gives integer values:
+ok  PrimePi[10.1]    ==>     4
+    ---
+    data:
+        got: 4
+        expect: 4
+        expect_evaluated: 4
+    ...
+ok  HoldComplete[Plot[PrimePi[n], {n, 0, 20}]]    ==>     $Failed # skip
+# RefLink[TraditionalForm,paclet:ref/TraditionalForm] formatting:
+ok  \(TraditionalForm\`\(\*TemplateBox[List[n], PrimePi]\)\)    ==>     Pi*n # skip
+ok  HoldComplete[Plot[PrimePi[n], {n, 0, 100}]]    ==>     $Failed # skip
+# Plot RefLink[PrimePi,paclet:ref/PrimePi] compared with estimates:
+ok  HoldComplete[Plot[{PrimePi[n], n/Log[n], LogIntegral[n], RiemannR[n]}, {n, 1.5, 100}]]    ==>     $Failed # skip
+# Compute RefLink[PrimePi,paclet:ref/PrimePi] based on the Hardy\[Dash]Wright formula:
+ok  Sum[Mod[(j - 2)!, j], {j, 4, 1000}]    ==>     168
+    ---
+    data:
+        got: 168
+        expect: 168
+        expect_evaluated: 168
+    ...
+ok  PrimePi[1000]    ==>     168
+    ---
+    data:
+        got: 168
+        expect: 168
+        expect_evaluated: 168
+    ...
+# For primes, RefLink[Prime,paclet:ref/Prime] is effectively the inverse of RefLink[PrimePi,paclet:ref/PrimePi]:
+ok  PrimePi[997]    ==>     168
+    ---
+    data:
+        got: 168
+        expect: 168
+        expect_evaluated: 168
+    ...
+ok  Prime[%]    ==>     997 # skip
+# Integrate \[Pi](n):
+ok  Integrate[PrimePi[n], {n, 0, 10}]    ==>     23
+    ---
+    data:
+        got: 23
+        expect: 23
+        expect_evaluated: 23
+    ...

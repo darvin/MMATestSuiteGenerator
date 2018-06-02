@@ -1,0 +1,256 @@
+# SYSTEM: Mathematica_10
+# TEST: Set_Tests
+# OUTPUT: output/Results/Mathematica_10/Set_Tests.json
+# Set a value for x:
+ok  x = a + b    ==>     a + b
+    ---
+    data:
+        got: a + b
+        expect: a + b
+        expect_evaluated: a + b
+    ...
+ok  1 + x^2    ==>     1 + (a + b)^2
+    ---
+    data:
+        got: 1 + (a + b)^2
+        expect: 1 + (a + b)^2
+        expect_evaluated: 1 + (a + b)^2
+    ...
+# Set multiple values: 
+ok  {x, y, z} = Range[3]    ==>     {1, 2, 3}
+    ---
+    data:
+        got: {1, 2, 3}
+        expect: {1, 2, 3}
+        expect_evaluated: {1, 2, 3}
+    ...
+ok  x + y^2 + z^3    ==>     32
+    ---
+    data:
+        got: 32
+        expect: 32
+        expect_evaluated: 32
+    ...
+# Ordinary program variables:
+ok  i = 1; While[Prime[i] < 100, i = i + 1]; i    ==>     26
+    ---
+    data:
+        got: 26
+        expect: 26
+        expect_evaluated: 26
+    ...
+ok  {a[1], a[2], a[3]}    ==>     {x, y, a[3]} # skip
+# Define a function from an expression:
+ok  Expand[(1 + x)^3]    ==>     1 + 3*x + 3*x^2 + x^3
+    ---
+    data:
+        got: 8
+        expect: 1 + 3*x + 3*x^2 + x^3
+        expect_evaluated: 8
+    ...
+ok  f[x_] = %    ==>     1 + 3*x + 3*x^2 + x^3 # skip
+ok  f[a + b]    ==>     1 + 3*(a + b) + 3*(a + b)^2 + (a + b)^3 # skip
+# Use RefLink[Block,paclet:ref/Block] to temporarily set variables: 
+ok  Block[{$RecursionLimit = 20}, x = x + 1]    ==>     18 + Hold[1 + x] # skip
+# Set part of a list:
+ok  v = {a, b, c, d}    ==>     {a, b, c, d}
+    ---
+    data:
+        got: {a, b, c, d}
+        expect: {a, b, c, d}
+        expect_evaluated: {a, b, c, d}
+    ...
+ok  v[[2]] = x    ==>     x
+    ---
+    data:
+        got: 1
+        expect: x
+        expect_evaluated: 1
+    ...
+ok  v    ==>     {a, x, c, d}
+    ---
+    data:
+        got: {a, 1, c, d}
+        expect: {a, x, c, d}
+        expect_evaluated: {a, 1, c, d}
+    ...
+# Set part of an expression:
+ok  v = 1 + x^5    ==>     1 + x^5
+    ---
+    data:
+        got: 2
+        expect: 1 + x^5
+        expect_evaluated: 2
+    ...
+ok  v[[2,2]] = 77777    ==>     77777
+    ---
+    data:
+        got: 77777
+        expect: 77777
+        expect_evaluated: 77777
+    ...
+ok  v    ==>     1 + x^77777 # skip
+# Replace a row of a matrix:
+ok  mat[[2]] = mat[[2]] + 10; MatrixForm[mat]    ==>     1*2*3*14*15*16*7*8*9 # skip
+# Replace a column of a matrix:
+ok  mat[[All,3]] = {100, 101, 102}; MatrixForm[mat]    ==>     1*2*100*14*15*101*7*8*102 # skip
+ok  OwnValues[x]    ==>     {HoldPattern[x] :> 7} # skip
+ok  DownValues[a]    ==>     {HoldPattern[a[1]] :> 17} # skip
+ok  SubValues[derivative]    ==>     {HoldPattern[derivative[1][f]] :> fg} # skip
+ok  UpValues[sq]    ==>     {HoldPattern[area[sq]] :> s^2} # skip
+ok  DefaultValues[f]    ==>     {HoldPattern[Default[f]] :> 0, HoldPattern[Options[f]] :> {opt1 -> def1, opt2 -> def2}} # skip
+ok  NValues[const]    ==>     {HoldPattern[N[const, {MachinePrecision, MachinePrecision}]] :> 10414855105976475/18014398509481984} # skip
+ok  N[const]    ==>     0.578141 # skip
+ok  FormatValues[a]    ==>     {HoldPattern[\[Alpha]] :> \[Alpha], HoldPattern[MakeBoxes[\[Alpha], FormatType_]] :> \[Alpha]} # skip
+ok  a    ==>     \[Alpha] # skip
+# A definition for RefLink[Attributes,paclet:ref/Attributes] is associated with f, rather than RefLink[Attributes,paclet:ref/Attributes]:
+ok  Attributes[f] = HoldAll    ==>     HoldAll
+    ---
+    data:
+        got: HoldAll
+        expect: HoldAll
+        expect_evaluated: HoldAll
+    ...
+ok  Attributes[f] = {HoldAll}*f[5] = 17*f[x] = 17*f[x$_] = 1.9999999999999996    ==>     Attributes[f] = {HoldAll} # skip
+# Set x and y to the same value:
+ok  x = y = 77    ==>     77
+    ---
+    data:
+        got: 77
+        expect: 77
+        expect_evaluated: 77
+    ...
+ok  {x, y}    ==>     {77, 77}
+    ---
+    data:
+        got: {77, 77}
+        expect: {77, 77}
+        expect_evaluated: {77, 77}
+    ...
+# Set x and y to different values:
+ok  {x, y} = {a, b}    ==>     {a, b}
+    ---
+    data:
+        got: {a, b}
+        expect: {a, b}
+        expect_evaluated: {a, b}
+    ...
+# Interchange values:
+ok  {x, y} = {y, x}    ==>     {b, a}
+    ---
+    data:
+        got: {b, a}
+        expect: {b, a}
+        expect_evaluated: {b, a}
+    ...
+ok  {x, y}    ==>     {b, a}
+    ---
+    data:
+        got: {b, a}
+        expect: {b, a}
+        expect_evaluated: {b, a}
+    ...
+# Set part of a sparse array:
+ok  HoldComplete[v = SparseArray[{1 -> 1, 4 -> 4}]]    ==>     $Failed # skip
+ok  v[[2]] = 3    ==>     3
+    ---
+    data:
+        got: 3
+        expect: 3
+        expect_evaluated: 3
+    ...
+# v is still a sparse array, with its second part changed:
+ok  HoldComplete[{v, Normal[v]}]    ==>     $Failed # skip
+ok  time    ==>     5.703 # skip
+ok  N[res]    ==>     0.915966 # skip
+# A definition for a pattern with a specific head is associated with that head:
+ok  _a = \[Alpha]    ==>     \[Alpha]
+    ---
+    data:
+        got: \[Alpha]
+        expect: \[Alpha]
+        expect_evaluated: \[Alpha]
+    ...
+ok  a = Sqrt[2]*_a = \[Alpha]    ==>     _a = \[Alpha] # skip
+ok  {a, a[1]}    ==>     {a, \[Alpha]}
+    ---
+    data:
+        got: {a, \[Alpha]}
+        expect: {a, \[Alpha]}
+        expect_evaluated: {a, \[Alpha]}
+    ...
+# Compute the GCD of two numbers:
+ok  {a, b} = {27, 6}; While[b != 0, {a, b} = {b, Mod[a, b]}]; a    ==>     3
+    ---
+    data:
+        got: 3
+        expect: 3
+        expect_evaluated: 3
+    ...
+# Find a fixed point:
+ok  x = 1.; While[Cos[x] != x, x = Cos[x]]; x    ==>     0.739085 # skip
+# Compute Sqrt[2] using Newton's method:
+ok  x = 1.; Do[x = (x + 2/x)/2, {5}]; x    ==>     1.41421 # skip
+ok  1 + x + 1/x    ==>     1 + 1/(a + b)^2 + (a + b)^2 # skip
+ok  upperTriangularLinearSolve[{{1, 2}, {0, 3}}, {1, 2}]    ==>     {-(1/3), 2/3} # skip
+ok  upperTriangularLinearSolve[{{1, 2}, {0, 3}}, {1, 2}]    ==>     {-(1/3), 2/3} # skip
+ok  {x, x, x}    ==>     {0.446837, 0.446837, 0.446837} # skip
+ok  {y, y, y}    ==>     {0.72466, 0.646934, 0.872933} # skip
+ok  f[x] = 17    ==>     17
+    ---
+    data:
+        got: 17
+        expect: 17
+        expect_evaluated: 17
+    ...
+ok  Attributes[f] = {HoldAll}*f[5] = 17*f[x] = 17*f[x$_] = 1.9999999999999996    ==>     f[5] = 17 # skip
+ok  a    ==>     6 # skip
+ok  fact[10]    ==>     3628800 # skip
+ok  fact[1] = $Failed*fact[n_] := n*fact[n - 1]    ==>     fact[1] = 1*fact[n_] := n*fact[n - 1] # skip
+ok  fact[10]    ==>     3628800 # skip
+ok  Attributes[f] = {HoldAll}*f[5] = 17*f[x] = 17*f[x$_] = 1.9999999999999996    ==>     f[x$_] = x^2 # skip
+ok  f[5]    ==>     x^2 # skip
+ok  Module[{x}, x = 17; x]    ==>     17
+    ---
+    data:
+        got: 17
+        expect: 17
+        expect_evaluated: 17
+    ...
+ok  x    ==>     5 # skip
+# RefLink[Definition,paclet:ref/Definition] prints definitions associated with a symbol:
+ok  a = Sqrt[2]    ==>     Sqrt[2]
+    ---
+    data:
+        got: Sqrt[2]
+        expect: Sqrt[2]
+        expect_evaluated: Sqrt[2]
+    ...
+ok  a = Sqrt[2]*_a = \[Alpha]    ==>     a = Sqrt[2] # skip
+# RefLink[OwnValues,paclet:ref/OwnValues] returns a list of rules corresponding to any downvalues defined:
+ok  OwnValues[a]    ==>     {HoldPattern[a] :> Sqrt[2]} # skip
+ok  fact[1] = $Failed*fact[n_] := n*fact[n - 1]    ==>     fact[n_] := n*fact[n - 1] # skip
+ok  fact[1] = $Failed*fact[n_] := n*fact[n - 1]    ==>     fact[n_] := n*fact[n - 1] # skip
+ok  f[2]    ==>     25 # skip
+ok  g[2]    ==>     4 # skip
+# Runaway definitions:
+ok  x = x + 1    ==>     255 + Hold[1 + x] # skip
+ok  y = 5; y = y + 1    ==>     6
+    ---
+    data:
+        got: 6
+        expect: 6
+        expect_evaluated: 6
+    ...
+ok  wrong[5]    ==>     25 # skip
+ok  right[5]    ==>     25 # skip
+ok  FullForm[UpValues[a]]    ==>     {HoldPattern[Subscript[a, 1]] :> 5} # skip
+ok  FullForm[DownValues[a]]    ==>     {HoldPattern[a[1]] :> 6} # skip
+# Compute the arithmetic-geometric mean of two numbers WebLink[[more info],http://mathworld.wolfram.com/Arithmetic-GeometricMean.html]:
+ok  {x, y} = N[{1, 2}, 20]; While[x != y, {x, y} = {(x + y)/2, Sqrt[x*y]}]; x    ==>     1.45679103104690686920000000001`19.163397258995797
+    ---
+    data:
+        got: 1.45679103104690686918643238326242421412`20.
+        expect: 1.45679103104690686920000000001`19.163397258995797
+        expect_evaluated: 1.45679103104690686920000000001`19.163397258995797
+    ...

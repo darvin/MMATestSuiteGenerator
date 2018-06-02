@@ -1,0 +1,111 @@
+# SYSTEM: Mathematica_10
+# TEST: AppendTo_Tests
+# OUTPUT: output/Results/Mathematica_10/AppendTo_Tests.json
+# Assign l to a list:
+ok  l = {1, 2, 4, 9}    ==>     {1, 2, 4, 9}
+    ---
+    data:
+        got: {1, 2, 4, 9}
+        expect: {1, 2, 4, 9}
+        expect_evaluated: {1, 2, 4, 9}
+    ...
+# Include a new value at the end of the list:
+ok  AppendTo[l, 16]    ==>     {1, 2, 4, 9, 16}
+    ---
+    data:
+        got: {1, 2, 4, 9, 16}
+        expect: {1, 2, 4, 9, 16}
+        expect_evaluated: {1, 2, 4, 9, 16}
+    ...
+# The value assigned to l has changed:
+ok  l    ==>     {1, 2, 4, 9, 16}
+    ---
+    data:
+        got: {1, 2, 4, 9, 16}
+        expect: {1, 2, 4, 9, 16}
+        expect_evaluated: {1, 2, 4, 9, 16}
+    ...
+# Append to an RefLink[Association,paclet:ref/Association]:
+ok  x = <| 1 -> a, 2 -> b |>    ==>     <| 1 -> a, 2 -> b |>
+    ---
+    data:
+        got: <|1 -> a, 2 -> b|>
+        expect: <| 1 -> a, 2 -> b |>
+        expect_evaluated: <|1 -> a, 2 -> b|>
+    ...
+ok  AppendTo[x, 3 -> c]    ==>     <| 1 -> a, 2 -> b, 3 -> c |>
+    ---
+    data:
+        got: <|1 -> a, 2 -> b, 3 -> c|>
+        expect: <| 1 -> a, 2 -> b, 3 -> c |>
+        expect_evaluated: <|1 -> a, 2 -> b, 3 -> c|>
+    ...
+ok  PrependTo[x, 4 -> d]    ==>     <| 4 -> d, 1 -> a, 2 -> b, 3 -> c |>
+    ---
+    data:
+        got: <|4 -> d, 1 -> a, 2 -> b, 3 -> c|>
+        expect: <| 4 -> d, 1 -> a, 2 -> b, 3 -> c |>
+        expect_evaluated: <|4 -> d, 1 -> a, 2 -> b, 3 -> c|>
+    ...
+# Use a head other than RefLink[List,paclet:ref/List]:
+ok  e = f[a, b, c]; AppendTo[e, x + y]    ==>     f[a, b, c, x + y]
+    ---
+    data:
+        got: f[a, b, c, <|4 -> d + y, 1 -> a + y, 2 -> b + y, 3 -> c + y|>]
+        expect: f[a, b, c, x + y]
+        expect_evaluated: f[a, b, c, <|4 -> d + y, 1 -> a + y, 2 -> b + y, 3 -> c + y|>]
+    ...
+# This assigns s to a sparse matrix:
+ok  HoldComplete[s = SparseArray[{{i_, i_} -> i}, 3]]    ==>     $Failed # skip
+# Add a row to the matrix:
+ok  HoldComplete[AppendTo[s, {1, 2, 3}]]    ==>     $Failed # skip
+# Appending an element with inconsistent dimensions requires converting to ordinary lists:
+not ok  AppendTo[s, {4, 5}]    ==>     {{1, 0, 0}, {0, 2, 0}, {0, 0, 3}, {1, 2, 3}, {4, 5}}
+    ---
+    data:
+        got: AppendTo[s, {4, 5}]
+        expect: {{1, 0, 0}, {0, 2, 0}, {0, 0, 3}, {1, 2, 3}, {4, 5}}
+        expect_evaluated: {{1, 0, 0}, {0, 2, 0}, {0, 0, 3}, {1, 2, 3}, {4, 5}}
+    ...
+# Append a row to m:
+ok  AppendTo[m, {e, f}]    ==>     {{a, b}, {c, d}, {e, f}} # skip
+# Append a column to m:
+ok  col = {x, y, z}; Table[AppendTo[m[[i]], col[[i]]], {i, 3}]    ==>     {{a, b, x}, {c, d, y}, {e, f, z}} # skip
+# m is now a 3*3 matrix:
+ok  m    ==>     {{a, b, x}, {c, d, y}, {e, f, z}} # skip
+# The first argument must be a variable:
+ok  AppendTo[{1, 2}, 3]    ==>     AppendTo[{1, 2}, 3]
+    ---
+    data:
+        got: AppendTo[{1, 2}, 3]
+        expect: AppendTo[{1, 2}, 3]
+        expect_evaluated: AppendTo[{1, 2}, 3]
+    ...
+# The first argument must be a variable with a value:
+ok  AppendTo[k, 2]    ==>     AppendTo[k, 2]
+    ---
+    data:
+        got: AppendTo[k, 2]
+        expect: AppendTo[k, 2]
+        expect_evaluated: AppendTo[k, 2]
+    ...
+# The first argument must be assigned to something which can be appended to:
+ok  k = 1; AppendTo[k, 2]    ==>     AppendTo[k, 2]
+    ---
+    data:
+        got: AppendTo[k, 2]
+        expect: AppendTo[k, 2]
+        expect_evaluated: AppendTo[k, 2]
+    ...
+# Something for which  RefLink[AtomQ,paclet:ref/AtomQ] is RefLink[True,paclet:ref/True] cannot be appended to:
+ok  AtomQ[k]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Using RefLink[AppendTo,paclet:ref/AppendTo] to accumulate values in large loops can be slow:
+ok  BlockRandom[Timing[a = {}; sum = 0; While[sum < 10^5, r = RandomInteger[9]; sum += r; AppendTo[a, r]]; Length[a]]]    ==>     {3.425, 22250} # skip
+# There are many alternatives, such as using RefLink[Reap,paclet:ref/Reap] and RefLink[Sow,paclet:ref/Sow]:
+ok  BlockRandom[Timing[sum = 0; {r, {a}} = Reap[While[sum < 10^5, r = RandomInteger[9]; sum += r; Sow[r]]]; Length[a]]]    ==>     {0.27, 22250} # skip

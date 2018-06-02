@@ -1,0 +1,113 @@
+# SYSTEM: Mathematica_10
+# TEST: Sow_Tests
+# OUTPUT: output/Results/Mathematica_10/Sow_Tests.json
+# Evaluate a sequence of expressions, "sowing" some to be collected by RefLink[Reap,paclet:ref/Reap]:
+ok  Reap[Sow[a]; b; Sow[c]; Sow[d]; e]    ==>     {e, {{a, c, d}}}
+    ---
+    data:
+        got: {e, {{a, c, d}}}
+        expect: {e, {{a, c, d}}}
+        expect_evaluated: {e, {{a, c, d}}}
+    ...
+# Compute a sum, "sowing" i^2 at each step:
+ok  Reap[Sum[Sow[i^2] + 1, {i, 10}]]    ==>     {395, {{1, 4, 9, 16, 25, 36, 49, 64, 81, 100}}}
+    ---
+    data:
+        got: {395, {{1, 4, 9, 16, 25, 36, 49, 64, 81, 100}}}
+        expect: {395, {{1, 4, 9, 16, 25, 36, 49, 64, 81, 100}}}
+        expect_evaluated: {395, {{1, 4, 9, 16, 25, 36, 49, 64, 81, 100}}}
+    ...
+# Make separate lists for expressions "sown" with different tags:
+ok  Reap[Sow[1, x]; Sow[2, y]; Sow[3, x]; Sow[4, y]]    ==>     {4, {{1, 3}, {2, 4}}}
+    ---
+    data:
+        got: {4, {{1, 3}, {2, 4}}}
+        expect: {4, {{1, 3}, {2, 4}}}
+        expect_evaluated: {4, {{1, 3}, {2, 4}}}
+    ...
+# Reap only expressions "sown" with tag x:
+ok  Reap[Sow[1, x]; Sow[2, y]; Sow[3, x]; Sow[4, y], x]    ==>     {4, {{1, 3}}}
+    ---
+    data:
+        got: {4, {{1, 3}}}
+        expect: {4, {{1, 3}}}
+        expect_evaluated: {4, {{1, 3}}}
+    ...
+# RefLink[Sow,paclet:ref/Sow] can be used anywhere in a computation:
+ok  Reap[(If[PrimeQ[#1], Sow[#1]] & ) //@ Integrate[1/(x^5 - 1), x]; ]    ==>     {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 5, 5, 2}}} # skip
+ok  Reap[f //@ Integrate[1/(x^5 - 1), x]; ]    ==>     {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 5, 5, 2}}} # skip
+# A single expression can be "sown" with multiple tags:
+ok  Reap[Sow[1, x]; Sow[2, {x, y}]; Sow[3, y]]    ==>     {3, {{1, 2}, {2, 3}}}
+    ---
+    data:
+        got: {3, {{1, 2}, {2, 3}}}
+        expect: {3, {{1, 2}, {2, 3}}}
+        expect_evaluated: {3, {{1, 2}, {2, 3}}}
+    ...
+# If a single tag is repeated, the expression is sown repeatedly:
+ok  Reap[Sow[1, {x, x, x}]; Sow[2, {x, y}]; Sow[3, y]]    ==>     {3, {{1, 1, 1, 2}, {2, 3}}}
+    ---
+    data:
+        got: {3, {{1, 1, 1, 2}, {2, 3}}}
+        expect: {3, {{1, 1, 1, 2}, {2, 3}}}
+        expect_evaluated: {3, {{1, 1, 1, 2}, {2, 3}}}
+    ...
+# A pattern in RefLink[Reap,paclet:ref/Reap] can be used to specify which tags to collect:
+ok  Reap[Sow[1, x]; Sow[2, {x, y}]; Sow[3, {y, z}]; Sow[4, {x, y, z}], x | y]    ==>     {4, {{1, 2, 4}, {2, 3, 4}}}
+    ---
+    data:
+        got: {4, {{1, 2, 4}, {2, 3, 4}}}
+        expect: {4, {{1, 2, 4}, {2, 3, 4}}}
+        expect_evaluated: {4, {{1, 2, 4}, {2, 3, 4}}}
+    ...
+# The default is the pattern _, so that everything is collected:
+ok  Reap[Sow[1, x]; Sow[2, {x, y}]; Sow[3, {y, z}]; Sow[4, {x, y, z}]]    ==>     {4, {{1, 2, 4}, {2, 3, 4}, {3, 4}}}
+    ---
+    data:
+        got: {4, {{1, 2, 4}, {2, 3, 4}, {3, 4}}}
+        expect: {4, {{1, 2, 4}, {2, 3, 4}, {3, 4}}}
+        expect_evaluated: {4, {{1, 2, 4}, {2, 3, 4}, {3, 4}}}
+    ...
+# Tags can have any form; here they are RefLink[True,paclet:ref/True] and RefLink[False,paclet:ref/False]:
+ok  Reap[(Sow[#1, #1 > 0] & ) /@ {1, -1, 2, -3, 1, 4, 5}; ]    ==>     {Null, {{1, 2, 1, 4, 5}, {-1, -3}}}
+    ---
+    data:
+        got: {Null, {{1, 2, 1, 4, 5}, {-1, -3}}}
+        expect: {Null, {{1, 2, 1, 4, 5}, {-1, -3}}}
+        expect_evaluated: {Null, {{1, 2, 1, 4, 5}, {-1, -3}}}
+    ...
+ok  Reap[(Sow[#1, #1 > 0] & ) /@ {1, -1, 2, -3, 1, 4, 5}; , True]    ==>     {Null, {{1, 2, 1, 4, 5}}}
+    ---
+    data:
+        got: {Null, {{1, 2, 1, 4, 5}}}
+        expect: {Null, {{1, 2, 1, 4, 5}}}
+        expect_evaluated: {Null, {{1, 2, 1, 4, 5}}}
+    ...
+# Make a list of all the steps taken in evaluating RefLink[FindRoot,paclet:ref/FindRoot]:
+ok  Reap[FindRoot[Cos[x] == x, {x, 1}, StepMonitor :> Sow[x]]]    ==>     {{x -> 0.739085}, {{0.750364, 0.739113, 0.739085, 0.739085}}} # skip
+# Evaluate an iterated map, keeping iterates that are below 1/100:
+ok  Reap[Nest[(If[#1 < 1/100, Sow[#1]]; (4*#1)*(1 - #1)) & , 0.2, 100]]    ==>     {0.875591, {{0.000246305, 0.000984976, 0.00393603, 0.00631451, 0.00264312}}} # skip
+# Find equivalence classes with respect to the value of i^2 mod 10:
+ok  Reap[Do[Sow[i, Mod[i^2, 10]], {i, 20}]]    ==>     {Null, {{1, 9, 11, 19}, {2, 8, 12, 18}, {3, 7, 13, 17}, {4, 6, 14, 16}, {5, 15}, {10, 20}}}
+    ---
+    data:
+        got: {Null, {{1, 9, 11, 19}, {2, 8, 12, 18}, {3, 7, 13, 17}, {4, 6, 14, 16}, {5, 15}, {10, 20}}}
+        expect: {Null, {{1, 9, 11, 19}, {2, 8, 12, 18}, {3, 7, 13, 17}, {4, 6, 14, 16}, {5, 15}, {10, 20}}}
+        expect_evaluated: {Null, {{1, 9, 11, 19}, {2, 8, 12, 18}, {3, 7, 13, 17}, {4, 6, 14, 16}, {5, 15}, {10, 20}}}
+    ...
+# RefLink[Sow,paclet:ref/Sow][x] returns x, "sowing" it as a side effect:
+ok  Sow[x]    ==>     x
+    ---
+    data:
+        got: x
+        expect: x
+        expect_evaluated: x
+    ...
+# Expressions sown are reaped by the innermost enclosing RefLink[Reap,paclet:ref/Reap]:
+ok  Reap[Reap[Sow[2^20]; Sow[2^30]]]    ==>     {{1073741824, {{1048576, 1073741824}}}, {}}
+    ---
+    data:
+        got: {{1073741824, {{1048576, 1073741824}}}, {}}
+        expect: {{1073741824, {{1048576, 1073741824}}}, {}}
+        expect_evaluated: {{1073741824, {{1048576, 1073741824}}}, {}}
+    ...
