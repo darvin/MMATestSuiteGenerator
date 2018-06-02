@@ -15,7 +15,7 @@ task(){
 	TEST_FILE="output/Tests/$SYMNAME""_Tests.m"
 	TAP_FILE="$OUTPUT_DIR/$SYMNAME""_Tests.tap"
 	echo "Running test file $TEST_FILE"
-	$MATHEMATICA_RUN_PREFIX wolfram -script $TEST_FILE > $TAP_FILE
+	$MATHEMATICA_RUN_PREFIX wolfram -script $TEST_FILE |  ./prepend_tap_comment_to_warnings.sh > $TAP_FILE
 }
 
 export -f task

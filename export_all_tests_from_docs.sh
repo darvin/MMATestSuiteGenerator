@@ -16,7 +16,7 @@ task(){
 	OUTPUT_FILE="output/Tests/$SYMNAME""_Tests.m"
 	TAP_FILE="output/Tests/GenerationLogs/$SYMNAME""_Tests.m.gen.tap"
 	echo "Generating tests for $SYMNAME >>> $OUTPUT_FILE"
-	$MATHEMATICA_RUN_PREFIX wolfram -script ./export_tests_from_docs.m $INPUT_FILE $OUTPUT_FILE > $TAP_FILE
+	$MATHEMATICA_RUN_PREFIX wolfram -script ./export_tests_from_docs.m $INPUT_FILE $OUTPUT_FILE |  ./prepend_tap_comment_to_warnings.sh  > $TAP_FILE
 }
 
 export -f task
