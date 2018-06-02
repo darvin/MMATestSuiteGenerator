@@ -30,7 +30,7 @@ SetAttributes[ESameTestDISABLED, HoldAllComplete];
 EComment[txt_] := {"Comment", txt};
 
 ESameTest[in_, out_, isDisabled_] := 
-  Module[{inExpr, outExpr, inStrEvaluated, outStrEvaluated, inStr, 
+  UsingFrontEnd[TimeConstrained[Module[{inExpr, outExpr, inStrEvaluated, outStrEvaluated, inStr, 
     outStr, result}, Clear[inExpr, outExpr, inStr, outStr, result];
    result = False;
    inStr = ToString[Unevaluated@InputForm[in]];
@@ -42,7 +42,7 @@ ESameTest[in_, out_, isDisabled_] :=
      outStrEvaluated = ToString[InputForm[outExpr]];
      )];
    {"Test", inStr, outStr, inStrEvaluated, outStrEvaluated, 
-    isDisabled, result}];
+    isDisabled, result}], 15]];
 ESameTest[in_, out_] := ESameTest[in, out, False];
 ESameTestBROKEN[in_, out_] := ESameTest[in, out, True];
 ESameTestDISABLED[in_, out_] := ESameTest[in, out, True];
@@ -79,14 +79,15 @@ ESimpleExamples[tests__] :=
          ];
 
         PrintTap[If[result||isDisabled, "ok ", "not ok "], 
-           " - ", inStr];
+           " ", inStr, "    \[DoubleLongRightArrow]     ", outStr];
 
         If[!isDisabled, PrintTap[
-           "\n  ---\n",
-           "  data:\n",
-           "    got: ",inExpr,"\n",
-           "    expect: ",outStr,"\n",
-           "    expect_evaluated: ",outExpr,"\n"
+           "\n    ---\n",
+           "    data:\n",
+           "        got: ",inExpr,"\n",
+           "        expect: ",outStr,"\n",
+           "        expect_evaluated: ",outExpr,"\n",
+           "    ...\n"
            ], PrintTap[" # skip\n"]];
 
 
@@ -97,8 +98,8 @@ ESimpleExamples[tests__] :=
     json = {(* "Tests" -> testResults,  *)
      "Stats" -> {"Total" -> total, "Failed" -> failed, 
        "Disabled" -> disabled}};
-    Export[outputFileName[], json];
-    Print[json];
+  (*   Export[outputFileName[], json];
+    Print[json]; *)
     Close[outputTapStream];
        )];
 

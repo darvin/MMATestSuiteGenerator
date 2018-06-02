@@ -6,8 +6,12 @@ WOLFRAM_URL_PATH=http://archive.raspberrypi.org/debian/pool/main/w/wolfram-engin
 WOLFRAM_DEB_FILE_RENAME=build/wolfram-engine.deb
 ifneq ($(LOCAL),1)
 MATHEMATICA_RUN_PREFIX=docker run --rm -v $(shell pwd):/mnt $(DOCKER_BUILDER_NAME)
+CORES=3
+DOC_PATH=build_docs
 else
-
+DOC_PATH=/Applications/Mathematica.app/Documentation/English/System
+CORES=+0
+MATHEMATICA_RUN_PREFIX=
 endif
 
 .PHONY: builder install  docker-tests
@@ -21,16 +25,13 @@ generate-compat-tests : builder download-docs
 	ls output/Tests/
 
 run-compat-tests :
-	rm -Rf output/Results  || true
-	echo "Running tests in Mathematica on Docker"
-	$(MATHEMATICA_RUN_PREFIX) ./test_runners/mathematica-on-docker.sh
+	./test_runners/mathematica-on-docker.sh
 	echo "Test Results:"
 	ls output/Results/*/*
-	pwd
 	ls ./output/
-	sudo chown -R $(USER):$(USER) output/
-	./generate_test_results_manifest.py
-	cp -R ./website/* ./output/
+
+website :
+	./generate_website.sh
 
 mathematica-self-tests :
 	rm docker_tests/plot_graphics_output.png || true
