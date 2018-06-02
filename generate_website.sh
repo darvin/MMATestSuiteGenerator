@@ -36,6 +36,8 @@ for d in output/Results/*/ ; do
     processDirectory $d
 done
 
+processDirectory output/Tests/GenerationLogs
+
 touch output/.nojekyll
 
 ./website/generate.js
