@@ -31,7 +31,10 @@ function getAllTests() {
 		}
 	}
 	function getSystem(p, overrideName) {
+		const jsonFile = join(p, "index.json");
+		const jsonObj = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
 		return {
+			"stats":jsonObj.stats,
 			"name":overrideName || path.basename(p).replace("_", " "),
 			"allTestsUrl":path.relative(rootPath, join(p, "index.html")),
 			"tests": getHtmls(p).map(getTest)

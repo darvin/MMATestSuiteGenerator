@@ -2,10 +2,20 @@
 <html lang="en">
 <head>
 
+<link rel="stylesheet" href="Tests/GenerationLogs/assets/app.css">
+
 <style type="text/css">
   .test-success {background-color: lightgreen;}
   .test-disabled {background-color: lightgrey;}
   .test-failure {background-color: #fecdcd;}
+
+.one-test-summary-icon {
+  font-size: 10px;
+  width: 12px;
+}
+li.quick-summary--item---nDp-P {
+  color:black;
+}
 
 ul.tests 
 {
@@ -25,6 +35,8 @@ ul.tests li
     padding-left: 30px;
     position: relative;
 }
+
+
 
 ul.tests li:before 
 {
@@ -59,6 +71,7 @@ dd {
   <meta name="description" content="">
   <meta name="author" content="">
 
+
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -87,12 +100,28 @@ dd {
     <H1>MMA Compatibility Test Suite</H1>
     <div class="u-full-width" id="results">
         {{#each systems}}
-          <H2><a href="{{allTestsUrl}}">{{name}}</a></H2>
+
+          <H2 class="system-header"><a href="{{allTestsUrl}}">{{name}} </a> 
+
+
+            <div class="quick-summary--cnt---3kT_l"><ul class="quick-summary--list---2_SZk"><li class="quick-summary--item---nDp-P duration" title="Duration"><i class="material-icons quick-summary--icon---9M3YY"></i><span><span class="">{{stats.duration}}</span><span class="duration-units">ms</span></span></li><li class="quick-summary--item---nDp-P suites" title="Suites"><i class="material-icons quick-summary--icon---9M3YY"></i>{{stats.suites}}</li><li class="quick-summary--item---nDp-P" title="Tests"><i class="material-icons quick-summary--icon---9M3YY"></i>{{stats.tests}}</li></ul><ul class="quick-summary--list---2_SZk"><li class="quick-summary--item---nDp-P quick-summary--passes---2Fagi" title="Passed"><i class="material-icons quick-summary--icon---9M3YY quick-summary--circle-icon---Ampym"></i>{{stats.passes}}</li><li class="quick-summary--item---nDp-P quick-summary--failures---22u6g" title="Failed"><i class="material-icons quick-summary--icon---9M3YY quick-summary--circle-icon---Ampym"></i>{{stats.failures}}</li></ul></div>
+      </H2>
           <ul class="tests">
             {{#each tests}}
-              <li class="test {{#if failed}}test-failure{{/if}}"> <a  href="{{url}}">{{name}}</a> {{stats.passes}}/{{stats.tests}}
+              <li class="test {{#if failed}}test-failure{{/if}}"> <a  href="{{url}}">{{name}}</a> 
                (<a  href="{{srcUrl}}">src</a>) 
                (<a  href="{{tapUrl}}">tap</a>) 
+
+<!--                            <i class="material-icons one-test-summary-icon"></i><span><span class="">{{stats.duration}}</span><span class="duration-units">ms</span></span>
+ -->
+<i class="material-icons one-test-summary-icon quick-summary--circle-icon---Ampym"></i>{{stats.passes}} /
+                           <i class="material-icons one-test-summary-icon"></i>{{stats.tests}}
+
+                           
+                           <i class="material-icons one-test-summary-icon quick-summary--circle-icon---Ampym"></i>{{stats.failures}}
+
+
+
              </li>
             {{/each}}
 
