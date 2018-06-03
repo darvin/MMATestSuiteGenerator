@@ -10,7 +10,7 @@ const util = require('util')
 
 const isDirectory = source => lstatSync(source).isDirectory()
 const getDirectories = source => readdirSync(source).map(name => join(source, name)).filter(isDirectory)
-const getHtmls = source => readdirSync(source).map(name => join(source, name)).filter( f => { return path.extname(f)==".html" && path.basename(f)!="_ALL_TESTS_CONCAT.html" } )
+const getHtmls = source => readdirSync(source).map(name => join(source, name)).filter( f => { return path.extname(f)==".html" && path.basename(f)!="index.html" } )
 
 function getAllTests() {
 	const rootPath = path.join(__dirname,"..","output");
@@ -33,7 +33,7 @@ function getAllTests() {
 	function getSystem(p, overrideName) {
 		return {
 			"name":overrideName || path.basename(p).replace("_", " "),
-			"allTestsUrl":path.relative(rootPath, join(p, "_ALL_TESTS_CONCAT.html")),
+			"allTestsUrl":path.relative(rootPath, join(p, "index.html")),
 			"tests": getHtmls(p).map(getTest)
 		}
 	}

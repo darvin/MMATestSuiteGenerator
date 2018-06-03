@@ -42,9 +42,9 @@ processDirectory () {
 	SYSTEM_NAME=`basename $DIR`
 	echo "> $SYSTEM_NAME"
 	pushd $DIR
-	( $concatTaps *.tap | tap-mochawesome-reporter > _ALL_TESTS_CONCAT.json ) &
+	( $concatTaps *.tap | tap-mochawesome-reporter > index.json ) &
 	spinner
-	marge -t $SYSTEM_NAME -p $SYSTEM_NAME  --reportDir ./ --showSkipped false --showHooks never --showPending false --showPassed false _ALL_TESTS_CONCAT.json
+	marge -t $SYSTEM_NAME -p $SYSTEM_NAME  --reportDir ./ --showSkipped false --showHooks never --showPending false --showPassed false index.json
 
 
 	ls *.tap | parallel --will-cite -j$CORES processFile
