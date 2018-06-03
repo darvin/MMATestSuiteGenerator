@@ -8,10 +8,13 @@
    - Generate tests:
       - `make generate-compat-tests`
       - `LOCAL=1 make generate-compat-tests`
-   - Find generated from docstrings tests in `./output/`.
+   - Find generated from docstrings tests in `./output/Tests`.
    - Run tests:
       - `make run-compat-tests`
       - `LOCAL=1 make run-compat-tests`
+   - Find test results in `./output/Results/$YourInterpreterName/*.tap`
+   - Generate very pretty website with [Mochawesome](https://github.com/adamgruber/mochawesome):
+      - `make website`
 
 
 ## [Website with automated build results](https://darvin.github.io/MMATestSuiteGenerator/)
