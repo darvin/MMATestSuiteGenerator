@@ -43,6 +43,8 @@ clean-website :
 	rm output/index.html || true
 
 website : clean-website generate-website
+
+serve-website : clean-website generate-website
 	cd ./output/
 	`npm bin`/http-server ./ -o
 
