@@ -21,8 +21,8 @@ processDirectory () {
 	SYSTEM_NAME=`basename $DIR`
 	echo "> $SYSTEM_NAME"
 	pushd $DIR
-	$concatTaps *.tap | node --max-old-space-size=$MAX_MEM $tapMochawesome > ALL_TESTS.json
-	node --max-old-space-size=$MAX_MEM $marge -t $SYSTEM_NAME -p $SYSTEM_NAME  --reportDir ./ --showSkipped false --showHooks never --showPending false --showPassed false ALL_TESTS.json
+	$concatTaps *.tap | node --max-old-space-size=$MAX_MEM $tapMochawesome > _ALL_TESTS_CONCAT.json
+	node --max-old-space-size=$MAX_MEM $marge -t $SYSTEM_NAME -p $SYSTEM_NAME  --reportDir ./ --showSkipped false --showHooks never --showPending false --showPassed false _ALL_TESTS_CONCAT.json
 
 	for f in *.tap ; do
 	    processFile $f
