@@ -1,25 +1,23 @@
 #!/bin/bash
 set -e
-# marge --reportDir ./ --showSkipped false --showHooks never --showPending false --showPassed false 
+PATH=$(npm bin):$PATH
 
-marge=`pwd`/node_modules/.bin/marge
-concatTaps=`pwd`/node_modules/tap-mochawesome-reporter/concatTaps.sh
-tapMochawesome=`pwd`/node_modules/.bin/tap-mochawesome-reporter
-MAX_MEM=8192
+concatTaps=`pwd`/concatTaps.sh
+
 processFile () {
 	FILE=$1
 	BASENAME=`basename $FILE`
 	JSON="$BASENAME.json"
 	echo "   > $FILE"
-	cat $FILE |  $tapMochawesome > $JSON
-	$marge -t $BASENAME -p $BASENAME  --reportDir ./ --showSkipped false --showHooks never --showPending false --showPassed false $JSON
+	cat $FILE |  tap-mochawesome-reporter > $JSON
+	marge -t $BASENAME -p $BASENAME  --reportDir ./ --showSkipped false --showHooks never --showPending false --showPassed false $JSON
 
 }
 
 spinner()
 {
     local pid=$!
-    local delay=0.75
+    local delay=10.75
     local spinstr='|/-\'
     while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
         local temp=${spinstr#?}
@@ -36,9 +34,9 @@ processDirectory () {
 	SYSTEM_NAME=`basename $DIR`
 	echo "> $SYSTEM_NAME"
 	pushd $DIR
-	( $concatTaps *.tap | node --max-old-space-size=$MAX_MEM $tapMochawesome > _ALL_TESTS_CONCAT.json ) &
+	( $concatTaps *.tap | tap-mochawesome-reporter > _ALL_TESTS_CONCAT.json ) &
 	spinner
-	node --max-old-space-size=$MAX_MEM $marge -t $SYSTEM_NAME -p $SYSTEM_NAME  --reportDir ./ --showSkipped false --showHooks never --showPending false --showPassed false _ALL_TESTS_CONCAT.json
+	marge -t $SYSTEM_NAME -p $SYSTEM_NAME  --reportDir ./ --showSkipped false --showHooks never --showPending false --showPassed false _ALL_TESTS_CONCAT.json
 
 	for f in *.tap ; do
 	    processFile $f
