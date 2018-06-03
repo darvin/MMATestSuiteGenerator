@@ -1,0 +1,61 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/IntegerDigits.nb output/Tests/IntegerDigits_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/IntegerDigits.nb
+# WRITING OUTPUT TO:     output/Tests/IntegerDigits_Tests.m
+ok  IntegerDigits[58127]    ==>     {5,8,1,2,7}
+ok  IntegerDigits[58127,2]    ==>     {1,1,1,0,0,0,1,1,0,0,0,0,1,1,1,1}
+ok  IntegerDigits[58127,16]    ==>     {14,3,0,15}
+ok  IntegerDigits[{6,7,2},2]    ==>     {{1,1,0},{1,1,1},{1,0}}
+ok  IntegerDigits[7,{2,3,4}]    ==>     {{1,1,1},{2,1},{1,3}}
+ok  IntegerDigits[Range[0,7],2]    ==>     {{0},{1},{1,0},{1,1},{1,0,0},{1,0,1},{1,1,0},{1,1,1}}
+ok  IntegerDigits[Range[0,7],2,3]    ==>     {{0,0,0},{0,0,1},{0,1,0},{0,1,1},{1,0,0},{1,0,1},{1,1,0},{1,1,1}}
+ok  IntegerDigits[6345354,10,4]    ==>     {5,3,5,4}
+ok  Table[First[IntegerDigits[n!]],{n,50}]    ==>     {1,2,6,2,1,7,5,4,3,3,3,4,6,8,1,2,3,6,1,2,5,1,2,6,1,4,1,3,8,2,8,2,8,2,1,3,1,5,2,8,3,1,6,2,1,5,2,1,6,3}
+ok  Join@@Table[IntegerDigits[i],{i,30}]    ==>     {1,2,3,4,5,6,7,8,9,1,0,1,1,1,2,1,3,1,4,1,5,1,6,1,7,1,8,1,9,2,0,2,1,2,2,2,3,2,4,2,5,2,6,2,7,2,8,2,9,3,0}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+ok  N[ChampernowneNumber[10],Length[%]]    ==>     0.123456789101112131415161718192021222324252627282930
+ok  Table[If[FreeQ[IntegerDigits[n-1,3],1],1,0],{n,27}]    ==>     {1,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,1}
+ok  Table[IntegerDigits[i,2,3],{i,0,7}]    ==>     {{0,0,0},{0,0,1},{0,1,0},{0,1,1},{1,0,0},{1,0,1},{1,1,0},{1,1,1}}
+ok  Tuples[{0,1},3]    ==>     {{0,0,0},{0,0,1},{0,1,0},{0,1,1},{1,0,0},{1,0,1},{1,1,0},{1,1,1}}
+ok  PadLeft[Table[IntegerDigits[i^2,2],{i,5}]]    ==>     {{0,0,0,0,1},{0,0,1,0,0},{0,1,0,0,1},{1,0,0,0,0},{1,1,0,0,1}}
+ok  IntegerDigits[-3134]    ==>     {3,1,3,4}
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  ListLinePlot[Table[First[IntegerDigits[n!,100]],{n,300}]]    ==>     \!\(\*
+#! GraphicsBox[{{}, {}, 
+#! {Hue[0.67, 0.6, 0.6], LineBox[CompressedData["
+#! 1:eJxdmF9yljUUh4NXXvaCCy+4CN84DON0mIqiIkhDBVHkT60UrCK8/AcBW1xB
+#! ltAlvEvoErIElpAldAkM0+f5nJze/OZ58+XkJOfkJOnJx7tbzz5JKa0eS+mj
+#! Hv0dro+ayqifop+hK+h36PEy9vd3J4L+guZgZ4FuoJ+HcU8daf0RPh36f4He
+#! RlfDOGeCf2vw1+iXYbyz6Cb6VRjXfq7POfxzft+Mfqdvw+9dN/09H/z8HnV+
+#! F4L/F+FL6A9oDt8dbx3/7sBlHKfK9r889q+y42/wPegyDsaJvFjGTX+uHGnB
+#! n3ol+HEVJY5VNq9+Cv7J+neN77+i8HKdf0aJZ5W1bxzJh2VctX8d1n9ZPxnX
+#! uOvHMn9uoOyLKhvvm6jzkx3/1hE3x78V/DavjLtsHpvX+FNk4l9l4tdk98dv
+#! o39Fxr8auMFlm+9bo98FNq7VdvKh2e6++R1lnxbZfJHZf002v90HrL95uMxX
+#! mXi4zsv5b4+8nJfxCtwCp7so61MC18AtcLoX+geugVvg9Ad+oQX1e1Xvhd9p
+#! Z2fksjP+vu6M9trOaCf9GfwPXAO3wOmv0D9wDdwCp/uhv2z8ArfA6W/U+Aeu
+#! svkje04+QKk3RXb/yQv6y9aPhyjnRZHZD1Wm/jTZc2FCqcsZtg4W29n3k0we
+#! V5n1mwO3wF12/R6hrFeWWZ8isz6TvGB8mfNmlpl/kznfuuw59Bg71OUMWxeK
+#! jP9T4Cozn1lmPk1mPl22/jwZ/c8y94oiE68J9hyrMnVx9veuf+Auu/5PUfIz
+#! y9ZDmXybZPyrMvV5llnPBlvHuu3uv2ejP1nGnyLjzyR7Xsvcu2Z5g/Fl8rfL
+#! jv985Cy7n2XzT/YeKrMes+z4sOdoD+OlF7Dzl52/7PxlzzeZ/J5lzv8mU2+7
+#! 7PgvYfefbD2Syc9J5v5UZcabZfMvcA/jpVfj/LJsPZPJrwn2nlJtt/7I1mvZ
+#! /Sd7H/8H5T6RZeZTZPe/7PkgE69Z5t3SZPKzy95DX4/2s+x9Ssb+JGO/yrwz
+#! Ztn4B/s92E9vUNYny94HZd4Zk+z6y66/bP2TiW+XfWe9xQ73/gybr0XG30n2
+#! fibj7yzzDmra597ZbTf//4Wtf/KC8WXOzwn2nl5td/6y85ep91323biLHeKV
+#! d0d7RcbeJHs/kK0/wV4L9nqwl/ZGeysy+ZRl5rsm65+MvU15gb8y9WlPJh41
+#! 2NuX3U8y8T2QeYc22Hvxe9vJly5Tzw5l3/Xv8IP7zsq70Z8sM781mf1XZN7l
+#! m7DvkMl2/NmTzV+Z/0Ps6w/1YQ7+HAR/WvDnvcx9ocO+Ow6DP+k/lP25IpNP
+#! WeZ9tiYbf5n5bMrU70nmPbcX+leZ+ezL1OdZJt4HoX/7v/8Hb3vd7w==
+#! "]]}},
+#! AspectRatio->0.6180339887498948,
+#! Axes->True,
+#! AxesOrigin->{0, 0},
+#! PlotRange->{{0., 300.}, {0., 99.}},
+#! PlotRangeClipping->True,
+#! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)

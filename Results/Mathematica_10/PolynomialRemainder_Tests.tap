@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/PolynomialRemainder_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: PolynomialRemainder_Tests
-# OUTPUT: output/Results/Mathematica_10/PolynomialRemainder_Tests.json
 # Find the remainder after dividing one polynomial by another:
 ok  PolynomialRemainder[x^2, x + a, x]    ==>     a^2
     ---

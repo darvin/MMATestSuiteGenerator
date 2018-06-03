@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/EulerPhi_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: EulerPhi_Tests
-# OUTPUT: output/Results/Mathematica_10/EulerPhi_Tests.json
 # Table of values:
 ok  Table[EulerPhi[k], {k, 0, 20}]    ==>     {0, 1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 4, 12, 6, 8, 8, 16, 6, 18, 8}
     ---
@@ -61,9 +61,9 @@ ok  HoldComplete[ListPlot[Accumulate[Table[EulerPhi[n], {n, 50}]]]]    ==>     $
 # Compare with an asymptotic approximation:
 ok  HoldComplete[Show[%, Plot[(3/Pi^2)*n^2, {n, 0, 50}, PlotStyle -> Red]]]    ==>     $Failed # skip
 # First several n-s where the difference \!\(
-\*UnderoverscriptBox[\(\[Sum]\), \(k = 1\), \(n\)]\*
-TemplateBox[{"k"},
-"EulerPhi"]\)-3 n^2/\[Pi]^2 is negative:
+#! \*UnderoverscriptBox[\(\[Sum]\), \(k = 1\), \(n\)]\*
+#! TemplateBox[{"k"},
+#! "EulerPhi"]\)-3 n^2/\[Pi]^2 is negative:
 ok  Flatten[Position[NonPositive[Accumulate[EulerPhi[Range[10^4]]] - 3*(Range[10^4]/Pi)^2], True]]    ==>     {820, 1276, 1926, 2080, 2640, 3160, 3186, 3250, 4446, 4720, 4930, 5370, 6006, 6546, 7386, 7450, 7476, 9066, 9276}
     ---
     data:

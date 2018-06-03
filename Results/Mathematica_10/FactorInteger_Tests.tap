@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/FactorInteger_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: FactorInteger_Tests
-# OUTPUT: output/Results/Mathematica_10/FactorInteger_Tests.json
 # Find prime factors and their exponents:
 ok  FactorInteger[2434500]    ==>     {{2, 2}, {3, 2}, {5, 3}, {541, 1}}
     ---
@@ -57,7 +57,7 @@ ok  FactorInteger[20!]    ==>     {{2, 18}, {3, 8}, {5, 4}, {7, 2}, {11, 1}, {13
         expect: {{2, 18}, {3, 8}, {5, 4}, {7, 2}, {11, 1}, {13, 1}, {17, 1}, {19, 1}}
         expect_evaluated: {{2, 18}, {3, 8}, {5, 4}, {7, 2}, {11, 1}, {13, 1}, {17, 1}, {19, 1}}
     ...
-ok  CenterDot @@ Apply[Superscript, %, {1}]    ==>     2^18 \[CenterDot] 3^8 \[CenterDot] 5^4 \[CenterDot] 7^2 \[CenterDot] 11^1 \[CenterDot] 13^1 \[CenterDot] 17^1 \[CenterDot] 19^1 # skip
+ok  CenterDot @@ Apply[Superscript, %, {1}]    ==>     2^18 � 3^8 � 5^4 � 7^2 � 11^1 � 13^1 � 17^1 � 19^1 # skip
 # Find primes that appear in prime factorization of n! only to the first power:
 ok  FactorInteger[20!]    ==>     {{2, 18}, {3, 8}, {5, 4}, {7, 2}, {11, 1}, {13, 1}, {17, 1}, {19, 1}}
     ---

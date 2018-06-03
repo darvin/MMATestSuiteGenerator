@@ -1,0 +1,5 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Print.nb output/Tests/Print_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Print.nb
+# WRITING OUTPUT TO:     output/Tests/Print_Tests.m
+#! x
+not ok  Print[x]//InputForm    ==>     Null

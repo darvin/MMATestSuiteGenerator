@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Default_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Default_Tests
-# OUTPUT: output/Results/Mathematica_10/Default_Tests.json
 # Define 0 to be the default argument for a function f:
 ok  Default[f] = 0    ==>     0
     ---

@@ -1,6 +1,8 @@
+#! DOCKER > wolfram -script output/Tests/PossibleZeroQ_Tests.m
+#! TextForm[ColonForm[MessageName[PossibleZeroQ, ztest1], StringForm[Unable to decide whether numeric quantity `1` is equal to zero. Assuming it is., Short[HoldForm[Sqrt[2] + Sqrt[3] - Root[1 - 10*#1^2 + #1^4 & , 4, 0]], 3]]]]
+#! TextForm[ColonForm[MessageName[PossibleZeroQ, ztest1], StringForm[Unable to decide whether numeric quantity `1` is equal to zero. Assuming it is., Short[HoldForm[1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Sqrt[2] + Sqrt[3] - Root[1 - 10*#1^2 + #1^4 & , 4, 0]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: PossibleZeroQ_Tests
-# OUTPUT: output/Results/Mathematica_10/PossibleZeroQ_Tests.json
 # Test whether a numeric expression is zero:
 ok  PossibleZeroQ[E^(I*(Pi/4)) - (-1)^(1/4)]    ==>     True
     ---

@@ -1,0 +1,247 @@
+#! DOCKER > wolfram -script output/Tests/Sign_Tests.m
+#! TextForm[ColonForm[MessageName[N, meprec], StringForm[Internal precision limit $MaxExtraPrecision = `1` reached while evaluating `2`., Short[HoldForm[50.], 3], Short[HoldForm[-1 - 2*E - E^2 + (1 + E)^2], 3]]]]
+#! TextForm[ColonForm[MessageName[N, meprec], StringForm[Internal precision limit $MaxExtraPrecision = `1` reached while evaluating `2`., Short[HoldForm[50.], 3], Short[HoldForm[-1 - 2*E - E^2 + (1 + E)^2], 3]]]]
+#! TextForm[ColonForm[MessageName[N, meprec], StringForm[Internal precision limit $MaxExtraPrecision = `1` reached while evaluating `2`., Short[HoldForm[50.], 3], Short[HoldForm[-9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 - 2*E - E^2 + (1 + E)^2], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[N, meprec]], 3]]]]
+# SYSTEM: Mathematica_10
+# TEST: Sign_Tests
+ok  Sign[-2.5]    ==>     -1
+    ---
+    data:
+        got: -1
+        expect: -1
+        expect_evaluated: -1
+    ...
+ok  Sign[2.5]    ==>     1
+    ---
+    data:
+        got: 1
+        expect: 1
+        expect_evaluated: 1
+    ...
+ok  Sign[0]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
+ok  Sign[{-2, -1, 0, 1, 2}]    ==>     {-1, -1, 0, 1, 1}
+    ---
+    data:
+        got: {-1, -1, 0, 1, 1}
+        expect: {-1, -1, 0, 1, 1}
+        expect_evaluated: {-1, -1, 0, 1, 1}
+    ...
+ok  HoldComplete[Plot[Sign[x], {x, -3, 3}]]    ==>     $Failed # skip
+# RefLink[Sign,paclet:ref/Sign] works with symbolic representations of numbers:
+ok  Sign[E - Pi]    ==>     -1
+    ---
+    data:
+        got: -1
+        expect: -1
+        expect_evaluated: -1
+    ...
+# RefLink[Sign,paclet:ref/Sign] gives "directions" of complex numbers:
+ok  Sign[1 + I]    ==>     (1 + I)/Sqrt[2]
+    ---
+    data:
+        got: (1 + I)/Sqrt[2]
+        expect: (1 + I)/Sqrt[2]
+        expect_evaluated: (1 + I)/Sqrt[2]
+    ...
+# The absolute value is always 1:
+ok  Abs[%]    ==>     1 # skip
+# RefLink[TraditionalForm,paclet:ref/TraditionalForm] formatting:
+ok  sgn*x    ==>     sgn*x # skip
+ok  Sign[Tan[10^9]]    ==>     1
+    ---
+    data:
+        got: 1
+        expect: 1
+        expect_evaluated: 1
+    ...
+ok  Sign[I*Infinity]    ==>     I
+    ---
+    data:
+        got: I
+        expect: I
+        expect_evaluated: I
+    ...
+ok  Sign[ComplexInfinity]    ==>     Indeterminate
+    ---
+    data:
+        got: Indeterminate
+        expect: Indeterminate
+        expect_evaluated: Indeterminate
+    ...
+ok  HoldComplete[SparseArray[{{1, 1} -> -6, {1, 3} -> I*Pi, {3, 3} -> 2, {4, 2} -> u}]]    ==>     $Failed # skip
+ok  HoldComplete[Sign[%]]    ==>     $Failed # skip
+ok  MatrixForm[%]    ==>     -(0*I*0*0*0*0*0*1*0*Sign[u]*0) # skip
+ok  Series[Sign[x], {x, 0, 5}, Assumptions -> Element[x, Reals]]    ==>     Inequality[Piecewise[-1]*x, Less, 0*1*x, Greater, 0*0*True] # skip
+ok  HoldComplete[{Plot3D[Re[Sign[x + I*y]], {x, -1, 1}, {y, -1, 1}], Plot3D[Im[Sign[x + I*y]], {x, -1, 1}, {y, -1, 1}]}]    ==>     $Failed # skip
+ok  HoldComplete[Plot[Evaluate[Table[r[n, x] + n/5, {n, 5}]], {x, -Pi, Pi}, Exclusions -> Sin[2^5*Pi*x] == 0]]    ==>     $Failed # skip
+ok  FullSimplify[Table[Integrate[r[n1, x]*r[n2, x], {x, 0, 1}], {n1, 3}, {n2, 3}]]    ==>     {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}} # skip
+ok  Sign[1/z]    ==>     1/Sign[z]
+    ---
+    data:
+        got: Sign[z]^(-1)
+        expect: 1/Sign[z]
+        expect_evaluated: Sign[z]^(-1)
+    ...
+ok  Sign[z^2]    ==>     Sign[z]^2
+    ---
+    data:
+        got: Sign[z]^2
+        expect: Sign[z]^2
+        expect_evaluated: Sign[z]^2
+    ...
+ok  Sign[Exp[z]]    ==>     E^(I*Im[z])
+    ---
+    data:
+        got: E^(I*Im[z])
+        expect: E^(I*Im[z])
+        expect_evaluated: E^(I*Im[z])
+    ...
+ok  Sign[Sign[z]]    ==>     Sign[z]
+    ---
+    data:
+        got: Sign[z]
+        expect: Sign[z]
+        expect_evaluated: Sign[z]
+    ...
+ok  FullSimplify[Sign[a*b] - Sign[a]*Sign[b] + Sign[a] - Abs[a]/a]    ==>     (2*I*Im[a]*Sign[a])/a
+    ---
+    data:
+        got: ((2*I)*Im[a]*Sign[a])/a
+        expect: (2*I*Im[a]*Sign[a])/a
+        expect_evaluated: ((2*I)*Im[a]*Sign[a])/a
+    ...
+ok  Simplify[Sign[z] + z/Abs[z], z > 0]    ==>     2
+    ---
+    data:
+        got: 2
+        expect: 2
+        expect_evaluated: 2
+    ...
+ok  ComplexExpand[Sign[z^a], {z}]    ==>     Sign[z]^a
+    ---
+    data:
+        got: Sign[z]^a
+        expect: Sign[z]^a
+        expect_evaluated: Sign[z]^a
+    ...
+ok  ComplexExpand[Re[ArcSin[x + I*y]], TargetFunctions -> Sign]    ==>     (-I)*Log[Sign[Sqrt[1 - (x + I*y)^2] + I*(x + I*y)]]
+    ---
+    data:
+        got: (-I)*Log[Sign[Sqrt[1 - (x + I*y)^2] + I*(x + I*y)]]
+        expect: (-I)*Log[Sign[Sqrt[1 - (x + I*y)^2] + I*(x + I*y)]]
+        expect_evaluated: (-I)*Log[Sign[Sqrt[1 - (x + I*y)^2] + I*(x + I*y)]]
+    ...
+ok  Integrate[Sign[Sin[x]], {x, 0, 2}]    ==>     2
+    ---
+    data:
+        got: 2
+        expect: 2
+        expect_evaluated: 2
+    ...
+ok  Integrate[Sign[x^2], {x, -2 + I, Pi + I}]    ==>     2 - Pi + 2*ArcTan[1/2] - I*Log[5] + 2*I*Log[-I + Pi]
+    ---
+    data:
+        got: 2 - Pi + 2*ArcTan[1/2] - I*Log[5] + (2*I)*Log[-I + Pi]
+        expect: 2 - Pi + 2*ArcTan[1/2] - I*Log[5] + 2*I*Log[-I + Pi]
+        expect_evaluated: 2 - Pi + 2*ArcTan[1/2] - I*Log[5] + (2*I)*Log[-I + Pi]
+    ...
+ok  N[%]    ==>     0.402041 + 0.776532*I # skip
+ok  NIntegrate[Sign[x^2], {x, -2 + I, Pi + I}]    ==>     0.402041 + 0.776532*I # skip
+ok  Integrate[Sign[x], x]    ==>     Integrate[Sign[x], x]
+    ---
+    data:
+        got: Integrate[Sign[x], x]
+        expect: Integrate[Sign[x], x]
+        expect_evaluated: Integrate[Sign[x], x]
+    ...
+ok  Integrate[Sign[x], x, Assumptions -> Element[x, Reals]]    ==>     Piecewise[-x]*x <= 0*x*True # skip
+ok  FourierTransform[Sign[y], y, x]    ==>     (I*Sqrt[2/Pi])/x
+    ---
+    data:
+        got: (I*Sqrt[2/Pi])/x
+        expect: (I*Sqrt[2/Pi])/x
+        expect_evaluated: (I*Sqrt[2/Pi])/x
+    ...
+ok  LaplaceTransform[Sign[y], y, x]    ==>     1/x
+    ---
+    data:
+        got: x^(-1)
+        expect: 1/x
+        expect_evaluated: x^(-1)
+    ...
+ok  Integrate[Sin[a*x]/x, {x, -Infinity, Infinity}, Assumptions -> Element[a, Reals]]    ==>     Pi*Sign[a]
+    ---
+    data:
+        got: Pi*Sign[a]
+        expect: Pi*Sign[a]
+        expect_evaluated: Pi*Sign[a]
+    ...
+ok  Limit[2*ArcTan[a*x], a -> Infinity, Assumptions -> Element[x, Reals]]    ==>     (Pi*Abs[x])/x
+    ---
+    data:
+        got: (Pi*Abs[x])/x
+        expect: (Pi*Abs[x])/x
+        expect_evaluated: (Pi*Abs[x])/x
+    ...
+ok  FullSimplify[%, Assumptions -> Element[x, Reals]]    ==>     Pi/Sign[x] # skip
+ok  PiecewiseExpand[Sign[x]*Sign[1 - x], Element[x, Reals]]    ==>     Piecewise[-1]*x > 1 || x < 0*1*0 < x < 1*0*True # skip
+ok  PiecewiseExpand[Sign[2 - x + Sign[2 - x^3]^3], Element[x, Reals]]    ==>     Piecewise[-1]*x > 2^(1/3)*1*True # skip
+ok  Sign[1.3]    ==>     1
+    ---
+    data:
+        got: 1
+        expect: 1
+        expect_evaluated: 1
+    ...
+ok  Sign[1.3*I]    ==>     I # skip
+# For general complex arguments, RefLink[Sign,paclet:ref/Sign] tracks the precision of the input:
+ok  Sign[1.5 + I]    ==>     0.83205 + 0.5547*I # skip
+ok  Sign[-1 - 2*E - E^2 + (1 + E)^2]    ==>     Sign[-1 - 2*E - E^2 + (1 + E)^2]
+    ---
+    data:
+        got: Sign[-1 - 2*E - E^2 + (1 + E)^2]
+        expect: Sign[-1 - 2*E - E^2 + (1 + E)^2]
+        expect_evaluated: Sign[-1 - 2*E - E^2 + (1 + E)^2]
+    ...
+ok  Simplify[%]    ==>     0 # skip
+ok  Sign[(-1 - 2*E - E^2 + (1 + E)^2) + 10^(-100)]    ==>     Sign[-9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 - 2*E - E^2 + (1 + E)^2]
+    ---
+    data:
+        got: Sign[-9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 - 2*E - E^2 + (1 + E)^2]
+        expect: Sign[-9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 - 2*E - E^2 + (1 + E)^2]
+        expect_evaluated: Sign[-9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 - 2*E - E^2 + (1 + E)^2]
+    ...
+ok  N[%]    ==>     -1 # skip
+ok  N[%%, 250]    ==>     1 # skip
+ok  Block[{$MaxExtraPrecision = 10000}, N[Sign[(-1 - 2*E - E^2 + (1 + E)^2) + 10^(-100)], 20]]    ==>     1.`19.
+    ---
+    data:
+        got: 1.`20.
+        expect: 1.`19.
+        expect_evaluated: 1.`19.
+    ...
+ok  Sign[{{1, 2}, {-2, 1}}]    ==>     {{1, 1}, {-1, 1}}
+    ---
+    data:
+        got: {{1, 1}, {-1, 1}}
+        expect: {{1, 1}, {-1, 1}}
+        expect_evaluated: {{1, 1}, {-1, 1}}
+    ...
+ok  NestList[Convolution[#1, Sign[x]*Sign[x + 1]*Sign[1 - x], x] & , Sign[x]*Sign[x + 1]*Sign[1 - x], 3]    ==>     {Sign[1 - x]*Sign[x]*Sign[1 + x], Inequality[Piecewise[-2] + 4*x*0, LessEqual, x, Less, 1*2*x, Equal, -1] || Inequality[x, Equal, 1*4 - 2*x*1, Less, x, LessEqual, 2*2*(2 + x) - 2, Less, x, Less, -1 - 2 - 4*x - 1, Less, x, Less, 0*0*True], Inequality[Piecewise[-x]*(8 + 7*x) - 1, LessEqual, x, LessEqual, 0 - 11 + 14*x - 4*x^2*1, LessEqual, x, LessEqual, 2 - (3 + x)^2 - 3, Less, x, LessEqual, -2*(-3 + x)^2*2, Less, x, Less, 3*11 + 14*x + 4*x^2 - 2, Less, x, Less, -(x*(-8 + 7*x)*0), Less, x, Less, 1*0*True], Inequality[Piecewise[-(1/3)]*(-4 + x)^3*3, LessEqual, x, Less, 4*(1/3)*(4 + x)^3 - 4, Less, x, LessEqual, -3*(1/3)*(10 - 42*x^2 - 25*x^3) - 1, LessEqual, x, LessEqual, 0*17 - 41*x + 27*x^2 - ((16*x^3)/3)*1, LessEqual, x, LessEqual, 2 - 125/3 - 47*x - 17*x^2 - 2*x^3 - 3, Less, x, LessEqual, -2 - 125/3 + 47*x - 17*x^2 + 2*x^3*2, Less, x, Less, 3*17 + 41*x + 27*x^2 + (16*x^3)/3 - 2, Less, x, Less, -((1/3)*(10 - 42*x^2 + 25*x^3)*0), Less, x, Less, 1*0*True]} # skip
+ok  HoldComplete[Plot[Evaluate[%], {x, -3, 3}]]    ==>     $Failed # skip
+ok  HoldComplete[Plot[Evaluate[Table[sign[n, x], {n, 20}]], {x, -2, 2}]]    ==>     $Failed # skip
+ok  Factor[Together[FunctionExpand[Table[Tanh[2*n*ArcTanh[1/x]], {n, 4}]]]]    ==>     {(2*x)/(1 + x^2), (4*x*(1 + x^2))/(1 + 6*x^2 + x^4), (2*x*(3 + x^2)*(1 + 3*x^2))/((1 + x^2)*(1 + 14*x^2 + x^4)), (8*x*(1 + x^2)*(1 + 6*x^2 + x^4))/(1 + 28*x^2 + 70*x^4 + 28*x^6 + x^8)}
+    ---
+    data:
+        got: {(2*x)/(1 + x^2), (4*x*(1 + x^2))/(1 + 6*x^2 + x^4), (2*x*(3 + x^2)*(1 + 3*x^2))/((1 + x^2)*(1 + 14*x^2 + x^4)), (8*x*(1 + x^2)*(1 + 6*x^2 + x^4))/(1 + 28*x^2 + 70*x^4 + 28*x^6 + x^8)}
+        expect: {(2*x)/(1 + x^2), (4*x*(1 + x^2))/(1 + 6*x^2 + x^4), (2*x*(3 + x^2)*(1 + 3*x^2))/((1 + x^2)*(1 + 14*x^2 + x^4)), (8*x*(1 + x^2)*(1 + 6*x^2 + x^4))/(1 + 28*x^2 + 70*x^4 + 28*x^6 + x^8)}
+        expect_evaluated: {(2*x)/(1 + x^2), (4*x*(1 + x^2))/(1 + 6*x^2 + x^4), (2*x*(3 + x^2)*(1 + 3*x^2))/((1 + x^2)*(1 + 14*x^2 + x^4)), (8*x*(1 + x^2)*(1 + 6*x^2 + x^4))/(1 + 28*x^2 + 70*x^4 + 28*x^6 + x^8)}
+    ...
+ok  HoldComplete[Plot[Evaluate[%], {x, -10, 10}]]    ==>     $Failed # skip

@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/FixedPointList_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: FixedPointList_Tests
-# OUTPUT: output/Results/Mathematica_10/FixedPointList_Tests.json
 # Find the sequence of values leading to a fixed point:
 ok  FixedPointList[1 + Floor[#1/2] & , 1000]    ==>     {1000, 501, 251, 126, 64, 33, 17, 9, 5, 3, 2, 2}
     ---

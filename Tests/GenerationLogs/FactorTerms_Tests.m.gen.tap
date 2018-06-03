@@ -1,0 +1,15 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/FactorTerms.nb output/Tests/FactorTerms_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/FactorTerms.nb
+# WRITING OUTPUT TO:     output/Tests/FactorTerms_Tests.m
+ok  FactorTerms[3+6x+3x^2]    ==>     3 (1+2 x+x^2)
+not ok  FactorTerms[f]    ==>     2 (-6-6 a+2 x^2+2 a x^2-3 y+a y+4 a^2 y+x^2 y+a x^2 y+2 a y^2+2 a^2 y^2)
+not ok  FactorTerms[f,x]    ==>     2 (2+2 a+y+a y) (-3+x^2+2 a y)
+not ok  FactorTerms[f,{x,y}]    ==>     2 (1+a) (2+y) (-3+x^2+2 a y)
+ok  FactorTerms[3x+10,Modulus->7]    ==>     3 (1+x)
+ok  FactorTerms[14x+21y+35x y+63]    ==>     7 (9+2 x+3 y+5 x y)
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  Expand[%]    ==>     63+14 x+21 y+35 x y
+ok  FactorTermsList[14x+21y+35x y+63]    ==>     {7,9+2 x+3 y+5 x y}
+ok  FactorTerms[4x^3-4]    ==>     4 (-1+x^3)
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  Factor[%]    ==>     4 (-1+x) (1+x+x^2)

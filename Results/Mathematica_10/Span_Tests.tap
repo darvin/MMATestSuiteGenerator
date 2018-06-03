@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Span_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Span_Tests
-# OUTPUT: output/Results/Mathematica_10/Span_Tests.json
 # Take a span of elements from a list:
 ok  {a, b, c, d, e, f, g, h}[[2 ;; 5]]    ==>     {b, c, d, e}
     ---

@@ -1,0 +1,19 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Times.nb output/Tests/Times_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Times.nb
+# WRITING OUTPUT TO:     output/Tests/Times_Tests.m
+ok  2 3 4    ==>     24
+ok  2*3*4    ==>     24
+ok  2{x,y,z}    ==>     {2 x,2 y,2 z}
+ok   {{a,b},{c,d}}{x,y}    ==>     {{a x,b x},{c y,d y}}
+ok  Times[1,2,3]    ==>     6
+ok  {{a,b},{c,d}}{x,y}    ==>     {{a x,b x},{c y,d y}}
+ok  a b c d/.a d->x    ==>     b c x
+ok  a b c d/.a c x_->f[x]    ==>     f[b d]
+ok  {a,a b,a b c}/.a x_.->f[x]    ==>     {f[1],f[b],f[b c]}
+ok  (1+x)(2+x)    ==>     (1+x) (2+x)
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  Expand[%]    ==>     2+3 x+x^2
+ok  {{a,b},{c,d}}.{x,y}    ==>     {a x+b y,c x+d y}
+ok  Product[a[i],{i,5}]    ==>     a[1] a[2] a[3] a[4] a[5]
+ok  Product[(i+1)/(i+2),{i,1,n}]    ==>     2/(2+n)
+ok  a**b-b**a    ==>     a**b-b**a

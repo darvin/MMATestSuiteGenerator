@@ -1,0 +1,8 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/ReplaceRepeated.nb output/Tests/ReplaceRepeated_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/ReplaceRepeated.nb
+# WRITING OUTPUT TO:     output/Tests/ReplaceRepeated_Tests.m
+#! TextForm[ColonForm[MessageName[ReplaceRepeated, reps], StringForm[`1` is neither a list of replacement rules nor a valid dispatch table, and so cannot be used for replacing., Short[HoldForm[{rules}], 3]]]]
+not ok  Log[Sqrt[a (b c^d)^e]]//.rules    ==>     1/2 (Log[a]+e (Log[b]+d Log[c]))
+#! TextForm[ColonForm[MessageName[ReplaceAll, reps], StringForm[`1` is neither a list of replacement rules nor a valid dispatch table, and so cannot be used for replacing., Short[HoldForm[{rules}], 3]]]]
+not ok  Log[Sqrt[a (b c^d)^e]]/.rules    ==>     1/2 Log[a (b c^d)^e]
+ok  f[a][b][c][d]//.g_[x_][y__]->g[x,y]    ==>     f[a,b,c,d]

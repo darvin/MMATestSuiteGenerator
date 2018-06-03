@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Order_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Order_Tests
-# OUTPUT: output/Results/Mathematica_10/Order_Tests.json
 ok  {Order[a, a], Order[a, b], Order[b, a]}    ==>     {0, 1, -1}
     ---
     data:

@@ -1,6 +1,7 @@
+#! DOCKER > wolfram -script output/Tests/PatternTest_Tests.m
+#! 5
 # SYSTEM: Mathematica_10
 # TEST: PatternTest_Tests
-# OUTPUT: output/Results/Mathematica_10/PatternTest_Tests.json
 # Find cases of any expression that satisfies the RefLink[NumberQ,paclet:ref/NumberQ] test:
 ok  Cases[{1, 2, 3.5, x, y, 4}, _?NumberQ]    ==>     {1, 2, 3.5, 4}
     ---

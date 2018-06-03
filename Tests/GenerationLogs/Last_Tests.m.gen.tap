@@ -1,0 +1,13 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Last.nb output/Tests/Last_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Last.nb
+# WRITING OUTPUT TO:     output/Tests/Last_Tests.m
+ok  Last[{a,b,c}]    ==>     c
+ok  Last[{{a,b},{c,d},{e,f}}]    ==>     {e,f}
+ok  Last[<|1->a,2->b|>]    ==>     b
+ok  Last[a^2+b^2]    ==>     b^2
+ok  Last[SparseArray[Range[100]]]    ==>     100
+ok  Last[{a,b,c}]    ==>     c
+ok  {a,b,c}[[-1]]    ==>     c
+ok  Last[b^2+a^2]    ==>     b^2
+ok  Last[1/b]    ==>     -1
+not ok  FullForm[1/b]    ==>     Power[b,-1]

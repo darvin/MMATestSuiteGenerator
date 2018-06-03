@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/MessageName_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: MessageName_Tests
-# OUTPUT: output/Results/Mathematica_10/MessageName_Tests.json
 # Process messages generated during an evaluation:
 ok  {Sin[1, 2.], BesselJ[3, 4.], Log[5, 6.], Exp[7, 8.]}    ==>     {Sin[1, 2.], 0.430171, 1.11328, Exp[7, 8.]} # skip
 ok  mess = MessageList[-1]    ==>     {Sin::argx, Exp::argx} # skip

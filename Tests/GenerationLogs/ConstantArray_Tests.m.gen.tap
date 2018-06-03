@@ -1,0 +1,95 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/ConstantArray.nb output/Tests/ConstantArray_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/ConstantArray.nb
+# WRITING OUTPUT TO:     output/Tests/ConstantArray_Tests.m
+ok  ConstantArray[c,10]    ==>     {c,c,c,c,c,c,c,c,c,c}
+ok  ConstantArray[c,{3,4}]    ==>     {{c,c,c,c},{c,c,c,c},{c,c,c,c}}
+ok  ConstantArray[0.,10]    ==>     {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.}
+ok  ConstantArray[0,10]    ==>     {0,0,0,0,0,0,0,0,0,0}
+ok  zm = ConstantArray[0.,{3,3}]    ==>     {{0.,0.,0.},{0.,0.,0.},{0.,0.,0.}}
+ok  ConstantArray[0,{3,3}]    ==>     {{0,0,0},{0,0,0},{0,0,0}}
+ok  ConstantArray[1,10]    ==>     {1,1,1,1,1,1,1,1,1,1}
+ok  ConstantArray[1.,10]    ==>     {1.,1.,1.,1.,1.,1.,1.,1.,1.,1.}
+ok  ConstantArray[x,{2,1,2,1,2}]    ==>     {{{{{x,x}},{{x,x}}}},{{{{x,x}},{{x,x}}}}}
+#! TextForm[ColonForm[MessageName[ListPlot, lpn], StringForm[`1` is not a list of numbers or pairs of numbers., Short[HoldForm[sol], 3]]]]
+#! TextForm[ColonForm[MessageName[ListPlot, lpn], StringForm[`1` is not a list of numbers or pairs of numbers., Short[HoldForm[sol], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  ListPlot[sol,DataRange->{0,1}]    ==>     \!\(\*
+#! GraphicsBox[{{}, 
+#! {Hue[0.67, 0.6, 0.6], PointBox[CompressedData["
+#! 1:eJxVlXtQVHUUx4ECeZiPcUNE0ZjBwhAMcjBA/IrRaL4AEWcSJgzDdACFyVFB
+#! HE2gNqmhTDE01HhtmKEwqBBQKAKBKAsGyEPZZRFYWJa9b0BsYrfDH/1m7uzs
+#! 3r3nnO/nc2auc9ShHdEWZmZm0dOX8fP/x4DjsqKN6qRUlNY2Gr51nfl+Dvvn
+#! OEcyQQaULU0bCSm7DE7WdmrdkZn7efBtXh371SUDLmYZTyFSQpd82vPnzP+L
+#! UB2rtd+qMUAXYvylGJ4fT7RqLBl6vhSfn6ksufEWA9uO3Hh/2zsoVol3f9/E
+#! UL1ynPGMdZp7gMGKiIx7gmsldKP8a7flDNX/A2LV/WVlCgZ500935Faj4kmq
+#! t1MdQ/3uotej9rJOw+Bd06kBt2aVk7s5S/3vI2yi5UW/E4sawXW6Qy2G0ppf
+#! d/RlaZ56TPQp1C1hLHaYGv6FuE2hSfMTWJqvAQU/himeprNQJxkLNsJjm17j
+#! W8DSvE3IzD0d7V7NIsE4XvxDSLvCncs7WZr/EaaOPGhRsyz+86DEuLJ18pod
+#! R3mUSLm/Rb/QhcMmU4MWxK8saXZby1G+FvzklnFBG8rB2C0ioxXrl5yz3xnD
+#! Ud7HiE+PG487zcEUp+MxSmbtqvPJ4ij/38j57pC2/AaHZcZxlrZh6Ir2uqGW
+#! Ix5tyLebgKqbwz7TaUf63oI7ZxiO+HTAUXVkHmvFw1hNVtSBkRRulcMSnng9
+#! wb2C+QP/vMNDNJYTniC0/qRe8QFP/Doxy7OTke3mYcLj34VPqu59ufEgTzy7
+#! sKGC9Qo4zcM0Xlo3IpTLY1/J5IlvD/YnWmRlFPJ42GQ8PdO8dfMHK3ni/RQB
+#! pY3OdkoepriyZ2jyqrJ62ccT/2ewdmtkqwQepnIRvfAIPDE7yFogHypYJJw4
+#! VOwoUB4VSqwXuQ+sFMiPCu9ZNmzVrxMonwouC643NQYL5EuN9LmTPydHCZRX
+#! Da+U+PJXDwvkT41H2WXS3jSB8vfBakW9z6VMgXz2gVF5h/2qEIhHH4ozsx3O
+#! lwnkV4PMxJ4tHzUIxEeDiu6Ym+OdAvnWILw6x/zwsEC8+tF1fJJ/MCmQ/35M
+#! Kbb7mtuJxK8fVwoXJcsWi7QPz3HRrCjSyk0kns+xOjM2rcNXpP14jju+43L5
+#! ZpH4DsD65D5zx90i7csALGUHv/jmgEi8B7C9/ewF1TGR9mcQMdeCHtnLReI/
+#! iLub111fdUGkfRpE1Jv+pW4FIvkYwu24H6LtbonkYwjDny1Y21wjko8h7Hzb
+#! 7+bRVpF8DGFLQ+gaS7VIPrTY5pDx/rExkXxoYT3HJbDlpUg+tNjdeyB/3myJ
+#! fAxjg4ZRejtK5GMY8uCr7oGuEvkYRnd/zTIfb4l8jGBp6kob+0CJfIyg/un6
+#! D7tDJPIxgoDlC/y/jpTIhw7faw/jjTiJfOhQtNC28GqSRD50CPcKV9rKJfIx
+#! CkXDgE3keYl8jCLPz+uX7ByJfIwipL7zRd0NiXzo4Td5JbS7UiIfejSfSp7q
+#! apDIhx7De64F1LVL5GMMjfm3YrM1EvkYw+JUee0eg0Q+xpA4dfTsvJcSZt4b
+#! By2CHX6zGce/BHw3uA==
+#! "]]}, {}},
+#! AspectRatio->0.6180339887498948,
+#! Axes->True,
+#! AxesOrigin->{0, 1.},
+#! PlotRange->{{0., 1.}, {1., 1.5023623418529968`}},
+#! PlotRangeClipping->True,
+#! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)
+not ok  list=RandomInteger[9,20]    ==>     {4,0,2,3,9,3,2,9,8,2,2,7,1,6,7,9,2,3,1,1}
+not ok  list.ConstantArray[1,Length[list]]    ==>     81
+not ok  Total[list]    ==>     81
+ok  ones = ConstantArray[1,10]    ==>     {1,1,1,1,1,1,1,1,1,1}
+not ok  x=LinearSolve[N[m],b]    ==>     {1.,1.,1.,0.999971,1.00014,0.999631,1.0006,0.999422,1.0003,0.999934}
+not ok  Norm[x-ones]    ==>     0.00097329
+not ok  x30=LinearSolve[N[m,30],b];
+#! Norm[Block[{$MaxPrecision=30,$MinPrecision=30},x30-ones]]    ==>     3.42707739967263571112712880383*10^-36
+not ok  dims = RandomInteger[{1,4},5]    ==>     {3,1,3,4,3}
+not ok  Dimensions[ConstantArray[c,dims]]    ==>     {3,1,3,4,3}
+#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[Raster[SparseArray[Automatic, Raw[System`Private`PackedList, 404c17eb], 0.93, {1, {Raw[System`Private`PackedList, 303905eb], Raw[System`Private`PackedList, a09c04eb]}, Raw[System`Private`PackedList, f09904eb]}], {{0, 0}, {10, 10}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> None, ImageSize -> {Automatic, 28.}], Specified, RowBox[{elements, :, RowBox[{0, Dimensions}], :, RowBox[{RowBox[{{, RowBox[{1, ,, 4, ,, 3, ,, 2, ,, 4}], }}], RowBox[{Default, :, c}]}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[]\)
+#!    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[Raster[SparseArray[Automatic, Raw[System`Private`PackedList, a0bbd6eb], 0.93, {1, {Raw[System`Private`PackedList, c03405eb], Raw[System`Private`PackedList, 303605eb]}, Raw[System`Private`PackedList, 0093e3ea]}], {{0, 0}, {10, 10}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> None, ImageSize -> {Automatic, 28.}], Specified, RowBox[{elements, :, RowBox[{0, Dimensions}], :, RowBox[{RowBox[{{, RowBox[{1, ,, 4, ,, 3, ,, 2, ,, 4}], }}], RowBox[{Default, :, c}]}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  s = SparseArray[{},dims,c]    ==>     SparseArray[\!\(\*
+#! GraphicsBox[RasterBox[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255},
+#! ColorFunction->GrayLevel],
+#! BaselinePosition->Bottom,
+#! ImageSize->{12, 12},
+#! PlotRange->{{0, 12}, {0, 12}}]\)	\!\(\*
+#! GraphicsBox[RasterBox[SparseArray[Automatic, {10, 10}, 0.93, {1, {{0, 1, 1, 4, 4, 5, 6, 6, 8, 10, 13}, {{4}, {6}, {7}, {10}, {5}, {9}, {3}, {8}, {5}, {7}, {2}, {3}, {7}}}, {0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.}}], {{0, 0}, {10, 10}}, {0, 1}],
+#! AspectRatio->1,
+#! Axes->False,
+#! Frame->False,
+#! FrameLabel->{None, None},
+#! FrameStyle->Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]],
+#! FrameTicks->None,
+#! ImageSize->{Automatic, 28.}]\)	Specified elements: 0
+#! Dimensions: {1,4,3,2,4}
+#! Default: c
+#! ]
+ok  ConstantArray[c,dims] == s    ==>     True
+ok  ConstantArray[c,dims]===Normal[s]    ==>     True
+ok  ConstantArray[c,dims]===Apply[Table[c,##]&,Map[List,dims]]    ==>     True

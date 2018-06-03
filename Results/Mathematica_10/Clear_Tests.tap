@@ -1,0 +1,24 @@
+#! DOCKER > wolfram -script output/Tests/Clear_Tests.m
+# SYSTEM: Mathematica_10
+# TEST: Clear_Tests
+ok  x    ==>     x
+    ---
+    data:
+        got: x
+        expect: x
+        expect_evaluated: x
+    ...
+ok  fact[n_] := n*fact[n - 1]    ==>     Null # skip
+ok  f[a]    ==>     f[a]
+    ---
+    data:
+        got: f[a]
+        expect: f[a]
+        expect_evaluated: f[a]
+    ...
+ok  {x1, x2, y}    ==>     {x1, x2, 5} # skip
+ok  fib[5]    ==>     5 # skip
+ok  Null    ==>     Attributes[f] = {Listable}*Default[f] = 0*Options[f] = {opt1 -> def1, opt2 -> def2} # skip
+ok  Null    ==>     Null # skip
+ok  fact[n_] := n*fact[n - 1]    ==>     fact[n_] := n*fact[n - 1] # skip
+ok  fact[n_] := n*fact[n - 1]    ==>     Null # skip

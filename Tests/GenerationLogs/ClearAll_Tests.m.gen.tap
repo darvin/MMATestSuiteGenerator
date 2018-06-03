@@ -1,0 +1,21 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/ClearAll.nb output/Tests/ClearAll_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/ClearAll.nb
+# WRITING OUTPUT TO:     output/Tests/ClearAll_Tests.m
+#! TextForm[ColonForm[MessageName[SetDelayed, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Times], 3], Short[HoldForm[f[x_]*{Listable}], 3]]]]
+#! TextForm[ColonForm[MessageName[Attributes, attnf], StringForm[`1` is not a known attribute., Short[HoldForm[$Failed], 3]]]]
+not ok  Definition[f]    ==>     Attributes[f]={Listable}
+#!  
+#! f[x_]:=x^2
+not ok  Definition[f]    ==>     Null
+ok  x    ==>     x
+not ok  Definition[fact]    ==>     Null
+ok  f[a]    ==>     f[a]
+not ok  {x1,x2,y}    ==>     {x1,x2,5}
+not ok  fib[5]    ==>     5
+#! TextForm[ColonForm[MessageName[Set, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Times], 3], Short[HoldForm[0*{}], 3]]]]
+not ok  Definition[f]    ==>     Default[f]=0
+#!  
+#! Options[f]={opt1->def1,opt2->def2}
+not ok  Definition[f]    ==>     Null
+not ok  Definition[fact]    ==>     fact[n_]:=n fact[n-1]
+not ok  Definition[fact]    ==>     Null

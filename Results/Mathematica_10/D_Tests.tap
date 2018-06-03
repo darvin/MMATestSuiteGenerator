@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/D_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: D_Tests
-# OUTPUT: output/Results/Mathematica_10/D_Tests.json
 # Derivative with respect to x:
 ok  D[x^n, x]    ==>     n*x^(-1 + n)
     ---

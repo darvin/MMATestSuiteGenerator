@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/ReplaceAll_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: ReplaceAll_Tests
-# OUTPUT: output/Results/Mathematica_10/ReplaceAll_Tests.json
 ok  {x, x^2, y, z} /. x -> a    ==>     {a, a^2, y, z}
     ---
     data:

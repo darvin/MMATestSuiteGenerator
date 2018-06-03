@@ -1,0 +1,16 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/SameQ.nb output/Tests/SameQ_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/SameQ.nb
+# WRITING OUTPUT TO:     output/Tests/SameQ_Tests.m
+ok  x===y    ==>     False
+ok  x===x    ==>     True
+ok  x==y    ==>     x==y
+ok  SameQ[x,y]    ==>     False
+ok  "abc"==="ABC"    ==>     False
+ok  0.===0    ==>     False
+ok  0.==0    ==>     True
+ok  2^^1.000000000000000000000000000000000000000000000000000000000000===2^^1.000000000000000000000000000000000000000000000000000000000001    ==>     True
+ok  x===x===y    ==>     False
+ok  x===x===x    ==>     True
+ok  Boole[Array[SameQ,{3,3,3}]]    ==>     {{{1,0,0},{0,0,0},{0,0,0}},{{0,0,0},{0,1,0},{0,0,0}},{{0,0,0},{0,0,0},{0,0,1}}}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  Position[%,1]    ==>     {{1,1,1},{2,2,2},{3,3,3}}

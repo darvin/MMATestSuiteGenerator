@@ -1,0 +1,174 @@
+{
+    "stats": {
+        "suites": 0,
+        "tests": 5,
+        "passes": 5,
+        "pending": 0,
+        "failures": 0,
+        "start": "2018-06-03T12:20:59.651Z",
+        "end": "2018-06-03T12:20:59.651Z",
+        "duration": 0,
+        "testsRegistered": 5,
+        "passPercent": 100,
+        "pendingPercent": 0,
+        "other": 0,
+        "hasOther": false,
+        "skipped": 0,
+        "hasSkipped": false,
+        "passPercentClass": "danger",
+        "pendingPercentClass": "danger"
+    },
+    "suites": {
+        "title": "",
+        "suites": [],
+        "tests": [
+            {
+                "title": "Replace[x^2, x^2 -> a + b]    ➡️     a + b",
+                "fullTitle": "Replace[x^2, x^2 -> a + b]    ➡️     a + b",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "e91bf7ee-8021-49a3-afdc-6f4d2440c01d",
+                "parentUUID": "70c5340c-d546-46f9-be45-dc88c0acd31a",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"#! DOCKER > wolfram -script output/Tests/Replace_Tests.m\\n# SYSTEM: Mathematica_10\\n# TEST: Replace_Tests\\n# RefLink[Replace,paclet:ref/Replace] by default applies rules only to complete expressions:\\n\\n\\ndata: \\n  got:              a + b\\n  expect:           a + b\\n  expect_evaluated: a + b\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": "a + b",
+                    "expected": "a + b"
+                }
+            },
+            {
+                "title": "Replace[1 + x^2, x^2 -> a + b]    ➡️     1 + x^2",
+                "fullTitle": "Replace[1 + x^2, x^2 -> a + b]    ➡️     1 + x^2",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "ad1b9a6e-684d-4384-96dc-29412aa9a0e0",
+                "parentUUID": "70c5340c-d546-46f9-be45-dc88c0acd31a",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# It does not map down to subparts:\\n\\n\\ndata: \\n  got:              1 + x^2\\n  expect:           1 + x^2\\n  expect_evaluated: 1 + x^2\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": "1 + x^2",
+                    "expected": "1 + x^2"
+                }
+            },
+            {
+                "title": "Replace[x, {{x -> a}, {x -> b}}]    ➡️     {a, b}",
+                "fullTitle": "Replace[x, {{x -> a}, {x -> b}}]    ➡️     {a, b}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "bddb2651-a8de-4e01-9e93-cfcea7b18017",
+                "parentUUID": "70c5340c-d546-46f9-be45-dc88c0acd31a",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# A list of rules gives a list of results:\\n\\n\\ndata: \\n  got: \\n    a: null\\n    b: null\\n  expect: \\n    a: null\\n    b: null\\n  expect_evaluated: \\n    a: null\\n    b: null\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": {
+                        "a": null,
+                        "b": null
+                    },
+                    "expected": {
+                        "a": null,
+                        "b": null
+                    }
+                }
+            },
+            {
+                "title": "Replace[1 + x^2, x^2 -> a + b, {1}]    ➡️     1 + a + b",
+                "fullTitle": "Replace[1 + x^2, x^2 -> a + b, {1}]    ➡️     1 + a + b",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "61af095a-feff-4222-a242-d8cd957ae473",
+                "parentUUID": "70c5340c-d546-46f9-be45-dc88c0acd31a",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"# Replace at level 1:\\n\\n\\ndata: \\n  got:              1 + a + b\\n  expect:           1 + a + b\\n  expect_evaluated: 1 + a + b\"",
+                "state": "passed",
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": "1 + a + b",
+                    "expected": "1 + a + b"
+                }
+            },
+            {
+                "title": "Replace[{x, x, x}, x :> RandomReal[], {1}]    ➡️     {0.921434, 0.760332, 0.860225}",
+                "fullTitle": "Replace[{x, x, x}, x :> RandomReal[], {1}]    ➡️     {0.921434, 0.760332, 0.860225}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "5e02f5c4-eba3-4b5b-a51c-e4ccf7627021",
+                "parentUUID": "70c5340c-d546-46f9-be45-dc88c0acd31a",
+                "skipped": true,
+                "isHook": false,
+                "context": "\"# RefLink[Replace,paclet:ref/Replace] also works with RefLink[RuleDelayed,paclet:ref/RuleDelayed]:\\n\"",
+                "state": "passed",
+                "err": {}
+            }
+        ],
+        "root": true,
+        "fullFile": "",
+        "file": "",
+        "pending": [],
+        "passes": [
+            "e91bf7ee-8021-49a3-afdc-6f4d2440c01d",
+            "ad1b9a6e-684d-4384-96dc-29412aa9a0e0",
+            "bddb2651-a8de-4e01-9e93-cfcea7b18017",
+            "61af095a-feff-4222-a242-d8cd957ae473",
+            "5e02f5c4-eba3-4b5b-a51c-e4ccf7627021"
+        ],
+        "failures": [],
+        "skipped": [
+            "5e02f5c4-eba3-4b5b-a51c-e4ccf7627021"
+        ],
+        "duration": 0,
+        "rootEmpty": false,
+        "_timeout": 0,
+        "uuid": "70c5340c-d546-46f9-be45-dc88c0acd31a",
+        "beforeHooks": [],
+        "afterHooks": []
+    },
+    "copyrightYear": 2018
+}

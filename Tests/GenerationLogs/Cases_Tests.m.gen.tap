@@ -1,0 +1,23 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Cases.nb output/Tests/Cases_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Cases.nb
+# WRITING OUTPUT TO:     output/Tests/Cases_Tests.m
+ok  Cases[{1,1,f[a],2,3,y,f[8],9,f[10]},_Integer]    ==>     {1,1,2,3,9}
+ok  Cases[{1,1,f[a],2,3,y,f[8],9,f[10]},Except[_Integer]]    ==>     {f[a],y,f[8],f[10]}
+ok  Cases[{1,1,f[a],2,3,y,f[8],9,f[10]},f[x_]->x]    ==>     {a,8,10}
+ok  Cases[_Integer][{1,1,f[a],2,3,y,f[8],9,f[10]}]    ==>     {1,1,2,3,9}
+ok  Cases[<|1->"a",2->"b",3->c,4->d|>,_Symbol]    ==>     {c,d}
+ok  Cases[{{1,2},{2},{3,4,1},{5,4},{3,3}},{_,_}]    ==>     {{1,2},{5,4},{3,3}}
+ok  Cases[{{1,2},{2},{3,4,1},{5,4},{3,3}},{a_,b_}->a+b]    ==>     {3,9,6}
+ok  Cases[{1,0,2,0,3,5,6,7,0,0,0},Except[0]]    ==>     {1,2,3,5,6,7}
+ok  Cases[{{1,4,a,0},{b,3,2,2},{c,c,5,5}},_Integer,2]    ==>     {1,4,0,3,2,2,5,5}
+ok  Cases[Sqrt[Range[100]],_Integer,{1},3]    ==>     {1,2,3}
+ok  Cases[{f[{a,b}],f[{a}],g[{a}],f[{a,b,c,d}]},f[x_]:>Length[x]]    ==>     {2,1,4}
+ok  Cases[{1,2,f[a,b]},_,{0,Infinity}]    ==>     {1,2,a,b,f[a,b],{1,2,f[a,b]}}
+ok  Cases[{1,2,f[a,b]},_,{0,Infinity},Heads->True]    ==>     {List,1,2,f,a,b,f[a,b],{1,2,f[a,b]}}
+ok  Cases[<|1->c,2-><|3->1, a->b|>|>,_Symbol,Infinity]    ==>     {c,b}
+ok  Cases[{a,5,\[Pi]},_Symbol]    ==>     {a,\[Pi]}
+ok  Cases[{a,5,\[Pi]},_Symbol,Heads->True]    ==>     {List,a,\[Pi]}
+ok  Length[Cases[{1,"f",g,"h","7"},_?StringQ]]    ==>     3
+ok  Count[{1,"f",g,"h","7"},_?StringQ]    ==>     3
+ok  Cases[{1,b->Automatic,c->3},_->Automatic]    ==>     {Automatic,Automatic,Automatic}
+ok  Cases[{1,b->Automatic,c->3},HoldPattern[_->Automatic]]    ==>     {b->Automatic}

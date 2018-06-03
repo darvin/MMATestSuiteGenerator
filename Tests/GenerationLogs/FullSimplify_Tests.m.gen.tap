@@ -1,0 +1,36 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/FullSimplify.nb output/Tests/FullSimplify_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/FullSimplify.nb
+# WRITING OUTPUT TO:     output/Tests/FullSimplify_Tests.m
+ok  FullSimplify[x Gamma[x]]    ==>     Gamma[1+x]
+ok  FullSimplify[ProductLog[x Log[x]],x>1/E]    ==>     Log[x]
+ok  FullSimplify[f[f[u,f[v,w]],u]==f[u,f[f[v,w],u]],
+#! ForAll[{a,b,c},f[a,f[b,c]]==f[f[a,b],c]]]    ==>     True
+ok  FullSimplify[x^3-6x^2+11x-6]    ==>     (-3+x) (-2+x) (-1+x)
+ok  FullSimplify[(x^10-1)(x^10+1)]    ==>     -1+x^20
+ok  FullSimplify[Cosh[x]-Sinh[x]]    ==>     E^-x
+ok  FullSimplify[(1+I)E^(-I x)+(1-I)E^(I x)]    ==>     2 (Cos[x]+Sin[x])
+ok  FullSimplify[Sqrt[2]+Sqrt[3]-Sqrt[5+2Sqrt[6]]]    ==>     0
+ok  FullSimplify[-I Log[(1+2I)/Sqrt[5]]]    ==>     ArcTan[2]
+ok  FullSimplify[16 ArcTan[1/5]-4 ArcTan[1/239]]    ==>     \[Pi]
+ok  FullSimplify[ExpIntegralE[1-n,x]x^n]    ==>     Gamma[n,x]
+ok  FullSimplify[Csc[Pi v](BesselI[-v,z]-BesselI[v,z])/2]    ==>     BesselK[v,z]/\[Pi]
+ok  FullSimplify[ProductLog[x E^x],x>=-1]    ==>     x
+ok  FullSimplify[E^(EllipticF[x,1]),-Pi/2<x<Pi/2]    ==>     Sec[x]+Tan[x]
+ok  FullSimplify[EulerPhi[p^2]+p,Element[p,Primes]]    ==>     p^2
+ok  FullSimplify[f[f[b,a],a]==f[a,f[b,a]],ForAll[{a,b},f[a,b]==f[b,a]]]    ==>     True
+ok  FullSimplify[f[a,a]==f[a,b],ForAll[{a,b},f[f[a,a],b]==a]]    ==>     True
+ok  FullSimplify[Subscript[a, 1]\[CirclePlus]Subscript[a, 1]==Subscript[a, 1]\[CirclePlus]Subscript[a, 2],ForAll[{a,b},(a\[CirclePlus]a)\[CirclePlus]b==a]]    ==>     True
+ok  FullSimplify[f[f[e,e],e]==e, ForAll[a,f[a,e]==a]]    ==>     True
+ok  FullSimplify[ForAll[x,Exists[y,g[x,y]==e]],ForAll[{x,y,z},g[x,g[y,z]]==g[g[x,y],z]&&g[e,x]==x&&g[inv[x],x]==e]]    ==>     True
+ok  FullSimplify[Mod[a^EulerPhi[m],m],Element[a|m,Integers]&&m>1,Assumptions->GCD[a,m]==1]    ==>     1
+ok  Assuming[Re[x]>0,FullSimplify[E^LogGamma[x]]]    ==>     Gamma[x]
+ok  Assuming[x>0,FullSimplify[E^(LogGamma[x]+ LogGamma[y]),y>0]]    ==>     Gamma[x] Gamma[y]
+ok  Assuming[x>0,FullSimplify[E^(LogGamma[x]+ LogGamma[y]),Assumptions->y>0]]    ==>     Gamma[x] Gamma[y]
+ok  FullSimplify[ChebyshevT[n,x]]    ==>     ChebyshevT[n,x]
+#! TextForm[ColonForm[MessageName[FullSimplify, cfn], StringForm[The cost function `1` does not evaluate to a real number at `2`., Short[HoldForm[f], 3], Short[HoldForm[ChebyshevT[n, x]], 3]]]]
+#! TextForm[ColonForm[MessageName[FullSimplify, cfn], StringForm[The cost function `1` does not evaluate to a real number at `2`., Short[HoldForm[f], 3], Short[HoldForm[ChebyshevT[n, x]], 3]]]]
+#! TextForm[ColonForm[MessageName[FullSimplify, cfn], StringForm[The cost function `1` does not evaluate to a real number at `2`., Short[HoldForm[f], 3], Short[HoldForm[ChebyshevT[n, x]], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[FullSimplify, cfn]], 3]]]]
+not ok  FullSimplify[ChebyshevT[n,x],ComplexityFunction->f]    ==>     Cos[n ArcCos[x]]
+ok  FullSimplify[Im[Log[x]+2 x-3y]-2Im[x]]    ==>     Arg[x]-3 Im[y]
+ok  FullSimplify[Im[Log[x]+2 x-3y]-2Im[x],ExcludedForms->{Log[_]}]    ==>     Im[-3 y+Log[x]]

@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/ComplexExpand_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: ComplexExpand_Tests
-# OUTPUT: output/Results/Mathematica_10/ComplexExpand_Tests.json
 # Assume both x and y are real:
 ok  ComplexExpand[Sin[x + I*y]]    ==>     Cosh[y]*Sin[x] + I*Cos[x]*Sinh[y]
     ---

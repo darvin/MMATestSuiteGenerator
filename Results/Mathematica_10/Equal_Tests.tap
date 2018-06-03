@@ -1,6 +1,8 @@
+#! DOCKER > wolfram -script output/Tests/Equal_Tests.m
+#! TextForm[ColonForm[MessageName[PossibleZeroQ, ztest1], StringForm[Unable to decide whether numeric quantity `1` is equal to zero. Assuming it is., Short[HoldForm[Log[Sqrt[2] + Sqrt[3]] - Log[5 + 2*Sqrt[6]]/2], 3]]]]
+#! TextForm[ColonForm[MessageName[PossibleZeroQ, ztest1], StringForm[Unable to decide whether numeric quantity `1` is equal to zero. Assuming it is., Short[HoldForm[1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Log[Sqrt[2] + Sqrt[3]] - Log[5 + 2*Sqrt[6]]/2], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Equal_Tests
-# OUTPUT: output/Results/Mathematica_10/Equal_Tests.json
 # Test equality:
 ok  2 + 2 == 4    ==>     True
     ---

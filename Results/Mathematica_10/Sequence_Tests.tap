@@ -1,6 +1,8 @@
+#! DOCKER > wolfram -script output/Tests/Sequence_Tests.m
+#! TextForm[ColonForm[MessageName[Head, argx], StringForm[`1` called with `2` arguments; 1 argument is expected., Short[HoldForm[Head], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[Head, argx], StringForm[`1` called with `2` arguments; 1 argument is expected., Short[HoldForm[Head], 3], Short[HoldForm[2], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Sequence_Tests
-# OUTPUT: output/Results/Mathematica_10/Sequence_Tests.json
 # RefLink[Sequence,paclet:ref/Sequence] is automatically spliced in:
 ok  f[a, Sequence[b, c], d]    ==>     f[a, b, c, d]
     ---

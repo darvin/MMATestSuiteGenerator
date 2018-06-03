@@ -1,0 +1,7 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/CompoundExpression.nb output/Tests/CompoundExpression_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/CompoundExpression.nb
+# WRITING OUTPUT TO:     output/Tests/CompoundExpression_Tests.m
+ok  a=2;b=3;a+b    ==>     5
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  %    ==>     1606938044258990275541962092341162602522202993782792835301376
+ok  Catch[a=2;Throw[a];a=5]    ==>     2

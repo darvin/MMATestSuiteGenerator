@@ -1,0 +1,11 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Unique.nb output/Tests/Unique_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Unique.nb
+# WRITING OUTPUT TO:     output/Tests/Unique_Tests.m
+not ok  Unique["x"]    ==>     x1
+not ok  Unique[sym]    ==>     sym$149
+not ok  Unique[]    ==>     $1
+not ok  Unique["x"]    ==>     x1
+not ok  Unique[x]    ==>     x$160
+not ok  {$ModuleNumber,Unique[x],$ModuleNumber}    ==>     {171,x$171,172}
+not ok  {Module[{x},x],Unique[x]}    ==>     {x$1672,x$1673}
+not ok  {x1,x2,x4};Unique["x"]    ==>     x3

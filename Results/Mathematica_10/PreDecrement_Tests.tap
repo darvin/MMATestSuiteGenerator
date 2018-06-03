@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/PreDecrement_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: PreDecrement_Tests
-# OUTPUT: output/Results/Mathematica_10/PreDecrement_Tests.json
 # Decrement the value by one and return the new value:
 ok  k = 1; --k    ==>     0
     ---

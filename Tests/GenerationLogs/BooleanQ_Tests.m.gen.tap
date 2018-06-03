@@ -1,0 +1,5 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/BooleanQ.nb output/Tests/BooleanQ_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/BooleanQ.nb
+# WRITING OUTPUT TO:     output/Tests/BooleanQ_Tests.m
+not ok  BooleanQ[False]    ==>     True
+not ok  BooleanQ[x]    ==>     False

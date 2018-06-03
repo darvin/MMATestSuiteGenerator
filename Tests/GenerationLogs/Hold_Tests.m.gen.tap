@@ -1,0 +1,28 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Hold.nb output/Tests/Hold_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Hold.nb
+# WRITING OUTPUT TO:     output/Tests/Hold_Tests.m
+ok  Hold[2+2]    ==>     Hold[2+2]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  ReleaseHold[%]    ==>     4
+not ok  Apply[List,Map[Hold,list]]    ==>     {Hold[1+2],Hold[2 3 4 5],Hold[1/0],Hold[Quit[]]}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+not ok  %/.Hold[e_]:>Length[Unevaluated[e]]    ==>     {2,4,2,0}
+ok  expr=Hold[{1+2,g[3+4,2 3],f[1+g[2+3]]}]    ==>     Hold[{1+2,g[3+4,2 3],f[1+g[2+3]]}]
+ok  pos=Position[expr,_Plus]    ==>     {{1,1},{1,2,1},{1,3,1,2,1},{1,3,1}}
+ok  val=Extract[expr,pos]    ==>     {3,7,5,1+g[5]}
+ok  ReplacePart[expr,Thread[pos->val]]    ==>     Hold[{3,g[7,2 3],f[1+g[5]]}]
+ok  Attributes[Hold]    ==>     {HoldAll,Protected}
+ok  Hold[1+2]    ==>     Hold[1+2]
+ok  Hold[Evaluate[1+1],2+2]    ==>     Hold[2,2+2]
+ok  Hold[Unevaluated[1+1]]    ==>     Hold[Unevaluated[1+1]]
+ok  Hold[Sequence[1+1,2+2]]    ==>     Hold[1+1,2+2]
+ok  HoldComplete[Sequence[1+1,2+2]]    ==>     HoldComplete[Sequence[1+1,2+2]]
+not ok  Hold[h[1+2]]    ==>     f[3]
+ok  HoldComplete[h[1+2]]    ==>     HoldComplete[h[1+2]]
+ok  Hold[f[1+2]]/.f[x_]:>g[x]    ==>     Hold[g[1+2]]
+ok  Insert[Hold[x+x],y,{1,2}]    ==>     Hold[x+y+x]
+ok  ReleaseHold[Hold[1+2]]    ==>     3
+not ok  HoldForm[1+2]    ==>     1+2
+not ok  FullForm[%]    ==>     HoldForm[Plus[1,2]]

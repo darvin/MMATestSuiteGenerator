@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Complement_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Complement_Tests
-# OUTPUT: output/Results/Mathematica_10/Complement_Tests.json
 # Find which elements in the first list are not in any of the subsequent lists:
 ok  Complement[{a, b, c, d, e}, {a, c}, {d}]    ==>     {b, e}
     ---

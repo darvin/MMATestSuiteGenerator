@@ -1,0 +1,9 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Order.nb output/Tests/Order_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Order.nb
+# WRITING OUTPUT TO:     output/Tests/Order_Tests.m
+ok  {Order[a,a],Order[a,b],Order[b,a]}    ==>     {0,1,-1}
+ok  Tuples[{0,1,2},2]    ==>     {{0,0},{0,1},{0,2},{1,0},{1,1},{1,2},{2,0},{2,1},{2,2}}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  Order@@@%    ==>     {0,1,1,-1,0,1,-1,-1,0}
+ok  Order[6,Pi]    ==>     1
+ok  Order[6,N[Pi]]    ==>     -1

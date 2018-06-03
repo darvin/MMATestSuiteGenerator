@@ -1,0 +1,33 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Integrate.nb output/Tests/Integrate_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Integrate.nb
+# WRITING OUTPUT TO:     output/Tests/Integrate_Tests.m
+ok  Integrate[1/(x^3+1),x]    ==>     ArcTan[(-1+2 x)/Sqrt[3]]/Sqrt[3]+1/3 Log[1+x]-1/6 Log[1-x+x^2]
+ok  Integrate[1/(x^3+1),{x,0,1}]    ==>     1/18 (2 Sqrt[3] \[Pi]+Log[64])
+ok  \[Integral]Sqrt[x+Sqrt[x]]\[DifferentialD]x    ==>     1/12 Sqrt[Sqrt[x]+x] (-3+2 Sqrt[x]+8 x)+1/8 Log[1+2 Sqrt[x]+2 Sqrt[Sqrt[x]+x]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  TraditionalForm[%]    ==>     1/12 Sqrt[x+Sqrt[x]] (8 x+2 Sqrt[x]-3)+1/8 log(2 Sqrt[x]+2 Sqrt[x+Sqrt[x]]+1)
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\*SuperscriptBox[\(x\), \(2\)]\)] \[DifferentialD]x\)\)\)
+#!                                                          ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\*SuperscriptBox[\(x\), \(2\)]\)] \[DifferentialD]x\)\)\)
+#!                                                          ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  \!\(
+#! \*SubsuperscriptBox[\(\[Integral]\), \(0\), \(\[Infinity]\)]\(Log[x]\ Exp[\(-
+#! \*SuperscriptBox[\(x\), \(2\)]\)] \[DifferentialD]x\)\)    ==>     -(1/4) Sqrt[\[Pi]] (EulerGamma+Log[4])
+ok  Integrate[Sin[x y],{x,0,1},{y,0,x}]    ==>     1/2 (EulerGamma-CosIntegral[1])
+#! TextForm[ColonForm[MessageName[Integrate, nodiffd], StringForm[`1` cannot be interpreted. Integrals are entered in the form DisplayForm[RowBox[{\[Integral], RowBox[{f, RowBox[{d, x}]}]}]], where DisplayForm[RowBox[{d}]] is entered as ESCddESC., Short[HoldForm[DisplayForm[RowBox[{SubsuperscriptBox[\[Integral], 0, x], RowBox[{Sin, [, RowBox[{x, y}], ]}]}]]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\*SubsuperscriptBox[\(\[Integral]\), \(0\), \(x\)]Sin[x\ y] \[DifferentialD]y \[DifferentialD]x\)\)\)
+#!                                                                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Integrate, nodiffd], StringForm[`1` cannot be interpreted. Integrals are entered in the form DisplayForm[RowBox[{\[Integral], RowBox[{f, RowBox[{d, x}]}]}]], where DisplayForm[RowBox[{d}]] is entered as ESCddESC., Short[HoldForm[DisplayForm[RowBox[{SubsuperscriptBox[\[Integral], 0, x], RowBox[{Sin, [, RowBox[{x, y}], ]}]}]]], 3]]]]
+not ok  \!\(
+#! \*SubsuperscriptBox[\(\[Integral]\), \(0\), \(1\)]\(
+#! \*SubsuperscriptBox[\(\[Integral]\), \(0\), \(x\)]Sin[x\ y] \[DifferentialD]y \[DifferentialD]x\)\)    ==>     1/2 (EulerGamma-CosIntegral[1])
+not ok  Integrate[1,{x,y,z}\[Element]Sphere[]]    ==>     4 \[Pi]
+#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{Underscript, [, RowBox[{\[Integral], ,, RowBox[{RowBox[{{, RowBox[{x, ,, y, ,, z}], }}], \[Element], RowBox[{Sphere, [, ]}]}]}], ]}], 1}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{Underscript, [, RowBox[{\[Integral], ,, RowBox[{RowBox[{{, RowBox[{x, ,, y, ,, z}], }}], \[Element], RowBox[{Sphere, [, ]}]}]}], ]}], 1}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  Underscript[\[Integral], {x,y,z}\[Element]Sphere[]]1    ==>     4 \[Pi]

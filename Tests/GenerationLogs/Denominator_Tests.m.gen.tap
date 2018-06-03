@@ -1,0 +1,101 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Denominator.nb output/Tests/Denominator_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Denominator.nb
+# WRITING OUTPUT TO:     output/Tests/Denominator_Tests.m
+ok  Denominator[2/3]    ==>     3
+ok  Denominator[(x-1)(x-2)/(x-3)^2]    ==>     (-3+x)^2
+ok  Denominator[3/7]    ==>     7
+ok  Denominator[(x-1)^2/((x-2)(x-3))]    ==>     (-3+x) (-2+x)
+ok  expr=a x^n y^-m Exp[a-b-2c+3d]    ==>     a E^(a-b-2 c+3 d) x^n y^-m
+ok  Denominator[expr]    ==>     E^(b+2 c) y^m
+ok  Denominator[a^-b/x]    ==>     a^b x
+ok  Denominator[2x^y b^2]    ==>     1
+ok  Denominator[{1,2,3,4,5,6}/3]    ==>     {3,3,1,3,3,1}
+ok  Denominator[(1/3 x+3/4 y)/(3/5x-1/2y),Modulus->7]    ==>     2 x+3 y
+ok  Denominator[{Sin[x],Cos[x],Tan[x],Csc[x],Sec[x],Cot[x]},Trig->True]    ==>     {1,1,Cos[x],Sin[x],Cos[x],Sin[x]}
+ok  Numerator[2/3a (x-1)/(x-2)]    ==>     2 a (-1+x)
+not ok  num=Numerator[expr]    ==>     5 a^b (-1+x)^2
+not ok  den=Denominator[expr]    ==>     7 c^d (-2+x)^3
+ok  expr===num/den    ==>     True
+ok  Cancel[(x-1)(x-2)/(x^2-1)]    ==>     (-2+x)/(1+x)
+ok  Together[x (x-2)/(x^2-1)+x/(x^2-1)-2/(x^2-1)]    ==>     (-2+x)/(-1+x)
+not ok  ExpandDenominator[r]    ==>     (1+x)/(4+4 x+x^2)
+not ok  Numerator[r]/Expand[Denominator[r]]    ==>     (1+x)/(4+4 x+x^2)
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangeClipping->True]\)\)
+#!                             ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangeClipping->True]\)\)
+#!                             ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  ArrayPlot[Table[Denominator[i/j],{i,30},{j,30}]]    ==>     \!\(\*
+#! GraphicsBox[RasterBox[CompressedData["
+#! 1:eJx1k2FymzAQRpFtSmJKQBFCWu1+nemVeoRcoPf/110hasZJZswvj3hvn5bf
+#! H3//fFy6rvvVHgACpMII4hO2iUdJYSjk4+L0Py6U0xbX8O6X+W36Od5fX4Yf
+#! /e16gZ5lEEMiBfaYyxRH4jDk3l/hZn1vIUkb1lD8Qm+TjPf0Mmz9DRe36lkh
+#! TkXPZqR507Praxjee1wXO8sFxhXjsnGLcaFcl9UZhASmAJ9I1JnUGb2PydHX
+#! zqjOrntwkf3BhXL9zjVnbGzOos55vKM6x1Kd9ZckQudNbPNCnTP5a3L8mYv/
+#! rVztrM4FZJ1pmzCu1rn3vHx2xqmza50Tauc0wzorl3vjVmdoZxbrDHMu1plu
+#! 8eJknxe1s95RnZdDnVf2zgcX5/uV5mydpXUurbM8d8ajs5ycBdYZyk1sXLH7
+#! JevM3+8G77txnlee5zUu9layc3lvVR6d+ejMR+fYOn+1V9T2qnKlcUvj5kdn
+#! c+bDOR/O8Wmf/Xmf/bHP331HrvsHiGxDjg==
+#! "], {{0, 0}, {30, 30}}, {0, 30}],
+#! Frame->Automatic,
+#! FrameTicks->{None, None},
+#! ImageMargins->0.,
+#! PlotRangeClipping->True]\)
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  ListPlot[Flatten[Table[{i/j,Denominator[i/j]},{i,20},{j,20}],1]]    ==>     \!\(\*
+#! GraphicsBox[{{}, 
+#! {Hue[0.67, 0.6, 0.6], PointBox[CompressedData["
+#! 1:eJx1mO1r1lUYx+d6oCdjNstVQ3StGiE2by0Mgx2wgt5IBb0J9MWg3vREEVb/
+#! QCCBhERRYJC9yqKyMmlJ9KBZPsRS02kp7sG5zW3c973nuUn373zP9b34fbs9
+#! DA5n/Had63zO93o4W97+8lPP1tbU1LyzoKYmmzGKbfn5XJprwtNx/J3W1wXM
+#! nWldFz78IBt/pPXi9P3+tG4I25ofr/z8ktaN6e9/SutlofHAK5WfvWndlOx9
+#! n9bN4bElG1/769E9aX1Psr87rVvC4nW76tft+iat70v7fZ3WK8KiOHal9cq0
+#! /1dp3RqWxvFFWq9K/nye1oXQ8uXHe98q70zr1cm/T9N6TTBO1TkW2+DveeHn
+#! fGHvlPBz3jjPUeHn/OHvYeHn9wF+B4Sf3w/4/Sr8/L7A72fh5/cHfj8KP79P
+#! 8OsQfn6/eS7GbZp8qnMd4PlXx9HL8yrff757MfsRfl30X3nD3jH6V4GXESQ/
+#! zM7/o64t27u2HCE/7HeI+tP7wPw79ff+e9n4jfz0fjatf3Ph+Qf2kR/8s/sy
+#! /dUJJ+cGexOiP+cJ/wZFf65X6KFH+Dlf3Pe/oj/XM/R3UvTnvKG/Y+Sneof+
+#! jL/pz/lDf3+K/jweoL+Doj+9D5uNy9XBzvfZzmzMCr9x7q888f0Q729PlF+/
+#! 8Ouj/l6NDnfTX+Ub8S05Q36wf5r571Qmv+1d5If9TlB/1fP3cerv2NE4yA/+
+#! GO9CyNT37slO8sPcKedvEA6qM41jj2/oeUzuw3kini4KP49/1avmA8RvN/lh
+#! dr6I3zPkp/lC9YzZ8wfi9wT5KW/E73Hy0/ySP5ed+6Zg/uG+a4PZwzzH8z8X
+#! xyT9w/dl6k95Yh6m/w9t7V27tdd4NiV7/fQvym9jH/nBvuWDlpBFb/26bvJT
+#! vmfPxCHxa/miNTwTx2nygz/GtxDWQ4DkB/+Mt+W/ZXJOj0vcxzXCz/WI+52R
+#! /Of5EvmoTD0oT+SbYfLTfIr8d0Hyn+sV+a+X/DTfIv91Cz/ni/x3VvKf52Pk
+#! v9PkV13PTXKuW4STxnNtWteFI4ezMSf2PL7vzo6zbVz4GU+9t2Ib7BnP5nB/
+#! x8COt1cOkR9mj//N7fdWfvrJD/uZXldcoT8wvq2hVMzGOfLD7Hyj+p44S37w
+#! z/ia/iyOi7KP1YMb0to4en3Jz/a91xvk80nh5/UH+bok9cN5on6MSPx6fUL9
+#! GCA/rVfV+1evX6gfPeSn9Qzhe478MDtf8yvv923kgv0Xhvz+1wY7P/S8IK0t
+#! fud5viiH5hnhN0n/+9ZmCWeM/sJeifpTnrBvPFtCDN/6i+SH/Qapv9fjsPi3
+#! +O2n/nZ/m40+8oM/ptdCeCEGcA/5wb9u0V+L+Kl5X/sUj2fEx1Xkh9n1iHp4
+#! Sfh5fGu+1HqO+ms89Z6Lbai/I+Sn9V7zKWaPf9TffvJTvaL+9pFf9Xxgdcv8
+#! uoMcYG9RyHOzeLb8Z/Fs+jM9NoSX4oHmhd8s9RfTdeMU9Qd749TfYCX7dQyU
+#! yQ/2S9Sf8sR+I9Tf3h+ycVH0N0T9vRHHAPnBnwvU35MR4Hnyg399or8V4ofX
+#! SeQbqyfGz/sb1HOL58VX6He0f/T+B/3CNPlpP4T+ZZz8tD9C/1Ki/pQn+pcR
+#! 4ef9E/qXIfLTfgr9ywXy0/4qb9f2XSrn1r745mDnz3P6//sF+cj0aPdymf5X
+#! f994fOP5O0F+mL3+xPK7uUx+2K9E/eX9snmU+ns4jmHy0/r0YKX6blo/SH6Y
+#! Pf7NTt6+9xWIl1uFk+dD5Jfr09ri1/tF9GO1aW38XI/ot+Z439pPov+bIj/N
+#! l+j/xshP+030fyXRn/NE/zdKftqPov8bIr/q+XSV2F3Oc+I+rB4bP8uH9v+X
+#! G8kP31s8N6R8bvXF+Jkel4UYLmsv01/Ys3rTHGL71zFNfrBv8d0S9m8Y3rdh
+#! eJz8sN8Y9dcUR1n4lag/5Ql/jGch3Hnw+QrCYfKDf5ZPLf8VxE6TrLUee3+N
+#! fGr50O7D4xn9rMWz8atNs+nY9aj9OPrnWfLD7PGN/nmS/LRfr/4+9/4d/XOR
+#! +sufs9iG/nmU/LS/t9/n/+4ungvxcrtwqef5kU8tH1r8Wjxb/bV4Nn6mR3v/
+#! Gj+rH5fp3ydZ+d1xifxgf4b6i+mvfYr8sN8E9fdIHOOivzHqr6c7GyXygz9F
+#! 6k95wr9R0d8a+c77VsSL9TPGT+tJnXzv7xW8ByyejZ/XF/T7Fs9N/L3Zw/tj
+#! nvy03uD9MU1++t6p/v9Lrz94f5TJT99DeH8Uqb/8uYtt/wGarRcG
+#! "]]}, {}},
+#! AspectRatio->0.6180339887498948,
+#! Axes->True,
+#! AxesOrigin->{0, 0},
+#! ImageMargins->0.,
+#! PlotRange->{{0., 6.10416666666623}, {0., 20.}},
+#! PlotRangeClipping->True,
+#! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)

@@ -1,0 +1,21 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/RuleDelayed.nb output/Tests/RuleDelayed_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/RuleDelayed.nb
+# WRITING OUTPUT TO:     output/Tests/RuleDelayed_Tests.m
+ok  x:>RandomReal[]    ==>     x:>RandomReal[]
+not ok  {x,x,x}/.x:>RandomReal[]    ==>     {0.378563,0.0598703,0.504099}
+ok  n=1;{x,x,a,b,x,x,c,d}/.x:>n++    ==>     {1,2,a,b,3,4,c,d}
+#! 0.7503638678402439
+#! 0.7391128909113617
+#! 0.739085133385284
+#! 0.7390851332151607
+not ok  FindRoot[Cos[x]==x,{x,1},StepMonitor:>Print[x]]    ==>     {x->0.739085}
+not ok  SparseArray[{{i_,i_}:>RandomReal[]},{4,4}]//MatrixForm    ==>     (0.655978	0	0	0
+#! 0	0.339171	0	0
+#! 0	0	0.163612	0
+#! 0	0	0	0.371782
+#! )
+not ok  {x,x,x,x}/.x->RandomReal[]    ==>     {0.526621,0.526621,0.526621,0.526621}
+not ok  {x,x,x,x}/.x:>RandomReal[]    ==>     {0.123567,0.815383,0.768442,0.930826}
+ok  With[{x=1},a/.x_:>x+1]    ==>     1+a
+ok  {incr[x],incr[y]}/.incr[x_]:>Module[{y=1},x+y]    ==>     {1+x,1+y}
+ok  Module[{expr=x^2},a/.RuleDelayed@@{x_,expr}]    ==>     a^2

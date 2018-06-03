@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/FreeQ_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: FreeQ_Tests
-# OUTPUT: output/Results/Mathematica_10/FreeQ_Tests.json
 # Test whether a list is free of 0:
 ok  FreeQ[{1, 2, 4, 1, 0}, 0]    ==>     False
     ---

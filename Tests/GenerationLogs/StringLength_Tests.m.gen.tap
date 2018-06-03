@@ -1,0 +1,20 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/StringLength.nb output/Tests/StringLength_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/StringLength.nb
+# WRITING OUTPUT TO:     output/Tests/StringLength_Tests.m
+ok  StringLength["tiger"]    ==>     5
+ok  StringLength[{"cat","dog","fish","coelenterate"}]    ==>     {3,3,4,12}
+ok  StringLength["\[FilledDiamond]\[Alpha]\[Beta]\[Gamma]\[LongLeftRightArrow]\[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC]\[ReturnIndicator]"]    ==>     9
+not ok  "ab\ncd"    ==>     ab
+#! cd
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[StringLength, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringLength[Hold[Out[$Line - 1]]]], 3]]]]
+not ok  StringLength[%]    ==>     5
+not ok  NestList[StringReplace[#,{"A"->"AB","B"->"A"}]&,"A",5]    ==>     {A,AB,ABA,ABAAB,ABAABABA,ABAABABAABAAB}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[StringLength, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringLength[Hold[Out[$Line - 1]]]], 3]]]]
+not ok  StringLength[%]    ==>     {1,2,3,5,8,13}
+ok  StringLength[""]    ==>     0
+not ok  FullForm["red"]    ==>     "\!\(\* StyleBox[\"red\",\nFontColor->RGBColor[1, 0, 0]]\)"
+not ok  StringLength["red"]    ==>     50
+not ok  FullForm["\[Alpha]\[Beta]\[Gamma]"]    ==>     "\[Alpha]\[Beta]\[Gamma]"
+ok  StringLength["\[Alpha]\[Beta]\[Gamma]"]    ==>     3

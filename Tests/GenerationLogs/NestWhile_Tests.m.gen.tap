@@ -1,0 +1,68 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/NestWhile.nb output/Tests/NestWhile_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/NestWhile.nb
+# WRITING OUTPUT TO:     output/Tests/NestWhile_Tests.m
+ok  NestWhile[#/2&,123456,EvenQ]    ==>     1929
+ok  NestWhile[Log,100,#>0&]    ==>     Log[Log[Log[Log[100]]]]
+ok  NestWhile[Floor[#/2]&,10,UnsameQ,2]    ==>     0
+#! {10}
+#! {10, 5}
+#! {10, 5, 2}
+#! {10, 5, 2, 1}
+#! {10, 5, 2, 1, 0}
+#! {10, 5, 2, 1, 0, 0}
+ok  NestWhile[Floor[#/2]&,10,(Print[{##}];UnsameQ[##])&,All]    ==>     0
+#! {10, 5, 2, 1}
+#! {5, 2, 1, 0}
+#! {2, 1, 0, 0}
+ok  NestWhile[Floor[#/2]&,10,(Print[{##}];UnsameQ[##])&,4]    ==>     0
+#! {10, 5, 2, 1}
+#! {10, 5, 2, 1, 0}
+#! {10, 5, 2, 1, 0, 0}
+ok  NestWhile[Floor[#/2]&,10,(Print[{##}];UnsameQ[##])&,{4,6}]    ==>     0
+ok  NestWhile[#/2&,123456,EvenQ,1,4]    ==>     7716
+ok  NestWhile[Floor[#/2]&,20,#>1&,1,\[Infinity]]    ==>     1
+ok  NestWhile[Floor[#/2]&,20,#>1&,1,\[Infinity],1]    ==>     0
+ok  NestWhile[Floor[#/2]&,20,#>1&,1,\[Infinity],-1]    ==>     2
+ok  NestWhile[#+1&,888,!PrimeQ[#]&]    ==>     907
+ok  NestWhile[#+1&,888,!PrimeQ[#1]||!PrimeQ[#3]&,3]    ==>     1021
+ok  NestWhile[(#+1)&,1,Fibonacci[#]<=10^6&]    ==>     31
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  Fibonacci[%]    ==>     1346269
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  ListLinePlot[Table[NestWhile[(#+1)&,1,Fibonacci[#]<=n&],{n,200}]]    ==>     \!\(\*
+#! GraphicsBox[{{}, {}, 
+#! {Hue[0.67, 0.6, 0.6], LineBox[CompressedData["
+#! 1:eJx11kmKFFEQBuDAlUsXvXDhohQREZF2nu1nO8/azmM/W9th5RXiKHmUWHqM
+#! PIJHUOksIT8woQi+9/NnkFRR5P6tHxvbuyLi55/P37lz/VrbmbvbdDDNPW1+
+#! vsL5CnPvf+Y+vOD8AD6ID+HD+Aj3PYqP4VV8HJ/AJ/EpfJrnOIPP4nP4PL6A
+#! L+JL+DK+gtdwmztxXJ3m9D0kjnVyHNfIcVwnx3GDHMdNchy3yHHcJsdxhxzH
+#! XXIc98iXXv6O78+dOB6Q43hIjuMROY7HczecuHA8oY8TF44N+jhx4XhKHycu
+#! HM/o48SF4zl9nLhwvKC/9PS/lrhwvJy74cSF4xV9nLhwvKaPExeON/Rx4sLx
+#! lj5OXDje0ceJC8d7+jhx4fhAHycuHJv0ceLC0ede4IY7TjzgwiOOj+zHDXec
+#! eMCFRxxb05zeGxa44Y4TD7jwiOMT+3HDHScecOERx2f244Y7TjzgwiOObfbj
+#! hjtOPODCI44v7McNd5x4wIVHHF/ZjxvuOPGAC484vrEfN9xx4gEXHnF8/+ff
+#! NhwFHQ==
+#! "]]}},
+#! AspectRatio->0.6180339887498948,
+#! Axes->True,
+#! AxesOrigin->{0, 4.},
+#! PlotRange->{{0., 200.}, {3., 13.}},
+#! PlotRangeClipping->True,
+#! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)
+ok  NestWhile[(#+1)&,1,Fibonacci[#]<=10^6&,1,\[Infinity],-1]    ==>     30
+ok  NestWhile[Floor[#/2]&,10,UnsameQ,{4,4}]    ==>     0
+ok  NestWhile[Floor[#/2]&,10,UnsameQ,4]    ==>     0
+ok  NestWhile[Floor[#/2]&,a,Positive]    ==>     a
+ok  Positive[a]    ==>     Positive[a]
+not ok  NestWhile[Cos,1.0,UnsameQ,2]    ==>     0.739085
+not ok  FixedPoint[Cos,1.0]    ==>     0.739085
+not ok  NestWhileList[(#+3/#)/2&,1.0,Unequal,2]    ==>     {1.,2.,1.75,1.73214,1.73205,1.73205,1.73205}
+ok  NestWhile[Floor[#/2]&,10,#>0&]    ==>     0
+ok  x=10;While[x>0,x=Floor[x/2]];x    ==>     0

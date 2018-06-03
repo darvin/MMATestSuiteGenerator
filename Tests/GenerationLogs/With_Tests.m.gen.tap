@@ -1,0 +1,31 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/With.nb output/Tests/With_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/With.nb
+# WRITING OUTPUT TO:     output/Tests/With_Tests.m
+not ok  f[a]    ==>     2+a+(1+a)^2
+ok  With[{x=y},Hold[x]]    ==>     Hold[y]
+ok  Table[With[{i=j},Hold[i]],{j,5}]    ==>     {Hold[1],Hold[2],Hold[3],Hold[4],Hold[5]}
+ok  x=5;
+#! With[{x=x},Hold[x]]    ==>     Hold[5]
+not ok  With[{y=Sin[1.0]},Sum[y^i,{i,0,10}]]    ==>     5.36323
+ok  With[{v={a,b,c},w={x,y,z}},Thread[Unevaluated[Dot[v,w]]]]    ==>     {a.x,b.y,c.z}
+ok  Thread[Dot[{a,b,c},{x,y,z}]]    ==>     a x+b y+c z
+not ok  Module[{x=2.0},While[x>0,x=Log[x]];x]    ==>     -0.366513
+not ok  Timing[Do[Module[{x=5},x;],{10^5}]]    ==>     {0.312,Null}
+not ok  Timing[Do[With[{x=5},x;],{10^5}]]    ==>     {0.093,Null}
+not ok  {Block[{x=5},Hold[x]],With[{x=5},Hold[x]],Module[{x=5},Hold[x]]}    ==>     {Hold[x],Hold[5],Hold[x$100433]}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  ReleaseHold[%]    ==>     {x,5,5}
+not ok  With[{e=x},Function[x,e]]    ==>     Function[x$,x]
+ok  Function[x,e]/.e:>x    ==>     Function[x,x]
+not ok  With[{e=Expand[(1+x)^5]},Function[x,e]]    ==>     Function[x$,1+5 x+10 x^2+10 x^3+5 x^4+x^5]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+not ok  %[10]    ==>     1+5 x+10 x^2+10 x^3+5 x^4+x^5
+#! TextForm[ColonForm[MessageName[Function, flpar], StringForm[Parameter specification `1` in `2` should be a symbol or a list of symbols., Short[HoldForm[5], 3], Short[HoldForm[Function[5, 7776]], 3]]]]
+not ok  With[{e=Expand[(1+x)^5]},Function@@{x,e}]    ==>     Function[x,1+5 x+10 x^2+10 x^3+5 x^4+x^5]
+not ok  %[10]    ==>     161051
+not ok  newton[Cos,1`20]    ==>     1.570796326794896619
+not ok  newton[Cos[#]-#&,1`20]    ==>     0.739085133215160642
+not ok  letrec[{f=Function[n,If[n==0,1,n*f[n-1]]]},f[10]]    ==>     3628800
+ok  With[{f=Function[n,If[n==0,1,n*f[n-1]]]},f[10]]    ==>     10 f[9]

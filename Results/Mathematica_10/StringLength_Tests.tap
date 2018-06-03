@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/StringLength_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: StringLength_Tests
-# OUTPUT: output/Results/Mathematica_10/StringLength_Tests.json
 # Find the number of characters in a string:
 ok  StringLength["tiger"]    ==>     5
     ---

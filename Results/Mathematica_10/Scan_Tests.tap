@@ -1,6 +1,9 @@
+#! DOCKER > wolfram -script output/Tests/Scan_Tests.m
+#! a
+#! b
+#! c
 # SYSTEM: Mathematica_10
 # TEST: Scan_Tests
-# OUTPUT: output/Results/Mathematica_10/Scan_Tests.json
 # RefLink[Throw,paclet:ref/Throw] works inside RefLink[Scan,paclet:ref/Scan]:
 ok  Catch[Scan[If[#1 > 5, Throw[#1]] & , {2, 4, 6, 8}]]    ==>     6
     ---

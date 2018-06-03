@@ -1,0 +1,24 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/AllTrue.nb output/Tests/AllTrue_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/AllTrue.nb
+# WRITING OUTPUT TO:     output/Tests/AllTrue_Tests.m
+not ok  AllTrue[{2,3,4,6,8}, EvenQ]    ==>     False
+not ok  AllTrue[{2,4,6,8}, EvenQ]    ==>     True
+not ok   AllTrue[<|"a"->1,"b"->3,"c"->5|>,OddQ]    ==>     True
+not ok  AllTrue[{2,6,x,4,y},#<10&]    ==>     x<10&&y<10
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  %/.{x->3,y->7}    ==>     True
+not ok  AllTrue[{2,6,x,4,y,15},#<10&]    ==>     False
+not ok  AllTrue[{2,6,x,4,y},TrueQ[#<10]&]    ==>     False
+not ok  AllTrue[f[1,7,3],OddQ]    ==>     True
+not ok  AllTrue[f[x,y,z],#<10&]    ==>     x<10&&y<10&&z<10
+not ok  AllTrue[3,EvenQ]    ==>     True
+not ok  AllTrue[{},EvenQ]    ==>     True
+not ok  AllTrue[{x,y,z},Composition[TrueQ,f]]    ==>     False
+not ok  LogicalExpand/@{AllTrue[{x,y,z},f],NoneTrue[{x,y,z},!f[#]&]}    ==>     {f[x]&&f[y]&&f[z],f[x]&&f[y]&&f[z]}
+not ok  AllTrue[Range[10],IntegerQ]
+#! VectorQ[Range[10],IntegerQ]    ==>     True
+not ok  AllTrue[{x,y,z},#<10&]
+#! VectorQ[{x,y,z},#<10&]    ==>     x<10&&y<10&&z<10
+#! TextForm[ColonForm[MessageName[SparseArray, adims], StringForm[Array dimension specification `1` should be Automatic, a non-negative machine integer, or a list of non-negative machine integers., Short[HoldForm[{1000000000000}], 3], Short[HoldForm[SparseArray[{1000 -> 2}, {1000000000000}]], 3]]]]
+not ok  AllTrue[SparseArray[{1000->2},{1000000000000}],EvenQ]    ==>     True
+not ok  AllTrue[{x,y,z},f]    ==>     f[x]&&f[y]&&f[z]

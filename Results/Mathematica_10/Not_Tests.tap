@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Not_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Not_Tests
-# OUTPUT: output/Results/Mathematica_10/Not_Tests.json
 # Negate assertions:
 ok   !x > 1    ==>     x <= 1
     ---

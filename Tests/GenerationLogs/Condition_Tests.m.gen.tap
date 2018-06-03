@@ -1,0 +1,10 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Condition.nb output/Tests/Condition_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Condition.nb
+# WRITING OUTPUT TO:     output/Tests/Condition_Tests.m
+not ok  f[5]    ==>     ppp[5]
+ok  f[-6]    ==>     f[-6]
+ok  {6,-7,3,2,-1,-2}/.x_/;x<0->w    ==>     {6,w,3,2,w,w}
+ok  f[0]    ==>     f[0]
+not ok  f[6]    ==>     25
+not ok  f[4]    ==>     {{2,1},{3,1},{5,1},{3491,1}}
+ok  f[5]    ==>     f[5]

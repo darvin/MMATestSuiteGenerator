@@ -1,0 +1,45 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/PadRight.nb output/Tests/PadRight_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/PadRight.nb
+# WRITING OUTPUT TO:     output/Tests/PadRight_Tests.m
+ok  PadRight[{a,b,c},10]    ==>     {a,b,c,0,0,0,0,0,0,0}
+ok  PadRight[{a,b,c},10,x]    ==>     {a,b,c,x,x,x,x,x,x,x}
+ok  PadRight[{a,b,c},10,{x,y,z}]    ==>     {a,b,c,x,y,z,x,y,z,x}
+ok  PadRight[{a,b,c},10,x,2]    ==>     {x,x,a,b,c,x,x,x,x,x}
+not ok  PadRight[{{a,b},{c}},{3,4}]//TableForm    ==>     a	b	0	0
+#! c	0	0	0
+#! 0	0	0	0
+not ok  PadRight[{{a,b,c},{d,e},{f}}]//TableForm    ==>     a	b	c
+#! d	e	0
+#! f	0	0
+ok  PadRight[{a,b,c},-10]    ==>     {0,0,0,0,0,0,0,a,b,c}
+not ok  PadRight[{{aa,bb},{cc}},{4,4},{{x,y},{z}}]//TableForm    ==>     aa	bb	x	y
+#! cc	z	z	z
+#! x	y	x	y
+#! z	z	z	z
+not ok  PadRight[{{aa,bb},{cc}},{5,5},{{x,y},{z}},{1,2}]//TableForm    ==>     z	z	z	z	z
+#! x	y	aa	bb	x
+#! z	z	cc	z	z
+#! x	y	x	y	x
+#! z	z	z	z	z
+ok  PadRight[f[a,b,c],8,x]    ==>     f[a,b,c,x,x,x,x,x]
+ok  PadRight[{1},19,0,9]    ==>     {0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0}
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[ImageMargins->0.]\)\)
+#!                      ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[ImageMargins->0.]\)\)
+#!                      ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  ArrayPlot[PadRight[{{}},{15,15},{{1,0,1},{0,1,1},{1,0,0}}],Mesh->True]    ==>     \!\(\*
+#! GraphicsBox[{RasterBox[{{0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1}, {1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0}, {0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1}, {1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0}, {0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1}, {1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0}, {0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1}, {1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0}, {0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1}, {1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0}}, {{0, 0}, {15, 15}}], 
+#! {GrayLevel[-1 + GoldenRatio], LineBox[{{{0, 15}, {15, 15}}, {{0, 14}, {15, 14}}, {{0, 13}, {15, 13}}, {{0, 12}, {15, 12}}, {{0, 11}, {15, 11}}, {{0, 10}, {15, 10}}, {{0, 9}, {15, 9}}, {{0, 8}, {15, 8}}, {{0, 7}, {15, 7}}, {{0, 6}, {15, 6}}, {{0, 5}, {15, 5}}, {{0, 4}, {15, 4}}, {{0, 3}, {15, 3}}, {{0, 2}, {15, 2}}, {{0, 1}, {15, 1}}, {{0, 0}, {15, 0}}, {{0, 0}, {0, 15}}, {{1, 0}, {1, 15}}, {{2, 0}, {2, 15}}, {{3, 0}, {3, 15}}, {{4, 0}, {4, 15}}, {{5, 0}, {5, 15}}, {{6, 0}, {6, 15}}, {{7, 0}, {7, 15}}, {{8, 0}, {8, 15}}, {{9, 0}, {9, 15}}, {{10, 0}, {10, 15}}, {{11, 0}, {11, 15}}, {{12, 0}, {12, 15}}, {{13, 0}, {13, 15}}, {{14, 0}, {14, 15}}, {{15, 0}, {15, 15}}}]}},
+#! AspectRatio->Automatic,
+#! Frame->False,
+#! FrameTicks->{None, None},
+#! ImageMargins->0.]\)
+ok  PadLeft[{1,2,3},5]    ==>     {0,0,1,2,3}
+ok  PadRight[{1,2,3},5]    ==>     {1,2,3,0,0}
+ok  ArrayPad[{1,2,3},5]    ==>     {0,0,0,0,0,1,2,3,0,0,0,0,0}
+ok  PadRight[{a,b,c},7,{{u,v}}]    ==>     {a,b,c,{u,v},{u,v},{u,v},{u,v}}
+ok  PadRight[{a,b,c},7,{u,v}]    ==>     {a,b,c,v,u,v,u}

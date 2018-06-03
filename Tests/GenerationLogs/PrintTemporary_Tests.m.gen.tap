@@ -1,0 +1,4 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/PrintTemporary.nb output/Tests/PrintTemporary_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/PrintTemporary.nb
+# WRITING OUTPUT TO:     output/Tests/PrintTemporary_Tests.m
+ok  PrintTemporary["text"];Pause[2];17    ==>     17

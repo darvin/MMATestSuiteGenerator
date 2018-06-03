@@ -1,0 +1,8 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Replace.nb output/Tests/Replace_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Replace.nb
+# WRITING OUTPUT TO:     output/Tests/Replace_Tests.m
+ok  Replace[x^2,x^2->a+b]    ==>     a+b
+ok  Replace[1+x^2,x^2->a+b]    ==>     1+x^2
+ok  Replace[x,{{x->a},{x->b}}]    ==>     {a,b}
+ok  Replace[1+x^2,x^2->a+b,{1}]    ==>     1+a+b
+not ok  Replace[{x,x,x},x:>RandomReal[],{1}]    ==>     {0.921434,0.760332,0.860225}

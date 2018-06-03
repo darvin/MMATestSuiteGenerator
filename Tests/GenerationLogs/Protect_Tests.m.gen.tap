@@ -1,0 +1,17 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Protect.nb output/Tests/Protect_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Protect.nb
+# WRITING OUTPUT TO:     output/Tests/Protect_Tests.m
+not ok  f[x_,y_]:=x+y    ==>     $Failed
+not ok  Protect[f,g,h]    ==>     {f,g,h}
+not ok  Protect["f*"]    ==>     {f1,f2}
+ok  Attributes[{f,g}]    ==>     {{Protected},{Protected}}
+ok  Attributes[{f,g}]    ==>     {{Protected},{Protected}}
+not ok  Attributes[{f,g}]    ==>     {{},{}}
+not ok  Protect[f,g]    ==>     {f,g}
+ok  Protect[f]    ==>     {}
+#! TextForm[ColonForm[MessageName[SetDelayed, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[f], 3], Short[HoldForm[f[x_]], 3]]]]
+ok  f[x_]:=x^2    ==>     $Failed
+not ok  Protect[Evaluate[syms]]    ==>     {f,g,h}
+ok  Attributes[f]    ==>     {Protected}
+#! TextForm[ColonForm[MessageName[Set, wrsym], StringForm[Symbol `1` is Protected., Short[HoldForm[finalResult$567], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, wrsym], StringForm[Symbol `1` is Protected., Short[HoldForm[finalResult$567], 3]]]]

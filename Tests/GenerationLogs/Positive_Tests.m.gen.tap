@@ -1,0 +1,5 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Positive.nb output/Tests/Positive_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Positive.nb
+# WRITING OUTPUT TO:     output/Tests/Positive_Tests.m
+ok  Positive[{1.6,3/4,Pi,0,-5,1+I,Sin[10^5]}]    ==>     {True,True,True,False,False,False,True}
+ok  Positive[{x,Sin[y]}]    ==>     {Positive[x],Positive[Sin[y]]}

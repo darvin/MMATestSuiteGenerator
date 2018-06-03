@@ -1,6 +1,10 @@
+#! DOCKER > wolfram -script output/Tests/ConstantArray_Tests.m
+#! TextForm[ColonForm[MessageName[ConstantArray, ilsmn], StringForm[Single or list of non-negative machine-sized integers expected at position `2` of `1`., Short[HoldForm[ConstantArray[c, dims]], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[ConstantArray, ilsmn], StringForm[Single or list of non-negative machine-sized integers expected at position `2` of `1`., Short[HoldForm[ConstantArray[c, dims]], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[ConstantArray, ilsmn], StringForm[Single or list of non-negative machine-sized integers expected at position `2` of `1`., Short[HoldForm[ConstantArray[c, dims]], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ConstantArray, ilsmn]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: ConstantArray_Tests
-# OUTPUT: output/Results/Mathematica_10/ConstantArray_Tests.json
 # Make a vector of 10 c's:
 ok  ConstantArray[c, 10]    ==>     {c, c, c, c, c, c, c, c, c, c}
     ---

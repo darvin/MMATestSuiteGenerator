@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/ExpandAll_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: ExpandAll_Tests
-# OUTPUT: output/Results/Mathematica_10/ExpandAll_Tests.json
 # Expand polynomials anywhere inside an expression: 
 ok  ExpandAll[1/(1 + x)^3 + Sin[(1 + x)^3]]    ==>     1/(1 + 3*x + 3*x^2 + x^3) + Sin[1 + 3*x + 3*x^2 + x^3]
     ---

@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/UnsameQ_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: UnsameQ_Tests
-# OUTPUT: output/Results/Mathematica_10/UnsameQ_Tests.json
 # Test whether two expressions are not identically the same:
 ok  x =!= y    ==>     True
     ---

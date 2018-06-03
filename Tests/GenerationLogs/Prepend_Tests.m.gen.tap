@@ -1,0 +1,21 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Prepend.nb output/Tests/Prepend_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Prepend.nb
+# WRITING OUTPUT TO:     output/Tests/Prepend_Tests.m
+ok  Prepend[{a,b,c,d},x]    ==>     {x,a,b,c,d}
+ok  Prepend[<|1->a,2->b|>,3->d]    ==>     <|3->d,1->a,2->b|>
+ok  Prepend[<|1->a,2->b|>,{3->d,4->e}]    ==>     <|4->e,3->d,1->a,2->b|>
+ok  Prepend[f[a,b,c],x+y]    ==>     f[x+y,a,b,c]
+not ok  Prepend[{{a,b},{c,d}},{x,y}]//MatrixForm    ==>     (x	y
+#! a	b
+#! c	d
+#! )
+not ok  Map[Prepend[#,x]&,{{a,b},{c,d}}]//MatrixForm    ==>     (x	a	b
+#! x	c	d
+#! )
+not ok  MapThread[Prepend,{{{a,b},{c,d}},{x,y}}]//MatrixForm    ==>     (x	a	b
+#! y	c	d
+#! )
+ok  NestList[Prepend[#,x]&,{a},5]    ==>     {{a},{x,a},{x,x,a},{x,x,x,a},{x,x,x,x,a},{x,x,x,x,x,a}}
+ok  Prepend[{a,b,c},{x,y}]    ==>     {{x,y},a,b,c}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  Flatten[%]    ==>     {x,y,a,b,c}

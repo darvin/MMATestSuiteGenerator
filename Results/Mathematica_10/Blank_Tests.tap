@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Blank_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Blank_Tests
-# OUTPUT: output/Results/Mathematica_10/Blank_Tests.json
 # A pattern that matches any expression:
 ok  MatchQ[any[expression], _]    ==>     True
     ---

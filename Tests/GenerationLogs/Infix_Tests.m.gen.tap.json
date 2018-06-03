@@ -1,0 +1,62 @@
+{
+    "stats": {
+        "suites": 0,
+        "tests": 1,
+        "passes": 0,
+        "pending": 0,
+        "failures": 1,
+        "start": "2018-06-03T12:22:05.945Z",
+        "end": "2018-06-03T12:22:05.945Z",
+        "duration": 0,
+        "testsRegistered": 1,
+        "passPercent": 0,
+        "pendingPercent": 0,
+        "other": 0,
+        "hasOther": false,
+        "skipped": 0,
+        "hasSkipped": false,
+        "passPercentClass": "danger",
+        "pendingPercentClass": "danger"
+    },
+    "suites": {
+        "title": "",
+        "suites": [],
+        "tests": [
+            {
+                "title": "Infix[f[a,b,c],\"#\"]    ➡️     a #b #c",
+                "fullTitle": "Infix[f[a,b,c],\"#\"]    ➡️     a #b #c",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": false,
+                "fail": true,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "3c9eefc4-1d10-427b-a33e-ee1503e2fc56",
+                "parentUUID": "71947d54-045f-412e-9d1c-e001709e6cd6",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Infix.nb output/Tests/Infix_Tests.m\\n# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Infix.nb\\n# WRITING OUTPUT TO:     output/Tests/Infix_Tests.m\\n\"",
+                "state": "failed",
+                "err": {}
+            }
+        ],
+        "root": true,
+        "fullFile": "",
+        "file": "",
+        "pending": [],
+        "passes": [],
+        "failures": [
+            "3c9eefc4-1d10-427b-a33e-ee1503e2fc56"
+        ],
+        "skipped": [],
+        "duration": 0,
+        "rootEmpty": false,
+        "_timeout": 0,
+        "uuid": "71947d54-045f-412e-9d1c-e001709e6cd6",
+        "beforeHooks": [],
+        "afterHooks": []
+    },
+    "copyrightYear": 2018
+}

@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/PolynomialQuotient_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: PolynomialQuotient_Tests
-# OUTPUT: output/Results/Mathematica_10/PolynomialQuotient_Tests.json
 # The quotient of x^2 by x+a, with the remainder dropped:
 ok  PolynomialQuotient[x^2, x + a, x]    ==>     -a + x
     ---

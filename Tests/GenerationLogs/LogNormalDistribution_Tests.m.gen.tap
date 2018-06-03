@@ -1,0 +1,3 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/LogNormalDistribution.nb output/Tests/LogNormalDistribution_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/LogNormalDistribution.nb
+# WRITING OUTPUT TO:     output/Tests/LogNormalDistribution_Tests.m

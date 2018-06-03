@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/FactorSquareFree_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: FactorSquareFree_Tests
-# OUTPUT: output/Results/Mathematica_10/FactorSquareFree_Tests.json
 # Pull out multiple factors:
 ok  FactorSquareFree[x^5 - x^3 - x^2 + 1]    ==>     (-1 + x)^2*(1 + 2*x + 2*x^2 + x^3)
     ---

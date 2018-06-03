@@ -1,6 +1,11 @@
+#! DOCKER > wolfram -script output/Tests/Part_Tests.m
+#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[s[[1,2]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, noval], StringForm[Symbol `1` in part assignment does not have an immediate value., Short[HoldForm[s], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, partw], StringForm[Part `1` of `2` does not exist., Short[HoldForm[{2, 3}], 3], Short[HoldForm[{{a, b, c}, {g, h, i}}], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, partw], StringForm[Part `1` of `2` does not exist., Short[HoldForm[{2, 3}], 3], Short[HoldForm[{{a, b, c}, {g, h, i}}], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, partw], StringForm[Part `1` of `2` does not exist., Short[HoldForm[5], 3], Short[HoldForm[{Hold[2*x + 2*3], b, c, d}], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Part_Tests
-# OUTPUT: output/Results/Mathematica_10/Part_Tests.json
 # Pick out a part of a list:
 ok  {a, b, c, d, e, f}[[3]]    ==>     c
     ---

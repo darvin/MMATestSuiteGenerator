@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Rest_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Rest_Tests
-# OUTPUT: output/Results/Mathematica_10/Rest_Tests.json
 ok  Rest[{a, b, c, d}]    ==>     {b, c, d}
     ---
     data:

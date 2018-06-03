@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Identity_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Identity_Tests
-# OUTPUT: output/Results/Mathematica_10/Identity_Tests.json
 ok  Identity[x + y]    ==>     x + y
     ---
     data:

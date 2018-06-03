@@ -1,0 +1,7 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/PolynomialQ.nb output/Tests/PolynomialQ_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/PolynomialQ.nb
+# WRITING OUTPUT TO:     output/Tests/PolynomialQ_Tests.m
+ok  PolynomialQ[x^3-2x/y+3x z,x]    ==>     True
+ok  PolynomialQ[x^3-2x/y+3x z,y]    ==>     False
+ok  PolynomialQ[x^2+a x y^2-b Sin[c],{x,y}]    ==>     True
+ok  PolynomialQ[x^2+a x y^2-b Sin[c],{a,b,c}]    ==>     False

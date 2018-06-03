@@ -1,0 +1,236 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Array.nb output/Tests/Array_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Array.nb
+# WRITING OUTPUT TO:     output/Tests/Array_Tests.m
+ok  Array[f,10]    ==>     {f[1],f[2],f[3],f[4],f[5],f[6],f[7],f[8],f[9],f[10]}
+ok  Array[1+#^2&,10]    ==>     {2,5,10,17,26,37,50,65,82,101}
+ok  Array[f,{3,2}]    ==>     {{f[1,1],f[1,2]},{f[2,1],f[2,2]},{f[3,1],f[3,2]}}
+ok  Array[10#1+#2&,{3,4}]    ==>     {{11,12,13,14},{21,22,23,24},{31,32,33,34}}
+ok  Array[f,10,0]    ==>     {f[0],f[1],f[2],f[3],f[4],f[5],f[6],f[7],f[8],f[9]}
+ok  Array[f,{2,3},{0,4}]    ==>     {{f[0,4],f[0,5],f[0,6]},{f[1,4],f[1,5],f[1,6]}}
+ok  Array[f, 10, {0,1}]    ==>     {f[0],f[1/9],f[2/9],f[1/3],f[4/9],f[5/9],f[2/3],f[7/9],f[8/9],f[1]}
+ok  Array[f, {2,3},{{-1/2,1/2},{0,1}}]    ==>     {{f[-(1/2),0],f[-(1/2),1/2],f[-(1/2),1]},{f[1/2,0],f[1/2,1/2],f[1/2,1]}}
+ok  Array[FromDigits[{##}]&,{2,3,4}]    ==>     {{{111,112,113,114},{121,122,123,124},{131,132,133,134}},{{211,212,213,214},{221,222,223,224},{231,232,233,234}}}
+ok  Array[a,{2,3},1,Plus]    ==>     a[1,1]+a[1,2]+a[1,3]+a[2,1]+a[2,2]+a[2,3]
+ok  Array[0&,{3,3}]    ==>     {{0,0,0},{0,0,0},{0,0,0}}
+ok  Array[Signature[{##}]&,{3,3,3}]    ==>     {{{0,0,0},{0,0,1},{0,-1,0}},{{0,0,-1},{0,0,0},{1,0,0}},{{0,1,0},{-1,0,0},{0,0,0}}}
+not ok  Boole[Array[Greater,{5,5}]]//MatrixForm    ==>     (0	0	0	0	0
+#! 1	0	0	0	0
+#! 1	1	0	0	0
+#! 1	1	1	0	0
+#! 1	1	1	1	0
+#! )
+ok  m=Array[Subscript[a, ##]&,{3,4}]    ==>     {{Subscript[a, 1,1],Subscript[a, 1,2],Subscript[a, 1,3],Subscript[a, 1,4]},{Subscript[a, 2,1],Subscript[a, 2,2],Subscript[a, 2,3],Subscript[a, 2,4]},{Subscript[a, 3,1],Subscript[a, 3,2],Subscript[a, 3,3],Subscript[a, 3,4]}}
+not ok  MatrixForm[m]    ==>     (Subscript[a, 1,1]	Subscript[a, 1,2]	Subscript[a, 1,3]	Subscript[a, 1,4]
+#! Subscript[a, 2,1]	Subscript[a, 2,2]	Subscript[a, 2,3]	Subscript[a, 2,4]
+#! Subscript[a, 3,1]	Subscript[a, 3,2]	Subscript[a, 3,3]	Subscript[a, 3,4]
+#! )
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 502}, {0, 96}}]\)\)
+#!                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 502}, {0, 96}}]\)\)
+#!                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  RowReduce[m]//MatrixForm    ==>     \!\(\*
+#! GraphicsBox[
+#! TagBox[RasterBox[CompressedData["
+#! 1:eJztnb+O20gSxnl/gnuNewG+g+4FCOylCm4XWKUn7B1wULQGHdiCFx4IdsDA
+#! WEUOBgMHihQYcjCRYGBgQA5kGAqUKJEBAcNgCJi2daQ8a49EdrNaLDWbze8H
+#! 7K5X3SzWV9UojiVN1d9/+vcPnT87jvOfvyX/+uHH/7V++eXH3j//mvzPP3r/
+#! /fmnvyR/+Ffyz82fHCf98xYAAAAAAAAA9LEKOl670/G87mQV193IbDTeGOYS
+#! dNXNJegS0oBzWMybN2++fPmi4UZHEq+nk6+Mp/P1drsZB/3+YNBtOf1pmr04
+#! XF9dThYbcaw28/HlfH/50Ei0ml0Mh5PZOtdAuFsdz1ZbqRHBtlsObxEnbo8H
+#! Pf9iMjlCF9EluS5icHTqIrok1yVYVdN1uFruHBJd0pAvXl0s55AlX4fBKXcO
+#! WfLFUjcOdWV4+/btx48fRZd+/vx5OBwKLRtBtFrestpEq1HX9SfRNroctAdX
+#! YbI68juO4/jTjejyoZus98M7Lx0aia5ajhuMLhJDw3mUsbDqt9vD0UV3fzXj
+#! Sf62P7zI3iJar5ejQXC1XKnrorlUoIsWHK26aC7JdQlW1XTlrJY4h0SXNOSL
+#! VxfLOeTJVzY4Jc4hT7446kaOrkOur6/Pz88Fi9sXL158+PBBtGog0eIiiarX
+#! bnte8t/e15DMBp6oYqzGfsfvt71gIzMShzs7k67bvxIEMloN261gFoqN5G/7
+#! g/xbzCeXm6N00Vwq0EULjlZdHPnKX1XUVbCqqIvokoZ88erKt1ZJvnKDc+w5
+#! 5MkXLTjH6Drg2bNnnz59yl168uSJ+DpTiaNo/1l31RdkKrzynN5ifem5vcXB
+#! 4zFjZDXuJQ9kUZ4uh73kOTpa7l9zaESwjXQLFV0KLolvqhAcXbrY8iVYVdNV
+#! oFoxX0SXNOSLV1fpcyhZpeuSBEfs0mnzJXGYV9d2++7du5cvX2Zfv7m5CYJA
+#! eFl9mPW9O8/QaHoRPL9cpn9ajNpep9f1kugFU/F7m9s4+RuT23m+jr5F/ruR
+#! JB1fn9Rh8qj2p2Ib2W13jOTc4nhdVJekuqjB0aiLJ19El+S6qBEm6SJH6fT5
+#! 4tXFcQ5Z8kU+OTRdHPliqRt0XY8fP86++Pr161evXuXcczO/CPrtVmso+lve
+#! HtFk0E4ccDvBsviTYaXNFKKR33bdxGKrP1qkL4TTxP7g6vujedJP4uOOxI/A
+#! aD5MXfLaLef2s4+7RuLVJHm9lfyVymlP1kKnc7bdMZJzixK6iC7JdRGDo1MX
+#! 0SW5LqJLcl3ECBN1EV3SkC9eXSznkCVfxOAQdbHki6Vu0HU9fPgw++L5+fn7
+#! 9++zr68ug26v5+7fRcRq3E19m88GiRe9CePm41hPuo47JP84STQSbzYbgs29
+#! bSyelHZJboSITl06jch1HRPh0i6xGNGpC+dQYkRf3bh//372xadPn4o/Zo0D
+#! 1+kXV/hw2HK64/R7PvEieaJ5M5lnSpuPJFov5uuyds0xwmvNHCO81swxwmvN
+#! HCO81swxwmutQiP37t3LvvjgwYObmxvBFeGAVuF323Zv5qTfHWpNZe/rKG0G
+#! AABAIreY+74v/qq8UoXfbaNWeOJmAAAAJB49enR9fX3w4q+//hrHoo8AwuDb
+#! z9sy0m3+7jun8fLCcVrSK5Q23zKdTs8AAACcnSX1MLdO/vbbb5vN4Q/kwgof
+#! heFm4TtOb7wIw4IqPB96jtNfb+OJ7zrec/n7R0qbAQAAUFCq8LMg/frlH3hX
+#! 8kIcL333dmdxIx2lzQAAAAio/QyvTLRZr0OqJaXNAAAACjhxhQcAAFAZqPAA
+#! AGArqPAAAGArFlV4c8asYAaNEFt1GekSdAlpwDm8pcYV3pYZNId+2jKDhlcX
+#! S74Etyg7u6rMOSS6VMmsscpnV7HkKzu7qsw5ZMnXSWaNCahxhbdkBk3WTztm
+#! 0LDq4pldlX+L8rOrSpxDmksVzRqrenYVR77yZleVOIcc+TrVrLF86lzh96jv
+#! DJpcPy2YQcOqi+hSsa7sLVhmV8mtyXURXKps1tixutjOYel85a+WOYel86Vj
+#! 1tg3rKnwKXWcQVPsZz1n0BD8rCRf+beociYX0aXazRpjOYcs+WKeycWRLy2z
+#! xnZYVeEzmD+DJs/PErqMmUHDrIsnXzSXdM7kIrpUu1ljLOcw5xbquphnctFc
+#! MmnWmL0Vvi4zaDJ+ltBl0gwaTl1Ms6tILumdXUVyqXazxphmVzHki3d2FUu+
+#! NM8as7fCH4IZNCpGMLsK+Srpkk4jmMklpDkVvu6zWk5qzRwjvNbMMcJrzRwj
+#! vNbMMcJrrUIjzanwAADQNFDhAQDAVlDhAQDAVlDhAQDAVlDhAQDAVlDhAQDA
+#! Viyq8OY08ER3UyG26jLSJegS0oBzeEuNK3y57qYpm/n4cr6/jC67CsHRqYvo
+#! UiXdaCvvHkwMjk5d5nR7PgyOAd2DWerGoS4BNa7wpbq2ppcP3WS9f7fBBLrs
+#! KgRHqy6aSxV1o626ezAtOFp1GdPtOSc4VXcP5qkbWV351LnC76HaBXQ19jt+
+#! v+0FG5mRhnbZpQVHqy6ufJ2oG63c2qm7B3Pli1eXGd2e84NTafdgYnCO0ZXF
+#! mgqfQu8CGl55Tm+xvvTc3uLg8YguuwrB0aWLLV82dqNlyxevLjO6PUuCI3ap
+#! Bt2eKbp2WFXhM4i6gEaLUdvr9LpeEr1gKn5vs5FddqnB0aiLJ19El+rWjZYn
+#! X7y6jOn2TD45NF1El05fN+i6FCt8NBm009aXnWBZ9ASIN/OLoN9utYbSESRH
+#! WKYh7wKaMukn8XFH4kdgU7vskoKjUxfRpWZ2oyUGR6cuc7o9E4ND1MWSL6a6
+#! QdWlVOFX4256u/lskBjuTSRm082XQbfXc/ddEm5WsXwcjenaii675Y2gG215
+#! l3AOJUb01Q2VCh8OW053nH51J14kDylvVnyzOHCdfnGFP8KyMnXvAnpSa+YY
+#! 4bVmjhFea+YY4bVmjhFeazXpHhwO0nK9e8sl/TpQa1r87svXS4orvLplAAAA
+#! BahX+N3mk1R4JcsAAAAKUKrwgev4u6+RxssLx2kRviURBt9+OC/apmh5O51O
+#! zwAAAJydJfUwt04qfdI6H3qO019v44nvOt7zgreEojDcLHzH6Y0XYVhQstUs
+#! AwAAIKD2bcl46ae/J5vgFfbGmQWe8x3vSl61VSwDAACgoP4bT9FmvQ5PUoNP
+#! ZxkAAJqI3b/TCgAATQYVHgAAbAUVHgAAbKX+Fd6c6SoYqVMvlzAqSIituox0
+#! 6SSjnb5R/wpfwegZwWrZEUhlRuoQXapkZJUdo4IOb2HLqCBeXSzn0NZRXCx1
+#! o3jw0z51r/AVjJ4RrJYfgXT8SB2iSxWNrLJhVFDOLawYFcSri+ccWjqKi6du
+#! FA5+OqTuFb6K0TP5qywjkI7VRXSpspFVx+oiuqRhVFD+Leo/KohXF9s5tHEU
+#! F1vdKFjdp+4VPqWK0TP5q1WOdiK61LyRVZJbKOqS36KWo4KKb1HJObRxFJdk
+#! lVfXPjZU+AwnHj2TXc21oXG0E9GlRo6sorpUoIsYYZouoks68sWri+Mc5txC
+#! XZd5o7h46oa6Lusq/MlHz+Ss5qFzBBLRpaaOrGIYFUSMMFEX0SUN+eLVxXIO
+#! WfJl4Cgulrqhrsu+Cn8IRs+oGMHIKuSrpEs6jWAUVzHWV/i6j2g5qTVzjPBa
+#! M8cIrzVzjPBaM8cIrzUTjFhf4QEAoLGgwgMAgK2gwgMAgK2gwgMAgK2gwgMA
+#! gK2gwgMAgK1YVOHN6eSJ9q1CbNVlpEvQJaQB5/CWGlf4cu1AUzbz8eV8f9mI
+#! NsKVt28lBkenLqJLlbQRrrwtLTE4OnWZ00b4MDgGtH1mqRuHugTUuMKXagea
+#! Xj50k/X+3U4ThrQRrrp9Ky04OnURXaqojXDFbWmJwdGpy6A2wtngVN32madu
+#! ZHXlU+cKv4dqO9DV2O/4/bYXbGRGKmsjXG37VlpwdOpiyVf+LVja7cqtnbqN
+#! MEe+eHUZ1EY4NziVtn3mqRu5urJYU+FT6O1AwyvP6S3Wl57bWxw8HtFGWCE4
+#! unTx5cvCNsJ8+bKwjbAkOGKXatBGmKJrh1UVPoOoHWi0GLW9Tq/rJdELpuL3
+#! NhvZRpgaHI26mPJFc6lubYSZ8mVnG2HyySHqorl0+rpB16VY4aPJoJ32wOwE
+#! y+IngMLmeDO/CPrtVmtIG1xCQN4ONGXST+LjjsSPwGa2ESYGR6cuokvNbCNM
+#! DE4z2wgTg0PUxZIvprpB1aVU4Vfjbnq7+WyQGO5NJGaVN18G3V7P3fefF4Pb
+#! gVbiEosR6NLmEosR6NLmEosRBl0qFT4ctpzuOP3qTrxIHkPeTHYzpc1fiQPX
+#! 6Z+swpvQyZPRCK81c4zwWjPHCK81c4zwWjPHCK+1Co0oVfhBWoF376KkX/hp
+#! TWVvqChtvnvJqSo8AAA0DfUKv9tMrfDEzZlLAAAAlEapwgeu4+++RhovLxyn
+#! Jf08WWnz90voX72YTqdnAAAAzs6SephbJ5U+aZ0PPcfpr7fxxHcd77n8LSGl
+#! zdsoDDcL33F640UYcn2dBgAAGo3atyXjpZ/+nmyCV9wbR2XzLPCc73hXbJ+T
+#! AABAc1H/jados16H1F+HUtoMAACAE7t/pxUAAJoMKjwAANhKboX3ff/jx4+V
+#! +AMAAICLR48eXV9fH7z44MGDm5ubSvwpgTljVjCDRoituox0CbqENOAc3pJb
+#! zJ8+ffrhwweuW5yKcjNoBPNTMONJITg6dbHky9YZTyz5snXG0+GqLTOeiidA
+#! 7bh37172xfPz8/fv38svNIAys3Xy56dgxpNCcLTOeOLIl7UznjjyZe2Mp+yq
+#! HTOeCidA3XL//v3si69fv3716pXkKgM5YlZLdn4KZjypBEenLqJLDZ3xlOsw
+#! ZjxJgmPBjKfi1R0PHz7MvnhzcxMEgeQqQ1Gb1SKYn4IZTxKHq9TFky8LZzxJ
+#! HMaMp+LVes54Kl695fHjx7mvP3nyRHJVXRDOasmZn5JLE2c8UYOjUxdPvmgu
+#! 1W3GE1O+7JzxRD45RF00lzTUDZqud+/evXz5MnfpxYsXNfiwVYZsVkvO/JRc
+#! E42c8UQMjk5dLPkiulS7GU8s+bJ1xhMxOERdLPliqRtEXc+ePfv06VPu0ufP
+#! n3///ffieNSHzISUvfkpxxohUrsZNMTg6NSFfEmMGJgvnUbkuo45OaVdYjFS
+#! Stf19fX5+bnE+ps3b758+aLslKnUfVbLSa2ZY4TXmjlGeK2ZY4TXmjlGeK1V
+#! YuTt27f4xVUAAGgI/wdzwuPc
+#! "], {{0, 96}, {502, 0}}, {0, 255},
+#! ColorFunction->RGBColor],
+#! BoxForm`ImageTag["Byte", ColorSpace -> "RGB", Interleaving -> True],
+#! Selectable->False],
+#! BaseStyle->"ImageGraphics",
+#! ImageSize->Automatic,
+#! ImageSizeRaw->{502, 96},
+#! PlotRange->{{0, 502}, {0, 96}}]\)
+ok  Det[Take[m,All,3]]    ==>     -Subscript[a, 1,3] Subscript[a, 2,2] Subscript[a, 3,1]+Subscript[a, 1,2] Subscript[a, 2,3] Subscript[a, 3,1]+Subscript[a, 1,3] Subscript[a, 2,1] Subscript[a, 3,2]-Subscript[a, 1,1] Subscript[a, 2,3] Subscript[a, 3,2]-Subscript[a, 1,2] Subscript[a, 2,1] Subscript[a, 3,3]+Subscript[a, 1,1] Subscript[a, 2,2] Subscript[a, 3,3]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  ListPlot[Array[Sin[2 #] - Cos[3 #]&,50,{0, 2\[Pi]}], Filling->Axis, DataRange->{0,2\[Pi]}]    ==>     \!\(\*
+#! GraphicsBox[GraphicsComplexBox[CompressedData["
+#! 1:eJztlYtPVEcUhy8rj0Vx3V15NUslaHFjFDSKjyJ6jgYTNVjBUiDVFksVpUWr
+#! to2tVmNxpcVnJMao1C0qmBLQWnxBaTME7bpRTFQUNQF8UAqVh8uyabcLbKq5
+#! cyaOfwOT3Nx8mXtnzvnd+2Wisj5btlqjKMrhF9fLuzwcrHDmpxfsObVgyDa8
+#! +cGeNs63IOL+xK7AcTfZ8oZi3RnrA4gzllwMs94Bdf4x3NRmvXsl7Rls9st/
+#! Em/5ExYHmn9IaXaB+nwHfDNqfuMp5gE8UTM7sroLuscWplcM8/L3HXBpeVl6
+#! uNkLu6zu6z6bnbBV13M7L6Cfr+eC7xf6X1n1twtycke7Pz/4Dxz2M/VsedrB
+#! 13dDUcb5rc+3XYV34mOj/yr3QOzPO46UbGxh6n4D8PCjkxal08Gmahcty7B5
+#! wXN8r1Wf7Ob9KZgw41p0/eAAG9H5C6ze4IPZ/V+W+Gz3MrUeDeacNf1exgaY
+#! NwXSrNuGoe1sadS9UDdT6/PF4HnaWvPkXuaoqs+9v9sPnyUtSHjU9oSp9frj
+#! jor8iHHWY6w18v2d+iMBuMQZsarJ2szr16Llzsr2FSmdcC+//eii0kA8nWRK
+#! wtpe3s9w1KyPDWrP6QNb9xfn8ipHoHNKQTRWO3meQdg4s7WxweCA6lTNtRo2
+#! EhOxzG+duQPUfnXoe65tS4nSAhU1B5pd9aOwal/mV00Ndp6/HldmJ1w8YznO
+#! lh7UeUK79WgJKTUV/vsHz8OAkzZNH//2/npmT3xv1/k+A9ZlJj3XLLDzfIyY
+#! PHh1UkD7ZTbPXaRP9hgxdU8vjllRDGpeo3Ft+tKQwZY6+LX8aVGXEoy+p8pn
+#! /XfyBv++wZjxycgL8dXXIS5zgrkgIATXzv4uPebb30DNMwRr1+Q2eXoqWYVx
+#! Q2W0LhRn+ZRVHXPc5fmG4qG3GqbEFLey8bZLc+qCw3DCZJbV9nEXzzsMZ/zk
+#! jcwr6mU/fj1o/9AUjnFzpxWkZfTx/zkclaOpNmurk4XHJKb2R72B5MPrhpAf
+#! Mt8STH7I848Fkx/y8x2CyQ/5fYdg8kNezyWY/JDXdwsmP+T9BgSTH/L+ChKT
+#! H3I9GsHkh1yfr2DyQ67XXzD5IdevFUx+yP0MF0x+yP0FCSY/5H51gskPuX+9
+#! YPJDzsMgmPyQ8zEKJj+IyQ9i8oOY/CAmP4jJD1E/94OY/CAmP4jJD2Lyg1j4
+#! wYfsx+tj6PwYOj+Gzo9Xz4//ASStof8=
+#! "], {{{}, {}, {}, 
+#! {Hue[0.67, 0.6, 0.6], Opacity[0.2], LineBox[{51, 1}], LineBox[{52, 2}], LineBox[{53, 3}], LineBox[{64, 14}], LineBox[{65, 15}], LineBox[{66, 16}], LineBox[{67, 17}], LineBox[{68, 18}], LineBox[{69, 19}], LineBox[{70, 20}], LineBox[{71, 21}], LineBox[{72, 22}], LineBox[{73, 23}], LineBox[{83, 33}], LineBox[{84, 34}], LineBox[{85, 35}], LineBox[{86, 36}], LineBox[{87, 37}], LineBox[{93, 43}], LineBox[{94, 44}], LineBox[{95, 45}], LineBox[{96, 46}], LineBox[{97, 47}], LineBox[{98, 48}], LineBox[{99, 49}], LineBox[{100, 50}]}, 
+#! {Hue[0.67, 0.6, 0.6], Opacity[0.2], LineBox[{54, 4}], LineBox[{55, 5}], LineBox[{56, 6}], LineBox[{57, 7}], LineBox[{58, 8}], LineBox[{59, 9}], LineBox[{60, 10}], LineBox[{61, 11}], LineBox[{62, 12}], LineBox[{63, 13}], LineBox[{74, 24}], LineBox[{75, 25}], LineBox[{76, 26}], LineBox[{77, 27}], LineBox[{78, 28}], LineBox[{79, 29}], LineBox[{80, 30}], LineBox[{81, 31}], LineBox[{82, 32}], LineBox[{88, 38}], LineBox[{89, 39}], LineBox[{90, 40}], LineBox[{91, 41}], LineBox[{92, 42}]}}, {{}, 
+#! {Hue[0.67, 0.6, 0.6], PointBox[{101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150}]}, {}}}],
+#! AspectRatio->0.6180339887498948,
+#! Axes->True,
+#! AxesOrigin->{0, 0},
+#! PlotRange->{{0., 6.283185307179586}, {-1.9057632850887898`, 1.8845446991233366`}},
+#! PlotRangeClipping->True,
+#! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)
+#! TextForm[ColonForm[MessageName[ConstantArray, ilsmn], StringForm[Single or list of non-negative machine-sized integers expected at position `2` of `1`., Short[HoldForm[ConstantArray[c, dims]], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[Array, ilsmn], StringForm[Single or list of non-negative machine-sized integers expected at position `2` of `1`., Short[HoldForm[Array[c & , dims]], 3], Short[HoldForm[2], 3]]]]
+not ok  ConstantArray[c,dims]===Array[c&,dims]    ==>     True
+not ok  {First[Timing[ca=ConstantArray[0.,{2000,2000}]]],
+#! First[Timing[a=Array[0.&,{2000,2000}]]],
+#! ca===a}    ==>     {0.03,0.23,True}
+#! TextForm[ColonForm[MessageName[Transpose, nmtx], StringForm[The first two levels of the one-dimensional list `1` cannot be transposed., Short[HoldForm[{{}, dims}], 3]]]]
+not ok  v=Array[x,Length[dims]];
+#! tl=Transpose[{v,dims}]    ==>     {{x[1],4},{x[2],5}}
+not ok  a===t    ==>     True
+#! TextForm[ColonForm[MessageName[SparseArray, adims], StringForm[Array dimension specification `1` should be Automatic, a non-negative machine integer, or a list of non-negative machine integers., Short[HoldForm[dims], 3], Short[HoldForm[SparseArray[{i_, j_} -> f[i, j], dims]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[Raster[{{{0.27919873333333334, 0.6395868, 0.9637626}, {0.26669366666666666, 0.5504620000000001, 0.926485}, {0.2541886, 0.4613372000000001, 0.8892074000000001}, {0.24168353333333337, 0.3722124000000001, 0.8519298000000001}, {0.2448154, 0.29206496000000004, 0.8024452666666667}, {0.2635842, 0.22089488000000002, 0.7407538}, {0.28235299999999997, 0.14972480000000005, 0.6790623333333334}, {0.30112179999999994, 0.07855472000000005, 0.6173708666666667}}, {{0.2729462, 0.5950244000000001, 0.9451238000000001}, {0.26044113333333335, 0.5058996000000001, 0.9078462}, {0.24793606666666668, 0.4167748, 0.8705686}, {0.235431, 0.32765, 0.833291}, {0.2541998, 0.2564799200000001, 0.7715995333333334}, {0.2729686, 0.18530984000000003, 0.7099080666666667}, {0.2917374, 0.11413976000000005, 0.6482166}, {0.2966204, 0.05671138666666667, 0.5819295333333334}}, {{0.26669366666666666, 0.5504620000000001, 0.926485}, {0.2541886, 0.4613372000000001, 0.8892074000000001}, {0.24168353333333337, 0.3722124000000001, 0.8519298000000001}, {0.2448154, 0.29206496000000004, 0.8024452666666667}, {0.2635842, 0.22089488000000002, 0.7407538}, {0.28235299999999997, 0.14972480000000005, 0.6790623333333334}, {0.30112179999999994, 0.07855472000000005, 0.6173708666666667}, {0.27823319999999996, 0.04860976, 0.5418926000000001}}, {{0.26044113333333335, 0.5058996000000001, 0.9078462}, {0.24793606666666668, 0.4167748, 0.8705686}, {0.235431, 0.32765, 0.833291}, {0.2541998, 0.2564799200000001, 0.7715995333333334}, {0.2729686, 0.18530984000000003, 0.7099080666666667}, {0.2917374, 0.11413976000000005, 0.6482166}, {0.2966204, 0.05671138666666667, 0.5819295333333334}, {0.259846, 0.04050813333333334, 0.5018556666666667}}, {{0.2541886, 0.4613372000000001, 0.8892074000000001}, {0.24168353333333337, 0.3722124000000001, 0.8519298000000001}, {0.2448154, 0.29206496000000004, 0.8024452666666667}, {0.2635842, 0.22089488000000002, 0.7407538}, {0.28235299999999997, 0.14972480000000005, 0.6790623333333334}, {0.30112179999999994, 0.07855472000000005, 0.6173708666666667}, {0.27823319999999996, 0.04860976, 0.5418926000000001}, {0.2414588, 0.032406506666666675, 0.4618187333333334}}, {{0.24793606666666668, 0.4167748, 0.8705686}, {0.235431, 0.32765, 0.833291}, {0.2541998, 0.2564799200000001, 0.7715995333333334}, {0.2729686, 0.18530984000000003, 0.7099080666666667}, {0.2917374, 0.11413976000000005, 0.6482166}, {0.2966204, 0.05671138666666667, 0.5819295333333334}, {0.259846, 0.04050813333333334, 0.5018556666666667}, {0.22307159999999998, 0.02430488, 0.42178180000000004}}, {{0.24168353333333337, 0.3722124000000001, 0.8519298000000001}, {0.2448154, 0.29206496000000004, 0.8024452666666667}, {0.2635842, 0.22089488000000002, 0.7407538}, {0.28235299999999997, 0.14972480000000005, 0.6790623333333334}, {0.30112179999999994, 0.07855472000000005, 0.6173708666666667}, {0.27823319999999996, 0.04860976, 0.5418926000000001}, {0.2414588, 0.032406506666666675, 0.4618187333333334}, {0.2046844, 0.016203253333333337, 0.38174486666666674}}, {{0.235431, 0.32765, 0.833291}, {0.2541998, 0.2564799200000001, 0.7715995333333334}, {0.2729686, 0.18530984000000003, 0.7099080666666667}, {0.2917374, 0.11413976000000005, 0.6482166}, {0.2966204, 0.05671138666666667, 0.5819295333333334}, {0.259846, 0.04050813333333334, 0.5018556666666667}, {0.22307159999999998, 0.02430488, 0.42178180000000004}, {0.1862972, 0.008101626666666669, 0.3417079333333334}}, {{0.2448154, 0.29206496000000004, 0.8024452666666667}, {0.2635842, 0.22089488000000002, 0.7407538}, {0.28235299999999997, 0.14972480000000005, 0.6790623333333334}, {0.30112179999999994, 0.07855472000000005, 0.6173708666666667}, {0.27823319999999996, 0.04860976, 0.5418926000000001}, {0.2414588, 0.032406506666666675, 0.4618187333333334}, {0.2046844, 0.016203253333333337, 0.38174486666666674}, {0.16791, 0., 0.301671}}}, {{0, 0}, {8, 9}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {AxisPadding -> 18.740000000000002, DefaultBoundaryStyle -> Automatic, DefaultPlotStyle -> Automatic, DomainPadding -> 18.740000000000002, RangePadding -> 46.85}], Specified, RowBox[{elements, :, RowBox[{68, Dimensions}], :, RowBox[{{, RowBox[{9, ,, 8}], }}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[Raster[{{{0.27919873333333334, 0.6395868, 0.9637626}, {0.26669366666666666, 0.5504620000000001, 0.926485}, {0.2541886, 0.4613372000000001, 0.8892074000000001}, {0.24168353333333337, 0.3722124000000001, 0.8519298000000001}, {0.2448154, 0.29206496000000004, 0.8024452666666667}, {0.2635842, 0.22089488000000002, 0.7407538}, {0.28235299999999997, 0.14972480000000005, 0.6790623333333334}, {0.30112179999999994, 0.07855472000000005, 0.6173708666666667}}, {{0.2729462, 0.5950244000000001, 0.9451238000000001}, {0.26044113333333335, 0.5058996000000001, 0.9078462}, {0.24793606666666668, 0.4167748, 0.8705686}, {0.235431, 0.32765, 0.833291}, {0.2541998, 0.2564799200000001, 0.7715995333333334}, {0.2729686, 0.18530984000000003, 0.7099080666666667}, {0.2917374, 0.11413976000000005, 0.6482166}, {0.2966204, 0.05671138666666667, 0.5819295333333334}}, {{0.26669366666666666, 0.5504620000000001, 0.926485}, {0.2541886, 0.4613372000000001, 0.8892074000000001}, {0.24168353333333337, 0.3722124000000001, 0.8519298000000001}, {0.2448154, 0.29206496000000004, 0.8024452666666667}, {0.2635842, 0.22089488000000002, 0.7407538}, {0.28235299999999997, 0.14972480000000005, 0.6790623333333334}, {0.30112179999999994, 0.07855472000000005, 0.6173708666666667}, {0.27823319999999996, 0.04860976, 0.5418926000000001}}, {{0.26044113333333335, 0.5058996000000001, 0.9078462}, {0.24793606666666668, 0.4167748, 0.8705686}, {0.235431, 0.32765, 0.833291}, {0.2541998, 0.2564799200000001, 0.7715995333333334}, {0.2729686, 0.18530984000000003, 0.7099080666666667}, {0.2917374, 0.11413976000000005, 0.6482166}, {0.2966204, 0.05671138666666667, 0.5819295333333334}, {0.259846, 0.04050813333333334, 0.5018556666666667}}, {{0.2541886, 0.4613372000000001, 0.8892074000000001}, {0.24168353333333337, 0.3722124000000001, 0.8519298000000001}, {0.2448154, 0.29206496000000004, 0.8024452666666667}, {0.2635842, 0.22089488000000002, 0.7407538}, {0.28235299999999997, 0.14972480000000005, 0.6790623333333334}, {0.30112179999999994, 0.07855472000000005, 0.6173708666666667}, {0.27823319999999996, 0.04860976, 0.5418926000000001}, {0.2414588, 0.032406506666666675, 0.4618187333333334}}, {{0.24793606666666668, 0.4167748, 0.8705686}, {0.235431, 0.32765, 0.833291}, {0.2541998, 0.2564799200000001, 0.7715995333333334}, {0.2729686, 0.18530984000000003, 0.7099080666666667}, {0.2917374, 0.11413976000000005, 0.6482166}, {0.2966204, 0.05671138666666667, 0.5819295333333334}, {0.259846, 0.04050813333333334, 0.5018556666666667}, {0.22307159999999998, 0.02430488, 0.42178180000000004}}, {{0.24168353333333337, 0.3722124000000001, 0.8519298000000001}, {0.2448154, 0.29206496000000004, 0.8024452666666667}, {0.2635842, 0.22089488000000002, 0.7407538}, {0.28235299999999997, 0.14972480000000005, 0.6790623333333334}, {0.30112179999999994, 0.07855472000000005, 0.6173708666666667}, {0.27823319999999996, 0.04860976, 0.5418926000000001}, {0.2414588, 0.032406506666666675, 0.4618187333333334}, {0.2046844, 0.016203253333333337, 0.38174486666666674}}, {{0.235431, 0.32765, 0.833291}, {0.2541998, 0.2564799200000001, 0.7715995333333334}, {0.2729686, 0.18530984000000003, 0.7099080666666667}, {0.2917374, 0.11413976000000005, 0.6482166}, {0.2966204, 0.05671138666666667, 0.5819295333333334}, {0.259846, 0.04050813333333334, 0.5018556666666667}, {0.22307159999999998, 0.02430488, 0.42178180000000004}, {0.1862972, 0.008101626666666669, 0.3417079333333334}}, {{0.2448154, 0.29206496000000004, 0.8024452666666667}, {0.2635842, 0.22089488000000002, 0.7407538}, {0.28235299999999997, 0.14972480000000005, 0.6790623333333334}, {0.30112179999999994, 0.07855472000000005, 0.6173708666666667}, {0.27823319999999996, 0.04860976, 0.5418926000000001}, {0.2414588, 0.032406506666666675, 0.4618187333333334}, {0.2046844, 0.016203253333333337, 0.38174486666666674}, {0.16791, 0., 0.301671}}}, {{0, 0}, {8, 9}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {AxisPadding -> 18.740000000000002, DefaultBoundaryStyle -> Automatic, DefaultPlotStyle -> Automatic, DomainPadding -> 18.740000000000002, RangePadding -> 46.85}], Specified, RowBox[{elements, :, RowBox[{68, Dimensions}], :, RowBox[{{, RowBox[{9, ,, 8}], }}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  s=SparseArray[{i_,j_}->f[i,j],dims]    ==>     SparseArray[\!\(\*
+#! GraphicsBox[RasterBox[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255},
+#! ColorFunction->GrayLevel],
+#! BaselinePosition->Bottom,
+#! ImageSize->{12, 12},
+#! PlotRange->{{0, 12}, {0, 12}}]\)	\!\(\*
+#! GraphicsBox[RasterBox[CompressedData["
+#! 1:eJxTTMoPSmVmYGDgBGIOIAaxtUQNYlPuXbRPaJy3p678ib1mCfMqlevv7O/2
+#! SgQ0CV60Xyr1rTpp7kP7lsbn9w4vfWs/gY3ReYHLBftL6bPLetru2j/oOy2c
+#! XPLGvuPfpeya9+fso2Z5fQ2+dN3ees56Dybn1/bfA9xzZMLO26+pfmBluPGS
+#! PauV6qaFa1/aWzatd55w74L9FPFdfR5uZ+ztMnQCHLc8t/8WbR0oJHTJ/pL5
+#! 5uV6WoftK6YZv3uw66n9ZtPjcVNcL9vLbYho1JTZYr/xiFVPw8HH9i2BS8I+
+#! l1+0Z/bzmlPA9dj+elWpS4ndO3vzUz2egqsv2Ls/XxgdYvDA3qgjslKY9639
+#! ldZXFXF7ztuLMH42LVhzy753qu26Tbdf21uV746bpXTOfo7xoi3mP67Yv1ik
+#! +Dhw1Sv7qKkvbc4D/bvnsNxBrawL9koXNRo/bnhhL5Ff6hVYcdF+83Kz2dY7
+#! jttH/9eXn7j9mf1VD8aIy6sv2T/sj89wtthrP0XXfK/Bvif2cU9CFK/8vmTP
+#! Mksszo1zrX3cCff1WvMfDZlwvhSyav6kcxftNc6+e5TweIX9bIs4Nf3wh0Mm
+#! nD2O/pcNXHjB3pfheHr13iX2N1aUzDXmfzBkwrkye5WF/Itz9oXG899Mnb7A
+#! XttITLOg7+6QCeckn1DTOb1noP6aYb9UyFm88t+tIRPOProMRpLGp6DiE+wV
+#! PuezNuXdGDLhbMa3Wm/ajeNQ9zfYz7o853PXvatDJpwV3odqC9cdtWeAApEt
+#! Jx9O9rtsDwBK6km0
+#! "], {{0, 0}, {8, 9}}, {0, 1}],
+#! AspectRatio->1,
+#! Axes->False,
+#! Frame->False,
+#! FrameLabel->{None, None},
+#! FrameStyle->Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]],
+#! FrameTicks->{{None, None}, {None, None}},
+#! GridLinesStyle->Directive[GrayLevel[0.5, 0.4]],
+#! ImageSize->{Automatic, 28.},
+#! Method->{"AxisPadding" -> 18.740000000000002`, "DefaultBoundaryStyle" -> Automatic, "DefaultPlotStyle" -> Automatic, "DomainPadding" -> 18.740000000000002`, "RangePadding" -> 46.85}]\)	Specified elements: 68
+#! Dimensions: {9,8}
+#! ]
+#! TextForm[ColonForm[MessageName[Array, ilsmn], StringForm[Single or list of non-negative machine-sized integers expected at position `2` of `1`., Short[HoldForm[Array[f, dims]], 3], Short[HoldForm[2], 3]]]]
+not ok  a=Array[f,dims]    ==>     {{-1,-3,-5,-7,-9,-11,-13,-15},{0,-2,-4,-6,-8,-10,-12,-14},{1,-1,-3,-5,-7,-9,-11,-13},{2,0,-2,-4,-6,-8,-10,-12},{3,1,-1,-3,-5,-7,-9,-11},{4,2,0,-2,-4,-6,-8,-10},{5,3,1,-1,-3,-5,-7,-9},{6,4,2,0,-2,-4,-6,-8},{7,5,3,1,-1,-3,-5,-7}}
+not ok  s==a    ==>     True
+not ok  {SameQ[s,a],SameQ[Normal[s],a]}    ==>     {False,True}
+ok  Array[Power,{5,5}]    ==>     {{1,1,1,1,1},{2,4,8,16,32},{3,9,27,81,243},{4,16,64,256,1024},{5,25,125,625,3125}}
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  ArrayPlot[Array[GCD,{20,20}]]    ==>     \!\(\*
+#! GraphicsBox[RasterBox[CompressedData["
+#! 1:eJxtT20WwiAMw03d3JyFxgt4JY+wC3j/f4avt4IWkqZ90MBr/7z3wTn3LIDC
+#! C4GFUCHg8BMnQIPiAV0TUw882cUYKc5S3Es+p4wACWShwCWV7HNtiXHNlZ01
+#! VaHB09HTca76OHU7JO9LnLEYFe24VyO69+WcYmtS/a/l2Jae8pwWxc7u8sN2
+#! /YkvcekdoQ==
+#! "], {{0, 0}, {20, 20}}, {0, 20}],
+#! Frame->Automatic,
+#! FrameTicks->{None, None}]\)
+ok  Array[Array[x&,#]&,{6}]    ==>     {{x},{x,x},{x,x,x},{x,x,x,x},{x,x,x,x,x},{x,x,x,x,x,x}}

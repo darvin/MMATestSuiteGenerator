@@ -1,0 +1,8 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Get.nb output/Tests/Get_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Get.nb
+# WRITING OUTPUT TO:     output/Tests/Get_Tests.m
+not ok  Names["EquationTrekker`*"]    ==>     {DifferentialEquationTrek,EquationTrekker,EquationTrekkerNonModal,EquationTrekkerState,InitializeGenerator,PoincareSection,TrekData,TrekGenerator,TrekParameters}
+#! TextForm[ColonForm[MessageName[Get, noopen], StringForm[Cannot open `1`., Short[HoldForm[ExampleData/language], 3]]]]
+not ok  <<ExampleData/language    ==>     22 a b+56 c+13 a d
+#! TextForm[ColonForm[MessageName[Get, noopen], StringForm[Cannot open `1`., Short[HoldForm[ExampleData/language], 3]]]]
+not ok  Block[{a = 1,b=2,c=3,d=4},<<ExampleData/language]    ==>     264

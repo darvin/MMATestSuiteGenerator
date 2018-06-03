@@ -1,0 +1,94 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Identity.nb output/Tests/Identity_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Identity.nb
+# WRITING OUTPUT TO:     output/Tests/Identity_Tests.m
+ok  Identity[x+y]    ==>     x+y
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Automatic}]\)\)
+#!                                                 ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Automatic}]\)\)
+#!                                                 ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  Plot[Evaluate@Through[{Identity,Exp,Log}[x]],{x,-2,2},AspectRatio->Automatic,PlotRange->2]    ==>     \!\(\*
+#! GraphicsBox[{{}, {}, 
+#! {Hue[0.67, 0.6, 0.6], LineBox[CompressedData["
+#! 1:eJxN1P0v1AEcwPE73JqHPC3syrWch4nLUO421VhhGJabOFPHMWzkYeapaVy6
+#! 5nqQ1rKOXWU7KiVFyXm6Kw9zGalLLt2VnUO40XHuugdcteXz/f7w3us/eLul
+#! F1AzzTAYTNzf/ukX4rxiMpmEuxbo3dl6A+LLVwFeag1ioHds+qISkeLA+jYu
+#! QQxVrI81vECk1kw8O5qKWDbJyssW7IBTU9Yr7xjbIOFtwT6K6xbYlTuMs/tu
+#! ANNuBqhmqvWg7k4FWxiiA3m2P/AcuRbkRgcUfb6mAasvMMoPR22CFeZPy4pW
+#! N0AGc9Jj+sk6WD+wwOHmqMDeWW+bNuIa6G4feirhgRLs9GHnzCmWwNmRjkNk
+#! 8iK4QKoPFL5RgA6VrWQ/rBwkkX+RWtQy8ErY6seecgnolNB+O9lFDHZqR+xE
+#! HmNgi3ShdpklAM/Hu76WZjSDPVYVXwZLeCG7Bs1hD16mCUF3VZ8+ePA9GMWb
+#! mYijicHwWEdzTZcErEuVMP27ZeBoHGHvGUc5uOrmVCluVIAlxb6MOudFUCKz
+#! p2aJlsC0iyd+7olRgkO+lOtDuDXQy7J/qTlSBRL6c8Nx7HUQYzBrLZrbAH/H
+#! D9BHPDdB6bHUA54sDViYZO9AlGlB/N15mgVBB7anND1Wl+vBpJNVkaIBA9hB
+#! zyMGbxlBndVp856z2yD103EygbMDNhBdC29pTKCNtQWZj7JSrTTKUaYP99UE
+#! aRFJWSkPZSgFrY0ffHSI8/74I6MGxEQ8Vq1CKcIu8/cbEZ+L+WH5KEuLaeec
+#! thAt+fduZGwjXmqqiq9FucbOdulGKU6m8Kx2ELnG6d4OlLbzAqYUJXP8UQTO
+#! hJh5v1RMQ/n1Kp1TjTI6P4LehrI/0c9jGuX/j4F/ACr4ukY=
+#! "]]}, 
+#! {Hue[0.9060679774997897, 0.6, 0.6], LineBox[CompressedData["
+#! 1:eJwBoQJe/SFib1JlAgAAACkAAAACAAAALj8W6v///79rFnm7qlLBP2/5I4j5
+#! +v+//JypVBxYwT+wszEm8/X/v56wyqOPXcE/MihNYubr/789KAVme2jBPzcR
+#! hNrM1/+/7HFziWd+wT9A4/HKma//v0zbhMWSqsE/UofNqzNf/79HH/LlOATC
+#! P3fPhG1nvv6/MV2g9eK8wj/U1AvqwWH9v2MLxZgSZ8Q/HcBvFDcc/L+/RJeI
+#! IhfGP7VrxAUP3fq/CdryTmbhxz9gjDHw2YL5vy88kyGX/Mk/+JJ7iL8/+L87
+#! tufsnR7MP6MO3hmY4fa/luMeyBKhzj+cSjFy04n1v9f/ovHHp9A/gmxheClJ
+#! 9L9Uc2Nx/gLSP3sDqndy7fK/uxnvsIWb0z9hgM8k1qjxvwSCB6eCOdU/lb3l
+#! mJxq8L87hvXUevDWP7rfKAysIu6/lBe76vf02D8jEEBCVJ7rv+fQGAbJ/9o/
+#! siqIauLj6L+2FRc27mbdP9/FsSA2Nua/l4r+2g343z/lLJUyv7bjvxaIXj0/
+#! SOE/EX6pNi4B4b+5FU9pIs/iPyw27yyl89y/RtCAgBRb5D+DRO3QuXjXvz/m
+#! ftPzLOY/FVSukFkX0r+Pg7fv1h7oP7L2xQ/IJMq/R1cwXZ0W6j+l2+WN6YS+
+#! v23+k5BaZ+w/XVEctNtjpL+MuStuK8DuP7kKe9XCdaM/rzXSKK2e8D814gEe
+#! gVi/P6coFGSHFfI/I/C7+TrCyT+fYBejEpHzP0mj2c1OWNI/J5MwAaVP9T9F
+#! TRID9bXXP8znLczFLPc/j1/XgDC33D8uziPbVg/5P8dOHQ1QEuE/Rm2spB9H
+#! +z/tIRV+0prjPwTuQ3tnhv0/dXQrYY8W5j+YXRgnVej/P4n1V4dPLeY/AAAA
+#! AAAAAEClpF29
+#! "]]}, 
+#! {Hue[0.14213595499957954`, 0.6, 0.6], LineBox[CompressedData["
+#! 1:eJwlyg0w1HkcBnB5SetKGLmEjjZKbEi3XlZ9u3MciiuFDXFs9OJtr6HyctqL
+#! 4pKXXKHo5XQpV0lXzW6F3ynbSrRag6XdlJd/u1feWrvtq//9b+6ZeeaZz8zj
+#! kJgRnqSvp6cXTvS/7al9UeEc0Q56/+dvcfMdZ+TxBIaW/16qpOLoMjOuYxO7
+#! A97zihv2kHWoLpbUdG6kAy7mFM2HG+pQTdD96kljLvScmbMpnNCiCnuTlIt0
+#! Lhh67FxRdUOLWL0PzHUqLkwJJ+ITPLQowX1JfIsfDyxMGA0T2zSIPPNY5fvk
+#! Obg3ZFJmG1Qor8e/cG7yOTAi7AJGSlRo4M8Xpk3WXaDPixapmSp0Kuk12eGn
+#! LrCebXXl0FRoZlgdamz/AmQZRam0PiVq4/rU9/3cDQ/M7gxNkpQoupYdkurD
+#! h7LieB23UoHuH4V+xyQ+BDIH+Gl5CmQayYsfqeBDISnu5sZkBWo3G8wMl/DB
+#! aYf+2pW+CmTpn/tD3dZekIcZuUaNyVEu50L2cXUvRFyrW2NHk6Pgq0M9YXQB
+#! VL5ayzGfl6GZE03J3DQB7KtnM/Z+kKGa/QU4rUAA4drAp91CGZJQKB7OTQLo
+#! KPcbEN+ToWIO66yBYR80Gl/6rDkoQ509a2I4d/rAdX/yeVz0CX2vzJI4GPdD
+#! 3mfLc7qXsygg1MJA/mAQLBNPvgl8No3KEkizqueDwOul3Ai9OY2EWXoj8+JB
+#! 2FURbJNSMY0OXpp6tGihELCylGRpNPGf7jpkGymEEE0ra3pmCgnPFIz6K4Rg
+#! Dk5MfYcpdHBgrr2SOgwLhan1uys+ovL4QZY7WwTBI9OLUq9J0cmPfoB1i4AR
+#! Nt7iXypF+dn1utpRERTt7LhMyZKi9N/ScoxNxbA8l37CK0CKwngGmW/2isFz
+#! 9alRe0yCTN3c9522eAPM9N2+ni4SVDZfHCpJGwExLXbDrXYM8cLslmy3eAe/
+#! dhVM+NiMo0mHZfmCC2PgHU3tPx0zgrIyXRLKrTCoyb7WnPNwEA2KzMKTOyUg
+#! fry5viCmF/2Y7ffeeNsHWDFZ9f4ZvQM9dfE69dRoCo7bZq9N39WMnEgtkj+C
+#! ZiCNaqHN0asEu5aUAKPiWeisKrRdnMwGPbV+46HRT0BiHMnN9+LC5x2tcVzH
+#! OdhriZ3vZfXA643xNo6FcrCtT3TzlguAGWVmvkqkAP/g29Yt/QNgfXacbmin
+#! BCoc8Y7cMgxNMVeuy46qAF1XGrKfiCFq07GgzlY1KEsabasz3sLduLRVvloN
+#! HNjKoC0dfwdKE3+DhxE6KI+93TCWNAbhr2hUu5p5EFeXb6C1jcP5VbbMMjkO
+#! v7xlPuKTMVj8hSGVQ1gyP1aqIpwv+6B5RzjkkH0CeTUGiR2Pi75W4ECLli88
+#! Qtg1OeayiHDW5qXbVzpi0NZ44eU6JQ6b+w2EqU4YjLtbU3hqHO6R59pIzhhE
+#! Wi+QzRD2UlSWeBLuXCDlrNDgUO6midpD+LaA8106YYVwzUwz4cOZ9NhlWhyo
+#! Vp/s6OswIHGqSxg6HLawQzIaXDDIu3JsRynhYR+Wdy/hqeJ9X7IJe7geW6Am
+#! LNjtddVkHoewxKHKUFcM6jQDj+4SniDjf80RNh1vY70mrPFk5aykYMDqbgg0
+#! wnHw53R9E0Q46eJhAZ3wpa9a+LWEhSfiao4T5hswqriEQ9ID424RPhDXFztN
+#! uCVy/eoBwlq3JWTr9RisB6t/cMJW2WbSbwn/CwYIuSA=
+#! "]]}},
+#! Axes->True,
+#! AxesOrigin->{0, 0},
+#! PlotRange->{{-2, 2}, {-2, 2}},
+#! PlotRangeClipping->True,
+#! PlotRangePadding->{Scaled[0.02], Automatic}]\)
+ok  Composition[f,g,Identity,h,Identity]    ==>     Composition[f,g,h]
+ok  Identity'    ==>     1&
+ok  {a,Sequence[b,c,d],e}    ==>     {a,b,c,d,e}
+ok  #&[a]    ==>     a
+not ok  TableForm[Composition[Through,{Identity,Sqrt}]/@{0,1.0,2.0,3.0,4.0}]    ==>     0	0
+#! 1.	1.
+#! 2.	1.41421
+#! 3.	1.73205
+#! 4.	2.

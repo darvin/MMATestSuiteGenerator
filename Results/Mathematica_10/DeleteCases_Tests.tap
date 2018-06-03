@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/DeleteCases_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: DeleteCases_Tests
-# OUTPUT: output/Results/Mathematica_10/DeleteCases_Tests.json
 # Delete cases that match integers:
 ok  DeleteCases[{1, 1, x, 2, 3, y, 9, y}, _Integer]    ==>     {x, y, y}
     ---

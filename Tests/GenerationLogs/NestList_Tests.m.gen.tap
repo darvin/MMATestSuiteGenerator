@@ -1,0 +1,164 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/NestList.nb output/Tests/NestList_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/NestList.nb
+# WRITING OUTPUT TO:     output/Tests/NestList_Tests.m
+ok  NestList[f,x,4]    ==>     {x,f[x],f[f[x]],f[f[f[x]]],f[f[f[f[x]]]]}
+not ok  NestList[Cos,1.0,10]    ==>     {1.,0.540302,0.857553,0.65429,0.79348,0.701369,0.76396,0.722102,0.750418,0.731404,0.744237}
+ok  NestList[(1+#)^2&,x,3]    ==>     {x,(1+x)^2,(1+(1+x)^2)^2,(1+(1+(1+x)^2)^2)^2}
+ok  NestList[(1+#)^2&,x,3]    ==>     {x,(1+x)^2,(1+(1+x)^2)^2,(1+(1+(1+x)^2)^2)^2}
+not ok  NestList[Sqrt,100.0,4]    ==>     {100.,10.,3.16228,1.77828,1.33352}
+not ok  With[{\[Epsilon]=0.1},NestList[Function[xy,{2\[Epsilon],0}+{{1-2\[Epsilon],0},{0,1-2\[Epsilon]}}.xy],{1.0,1.0},4]]    ==>     {{1.,1.},{1.,0.8},{1.,0.64},{1.,0.512},{1.,0.4096}}
+not ok  NestList[{(#[[1]]+#[[2]])/2,Sqrt[#[[1]] #[[2]]]}&,{0.5,1.0},4]    ==>     {{0.5,1.},{0.75,0.707107},{0.728553,0.728238},{0.728396,0.728396},{0.728396,0.728396}}
+ok  NestList[2 #&, 1, 10]    ==>     {1,2,4,8,16,32,64,128,256,512,1024}
+ok  NestList[#+1&,0,10]    ==>     {0,1,2,3,4,5,6,7,8,9,10}
+ok  NestList[#^2&, 2, 6]    ==>     {2,4,16,256,65536,4294967296,18446744073709551616}
+not ok  NestList[#(1+0.05)&,1000,10]    ==>     {1000,1050.,1102.5,1157.63,1215.51,1276.28,1340.1,1407.1,1477.46,1551.33,1628.89}
+ok  NestList[D[#,x]&,x^n,3]    ==>     {x^n,n x^(-1+n),(-1+n) n x^(-2+n),(-2+n) (-1+n) n x^(-3+n)}
+not ok  NestList[(# + 2/# )/2&,1.0,5]    ==>     {1.,1.5,1.41667,1.41422,1.41421,1.41421}
+ok  NestList[1/(1+#)&,x,5]    ==>     {x,1/(1+x),1/(1+1/(1+x)),1/(1+1/(1+1/(1+x))),1/(1+1/(1+1/(1+1/(1+x)))),1/(1+1/(1+1/(1+1/(1+1/(1+x)))))}
+ok  NestList[4#(1-#)&,1/3,5]    ==>     {1/3,8/9,32/81,6272/6561,7250432/43046721,1038154236987392/1853020188851841}
+not ok  NestList[4#(1-#)&,N[1/3],10]    ==>     {0.333333,0.888889,0.395062,0.955952,0.168432,0.56025,0.98548,0.0572373,0.215845,0.677023,0.874651}
+ok  NestList[If[EvenQ[#],#/2,(3#+1)/2]&,100,20]    ==>     {100,50,25,38,19,29,44,22,11,17,26,13,20,10,5,8,4,2,1,2,1}
+ok  NestList[Mod[59#,101]&,1,15]    ==>     {1,59,47,46,88,41,96,8,68,73,65,98,25,61,64,39}
+not ok  NestList[#+RandomChoice[{-1,1}]&,0,20]    ==>     {0,-1,-2,-3,-2,-1,-2,-1,-2,-1,0,1,2,1,2,3,2,3,2,1,0}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[ListLinePlot, lpn], StringForm[`1` is not a list of numbers or pairs of numbers., Short[HoldForm[Hold[Out[$Line - 1]]], 3]]]]
+#! TextForm[ColonForm[MessageName[ListLinePlot, lpn], StringForm[`1` is not a list of numbers or pairs of numbers., Short[HoldForm[Hold[Out[$Line - 1]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  ListLinePlot[%]    ==>     \!\(\*
+#! GraphicsBox[{{}, {}, 
+#! {Hue[0.67, 0.6, 0.6], LineBox[CompressedData["
+#! 1:eJxTTMoPSmViYGAQBWIQDQEf7BlQgQNUfD+E5oDyGQ5AKAEonwPKF0GTl0DT
+#! L4Mmr4Amr4Qmr4ImrwaThwINmDzU3VoweSitgyavhyZvAHM/lDZEkzdCkzdG
+#! kzdBM98U7j4A+8saWg==
+#! "]]}},
+#! AspectRatio->0.6180339887498948,
+#! Axes->True,
+#! AxesOrigin->{0, 0},
+#! PlotRange->{{0., 21.}, {-3., 3.}},
+#! PlotRangeClipping->True,
+#! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)
+not ok  NestList[StringReplace[#,{"A"->"BA","B"->"AB"}]&,"A",5]    ==>     {A,BA,ABBA,BAABABBA,ABBABAABBAABABBA,BAABABBAABBABAABABBABAABBAABABBA}
+ok  NestList[Append[#,x]&,{a},5]    ==>     {{a},{a,x},{a,x,x},{a,x,x,x},{a,x,x,x,x},{a,x,x,x,x,x}}
+ok  NestList[RotateLeft,{a,b,c,d},4]    ==>     {{a,b,c,d},{b,c,d,a},{c,d,a,b},{d,a,b,c},{a,b,c,d}}
+ok  NestList[{f[Last[#]],g[First[#]]}&,{x,y},5]    ==>     {{x,y},{f[y],g[x]},{f[g[x]],g[f[y]]},{f[g[f[y]]],g[f[g[x]]]},{f[g[f[g[x]]]],g[f[g[f[y]]]]},{f[g[f[g[f[y]]]]],g[f[g[f[g[x]]]]]}}
+ok  NestList[f,x,4]    ==>     {x,f[x],f[f[x]],f[f[f[x]]],f[f[f[f[x]]]]}
+ok  Nest[f,x,4]    ==>     f[f[f[f[x]]]]
+ok  NestList[f,x,0]    ==>     {x}
+ok  NestList[1+Floor[#/2]&,1000,15]    ==>     {1000,501,251,126,64,33,17,9,5,3,2,2,2,2,2,2}
+ok  FixedPointList[1+Floor[#/2]&,1000,15]    ==>     {1000,501,251,126,64,33,17,9,5,3,2,2}
+ok   NestWhileList[If[EvenQ[#],#/2,(3 #+1)/2]&,29,#>1&]    ==>     {29,44,22,11,17,26,13,20,10,5,8,4,2,1}
+ok  NestList[f[#,a]&,x,3]    ==>     {x,f[x,a],f[f[x,a],a],f[f[f[x,a],a],a]}
+ok  FoldList[f,x,{a,a,a}]    ==>     {x,f[x,a],f[f[x,a],a],f[f[f[x,a],a],a]}
+not ok  NestList[Framed,x,6]    ==>     {x,x,x,x,x,x,x}
+ok  NestList[x^#&,x,6]    ==>     {x,x^x,x^x^x,x^x^x^x,x^x^x^x^x,x^x^x^x^x^x,x^x^x^x^x^x^x}
+ok  NestList[#^#&,x,4]    ==>     {x,x^x,(x^x)^x^x,((x^x)^x^x)^(x^x)^x^x,(((x^x)^x^x)^(x^x)^x^x)^((x^x)^x^x)^(x^x)^x^x}
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 535}, {0, 55}}]\)\)
+#!                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  NestList[Framed[Row[{#,#}]]&,x,4]    ==>     \!\(\*
+#! GraphicsBox[
+#! TagBox[RasterBox[CompressedData["
+#! 1:eJztnT9vIlcUxUdJinyD1PkCblNPvgDSpqXZlZY2aDdSROuOko6OyhUVFZUb
+#! mtC4oUErUbihoaCYhoLCwY6DF+Zx5868N7x7xucn7cqXXe495/3x8Qrj/fXT
+#! nx86PyRJ8vXnw28fPv6dfvnysffHT4fi995fnz/9ePjgt8OvXw5/5/njJ0II
+#! IYQQEpqEEPIdsW8kIWDw1hByhNeBkLLw1hByhNeBkLLw1hByhNeBkLLw1hBy
+#! hNfBLPFeJXvvaLaGO0XeM8J1IHbg1kRBs+y8RBbIfzYj14HnHwVuTRQYIigw
+#! RGLB848CtyYKDBEUGCKx4PlHgVsTBYYICgyRWDT4/Nf2IlItaOzgusNCWHbl
+#! 1nCnrkN+nbny10F//qEB8qKRirtT+VNnmQrr3Jg7hb5TXPnr0JgDXwiQF4aI
+#! HRgisVVoYYjEojEHvhAgLwwROzBEYqvQwhCJRWMOfCFAXhgidmCIxFahhSES
+#! iyAHPsuyvYeAIGgG1TE3FIJUpR0gd85H7KBf52pbA+Td+YgdCheWK18TZQ/8
+#! Lst2T2726/vOTdq5HT1WTZEkROBqmshOK8+tQ7+/HePusNQKpX8H496x1MpT
+#! sLxgqS0qd7NhL71Jh7N1rlk2aqWT/MMeeuprgrspFZ5i3B2WWqH072DcO5Za
+#! eQqWFyy1unLVTW835802w+5wG1RPfU1wN6XCU4y7w1IrlP4djHvHUitPwfKC
+#! pVZZzvu9+/PA2B5CJJcsXnrqa4K7KRWeYtwdllqh9O9g3DuWWnkKlhcstcpy
+#! PujNGCK5ngwRTR+5rXG1Qunfwbh3LLXyFCwvWGqVJUPE2ZMhoukjtzWuVij9
+#! Oxj3jqVWnoLlBUutsmSIOHsyRDR95LbG1Qqlfwfj3rHUylOwvGCpVZaFIfI4
+#! uU1u0jTtzDfbaa+Vpjdpd3zpe4MvTawGQwTLHZZaofTvYNw7llp5CpYXLLXK
+#! 0hUim3578PYvkd160m8dnjLdbEY3SZL2H9ZZWT3OJPpWFE/+V7vy3Dr0B/9M
+#! Zc0dllqhdOITIta8Y6ktJd64Fyy1ynLW7558d9Z+M7ltd8fLp1Pmw/az0HSg
+#! fPvI+a10JlFRPPlf7cpz69Af/DOVNXdYaiWpLnxCxJp3LLWlxBv3gqVWWW4f
+#! Rq32YLl5TaT9enL403HuneqL0UuIJN3FydhstVwsluv8+9qdt9KZREI8fddE
+#! OyjU3ND6w9gx7g5L7YUyzNYY946ltpR4416w1GrL/fIQTt3p49sju4dOa/iW
+#! FftsPuocpj5ku/ve4ant+fo1cbLF8FlP6y7/EonTlDOJLsTTSRP9oFBzw+oP
+#! Zce4Oyy1zjLU1hj3jqW2lHjjXrDUKst5vz1ann3ZdfLC+mLYehmazrbZpPPf
+#! h68Rs3gJtbuV42X2c1POJLocT2dN9INCzQ2rP5Qd4+6w1DrLUFtj3DuW2lLi
+#! jXvBUqss54Pbqt/iux2m7q/Z8hOdSfTP5Xg6bVJiUKi5QfUHs2PcHZZaVxls
+#! a4x7x1JbSrxxL1hqlaXH+0TWg1Y6yv+jyDWxGv83KTEo1Nyg+s/K6naMu8NS
+#! 6yqDbY1x71hq5SlYXrDUKku+2dDZ8wqbUuEpxt1hqRVK/w7GvWOpladgecFS
+#! qywZIs6eDBFNH7mtcbVC6d/BuHcstfIULC9YapWl882G/FHwDBFNH7mtcbVC
+#! 6d/BuHcstfIULC9YapXlw8Dxo+AHrd4qqJ76muBuSoWnGHeHpVYo/TsY946l
+#! Vp6C5QVLra7cjTq98+/wfXpajbtJezBfPhb+jCylnvqa4G5KhacYd4elVij9
+#! Oxj3jqVWnoLlBUttYblZLcb9Vtq7dzbcrmZ3o+mG/8e6Xx+hrPAU4+6w1Aql
+#! fwfj3rHUylOwvGCpLSr3i+l4Ol9VTYliPUHQDKpjbigEqUo7QO6cj9hBv87V
+#! tgbIu/MROxQuLFe+JiofeGiAvGik4u5U/hBapsI6N+ZOoe8UV/46NObAFwLk
+#! hSFiB4ZIbBVaGCKxaMyBLwTIC0PEDgyR2Cq0MERi0ZgDXwiQF4aIHRgisVVo
+#! YYjEojEHvpAECo0dXHdYCMuu3Bru1HXIrzNX/jrozz+xA7cmCppl5yWyQP6T
+#! G7kOPP8ocGuiwBBBgSESC55/FLg1UWCIoMAQiQXPPwrcmigwRFBgiMSC5x+F
+#! ul4hI0VotoY7Rd4zwnUghBTCW0PIEV4HQsrCW0PIEV4HQsrCW0PIEV4HQsrC
+#! W0PIEV4HQsoS7eVMQkwS+0YSQghpGv8CxoiihA==
+#! "], {{0, 55}, {535, 0}}, {0, 255},
+#! ColorFunction->RGBColor],
+#! BoxForm`ImageTag["Byte", ColorSpace -> "RGB", Interleaving -> True],
+#! Selectable->False],
+#! BaseStyle->"ImageGraphics",
+#! ImageSize->Automatic,
+#! ImageSizeRaw->{535, 55},
+#! PlotRange->{{0, 535}, {0, 55}}]\)
+ok  NestList[p[#][#]&,x,3]    ==>     {x,p[x][x],p[p[x][x]][p[x][x]],p[p[p[x][x]][p[x][x]]][p[p[x][x]][p[x][x]]]}
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  NestList[Subsuperscript[#,#,#]&,x,4]    ==>     \!\(\*
+#! GraphicsBox[
+#! TagBox[RasterBox[CompressedData["
+#! 1:eJzt3L+P4kYUB3CUpMi/kX+A/2HyD1i6tDR3UmiPXCJFbuko3blztWlIQ4VS
+#! 7BVUbpAipIiGgobGBYUbFFFczGZ1u2v8Y2zPPL/n+X6kvdvbW+zHMLYfz4/5
+#! 4cPHd9NvRqPRr99nf7x7/7v69Om9/9N32T9+9H/7+cO32Te/ZF//Zl+3778A
+#! AAAAAACJw2qeZeAPx2Q1HY3U/HDpOyAAa06bYDwae7Mo6TsSAKuSOPQ8bzJZ
+#! 7NK+QwGw5rCcZQnM8nheTbK/p3skMDAUSM7BHUjOwRFIzsEFueT8rz+Rz8AQ
+#! 6GTmyGdgGGpnMvIZGIbqmYxiIwiVy1g+/4GZDIOF3Bsc0Sj3xh0l4K9wlrao
+#! JeIqAPzpzFJUYGAAdGYpKjAgTovqyv1MRnIOIhjJq5GcA39G8mok58CckU4t
+#! tHsBN2SdWshnoHc0dULkM9A7gjohio1AD51a4A6kzeAIpM3ggqZlQCP3PXHz
+#! VAqJr5R+zLX5DIqNTpH4SmnGXJvPoNjoFImvlE7MtZ1aRko0KDayJbEiZzDm
+#! 7pcwiSmfswacsdQycgmTOIBuGmrGUstUp5bEAXSQxMY8ezG3OD9LHEAXSFyH
+#! jTLm2vOzxAF0lsRPAdPErFk8kTiAbpL4KWBWMbMKBr5yvJY4sGCgmsTUkVXM
+#! rIKBChJTR1YxYyE7HZRP3Mg6bMSvFP+YsZCdPsonbmQdNuJXSlzMViswaZpe
+#! u4XXI8prcfd12DQ3YpC4mLtUYC5pWnbNuZ4ep2M1nUdHIXOd8g27jXXYbFcY
+#! JMbcKJjK9OmyCX01VuHmdPdfaeSp1f2PeWN1MSXbCPHuWOXDDYM5zNT87jeT
+#! cBaejUdmGZ+LKeVGiHcnt0STiRf+Y35an7OpzuGw1UfZ/CNxHTaJMRsPJg78
+#! DdVUN1Weomz+kbgOm8SYu6sNhnKq68RjajsGL7US12GTGHNHtcEQT3VTg0PZ
+#! /CNxHTaJMXehE0ztVD9mV8OxUmoaJ+e17yk1VrNl7dMqfNQ/zQfH1HZ0UO7L
+#! FIkx96VoqieLSfByVr+cVgsvG7J1kkTjLPdbbE8aZ+R2j7K3HW77MkVizD3Z
+#! LGZvKjDXZDWfzJb73K/F4e0EMVJBo3J7u0fZ2w63fZkiMWZ6523kTYJ98nyR
+#! u55WT9e+/F3SXfQ0mKPZ29wvPex3u/2p7J5qyaPumdrOs8oSBOW+TJEYMz/X
+#! fXb9m62PLz+5bKde+DJm1zSObiOyTS+PfjZCk/j0PDTpLrwNsPdQMFTlj7pn
+#! ajuvlZUgKPelr3ruSYyZoXgxifa5s8Wbt6W70Hs6Y6jNOb09qdu3zwfC7um6
+#! +VD0JAsf9XfJ4JjazmtlJQjKfTVSMfckxkxM57iLg3nbYuM5VCWnmnJFg2Nq
+#! Oy/KS0+U+2qmfO5JjLkHNm8hnQJPRQ2fZNHgGNiO9sWUcl9VmnQJSoy5B6xu
+#! IZk6mRRux9LF1N6+7F39JcbcVIvjjvhuqT3obCTYnayMJafwFpK4Jl50Ng4v
+#! 5lpNj7ttUNDEG3j+wXxopFh9UoPhOmwSY34TXuPj7hJN/Xyt8f/tTIJ4f+z7
+#! rUZ73PIZbuuwyYq543GXHHbLhaf8x8KNnw+bh2idCPlsaQ5l053mvlitwyYx
+#! 5g7H3XW3Xq7jg8y5LAyrfldN3GJmddzBV+Jumn9hFjPzGj68xqcErY9VzKyC
+#! gQoSlxxkFTOrGj6UkbjkYF8x819AEhrhU7jTRxazuAUkoUJ1/xXPt11kMYtb
+#! QBLKUPanmWIvZukLSEJTEs9ClBkLzUbANm6tUzoMxjy8NkvQJ/Ec1S7mQbZZ
+#! gj6J5yidmN1cQBLKSGzh0I/ZwQUkwU2uLSAJbsIkhKHCPXpwB94hgiNYdUgC
+#! WNJLhySOF+CAptiIrAl6R9Mhibo69MtShyQ6G0EEZCzgAlOdWshYQJwW52d0
+#! NoJEtedn5gtIAujQbJKR+Dl0gBawkB0MEmqJ4A7k3uAI5N7gAixkB87CQnbg
+#! CCxkBy7AQnbgMmQs4AhkLOACtHuBs5DPgCOQz4AL0O4FAAAAADAM/wFjEjTX
+#! "], {{0, 113}, {249, 0}}, {0, 255},
+#! ColorFunction->RGBColor],
+#! BoxForm`ImageTag["Byte", ColorSpace -> "RGB", Interleaving -> True],
+#! Selectable->False],
+#! BaseStyle->"ImageGraphics",
+#! ImageSize->Automatic,
+#! ImageSizeRaw->{249, 113},
+#! PlotRange->{{0, 249}, {0, 113}}]\)

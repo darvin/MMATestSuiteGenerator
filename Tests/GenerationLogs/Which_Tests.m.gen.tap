@@ -1,0 +1,135 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Which.nb output/Tests/Which_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Which.nb
+# WRITING OUTPUT TO:     output/Tests/Which_Tests.m
+ok  a=2;Which[a==1,x,a==2,b]    ==>     b
+ok  Which[a==1,x,a==2,b]    ==>     Which[a==1,x,a==2,b]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  %/.a->2    ==>     b
+ok  Which[1<0,a,
+#! x==0,b,
+#! 0<1,c]    ==>     Which[x==0,b,0<1,c]
+not ok  sign/@{-2,0,3}    ==>     {-1,Indeterminate,1}
+not ok  f=Which[x<-Pi/2,-1,-Pi/2<=x<=Pi/2,Sin[x],True,1]    ==>     Which[x<-(\[Pi]/2),-1,-(\[Pi]/2)<=x<=\[Pi]/2,Sin[x],True,1]
+#! TextForm[ColonForm[MessageName[Piecewise, pairs], StringForm[The first argument `1` of Piecewise is not a list of pairs., Short[HoldForm[-1], 3]]]]
+not ok  PiecewiseExpand[f]    ==>     \[Piecewise]-1	x<-(\[Pi]/2)
+#! 1	x>\[Pi]/2
+#! Sin[x]	True
+ok  Reduce[f==1/2,x]    ==>     x==\[Pi]/6
+ok  Integrate[f,{x,0,3}]    ==>     (8-\[Pi])/2
+not ok  D[f,x]    ==>     Which[x<-(\[Pi]/2),0,-(\[Pi]/2)<=x<=\[Pi]/2,Cos[x],True,0]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 240}, {0, 155}}]\)\)
+#!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 240}, {0, 155}}]\)\)
+#!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  Plot[f,{x,-Pi,Pi}]    ==>     \!\(\*
+#! GraphicsBox[
+#! TagBox[RasterBox[CompressedData["
+#! 1:eJzt3ftXE1cCB/Ce3f1h/439U3bP2T4BtVTtQ+v7tt2znZ5VGbV12q7FvmJ1
+#! qW6pbVQyFCJqtE1LqgRb1GDNampjbdSosUYZSiFqYAIDDMneSUgcHkJgnsHv
+#! 5wycyWWYe0O+XG6G5N6/rHztafKHRx55ZN2f6aenV2z469q1KzZV/one+Num
+#! 9WtW/pHufE4/7tEPZT8DAAAwp4hejvDh5JgyKc6zRME645JF7QKYKTHu4ZTY
+#! eiKiujjMs0xtQMpIASfD8JFCOT3S9CYCFCvqcTjcXgch7oi6fxbdhPDZhEtR
+#! uusufA15BtuTPAxNrzrPSTfLBnMFYohlkGcoIaJ7Qp55Jp/nZJBleHWeC8xu
+#! ZhHS6fTNm3dPnogdPHBh395zdfvO0c9795ylW25nj/NsoaSw5Qpz5YWdwpHq
+#! L9FC9dmmLpz02ws3C1/KlV+53G31D2/OUOdZSiSSckYOOAjnjdHbMV814XyF
+#! Z4T2jPHAwHDLseimjUcff3TP88+5X990dPtHpz7bHeRdIRrpun2h7Kbs5EJe
+#! uJnb8oWF8tFfhLEloXyhukRdGJpQOOm3nxvbpNG6olHkWS+ih83nWQwzhAnT
+#! gXMy4hjthh3qKx92y3NnZ+82x8knHttLw3z02yt37w5Y3SKwLVkURXlskX3y
+#! TKP7nx2Bx/6+p/aTM4lEyurmQEmySZ6bmy/Pr+B3ftze24uL4zB7luf5zp3+
+#! qnXNZLXn+vWEtS2BOcDaPF+8+Fvlgvo9zrOyPGJhM2DOsPBi3Vdf/lJR5jrd
+#! ftP8qmGusqp/pn3ykuf3376dnP5QgKJZkucPPzhBB8x46ge6MznP6XR6187T
+#! i55pSKUGzawXHhJm5nlkJL31ne/ImsOSNGxapfBQMTPP77/XRofNQ0Py9IcC
+#! zIpped675+yaVZ7+/iFzqoOHkznX6772Xnp2UeOdO/2G1gJgQv8cOnd7wTxe
+#! EHqNrgjA6Dx3dCQrylznz3cYWgtAjqF5TqUGly5p+vLIL8ZVAaBmaJ7fetO/
+#! fdsp484PMI5xeT506OdVKw8NDuLqHJjHoDxfinTNK3fhOSCYzIjrdanU0OJF
+#! jSdP3tDxnADFMKJ/3lr9nePDE7qfFmBauue5tfXqkuf3DwzgFRpgAX3z3NOd
+#! ml/BX73ao+M5AYqnb56r1vvq9p3T8YQAM6Jjnr/5+tLqVZ7hYbwTECyjV567
+#! uvoqyly/3rijy9kAZkev63VslY93hXRpEsCs6dI/t7ZeXf7iAYw0wHLa85xM
+#! Dswrd12KdOnSHgAttOf5/ffa/rvrB10aAzCOFA9kl5sgnDMwZjoAMeJgRofK
+#! nEe39SYuXOisXFCPN2uDMZJuhtQGhIwkOMmYKc3FiJuw7ngi0SUIQuL+0ipa
+#! 8kwHzC8uaWr7/rqmJgM8iDLbMxvJ9stRN0v4cOErMS9Hqj3BYCAYEdSv4NSS
+#! 58aGn6rWNc/62wGmIYY5xpmbpjMZdrLOQp7lQA0hTI3P76uho46aQCHSs15v
+#! oqc7VVHmEjowYRcYRgyzJJ/nUK0qzxlZyo+mxRBDqmP5QM+6f97ydqvz8//N
+#! vqkA0xNoN+yN0ehKPo5wvlh+/RTRQ8fVQeWSWiKkjKw1rm/103lhYWUDXkQH
+#! RktGvKOjh2qv0lHn109JRv3K8rDKJQ4uENf0fHBkJL1y+cETbTE92w3wILIk
+#! ipNO3SmLSR3WT/nyyC+vMV/PrmkAhpppnvv6BueVu65dwyucwY5mmuddO0/j
+#! vVRgWzO6WHf7tjLZEdYEBNuaUf/8xuvHGhvOG9cYAI2Kz3M43LmwsgHzw4Cd
+#! FZnndDpN1hz2+68a3R4ALYrMM00yzTNNtdHtAdCimDwPD48sXthw4UKnCe0B
+#! 0KKYPDc1hTdu+NaExgBoNO31ur6+QbxxG0rFtP3z7k+DH7zfZk5jADSaOs89
+#! 3anyp+roZ9PaA6DF1Hl2fHii9pMzpjUGQKMp8nwrfq/syTqssg0lZIo8v8X5
+#! v6jHf7ehlDwoz9Er3U/Pr8dC21BaHnS9bt3aZqyzBiVn0v75p/PC4oUNmI8O
+#! Ss6keX7l5SMtx6LmNwZAo4l5bm//dfmLB0ZG8NIjKD0T87xy+cH2wK+WNAZA
+#! o3F5Pt567SVy2KrGAGikzrMsj7zw3P6zZ29Z2B4ALdR5bm6+/NqrXgsbA6BR
+#! 4fqz8qL9RY0XL/5mdYsAZq/QPx85fLFqvc/axgBolMuzJA0vmF9/5XK31c0B
+#! 0CSX56b94TdeP2Z1Wx5qui+kbpO6TK6O1tXfP1RR5orFEibUZXQVVlU3o7om
+#! PVhjoR3OYJPT1vM/bvn3cRs2zNrT2rZhuL9TH1z+VN2t+D0bNsza0+reMAIw
+#! V0z6+wL6undvgP6oOzt7rW4IgA52fxpE1wFzQ09P6qkn9iHPMDfU7Ajs+vg0
+#! 8gxzQNdvfbRzvnu3H3m2DTnsrck9eeQDguGVdYXy67lXq9c7M44Y9RLGbdDy
+#! q44PTny2O5gx958OUW81q1qC2Siy4Mk/VHwgbnRtibA3V1k1H9QyU4ks+Alh
+#! QglZEtpIftFqw8h+joYrLGcfFML6jJ5jRQi5lZ8R6zHiN0foUJZB6esbzMxw
+#! /RQNxJC7mtbCeSIGV5QRsg9VQs4kaYegWgnXGHF6r/hwIiPHad/qjmp4uMSu
+#! SFTpliUhwBDO6DxHA22RhPKjEcO19B4Y20FLEQdb46UBYNxGVPTOluOuulBu
+#! 35z+WYx6OIeb3iHWbXieE9FAIJr9370UItm1RI0kxiLZEMuCkxBP8XmWEvFY
+#! LJ4VozuJ0W+M+Wpy/Zi+f5cTQraW0dqEwiKUciLEEeLMLhysFykhxFR3LZGv
+#! TI7RLlr/PNMa5pW7Uqmh3E0zxxsxD8vwhuc5r8vNEsYZNGG5Fynmyw45uEjR
+#! KaTfQlvH5jDE4VXeTZ9vatLNEGdYx0SL/ho2XxnLMI5INlW5MQAf1HmsrvxK
+#! 3r9njDf/Oy5GDcnzG68fa9p/fxBrZp4jbpPyLAlBOgzgeDPCLOfrCPNKCmd9
+#! Hkl5uJ3ZvysJnsYsYuzflXgb/UPABoXs3xbZjDWexIj+eY5e6a5cUK9eo2ru
+#! 5VmK+7PdjvJM0PBHSoqwhASzKQw5GW33LtlWy+aey3DONoOuA4ySYw71P+P1
+#! Ht5MSop6dB8/T5zFy9TrGx7O+DxL/jEPFWfw+DkT89PnU0QZb7DOqOZYyKIo
+#! SlgRryjKLF6LGsfN4oXrzzqQJZpCqxvx0Jl0Fi+8AAxK0en2m8uWTjKLF5IM
+#! pWjFssln8UKeoeTQYcYrLx2Z9EvIM5SW3Oqu9MngpF9FnqG0eA79PMVEMcgz
+#! lJD+/qEF8+uvXet50AHIM5SQvXvOVm85PsUBuF4HpSKRSJU9WTf1212RZCgV
+#! 27ed2rXz9NTHIM9QEm7F75U/VZdMDkx9GPIMJeHNzS2NDdOv7oo8g/1duNC5
+#! sLKhmNVdkWewuXQ6/RI57G+5WszByDPYXGvrVbLaQ1NdzMG4Xgd2NjgoL17Y
+#! EA53Fnk8kgx2xrtC3OaW4o9HnsG2erpT5Qve3Tj6HrTAmLdMiJH8JCtjJsFA
+#! nsG23t3q2/QyqQ0IGUmZDoJXvX9eeXct644nEl2CICTuv6cOeQZ7unTp98rK
+#! HQypyk2tE3WzRDW5VszLkWpPMBgIRgT1+y2RZ7ANqTATzc3r18maL3zeZo7J
+#! zeGQSYad7P3pIORADSFMjc/vq6GjjppAIdLIM9iFFK1hRmeiefXVfxLygSiG
+#! WZLPc6hWleeMLOVH02KIUc3qhjURwG56e6X5FXz0SncmI9Bu2Buj0ZV8HOF8
+#! MWU6sURSzogehtRmpylLhJSRdWFgjRiD3ezYfmr7R6dy+8mId7S3rfYqHbUY
+#! ZrJzEiajfnZ03hNOPd8v8gy2Qp8G0s6ZdtH3ix44vYksJsVxk+8gz2Afsjyy
+#! auWhibPEFA95Bvs4dPDn15ivtZwBeQab+P13saLMNW5p15lCnsEmqtb76vkf
+#! NZ4EF+vADvwtV5cvOzhustBZQJLBcsnkwIJ5/OXLv2s/FfIMltv8xrFPa8/o
+#! cirkGaxFRxrLlh5QrxmhBfIMFurpTlWUua5c7tbrhMgzWGj9uua6fed0PCHy
+#! DFbZ7w7/45UvZVnrNQ01XK8DS9AxBh1pTD0Z3SwgyWC+gYHhF57bf7z1mu5n
+#! Rp7BfNzmlu3bThlxZuQZTNbUFCarPUNDhiyziDyDmcLhzvkVvNBh1IK0yDOY
+#! pqMjOa/c9WOow7gqkGcwRyo1uHRJ05Gxy23rDtfrwATDwyNr//XNju2GPAdU
+#! Q5LBaOl0+q03/dzmlonLE+sOeQaj7fy4/bPdQb1ecTQ15BkM9XFNO1lzuK9v
+#! 0JzqkGcwzrtbvyerPWMmHzAY8gxGkOWRxx/dQ/NczKInOkKeQXcDA8Of1p6p
+#! Wu/T/n7AmcL1OtDXrfi9ZUsPvP9em74vBC0Skgw6am//taLM5f0qMv2hxkCe
+#! QRep1NA2x8nFixovRbosbAbyDNq1HIs+8/QXNM+plBHX5UQvR/jw2JcwSXGe
+#! zQ6UWWdcdfkEeQYtTp28sWrFoZfJkYsXfzOkAjHu4ZTYeiKiujjMs0xtQMpI
+#! ASfD8FgPCDS5efPuvr3nFj3TQJMcOHXDuIqiHofD7XUQ4o6o+2fRrSwPpCRc
+#! itJdN+Yzt1xvr3S6/SbdfjitbGd+GN2hm7pwXHnuZqG8cKR6Ux82sbCwFc6g
+#! PifdciWFg+kOTSx9okcHFbwrtOXt1mcXNc6v4D/adlLHeQay7q+fEld2Evl/
+#! kEseZsziVplM0s2ywVyBGGKZMXnGJTtLxGKJdWub2SrfRvZbum3Ifs7t5Ao3
+#! 5LeN+Y2Wb8gfsyFfslF1wMTDJhZuVFU08Zwb8iWFKujnqvXNmzYe3Vr9Xe0n
+#! Z44evRKP3zXkJ6JaP4VlGcbhy48wRPeEPPNMPs/JIMtgvQkoIeo859ZPkQMO
+#! wnlj9HbMV004X+EZIfIMtid62Hye8+unZJIRx+iwwqG+8oE8Q8mSRXH8+ikA
+#! AAAAMGf8H7jM6es=
+#! "], {{0, 155}, {240, 0}}, {0, 255},
+#! ColorFunction->RGBColor],
+#! BoxForm`ImageTag["Byte", ColorSpace -> "RGB", Interleaving -> True],
+#! Selectable->False],
+#! BaseStyle->"ImageGraphics",
+#! ImageSize->Automatic,
+#! ImageSizeRaw->{240, 155},
+#! PlotRange->{{0, 240}, {0, 155}}]\)
+not ok  cut1/@{-2,-1,0,1,2}    ==>     {-1,-1,0,1,1}
+not ok  cut2/@{-2,-1,0,1,2}    ==>     {-1,-1,0,1,1}
+#! TextForm[ColonForm[MessageName[Piecewise, pairs], StringForm[The first argument `1` of Piecewise is not a list of pairs., Short[HoldForm[a1], 3]]]]
+not ok  PiecewiseExpand[Which[c1,a1,c2,a2,True,a3]]    ==>     \[Piecewise]a1	c1
+#! a2	!c1&&c2
+#! a3	True
+#! TextForm[ColonForm[MessageName[Piecewise, pairs], StringForm[The first argument `1` of Piecewise is not a list of pairs., Short[HoldForm[a2!], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Piecewise, pairs]], 3]]]]
+not ok  PiecewiseExpand[Which[c1,Which[d1,b1,True,b2],True,a2]]    ==>     \[Piecewise]a2	!c1
+#! b1	c1&&d1
+#! b2	True
+not ok  PiecewiseExpand[Which[Which[d1,b1,True,b2],a1,True,a2]]    ==>     \[Piecewise]a1	(b1&&d1)||(b2&&!d1)
+#! a2	True

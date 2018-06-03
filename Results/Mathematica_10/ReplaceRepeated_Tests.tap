@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/ReplaceRepeated_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: ReplaceRepeated_Tests
-# OUTPUT: output/Results/Mathematica_10/ReplaceRepeated_Tests.json
 ok  Log[Sqrt[a*(b*c^d)^e]] //. rules    ==>     (1/2)*(Log[a] + e*(Log[b] + d*Log[c])) # skip
 # RefLink[ReplaceAll,paclet:ref/ReplaceAll] does just a single replacement:
 ok  Log[Sqrt[a*(b*c^d)^e]] /. rules    ==>     (1/2)*Log[a*(b*c^d)^e] # skip

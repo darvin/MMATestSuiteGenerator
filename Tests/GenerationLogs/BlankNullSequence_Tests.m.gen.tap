@@ -1,0 +1,6 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/BlankNullSequence.nb output/Tests/BlankNullSequence_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/BlankNullSequence.nb
+# WRITING OUTPUT TO:     output/Tests/BlankNullSequence_Tests.m
+not ok  {f[],f[1],f[1,a]}    ==>     {p[],p[1,1],p[1,a,1,a]}
+not ok  {f[],f[1],f[1,2,3],f[1,b,3]}    ==>     {p[0],p[1,1],p[1,2,3,6],f[1,b,3]}
+not ok  {f[1],f[1,2.],f[1,2.,x],f[x,1,y]}    ==>     {0,2.,2.+x,f[x,1,y]}

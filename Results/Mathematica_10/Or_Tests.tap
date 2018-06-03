@@ -1,0 +1,177 @@
+#! DOCKER > wolfram -script output/Tests/Or_Tests.m
+#! 1
+#! 1
+#! 2
+#! TextForm[ColonForm[MessageName[Power, infy], StringForm[Infinite expression `1` encountered., Short[HoldForm[0^(-1)], 3]]]]
+# SYSTEM: Mathematica_10
+# TEST: Or_Tests
+# Combine assertions with ||:
+ok  1 > 2 || Pi > 3    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# A symbolic disjunction:
+ok  a || b ||  !c    ==>     a || b ||  !c
+    ---
+    data:
+        got: a || b ||  !c
+        expect: a || b ||  !c
+        expect_evaluated: a || b ||  !c
+    ...
+# A system of equations:
+ok  x + 2*y == 3 || 4*x + 5*y == 6    ==>     x + 2*y == 3 || 4*x + 5*y == 6
+    ---
+    data:
+        got: x + 2*y == 3 || 4*x + 5*y == 6
+        expect: x + 2*y == 3 || 4*x + 5*y == 6
+        expect_evaluated: x + 2*y == 3 || 4*x + 5*y == 6
+    ...
+# Enter using Esc\[ThinSpace]or\[ThinSpace]Esc:
+ok  p || q    ==>     p || q
+    ---
+    data:
+        got: p || q
+        expect: p || q
+        expect_evaluated: p || q
+    ...
+# RefLink[Or,paclet:ref/Or] works with any number of arguments:
+ok  x || y || z    ==>     x || y || z
+    ---
+    data:
+        got: x || y || z
+        expect: x || y || z
+        expect_evaluated: x || y || z
+    ...
+# RefLink[Or,paclet:ref/Or] is associative:
+ok  FullForm[x || (y || z)]    ==>     x || y || z # skip
+# RefLink[Or,paclet:ref/Or] with explicit RefLink[True,paclet:ref/True] or RefLink[False,paclet:ref/False] arguments will simplify:
+ok  x || False || z    ==>     x || z
+    ---
+    data:
+        got: x || z
+        expect: x || z
+        expect_evaluated: x || z
+    ...
+ok  x || True || z    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# RefLink[Or,paclet:ref/Or] evaluates its arguments in order, stopping when an argument evaluates to RefLink[True,paclet:ref/True]:
+ok  (Print[1]; True) || (Print[2]; False)    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok  (Print[1]; False) || (Print[2]; False)    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# The order of arguments may be important:
+ok  x == 0 || y == 1/x /. x -> 0    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+ok  y == 1/x || x == 0 /. x -> 0    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Symbolic transformations will not preserve argument ordering:
+ok  z || y || y || x    ==>     z || y || y || x
+    ---
+    data:
+        got: z || y || y || x
+        expect: z || y || y || x
+        expect_evaluated: z || y || y || x
+    ...
+ok  Simplify[%]    ==>     x || y || z # skip
+# RefLink[TraditionalForm,paclet:ref/TraditionalForm] formatting:
+ok  x || y || z    ==>     x || y || z # skip
+ok  NotRealNegativeQ[-2]    ==>     False # skip
+# If an argument of RefLink[Or,paclet:ref/Or] evaluates to RefLink[True,paclet:ref/True], any subsequent arguments are not evaluated:
+ok  NotRealNegativeQ[I]    ==>     True # skip
+ok  NotRealNegativeQ2[I]    ==>     True # skip
+# Combine assumptions:
+ok  Refine[Sqrt[(x^2 - 1)^2], x <= -1 || x >= 1]    ==>     -1 + x^2
+    ---
+    data:
+        got: -1 + x^2
+        expect: -1 + x^2
+        expect_evaluated: -1 + x^2
+    ...
+# Combine equations and inequalities; RefLink[Or,paclet:ref/Or] is used both in the input and the output:
+ok  Reduce[x^2 == 1 || x^3 <= 1/8, x, Reals]    ==>     x <= 1/2 || x == 1
+    ---
+    data:
+        got: x <= 1/2 || x == 1
+        expect: x <= 1/2 || x == 1
+        expect_evaluated: x <= 1/2 || x == 1
+    ...
+# Use || to combine conditions:
+ok  HoldComplete[RegionPlot[x^2 + y^2 < 1 || x + y > 0, {x, -2, 2}, {y, -2, 2}]]    ==>     $Failed # skip
+ok  HoldComplete[RegionPlot3D[x^2 + y^2 + z^2 < 1 || (x - 1)^2 + y^2 + z^2 < 1, {x, -1, 2}, {y, -1, 1}, {z, -1, 1}]]    ==>     $Failed # skip
+# A cellular automaton based on RefLink[Or,paclet:ref/Or]:
+ok  HoldComplete[ArrayPlot[Boole[CellularAutomaton[{Or @@ #1 & , {}}, {{True}, False}, 20]]]]    ==>     $Failed # skip
+# Find the area of the union of sets given by algebraic conditions:
+ok  Integrate[Boole[x^2 + y^2 < 1 || (x - 1)^2 + y^2 < 2], {x, -Infinity, Infinity}, {y, -Infinity, Infinity}]    ==>     1 + 2*Pi
+    ---
+    data:
+        got: 1 + 2*Pi
+        expect: 1 + 2*Pi
+        expect_evaluated: 1 + 2*Pi
+    ...
+# This shows the set:
+ok  HoldComplete[RegionPlot[x^2 + y^2 < 1 || (x - 1)^2 + y^2 < 2, {x, -1.5, 2.5}, {y, -2, 2}]]    ==>     $Failed # skip
+# Truth table for RefLink[Or,paclet:ref/Or]:
+ok  Grid[Outer[Or, {True, False}, {True, False}]]    ==>     True*True*True*False # skip
+# && has higher precedence than ||:
+ok  FullForm[p || (q && r)]    ==>     p || (q && r) # skip
+# Use RefLink[BooleanConvert,paclet:ref/BooleanConvert] to expand RefLink[And,paclet:ref/And] with respect to RefLink[Or,paclet:ref/Or]:
+ok  (a || b) && (c || d || e)    ==>     (a || b) && (c || d || e)
+    ---
+    data:
+        got: (a || b) && (c || d || e)
+        expect: (a || b) && (c || d || e)
+        expect_evaluated: (a || b) && (c || d || e)
+    ...
+ok  BooleanConvert[%]    ==>     (a && c) || (a && d) || (a && e) || (b && c) || (b && d) || (b && e) # skip
+# De Morgan's laws relate RefLink[And,paclet:ref/And], RefLink[Or,paclet:ref/Or], and RefLink[Not,paclet:ref/Not]:
+ok  BooleanConvert[ !(a && b)]    ==>      !a ||  !b
+    ---
+    data:
+        got:  !a ||  !b
+        expect:  !a ||  !b
+        expect_evaluated:  !a ||  !b
+    ...
+ok  BooleanConvert[ !(a || b || c)]    ==>      !a &&  !b &&  !c
+    ---
+    data:
+        got:  !a &&  !b &&  !c
+        expect:  !a &&  !b &&  !c
+        expect_evaluated:  !a &&  !b &&  !c
+    ...
+# Disjunction of conditions corresponds to the RefLink[Max,paclet:ref/Max] of RefLink[Boole,paclet:ref/Boole] functions:
+ok  Max[Boole[a], Boole[b]] - Boole[a || b]    ==>     -Boole[a || b] + Max[Boole[a], Boole[b]]
+    ---
+    data:
+        got: -Boole[a || b] + Max[Boole[a], Boole[b]]
+        expect: -Boole[a || b] + Max[Boole[a], Boole[b]]
+        expect_evaluated: -Boole[a || b] + Max[Boole[a], Boole[b]]
+    ...
+ok  Simplify[%]    ==>     0 # skip

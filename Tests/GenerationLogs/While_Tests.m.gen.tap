@@ -1,0 +1,21 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/While.nb output/Tests/While_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/While.nb
+# WRITING OUTPUT TO:     output/Tests/While_Tests.m
+ok  n=1;While[++n<4];n    ==>     4
+ok  n=1;While[n<4,n++];n    ==>     4
+not ok  n    ==>     11
+ok  {a,b}={27,6};
+#! While[b!=0,{a,b}={b,Mod[a,b]}];
+#! a    ==>     3
+not ok  x=1.0;i=0;
+#! While[Cos[x]!=x,x=Cos[x];i++];{x,i}    ==>     {0.739085,80}
+not ok  FullForm[n=1;While[n<5,n++]]    ==>     Null
+#! 8
+#! 4
+#! 2
+#! 1
+ok  n=17;While[(n=Floor[n/2])!=0,Print[n]];n    ==>     0
+not ok  x=1.0;
+#! Do[x=(x+2/x)/2,{5}];x    ==>     1.41421
+ok  NestWhile[Floor[#/2]&,10,#>0&]    ==>     0
+ok  x=10;While[x>0,x=Floor[x/2]];x    ==>     0

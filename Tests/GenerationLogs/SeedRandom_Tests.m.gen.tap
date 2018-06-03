@@ -1,0 +1,129 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/SeedRandom.nb output/Tests/SeedRandom_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/SeedRandom.nb
+# WRITING OUTPUT TO:     output/Tests/SeedRandom_Tests.m
+not ok  SeedRandom[1234];RandomReal[]    ==>     0.918946
+not ok  SeedRandom[1234];RandomReal[]    ==>     0.918946
+not ok  SeedRandom["password"];RandomReal[]    ==>     0.42532
+not ok  SeedRandom[4567];{RandomInteger[10],RandomReal[]}    ==>     {5,0.352724}
+not ok  SeedRandom[4567];{RandomReal[],RandomInteger[10]}    ==>     {0.334545,8}
+not ok  RandomReal[1,5]    ==>     {0.192304,0.30695,0.0295638,0.358881,0.0340693}
+not ok  SeedRandom[4321];RandomReal[1,5]    ==>     {0.448897,0.199816,0.907441,0.277851,0.348082}
+not ok  SeedRandom[1234]; Eigenvalues[RandomReal[1, {100, 100}], 1]    ==>     {50.0846}
+not ok  SeedRandom[1234]; Eigenvalues[RandomReal[1, {100, 100}], -1]    ==>     {0.149017-0.119666 I}
+not ok  SeedRandom[1234];Eigenvalues[RandomReal[1, {100, 100}]][[{1,-1}]]    ==>     {50.0846,0.149017-0.119666 I}
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  p100 = rplot[Sin[x],{x,0,10\[Pi]}]    ==>     \!\(\*
+#! GraphicsBox[{{}, 
+#! {Hue[0.67, 0.6, 0.6], PointBox[CompressedData["
+#! 1:eJwdlGs41HkfxieUctiSY85MKSKHGafB/L5ry8Ou2ixlaZNjSslpU4tQOaQe
+#! h5nNlk7Om5KIrHHqx1OPtWMp2hiHhDHNmBnzvxqaMlqta1/c1/3uvj4v7utj
+#! Fh73XZQCiUSKXM2/zbBSLiBR4eGbLgtN+jya8m/QMCigQsdTz4bOZgIdlGf9
+#! cVi+BUa/3jfB5bBRVMdk8PXbdmBfkFH7xHkON+obu6J8Z1D1IkmYnwnsumz7
+#! lRbZGCj77uRwQiVokRli9Wq3NUSqkR0+fiYQobfLndv5DtXyqvyjq8XIwI8i
+#! bDlLhacHksK/ek+gZk7208DTVnBKU2Y12sBFVY1zrYVPyHBiffJtr4ZxbMjm
+#! XaH316D0NUj6P3YNGjTp+LuEqQnod7+r51MInMePoOrGr+7e2P9gaViAppSs
+#! M2zSZehRyg/QVUSgDZYGxwuPGMKWqLEek118VKig7798bDMcVAxMvDlAYF+n
+#! E8cYphTQokVHfb48iHJPPlDqfq0J96Zty198lOCHt2J69MwQpC5MJ/vqDWFW
+#! 7aRW4z4PkMe1B86lijA3rbzNikEHatG6wcNKAlxc9PGvK5nW4M44GCBiEyjQ
+#! U4f/dgOCTK3NmvDzCDYgZpSPc7bDG18znzNULjZKG/Lrv2cBr3qyZ1iOEnxz
+#! zJyaLtSAgbfrV2bNCFzjdt/yDycaLDX9Sp/2EKOpflpZK5MKzwQ8aWEZgRZ+
+#! tPlRPXk7GJo0CHU7+fi+57csWaAtUGJ+qz52oQLV++4VCZbNYUH/ZOyswyPs
+#! pDgQYHdWFQiFDzt5sUNYOfj/v+RFUIF+8Wn4/DKBWn7+04dgucKnaBWjqL5p
+#! xAoqT+y4bw8ZJWobs+7MY8mWoHdfMuxBeSFIT7tOgusEpASJtgVEIHr4mIzA
+#! Kfn505571WF+f3PC8sQbPG1Z9qFCaAjtnpvnti/OIW69u3HHtW1wIlPXQH6Y
+#! wE35YT7kQ3So7M07pCgUYZ6bBoU44g5Oivbyo/dacVGOdvz+lxRwal8pL80U
+#! oiqXZ+d/7d4EEafuy/paRNhCz+tr9n9NgKF9pO3oKr+X7o6ch+c+IGZv4rzg
+#! LwJlFww0IZ42vGW3nTltycfywJ9GhDqO4H9oZM83W+aQ157YS48qHSC9OS1B
+#! 3MjGv7M09GNyqDATi5fNXxJo07DKiec+ahDCcTsUeJ2D5703U24pInCJv2bU
+#! pTyKqyM/uSbPUkC/aiayqUqEUmI6mG7D6hBusUPNpmsah92Nc1YctwQtj4y0
+#! d2XDaLnr+4KSUDNQqGeX7UzjId3gxy96Gwwh67mzWDYmQOERe6WtVB2ITSiM
+#! PhDGw30rs/xC6VbIDF6n090pwgxVa3qGRAlaOF6mYpUpVHtrz3fu3XQIGJTc
+#! eVbNxQ7ZxoKYLns4/XeTluo5MQ7LbQ9rrDACevYFGJkWo2Ebbm/UJBVq1qgb
+#! OAyL0cUnK5JFLwoc4Bp+c+nyGPIlTZXZOThCud6N0guct8h6bKGz4j0dzsk6
+#! H4ipExi75NWtsOxATev841wbEZZJFZzkZFf4j6CrbZ0kA4XWk5JZPEeYvK4z
+#! ES9vQRWH87iRJhqw+9LlJP9N89iklyazk2+DIr8rff2r/qj+0viFx+RGqDjz
+#! rrx0ko/z75jGbtxoC8aPiyur23vQD7bf+/pvpQEzZby9UFuERkpTOt57W8LO
+#! g0Zt4WebUEtfiItDswYE2R2XXXoswRfzlFKHc1zhWol0tz6Dg2qYcyElDD7q
+#! Tu9OakrnIc+X3okn+9zA1UlafTXvNSoSDdm4SWTojesNYW4jgbZdWLy4qGcO
+#! 20w6s4cyR5AaN++6w5wF1I4feDnxQIyNYkWv7Wp3wi8/7S32viJBvwldYtTj
+#! zWHETyVqlzUbOQvrsieW3OFea93oyt1ZHNCzVBOnSoYVcWlvAsHCu/PGSa+q
+#! LIA7IR29+q0EB00sLeammkHM2rvkUMdZVEG2ju9PxCg3WIXJCMHoZkD6cl/0
+#! ezQYd4vBMl/15eTruvEZD4iPS67UXyJwgo+ufNZPF2wqI8v/XDuBiyu+0Fy7
+#! 3hSu5Xt37CgmUJIDLclAwxqeHOXRpKt/ruzJSF33BYKts1md5NvDOJ5/doPM
+#! fgCxemmnzwj7UVtWfXRoOw0ClU/ZNn4iUPpzU3OfHlN48VEr7FSBCP0DvZwm
+#! yg==
+#! "]]}, {}},
+#! AspectRatio->0.6180339887498948,
+#! Axes->True,
+#! AxesOrigin->{0, 0},
+#! PlotRange->{{0., 31.129284287479713`}, {-0.9999760604355732, 0.9999962786900025}},
+#! PlotRangeClipping->True,
+#! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  rplot[Sin[x], {x,0,10\[Pi]}, PlotPoints->125]    ==>     \!\(\*
+#! GraphicsBox[{{}, 
+#! {Hue[0.67, 0.6, 0.6], PointBox[CompressedData["
+#! 1:eJwV1Gk41HsbB3BFFFqEyL6UsoWZsS+/O6ecdOQkSRIhIhJTJ5WEypJ6BjNt
+#! tFpLoURlrD/KI3HIUnYTxhhmxvyv0BRKj+fFfX3f3df3xff6aAdE7AtaLiYm
+#! dnHp/p+BdAOpVDEKPP9SpyfvMIWG3UvkVFMpUP3OsaTmNYEOzCd88JnfCH27
+#! XQfZvc0oqJp1KOOBKZilxhXWWk7iUhUNa0SzBBknMSHjN4GtF0z+UNDVALLr
+#! w6RePyGaZfgafN5hBIGyuqQfvwlEKG+zY9d8RYWcPPfgfAFSdSPzys9R4J3H
+#! 6YA/vhHodW/iO88zBnBSXmTQV8JGeaWTFWm1uhC2MuqBU8kAVmvmXHdoLUCx
+#! y9D02+YC1KFZ/SuTIQ/ovdvNS9EETuEepShFLv29u7dornsCDUsYxRnHitDL
+#! 6MNQl06gVfqqx9OOqMHGoP5GzW1clLZcxX0hZD0cEPc8da+NwC4WYSF0LTIo
+#! 2AQH/b7WgZJPFEnUD8nD0xGT7PYfQvz8fmijsjaCCzMjUS7KnZhZyFIodbWH
+#! +Ygqz8kLfMyOya40oDsAJV2yw0diAt9K//HperwR2NEP7Oc3E8jTcQN3fBWC
+#! eIX18nCjB6sSo1LHe7fAFxdt57MUNlaP6XRrfaoHnxsTR5nmQnyvX4cSy5OD
+#! tvGVi2PaBC6wfab/wcIG5soeO4zYC9Bwq01WBYMCDROc6bQsAs38Y/zP6qgt
+#! oKZZwlOq4eJnjn8zRZ4mQA59kx9yOQe9cNnDn1jQgRmVE+FjpJfYQrxtv+k5
+#! GSCWfzfkhHdiqUP/vZ1ylAIOV94FTC0QqPzGv84E0xp+BkurB7WMIKZX9qnq
+#! Z2YQlym7NuHhFBZu9Pq6nW4GUjNeyorFQlw8IUYVKurBUeQQ0C8icDSNNuK4
+#! ZzVM7X1NXRj8gkf0s77n8NSgynH95JbZScR+YadRfWczhMUrqc77ELiM5u+s
+#! 6+0AuU0p3uI8PubYypGJI3ZgIW42f+xpBU5PUozc20UGi6rF7EfxPJRn1XDp
+#! cf06OHrymailnI/1lJ12N/9HE+iKRyqPLfV3Utqa9Pzid8RoOjU18YlAialt
+#! ZYijCOPNlWfP6HPxvOf5Ht4Gc3D37tn518ZJ5LQz/OrLXBLEvo6hCkqb8Xum
+#! nEpoEgVGw/GCTheB1nVLh310lgXfXltvz4xePLVrPfm+OAKryDvqdVJ9OD/w
+#! p3XUGBlU8kYDy/L4KDq0mmHbvRoC9LbKGteNYP8nEZbiA/qgYB8X8zWrGy3U
+#! HUzN9NOG5S+aswxjOEjp0Kv2phI1SPhoKRD1T6CAo3umKygbIJyaFuzhz8Et
+#! i2PctOlNEH9IckN9DR/TZYwc4oQSUN7rpCWQHkaF93fus6t3gP0dwocN+WxM
+#! StSYCK0zgzO/yhRkLgqwf3KVf2mOOjgkXoaeEQHqNmY3BbEoULBstSqpW4Cu
+#! 1C4KZ53I4MFW++vqtX7kIjacZUoyh2zlu48u944jo/6ZmpxvDnBRVFMkoAxi
+#! bJVSvMg0BVmFS6+SjflYNL3cYl7XGv6cqKuUFMYhvxdiUUyOObAyNgxGzpej
+#! HJ8UdqCmHOy4eu20+7oprNlkIzKd3wzpbtdbWpf8yN+u0W7PWgs5Z79mP2Jx
+#! Me2hVvjatSag8epWbn5VIzpsctDFfZMNMKIHqtIU+ajnUXT1t136YHhAvTLg
+#! XBkqb/G1Ir2WAy/T46Krr4T4SorEhe4ka7iTOb1Dhd6LChiTvpl0LqqPrT9d
+#! FstBjl27Tp1osQVri+n8mylDKJ3faWwrFKEv1nd5yaUE2nx59sqssg5s1qxJ
+#! 7IzvQbLslAzSpB4UDnh0DRYJsHo4f8i00BBun99za9d1IXrDswpdHakDPW7S
+#! QduMmpElrzhxcM4OnlYU9y0+GcP7G+cKImR0YVHwqIlKMPGOlAGxz3l6wB6c
+#! 7rv5txB7Dc7NJl/QhtAVT3T9zMdQjq5RZOspjJIPSTPovhjd2x+70BL8DXVE
+#! 3KczdZa8ZA0VD4zaQ2REVK7KHIGpzkrzY25KYJwbmP3vikF8K2eN/IqVWnCH
+#! tqt66y0CnSbZnFaVM4LaYxyb6aU95zbGXZBcg2DTWEKN7oNuHMk9t0pk1oaY
+#! TTZnzvJaUWXCi2C/KhvwlDppUvqTQLEftXScG7Wg/YeC/8lUPrp9Q9s2Q7oT
+#! 5YbVtz9r7UDGbY3UX/pkIEk1SNe0dKHi9cuOxYwrQh6tipylw8VKbVRLoYw1
+#! hJi/DdSRfIM/mH1qsKRaQ1NTpHFybBca8+0bVXpjC6kJXbbxCiPIZ+ZcasQ2
+#! EnzNDo3w6GJjF66UfMacIQSmyLGC8whkmJf1/GOIOvzm01j1awRosUjRsXlh
+#! Dg1upRaGzRKoYvuMQZGBLqQdDPpkaNGAf1eeZxyu1gIiJojZOcRHKtMhrG7+
+#! krcmFKtldwX40tt2udmtshD+M1/zS14PrlXzEK+PVwIfLutM1OE+/HKMIh5Z
+#! agAfnF1dy2nj6E9Dt413s+3h/QNLTe+dBPamDj8ZWtwC6xJoHhM2I/g8mffD
+#! nWkHr0Ko2sTtAWxlf+T2vt2mQMsI20LPHMHKdtlJ/q62UN4u4Ss4zENB++IP
+#! StoZQ4Zsup9YgACRzvZnsd6NIZzxeNONA2x0qWbG0XjJzx4ucMWmJ9GT7x8W
+#! POzJ4FXr+JDh0Yv+Bwzn7kM=
+#! "]]}, {}},
+#! AspectRatio->0.6180339887498948,
+#! Axes->True,
+#! AxesOrigin->{0, 0},
+#! PlotRange->{{0., 31.129284287479713`}, {-0.9999760604355732, 0.9999962786900025}},
+#! PlotRangeClipping->True,
+#! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)

@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/RuleDelayed_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: RuleDelayed_Tests
-# OUTPUT: output/Results/Mathematica_10/RuleDelayed_Tests.json
 # :> holds its right-hand side unevaluated:
 ok  x :> RandomReal[]    ==>     x :> RandomReal[]
     ---

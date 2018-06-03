@@ -1,0 +1,37 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Distribute.nb output/Tests/Distribute_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Distribute.nb
+# WRITING OUTPUT TO:     output/Tests/Distribute_Tests.m
+ok  Distribute[(a+b).(x+y+z)]    ==>     a.x+a.y+a.z+b.x+b.y+b.z
+ok  Distribute[f[a+b,c+d+e]]    ==>     f[a,c]+f[a,d]+f[a,e]+f[b,c]+f[b,d]+f[b,e]
+ok  Distribute[f[g[a,b],g[c,d,e]],g]    ==>     g[f[a,c],f[a,d],f[a,e],f[b,c],f[b,d],f[b,e]]
+ok  Distribute[(a+b+c)(u+v),Plus]    ==>     a u+b u+c u+a v+b v+c v
+ok  Distribute[(a+b+c)(u+v),Plus,Times]    ==>     a u+b u+c u+a v+b v+c v
+ok  Distribute[(a+b+c)^(u+v),Plus,Times]    ==>     (a+b+c)^(u+v)
+ok  Distribute[And[Or[a,b,c],Or[u,v]],Or,And]    ==>     (a&&u)||(a&&v)||(b&&u)||(b&&v)||(c&&u)||(c&&v)
+ok  Distribute[Or[And[a,b,c],And[u,v]],And,Or]    ==>     (a||u)&&(a||v)&&(b||u)&&(b||v)&&(c||u)&&(c||v)
+ok  Distribute[And[Xor[a,b,c],Xor[u,v]],Xor,And]    ==>     (a&&u)\[Xor](a&&v)\[Xor](b&&u)\[Xor](b&&v)\[Xor](c&&u)\[Xor](c&&v)
+ok  Distribute[(a\[CirclePlus]b\[CirclePlus]c)\[CircleTimes](u\[CirclePlus]v),CirclePlus,CircleTimes]    ==>     a\[CircleTimes]u\[CirclePlus]a\[CircleTimes]v\[CirclePlus]b\[CircleTimes]u\[CirclePlus]b\[CircleTimes]v\[CirclePlus]c\[CircleTimes]u\[CirclePlus]c\[CircleTimes]v
+ok  Distribute[f[g[a,b],g[c,d,e]],g,f,gp,fp]    ==>     gp[fp[a,c],fp[a,d],fp[a,e],fp[b,c],fp[b,d],fp[b,e]]
+ok  Distribute[(a+b+c)(u+v),Plus,Times,plus,times]    ==>     plus[times[a,u],times[a,v],times[b,u],times[b,v],times[c,u],times[c,v]]
+ok  Distribute[(m1+m2).(m3+m4)]    ==>     m1.m3+m1.m4+m2.m3+m2.m4
+ok  Distribute[(v1+v2)\[Cross](v3+v4)]    ==>     v1\[Cross]v3+v1\[Cross]v4+v2\[Cross]v3+v2\[Cross]v4
+ok  Distribute[(a+b)\[CirclePlus](x+y+z)\[CirclePlus](s+t)]    ==>     a\[CirclePlus]x\[CirclePlus]s+a\[CirclePlus]x\[CirclePlus]t+a\[CirclePlus]y\[CirclePlus]s+a\[CirclePlus]y\[CirclePlus]t+a\[CirclePlus]z\[CirclePlus]s+a\[CirclePlus]z\[CirclePlus]t+b\[CirclePlus]x\[CirclePlus]s+b\[CirclePlus]x\[CirclePlus]t+b\[CirclePlus]y\[CirclePlus]s+b\[CirclePlus]y\[CirclePlus]t+b\[CirclePlus]z\[CirclePlus]s+b\[CirclePlus]z\[CirclePlus]t
+ok  Distribute[{{a, b}, {x,y,z},{s,t}}, List]    ==>     {{a,x,s},{a,x,t},{a,y,s},{a,y,t},{a,z,s},{a,z,t},{b,x,s},{b,x,t},{b,y,s},{b,y,t},{b,z,s},{b,z,t}}
+ok  Distribute[{{},{#}}&/@{a,b,c},List,List,List,Join]    ==>     {{},{c},{b},{b,c},{a},{a,c},{a,b},{a,b,c}}
+ok  Distribute[Factor[x^6-1],Plus,Times,List,Times]    ==>     {-1,-x,-x^2,x,x^2,x^3,-x^2,-x^3,-x^4,-x,-x^2,-x^3,x^2,x^3,x^4,-x^3,-x^4,-x^5,x,x^2,x^3,-x^2,-x^3,-x^4,x^3,x^4,x^5,x^2,x^3,x^4,-x^3,-x^4,-x^5,x^4,x^5,x^6}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  Plus@@%    ==>     -1+x^6
+ok  Factor[x^10-1]    ==>     (-1+x) (1+x) (1-x+x^2-x^3+x^4) (1+x+x^2+x^3+x^4)
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+not ok  Distribute[%]    ==>     -1+x^10
+ok  PowerExpand[(x y z)^n]    ==>     x^n y^n z^n
+ok  Distribute[(x y z)^n,Times]    ==>     x^n y^n z^n
+ok  Outer[List,{a,b,c},{x,y}]    ==>     {{{a,x},{a,y}},{{b,x},{b,y}},{{c,x},{c,y}}}
+ok  Distribute[{{a,b,c},{x,y}},List]    ==>     {{a,x},{a,y},{b,x},{b,y},{c,x},{c,y}}
+ok  Distribute[(a+b)*(a+b)]    ==>     a^2+b^2
+ok  (a+b)*(a+b)    ==>     (a+b)^2
+not ok  Distribute[%]    ==>     a^2+b^2
+ok  Distribute[Unevaluated[(a+b)*(a+b)]]    ==>     a^2+2 a b+b^2
+ok  Union[Distribute[Thread[{{1,2,2,8},0}],List,List,List,Plus]]    ==>     {0,1,2,3,4,5,8,9,10,11,12,13}

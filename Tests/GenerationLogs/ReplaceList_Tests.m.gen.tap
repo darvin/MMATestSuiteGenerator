@@ -1,0 +1,11 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/ReplaceList.nb output/Tests/ReplaceList_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/ReplaceList.nb
+# WRITING OUTPUT TO:     output/Tests/ReplaceList_Tests.m
+ok  ReplaceList[{a,b,c,d,e,f},{x__,y__}->{{x},{y}}]    ==>     {{{a},{b,c,d,e,f}},{{a,b},{c,d,e,f}},{{a,b,c},{d,e,f}},{{a,b,c,d},{e,f}},{{a,b,c,d,e},{f}}}
+ok  Replace[{a,b,c,d,e,f},{x__,y__}->{{x},{y}}]    ==>     {{a},{b,c,d,e,f}}
+ok  ReplaceList[x,{x->a,x->b,x->c}]    ==>     {a,b,c}
+ok  Replace[x,{x->a,x->b,x->c}]    ==>     a
+ok  ReplaceList[a+b+c,x_+y_->g[x,y]]    ==>     {g[a,b+c],g[b,a+c],g[c,a+b],g[a+b,c],g[a+c,b],g[b+c,a]}
+ok  ReplaceList[{a,b,c,d},{___,x__,___}->{x}]    ==>     {{a},{a,b},{a,b,c},{a,b,c,d},{b},{b,c},{b,c,d},{c},{c,d},{d}}
+ok  ReplaceList[{a,b,b,b,c,c,a},{___,x_,x_,___}->x]    ==>     {b,b,c}
+ok  ReplaceList[{a,b,c,a,d,b,d},{___,x_,y__,x_,___}->{x,{y}}]    ==>     {{a,{b,c}},{b,{c,a,d}},{d,{b}}}

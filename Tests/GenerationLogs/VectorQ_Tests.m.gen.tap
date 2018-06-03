@@ -1,0 +1,34 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/VectorQ.nb output/Tests/VectorQ_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/VectorQ.nb
+# WRITING OUTPUT TO:     output/Tests/VectorQ_Tests.m
+ok  VectorQ[{a,b,c}]    ==>     True
+ok  VectorQ[SparseArray[{{1}->a,{5}->b}]]    ==>     True
+ok  VectorQ[{{1},{2}}]    ==>     False
+ok  VectorQ[vector]    ==>     False
+ok  VectorQ[{{1},{2,3}},ListQ]    ==>     True
+ok  VectorQ[{a,1.2},NumericQ]    ==>     False
+ok  VectorQ[Range[10],IntegerQ]    ==>     True
+ok  VectorQ[Range[10],MachineNumberQ]    ==>     False
+ok  VectorQ[N[Range[10]],MachineNumberQ]    ==>     True
+ok  VectorQ[{1,Pi,Sin[1],Sqrt[2]},NumericQ[#]&&Im[#]==0&]    ==>     True
+ok  VectorQ[{1,N[Pi],Sin[1.],3/4},NumberQ[#]&&!MatchQ[#,_Complex]&]    ==>     True
+#! TextForm[ColonForm[MessageName[FindMinimum, vloc], StringForm[The variable `1` cannot be localized so that it can be assigned to numerical values., Short[HoldForm[RandomReal[1, n]], 3]]]]
+#! TextForm[ColonForm[MessageName[FindMinimum, vloc], StringForm[The variable `1` cannot be localized so that it can be assigned to numerical values., Short[HoldForm[RandomReal[1, n]], 3]]]]
+#! TextForm[ColonForm[MessageName[FindMinimum, vloc], StringForm[The variable `1` cannot be localized so that it can be assigned to numerical values., Short[HoldForm[RandomReal[1, n]], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[FindMinimum, vloc]], 3]]]]
+not ok  TableForm[Quiet[Table[FindMinimum[f[v],{v,RandomReal[1,n]}],{n,1,5}]]]    ==>     5.55905*10^-17	v->{1.}
+#! 2.86365*10^-15	v->{1.,1.}
+#! 2.92116*10^-15	v->{1.,1.,2.}
+#! 5.37532*10^-13	v->{1.,1.,2.,4.}
+#! 5.36966*10^-13	v->{1.,1.,2.,4.,3.}
+not ok  {VectorQ[v],ArrayQ[v,1]}    ==>     {True,True}
+not ok  {VectorQ[v,NumericQ],ArrayQ[v,1,NumericQ]}    ==>     {True,True}
+ok  {VectorQ[v,Im[#]==0&],ArrayQ[v,1,Im[#]==0&]}    ==>     {False,False}
+ok  testf=MatchQ[#,List[args___?(Not[ListQ[#]]&)]]&    ==>     MatchQ[#1,{args___?(!ListQ[#1]&)}]&
+#! TextForm[ColonForm[MessageName[Table, iterb], StringForm[Iterator `1` does not have appropriate bounds., Short[HoldForm[{v, vectors}], 3]]]]
+#! TextForm[ColonForm[MessageName[Thread, tdlen], StringForm[Objects of unequal length in `1` cannot be combined., Short[HoldForm[{}*True*True*{1, 2}*True*True*{1, {2}}*False*False*{{1, 2}}*False*False], 3]]]]
+#! TextForm[ColonForm[MessageName[Thread, tdlen], StringForm[Objects of unequal length in `1` cannot be combined., Short[HoldForm[False^4*True^4*{}*{{1, 2}}*{1, 2}*{1, {2}}], 3]]]]
+not ok  TableForm[Table[{v,VectorQ[v],testf[v]},{v,vectors}],TableDepth->2]    ==>     {}	True	True
+#! {1,2}	True	True
+#! {1,{2}}	False	False
+#! {{1,2}}	False	False

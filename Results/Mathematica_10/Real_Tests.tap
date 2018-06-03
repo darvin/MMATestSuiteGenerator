@@ -1,6 +1,7 @@
+#! DOCKER > wolfram -script output/Tests/Real_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Real_Tests
-# OUTPUT: output/Results/Mathematica_10/Real_Tests.json
 # Enter a real number:
 ok  1.23    ==>     1.23
     ---

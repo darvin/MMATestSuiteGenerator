@@ -1,6 +1,7 @@
+#! DOCKER > wolfram -script output/Tests/Select_Tests.m
+#! TextForm[ColonForm[MessageName[Select, normal], StringForm[Nonatomic expression expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[Select[s, OddQ]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Select_Tests
-# OUTPUT: output/Results/Mathematica_10/Select_Tests.json
 # Select elements that are even:
 ok  Select[{1, 2, 4, 7, 6, 2}, EvenQ]    ==>     {2, 4, 6, 2}
     ---

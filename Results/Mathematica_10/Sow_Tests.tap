@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Sow_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Sow_Tests
-# OUTPUT: output/Results/Mathematica_10/Sow_Tests.json
 # Evaluate a sequence of expressions, "sowing" some to be collected by RefLink[Reap,paclet:ref/Reap]:
 ok  Reap[Sow[a]; b; Sow[c]; Sow[d]; e]    ==>     {e, {{a, c, d}}}
     ---
@@ -34,7 +34,13 @@ ok  Reap[Sow[1, x]; Sow[2, y]; Sow[3, x]; Sow[4, y], x]    ==>     {4, {{1, 3}}}
         expect_evaluated: {4, {{1, 3}}}
     ...
 # RefLink[Sow,paclet:ref/Sow] can be used anywhere in a computation:
-ok  Reap[(If[PrimeQ[#1], Sow[#1]] & ) //@ Integrate[1/(x^5 - 1), x]; ]    ==>     {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 5, 5, 2}}} # skip
+ok  Reap[(If[PrimeQ[#1], Sow[#1]] & ) //@ Integrate[1/(x^5 - 1), x]; ]    ==>     {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 5, 5, 2}}}
+    ---
+    data:
+        got: {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 5, 5, 2}}}
+        expect: {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 5, 5, 2}}}
+        expect_evaluated: {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 5, 5, 2}}}
+    ...
 ok  Reap[f //@ Integrate[1/(x^5 - 1), x]; ]    ==>     {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 5, 5, 2}}} # skip
 # A single expression can be "sown" with multiple tags:
 ok  Reap[Sow[1, x]; Sow[2, {x, y}]; Sow[3, y]]    ==>     {3, {{1, 2}, {2, 3}}}

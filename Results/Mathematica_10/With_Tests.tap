@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/With_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: With_Tests
-# OUTPUT: output/Results/Mathematica_10/With_Tests.json
 ok  f[a]    ==>     2 + a + (1 + a)^2 # skip
 # Use RefLink[With,paclet:ref/With] to insert values into held expressions:
 ok  With[{x = y}, Hold[x]]    ==>     Hold[y]

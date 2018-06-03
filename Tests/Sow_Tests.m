@@ -14,10 +14,9 @@ be collected by RefLink[Reap,paclet:ref/Reap]:"],
  TapTestSame[Reap[Sow[1, x]; Sow[2, y]; Sow[3, x]; Sow[4, y], x], 
   {4, {{1, 3}}}], TapComment[
   "RefLink[Sow,paclet:ref/Sow] can be used anywhere in a computation:"], 
- TapTestSameBROKEN[Reap[(If[PrimeQ[#1], Sow[#1]] & ) //@ 
-     Integrate[1/(x^5 - 1), x]; ], 
-  {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 5, 5, 
-     2}}}], TapTestSameBROKEN[Reap[f //@ Integrate[1/(x^5 - 1), x]; ], 
+ TapTestSame[Reap[(If[PrimeQ[#1], Sow[#1]] & ) //@ Integrate[1/(x^5 - 1), 
+      x]; ], {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 
+     5, 5, 2}}}], TapTestSameBROKEN[Reap[f //@ Integrate[1/(x^5 - 1), x]; ], 
   {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 5, 5, 
      2}}}], TapComment[
   "A single expression can be \"sown\" with multiple tags:"], 

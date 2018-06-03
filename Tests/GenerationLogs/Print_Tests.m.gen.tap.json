@@ -1,0 +1,62 @@
+{
+    "stats": {
+        "suites": 0,
+        "tests": 1,
+        "passes": 0,
+        "pending": 0,
+        "failures": 1,
+        "start": "2018-06-03T12:22:27.304Z",
+        "end": "2018-06-03T12:22:27.304Z",
+        "duration": 0,
+        "testsRegistered": 1,
+        "passPercent": 0,
+        "pendingPercent": 0,
+        "other": 0,
+        "hasOther": false,
+        "skipped": 0,
+        "hasSkipped": false,
+        "passPercentClass": "danger",
+        "pendingPercentClass": "danger"
+    },
+    "suites": {
+        "title": "",
+        "suites": [],
+        "tests": [
+            {
+                "title": "Print[x]//InputForm    ➡️     Null",
+                "fullTitle": "Print[x]//InputForm    ➡️     Null",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": false,
+                "fail": true,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "034d76e5-49e5-482b-8a56-0bd51fa73104",
+                "parentUUID": "e28db4bd-37a8-4ac4-950b-493c3ae941a9",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Print.nb output/Tests/Print_Tests.m\\n# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Print.nb\\n# WRITING OUTPUT TO:     output/Tests/Print_Tests.m\\n#! x\\n\"",
+                "state": "failed",
+                "err": {}
+            }
+        ],
+        "root": true,
+        "fullFile": "",
+        "file": "",
+        "pending": [],
+        "passes": [],
+        "failures": [
+            "034d76e5-49e5-482b-8a56-0bd51fa73104"
+        ],
+        "skipped": [],
+        "duration": 0,
+        "rootEmpty": false,
+        "_timeout": 0,
+        "uuid": "e28db4bd-37a8-4ac4-950b-493c3ae941a9",
+        "beforeHooks": [],
+        "afterHooks": []
+    },
+    "copyrightYear": 2018
+}

@@ -1,0 +1,26 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/MatrixQ.nb output/Tests/MatrixQ_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/MatrixQ.nb
+# WRITING OUTPUT TO:     output/Tests/MatrixQ_Tests.m
+ok  MatrixQ[{{a,b},{3,4}}]    ==>     True
+ok  MatrixQ[SparseArray[{{1,1}->a,{3,3}->b}]]    ==>     True
+ok  MatrixQ[{{1},{2,3}}]    ==>     False
+ok  MatrixQ[Array[a,{2,2,2}]]    ==>     False
+ok  MatrixQ[Array[a,{2,2,2}],ListQ]    ==>     True
+ok  MatrixQ[RandomReal[1,{3,3}],MachineNumberQ]    ==>     True
+ok  MatrixQ[{{1,2},{3,4}},Positive]    ==>     True
+ok  MatrixQ[{{1,2},{3,4+5I}},Positive]    ==>     False
+ok  MatrixQ[{{Pi,Sin[1]},{Cos[2],E}},Im[#]==0&]    ==>     True
+ok  MatrixQ[{{1,2.},{3/4,5`20}},NumberQ[#]&&!MatchQ[#,_Complex]&]    ==>     True
+ok  hpart[a]    ==>     hpart[a]
+not ok  hpart[{{1,2I},{3I,4}}]    ==>     {{1,-(I/2)},{I/2,4}}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  HermitianMatrixQ[%]    ==>     True
+not ok  m=RandomReal[1,{2,2}]    ==>     {{0.925264,0.522118},{0.188581,0.921065}}
+ok  {ArrayQ[m,2],MatrixQ[m]}    ==>     {True,True}
+ok  {ArrayQ[m,2,MachineNumberQ],MatrixQ[m,MachineNumberQ]}    ==>     {True,True}
+ok  {ArrayQ[m,2,IntegerQ],MatrixQ[m,IntegerQ]}    ==>     {False,False}
+not ok  m=RandomReal[1,{3,2}]    ==>     {{0.79747,0.551327},{0.551977,0.103706},{0.188657,0.734707}}
+ok  vecs=Map[VectorQ,m]    ==>     {True,True,True}
+ok  lens=Map[Length,m]    ==>     {2,2,2}
+ok  Apply[And,Append[vecs,Apply[Equal,lens]]]    ==>     True
+ok  MatrixQ[m]    ==>     True

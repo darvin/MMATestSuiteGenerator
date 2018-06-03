@@ -1,0 +1,313 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Table.nb output/Tests/Table_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Table.nb
+# WRITING OUTPUT TO:     output/Tests/Table_Tests.m
+ok  Table[i^2,{i,10}]    ==>     {1,4,9,16,25,36,49,64,81,100}
+ok  Table[f[i],{i,0,20,2}]    ==>     {f[0],f[2],f[4],f[6],f[8],f[10],f[12],f[14],f[16],f[18],f[20]}
+ok  Table[x,{10}]    ==>     {x,x,x,x,x,x,x,x,x,x}
+ok  Table[10i+j,{i,4},{j,3}]    ==>     {{11,12,13},{21,22,23},{31,32,33},{41,42,43}}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  MatrixForm[%]    ==>     (\:f3a211	12	13
+#! 21	22	23
+#! 31	32	33
+#! 41	42	43
+#! \:f3a2)
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  ListPlot[Table[Prime[i],{i,50}]]    ==>     \!\(\*
+#! GraphicsBox[{{}, 
+#! {Hue[0.67, 0.6, 0.6], PointBox[CompressedData["
+#! 1:eJxd0UlKw2AYBuDgyqULFy5cVBEREdE6j411FhStIk5grNaKFrxCjpKj5Cg5
+#! gkdQ+Z8skkB48+TN8CffRPe70xuKoqj5t/9n2H5aDuJqDtdyVI7I8dr5aTkm
+#! Z2vXLcqGXJKTck1OyZ3ac1tyJmTarr4nPeA5PuR5PuYFPquuKz3nJl9U15lf
+#! 8jJf8UrIuMOr+uvqd+U3vO76W97gO97ke95yf+ltfmD/KX7kXX5i/y1/5jhk
+#! koRMufGi39NzyllX3w5ZcDmH7FW/7/43PRccmVPW03Pyrje3jMs5Fn39kfV+
+#! 6DnjyJyLsufkU3+i/9JzMtCfet4g/gUZ8k7e
+#! "]]}, {}},
+#! AspectRatio->0.6180339887498948,
+#! Axes->True,
+#! AxesOrigin->{0, 0},
+#! ImageMargins->0.,
+#! PlotRange->{{0., 50.}, {0., 229.}},
+#! PlotRangeClipping->True,
+#! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)
+not ok  Column[Table[Prime[i],{i,5}]]    ==>     2
+#! 3
+#! 5
+#! 7
+#! 11
+ok  Table[f[i],{i,10,-5,-2}]    ==>     {f[10],f[8],f[6],f[4],f[2],f[0],f[-2],f[-4]}
+ok  Table[10i+j,{i,5},{j,i}]    ==>     {{11},{21,22},{31,32,33},{41,42,43,44},{51,52,53,54,55}}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  TableForm[%]    ==>     11				
+#! 21	22			
+#! 31	32	33		
+#! 41	42	43	44	
+#! 51	52	53	54	55
+ok  Table[100i+10j+k,{i,3},{j,2},{k,4}]    ==>     {{{111,112,113,114},{121,122,123,124}},{{211,212,213,214},{221,222,223,224}},{{311,312,313,314},{321,322,323,324}}}
+ok  Table[Sqrt[x], {x, {1,4,9,16}}]    ==>     {1,2,3,4}
+ok  Table[j^(1/i), {i, {1,2,4}}, {j, {1,4,9}}]    ==>     {{1,4,9},{1,2,3},{1,Sqrt[2],Sqrt[3]}}
+ok  Table[2^x+x,{x,a,a+5n,n}]    ==>     {2^a+a,2^(a+n)+a+n,2^(a+2 n)+a+2 n,2^(a+3 n)+a+3 n,2^(a+4 n)+a+4 n,2^(a+5 n)+a+5 n}
+ok  Table[a[x]!,{a[x],6}]    ==>     {1,2,6,24,120,720}
+ok  Table[x[1]^2+x[2]^2,{x[1],3},{x[2],3}]    ==>     {{2,5,10},{5,8,13},{10,13,18}}
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 527}, {0, 70}}]\)\)
+#!                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  Table[Plot[BesselJ[n,x],{x,0,10}],{n,4}]    ==>     \!\(\*
+#! GraphicsBox[
+#! TagBox[RasterBox[CompressedData["
+#! 1:eJztnXlXU1e7wF333j/uf/cz3C/wfoOuvra1ziLiUKxTHY7SaqR6jVJL7Utx
+#! emm12FYcgkAYIkOkRMZGBCEoVAIGMEhkDBIJcyBIlAD3SQ5iSHJOzrDPzgmc
+#! 31rtCsk5Z2/zZD/D3s9+9v/uP76F+I8VK1ac/G/435avTq88ceKrmIj/gj8+
+#! ifm/Q/v/E158Dv/9D1zjej0nISEhISEhISEhISEhISEhISEhISEhUhw6RSzh
+#! IrbSbPf51K6JJZRGm+dbcCm2zklIBA/KoTFs0MjID5Q6R7B6JyGBF5tBSRAK
+#! i2POolMQMpVt8aedxfEwIlTGRSPFPUrw2Qu7/W2veWxi4i22FoMEa6stISiU
+#! Q8NhkhOExmSHFyAwjVkyF6IDs45aJhiVMpnS6HrlNMoJmcFDSznMGoKIVyTI
+#! lQbvyAKPIB48eEkcVK9elfxl5N11a1IOE/e02pcY2g0KHKy2hKBQDQ27UUkk
+#! aK3WTr3B2Gm22p1B7KOEf9AqqNHRqeqqrvIH7eC1InxsyGFUxibVDbtf2pSy
+#! WP2CNnJ2JhBE5fCcWR2vNC7ynTBYiqGhyagj+fv35dbVmmdnZ+Ed+H/tk57I
+#! HaqszGfT0zNCdwA/HKy2hKBQDQ27SQ1DQJ6oVCVBYBEvyUSEoNJRY2NTcT8+
+#! +Pijm8dl9+WniteuvgPua2fnMJKHhxwGpfz9iBhWEPKFEWFSyWAgFFcWJ8XK
+#! 5Ikqg/WDvSDeI1CXhgYnN6xLvXmjzvcjp3Nm1aeKo18XLD17IU6rvZyhGhp2
+#! owpiQPIvXQKh8LAWQg8NCYYgEQEYhc2blFd+qZ6cfLfwZlZmI9iO7q4R/s8P
+#! Oay6REKucbjc12KwDp3OOYd92GZ32sxGvb6uTl+nSpDFK7Vm24dgW9CxABEf
+#! yOLSxUqaa8CU3FUZZmZmhesGfkRotZnz+vX4fU1rakp9/r2W9vahYHcHDVRD
+#! w2lx/WlyycGmJBYtJLGSxfDwZElxG3xjXctS87CBSxIOz3ExPu4ARZR91+D7
+#! UWlJG3xUX/+Kz/NDE5smgczsINRGl7IyugfAwscmVawS1wI3CGhnpOrcD1r6
+#! y8BMRB+/n3KnXog+BAuxWW2GvHw5dOxowWef3D4Xq026/uTypcqtWzKOEPnP
+#! Gi3B7hp/KIeGqTiRfF+eVOk5NphLJFnx9JN/3oo5U3r+p4fbIjJPRBeOjU2h
+#! /xcsCbgl4fBpcWhoMmxjWnxcOdUFdbXm9WtT+vqW4xSkw253MF6nE8hYgAmA
+#! IQMKh8nFEICANJ8/tyLvRvAQkdVmSFqqftWnCnVes9O5aFaw/EH7ms+T7yQ/
+#! DVbHEEI5NPx9wFAi4K+Cazo4OC9N+OWflpfAO57THRILcEvC4dzc7Oxs1OF8
+#! sOb0l+XlNn8d9ecSm98IBFWI5zRo5t0npW6RlyiQggLdcuLbQubXPyxv37s7
+#! 5927JZWMIgarzYTp6RmQ14H9eeCD+b2gv38CtF9OdhPmjgUXJuKAiNivXTh4
+#! QL1/X+6bN5K98Ibbch7n0ZGubGCoiKKP3weTwaGJEIUqxHNatAQh0w87HZZK
+#! iLY9RSGEjmpp6d+0IY1K81Bx9ruyzIxGtD0JIYIYVly6WBl1JJ8+zWBocBLi
+#! Dhh62HoVdAJKBGLh8DDlQkzhxaULFVd+qRagX6ENt+U8bm31msdAEVEJyItX
+#! r2wurTXITmuFLpQhnt1qNLkCCodFJyNiBTUWk5Nvd2zL1FV3sb3x9evxjetT
+#! R0beIOxM8OAS4uG3FxCkk8mEXlNPfrH2T4RvTm9o6MPQMTFALxH4xvbtza2o
+#! 6KC6YGpq+ovtWX/X9QrTu1AF53LesaMFeXksgoVbN+suX6LLxllKUIZ4bjrJ
+#! hTy52nNCELmCSrj86MrPHB2q367V/HpVh7Y/QYFbiIe/n4rbfx8h8pnPrjfo
+#! +7ZuyRgfXxbbnOklos5rPnWyiP4J9fWvdkaqmBji5QSX5TwOzRQVvYg6nE9u
+#! 7GIIDITNm5Q9PaMcmgs5qEI84L2dtkG0J1wyub7+1daIDAguuN0OWgiCi/7+
+#! CSSdCSJiCPECUlZmAlXGVvP/fu3x+fiHAnVJVNCI482bd+FhSib7ueSnipfV
+#! TDhDhF7OA7UPAmp7Mci2Yxnpjf8694DtXaEIVYjnMLl2Hrl/2cNuM/7BiiDU
+#! URB379iWWVtr5vOQG0m1V6+E/EwvtxAPp73o6BjetCGto5319lVSyvrQy0tH
+#! md6frmyI/f4vJq12d42A1pIyo/jAYVDcvvU3N5fG4ZgO25i2PCqBUIV4tsok
+#! Ofl+rKJSoGmoP35/cuF8Bc+HjIy8Wb82ZXg4tJeZuIV42LoHuuvLyLsPHnCs
+#! zVWj6967Oye0ZlcQpvdPT8+Eb05nvvkuPq48K3P5Zm7wh+3QsPZPbFiXOjDA
+#! sfZasuLpLz9Xcbs35KAK8Zx27snkATG1DYJFHh1FsBcp8dea638w2qAhWoIb
+#! 4gXkp7jynxN4DYcT3xbm5z9H1R8MIEzvLyluO3kiwGqFJ93doxBcvH27pNLC
+#! ccJ2aFy8UMFnky/pryJRZeKGKtZ26NUJ5Hcer9R5bVPlr6NmZmYP7M8rLWnj
+#! +RySwUE7OAYhHrkHM8SjB8S0Z1c2hNt8HvLy5RB41zwfghOE6f1f7c19+pRd
+#! jtNpeYlGYwx8nYQ/WA0NiPg2bUjjvGxKkvDvR0tjFyoN1Ek44N/KDcPOOZsR
+#! 4m1NJ4IcZk/ycpu/PX6f/3MW+PGcNjcn5LeABSXEo4dMJkdSOe1crPauyk+x
+#! HXGCKr2/pbn/y8i7rFt/Ztm9K5tTxyXY6aizMWV+a0CxghwmS2yPsBdUsbZz
+#! 2KjVmdz/crsCzInROxuKT6PkDGFvL8olIRiSX2zPYpX2JjKCE+LRMz09c5i4
+#! p2aTeU5DR/tweJgyVIILVOn98XHlqqxnHDoAxqKxcblsUUEL83HR2jqwLSIT
+#! iZI/8W2h9i/RHbgDQ9iCqIYVfRIOGA29CjSYwrMGE/8knDPyEmWanvPtVBCH
+#! 7tXoupE/Fg/BCvHoSVY8Dbg1gBXfny0TWw2Q8fFxCuuFoFrXmzfv1q1JGR3l
+#! sm/0nroFYjEONy45BPSjvj1+/76mFUkvqx51Hv26AMmjkNDePhRzpvTTlbcj
+#! wtORPJAmCQf0lMtQyFWWxVaXp46qeNixb0+OEAdSPHjwklV1KVERlBCPHrI2
+#! BdoN8hBcwE8X53EkU+PjVOuO033lxD9WEnEp3dSxDtv0fq93SkvbwDViev9i
+#! JiffgqFhWwNn6SGcH9XQ0Be5Q4Xq1+h0zmzZnN7RIYqjkbIyG8FMZN81IKw2
+#! RhVrw9+JIAllnUtpOZ2ew4WPjhobc1WLbTUKUi0WYslNG9LQzm5hg1uIJ1x/
+#! yBosQkRqYNBRJTYwYKrqRszKf6y8UeU7nzOeErayAOk0j69ETkQXgnfE+YFX
+#! fq5OTUEfg4cW3PwoJk+OOpyP9qRmEJYYCkrcVRlWr0q2WpFvVfYfa5uLEwgP
+#! VFxPePEiPq78998eI+g1BUnXa0M0h5ZbiCdccHHxQoVAqeO1teb9+3KFeDI1
+#! 7dEr4wa83xy4EX0D7bFDXuIYGLCvX5vCJwP25cuhbRGZobwShwCBpsrBEfpq
+#! by7a75aUeHBX5TLSXWf5CWAp5sFTGbuiomNnpErQb7Kvz7ZxfWoo5iRgDvHo
+#! +avMtGvnXeEktXtXNuYN3bWXY8q9DcMIGAsfC8ILL3FkZT7jXPRsgQNf5YXg
+#! 5neUCDFVPjMzCz/CJ497EPd1bu7UySIYPsgfy5D6+ldbNqcLdioTbU0Dhyme
+#! kBsWv81NRw0NTW7aINQElCfizElgANYQj4be3jFuZT2YU1z0Qn6qWLjn+1Kb
+#! GFOF3VgcOqBu0POd58rLbaY5sg0n09MzJcVtp+Ul4EgQh+79fu0xnqOouflR
+#! 9M8sKnpx7Kggi9HgEh+XodwUwJyxsSmwFIZnQh1SSVPTwG6pi3cbEaOPsWDb
+#! CsR6oMPxbFqpetR5/JgGQ0NCEPTDjyAoO7A/70+Bt1q/fetaXXr1Ct+plJyM
+#! Ba8kHEufK/Ge/0lqoAHWrr7Dc8sYf8DN2xaRGXU4v7Skre3FYEND362bdas+
+#! VaSm1As/64LYj4KfH/xbBDpnE0zqxvWpqLJVWfHjOW3S9Vrhnk9d08CuiY9X
+#! apQEisgiWfEUrC2eIwhBWK66XqG3zM0lxEPeiYsXKn7C4sfeSKoVdPXKCw7G
+#! gmcSTmZGI/85KJIfvv+rqBBNeic3anTdn31yu/xBu9f7YMJORBeCbsSQ3obQ
+#! j0pN0Quakww/7ICnsiLnyeOeLyPvCjoDH2DxyGmSUxgL5prq6d+9EBzhLPSX
+#! dP0J6CJszSGBW4iH1l4U3m/dsysbz8mer1+Pb1iXim0pkIOx4JmEg2QOigR0
+#! dRAT+Lu7Rj7+6CZNuRL4FEQpqspINONiYMBVGgh+fsK13tE+vHVLBs60BLAR
+#! kTtUqH5vVNAtHgEOo19jwfz5L18OQTDe0tzPt6NsMJtHN29S4kzm5w+eEI8G
+#! ff0riMhwTg2djSnD5jD7MxYDl3cl0hoL7kk4lj4bfJmoquzOz2xYBNRvVIDe
+#! W70quajoBf1lib/W7NuTMzUllr35NOMiPq4cg9t/YH9ePca0hOy7Bs7beZhD
+#! uXhEQmEsGOoo0DxbIzIqqc+RFI5jRwuqq7rwt8sZbiEeqtZ7zWPhYcpnjUIt
+#! jfmlrtZ88IAaT1tVl6MXZUNNDxTE7YrOpTNVfJJwYPCiTTy+eqU6LRX3hguI
+#! +4iD6ofljNJFQAmL51gZKh319O/eHdsyMRi13Jym8z9hOvDLZptyVW/rxnBa
+#! H21NA4cxlqux6O0dW/P5nXvqFvRdZkBJMfeds0GBW4iHJLgANxii5jLs+X4Q
+#! p8PIbW1Fm5HknxF9StiuxNaB+amS6b6CFStW5NLs3OaXhHP0mwK0aZnPn1s5
+#! VCPkScK/H126UMHwYrAse3fnFAeKQd4z3t7a1NTaJ5DW9jsowEZE7lDV8Ttq
+#! jSGjo2RaAo4Z3d+u1UBkx/Vu1oLgWdPAl5aW/o8/uqmr7mLcBcTAD2P92pTB
+#! QY6nmTAn6XotdSlpFoLgFuLx6TlJX59t9arkYNn0zIzGSxexnHc/3Rq2YkV0
+#! iceG9Ck9EXaDdmaHSxIOMDr6BhQF8qVGMBYvXuAwrCQuJ3x7FisnvKtrxFUg
+#! lMGZceNNN8BYrwjLFGidw+/QSLj8COfxvme/Kws4fccfUHGg6DjX5MEgCHo1
+#! VXi/FcIiPlUOkPBzQlW6skHQJsAnh9Fht/tPa2QpCKFCPBrM5lGw6b5ZLtgA
+#! vbpuTcrEhOB5obWXd6W0euk9RvssOPhRRYWtQiTb4CwlQS6Ygr1ge+N9TStx
+#! UB1wsabpxi4YGZntQq2J+46Lv9zHx+M88qa6qgsCTKFbuXqlmk/NCgyCoNJR
+#! ra0DUUfyD+zP892tw02t8bmr1WiFHzzznAQObUGcTnMXB0Hg3GfR3PR6y+Z0
+#! xvMGQhH34wMMcU1tYhy2TXkxZ0qF2MNrcVcnwHM0bUZ643cxpdzujT5+P1BJ
+#! 9pEbKwX0Zud8hoauuitsYxrmEn/T0zPgMwu2mdqFtX+C3wl9OATh9fr163FN
+#! gRE8CvgTBj6pn730mO9dGD7avy9XuLbIAJBaXWMVBFtyc5o+++S2EOUO2NKg
+#! 79u3V/BSUdh2cANrPk8WKFYCTwyDyOCHDVaJs5Yjw23atLq+xLCVKU0CJnd5
+#! Do2yMhOEz0yWKpA7tNcSa6gyr5C0BWHFrZt1bO/yQEBBEBLU4BSEpzjY3tXT
+#! Mxp1OP+bqD8F9XlYsTNSJXRyNTZjUV3VJVyd/Px7LRCICfTwBS6cr+CZXAqu
+#! yInoYB4WsDAuIHCG1561awi8Xuv2rZnCOc/usOINq7swQ+qoR5WdtU96Wo1W
+#! m01Em3G8AAdv7eo7Y2Poewj/ajwL6DSw/Q30mscuXaiAu7KzDWx303P7vTG8
+#! 667KAApK0LawGQv4hvMQHSzoy/vSHwJOvHd1jYRtTKNahmOI0znz1d7coKyF
+#! CeoQhjpBEQf+RjlzPv4h/wN2fUlNqb98CUsaDzWePwCC1gNR5zXLjmrCw5Tg
+#! MRJ4PSuGH61bkzI+7kD1QF/8bsoTqES5oLuDY86UlpYKeBoIkgOp59zHHG/Z
+#! nB6sklYghatXqp887sGzxEMDeA5x/0JfP4d0VgcGgumsMiFYRoobTU2vd+1E
+#! nKA+NTW9aUOa2YxhF4x/hPZAQhq/35g+0U+J8sSwGLS+L7TO4agOqj77paKi
+#! 49vj99nexbAt43NrRHi67wEcnNvKF7giJU3TQWnXF3CBIBhccIRQcSf5acK/
+#! H6F9phDQDElxsm9PDtq9yeAt/PD9XwgfyA2QAviZp+Ulp04W/d/JonOx2vi4
+#! 8gvnK8jj1f7Mf96g7+N2+jN+DAb0Nt2DqRQixjtzdm6uPTd6xa7E2tZuVNOU
+#! IBHF7b8XXnt95Pc124/evXOCS2m1TqB6oOef8CsiC7Ag7zxmRKWg/nUOcb7f
+#! 5OS7jevpUwjEgqgEwQRwb2LR6fbp6RnwvtpeDKJ6IGdCzmrTAzZdiEpoA+1N
+#! uZfDVsb4nwoYaa/KTCkZ4L2RWMBIKfTh++VyFQf+dv3y9Gnvgf15CB+oynoG
+#! BgjhA4WDnSCcFvX7vWZKHcuN9q6daLEGNtNywwYN2VisUrcQ+IEhpp/fMxUn
+#! kT1MLDYG3OUArtfJE0V2k2ahNqzDrJuvLa7QIY42aRHPcEBC/r0WAfayTTeV
+#! 5JbUtuOpcIdHIi3N/bu/zEb+2BPRhYX3g1kIHSFiGxpfbM9Ctfv+7Vtn+Ob0
+#! 9vYhJE8TGlaCsGhjQam6av+DdnVXsWCMo9hVmFtuZG4sHCY5QWhMdngB2ltj
+#! /qC5f72qo8wGdFXSICotDqdV51vZ1YuZmdmdkary3Nsu2yBXu6+1qWREks4y
+#! 57AoXFuu8cWGonKf+AM2fcO61KEhfKXskYNNHGAsWlpQJhs3N70GhRb05WBU
+#! sBOE8A5tVuazhXw/vw5tQBYc2jMJxadPM6p6JxKHlrmaGjbpdCZ3krNDTyyq
+#! vB2ATjAVsUkJ8njmt9iNSiJBa7V26g3GTrPV7mGYenpGw8Moipa7jIWszgr2
+#! TO9bf8mLiocd30TdSpAnalTxIAjXtXaDDCyaWwAmlZxQcs4kwXS+rZgBm74w
+#! 5x+KYJMIKB+0NbUgrAju+UpoYSUIDA7t2NjUujUprl0G1A4tbTvzDq3DUk0Q
+#! 39zXBz7jz6JXhaxDawU9KlPUMZSDu5heonXOqZHHGhgbQrvJtYVcnqhUJYEc
+#! 4g2Lv5Iz8hJNgd+Kf3aNS0nLXOZepqb5HslD3v+ucxXMcXaCLOaNRaxMMV9b
+#! 3KCQKzgaC8HPtxXBfGBAqrMSmc8HkojBfVoAm+0eGXHV1EK14aKluX/71szQ
+#! Ov+FHlaCwOPQno9/qMp6RuPQ0vHeoS3KKzhMHAvcnMMojEPLGrYjwuHWdbFK
+#! ppYC/m0uoxiv1GrVYPITVVors5FvN8J9CvKL1CUQisXWwvDMsjNS5bsZzSW+
+#! eW1jU8u97/Kk/EF71OH8+btMH4wF3DRvLPRJnI2F0IcfiWQ+kPYul/t0LLqg
+#! KDs34HwgiUjcpwVwBnrfny2jLnfMjpMniu5rlk5YMcdREMI6tMbn1i+2Z020
+#! 5dE4tNTMO7SuX/s3qQxvQu7QcoCVjnKYtS5Xts7lyi6u/U+D02zU19XV6esq
+#! E0CDag02Zve5D0eON7kEZ1P6UxdHiPyqR51eb7rVPvlN2jXUxmJ2dnbv7hwy
+#! rJibN0xuQcxZEucPYnYUg/9d7P18vziGLZ2dnWY38GLY7hT6fFuRzAfS4Xaf
+#! Msq6Dh74LeB8IHm9SNynBXDmfpwkzhwm7jG/gyrWAyVGE1awyv0gEUOsJ06H
+#! 9ug3BUXp12kcWsrG3A6turD1uCyX3qFddBdqh5Z6qtyhV8/X7Y9X6jw/YDMi
+#! HNpFtf/ZTWXA7WrQUWx+ZKbi+XkMeVKlb1OPKjujjuT7vG3TJsnJu2SJmmGK
+#! n0tRYeuxox8KDjtM6nkdBfcbNfP/vngNw7qWndBPmZxERsjACRf6fNv3BH8+
+#! kOY+D/fpTgi5Twuwkgj/WG/3jkymKdzUsd6J6ELKsIJN7geJMLGeoDoKn0P7
+#! uKbnwP5L9A6tX9xq//YXEZktzV00Dq33XfwcWl+opsrdXrrc4PopG+PnG5oH
+#! Z6zNBeoy3xAd7NuTU+uv/qQT7qL2gB2O6YjwdPDBKBt13c/LdRL0fNv5Z4hj
+#! PpD6rvn5wNKShq8PB9F94g7mqfLf0g0MS0lQxXoGw+sd26hXK9jkfpDXCxHr
+#! Cayj8Dm0oH/27MouuHmRxqGlwPbvmOiADq13z/g5tL5QTZU7h41ancndKTt4
+#! BQqf48C4NhhkILg4xP7c53RlgxDH2SyGy+FHzJ8uqvlAvyzMB05PT+w9RPxS
+#! xOjwLOTukwfCOrTv4R7r1Q29Xb82ZWgwcLIxVax3/JimtISm0hTT3A9PkMd6
+#! 3HQUt7aEprjohasoMatza9wbgU+dLGozmmkc2sCwdGhZT5XPOfWuk+kVni71
+#! gg3m3u2gEnU4X6tldAY9ydDQJJ/y/qwQ7PAjcc0HUvBhPjDq9K2z3zOyzsjd
+#! pw+9ET7o5h/rXfq5mkmysd9Y78njnt27smn2VjDP/Vh0F79Yb2nrKPi2t0Zk
+#! NDayq1SQdP0J88PQUcFuqtxpcQlBrrIs/imLUASsaG56vS0ik/nhwj+e0/Is
+#! 788MPH4sRli6TyTkfCBI5/PPkrlsU+U9H7iA0A4tkljP2DW6elWyb+k/79t8
+#! Yr2ZGVfCRo2um+Yuhrkf3nfxi/WWvI7S/vXyCOG7ckqJ2TwKzirnU7YRQjlV
+#! 7jCDoOXKOpdkFv+Uxa6jGHDxQsUfvzM6uLa6quvLyLsOh+DlIpbg4hE/8nKb
+#! z8aUYWsOu0OLLNY7F6vNzWkKeINXrFdU9ILBCdGMcj+8e4Y61uOmo7i2Jjiz
+#! s7PEoXtljA/elZ8qvqsKwgKcP/xPlZuLF/2UVUtlzYLEZpsK35wOIQb9ZYOD
+#! 9rCNac9p1rXRsdwWjwLy7p1zx7ZMtgE7Z0LXoYX4C37MjPyZ97HemzfvIsLT
+#! W42Mftj0uR/M7ucZ63HRUfxaFBbjc2t4mJLJCVNFha0HD6hFs1+SavbDadDM
+#! uyJK3aL63iIXBEPqas3bt2bSVBcEAREH1WmpeiFaR+XHCtE38fCwvP3QATV5
+#! KiV+QsihjfvxQUZ6I/Prk67Xoq0WggHBlvOCQ+KvNefjH9JfY+mzgbPa0cF/
+#! /Q0N1LMfWgg99cNOh6WSeJ//RiJ+QTDk1s26jz+66fdYWKdzBj5KuVMvkKZC
+#! 5ccuGVlQITuqCdYBOiEUdL96Zdu0IY3h2SUQiWzepBwdFe9pyPwR/6CASHBn
+#! pOpaYg3VBZOT7+ACtAdh8ISyyoTdajS5AgqHRScjYpeksQDAHHyxPctqnfB8
+#! c3zcsW9PzvU/nrA9qJoPy3PxKCA9PaOgBvv7JwJfKgxsHVoh+0LHzRt1538K
+#! 4KnOuePlfXtzBT2YVQyExLiAwAE8Ur9zF5OTb+GjzAwW0SJy2M5+dJKLYvJF
+#! KdYhIQjmpKboP/8sGaKMxsa+Z42W1JT6VZ8qIEjEPvux1CZmUZGT3RR1OD+g
+#! OP74/YkQh62zIogSAU81cofqcU0P/WW/XatBeBCYaAkVP6qvzwbapuDPRbEz
+#! xIlgKfJym4PVKxJWsx/v/SnXnn3PrLmlN/sB0km6XntcppEd1cBo6mgP2iTh
+#! EpuYRQKYiTOnS678Uk1zTbLi6dGvC4K+DhhcibQ094eHKXvNY1QXqPOat0Zk
+#! TEwEXlcNdUJoXHR0DO+MVO3bk5OubAABnftBu/LjW6JJf1oE1eyH40OK9bDb
+#! w2WX2CeBgRAaETwBK3An+emPFEdJblyfCsNNDJPwQZcIxFbglFr8bSC9fKkS
+#! PuruHsXfK/wEXRCscDpnanTdiVd1ly5WQhwthi0VFFBVmbBVvk+xjlVUhsDR
+#! 4MuPZRJZkJCbyGLOlI6NfTAK4+OOb6L+BB0Y9JiCRAziKCp6AV+Iqe1DgUH4
+#! 6q7/8YQql0NCghVUsx9OO5dNuBJ4WFbGApiamv71qg6C9O9iSn+/9hj+/8k/
+#! b/2cUMV8M77QiEQiRYWtn3+WfFpekpqihy9q65aMY0cLgpgkICEhEVzEoJfw
+#! Mzw8Cc6zMk0P/4fXwe7OIsQjEbv9bWlp242k2oz0Rs8oQ0JCQkJCQkJCQkJC
+#! QkJCQkJCQkJCQkJCPPw/0TpM4A==
+#! "], {{0, 70}, {527, 0}}, {0, 255},
+#! ColorFunction->RGBColor],
+#! BoxForm`ImageTag["Byte", ColorSpace -> "RGB", Interleaving -> True],
+#! Selectable->False],
+#! BaseStyle->"ImageGraphics",
+#! ImageSize->Automatic,
+#! ImageSizeRaw->{527, 70},
+#! PlotRange->{{0, 527}, {0, 70}}]\)
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  Graphics[Polygon[Table[{Sin[2 n Pi/5],Cos[2 n Pi/5]},{n,0,5}]]]    ==>     \!\(\*
+#! GraphicsBox[PolygonBox[NCache[{{0, 1}, {(Rational[5, 8] + Rational[1, 8] 5^Rational[1, 2])^Rational[1, 2], Rational[1, 4] (-1 + 5^Rational[1, 2])}, {(Rational[5, 8] + Rational[-1, 8] 5^Rational[1, 2])^Rational[1, 2], Rational[1, 4] (-1 - 5^Rational[1, 2])}, {-(Rational[5, 8] + Rational[-1, 8] 5^Rational[1, 2])^Rational[1, 2], Rational[1, 4] (-1 - 5^Rational[1, 2])}, {-(Rational[5, 8] + Rational[1, 8] 5^Rational[1, 2])^Rational[1, 2], Rational[1, 4] (-1 + 5^Rational[1, 2])}, {0, 1}}, {{0, 1}, {0.9510565162951535, 0.30901699437494745`}, {0.5877852522924731, -0.8090169943749475}, {-0.5877852522924731, -0.8090169943749475}, {-0.9510565162951535, 0.30901699437494745`}, {0, 1}}]],
+#! ImageMargins->0.]\)
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  Graphics3D[Table[Sphere[{i,Mod[i^2,10],Mod[i^3,12]}],{i,40}]]    ==>     \!\(\*
+#! Graphics3DBox[{SphereBox[{1, 1, 1}], SphereBox[{2, 4, 8}], SphereBox[{3, 9, 3}], SphereBox[{4, 6, 4}], SphereBox[{5, 5, 5}], SphereBox[{6, 6, 0}], SphereBox[{7, 9, 7}], SphereBox[{8, 4, 8}], SphereBox[{9, 1, 9}], SphereBox[{10, 0, 4}], SphereBox[{11, 1, 11}], SphereBox[{12, 4, 0}], SphereBox[{13, 9, 1}], SphereBox[{14, 6, 8}], SphereBox[{15, 5, 3}], SphereBox[{16, 6, 4}], SphereBox[{17, 9, 5}], SphereBox[{18, 4, 0}], SphereBox[{19, 1, 7}], SphereBox[{20, 0, 8}], SphereBox[{21, 1, 9}], SphereBox[{22, 4, 4}], SphereBox[{23, 9, 11}], SphereBox[{24, 6, 0}], SphereBox[{25, 5, 1}], SphereBox[{26, 6, 8}], SphereBox[{27, 9, 3}], SphereBox[{28, 4, 4}], SphereBox[{29, 1, 5}], SphereBox[{30, 0, 0}], SphereBox[{31, 1, 7}], SphereBox[{32, 4, 8}], SphereBox[{33, 9, 9}], SphereBox[{34, 6, 4}], SphereBox[{35, 5, 11}], SphereBox[{36, 6, 0}], SphereBox[{37, 9, 1}], SphereBox[{38, 4, 8}], SphereBox[{39, 1, 3}], SphereBox[{40, 0, 4}]},
+#! ImageMargins->0.,
+#! ViewAngle->All,
+#! ViewCenter->Automatic,
+#! ViewPoint->{1.3, -2.4, 2.},
+#! ViewVertical->{0., 0., 1.}]\)
+#! TextForm[ColonForm[MessageName[Thread, tdlen], StringForm[Objects of unequal length in `1` cannot be combined., Short[HoldForm[{1}*{1, 1}*{1, 2, 1}*{1, 3, 3, 1}*{1, 4, 6, 4, 1}*{1, 5, 10, 10, 5, 1}*{1, 6, 15, 20, 15, 6, 1}*{1, 7, 21, 35, 35, 21, 7, 1}*{1, 8, 28, 56, 70, 56, 28, 8, 1}], 3]]]]
+not ok  Column[Table[Binomial[i,j],{i,0,8},{j,0,i}],Center]    ==>     {1}
+#! {1,1}
+#! {1,2,1}
+#! {1,3,3,1}
+#! {1,4,6,4,1}
+#! {1,5,10,10,5,1}
+#! {1,6,15,20,15,6,1}
+#! {1,7,21,35,35,21,7,1}
+#! {1,8,28,56,70,56,28,8,1}
+not ok  Table[Style["text", s], {s, 10, 20}]    ==>     {text,text,text,text,text,text,text,text,text,text,text}
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  ListLinePlot[Table[DigitCount[n,2,1],{n,128}]]    ==>     \!\(\*
+#! GraphicsBox[{{}, {}, 
+#! {Hue[0.67, 0.6, 0.6], LineBox[CompressedData["
+#! 1:eJxdlUtOQkEQRV8cOXTgwIEDNcYYY4z/v9IioiKigICAfGLi2C3U0mpJLEGN
+#! fQd1SEzneOr27X4vhNXP79bXXFEU9vv3t/5/ZqW4FinyfIr/X4BfhF8CL6e4
+#! zwrya5hfB28gvwm/Bb8N3sG5d9G/h/32wQfY7xD+CP4YfIL+U+TPMH8OvkD+
+#! Ev4K/hpcyqveU8prvr+JdZ6byCZWXxm+DH8b2cQ6TwX5Spwv7pAXK1+Fr8Lf
+#! Rzax7v+AfrH6H7G/WPvX4GvwT+gXq7+OfD3OF8/Ii5VvwDfgXyKbWN/L17zm
+#! 95/Eeh5gF+v5NKNPzegN7GLdr4V8K84b2MXKt6NP7egN7GI9nzf0i9UPdrH6
+#! O+jvRG9gF6u/i3w3zhvYxcr3ok+96A3sYr3/97zq/mLdH+xi3b+P8/ejN7CL
+#! df4B8oM4b2AXKz+MPg2jN7CLdf8P9IvVD3ax+kfoH0VvYBerf4z8OM4b2MXK
+#! T6JPk+gN7GL9Dk/zOiv9AOXFlIU=
+#! "]]}},
+#! AspectRatio->0.6180339887498948,
+#! Axes->True,
+#! AxesOrigin->{0, 1.},
+#! PlotRange->{{0., 128.}, {1., 7.}},
+#! PlotRangeClipping->True,
+#! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)
+not ok  Grid[Table[{i,Prime[i]},{i,10}]]    ==>     1	2
+#! 2	3
+#! 3	5
+#! 4	7
+#! 5	11
+#! 6	13
+#! 7	17
+#! 8	19
+#! 9	23
+#! 10	29
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  ArrayPlot[Table[GCD[i,j],{i,10},{j,10}]]    ==>     \!\(\*
+#! GraphicsBox[RasterBox[{{9, 8, 9, 8, 5, 8, 9, 8, 9, 0}, {9, 9, 7, 9, 9, 7, 9, 9, 1, 9}, {9, 8, 9, 6, 9, 8, 9, 2, 9, 8}, {9, 9, 9, 9, 9, 9, 3, 9, 9, 9}, {9, 8, 7, 8, 9, 4, 9, 8, 7, 8}, {9, 9, 9, 9, 5, 9, 9, 9, 9, 5}, {9, 8, 9, 6, 9, 8, 9, 6, 9, 8}, {9, 9, 7, 9, 9, 7, 9, 9, 7, 9}, {9, 8, 9, 8, 9, 8, 9, 8, 9, 8}, {9, 9, 9, 9, 9, 9, 9, 9, 9, 9}}, {{0, 0}, {10, 10}}, {0, 10}],
+#! Frame->Automatic,
+#! FrameLabel->{None, None},
+#! FrameTicks->{{None, None}, {None, None}},
+#! PlotRangeClipping->True]\)
+#! 1
+#! 2
+#! 3
+ok  Table[Print[i];i^i^i,{i,3}]    ==>     {1,16,7625597484987}

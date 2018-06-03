@@ -1,0 +1,40 @@
+{
+    "stats": {
+        "suites": 0,
+        "tests": 0,
+        "passes": 0,
+        "pending": 0,
+        "failures": 0,
+        "start": "2018-06-03T12:20:30.303Z",
+        "end": "2018-06-03T12:20:30.303Z",
+        "duration": 0,
+        "testsRegistered": 0,
+        "passPercent": 0,
+        "pendingPercent": 0,
+        "other": 0,
+        "hasOther": false,
+        "skipped": 0,
+        "hasSkipped": false,
+        "passPercentClass": "danger",
+        "pendingPercentClass": "danger"
+    },
+    "suites": {
+        "title": "",
+        "suites": [],
+        "tests": [],
+        "root": true,
+        "fullFile": "",
+        "file": "",
+        "pending": [],
+        "passes": [],
+        "failures": [],
+        "skipped": [],
+        "duration": 0,
+        "rootEmpty": false,
+        "_timeout": 0,
+        "uuid": "d3fd1366-b878-4d64-a048-36c075044267",
+        "beforeHooks": [],
+        "afterHooks": []
+    },
+    "copyrightYear": 2018
+}

@@ -1,0 +1,103 @@
+{
+    "stats": {
+        "suites": 0,
+        "tests": 3,
+        "passes": 1,
+        "pending": 0,
+        "failures": 2,
+        "start": "2018-06-03T12:22:30.934Z",
+        "end": "2018-06-03T12:22:30.934Z",
+        "duration": 0,
+        "testsRegistered": 3,
+        "passPercent": 33.33333333333333,
+        "pendingPercent": 0,
+        "other": 0,
+        "hasOther": false,
+        "skipped": 0,
+        "hasSkipped": false,
+        "passPercentClass": "danger",
+        "pendingPercentClass": "danger"
+    },
+    "suites": {
+        "title": "",
+        "suites": [],
+        "tests": [
+            {
+                "title": "Log[Sqrt[a (b c^d)^e]]//.rules    ➡️     1/2 (Log[a]+e (Log[b]+d Log[c]))",
+                "fullTitle": "Log[Sqrt[a (b c^d)^e]]//.rules    ➡️     1/2 (Log[a]+e (Log[b]+d Log[c]))",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": false,
+                "fail": true,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "a1ec6f5e-c201-4699-81fe-3b3f8370f99e",
+                "parentUUID": "79a2bf6b-e161-4fc9-b063-c64ad3b53d7d",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/ReplaceRepeated.nb output/Tests/ReplaceRepeated_Tests.m\\n# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/ReplaceRepeated.nb\\n# WRITING OUTPUT TO:     output/Tests/ReplaceRepeated_Tests.m\\n#! TextForm[ColonForm[MessageName[ReplaceRepeated, reps], StringForm[`1` is neither a list of replacement rules nor a valid dispatch table, and so cannot be used for replacing., Short[HoldForm[{rules}], 3]]]]\\n\"",
+                "state": "failed",
+                "err": {}
+            },
+            {
+                "title": "Log[Sqrt[a (b c^d)^e]]/.rules    ➡️     1/2 Log[a (b c^d)^e]",
+                "fullTitle": "Log[Sqrt[a (b c^d)^e]]/.rules    ➡️     1/2 Log[a (b c^d)^e]",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": false,
+                "fail": true,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "a2095501-6657-430b-b310-2d069c01a9a4",
+                "parentUUID": "79a2bf6b-e161-4fc9-b063-c64ad3b53d7d",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"#! TextForm[ColonForm[MessageName[ReplaceAll, reps], StringForm[`1` is neither a list of replacement rules nor a valid dispatch table, and so cannot be used for replacing., Short[HoldForm[{rules}], 3]]]]\\n\"",
+                "state": "failed",
+                "err": {}
+            },
+            {
+                "title": "f[a][b][c][d]//.g_[x_][y__]->g[x,y]    ➡️     f[a,b,c,d]",
+                "fullTitle": "f[a][b][c][d]//.g_[x_][y__]->g[x,y]    ➡️     f[a,b,c,d]",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "e7da23a2-0f5a-44ef-8bbc-8f9be9bfe74a",
+                "parentUUID": "79a2bf6b-e161-4fc9-b063-c64ad3b53d7d",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"\"",
+                "state": "passed",
+                "err": {}
+            }
+        ],
+        "root": true,
+        "fullFile": "",
+        "file": "",
+        "pending": [],
+        "passes": [
+            "e7da23a2-0f5a-44ef-8bbc-8f9be9bfe74a"
+        ],
+        "failures": [
+            "a1ec6f5e-c201-4699-81fe-3b3f8370f99e",
+            "a2095501-6657-430b-b310-2d069c01a9a4"
+        ],
+        "skipped": [],
+        "duration": 0,
+        "rootEmpty": false,
+        "_timeout": 0,
+        "uuid": "79a2bf6b-e161-4fc9-b063-c64ad3b53d7d",
+        "beforeHooks": [],
+        "afterHooks": []
+    },
+    "copyrightYear": 2018
+}

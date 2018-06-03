@@ -1,0 +1,269 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/AtomQ.nb output/Tests/AtomQ_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/AtomQ.nb
+# WRITING OUTPUT TO:     output/Tests/AtomQ_Tests.m
+ok  e=x+22/7    ==>     22/7+x
+ok  AtomQ[e]    ==>     False
+ok  e[[1]]    ==>     22/7
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  AtomQ[%]    ==>     True
+ok  AtomQ["This is an atom"]    ==>     True
+ok  AtomQ[ThisIsAnAtom]    ==>     True
+ok  AtomQ[1.23]    ==>     True
+not ok  FullForm[22/7]    ==>     Rational[22,7]
+ok  AtomQ[22/7]    ==>     True
+ok  {Numerator[22/7],Denominator[22/7]}    ==>     {22,7}
+not ok  FullForm[1+2 I]    ==>     Complex[1,2]
+ok  AtomQ[1+2 I]    ==>     True
+ok  {Re[1+2 I],Im[1+2 I]}    ==>     {1,2}
+#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[Raster[{{{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}}, {{0.235431, 0.32765, 0.833291}, {0.4455703333333332, 0.7494519999999999, 0.9816223333333334}, {0.235431, 0.32765, 0.833291}}, {{0.26669366666666666, 0.550462, 0.926485}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}}, {{0, 0}, {3, 3}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {AxisPadding -> 18.740000000000002, DefaultBoundaryStyle -> Automatic, DefaultPlotStyle -> Automatic, DomainPadding -> 18.740000000000002, RangePadding -> 46.85}], Specified, RowBox[{elements, :, RowBox[{3, Dimensions}], :, RowBox[{{, RowBox[{3, ,, 3}], }}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[]\)
+#!    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[Raster[{{{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}}, {{0.235431, 0.32765, 0.833291}, {0.4455703333333332, 0.7494519999999999, 0.9816223333333334}, {0.235431, 0.32765, 0.833291}}, {{0.26669366666666666, 0.550462, 0.926485}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}}, {{0, 0}, {3, 3}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {AxisPadding -> 18.740000000000002, DefaultBoundaryStyle -> Automatic, DefaultPlotStyle -> Automatic, DomainPadding -> 18.740000000000002, RangePadding -> 46.85}], Specified, RowBox[{elements, :, RowBox[{3, Dimensions}], :, RowBox[{{, RowBox[{3, ,, 3}], }}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[]\)
+#!    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  s=SparseArray[{i_,i_}->i,3]    ==>     SparseArray[\!\(\*
+#! GraphicsBox[RasterBox[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255},
+#! ColorFunction->GrayLevel],
+#! BaselinePosition->Bottom,
+#! ImageSize->{12, 12},
+#! PlotRange->{{0, 12}, {0, 12}}]\)	\!\(\*
+#! GraphicsBox[RasterBox[{{{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}}, {{0.235431, 0.32765, 0.833291}, {0.4455703333333332, 0.7494519999999999, 0.9816223333333334}, {0.235431, 0.32765, 0.833291}}, {{0.26669366666666666`, 0.550462, 0.926485}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}}, {{0, 0}, {3, 3}}, {0, 1}],
+#! AspectRatio->1,
+#! Axes->False,
+#! Frame->False,
+#! FrameLabel->{None, None},
+#! FrameStyle->Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]],
+#! FrameTicks->{{None, None}, {None, None}},
+#! GridLinesStyle->Directive[GrayLevel[0.5, 0.4]],
+#! ImageSize->{Automatic, 28.},
+#! Method->{"AxisPadding" -> 18.740000000000002`, "DefaultBoundaryStyle" -> Automatic, "DefaultPlotStyle" -> Automatic, "DomainPadding" -> 18.740000000000002`, "RangePadding" -> 46.85}]\)	Specified elements: 3
+#! Dimensions: {3,3}
+#! ]
+ok  AtomQ[s]    ==>     True
+ok  a=Normal[s]    ==>     {{1,0,0},{0,2,0},{0,0,3}}
+ok  s[[2,2]]    ==>     2
+ok  a[[2,2]]    ==>     2
+not ok  FullForm[s]    ==>     SparseArray[Automatic,List[3,3],0,List[1,List[List[0,1,2,3],List[List[1],List[2],List[3]]],List[1,2,3]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[Raster[{{{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}}, {{0.235431, 0.32765, 0.833291}, {0.4455703333333332, 0.7494519999999999, 0.9816223333333334}, {0.235431, 0.32765, 0.833291}}, {{0.26669366666666666, 0.550462, 0.926485}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}}, {{0, 0}, {3, 3}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {AxisPadding -> 18.740000000000002, DefaultBoundaryStyle -> Automatic, DefaultPlotStyle -> Automatic, DomainPadding -> 18.740000000000002, RangePadding -> 46.85}], Specified, RowBox[{elements, :, RowBox[{3, Dimensions}], :, RowBox[{{, RowBox[{3, ,, 3}], }}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[]\)
+#!    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[Raster[{{{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}}, {{0.235431, 0.32765, 0.833291}, {0.4455703333333332, 0.7494519999999999, 0.9816223333333334}, {0.235431, 0.32765, 0.833291}}, {{0.26669366666666666, 0.550462, 0.926485}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}}, {{0, 0}, {3, 3}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {AxisPadding -> 18.740000000000002, DefaultBoundaryStyle -> Automatic, DefaultPlotStyle -> Automatic, DomainPadding -> 18.740000000000002, RangePadding -> 46.85}], Specified, RowBox[{elements, :, RowBox[{3, Dimensions}], :, RowBox[{{, RowBox[{3, ,, 3}], }}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  s1=SparseArray[Automatic,List[3,3],0,List[1,List[List[0,1,2,3],List[List[1],List[2],List[3]]],List[1,2,3]]]    ==>     SparseArray[\!\(\*
+#! GraphicsBox[RasterBox[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255},
+#! ColorFunction->GrayLevel],
+#! BaselinePosition->Bottom,
+#! ImageSize->{12, 12},
+#! PlotRange->{{0, 12}, {0, 12}}]\)	\!\(\*
+#! GraphicsBox[RasterBox[{{{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}}, {{0.235431, 0.32765, 0.833291}, {0.4455703333333332, 0.7494519999999999, 0.9816223333333334}, {0.235431, 0.32765, 0.833291}}, {{0.26669366666666666`, 0.550462, 0.926485}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}}, {{0, 0}, {3, 3}}, {0, 1}],
+#! AspectRatio->1,
+#! Axes->False,
+#! Frame->False,
+#! FrameLabel->{None, None},
+#! FrameStyle->Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]],
+#! FrameTicks->{{None, None}, {None, None}},
+#! GridLinesStyle->Directive[GrayLevel[0.5, 0.4]],
+#! ImageSize->{Automatic, 28.},
+#! Method->{"AxisPadding" -> 18.740000000000002`, "DefaultBoundaryStyle" -> Automatic, "DefaultPlotStyle" -> Automatic, "DomainPadding" -> 18.740000000000002`, "RangePadding" -> 46.85}]\)	Specified elements: 3
+#! Dimensions: {3,3}
+#! ]
+ok  e=Fold[f,x,Range[5]]    ==>     f[f[f[f[f[x,1],2],3],4],5]
+not ok  leaves[e]    ==>     11
+ok  LeafCount[e]    ==>     11
+not ok  leaves[e,Heads->False]    ==>     6
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  TreeForm[e]    ==>     \!\(\*
+#! GraphicsBox[
+#! TagBox[GraphicsComplexBox[{{2.23606797749979, 4.47213595499958}, {1.7888543819998317`, 3.577708763999664}, {1.3416407864998738`, 2.683281572999748}, {0.8944271909999159, 1.788854381999832}, {0.4472135954999579, 0.8944271909999162}, {0., 0.}, {0.8944271909999159, 0.}, {1.3416407864998738`, 0.8944271909999162}, {1.7888543819998317`, 1.788854381999832}, {2.23606797749979, 2.683281572999748}, {2.6832815729997477`, 3.577708763999664}}, {
+#! {RGBColor[0.55, 0.45, 0.45], LineBox[{{1, 2}, {1, 11}, {2, 3}, {2, 10}, {3, 4}, {3, 9}, {4, 5}, {4, 8}, {5, 6}, {5, 7}}]}, {
+#! TagBox[
+#! TooltipBox[InsetBox[
+#! FrameBox[
+#! StyleBox["f", "StandardForm", "Output",
+#! StripOnInput->False,
+#! FontSize->11,
+#! FontColor->GrayLevel[0],
+#! $CellContext`FrontFaceColor -> GrayLevel[0],
+#! $CellContext`BackFaceColor -> GrayLevel[0],
+#! $CellContext`GraphicsColor -> GrayLevel[0]],
+#! Background->RGBColor[1., 1., 0.871],
+#! FrameStyle->GrayLevel[0.5],
+#! StripOnInput->False], 1],
+#! TagBox[RowBox[{"f", "[", RowBox[{RowBox[{"f", "[", RowBox[{RowBox[{"f", "[", RowBox[{RowBox[{"f", "[", RowBox[{RowBox[{"f", "[", RowBox[{"x", ",", "1"}], "]"}], ",", "2"}], "]"}], ",", "3"}], "]"}], ",", "4"}], "]"}], ",", "5"}], "]"}], HoldForm]],
+#! Annotation[#, HoldForm[$CellContext`f[$CellContext`f[$CellContext`f[$CellContext`f[$CellContext`f[$CellContext`x, 1], 2], 3], 4], 5]], "Tooltip"]& ], 
+#! TagBox[
+#! TooltipBox[InsetBox[
+#! FrameBox[
+#! StyleBox["f", "StandardForm", "Output",
+#! StripOnInput->False,
+#! FontSize->11,
+#! FontColor->GrayLevel[0],
+#! $CellContext`FrontFaceColor -> GrayLevel[0],
+#! $CellContext`BackFaceColor -> GrayLevel[0],
+#! $CellContext`GraphicsColor -> GrayLevel[0]],
+#! Background->RGBColor[1., 1., 0.871],
+#! FrameStyle->GrayLevel[0.5],
+#! StripOnInput->False], 2],
+#! TagBox[RowBox[{"f", "[", RowBox[{RowBox[{"f", "[", RowBox[{RowBox[{"f", "[", RowBox[{RowBox[{"f", "[", RowBox[{"x", ",", "1"}], "]"}], ",", "2"}], "]"}], ",", "3"}], "]"}], ",", "4"}], "]"}], HoldForm]],
+#! Annotation[#, HoldForm[$CellContext`f[$CellContext`f[$CellContext`f[$CellContext`f[$CellContext`x, 1], 2], 3], 4]], "Tooltip"]& ], 
+#! TagBox[
+#! TooltipBox[InsetBox[
+#! FrameBox[
+#! StyleBox["f", "StandardForm", "Output",
+#! StripOnInput->False,
+#! FontSize->11,
+#! FontColor->GrayLevel[0],
+#! $CellContext`FrontFaceColor -> GrayLevel[0],
+#! $CellContext`BackFaceColor -> GrayLevel[0],
+#! $CellContext`GraphicsColor -> GrayLevel[0]],
+#! Background->RGBColor[1., 1., 0.871],
+#! FrameStyle->GrayLevel[0.5],
+#! StripOnInput->False], 3],
+#! TagBox[RowBox[{"f", "[", RowBox[{RowBox[{"f", "[", RowBox[{RowBox[{"f", "[", RowBox[{"x", ",", "1"}], "]"}], ",", "2"}], "]"}], ",", "3"}], "]"}], HoldForm]],
+#! Annotation[#, HoldForm[$CellContext`f[$CellContext`f[$CellContext`f[$CellContext`x, 1], 2], 3]], "Tooltip"]& ], 
+#! TagBox[
+#! TooltipBox[InsetBox[
+#! FrameBox[
+#! StyleBox["f", "StandardForm", "Output",
+#! StripOnInput->False,
+#! FontSize->11,
+#! FontColor->GrayLevel[0],
+#! $CellContext`FrontFaceColor -> GrayLevel[0],
+#! $CellContext`BackFaceColor -> GrayLevel[0],
+#! $CellContext`GraphicsColor -> GrayLevel[0]],
+#! Background->RGBColor[1., 1., 0.871],
+#! FrameStyle->GrayLevel[0.5],
+#! StripOnInput->False], 4],
+#! TagBox[RowBox[{"f", "[", RowBox[{RowBox[{"f", "[", RowBox[{"x", ",", "1"}], "]"}], ",", "2"}], "]"}], HoldForm]],
+#! Annotation[#, HoldForm[$CellContext`f[$CellContext`f[$CellContext`x, 1], 2]], "Tooltip"]& ], 
+#! TagBox[
+#! TooltipBox[InsetBox[
+#! FrameBox[
+#! StyleBox["f", "StandardForm", "Output",
+#! StripOnInput->False,
+#! FontSize->11,
+#! FontColor->GrayLevel[0],
+#! $CellContext`FrontFaceColor -> GrayLevel[0],
+#! $CellContext`BackFaceColor -> GrayLevel[0],
+#! $CellContext`GraphicsColor -> GrayLevel[0]],
+#! Background->RGBColor[1., 1., 0.871],
+#! FrameStyle->GrayLevel[0.5],
+#! StripOnInput->False], 5],
+#! TagBox[RowBox[{"f", "[", RowBox[{"x", ",", "1"}], "]"}], HoldForm]],
+#! Annotation[#, HoldForm[$CellContext`f[$CellContext`x, 1]], "Tooltip"]& ], 
+#! TagBox[
+#! TooltipBox[InsetBox[
+#! FrameBox[
+#! StyleBox[
+#! TagBox["x",
+#! HoldForm], "StandardForm", "Output",
+#! StripOnInput->False,
+#! FontSize->11,
+#! FontColor->GrayLevel[0],
+#! $CellContext`FrontFaceColor -> GrayLevel[0],
+#! $CellContext`BackFaceColor -> GrayLevel[0],
+#! $CellContext`GraphicsColor -> GrayLevel[0]],
+#! Background->RGBColor[1., 1., 0.871],
+#! FrameStyle->GrayLevel[0.5],
+#! StripOnInput->False], 6],
+#! TagBox["x", HoldForm]],
+#! Annotation[#, HoldForm[$CellContext`x], "Tooltip"]& ], 
+#! TagBox[
+#! TooltipBox[InsetBox[
+#! FrameBox[
+#! StyleBox[
+#! TagBox["1",
+#! HoldForm], "StandardForm", "Output",
+#! StripOnInput->False,
+#! FontSize->11,
+#! FontColor->GrayLevel[0],
+#! $CellContext`FrontFaceColor -> GrayLevel[0],
+#! $CellContext`BackFaceColor -> GrayLevel[0],
+#! $CellContext`GraphicsColor -> GrayLevel[0]],
+#! Background->RGBColor[1., 1., 0.871],
+#! FrameStyle->GrayLevel[0.5],
+#! StripOnInput->False], 7],
+#! TagBox["1", HoldForm]],
+#! Annotation[#, HoldForm[1], "Tooltip"]& ], 
+#! TagBox[
+#! TooltipBox[InsetBox[
+#! FrameBox[
+#! StyleBox[
+#! TagBox["2",
+#! HoldForm], "StandardForm", "Output",
+#! StripOnInput->False,
+#! FontSize->11,
+#! FontColor->GrayLevel[0],
+#! $CellContext`FrontFaceColor -> GrayLevel[0],
+#! $CellContext`BackFaceColor -> GrayLevel[0],
+#! $CellContext`GraphicsColor -> GrayLevel[0]],
+#! Background->RGBColor[1., 1., 0.871],
+#! FrameStyle->GrayLevel[0.5],
+#! StripOnInput->False], 8],
+#! TagBox["2", HoldForm]],
+#! Annotation[#, HoldForm[2], "Tooltip"]& ], 
+#! TagBox[
+#! TooltipBox[InsetBox[
+#! FrameBox[
+#! StyleBox[
+#! TagBox["3",
+#! HoldForm], "StandardForm", "Output",
+#! StripOnInput->False,
+#! FontSize->11,
+#! FontColor->GrayLevel[0],
+#! $CellContext`FrontFaceColor -> GrayLevel[0],
+#! $CellContext`BackFaceColor -> GrayLevel[0],
+#! $CellContext`GraphicsColor -> GrayLevel[0]],
+#! Background->RGBColor[1., 1., 0.871],
+#! FrameStyle->GrayLevel[0.5],
+#! StripOnInput->False], 9],
+#! TagBox["3", HoldForm]],
+#! Annotation[#, HoldForm[3], "Tooltip"]& ], 
+#! TagBox[
+#! TooltipBox[InsetBox[
+#! FrameBox[
+#! StyleBox[
+#! TagBox["4",
+#! HoldForm], "StandardForm", "Output",
+#! StripOnInput->False,
+#! FontSize->11,
+#! FontColor->GrayLevel[0],
+#! $CellContext`FrontFaceColor -> GrayLevel[0],
+#! $CellContext`BackFaceColor -> GrayLevel[0],
+#! $CellContext`GraphicsColor -> GrayLevel[0]],
+#! Background->RGBColor[1., 1., 0.871],
+#! FrameStyle->GrayLevel[0.5],
+#! StripOnInput->False], 10],
+#! TagBox["4", HoldForm]],
+#! Annotation[#, HoldForm[4], "Tooltip"]& ], 
+#! TagBox[
+#! TooltipBox[InsetBox[
+#! FrameBox[
+#! StyleBox[
+#! TagBox["5",
+#! HoldForm], "StandardForm", "Output",
+#! StripOnInput->False,
+#! FontSize->11,
+#! FontColor->GrayLevel[0],
+#! $CellContext`FrontFaceColor -> GrayLevel[0],
+#! $CellContext`BackFaceColor -> GrayLevel[0],
+#! $CellContext`GraphicsColor -> GrayLevel[0]],
+#! Background->RGBColor[1., 1., 0.871],
+#! FrameStyle->GrayLevel[0.5],
+#! StripOnInput->False], 11],
+#! TagBox["5", HoldForm]],
+#! Annotation[#, HoldForm[5], "Tooltip"]& ]}}],
+#! Annotation[#, VertexCoordinateRules -> {{2.23606797749979, 4.47213595499958}, {1.7888543819998317`, 3.577708763999664}, {1.3416407864998738`, 2.683281572999748}, {0.8944271909999159, 1.788854381999832}, {0.4472135954999579, 0.8944271909999162}, {0., 0.}, {0.8944271909999159, 0.}, {1.3416407864998738`, 0.8944271909999162}, {1.7888543819998317`, 1.788854381999832}, {2.23606797749979, 2.683281572999748}, {2.6832815729997477`, 3.577708763999664}}]& ],
+#! AspectRatio->2.449489742783178,
+#! FrameTicks->None,
+#! PlotRange->All,
+#! PlotRangePadding->Automatic]\)
+not ok  depth[1 + x + 2x^2]    ==>     {1,3}
+not ok  depth[{{1,2},{3,4}}]    ==>     {2,2}
+ok  Depth[1 + x + 2x^2]    ==>     4
+ok  Map[f,1 + x + 2x^2,{-1}]    ==>     f[1]+f[x]+f[2] f[x]^f[2]
+ok  Map[f,1 + x + 2x^2,{-1}]    ==>     f[1]+f[x]+f[2] f[x]^f[2]

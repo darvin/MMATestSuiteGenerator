@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/IntegerQ_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: IntegerQ_Tests
-# OUTPUT: output/Results/Mathematica_10/IntegerQ_Tests.json
 # RefLink[IntegerQ,paclet:ref/IntegerQ] tests whether an expression is explicitly an integer:
 ok  IntegerQ[4]    ==>     True
     ---

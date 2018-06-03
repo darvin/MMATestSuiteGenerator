@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/AllTrue_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: AllTrue_Tests
-# OUTPUT: output/Results/Mathematica_10/AllTrue_Tests.json
 # Test if all elements of a list satisfy a condition: 
 ok  AllTrue[{2, 3, 4, 6, 8}, EvenQ]    ==>     False # skip
 ok  AllTrue[{2, 4, 6, 8}, EvenQ]    ==>     True # skip

@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/DownValues_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: DownValues_Tests
-# OUTPUT: output/Results/Mathematica_10/DownValues_Tests.json
 # These are the downvalues associated with f:
 ok  DownValues[f]    ==>     {HoldPattern[f[1]] :> 2, HoldPattern[f[2]] :> 3, HoldPattern[f[x_]] :> x^2} # skip
 ok  DownValues[f]    ==>     {HoldPattern[f[x_]] :> x^2} # skip

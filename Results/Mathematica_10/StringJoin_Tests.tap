@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/StringJoin_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: StringJoin_Tests
-# OUTPUT: output/Results/Mathematica_10/StringJoin_Tests.json
 # Join strings:
 ok  StringJoin["abcd", "ABCD", "xyz"]    ==>     abcdABCDxyz # skip
 # Use RefLink[InputForm,paclet:ref/InputForm] to show string quotes:

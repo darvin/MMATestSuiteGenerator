@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Pi_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Pi_Tests
-# OUTPUT: output/Results/Mathematica_10/Pi_Tests.json
 # Pi can be entered as Esc\[ThinSpace]p\[ThinSpace]Esc:
 ok  Pi    ==>     Pi
     ---

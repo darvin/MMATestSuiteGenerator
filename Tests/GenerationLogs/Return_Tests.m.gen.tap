@@ -1,0 +1,7 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Return.nb output/Tests/Return_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Return.nb
+# WRITING OUTPUT TO:     output/Tests/Return_Tests.m
+not ok  f[6]    ==>     a
+not ok  f[6]    ==>     a
+not ok  g[6]    ==>     6
+not ok  h[6]    ==>     a

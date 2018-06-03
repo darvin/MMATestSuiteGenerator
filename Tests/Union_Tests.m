@@ -60,4 +60,4 @@ faster to use RefLink[Union,paclet:ref/Union] on these:"],
  TapTestSameBROKEN[Timing[Length[fu = 2*Union[Floor[ints/2]]]], {0., 429}], 
  TapComment[
   "The results are the same except for the choice of representative:"], 
- TapTestSame[Union[u - fu], {0, 1}]]
+ TapTestSameBROKEN[Union[u - fu], {0, 1}]]

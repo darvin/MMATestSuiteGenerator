@@ -1,6 +1,8 @@
+#! DOCKER > wolfram -script output/Tests/Map_Tests.m
+#! a
+#! b
 # SYSTEM: Mathematica_10
 # TEST: Map_Tests
-# OUTPUT: output/Results/Mathematica_10/Map_Tests.json
 ok  f /@ {a, b, c, d, e}    ==>     {f[a], f[b], f[c], f[d], f[e]}
     ---
     data:

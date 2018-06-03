@@ -1,0 +1,194 @@
+#! DOCKER > wolfram -script output/Tests/And_Tests.m
+#! 1
+#! 1
+#! 2
+#! TextForm[ColonForm[MessageName[Power, infy], StringForm[Infinite expression `1` encountered., Short[HoldForm[0^(-1)], 3]]]]
+# SYSTEM: Mathematica_10
+# TEST: And_Tests
+# Combine assertions with &&:
+ok  2 > 1 && Pi > 3    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# A symbolic conjunction:
+ok  a && b &&  !c    ==>     a && b &&  !c
+    ---
+    data:
+        got: a && b &&  !c
+        expect: a && b &&  !c
+        expect_evaluated: a && b &&  !c
+    ...
+# A system of equations:
+ok  x + 2*y == 3 && 4*x + 5*y == 6    ==>     x + 2*y == 3 && 4*x + 5*y == 6
+    ---
+    data:
+        got: x + 2*y == 3 && 4*x + 5*y == 6
+        expect: x + 2*y == 3 && 4*x + 5*y == 6
+        expect_evaluated: x + 2*y == 3 && 4*x + 5*y == 6
+    ...
+# Enter using Esc\[ThinSpace]and\[ThinSpace]Esc:
+ok  p && q    ==>     p && q
+    ---
+    data:
+        got: p && q
+        expect: p && q
+        expect_evaluated: p && q
+    ...
+# RefLink[And,paclet:ref/And] works with any number of arguments:
+ok  x && y && z    ==>     x && y && z
+    ---
+    data:
+        got: x && y && z
+        expect: x && y && z
+        expect_evaluated: x && y && z
+    ...
+# RefLink[And,paclet:ref/And] is associative:
+ok  FullForm[x && (y && z)]    ==>     x && y && z # skip
+# RefLink[And,paclet:ref/And] with explicit RefLink[True,paclet:ref/True] or RefLink[False,paclet:ref/False] arguments will simplify:
+ok  x && True && z    ==>     x && z
+    ---
+    data:
+        got: x && z
+        expect: x && z
+        expect_evaluated: x && z
+    ...
+ok  x && False && z    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# RefLink[And,paclet:ref/And] evaluates its arguments in order, stopping when an argument evaluates to RefLink[False,paclet:ref/False]:
+ok  (Print[1]; False) && (Print[2]; True)    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  (Print[1]; True) && (Print[2]; True)    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# The order of arguments may be important:
+ok  x != 0 && y == 1/x /. x -> 0    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+ok  y == 1/x && x != 0 /. x -> 0    ==>     False
+    ---
+    data:
+        got: False
+        expect: False
+        expect_evaluated: False
+    ...
+# Symbolic transformations will not preserve argument ordering:
+ok  z && y && y && x    ==>     z && y && y && x
+    ---
+    data:
+        got: z && y && y && x
+        expect: z && y && y && x
+        expect_evaluated: z && y && y && x
+    ...
+ok  Simplify[%]    ==>     x && y && z # skip
+# RefLink[TraditionalForm,paclet:ref/TraditionalForm] formatting:
+ok  x && y && z    ==>     x && y && z # skip
+ok  PositiveNumberQ[1]    ==>     True # skip
+# If an argument of RefLink[And,paclet:ref/And] evaluates to RefLink[False,paclet:ref/False], any subsequent arguments are not evaluated:
+ok  PositiveNumberQ[I]    ==>     False # skip
+ok  PositiveNumberQ2[I]    ==>     False # skip
+# Combine assumptions:
+ok  Refine[(a^b)^c, a >= 0 && Element[b, Reals]]    ==>     a^(b*c)
+    ---
+    data:
+        got: a^(b*c)
+        expect: a^(b*c)
+        expect_evaluated: a^(b*c)
+    ...
+# Combine equations and inequalities; RefLink[And,paclet:ref/And] is used both in the input and in the output:
+ok  Reduce[x^2 + y^2 == 1 && x >= y, {x, y}]    ==>     (Inequality[-(1/Sqrt[2]), LessEqual, x, Less, 1/Sqrt[2]] && y == -Sqrt[1 - x^2]) || (Inequality[1/Sqrt[2], LessEqual, x, Less, 1] && (y == -Sqrt[1 - x^2] || y == Sqrt[1 - x^2])) || (x == 1 && y == 0)
+    ---
+    data:
+        got: (Inequality[-(1/Sqrt[2]), LessEqual, x, Less, 1/Sqrt[2]] && y == -Sqrt[1 - x^2]) || (Inequality[1/Sqrt[2], LessEqual, x, Less, 1] && (y == -Sqrt[1 - x^2] || y == Sqrt[1 - x^2])) || (x == 1 && y == 0)
+        expect: (Inequality[-(1/Sqrt[2]), LessEqual, x, Less, 1/Sqrt[2]] && y == -Sqrt[1 - x^2]) || (Inequality[1/Sqrt[2], LessEqual, x, Less, 1] && (y == -Sqrt[1 - x^2] || y == Sqrt[1 - x^2])) || (x == 1 && y == 0)
+        expect_evaluated: (Inequality[-(1/Sqrt[2]), LessEqual, x, Less, 1/Sqrt[2]] && y == -Sqrt[1 - x^2]) || (Inequality[1/Sqrt[2], LessEqual, x, Less, 1] && (y == -Sqrt[1 - x^2] || y == Sqrt[1 - x^2])) || (x == 1 && y == 0)
+    ...
+# Use RefLink[And,paclet:ref/And] to combine conditions:
+ok  HoldComplete[RegionPlot[x^2 + y^2 < 1 && x + y > 0, {x, -2, 2}, {y, -2, 2}]]    ==>     $Failed # skip
+ok  HoldComplete[RegionPlot3D[x^2 + y^2 + z^2 < 1 && x^2 + y^2 < z^2, {x, -1, 1}, {y, -1, 1}, {z, -1, 1}]]    ==>     $Failed # skip
+# A cellular automaton based on RefLink[And,paclet:ref/And]:
+ok  HoldComplete[ArrayPlot[Boole[CellularAutomaton[{And @@ #1 & , {}}, RandomChoice[{True, False}, 40], 20]]]]    ==>     $Failed # skip
+# Find the area of the intersection of sets given by algebraic conditions:
+ok  Integrate[Boole[x^2 + y^2 < 1 && (x - 1)^2 + y^2 < 2], {x, -Infinity, Infinity}, {y, -Infinity, Infinity}]    ==>     -1 + Pi
+    ---
+    data:
+        got: -1 + Pi
+        expect: -1 + Pi
+        expect_evaluated: -1 + Pi
+    ...
+# This shows the set:
+ok  HoldComplete[RegionPlot[x^2 + y^2 < 1 && (x - 1)^2 + y^2 < 2, {x, -1.5, 2.5}, {y, -2, 2}]]    ==>     $Failed # skip
+# Truth table for RefLink[And,paclet:ref/And]:
+ok  Grid[Outer[And, {True, False}, {True, False}]]    ==>     True*False*False*False # skip
+# && has higher precedence than ||:
+ok  FullForm[p || (q && r)]    ==>     p || (q && r) # skip
+# Use RefLink[BooleanConvert,paclet:ref/BooleanConvert] to expand RefLink[And,paclet:ref/And] with respect to RefLink[Or,paclet:ref/Or]:
+ok  (a || b) && (c || d || e)    ==>     (a || b) && (c || d || e)
+    ---
+    data:
+        got: (a || b) && (c || d || e)
+        expect: (a || b) && (c || d || e)
+        expect_evaluated: (a || b) && (c || d || e)
+    ...
+ok  BooleanConvert[%]    ==>     (a && c) || (a && d) || (a && e) || (b && c) || (b && d) || (b && e) # skip
+# De Morgan's laws relate RefLink[And,paclet:ref/And], RefLink[Or,paclet:ref/Or], and RefLink[Not,paclet:ref/Not]:
+ok  BooleanConvert[ !(a && b)]    ==>      !a ||  !b
+    ---
+    data:
+        got:  !a ||  !b
+        expect:  !a ||  !b
+        expect_evaluated:  !a ||  !b
+    ...
+ok  BooleanConvert[ !(a || b || c)]    ==>      !a &&  !b &&  !c
+    ---
+    data:
+        got:  !a &&  !b &&  !c
+        expect:  !a &&  !b &&  !c
+        expect_evaluated:  !a &&  !b &&  !c
+    ...
+# Conjunction of conditions corresponds to the product or RefLink[Min,paclet:ref/Min] of RefLink[Boole,paclet:ref/Boole] functions:
+ok  Boole[a]*Boole[b] - Boole[a && b]    ==>     Boole[a]*Boole[b] - Boole[a && b]
+    ---
+    data:
+        got: Boole[a]*Boole[b] - Boole[a && b]
+        expect: Boole[a]*Boole[b] - Boole[a && b]
+        expect_evaluated: Boole[a]*Boole[b] - Boole[a && b]
+    ...
+ok  Simplify[%]    ==>     0 # skip
+ok  Min[Boole[a], Boole[b]] - Boole[a && b]    ==>     -Boole[a && b] + Min[Boole[a], Boole[b]]
+    ---
+    data:
+        got: -Boole[a && b] + Min[Boole[a], Boole[b]]
+        expect: -Boole[a && b] + Min[Boole[a], Boole[b]]
+        expect_evaluated: -Boole[a && b] + Min[Boole[a], Boole[b]]
+    ...
+ok  Simplify[%]    ==>     0 # skip
+# Use RefLink[Thread,paclet:ref/Thread] to thread over lists:
+ok  {p, q} && {r, s}    ==>     {p, q} && {r, s}
+    ---
+    data:
+        got: {p, q} && {r, s}
+        expect: {p, q} && {r, s}
+        expect_evaluated: {p, q} && {r, s}
+    ...
+ok  Thread[%]    ==>     {p && r, q && s} # skip

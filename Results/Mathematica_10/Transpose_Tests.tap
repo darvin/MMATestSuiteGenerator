@@ -1,6 +1,8 @@
+#! DOCKER > wolfram -script output/Tests/Transpose_Tests.m
+#! TextForm[ColonForm[MessageName[Transpose, nmtx], StringForm[The first two levels of the one-dimensional list `1` cannot be transposed., Short[HoldForm[{{1, 2, 3, 4}, {5}, {6, 7}}], 3]]]]
+#! TextForm[ColonForm[MessageName[Transpose, nmtx], StringForm[The first two levels of the one-dimensional list `1` cannot be transposed., Short[HoldForm[{{1, 2, 3, 4}, {5}, {6, 7}}], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Transpose_Tests
-# OUTPUT: output/Results/Mathematica_10/Transpose_Tests.json
 # Transpose a 2*3 matrix:
 ok  Transpose[{{a, b, c}, {x, y, z}}]    ==>     {{a, x}, {b, y}, {c, z}}
     ---

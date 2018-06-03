@@ -1,6 +1,7 @@
+#! DOCKER > wolfram -script output/Tests/Catch_Tests.m
+#! TextForm[ColonForm[MessageName[Power, infy], StringForm[Infinite expression `1` encountered., Short[HoldForm[0^(-1)], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Catch_Tests
-# OUTPUT: output/Results/Mathematica_10/Catch_Tests.json
 # Exit to the enclosing RefLink[Catch,paclet:ref/Catch] as soon as the RefLink[Throw,paclet:ref/Throw] is evaluated:
 ok  Catch[a; b; Throw[c]; d; e]    ==>     c
     ---

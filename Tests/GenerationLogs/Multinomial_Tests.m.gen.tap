@@ -1,0 +1,34 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Multinomial.nb output/Tests/Multinomial_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Multinomial.nb
+# WRITING OUTPUT TO:     output/Tests/Multinomial_Tests.m
+ok  Multinomial[1,2,1]    ==>     12
+ok  Expand[(x+y+z)^4]    ==>     x^4+4 x^3 y+6 x^2 y^2+4 x y^3+y^4+4 x^3 z+12 x^2 y z+12 x y^2 z+4 y^3 z+6 x^2 z^2+12 x y z^2+6 y^2 z^2+4 x z^3+4 y z^3+z^4
+ok  Multinomial[k,2,3]    ==>     1/12 (1+k) (2+k) (3+k) (4+k) (5+k)
+not ok  Multinomial[k,2,3,4]    ==>     1/288 (1+k) (2+k) (3+k) (4+k) (5+k) (6+k) (7+k) (8+k) (9+k)
+ok  Multinomial[1,1,1,1,1,1]    ==>     720
+ok  Multinomial[1]    ==>     1
+#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{1196775522075134250005422052024426, 14241<<}], >>, 44196831380378825515494437719566080}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`1196775522075134250005422052024426<<14241>>44196831380378825515494437719566080\)
+#!                                                                                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{1196775522075134250005422052024426, 14241<<}], >>, 44196831380378825515494437719566080}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`1196775522075134250005422052024426<<14241>>44196831380378825515494437719566080\)
+#!                                                                                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  Multinomial[10000,10000,10000]//Short    ==>     1196775522075134250005422052024426<<14241>>44196831380378825515494437719566080
+ok  Multinomial[7/2,5/2,3/2]    ==>     858/\[Pi]
+not ok  Multinomial[3.4,5.6,-6.2]    ==>     0.0425836
+not ok  Multinomial[2+I,-1+2I,4.5-3I]    ==>     71.4198-72.6792 I
+#! TextForm[ColonForm[MessageName[SeriesData, sdatv], StringForm[First argument `1` is not a valid variable., Short[HoldForm[-2 + k], 3]]]]
+not ok  Series[Multinomial[n,k,j],{k,2,1}]//Simplify    ==>     Multinomial[2,j,n]+1/2 (-3+2 HarmonicNumber[2+j+n]) Multinomial[2,j,n] (k-2)+O[k-2]^2
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{(}]]], 3], Short[HoldForm[DisplayForm[RowBox[{RowBox[{RowBox[{RowBox[{m, +, n, +, p}], ;, m}], ,, n, ,, p}], )}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`(m+n+p;m,n,p)\)
+#!                                  ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{(}]]], 3], Short[HoldForm[DisplayForm[RowBox[{RowBox[{RowBox[{RowBox[{m, +, n, +, p}], ;, m}], ,, n, ,, p}], )}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  Multinomial[n,m,p]//TraditionalForm    ==>     (m+n+p;m,n,p)
+ok  Multinomial[{2,3,5,7,11}, 3,5]    ==>     {2520,9240,72072,360360,4232592}
+ok  Sum[KroneckerDelta[4-(n1+n2+n3)]Multinomial[n1,n2,n3]x^n1 y^n2 z^n3 ,{n1,0,4},{n2,0,4},{n3,0,4}]    ==>     x^4+4 x^3 y+6 x^2 y^2+4 x y^3+y^4+4 x^3 z+12 x^2 y z+12 x y^2 z+4 y^3 z+6 x^2 z^2+12 x y z^2+6 y^2 z^2+4 x z^3+4 y z^3+z^4
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  Factor[%]    ==>     (x+y+z)^4

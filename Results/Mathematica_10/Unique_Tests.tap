@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Unique_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Unique_Tests
-# OUTPUT: output/Results/Mathematica_10/Unique_Tests.json
 ok  Unique["x"]    ==>     x1 # skip
 ok  Unique[sym]    ==>     sym$149 # skip
 # Create a unique symbol with no particular name:

@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Positive_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Positive_Tests
-# OUTPUT: output/Results/Mathematica_10/Positive_Tests.json
 # Evaluate different types of numbers:
 ok  Positive[{1.6, 3/4, Pi, 0, -5, 1 + I, Sin[10^5]}]    ==>     {True, True, True, False, False, False, True}
     ---

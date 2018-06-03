@@ -1,0 +1,17 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Except.nb output/Tests/Except_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Except.nb
+# WRITING OUTPUT TO:     output/Tests/Except_Tests.m
+ok  Cases[{1,0,2,0,3},Except[0]]    ==>     {1,2,3}
+not ok  StringReplace["the cat in the hat",Except[Characters["aeiou"]]->""]    ==>     eaiea
+ok  Cases[{a,b,0,1,2,x,y},Except[_Integer]]    ==>     {a,b,x,y}
+not ok  StringReplace["1a2b3c4",Except[DigitCharacter]..->""]    ==>     1234
+ok  Cases[{a,b,0,1,2,x,y},Except[0,_Integer]]    ==>     {1,2}
+not ok  StringReplace["1a2b3c4",Except["a",LetterCharacter]..->""]    ==>     1a234
+ok  Cases[{1, 1, -5, EulerGamma, r, I, 0, Pi, 1/2},Except[_Integer]]    ==>     {EulerGamma,r,I,\[Pi],1/2}
+ok  StringMatchQ[{"ain't","test", "A&M","anybody"}, ___~~Except[WordCharacter]~~___]    ==>     {True,False,True,False}
+not ok  StringReplace[
+#!   "<title>The Title</title>
+#! <h1>The <a href='link'>head</a></h1>
+#! <p>Some text follows here...</p>","<"~~Except[">"]..~~">"->""]    ==>     The Title
+#! The head
+#! Some text follows here...

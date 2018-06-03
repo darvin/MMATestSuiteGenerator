@@ -1,0 +1,12 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Variables.nb output/Tests/Variables_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Variables.nb
+# WRITING OUTPUT TO:     output/Tests/Variables_Tests.m
+ok  Variables[(x+y)^2+3z^2-y z+7]    ==>     {x,y,z}
+ok  Variables[x^4+y^4+z^4-3x y z]    ==>     {x,y,z}
+ok  Variables[{x^2-a y,y^2-b z,z^2-c x}]    ==>     {a,b,c,x,y,z}
+ok  Variables[(a-b)/(x+y)-2/z]    ==>     {a,b,x,y,z}
+ok  Variables[Sqrt[x+y-z^2]+(-2 t)^(2/3)]    ==>     {t,x,y,z}
+ok  Variables[x+2y+3z,Modulus->2]    ==>     {x,z}
+not ok  CoefficientList[f,Variables[f]]    ==>     {{6,5,3},{4,-2,0},{1,0,0}}
+ok  Variables[Sin[x]+Cos[x]]    ==>     {Cos[x],Sin[x]}
+ok  Variables[E^x]    ==>     {}

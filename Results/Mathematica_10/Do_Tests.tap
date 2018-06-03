@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Do_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Do_Tests
-# OUTPUT: output/Results/Mathematica_10/Do_Tests.json
 # Generate a symbolic continued fraction:
 ok  t = x; Do[t = 1/(1 + t), {5}]; t    ==>     1/(1 + 1/(1 + 1/(1 + 1/(1 + 1/(1 + x)))))
     ---

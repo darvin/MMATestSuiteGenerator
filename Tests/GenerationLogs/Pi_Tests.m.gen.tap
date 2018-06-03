@@ -1,0 +1,92 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Pi.nb output/Tests/Pi_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Pi.nb
+# WRITING OUTPUT TO:     output/Tests/Pi_Tests.m
+ok  Pi    ==>     \[Pi]
+ok  N[Pi,50]    ==>     3.1415926535897932384626433832795028841971693993751
+ok  Round[Pi^100]    ==>     51878483143196131920862615246303013562686760680406
+ok  First[RealDigits[Pi,10,1,-10^6]]    ==>     {1}
+ok  Integrate[Boole[x^2+y^2<=r^2],{x,-Infinity,Infinity},{y,-Infinity,Infinity},Assumptions->r>0]    ==>     \[Pi] r^2
+ok  RealDigits[Pi,10,20]    ==>     {{3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4},1}
+ok  ContinuedFraction[Pi,20]    ==>     {3,7,15,1,292,1,1,1,2,1,3,1,14,2,1,1,2,2,2,2}
+ok  Sin[Pi/4]    ==>     1/Sqrt[2]
+ok  Zeta[2]    ==>     \[Pi]^2/6
+ok  Integrate[Exp[-x^2],{x,-Infinity,Infinity}]    ==>     Sqrt[\[Pi]]
+ok  Pi>3    ==>     True
+ok  Pi\[Element]Algebraics    ==>     False
+ok  Dt[Pi,x]    ==>     0
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  ListLinePlot[Accumulate[(-1)^First[RealDigits[Pi,2,200]]]]    ==>     \!\(\*
+#! GraphicsBox[{{}, {}, 
+#! {Hue[0.67, 0.6, 0.6], LineBox[CompressedData["
+#! 1:eJxd1k1OFFEUxfEXRw4dOHDgoCTGGGOM39/Ko0UEkQ9bBUWFAkFw5BbuUmon
+#! vqHLqCW4BDV9Dsn9d0JuDr/cuq+7q9+rSwc/p0dnSim///39r7PXn3nVX/pH
+#! VW2zcrZmP2fX6zz8AvyiXXM6+Bz8sl31Ss3ruFrzOq7Br6P/Bq5/E/NvYf23
+#! 7W1W7sDvwu95vvJ9+AP4Q/gj+GP4E/hT+DOs77ldr3l4zR7O/nwW7LMaC/AJ
+#! 3Nmf/wtVfT/h7PtkEb4Ifwl39vWX4EvwV3BnX39ZVfdpLMNX0L8Cf41+Z9/n
+#! q6q6z2MV/gbuPKe6pqrfQazB19G/Dt+Ab8A38/XrZvZwVn+Dl7fod9bvNOAN
+#! Xqaq+h3XafZwdj+8vEO/s/aBgDdn979Hv7P74c3Z/R/Q7+x+Z+1DDV62stet
+#! 7AFvzt7HtlW1j9Xt7AFv8PIR8509H96c3f8J8521j4az9tHm7H10R1X7aN3J
+#! Hs7uh5fP2auz5zv7/cPLF/Q7e76z1tecvc9/xfqd3e/s9cPLLvp3s4ez++Fl
+#! D+vfyx7OXr+z199n7/rs1VnnWA8P+ABv8NHZ5+B+9m4/e3XWOdk765wMZ52T
+#! g7POyeasc3KEl4PsnbPO0Qrv4eGsc3aAN/SPzp7/DfOdPd9Z1++ddY6Hs87t
+#! Ad7go/LpOX+oqnO9O8xe4b1dOewTzYc3+AgvR9k7ZT9HVHhv93z4gP4GH9Ff
+#! vqv6/Sufvn+7cg8P9A/whv4RXo4x/zivr8J7u+fb/f3DG3yElxPMP8F8+0Tz
+#! 7cph13PdYFdudj3XjfDy49T/AuqcJEU=
+#! "]]}},
+#! AspectRatio->0.6180339887498948,
+#! Axes->True,
+#! AxesOrigin->{0, 0},
+#! ImageMargins->0.,
+#! PlotRange->{{0., 200.}, {-3., 40.}},
+#! PlotRangeClipping->True,
+#! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Automatic, Automatic}]\)\)
+#!                                              ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  ListLinePlot[ContinuedFraction[Pi,400],PlotRange->All]    ==>     \!\(\*
+#! GraphicsBox[{{}, {}, 
+#! {Hue[0.67, 0.6, 0.6], LineBox[CompressedData["
+#! 1:eJxd2EmuXDUUgGHDiGENGDDI4PKEEEIoKvqeODQJhCZFCEnoLyGPJoG8AhIC
+#! YuIl1BK8hFqCl1BL8BJqCQjV+Z/kPxPryznurn19Xe/xmydXjh9OKW0eSun/
+#! 8vBvf+5QPpLjP6I8k8f/PxvlIo/1Hj04/xH//5jiZ+RJPlK/Tyj+pMbxlOJP
+#! h59RSXtnlb+Un1X+c/Lz8gvyi2rvpfDnUb6s/FeU/6r8msb9epTM/40omfeb
+#! qv9WmHU6p/5zlLFORU7nD2W7EfHzav/tsb0ip3fUPmb870YZ+6Zg2n9vdMGM
+#! 70KUsY/KhTE/XQzHvisXFX9f48eM7wPVx9S/pPqXFP9Q48fs248Ul9PHimPG
+#! 94nicroc5vlcVnw1OmPmo3jDPP9PVV8uONa3YfbHldEZx/wKpn/lp8+ijP2d
+#! 5YLjPW+Y+V89eLoV9cPso3JV/WO/18wf8/zkpvx0TeO/NsYLpj7m3Liu/q+P
+#! +UXxhtk/N1QfU1/xJqcvwnFOZ0x9zPpjzqMv1T+mvtww342vVB9znmDqy+nr
+#! KOOczZjnj2O8TfH0jfrHvG+Y/jHn2LdjPGP6x3H+NMz6fTc6Y+rLDfMdnsf+
+#! J8x+xEeHcsach6pfcYyn4ei/h0/Pue/H+ITju5sVn3GMp+D4LlflNxzj62o/
+#! 3VT/mOeJY74zju9qUf0qN7mr/fTD6EnOmPlj3g8c+60qv8ld9dOtMc45yH0j
+#! Kz5j+sdx/6jKb8rviqfjcOy36XiMZxzfy1nxIlfM/pM75t7041h/wpxnOOrP
+#! mPnjuAdWtdfkLqef1D/m/VN8lotcMectZv6Y9f9Z/eP4vmfFZ8z3VfGK45xq
+#! mPVXfvpF/WP2v+Izjnt0Ubzi2L9N8a720+0o4/2ebo/5Gcf9YVa8YM4/xRuO
+#! 3wVd+enOmD/J+c6YP+OjQ1mUX3GsX8OxXj18+h34Ncr4nTRhfsdhnj/mfoZ5
+#! /zHfKxzj7Wov/TZ6krM8ywXHeCvme638Lqe743ymu2M8yzOO31lF9avym9wx
+#! 638yejoZ8zPm/FG8yFVuqt8VT+vRCxzn34Sj/lL5WfGV4jOO+a0VLzjO943i
+#! Fcd6bhVv8k7u8h5z//l9jC/kCcf4l4pnHH+XWGHWS/lrzP1J8Q2O+VbFtzh+
+#! pzYc59NO+V3t7XG8L4m/08T8Fpj5y0vM9wmz/sqf1f5a+UX5G+VXeav8pvgO
+#! x/w6ju/zXvXTn6MXOOpPOOa7VH4O538P5Yp43Mdm5a8x9wd5o/wqb+Um7+Su
+#! +ewVT/fG/hf3xviEef8x9wPM/sfxvGbVX6v9Im/kqvFtMfcb9bfT+Do+OpR7
+#! tZ/uj+0t7o/xSfEl5n6s/BWO5zHj+L2+xtyf5I36q5j5q7+m+jvFO47nsVc8
+#! /TV6IU+Y/Y+5n+EY30qe1d5aLsrfKF5x/N1ri1l/5e/UXld8r3h6MMYX8vRg
+#! zF/KGcd5vlL9Gcd+WSteMOuP+T2n/K3cVH+n8XXl7+X09+gF5j6k+FLO8gqz
+#! /oqv5SJv5Cpv8dGhbIrvMPddzWeP+Xv6P6f1/wP5JLfb
+#! "]]}},
+#! AspectRatio->0.6180339887498948,
+#! Axes->True,
+#! AxesOrigin->{0, 0},
+#! ImageMargins->0.,
+#! PlotRange->{All, All},
+#! PlotRangeClipping->True,
+#! PlotRangePadding->{Automatic, Automatic}]\)

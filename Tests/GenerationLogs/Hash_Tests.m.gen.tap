@@ -1,0 +1,16 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Hash.nb output/Tests/Hash_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Hash.nb
+# WRITING OUTPUT TO:     output/Tests/Hash_Tests.m
+not ok  Hash["abcdef"]    ==>     2013519615402292549
+#! Error occurred during initialization of VM
+#! Server VM is only supported on ARMv7+ VFP
+#! TextForm[ColonForm[MessageName[InstallJava, fail], StringForm[A link to the Java runtime could not be established.]]]
+not ok  Hash[{12345, 6789, 987,654,321}, "MD2"]    ==>     67018403574842005198052635089341476410
+#! Error occurred during initialization of VM
+#! Server VM is only supported on ARMv7+ VFP
+#! TextForm[ColonForm[MessageName[InstallJava, fail], StringForm[A link to the Java runtime could not be established.]]]
+not ok  IntegerString[Hash["The quick brown fox jumps over the lazy dog","MD5"],16,32]    ==>     9e107d9d372bb6826bd81d3542a419d6
+#! Error occurred during initialization of VM
+#! Server VM is only supported on ARMv7+ VFP
+#! TextForm[ColonForm[MessageName[InstallJava, fail], StringForm[A link to the Java runtime could not be established.]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[InstallJava, fail]], 3]]]]

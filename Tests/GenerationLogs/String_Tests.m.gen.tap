@@ -1,0 +1,108 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/String.nb output/Tests/String_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/String.nb
+# WRITING OUTPUT TO:     output/Tests/String_Tests.m
+#! TextForm[ColonForm[MessageName[Syntax, tsntxi], StringForm["`1`" is incomplete; more input is needed.`4`, Short[HoldForm[DisplayForm[RowBox[{string, .}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`This is a string.\)
+#!                                      ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, tsntxi], StringForm["`1`" is incomplete; more input is needed.`4`, Short[HoldForm[DisplayForm[RowBox[{string, .}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`This is a string.\)
+#!                                      ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  "This is a string."    ==>     This is a string.
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  InputForm[%]    ==>     "This is a string."
+not ok  "one\ntwo\nthree"    ==>     one
+#! two
+#! three
+not ok  {"",x,"",""}    ==>     {,x,,}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  InputForm[%]    ==>     {"", x, "", ""}
+not ok  "\[FilledDiamond] String \[Alpha]\[Beta]\[Gamma] \[LongLeftRightArrow] \[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC] \[ReturnIndicator]"    ==>     \[FilledDiamond] String \[Alpha]\[Beta]\[Gamma] \[LongLeftRightArrow] \[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC] \[ReturnIndicator]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+not ok  FullForm[%]    ==>     "\[FilledDiamond] String \[Alpha]\[Beta]\[Gamma] \[LongLeftRightArrow] \[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC] \[ReturnIndicator]"
+not ok  "red blue green italic"    ==>     red blue green italic
+ok  Head["a string"]    ==>     String
+not ok  Cases[{1,2,"ab","cd",x,y},_String]    ==>     {ab,cd}
+#! TextForm[ColonForm[MessageName[Integrate, diffend], StringForm[`1` cannot be interpreted since `2` is followed by `3`. It may be necessary to use parentheses to ensure that `2` appears at the end of the integral., Short[HoldForm[DisplayForm[RowBox[{\[Integral], RowBox[{RowBox[{1, /, x}], RowBox[{d, x}], cd}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{d, x}]]], 3], Short[HoldForm[DisplayForm[cd]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`ab \[Integral]1/x\[DifferentialD]x cd\)
+#!                                                          ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Integrate, diffend], StringForm[`1` cannot be interpreted since `2` is followed by `3`. It may be necessary to use parentheses to ensure that `2` appears at the end of the integral., Short[HoldForm[DisplayForm[RowBox[{\[Integral], RowBox[{RowBox[{1, /, x}], RowBox[{d, x}], cd}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{d, x}]]], 3], Short[HoldForm[DisplayForm[cd]], 3]]]]
+not ok  "ab \[Integral]1/x\[DifferentialD]x cd"    ==>     ab \[Integral]1/x\[DifferentialD]x cd
+not ok  FullForm[%]    ==>     "ab \[Integral]\!\(\*FractionBox[\(1\), \(x\)]\)\[DifferentialD]x cd"
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{ab}]]], 3], Short[HoldForm[DisplayForm[RowBox[{Graphics[Disk[{0, 0}], ImageSize -> {34., Automatic}], cd}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{ab}]]], 3], Short[HoldForm[DisplayForm[RowBox[{Graphics[Disk[{0, 0}], ImageSize -> {34., Automatic}], cd}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  "ab \!\(\*
+#! GraphicsBox[DiskBox[{0, 0}],
+#! ImageSize->{34., Automatic}]\) cd"    ==>     ab \!\(\*
+#! GraphicsBox[DiskBox[{0, 0}],
+#! ImageSize->{34., Automatic}]\) cd
+not ok  FullForm[%]    ==>     "ab \!\(\*\nGraphicsBox[DiskBox[{0, 0}],\nImageSize->{34., Automatic}]\) cd"
+#! TextForm[ColonForm[MessageName[Syntax, tsntxi], StringForm["`1`" is incomplete; more input is needed.`4`, Short[HoldForm[DisplayForm[RowBox[{string, .}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, tsntxi], StringForm["`1`" is incomplete; more input is needed.`4`, Short[HoldForm[DisplayForm[RowBox[{string, .}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  Style["This is a string.",FontSize->25,FontFamily->"Helvetica"]    ==>     This is a string.
+not ok  {f["X"],f["ABCDEF"],f[x],f[{a,b,c}]}    ==>     {X,BCDEFA,f[x],f[{a,b,c}]}
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  ListPlot[{{1,2,3},{3,1,4}},PlotMarkers->{"A","B"}]    ==>     \!\(\*
+#! GraphicsBox[{
+#! {Hue[0.67, 0.6, 0.6], InsetBox[
+#! TagBox["A",
+#! "InsetString"], {1., 1.}], InsetBox[
+#! TagBox["A",
+#! "InsetString"], {2., 2.}], InsetBox[
+#! TagBox["A",
+#! "InsetString"], {3., 3.}]}, 
+#! {Hue[0.9060679774997897, 0.6, 0.6], InsetBox[
+#! TagBox["B",
+#! "InsetString"], {1., 3.}], InsetBox[
+#! TagBox["B",
+#! "InsetString"], {2., 1.}], InsetBox[
+#! TagBox["B",
+#! "InsetString"], {3., 4.}]}, {}},
+#! AspectRatio->0.6180339887498948,
+#! Axes->True,
+#! AxesOrigin->{0, 1.},
+#! ImageMargins->0.,
+#! PlotRange->{{0, 3.}, {1., 4.}},
+#! PlotRangeClipping->True,
+#! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  Graphics[{Text["abcde",{0,-2}],Disk[{0,0}],Text["ABCDE",{0,2}]}]    ==>     \!\(\*
+#! GraphicsBox[{InsetBox["\<\"abcde\"\>", {0, -2}], DiskBox[{0, 0}], InsetBox["\<\"ABCDE\"\>", {0, 2}]},
+#! ImageMargins->0.]\)
+#! TextForm[ColonForm[MessageName[Syntax, tsntxi], StringForm["`1`" is incomplete; more input is needed.`4`, Short[HoldForm[DisplayForm[RowBox[{{, T, ,, h, ,, i, ,, s, ,, ,, i, ,, s, ,, ,, a, ,, ,, s, ,, t, ,, r, ,, i, ,, n, ,, g, ,, ., }}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, tsntxi], StringForm["`1`" is incomplete; more input is needed.`4`, Short[HoldForm[DisplayForm[RowBox[{{, T, ,, h, ,, i, ,, s, ,, ,, i, ,, s, ,, ,, a, ,, ,, s, ,, t, ,, r, ,, i, ,, n, ,, g, ,, ., }}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  Characters["This is a string."]    ==>     {T,h,i,s, ,i,s, ,a, ,s,t,r,i,n,g,.}
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[Hold[Out[$Line - 1]]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, tsntxi], StringForm["`1`" is incomplete; more input is needed.`4`, Short[HoldForm[DisplayForm[RowBox[{string, .}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, tsntxi], StringForm["`1`" is incomplete; more input is needed.`4`, Short[HoldForm[DisplayForm[RowBox[{string, .}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  StringJoin[%]    ==>     This is a string.
+ok  ToCharacterCode["This is a string."]    ==>     {84,104,105,115,32,105,115,32,97,32,115,116,114,105,110,103,46}
+#! TextForm[ColonForm[MessageName[FromCharacterCode, intnm], StringForm[Non-negative machine-sized integer expected at position `2` in `1`., Short[HoldForm[FromCharacterCode[Hold[Out[$Line - 1]]]], 3], Short[HoldForm[1], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, tsntxi], StringForm["`1`" is incomplete; more input is needed.`4`, Short[HoldForm[DisplayForm[RowBox[{string, .}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, tsntxi], StringForm["`1`" is incomplete; more input is needed.`4`, Short[HoldForm[DisplayForm[RowBox[{string, .}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  FromCharacterCode[%]    ==>     This is a string.
+ok  ToExpression["1+x^4"]    ==>     1+x^4
+not ok  ToString[1+x^4]    ==>          4
+#! 1 + x
+not ok  FullForm[%]    ==>     "     4\n1 + x"
+not ok  ToString[1+x^4,InputForm]    ==>     1 + x^4
+not ok  FullForm[%]    ==>     "1 + x^4"
+not ok  "a string with \"quotes\""    ==>     a string with "quotes"
+ok  Length["a string"]    ==>     0
+ok  StringLength["a string"]    ==>     8
+not ok  "x->a+b+c+d"    ==>     x->a+b+c+d
+ok  x->a+b+c+d    ==>     x->a+b+c+d
+not ok  ToString[%,InputForm]    ==>     x -> a + b + c + d
+not ok  FullForm["red italic"]    ==>     "\!\(\*\nStyleBox[\"red\",\nFontColor->RGBColor[1, 0, 0]]\) \!\(\*\nStyleBox[\"italic\",\nFontSlant->\"Italic\"]\)"
+not ok  FullForm["ab \!\(\*
+#! GraphicsBox[DiskBox[{0, 0}],
+#! ImageSize->{34., Automatic}]\) cd"]    ==>     "ab \!\(\*\nGraphicsBox[DiskBox[{0, 0}],\nImageSize->{34., Automatic}]\) cd"
+not ok  "\[Alpha]"    ==>     \[Alpha]
+not ok  ToString[FullForm["\[Alpha]"]]    ==>     "\[Alpha]"
+not ok  ToString["\[Alpha]",InputForm,CharacterEncoding->None]    ==>     "\[Alpha]"

@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/LeafCount_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: LeafCount_Tests
-# OUTPUT: output/Results/Mathematica_10/LeafCount_Tests.json
 # Find the number of "leaves" in an expression tree:
 ok  LeafCount[1 + a + b^2]    ==>     6
     ---

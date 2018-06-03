@@ -1,0 +1,13 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Unprotect.nb output/Tests/Unprotect_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Unprotect.nb
+# WRITING OUTPUT TO:     output/Tests/Unprotect_Tests.m
+ok  Sqrt[x^2]    ==>     Sqrt[x^2]
+not ok  Sqrt[x^2]    ==>     x
+ok  Unprotect["`*"]    ==>     {}
+not ok  protected=Unprotect[Sqrt]    ==>     {Sqrt}
+not ok  Protect[Evaluate[protected]]    ==>     {Sqrt}
+ok  Attributes[{f,g}]    ==>     {{},{}}
+not ok  Unprotect[f,g]    ==>     {f}
+not ok  f[x_]:=x^3    ==>     $Failed
+not ok  Unprotect[Evaluate[syms]]    ==>     {f,g,h}
+ok  Attributes[f]    ==>     {}

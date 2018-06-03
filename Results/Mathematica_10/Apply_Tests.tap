@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Apply_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Apply_Tests
-# OUTPUT: output/Results/Mathematica_10/Apply_Tests.json
 ok  f @@ {a, b, c, d}    ==>     f[a, b, c, d]
     ---
     data:
@@ -220,7 +220,7 @@ ok  FactorInteger[20!]    ==>     {{2, 18}, {3, 8}, {5, 4}, {7, 2}, {11, 1}, {13
         expect: {{2, 18}, {3, 8}, {5, 4}, {7, 2}, {11, 1}, {13, 1}, {17, 1}, {19, 1}}
         expect_evaluated: {{2, 18}, {3, 8}, {5, 4}, {7, 2}, {11, 1}, {13, 1}, {17, 1}, {19, 1}}
     ...
-ok  CenterDot @@ Apply[Superscript, %, {1}]    ==>     2^18 \[CenterDot] 3^8 \[CenterDot] 5^4 \[CenterDot] 7^2 \[CenterDot] 11^1 \[CenterDot] 13^1 \[CenterDot] 17^1 \[CenterDot] 19^1 # skip
+ok  CenterDot @@ Apply[Superscript, %, {1}]    ==>     2^18 � 3^8 � 5^4 � 7^2 � 11^1 � 13^1 � 17^1 � 19^1 # skip
 # Create a table from a list of range specifications:
 ok  (Table[i^j, ##1] & ) @@ {{i, 3}, {j, 4}}    ==>     {{1, 1, 1, 1}, {2, 4, 8, 16}, {3, 9, 27, 81}}
     ---

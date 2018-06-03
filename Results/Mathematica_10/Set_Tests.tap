@@ -1,6 +1,8 @@
+#! DOCKER > wolfram -script output/Tests/Set_Tests.m
+#! TextForm[ColonForm[MessageName[Set, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[v[[2,2]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[v[[2]]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Set_Tests
-# OUTPUT: output/Results/Mathematica_10/Set_Tests.json
 # Set a value for x:
 ok  x = a + b    ==>     a + b
     ---

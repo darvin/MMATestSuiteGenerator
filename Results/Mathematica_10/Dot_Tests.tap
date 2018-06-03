@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Dot_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Dot_Tests
-# OUTPUT: output/Results/Mathematica_10/Dot_Tests.json
 # Scalar product of vectors:
 ok  {a, b, c} . {x, y, z}    ==>     a*x + b*y + c*z
     ---

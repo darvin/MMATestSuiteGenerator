@@ -1,0 +1,156 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/FixedPointList.nb output/Tests/FixedPointList_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/FixedPointList.nb
+# WRITING OUTPUT TO:     output/Tests/FixedPointList_Tests.m
+ok  FixedPointList[1+Floor[#/2]&,1000]    ==>     {1000,501,251,126,64,33,17,9,5,3,2,2}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  1+Floor[Last[%]/2]    ==>     2
+ok  FixedPointList[#/.{a_,b_}/;b!=0->{b,Mod[a,b]}&,{28,21}]    ==>     {{28,21},{21,7},{7,0},{7,0}}
+ok  GCD[28,21]    ==>     7
+ok  FixedPointList[1+Floor[#/2]&,1000,5]    ==>     {1000,501,251,126,64,33}
+ok  FixedPointList[1+Floor[#/2]&,1000]    ==>     {1000,501,251,126,64,33,17,9,5,3,2,2}
+ok  FixedPointList[(# + 2/# )/2&,1`20,SameTest->(Abs[#1-#2]<1*^-10&)]    ==>     {1.0000000000000000000,1.5000000000000000000,1.4166666666666666667,1.4142156862745098039,1.4142135623746899106,1.4142135623730950488}
+not ok  FixedPointList[(# + 2/# )/2&,1,SameTest->(Abs[#1-#2]<1*^-10&)]//TableForm    ==>     1
+#! 3/2
+#! 17/12
+#! 577/408
+#! 665857/470832
+#! 886731088897/627013566048
+not ok  FixedPointList[(# + 2/# )/2&,1.0]    ==>     {1.,1.5,1.41667,1.41422,1.41421,1.41421,1.41421}
+ok  Length[FixedPointList[Cos,1.0]]-1    ==>     92
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 419}, {0, 90}}]\)\)
+#!                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 419}, {0, 90}}]\)\)
+#!                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  MatrixForm/@FixedPointList[{{0.51,0.49},{0.49,0.51}}.#&,{{1,0},{0,1}}]    ==>     \!\(\*
+#! GraphicsBox[
+#! TagBox[RasterBox[CompressedData["
+#! 1:eJztnauyvMoVxslF5DXyArwDeQGqTlwKc05VsKFOUpXC4pA4HCI1CoUaNQaF
+#! wbTBIMZgEAgMAjHpZmbvmT00l24uQ8P6VSX1P+yhe32rYXFrPv76279+0f8o
+#! SdK//4L/75df/6v8/vuv5t//jP/jb+Z//vnbn/A//oH/978/SBL5942Lukh8
+#! 19YUxUPliJ9XF0fDfcm6e635OmRlbI/V9WLqdzTdCqrH4jI+e6au6B6at7sH
+#! eahK8in5Tl0ZuobUrH+5Vn0rzsnEFN3yyFNI0FqQvmwDJbJUstQ8xc9l6cVU
+#! ZdKXZqNiMEGLJDOLTk1cshUkz3WLxNEbEYpxScdsycCOqVCE3na/DG9Mpom3
+#! XScuBtfPznjD0y4JcvCmZl7e/4rifFL1o4XX2+MrZezgrdwLzoHv+2f0CKRK
+#! bMPAqypO3LMuR3cNdaCTfes7dXlo4R0wQGno4Xb0pJWNDaaozs5Ygn2OoxMW
+#! o6eP8EpSTYwTin3lKbCwSeHz02vi4gKm+f2lfJFkVog05kdp7L9utE1X3rXI
+#! QxKZlb9FMjXtgFAUF9040/5Qu7JkDxe6Eh/4jXNGVkg9SVLfdrmrb1phTl+V
+#! M7yBHn/8FOG92EqLIsvfD+iJq8j2mELH0B35dWxLih3Ymh09UhfbsmRF5F9V
+#! JNGOHRtMUUHqidOsROrYYzOoYkWSo2YpcmTJDB8t5I+C0RQxu3eLWSSZVYKb
+#! kuOmqdCUZDu6i8DCjEuT2CzAxTz+uQlMTTuwYcqyfDuIXQPTialn9aUzrtA1
+#! P2taIDuCEr01VoZ4N+Q+ctLCG+rx9afkdOULzX3drGNnbKEb3x3eo0xJ8tIq
+#! cVTr63fXAO/+RlLhknKiFroNpgjXk69yUX4f76r09F0urvhMS3Z+KKlTfPL1
+#! tVZnb4sks4zwiZyHChwiuQ5Rvfuvswsu15Jhk6tt2Q5bsUxKO7BN6uyiy4pu
+#! eT9vjNS+YXRsbEyF7vuI3950C0ezUt6oaeEN9viyfpHGqDl/yEKV7BfPnzIW
+#! ulHdpSdNUlz899BSzQA9DipVaivPWkK7G7C5FL0k56XQkROnR6HLLrgIvRa6
+#! ilQgycoGol0omXXY3Pe7831HIiHX3bLl2ORvRtA6eZySdmCblJ6qBO2tsE4N
+#! ze2oZfctfPAWLvmZFZI26qvfvkC4kQ1VDzKuIyc9vO4eqxxF0ZV+P7z2sJzo
+#! 2RgaXehGd1d6L/ugJL0eJuqiKPMEry5RU7G1FCWeKileUxma0hQ9SpOMm3pc
+#! uuJL0O87bBm5ByaZyfCTlgWTWeGlZYovbbXTvXqRS1czvJ/yhbjihTNumcBG
+#! yV2DVtCyQLNap/SYqiyLFJ/3m+cUX+32N012CsnOb/XFkiX11N7Ys7Nl890M
+#! 6Qivq0d8HtI8eXO/I77GYZSSO0g5IvuF+3iIXGN5ZxMf7C9436iGtvTx3dVV
+#! WRRFnqUnQ9FP8WvDdYHIKU/HtdLWUtRUIfmc1SVyped5V443Ce2U4OpqSo9b
+#! beQJRfO8wEdZnl5M0+/fXBZMZl2cydme9nXfj5RKxYlq8nDNxsspj4G40w5s
+#! lAIXuvaIZmfTulAGGrnqy7FUjfuP1PXVkh+/vNCOj/iSRxu4dUOnK7yuHlOf
+#! bP7yy0VK+HKdo7nh45Ei2YtfL3+GzlpHd9dQnb6Sd0rJX66B+bikMv2unWpr
+#! KcJE7uNi0Ayel3dlcvr6qfc4blbx86KR9OYOZHOJZFboEYNshC9tFvFJ/orL
+#! PFGmEnGnHdgq9EIXWerwbj6Kqsjz9+cc35SRbgQcVwi94dF7rKv3ooxPDPI8
+#! LzqDG8nY7ijU9wD6ny9uMUVlQQu7OdGals3Zk1njBvPWg/V7o+T3XWftvGkH
+#! tkpHoXPu90sWpka60j/rgM5K4W0BSNFH4E07sFW6Cp25ym5C732QtcLbApCi
+#! j8CZdmCr0Ac0Xul8gHNzWiu8LQAp+ghQ6HZGbmtOa0ArT9Paz9wXgG9zWi28
+#! LQAp+ghQ6HZEnQeWZvhJ6w+FI6srFTrdGZpKSllrrfC2AKToI/ClHdgiNXnR
+#! T/IpVhGFo6xW6Kzr+8IyTRBKeuZrrhbeFoAUfQS+tANbpYp1ygSncr1C17pA
+#! aGaiStQJxt8/OdJeDCn6CHxpBzYL61NXBtOwEeZ1lN5RMx/1Pgu0i1nCI0w1
+#! iFvB/k6MFM1h+7YpozzOtANbha3QMZmGjTCva/deuMrwQXOW8DgM4ri7m2B/
+#! J0KKuGzfuANbxSiPM+3AVmGaMMxmGtbQb153bT3zzRx12L54lvA4DOK4u5tg
+#! fydAivhs37gDW8UojzPtwFbpKHS2TntIwWQa9rpKlw9KqGoexyFyjvC4DOJ4
+#! u+O3vxMiRXy2b7yBrWGUx5t2YKt0vNQfmDT3BgbTMMoqlM5Dg++N9cnh8RrE
+#! cXbHb38nRor4bN84A1vDKI837cBWods01Vdfp9w4GraYo67SZV5XRI4ZtJ7h
+#! j4A5vPkM4ri6+xE7k/2dQCnisH3jCuyHyoWM8rjTDmyVwlFNiplqhQydct91
+#! 0GLuZyMD5nWxY3A+w2IMb0aDOL7uuO3vREoRu+0bX2ArGOXxpx3YKsTvS3Oi
+#! 5G06RenpJmXLHLKYe2XIvI50gcbMcKDAFt6MBnF83fHa3wmSIl7bN77AljfK
+#! m5J2YLsUaXjyzm+feENu10Gt12JuPOSUY+ATeD2whjebQRxvdzz2d8KkiNf2
+#! jTewZY3ypqUdEIs6PenuqM+b8kFug/j8t0GWDm8LQIo+wsS0A6KRnxx/Oacf
+#! 5HvTPIyXDW8LQIo+wuS0AwAAAAAAAAAAAAAArMB6LhMdfXUH8G61MYOKjpaZ
+#! TDyQrcnNlIxT3r+wCSw+PeZZeKOETGfqgH6i5VkA4UcT3hkOit7frl7RZYLe
+#! V3cA71YbPaxo4lH5xCLDTa6IzP969EVdSDo6m80hIE6zLKd88hvF+aSJPfMP
+#! aA8ztgzCeTmscBaKi26cfy5a02WC2ldnAG2rjW7WNPEocRacphRWJCEPFbSF
+#! ZEII/nfYPcBX37SmfEF+gQHtZs6WQTgnhxXOwjUwW9P113SZoPbVFQDFaqOb
+#! NU08yOjLdlg/3nxX7ypoC2/J6TlnX3culM2kDPUR76Z1scSAdjNryyCci8MK
+#! Z6H2DaMV6pouE9S+6AHQrTY6WdXEo0DPN6HwoN5lUhc2L80pPsrzpn56lHfO
+#! C0ezKO8mj2KRAe1m3pZBOAeHFc5CnRpa29hkTZcJal/0hd1WG1TWNPG4Ly3x
+#! 0sgl2svuhYiY2N6v60nGLNo1eGjpQ7YqHSwzoN3M3DIIZ+awwpnIAs2imCWu
+#! 6DJB74u6sMdqg8qKJh5f6YzIp1XePOLeFt7PbM/Xqs5D5Wly8rOds0UzmhvB
+#! MgPaw7wtg3BmDiuchexsWhdaL6u5THT11emg8m610cd6Jh7V940355z2Lry9
+#! XvzKxol6+MTFUOOz4lxsQDuZtWUQzsphhTMRWWr3JfmaLhPUvmZxUFnJxAPL
+#! ylsdURc+wyp6buNGuhFwSF90QLuZr2UQzshhhTPR8XUV4NPUSFeo33MZQPgB
+#! BeGMHFY4E90fBgU+C/0zH4OIP6AgnI3DCmciFv1wsFs4R1/8AQXhbBxWOAuV
+#! p2m9XzMBPgXf6O9gQEE4E4cVztaFI6uCZ2mvFK7u0D/S17uW+AMKwtnWOqpw
+#! ti4cRfQs7RU8+lbL6btME4SSnumVOxhQEP4KCJ+FUvws7RXK+Xwz+1rq/QDl
+#! DgYUhD8B4XM5O3U/stmHk5u4rnqU0UfNHOz+adLTB/TT7mQg/AkIH45lHF1Z
+#! EtTJjVvF9lz12qNfkHdkh45x0wf0g+5kDSD8ZQkIn4mO2YaiOrlxq9ieq97V
+#! 1pyfo585quINvYc4fUA/6E7WAMK/AeGzEdm6Tzn7FNbJjVfF5lz1ylDVPI4j
+#! 2vQB/aQ72Q2EM3NY4UxkgUmzDhDXyY1TxeZc9YrQ4HvFe/KAftSdDIQzc1jh
+#! TNRXX3fa33kX2MmNS8WPlGzBVY98Rz7g+Y785AGlp6KbmVsG4awcVjgbFTJ0
+#! yk0/cZ3c+FRszVUvdgzOR06TB/Sz7mQgnJnDCmej9HQzae9swjq58anYmKse
+#! GZThp190pg7oR93JQDgHhxXOBnK7KqqYTm60nwvmqkeO0T73QW76gH7MnQyE
+#! c3FY4UzU6Ul329f4wMcgdy18/rsW4g4oCOfjsMIZyU+OL7bRy75Avjfw4GsA
+#! UQcUhPNyWOEAAAAAAAAAAAAAsHtEsT6YHRAOwucKD4RvSniFovcXc4WwPshQ
+#! PPb9fjogfJHw3qMF4SCct+XJwl8oLrpxfutfCOuDq29aU77xDcKXCW+5lkE4
+#! J4cV/tpUYLZethXE+qAM9bf3y1gA4UuFt1zLIJyLnQmvyvYM/kFq3zBakYhi
+#! fVA4mpW21xwFCF8uvOVaBuEc7Ex4FbqmIituyPJFnTo1NLc11VAY64PQ0gO+
+#! D2iA8CXDW65lEM7MPoWnhmIxXNNmgWaF7cWiWB9kZ4tmxjUCEL5keMu1DMKZ
+#! 2anwyDYvo98Gyc6mdaFlTwzrA2LcpPHZFYLwJcNbrmUQzspehXd/FYhCZKnd
+#! V9ybtz7AlJFuBBwn9CB82fCWaxmEM7JX4WyFjv5lDXGoka7YHApAuKiAcEb2
+#! Kpyx0DH8eJNQPgo5BhAuLCCcjb0KZ9IVi17teUcfhAsLCGdjr8JZCl3laVoo
+#! th8U3+iDcHEB4UzsVnhoG6OfuhaOrAqfBN1hmTj4WAuECwsIZ1trr8KL2FM1
+#! J8nHvCRROMoOkmC1vJjLNEEo6ZleCcLFBYS/cljht1udqOQzfGOc2Ms9JKF1
+#! Wtt8nVB6nanYAoSLCwh/cljhNzJhWPMoHz+j031DTxSvKkoSUPONwv6PRYLw
+#! hcNbrmUQ/uSwwm+M02a6kiCEV1VDOwmFq/Qf4wggfOHwlmsZhL8sOahwwhwT
+#! hsXwqmq42przMwmZoyre0Ot4IHzh8JZrGYR/c1jhBLZCZ+s+5eRSEK8q8qNQ
+#! 1TwOB2YQvmx4y7UMwhnZq3CmQpcFJs0ZQBSvKnxWGxp8bzqD8EXDW65lEM7I
+#! XoUzFbr66utO+xvfwnhVkS99Bzxf+gbhi4a3XMsgnJW9Co8dBpumW4UMnXIz
+#! UxSvqtgx+h85dQLClwxvuZZBODP7FF55ujl6dsmN3Dmk/l4MryoS/PBDIDog
+#! fLnwlmsZhHOwN+F5inxbVXqf57ZBbteRYvNeVeRQ5XN/CxKELxXeci2DcC72
+#! JbxGZ/8cpaxVv05Putu+hBcAcvHu89y1uAPChQOE83FY4T/JT44voo8L8r2B
+#! 5z8DgHDBAOG8HFY4AAAAAAAAAAAAAGyC/wNdgHJe
+#! "], {{0, 90}, {419, 0}}, {0, 255},
+#! ColorFunction->RGBColor],
+#! BoxForm`ImageTag["Byte", ColorSpace -> "RGB", Interleaving -> True],
+#! Selectable->False],
+#! BaseStyle->"ImageGraphics",
+#! ImageSize->Automatic,
+#! ImageSizeRaw->{419, 90},
+#! PlotRange->{{0, 419}, {0, 90}}]\)
+ok  FixedPointList[#/.{s[x_][y_][z_]->x[z][y[z]],k[x_][y_]->x}&,s[s[s]][s][k][k]]    ==>     {s[s[s]][s][k][k],s[s][k][s[k]][k],s[s[k]][k[s[k]]][k],s[k][k][k[s[k]][k]],k[k[s[k]][k]][k[k[s[k]][k]]],k[s[k]][k],s[k],s[k]}
+#! TextForm[ColonForm[MessageName[Syntax, tsntxi], StringForm["`1`" is incomplete; more input is needed.`4`, Short[HoldForm[DisplayForm[RowBox[{{, RowBox[{RowBox[{RowBox[{/, crypt}], /, maeder}], /., Mathematica}], ,, RowBox[{RowBox[{/, crypt}], /, maeder}], ,, RowBox[{/, crypt}], ,, /, ,, /, }}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`{/crypt/maeder/.Mathematica,/crypt/maeder,/crypt,/,/}\)
+#!                                                                          ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, tsntxi], StringForm["`1`" is incomplete; more input is needed.`4`, Short[HoldForm[DisplayForm[RowBox[{{, RowBox[{RowBox[{RowBox[{/, crypt}], /, maeder}], /., Mathematica}], ,, RowBox[{RowBox[{/, crypt}], /, maeder}], ,, RowBox[{/, crypt}], ,, /, ,, /, }}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  FixedPointList[ParentDirectory,$UserBaseDirectory]    ==>     {/crypt/maeder/.Mathematica,/crypt/maeder,/crypt,/,/}
+ok  FixedPointList[D[#,x]&,x^10]    ==>     {x^10,10 x^9,90 x^8,720 x^7,5040 x^6,30240 x^5,151200 x^4,604800 x^3,1814400 x^2,3628800 x,3628800,0,0}
+not ok  FixedPointList[Function[x,(x+2/x)/2],1.0]    ==>     {1.,1.5,1.41667,1.41422,1.41421,1.41421,1.41421}
+not ok  FixedPoint[Function[x,(x+2/x)/2],1.0]    ==>     1.41421
+not ok  NestList[(# + 2/# )/2&,1.0,8]    ==>     {1.,1.5,1.41667,1.41422,1.41421,1.41421,1.41421,1.41421,1.41421}
+not ok  FixedPointList[(# + 2/# )/2&,1.0]    ==>     {1.,1.5,1.41667,1.41422,1.41421,1.41421,1.41421}
+ok  FixedPointList[#/.{a->b,b->c,c->d}&,a^2+c^3]    ==>     {a^2+c^3,b^2+d^3,c^2+d^3,d^2+d^3,d^2+d^3}
+ok  a^2+c^3//.{a->b,b->c,c->d}    ==>     d^2+d^3
+not ok  NestWhileList[Function[x,(x+2/x)/2],1.0,UnsameQ,2]    ==>     {1.,1.5,1.41667,1.41422,1.41421,1.41421,1.41421}
+not ok  FixedPointList[InverseErf,0.5`10,10]//TableForm    ==>     0.5000000000
+#! 0.47693627620
+#! 0.451579534663
+#! 0.42435507490618
+#! 0.395808252592498
+#! 0.3665514512748453
+#! 0.337204114422479960
+#! 0.3083383633992037845
+#! 0.28043933170777735913
+#! 0.2538838699797014057785
+#! 0.228936264535361716431397
+ok  Depth/@FixedPointList[#/.{s[x_][y_][z_]->x[z][y[z]],k[x_][y_]->x}&,s[s[s[s][s]]][s][s][k]]    ==>     {2,2,2,2,2,2,3,4,5,6,3,3,4,4,5,3,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,7,8,8,9,9,5,6,7,4,4}

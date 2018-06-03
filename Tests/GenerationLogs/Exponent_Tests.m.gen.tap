@@ -1,0 +1,18 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Exponent.nb output/Tests/Exponent_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Exponent.nb
+# WRITING OUTPUT TO:     output/Tests/Exponent_Tests.m
+ok  Exponent[1+x^2+a x^3,x]    ==>     3
+ok  Exponent[(x^2+1)^3+1,x]    ==>     6
+ok  Exponent[x^(n+1)+2 Sqrt[x]+1,x]    ==>     Max[1/2,1+n]
+ok  Exponent[(x^2+1)^3-1,x,Min]    ==>     2
+ok  Exponent[1+x^2+a x^3,x,List]    ==>     {0,2,3}
+ok  Exponent[2x^2-x+1,x,Modulus->2]    ==>     1
+ok  Exponent[Tan[x],Cos[x],Trig->True]    ==>     -1
+not ok  LeadingCoefficient[2+3x+17x^5,x]    ==>     17
+not ok  LeadingTerm[2+3x+17x^5,x]    ==>     17 x^5
+not ok  Exponent[f,x]    ==>     5
+not ok  Length[x/.Solve[f==0,x]]    ==>     5
+not ok  Exponent[f,x]    ==>     14
+not ok  Length[CoefficientList[f,x]]    ==>     15
+not ok  Exponent[f,x]    ==>     2
+not ok  Exponent[RootReduce[f],x]    ==>     1

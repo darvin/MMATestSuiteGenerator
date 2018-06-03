@@ -1,0 +1,13 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/OddQ.nb output/Tests/OddQ_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/OddQ.nb
+# WRITING OUTPUT TO:     output/Tests/OddQ_Tests.m
+ok  OddQ[9]    ==>     True
+ok  OddQ[x]    ==>     False
+ok  VectorQ[{1,5,7,11},OddQ]    ==>     True
+ok  VectorQ[{2,5,7,11},OddQ]    ==>     False
+ok  OddQ[2]    ==>     False
+ok  EvenQ[2]    ==>     True
+ok  OddQ[15]    ==>     True
+ok  Not[Divisible[15,2]]    ==>     True
+ok  OddQ[x]    ==>     False
+not ok  FullSimplify[x]    ==>     3

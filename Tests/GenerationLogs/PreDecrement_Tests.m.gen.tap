@@ -1,0 +1,27 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/PreDecrement.nb output/Tests/PreDecrement_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/PreDecrement.nb
+# WRITING OUTPUT TO:     output/Tests/PreDecrement_Tests.m
+ok  k=1;--k    ==>     0
+ok  k    ==>     0
+ok  x=1.5; --x;x    ==>     0.5
+ok  v=a;--v;v    ==>     -1+a
+ok  x={1,2,3}    ==>     {1,2,3}
+ok  --x;x    ==>     {0,1,2}
+ok  i=10^6;
+#! While[!PrimeQ[--i],Null];
+#! i    ==>     999983
+#! TextForm[ColonForm[MessageName[Decrement, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[a], 3]]]]
+#! TextForm[ColonForm[MessageName[PreDecrement, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[b], 3]]]]
+not ok  {a--,--b}    ==>     {1,0}
+not ok  {a,b}    ==>     {0,0}
+ok  k=1;
+#! k=k-1    ==>     0
+ok  k=1;
+#! k-=1    ==>     0
+#! TextForm[ColonForm[MessageName[Increment, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[a], 3]]]]
+#! TextForm[ColonForm[MessageName[PreIncrement, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[b], 3]]]]
+#! TextForm[ColonForm[MessageName[Decrement, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[c], 3]]]]
+#! TextForm[ColonForm[MessageName[PreDecrement, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[d], 3]]]]
+not ok  {a++,++b,c--,--d}    ==>     {1,2,1,0}
+not ok  {a,b,c,d}    ==>     {2,2,0,0}
+not ok  --x    ==>     --x

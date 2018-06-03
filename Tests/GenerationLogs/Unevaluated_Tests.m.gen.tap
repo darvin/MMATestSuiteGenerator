@@ -1,0 +1,8 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Unevaluated.nb output/Tests/Unevaluated_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Unevaluated.nb
+# WRITING OUTPUT TO:     output/Tests/Unevaluated_Tests.m
+ok  Length[Unevaluated[5+6+7+8]]    ==>     4
+not ok  symbolLength[xyzzy]    ==>     5
+not ok  f[Unevaluated[1+1]]    ==>     g[2]
+ok  Hold[Evaluate[Unevaluated[1+2]]]    ==>     Hold[Unevaluated[1+2]]
+ok  f[Unevaluated[1+2]]    ==>     f[Unevaluated[1+2]]

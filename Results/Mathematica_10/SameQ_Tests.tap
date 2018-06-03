@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/SameQ_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: SameQ_Tests
-# OUTPUT: output/Results/Mathematica_10/SameQ_Tests.json
 # Test whether two expressions are identically the same:
 ok  x === y    ==>     False
     ---

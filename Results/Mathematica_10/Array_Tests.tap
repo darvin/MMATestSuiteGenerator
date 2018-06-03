@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Array_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Array_Tests
-# OUTPUT: output/Results/Mathematica_10/Array_Tests.json
 ok  Array[f, 10]    ==>     {f[1], f[2], f[3], f[4], f[5], f[6], f[7], f[8], f[9], f[10]}
     ---
     data:

@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/HoldForm_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: HoldForm_Tests
-# OUTPUT: output/Results/Mathematica_10/HoldForm_Tests.json
 # Addition in held form:
 ok  HoldForm[1 + 1]    ==>     1 + 1 # skip
 # An unevaluated assignment:

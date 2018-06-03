@@ -1,0 +1,4 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Infix.nb output/Tests/Infix_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Infix.nb
+# WRITING OUTPUT TO:     output/Tests/Infix_Tests.m
+not ok  Infix[f[a,b,c],"#"]    ==>     a #b #c

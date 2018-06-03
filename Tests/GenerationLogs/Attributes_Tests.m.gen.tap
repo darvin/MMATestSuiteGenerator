@@ -1,0 +1,16 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Attributes.nb output/Tests/Attributes_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Attributes.nb
+# WRITING OUTPUT TO:     output/Tests/Attributes_Tests.m
+ok  Attributes[Plus]    ==>     {Flat,Listable,NumericFunction,OneIdentity,Orderless,Protected}
+ok  Attributes[f]={Listable,Protected}    ==>     {Listable,Protected}
+ok  Attributes[f]    ==>     {Listable,Protected}
+ok  Attributes[Plus]    ==>     {Flat,Listable,NumericFunction,OneIdentity,Orderless,Protected}
+ok  Attributes[{Plus,Minus}]    ==>     {{Flat,Listable,NumericFunction,OneIdentity,Orderless,Protected},{Listable,NumericFunction,Protected}}
+ok  Attributes["Set"]    ==>     {HoldFirst,Protected,SequenceHold}
+not ok  Attributes[{f,g}]    ==>     {{HoldAll,Listable},{HoldAll}}
+not ok  Definition[f]    ==>     Attributes[f]={Listable}
+not ok  Attributes[f]    ==>     {Protected}
+not ok  Attributes[f]    ==>     {}
+ok  Attributes[Attributes]    ==>     {HoldAll,Listable,Protected}
+ok  Attributes[syms]    ==>     {}
+not ok  Attributes[Evaluate[syms]]    ==>     {{Flat,Listable,NumericFunction,OneIdentity,Orderless,Protected},{Flat,Listable,NumericFunction,OneIdentity,Orderless,Protected},{Listable,NumericFunction,OneIdentity,Protected}}

@@ -1,0 +1,48 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Apply.nb output/Tests/Apply_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Apply.nb
+# WRITING OUTPUT TO:     output/Tests/Apply_Tests.m
+ok  Apply[f,{a,b,c,d}]    ==>     f[a,b,c,d]
+ok  f@@{a,b,c,d}    ==>     f[a,b,c,d]
+ok  Plus@@{a,b,c,d}    ==>     a+b+c+d
+ok  f@@{{a,b},{c},d}    ==>     f[{a,b},{c},d]
+ok  Apply[f][{{a,b},{c},d}]    ==>     f[{a,b},{c},d]
+ok  Apply[List,<|1->a,2->b,3->c,4->{d}|>]    ==>     {a,b,c,{d}}
+ok  Values[<|1->a,2->b,3->c,4->{d}|>]    ==>     {a,b,c,{d}}
+ok  Apply[f,<|1->a,2->b,3->c,4->{d,{e}}|>,{2}]    ==>     <|1->a,2->b,3->c,4->{d,f[e]}|>
+not ok  Apply[f,<|1->a,2->b,3->c,4->{d,{e}}|>,{0,2}]    ==>     f[{a,b,c,f[d,f[e]]}]
+ok  Apply[f,{{a,b,c},{d,e}}]    ==>     f[{a,b,c},{d,e}]
+ok  f@@{{a,b,c},{d,e}}    ==>     f[{a,b,c},{d,e}]
+ok  Apply[f,{{a,b,c},{d,e}},{1}]    ==>     {f[a,b,c],f[d,e]}
+ok  f@@@{{a,b,c},{d,e}}    ==>     {f[a,b,c],f[d,e]}
+ok  Apply[f,{{a,b,c},{d,e}},{0,1}]    ==>     f[f[a,b,c],f[d,e]]
+ok  Apply[f,{{{{{a}}}}},2]    ==>     {f[f[{{a}}]]}
+ok  Apply[f,{{{{{a}}}}},{0,2}]    ==>     f[f[f[{{a}}]]]
+ok  Apply[f,{{{{{a}}}}},Infinity]    ==>     {f[f[f[f[a]]]]}
+ok  Apply[f,{{{{{a}}}}},{0,Infinity}]    ==>     f[f[f[f[f[a]]]]]
+ok  Apply[f,{{{{{a}}}}},-1]    ==>     {f[f[f[f[a]]]]}
+ok  Apply[f,{{{{{a}}}}},-2]    ==>     {f[f[f[f[a]]]]}
+ok  Apply[f,{{{{{a}}}}},-3]    ==>     {f[f[f[{a}]]]}
+ok  Apply[f,{{{{{a}}}}},{2,-3}]    ==>     {{f[f[{a}]]}}
+ok  Apply[f,h0[h1[h2[h3[h4[a]]]]],{2,-3}]    ==>     h0[h1[f[f[h4[a]]]]]
+ok  Apply[f,p[x][q[y]],{1},Heads->True]    ==>     f[x][f[y]]
+ok  Apply[Plus,g[x,y,z]]    ==>     x+y+z
+ok  Apply[List,SparseArray[{1->1,2->2,10->10}]]    ==>     {1,2,0,0,0,0,0,0,0,10}
+ok  Apply[f,p[x][q[y]],{1},Heads->True]    ==>     f[x][f[y]]
+ok  Apply[f,p[x][q[y]],{1}]    ==>     p[x][f[y]]
+ok  FactorInteger[20!]    ==>     {{2,18},{3,8},{5,4},{7,2},{11,1},{13,1},{17,1},{19,1}}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  CenterDot@@(Superscript@@@%)    ==>     2^18\[CenterDot]3^8\[CenterDot]5^4\[CenterDot]7^2\[CenterDot]11^1\[CenterDot]13^1\[CenterDot]17^1\[CenterDot]19^1
+ok  Table[i^j,##]&@@{{i,3},{j,4}}    ==>     {{1,1,1,1},{2,4,8,16},{3,9,27,81}}
+not ok  cplus[{a,b,c}]    ==>     a+b+c
+not ok  Select[RandomInteger[10,{20,2}],Apply[CoprimeQ]]    ==>     {{5,1},{6,7},{9,8},{3,10},{7,6},{1,8},{1,4},{2,3},{1,3},{2,1},{1,10},{5,8},{4,5}}
+ok  Total[{a,b,c,d}]    ==>     a+b+c+d
+ok  Plus@@{a,b,c,d}    ==>     a+b+c+d
+ok  Plus@@{1,2,3,4}    ==>     10
+ok  Plus[##]&[1,2,3,4]    ==>     10
+ok  Apply[f,{{a,b},{c,d}},{1}]    ==>     {f[a,b],f[c,d]}
+ok  Apply[f,#]&/@{{a,b},{c,d}}    ==>     {f[a,b],f[c,d]}
+ok  f@@@{{a,b},{c,d}}    ==>     {f[a,b],f[c,d]}
+ok  f@{a,b,c}    ==>     f[{a,b,c}]
+ok  f@@{a,b,c}    ==>     f[a,b,c]
+ok  Apply[f,a]    ==>     a
+not ok  Apply[f,{a,"string",3},{-1}]    ==>     {a,string,3}

@@ -1,6 +1,8 @@
+#! DOCKER > wolfram -script output/Tests/PowerMod_Tests.m
+#! TextForm[ColonForm[MessageName[PowerMod, root], StringForm[The equation x^`1` = `2` (mod `3`) has no integer solutions., Short[HoldForm[2], 3], Short[HoldForm[2], 3], Short[HoldForm[5], 3]]]]
+#! TextForm[ColonForm[MessageName[PowerMod, root], StringForm[The equation x^`1` = `2` (mod `3`) has no integer solutions., Short[HoldForm[2], 3], Short[HoldForm[2], 3], Short[HoldForm[5], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: PowerMod_Tests
-# OUTPUT: output/Results/Mathematica_10/PowerMod_Tests.json
 ok  PowerMod[2, 10, 3]    ==>     1
     ---
     data:

@@ -1,0 +1,46 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/PadLeft.nb output/Tests/PadLeft_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/PadLeft.nb
+# WRITING OUTPUT TO:     output/Tests/PadLeft_Tests.m
+ok  PadLeft[{a,b,c},10]    ==>     {0,0,0,0,0,0,0,a,b,c}
+ok  PadLeft[{a,b,c},10,x]    ==>     {x,x,x,x,x,x,x,a,b,c}
+ok  PadLeft[{a,b,c},10,{x,y,z}]    ==>     {z,x,y,z,x,y,z,a,b,c}
+ok  PadLeft[{a,b,c},10,x,2]    ==>     {x,x,x,x,x,a,b,c,x,x}
+not ok  PadLeft[{{a,b},{c}},{3,5}]//TableForm    ==>     0	0	0	0	0
+#! 0	0	0	a	b
+#! 0	0	0	0	c
+not ok  PadLeft[{{a,b,c},{d,e},{f}}]//TableForm    ==>     a	b	c
+#! 0	d	e
+#! 0	0	f
+ok  PadLeft[{a,b,c},-10]    ==>     {a,b,c,0,0,0,0,0,0,0}
+not ok  PadLeft[{{aa,bb},{cc}},{4,4},{{x,y},{z}}]//TableForm    ==>     x	y	x	y
+#! z	z	z	z
+#! x	y	aa	bb
+#! z	z	z	cc
+not ok  PadLeft[{{aa,bb},{cc}},{5,5},{{x,y},{z}},{1,2}]//TableForm    ==>     y	x	y	x	y
+#! z	z	z	z	z
+#! y	aa	bb	x	y
+#! z	z	cc	z	z
+#! y	x	y	x	y
+ok  PadLeft[f[a,b,c],8,x]    ==>     f[x,x,x,x,x,a,b,c]
+ok  PadLeft[{1},19,0,9]    ==>     {0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0}
+ok  PadLeft[Table[IntegerDigits[i^2,2],{i,5}]]    ==>     {{0,0,0,0,1},{0,0,1,0,0},{0,1,0,0,1},{1,0,0,0,0},{1,1,0,0,1}}
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[ImageMargins->0.]\)\)
+#!                      ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[ImageMargins->0.]\)\)
+#!                      ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  ArrayPlot[PadLeft[{{}},{15,15},{{1,0,1},{0,1,1},{1,0,0}}],Mesh->True]    ==>     \!\(\*
+#! GraphicsBox[{RasterBox[{{0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1}, {1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0}, {0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1}, {1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0}, {0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1}, {1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0}, {0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1}, {1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0}, {0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1}, {1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0}, {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0}}, {{0, 0}, {15, 15}}], 
+#! {GrayLevel[-1 + GoldenRatio], LineBox[{{{0, 15}, {15, 15}}, {{0, 14}, {15, 14}}, {{0, 13}, {15, 13}}, {{0, 12}, {15, 12}}, {{0, 11}, {15, 11}}, {{0, 10}, {15, 10}}, {{0, 9}, {15, 9}}, {{0, 8}, {15, 8}}, {{0, 7}, {15, 7}}, {{0, 6}, {15, 6}}, {{0, 5}, {15, 5}}, {{0, 4}, {15, 4}}, {{0, 3}, {15, 3}}, {{0, 2}, {15, 2}}, {{0, 1}, {15, 1}}, {{0, 0}, {15, 0}}, {{0, 0}, {0, 15}}, {{1, 0}, {1, 15}}, {{2, 0}, {2, 15}}, {{3, 0}, {3, 15}}, {{4, 0}, {4, 15}}, {{5, 0}, {5, 15}}, {{6, 0}, {6, 15}}, {{7, 0}, {7, 15}}, {{8, 0}, {8, 15}}, {{9, 0}, {9, 15}}, {{10, 0}, {10, 15}}, {{11, 0}, {11, 15}}, {{12, 0}, {12, 15}}, {{13, 0}, {13, 15}}, {{14, 0}, {14, 15}}, {{15, 0}, {15, 15}}}]}},
+#! AspectRatio->Automatic,
+#! Frame->False,
+#! FrameTicks->{None, None},
+#! ImageMargins->0.]\)
+ok  PadLeft[{1,2,3},5]    ==>     {0,0,1,2,3}
+ok  PadRight[{1,2,3},5]    ==>     {1,2,3,0,0}
+ok  ArrayPad[{1,2,3},5]    ==>     {0,0,0,0,0,1,2,3,0,0,0,0,0}
+ok  PadLeft[{a,b,c},7,{{u,v}}]    ==>     {{u,v},{u,v},{u,v},{u,v},a,b,c}
+ok  PadLeft[{a,b,c},7,{u,v}]    ==>     {v,u,v,u,a,b,c}

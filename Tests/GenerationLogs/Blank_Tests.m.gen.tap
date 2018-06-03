@@ -1,0 +1,7 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Blank.nb output/Tests/Blank_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Blank.nb
+# WRITING OUTPUT TO:     output/Tests/Blank_Tests.m
+ok  MatchQ[any[expression],_]    ==>     True
+ok  MatchQ[symbol, _Symbol]    ==>     True
+not ok  {f[1],f[a + b c]}    ==>     {4,(1+a+b c)^2}
+not ok  {g[10],g[z]}    ==>     {19,g[z]}

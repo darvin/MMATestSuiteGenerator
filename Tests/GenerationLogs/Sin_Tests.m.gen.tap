@@ -1,0 +1,3 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Sin.nb output/Tests/Sin_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Sin.nb
+# WRITING OUTPUT TO:     output/Tests/Sin_Tests.m

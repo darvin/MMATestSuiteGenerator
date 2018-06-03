@@ -1,0 +1,14 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/First.nb output/Tests/First_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/First.nb
+# WRITING OUTPUT TO:     output/Tests/First_Tests.m
+ok  First[{a,b,c}]    ==>     a
+ok  First[{{a,b},{c,d}}]    ==>     {a,b}
+ok  First[<|1->a,2->b|>]    ==>     a
+ok  First[a^2+b^2]    ==>     a^2
+ok  First[SparseArray[Range[100]]]    ==>     1
+ok  First[<|a->x,b->y|>]    ==>     x
+ok  First[{a,b,c}]    ==>     a
+ok  {a,b,c}[[1]]    ==>     a
+ok  First[b^2+a^2]    ==>     a^2
+ok  First[1/a^2]    ==>     a
+not ok  FullForm[1/a^2]    ==>     Power[a,-2]

@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/ReadList_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: ReadList_Tests
-# OUTPUT: output/Results/Mathematica_10/ReadList_Tests.json
 # Read in each line as a separate expression:
 ok  ReadList[StringToStream["123\n45\nx\ny"]]    ==>     {123, 45, x, y}
     ---

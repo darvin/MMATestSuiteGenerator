@@ -1,0 +1,36 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Simplify.nb output/Tests/Simplify_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Simplify.nb
+# WRITING OUTPUT TO:     output/Tests/Simplify_Tests.m
+ok  D[Integrate[1/(x^3+1),x],x]    ==>     1/(3 (1+x))-(-1+2 x)/(6 (1-x+x^2))+2/(3 (1+1/3 (-1+2 x)^2))
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  Simplify[%]    ==>     1/(1+x^3)
+ok  Simplify[Sin[x]^2+Cos[x]^2]    ==>     1
+ok  Simplify[Sqrt[x^2]]    ==>     Sqrt[x^2]
+ok  Simplify[Sqrt[x^2],x>0]    ==>     x
+ok  Simplify[Sqrt[x^2], Element[x, Reals]]    ==>     Abs[x]
+ok  Simplify[(x-1)(x+1)(x^2+1)+1]    ==>     x^4
+ok  Simplify[3/(x+3)+x/(x+3)]    ==>     1
+ok  Simplify[2Tan[x]/(1+Tan[x]^2)]    ==>     Sin[2 x]
+ok  Simplify[(E^x-E^-x)/Sinh[x]]    ==>     2
+ok  Simplify[2x-4y+6z-10==-8]    ==>     x+3 z==1+2 y
+ok  Simplify[1/Sqrt[x] - Sqrt[1/x], x > 0]    ==>     0
+ok  Simplify[Log[x^p],x>0&&Element[p,Reals]]    ==>     p Log[x]
+ok  Simplify[Sin[n Pi], Element[n,Integers]]    ==>     0
+ok  Simplify[x^2>3,x>2]    ==>     True
+ok  Simplify[Abs[x]<2,x^2+y^2<4]    ==>     True
+ok  Simplify[Cos[k Pi]^m,Element[k,Integers],Assumptions->Mod[m,2]==0]    ==>     1
+ok  Assuming[x>0,Simplify[Sqrt[x^2]]]    ==>     x
+ok  Simplify[Sqrt[x^2]]    ==>     Sqrt[x^2]
+ok  Assuming[x>0,Simplify[Sqrt[x^2 y^2],y<0]]    ==>     -x y
+ok  Assuming[x>0,Simplify[Sqrt[x^2 y^2],Assumptions->y<0]]    ==>     -Sqrt[x^2] y
+ok  Simplify[100 Log[2]]    ==>     100 Log[2]
+ok  Simplify[100 Log[2],ComplexityFunction->LeafCount]    ==>     Log[1267650600228229401496703205376]
+ok  Simplify[Abs[x],x<0]    ==>     Abs[x]
+not ok  Map[FullForm,{Abs[x],-x}]    ==>     {Abs[x],Times[-1,x]}
+#! TextForm[ColonForm[MessageName[Simplify, cfn], StringForm[The cost function `1` does not evaluate to a real number at `2`., Short[HoldForm[f], 3], Short[HoldForm[Abs[x]], 3]]]]
+#! TextForm[ColonForm[MessageName[Simplify, cfn], StringForm[The cost function `1` does not evaluate to a real number at `2`., Short[HoldForm[f], 3], Short[HoldForm[-x], 3]]]]
+#! TextForm[ColonForm[MessageName[Simplify, cfn], StringForm[The cost function `1` does not evaluate to a real number at `2`., Short[HoldForm[f], 3], Short[HoldForm[x], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Simplify, cfn]], 3]]]]
+ok  Simplify[Abs[x],x<0,ComplexityFunction->f]    ==>     -x
+ok  Simplify[(x-1)(x+1)(x^2+1)(x-2)^10]    ==>     (-2+x)^10 (-1+x) (1+x) (1+x^2)
+ok  Simplify[(x-1)(x+1)(x^2+1)(x-2)^10,ExcludedForms->{(_Plus)^_}]    ==>     (-2+x)^10 (-1+x^4)

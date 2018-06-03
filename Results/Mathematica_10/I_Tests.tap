@@ -1,6 +1,9 @@
+#! DOCKER > wolfram -script output/Tests/I_Tests.m
+#! TextForm[ColonForm[MessageName[Less, nord], StringForm[Invalid comparison with `1` attempted., Short[HoldForm[I^I], 3]]]]
+#! TextForm[ColonForm[MessageName[Less, nord], StringForm[Invalid comparison with `1` attempted., Short[HoldForm[I^I], 3]]]]
+#! TextForm[ColonForm[MessageName[Solve, ifun], StringForm[Inverse functions are being used by `1`, so some solutions may not be found; use Reduce for complete solution information., Short[HoldForm[Solve], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: I_Tests
-# OUTPUT: output/Results/Mathematica_10/I_Tests.json
 # RefLink[I,paclet:ref/I] can be entered as Esc\[ThinSpace]ii\[ThinSpace]Esc (for "imaginary i"):
 ok  I    ==>     I
     ---

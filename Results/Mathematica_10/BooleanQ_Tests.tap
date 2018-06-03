@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/BooleanQ_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: BooleanQ_Tests
-# OUTPUT: output/Results/Mathematica_10/BooleanQ_Tests.json
 # RefLink[BooleanQ,paclet:ref/BooleanQ] gives RefLink[True,paclet:ref/True] on either RefLink[True,paclet:ref/True] or RefLink[False,paclet:ref/False]:
 ok  BooleanQ[False]    ==>     True # skip
 # On anything else it gives RefLink[False,paclet:ref/False]:

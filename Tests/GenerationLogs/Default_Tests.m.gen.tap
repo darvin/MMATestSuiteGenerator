@@ -1,0 +1,7 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Default.nb output/Tests/Default_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Default.nb
+# WRITING OUTPUT TO:     output/Tests/Default_Tests.m
+ok  Default[f]=0    ==>     0
+ok  f[x_.,y_.]={x,y}    ==>     {x,y}
+ok  f[a]    ==>     {a,0}
+ok  f[]    ==>     {0,0}

@@ -5,8 +5,8 @@
         "passes": 1,
         "pending": 0,
         "failures": 0,
-        "start": "2018-06-02T19:35:34.732Z",
-        "end": "2018-06-02T19:35:34.732Z",
+        "start": "2018-06-03T12:20:55.491Z",
+        "end": "2018-06-03T12:20:55.491Z",
         "duration": 0,
         "testsRegistered": 1,
         "passPercent": 100,
@@ -33,11 +33,11 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "9bec6cb7-8dc4-4a45-bd8b-c72cf49f5dd3",
-                "parentUUID": "9309339d-1c36-423f-ad5a-8552cafb96f1",
+                "uuid": "cdf5a482-2061-49dc-8f36-e77f7644db94",
+                "parentUUID": "121e1acb-af05-4e57-8a91-5894a9755856",
                 "skipped": false,
                 "isHook": false,
-                "context": "\"# SYSTEM: Mathematica_10\\n# TEST: PrintTemporary_Tests\\n# OUTPUT: output/Results/Mathematica_10/PrintTemporary_Tests.json\\n# Print a temporary cell during an evaluation: \\n\\n\\ndata: \\n  got:              17\\n  expect:           17\\n  expect_evaluated: 17\"",
+                "context": "\"#! DOCKER > wolfram -script output/Tests/PrintTemporary_Tests.m\\n#! text\\n# SYSTEM: Mathematica_10\\n# TEST: PrintTemporary_Tests\\n# Print a temporary cell during an evaluation: \\n\\n\\ndata: \\n  got:              17\\n  expect:           17\\n  expect_evaluated: 17\"",
                 "state": "passed",
                 "err": {
                     "name": "",
@@ -53,14 +53,14 @@
         "file": "",
         "pending": [],
         "passes": [
-            "9bec6cb7-8dc4-4a45-bd8b-c72cf49f5dd3"
+            "cdf5a482-2061-49dc-8f36-e77f7644db94"
         ],
         "failures": [],
         "skipped": [],
         "duration": 0,
         "rootEmpty": false,
         "_timeout": 0,
-        "uuid": "9309339d-1c36-423f-ad5a-8552cafb96f1",
+        "uuid": "121e1acb-af05-4e57-8a91-5894a9755856",
         "beforeHooks": [],
         "afterHooks": []
     },

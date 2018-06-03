@@ -1,0 +1,200 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/ReplacePart.nb output/Tests/ReplacePart_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/ReplacePart.nb
+# WRITING OUTPUT TO:     output/Tests/ReplacePart_Tests.m
+ok  ReplacePart[{a,b,c,d,e},3->xxx]    ==>     {a,b,xxx,d,e}
+ok  ReplacePart[{a,b,c,d,e},{2->xx,5->yy}]    ==>     {a,xx,c,d,yy}
+ok  ReplacePart[{{a,b},{c,d}},{2,1}->xx]    ==>     {{a,b},{xx,d}}
+ok  ReplacePart[{{a,b},{c,d}},{i_,i_}->xx]    ==>     {{xx,b},{c,xx}}
+ok  ReplacePart[a+b+c^n,{{3,2}->x+y,2->b^100}]    ==>     a+b^100+c^(x+y)
+ok  ReplacePart[{a,b,c,d,e,f,g},-3->xxx]    ==>     {a,b,c,d,xxx,f,g}
+ok  ReplacePart[{a,b,c,d,e,f,g},{{1},{3},{5}}->xxx]    ==>     {xxx,b,xxx,d,xxx,f,g}
+ok  ReplacePart[{a,b,c,d,e,f,g},(1|3|5)->xxx]    ==>     {xxx,b,xxx,d,xxx,f,g}
+ok  ReplacePart[{a,b,c,d,e,f,g},Except[1|3|5]->xxx]    ==>     {a,xxx,c,xxx,e,xxx,xxx}
+ok  ReplacePart[{a,b,c,d,e,f,g},_?EvenQ->xxx]    ==>     {a,xxx,c,xxx,e,xxx,g}
+ok  ReplacePart[{{a,b,c},{d,e},{f}},{1,_}->xx]    ==>     {{xx,xx,xx},{d,e},{f}}
+ok  ReplacePart[{{a,b,c},{d,e},{f}},{_,-1}->xx]    ==>     {{a,b,xx},{d,xx},{xx}}
+ok  ReplacePart[{{0,0,0},{0,0,0},{0,0,0}},{i_,i_}->x]    ==>     {{x,0,0},{0,x,0},{0,0,x}}
+ok  ReplacePart[{{0,0,0},{0,0,0},{0,0,0}},{i_,i_}->f[i]]    ==>     {{f[1],0,0},{0,f[2],0},{0,0,f[3]}}
+ok  ReplacePart[{{0,0,0},{0,0,0},{0,0,0}},{___,2,___}->x]    ==>     {{0,x,0},x,{0,x,0}}
+ok  ReplacePart[{{a,b,c},{d,e},{f}},i__->s[i]]    ==>     {s[1],s[2],s[3]}
+not ok  ReplacePart[{{a,b},{c,d}},{i_,i_}:>RandomReal[]]    ==>     {{0.519879,b},{c,0.319308}}
+#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[Raster[{{{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.5, 0., 0.}, {0.235431, 0.32765, 0.833291}, {0.5, 0., 0.}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}}, {{0, 0}, {10, 1}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {AxisPadding -> 18.740000000000002, DefaultBoundaryStyle -> Automatic, DefaultPlotStyle -> Automatic, DomainPadding -> 18.740000000000002, RangePadding -> 46.85}], Specified, RowBox[{elements, :, RowBox[{2, Dimensions}], :, RowBox[{{, 10, }}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[]\)
+#!    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[Raster[{{{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.5, 0., 0.}, {0.235431, 0.32765, 0.833291}, {0.5, 0., 0.}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}}, {{0, 0}, {10, 1}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {AxisPadding -> 18.740000000000002, DefaultBoundaryStyle -> Automatic, DefaultPlotStyle -> Automatic, DomainPadding -> 18.740000000000002, RangePadding -> 46.85}], Specified, RowBox[{elements, :, RowBox[{2, Dimensions}], :, RowBox[{{, 10, }}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[]\)
+#!    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  ReplacePart[SparseArray[5->a,10],7->b]    ==>     SparseArray[\!\(\*
+#! GraphicsBox[RasterBox[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255},
+#! ColorFunction->GrayLevel],
+#! BaselinePosition->Bottom,
+#! ImageSize->{12, 12},
+#! PlotRange->{{0, 12}, {0, 12}}]\)	\!\(\*
+#! GraphicsBox[RasterBox[{{{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.5, 0., 0.}, {0.235431, 0.32765, 0.833291}, {0.5, 0., 0.}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}}, {{0, 0}, {10, 1}}, {0, 1}],
+#! AspectRatio->1,
+#! Axes->False,
+#! Frame->False,
+#! FrameLabel->{None, None},
+#! FrameStyle->Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]],
+#! FrameTicks->{{None, None}, {None, None}},
+#! GridLinesStyle->Directive[GrayLevel[0.5, 0.4]],
+#! ImageSize->{Automatic, 28.},
+#! Method->{"AxisPadding" -> 18.740000000000002`, "DefaultBoundaryStyle" -> Automatic, "DefaultPlotStyle" -> Automatic, "DomainPadding" -> 18.740000000000002`, "RangePadding" -> 46.85}]\)	Specified elements: 2
+#! Dimensions: {10}
+#! ]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  Normal[%]    ==>     {0,0,0,0,a,0,b,0,0,0}
+ok  ReplacePart[f[x,y],0->g]    ==>     g[x,y]
+ok  ReplacePart[f[g][x,y],{0,1}->hh]    ==>     f[hh][x,y]
+ok  ReplacePart[a x^2+y^2+ c z^2,{___,0}->List]    ==>     {{a,{x,2}},{y,2},{c,{z,2}}}
+ok  ReplacePart[f[x,y],_->g]    ==>     f[g,g]
+ok  ReplacePart[f[x,y],_->g,Heads->True]    ==>     g[g,g]
+ok  ReplacePart[f[x,y],0->g,Heads->False]    ==>     f[x,y]
+not ok  ReplacePart[IdentityMatrix[5],{_,1|5}->x]//MatrixForm    ==>     (\:f3a2x	0	0	0	x
+#! x	1	0	0	x
+#! x	0	1	0	x
+#! x	0	0	1	x
+#! x	0	0	0	x
+#! \:f3a2)
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[ImageMargins->0.]\)\)
+#!                      ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  ArrayPlot[ReplacePart[Array[GCD,{15,15}],{{6,6},{12,12}}->Red]]    ==>     \!\(\*
+#! GraphicsBox[RasterBox[CompressedData["
+#! 1:eJxTTMoPSmVmYGDgh2IQ+95dEHhrTyw9ayYIvMSgcakPBYOnGDSp5pDqHlz2
+#! UstfuGgGHACX+j27QeA1Bk1r9YJg8BCDHij34FIPcddGDJrUeBmlkcPzIAZN
+#! LfNxxS+u/FUOBs8xaFzmG4PBYwwal3pc5uNyD6npE5K7P2Dke2qFz0Cnl4FJ
+#! nxcx6IFyD7XKN1z1Ea3LT4g9VzHogfIvqeFP63YCeebcxKCHir9IjV9Sy2dS
+#! zYfQd3HQQ8X9g4fG1a4baHfRyp2k1qeDrX4n1T2ktn8GW3uDWvXCcLV3sJVv
+#! Q918UunB2d4YuuYMtvGEoa5+lKYPDQA4ree7
+#! "], {{0, 0}, {15, 15}}, {0, 1}],
+#! Frame->Automatic,
+#! FrameTicks->{None, None},
+#! ImageMargins->0.]\)
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  With[{u=RandomInteger[1,100]},ArrayPlot[Sum[(-1)^i CellularAutomaton[30,ReplacePart[u,50->i],50],{i,0,1}]]]    ==>     \!\(\*
+#! GraphicsBox[RasterBox[CompressedData["
+#! 1:eJy1l8txwzAMRIF0khrSSUrw+J7+b/GQ3MUynwu5kC2PLI/wiM8C9Pvj6/Px
+#! FhEfr/P5OvPoGM+Np8c7xjG+jJ8ixjun9TPGtFOG1uUyuYhYxqEbw7IYygXS
+#! BcC1G8Q0lCtU627Q+vLvGJEpq5yY9RErhAHyOQLGVw4QsMRNxu4KkcGAcdlY
+#! edFuEJmVV16i0lBmtwiRAYxqbQVDeI1AYCoLLN8LXQgkUVkUIqrtTheKyIo9
+#! XlT+lS4EEvQgWMOlPwtCVI7eFVUHBsQmc6ajGozDi03J0swL50JU99b+5El3
+#! bsLeupRDegVJrl5TYipaIopD06aiBSQ4DBP9yeoFe3u1E2rcRqgJBFHbpFcQ
+#! FZ54Y0Xovqp2IkZE9RDUkU/dipBguXUBiHb0TL8X2qsSiXAjakDFlhUvgkPJ
+#! Nrt/EjCuw7XJ+QsiCjG3wWJwp9aGKKuYrS0QtsBmhHmw/oLU0YbQwdEHkT17
+#! G4TdqhPi26r9j2isqEnoR+DvXy+iPd3tRTsZ/V70I/or6gzxDT4JE6c=
+#! "], {{0, 0}, {100, 51}}, {0, 1}],
+#! Frame->Automatic,
+#! FrameTicks->{None, None}]\)
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  ArrayPlot[NestList[ReplacePart[#,RandomInteger[{1,30}]->1]&,Table[0,{30}],20],Mesh->All]    ==>     \!\(\*
+#! GraphicsBox[{RasterBox[CompressedData["
+#! 1:eJytybENwCAQQ1H/7EAbKStlhFuA/TsQVIhEx4UUtmS/y/Jth6RUc9YIaC16
+#! 9YdGL8qe4iuu4itrynflF2VQ1pVHZVbiGp1ElAKNGQOa
+#! "], {{0, 0}, {30, 21}}, {0, 1}], {{
+#! {GrayLevel[-1 + GoldenRatio]}, LineBox[{{{0, 21}, {30, 21}}, {{0, 20}, {30, 20}}, {{0, 19}, {30, 19}}, {{0, 18}, {30, 18}}, {{0, 17}, {30, 17}}, {{0, 16}, {30, 16}}, {{0, 15}, {30, 15}}, {{0, 14}, {30, 14}}, {{0, 13}, {30, 13}}, {{0, 12}, {30, 12}}, {{0, 11}, {30, 11}}, {{0, 10}, {30, 10}}, {{0, 9}, {30, 9}}, {{0, 8}, {30, 8}}, {{0, 7}, {30, 7}}, {{0, 6}, {30, 6}}, {{0, 5}, {30, 5}}, {{0, 4}, {30, 4}}, {{0, 3}, {30, 3}}, {{0, 2}, {30, 2}}, {{0, 1}, {30, 1}}, {{0, 0}, {30, 0}}}]}, {
+#! {GrayLevel[-1 + GoldenRatio]}, LineBox[{{{0, 0}, {0, 21}}, {{1, 0}, {1, 21}}, {{2, 0}, {2, 21}}, {{3, 0}, {3, 21}}, {{4, 0}, {4, 21}}, {{5, 0}, {5, 21}}, {{6, 0}, {6, 21}}, {{7, 0}, {7, 21}}, {{8, 0}, {8, 21}}, {{9, 0}, {9, 21}}, {{10, 0}, {10, 21}}, {{11, 0}, {11, 21}}, {{12, 0}, {12, 21}}, {{13, 0}, {13, 21}}, {{14, 0}, {14, 21}}, {{15, 0}, {15, 21}}, {{16, 0}, {16, 21}}, {{17, 0}, {17, 21}}, {{18, 0}, {18, 21}}, {{19, 0}, {19, 21}}, {{20, 0}, {20, 21}}, {{21, 0}, {21, 21}}, {{22, 0}, {22, 21}}, {{23, 0}, {23, 21}}, {{24, 0}, {24, 21}}, {{25, 0}, {25, 21}}, {{26, 0}, {26, 21}}, {{27, 0}, {27, 21}}, {{28, 0}, {28, 21}}, {{29, 0}, {29, 21}}, {{30, 0}, {30, 21}}}]}}},
+#! Frame->False,
+#! FrameTicks->{None, None},
+#! ImageMargins->0.]\)
+ok  FoldList[ReplacePart[#1,#2->x]&,{a,b,c,d,e},{5,2,3,1,4}]    ==>     {{a,b,c,d,e},{a,b,c,d,x},{a,x,c,d,x},{a,x,x,d,x},{x,x,x,d,x},{x,x,x,x,x}}
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  g=Graphics[{Gray,Table[Disk[RandomReal[5,2]],{5}]},ImageSize->Tiny]    ==>     \!\(\*
+#! GraphicsBox[
+#! {GrayLevel[0.5], DiskBox[{3.0022, 1.6284}], DiskBox[{1.0485, 0.91316}], DiskBox[{4.9334, 1.3723}], DiskBox[{0.34688, 3.8064}], DiskBox[{1.6953, 3.16}]},
+#! ImageMargins->0.]\)
+ok  Position[g,Disk]    ==>     {{1,2,1,0},{1,2,2,0},{1,2,3,0},{1,2,4,0},{1,2,5,0}}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{{}]]], 3], Short[HoldForm[DisplayForm[RowBox[{Graphics[{GrayLevel[0.5], Disk[{3.0022, 1.6284}], Disk[{1.0485, 0.91316}], Disk[{4.9334, 1.3723}], Disk[{0.34688, 3.8064}], Disk[{1.6953, 3.16}]}, ImageSize -> Tiny], ,, Graphics[{GrayLevel[0.5], Circle[{3.0022, 1.6284}], Disk[{1.0485, 0.91316}], Disk[{4.9334, 1.3723}], Disk[{0.34688, 3.8064}], Disk[{1.6953, 3.16}]}, ImageSize -> Tiny], ,, Graphics[{GrayLevel[0.5], Circle[{3.0022, 1.6284}], Circle[{1.0485, 0.91316}], Disk[{4.9334, 1.3723}], Disk[{0.34688, 3.8064}], Disk[{1.6953, 3.16}]}, ImageSize -> Tiny], ,, Graphics[{GrayLevel[0.5], Circle[{3.0022, 1.6284}], Circle[{1.0485, 0.91316}], Circle[{4.9334, 1.3723}], Disk[{0.34688, 3.8064}], Disk[{1.6953, 3.16}]}, ImageSize -> Tiny], ,, Graphics[{GrayLevel[0.5], Circle[{3.0022, 1.6284}], Circle[{1.0485, 0.91316}], Circle[{4.9334, 1.3723}], Circle[{0.34688, 3.8064}], Disk[{1.6953, 3.16}]}, ImageSize -> Tiny], ,, Graphics[{GrayLevel[0.5], Circle[{3.0022, 1.6284}], Circle[{1.0485, 0.91316}], Circle[{4.9334, 1.3723}], Circle[{0.34688, 3.8064}], Circle[{1.6953, 3.16}]}, ImageSize -> Tiny], }}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{{}]]], 3], Short[HoldForm[DisplayForm[RowBox[{Graphics[{GrayLevel[0.5], Disk[{3.0022, 1.6284}], Disk[{1.0485, 0.91316}], Disk[{4.9334, 1.3723}], Disk[{0.34688, 3.8064}], Disk[{1.6953, 3.16}]}, ImageSize -> Tiny], ,, Graphics[{GrayLevel[0.5], Circle[{3.0022, 1.6284}], Disk[{1.0485, 0.91316}], Disk[{4.9334, 1.3723}], Disk[{0.34688, 3.8064}], Disk[{1.6953, 3.16}]}, ImageSize -> Tiny], ,, Graphics[{GrayLevel[0.5], Circle[{3.0022, 1.6284}], Circle[{1.0485, 0.91316}], Disk[{4.9334, 1.3723}], Disk[{0.34688, 3.8064}], Disk[{1.6953, 3.16}]}, ImageSize -> Tiny], ,, Graphics[{GrayLevel[0.5], Circle[{3.0022, 1.6284}], Circle[{1.0485, 0.91316}], Circle[{4.9334, 1.3723}], Disk[{0.34688, 3.8064}], Disk[{1.6953, 3.16}]}, ImageSize -> Tiny], ,, Graphics[{GrayLevel[0.5], Circle[{3.0022, 1.6284}], Circle[{1.0485, 0.91316}], Circle[{4.9334, 1.3723}], Circle[{0.34688, 3.8064}], Disk[{1.6953, 3.16}]}, ImageSize -> Tiny], ,, Graphics[{GrayLevel[0.5], Circle[{3.0022, 1.6284}], Circle[{1.0485, 0.91316}], Circle[{4.9334, 1.3723}], Circle[{0.34688, 3.8064}], Circle[{1.6953, 3.16}]}, ImageSize -> Tiny], }}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  FoldList[ReplacePart[#1,#2->Circle]&,g,%]    ==>     {\!\(\*
+#! GraphicsBox[
+#! {GrayLevel[0.5], DiskBox[{3.0022, 1.6284}], DiskBox[{1.0485, 0.91316}], DiskBox[{4.9334, 1.3723}], DiskBox[{0.34688, 3.8064}], DiskBox[{1.6953, 3.16}]},
+#! ImageSize->Tiny]\),\!\(\*
+#! GraphicsBox[
+#! {GrayLevel[0.5], CircleBox[{3.0022, 1.6284}], DiskBox[{1.0485, 0.91316}], DiskBox[{4.9334, 1.3723}], DiskBox[{0.34688, 3.8064}], DiskBox[{1.6953, 3.16}]},
+#! ImageSize->Tiny]\),\!\(\*
+#! GraphicsBox[
+#! {GrayLevel[0.5], CircleBox[{3.0022, 1.6284}], CircleBox[{1.0485, 0.91316}], DiskBox[{4.9334, 1.3723}], DiskBox[{0.34688, 3.8064}], DiskBox[{1.6953, 3.16}]},
+#! ImageSize->Tiny]\),\!\(\*
+#! GraphicsBox[
+#! {GrayLevel[0.5], CircleBox[{3.0022, 1.6284}], CircleBox[{1.0485, 0.91316}], CircleBox[{4.9334, 1.3723}], DiskBox[{0.34688, 3.8064}], DiskBox[{1.6953, 3.16}]},
+#! ImageSize->Tiny]\),\!\(\*
+#! GraphicsBox[
+#! {GrayLevel[0.5], CircleBox[{3.0022, 1.6284}], CircleBox[{1.0485, 0.91316}], CircleBox[{4.9334, 1.3723}], CircleBox[{0.34688, 3.8064}], DiskBox[{1.6953, 3.16}]},
+#! ImageSize->Tiny]\),\!\(\*
+#! GraphicsBox[
+#! {GrayLevel[0.5], CircleBox[{3.0022, 1.6284}], CircleBox[{1.0485, 0.91316}], CircleBox[{4.9334, 1.3723}], CircleBox[{0.34688, 3.8064}], CircleBox[{1.6953, 3.16}]},
+#! ImageSize->Tiny]\)}
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  ArrayPlot[#,Mesh->True,ImageSize->50]&/@NestList[ReplacePart[#,RandomInteger[{1,5},{2}]->1]&,ConstantArray[0,{5,5}],10]    ==>     \!\(\*
+#! GraphicsBox[
+#! TagBox[RasterBox[CompressedData["
+#! 1:eJztnC1vW0kUhu9+gP0b+wf6H7x/wFKXmrRSA5Zs1F1pZRoWaGYUo6CgoqCS
+#! oJASExODEBMDg0sMDLqOtKm0bjxfd+bMnJnnlVrFmXnP+5zRvcdW7OTX93++
+#! vfix67q/fjn+9/bdP6OPH99Nf//5+OC36d8f3v90/OKP47+PP3Td89dfEUIo
+#! vW7KE9iSAltSLtgVyNypYVXemDcdbMn0lrErkNKTBzu1MW96y9gVSOnJg53a
+#! mDe9ZewKpPTkwU5tzJveMnYFUnryYKc25k1vGbsCKT15sFMb86a3jF2BlJ48
+#! 2KmNedNbxq5ASk8e7NTGvOktY1cgpScPdmpj3vSWsSvQTXkCW1JgS8oFuwKZ
+#! OzWsyhvzpstgd2fUIPa5mtay2rErUK23ZzlGryJMFWtNpkrJ6vv+UO/tWY7R
+#! qwhTxVqTqVKmDpvPF29GF1eLp0O1t2c5Rq8iTBVrTaZKkeoX49GnzX8Par09
+#! yzF6FWGqWGsyVYrUdn453708qPX2LMfoVYSpYq3JVClSu+NU2b48qPX2LMfo
+#! VYSpYq3JVClSTBVRo1cRpoq1JlOlSJ1OldLk0kNuxlcEtqQqxtYpXquIGvOm
+#! gy2ZHgVbp5gqosa86WBLpjc8VbbXkxlTRcyYNx1syfRGp8ph++lqcnm3+vYN
+#! pScPdmpj3vSWsdXpsPnUdd3d0+Hbd8o++X69Wi5Xm4NlW6L0YCPYksbasFVq
+#! /+ViPO9fHpV88v1y/vyG3Ph2nyM92Ai2pLE+bJ1S89Pa5XxyPPjb9SsHD3Z0
+#! I9iSRgO2TmmZKrv56OwwBzu2EWxJowlbp7RMlc1sPFose9u2ROnBRrAljRVi
+#! 6xSfrU0isCVVMbZOaXmtYtKQ9LDf1AAbbBlsnWr9LyFwnYNdMrZO7Wbj6frl
+#! AVOF6xzsorCVan132U1mj6unPVOF6xzswrD1ard+uF3cb5v8u7Vc52CXjF2B
+#! mCpc52AXhV2BmCpc52AXhV2BmCpc52AXhV2BbsoT2JICW1Iu2BXI3KlhVd6Y
+#! Nx1syfSWsSuQ0pMHO7Uxb3rL2BVI6cmDndqYN71l7Aqk9OTBTm3Mm94ydgVS
+#! evJgpzbmTW8ZuwIpPXmwUxvzpreMXYGUnjzYqY1501vGrkBKTx7s1Ma86S1j
+#! V6Cb8gS2pMCWlAs2QgghhBBCCCGEEEIIIYQQQmUq97ttpwJbUmBLqm7skxbM
+#! q5J/FMu9BbDda4YZvSLqww7oqHHsWC0E1wwzekWAbV0F24Ad0FHj2LFaCK4Z
+#! ZvSKANu6CrYBO6CjxrFjtRBcM8zoFQG2dRVsA3ZAR41jx2ohuGaY0SsCbOsq
+#! 2AbsgI4ax47VQnDNMKNXBNjWVbAN2AEdNY4dq4XgmmFGrwiwratgG7ADOmoc
+#! O1YLwTXDjF4RYFtXwTZgB3TUOHasFoJrhhm9IsC2roJtwA7oqHHsE1dROp4A
+#! 2GICW1J1Y5+0YF5N8TRkHrZgN4J9ztXZnnbBLhBboIXgmnlPHmxJ7HOuru3b
+#! Uym2QAvBNfOePNiS2OdcXdu3Z7HY+77fuzTAdQ52Puxzrq7221Mn9v5hPh29
+#! Gc0fNrlaCK6Z9+TBlsQ+5+oqvz1VY68vR1fbTC0E18x78mBLYp9zdU3cnlqx
+#! H6+nn3d5WgiumffkwZbEPufq2rg9lWI/zqYPTBWwS8U+5+rauD2VYjtOlaLk
+#! fvJFCWxJgS2psKkSthq2NMSYOgJsyQiwJSMi1mSqREwHO24E2JIRTBUXgZ20
+#! pkAE2JIREWs+XF8Ofw8o7tIQY+oIsCUjwJaMiFhz92UxnsxWW9PHbMtuoV+v
+#! lsvV5pAwIkVNsActeRrBHrTkbTysxl13ef8UVtA7LnbNfjl/fnNrfPv9WAQ7
+#! ek2wBy55GZVif33+FNxksfp+FqaKi15zOZ8cD/52/cprLbCj1wR74JKXUSn2
+#! 1+ef1l5p/mntbj56fZjHi0hRE+yhSz5GsIcu+RqVvwe0mY1Hi2WfMiJFTbCH
+#! LvkYwR665GvU+NlaCy7YUQW2pOrATv1aJeD3Eaw1LbhuO8F2rOnCbN0JtmNN
+#! F2brzuzYTJVXl8B2gXHfCbZjTRdm687s2F9mEf4SgmGJk3eBcd8JtmNNF2br
+#! TrAda/7/G/vFxdT2xnLhLYQUsUaA7QLjvhNsx5ouzNadGbG36+Xd9Xg0/WzE
+#! txS0xnHyLjDuO8F2rOnCbN0JtmPNly8Py/u7+8e17XWKpaA1jpN3gXHfCbZj
+#! TRdm606wHWu6MHu5im0BbLCtAlsS291VbAtgg20V2JLYJ66iBLakwJZU3dgn
+#! LYSthi0NMaaOkME+92xifkIBG+zCsVPHMVUMOzVeMGCD7SW9t2f0CC4YsMEO
+#! xk4dx1Qx7NR4wYANtpf03p7RI7hgwAY7GDt1HFPFsFPjBQM22F7Se3tGj+CC
+#! ARvsYOzUcUwVw06NFwzYYHvppjCBLSmwJVU3NkIIIYQQQgjVrX8B0TpbmA==
+#! "], {{0, 106}, {370, 0}}, {0, 255},
+#! ColorFunction->RGBColor],
+#! BoxForm`ImageTag["Byte", ColorSpace -> "RGB", Interleaving -> True],
+#! Selectable->False],
+#! BaseStyle->"ImageGraphics",
+#! ImageSize->Automatic,
+#! ImageSizeRaw->{370, 106},
+#! PlotRange->{{0, 370}, {0, 106}}]\)
+ok  ReplacePart[ConstantArray[0,{5,5}],{x_,y_}/;CoprimeQ[x,y]->x+y]    ==>     {{2,3,4,5,6},{3,0,5,0,7},{4,5,0,7,8},{5,0,7,0,9},{6,7,8,9,0}}
+ok  ReplacePart[{a,b,c,d,e},{3->u,_->x}]    ==>     {x,x,u,x,x}
+ok  Position[{a,b,x,c,d,x,e},x]    ==>     {{3},{6}}
+ok  ReplacePart[{a,b,x,c,d,x,e},{{3},{6}}->yy]    ==>     {a,b,yy,c,d,yy,e}
+ok  SparseArray[{1->x,5->y},10]//Normal    ==>     {x,0,0,0,y,0,0,0,0,0}
+ok  ReplacePart[Array[0&,10],{1->x,5->y}]    ==>     {x,0,0,0,y,0,0,0,0,0}
+ok  ReplacePart[{a,b,c,d},5->x]    ==>     {a,b,c,d}
+ok  ReplacePart[ReplacePart[a+b+c,1->x],3->y]    ==>     b+c+y

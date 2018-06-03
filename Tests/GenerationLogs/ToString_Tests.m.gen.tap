@@ -1,0 +1,65 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/ToString.nb output/Tests/ToString_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/ToString.nb
+# WRITING OUTPUT TO:     output/Tests/ToString_Tests.m
+not ok  ToString[x^2]    ==>      2
+#! x
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  Head[%]    ==>     String
+not ok  ToString[x^2,InputForm]    ==>     x^2
+not ok  ToString[x^2+y^3, OutputForm]    ==>      2    3
+#! x  + y
+not ok  ToString[x^2+y^3, InputForm]    ==>     x^2 + y^3
+not ok  ToString[x^2+y^3, StandardForm]    ==>     x^2+y^3
+not ok  ToString[x^2+y^3, TraditionalForm]    ==>     x^2+y^3
+not ok  ToString[\[Alpha],StandardForm]    ==>     \[Alpha]
+not ok  ToString[\[Alpha],StandardForm,CharacterEncoding->"ASCII"]    ==>     \!\(\[Alpha]\)
+not ok  ToString[SuperscriptBox["x","2"],InputForm]    ==>     \(x\^2\)
+not ok  ToString[\[Alpha]]    ==>     \[Alpha]
+not ok  ToString[\[Alpha],CharacterEncoding->"ASCII"]    ==>     \[Alpha]
+not ok  ToString[Exp[x]]    ==>      x
+#! E
+not ok  ToString[Exp[x],FormatType->StandardForm]    ==>     E^x
+not ok  ToString[1.2,InputForm]    ==>     1.2
+not ok  {ToString[1.2,InputForm,NumberMarks->True],ToString[1.2,InputForm,NumberMarks->False]}    ==>     {1.2`,1.2}
+not ok  ToString[Cos[x]+Cos[y]]    ==>     Cos[x] + Cos[y]
+not ok  ToString[Cos[x]+Cos[y],PageWidth->10]    ==>     Cos[x] + 
+#!  
+#!   Cos[y]
+ok  v=ToExpression["x"<>ToString[#]]&/@Range[5]    ==>     {x1,x2,x3,x4,x5}
+ok  x1=5;v    ==>     {5,x2,x3,x4,x5}
+not ok  v=Map[{#,#[1.]}&,{Sin,Cos,Tan,Cot,Exp}]    ==>     {{Sin,0.841471},{Cos,0.540302},{Tan,1.55741},{Cot,0.642093},{Exp,2.71828}}
+not ok  StringTake[#,-7]&/@ofiles    ==>     {Sin.txt,Cos.txt,Tan.txt,Cot.txt,Exp.txt}
+not ok  Import/@ofiles    ==>     {0.8414709848078965,0.5403023058681398,1.5574077246549023,0.6420926159343306,2.718281828459045}
+not ok  ToString[x^3,StandardForm]    ==>     x^3
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, notstrbox], StringForm[`1` is not a string or a box. ToExpression can only interpret strings or boxes as Wolfram Language input., Short[HoldForm[Hold[Out[$Line - 1]]], 3]]]]
+not ok  ToExpression[%]    ==>     x^3
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+not ok  ToBoxes[%]    ==>     SuperscriptBox[x,3]
+not ok  t=TeXForm[1.2 x+Exp[y]]    ==>     1.2 x+e^y
+ok  ToExpression[ToString[t],TeXForm]    ==>     e^y+1.2 x
+not ok  s=ToString[FullForm[\[Alpha] \[Beta]]]    ==>     Times[\[Alpha], \[Beta]]
+ok  StringLength[s]    ==>     24
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{{, T, ,, i, ,, m, ,, e, ,, s, ,}]]], 3], Short[HoldForm[DisplayForm[RowBox[{RowBox[{[, RowBox[{,, \, ,, RowBox[{[, RowBox[{,, A, ,, l, ,, p, ,, h, ,, a, ,}], ]}], ,, ,, ,, ,, \, ,, RowBox[{[, RowBox[{,, B, ,, e, ,, t, ,, a, ,}], ]}], ,}], ]}], }}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`{T,i,m,e,s,[,\,[,A,l,p,h,a,],,, ,\,[,B,e,t,a,],]}\)
+#!                                                                      ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{{, T, ,, i, ,, m, ,, e, ,, s, ,}]]], 3], Short[HoldForm[DisplayForm[RowBox[{RowBox[{[, RowBox[{,, \, ,, RowBox[{[, RowBox[{,, A, ,, l, ,, p, ,, h, ,, a, ,}], ]}], ,, ,, ,, ,, \, ,, RowBox[{[, RowBox[{,, B, ,, e, ,, t, ,, a, ,}], ]}], ,}], ]}], }}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`{T,i,m,e,s,[,\,[,A,l,p,h,a,],,, ,\,[,B,e,t,a,],]}\)
+#!                                                                      ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  Characters[s]    ==>     {T,i,m,e,s,[,\,[,A,l,p,h,a,],,, ,\,[,B,e,t,a,],]}
+not ok  ToString[kappa]    ==>     kappa
+not ok  ToString[kappa]    ==>     \[Kappa]
+not ok  ToString[gplus[a,b,c],StandardForm]    ==>     gplus[a,b,c]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`\!\(a\*SubscriptBox[\(\[CirclePlus]\), \(c\)]b\)\)
+#!                                                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  ToString[gplus[a,b,c],StandardForm]    ==>     \!\(a\*SubscriptBox[\(\[CirclePlus]\), \(c\)]b\)
+not ok  ToString[u+Style[i,Red]]    ==>     u + i
+not ok  ToString[u+Style[i,Red],StandardForm]    ==>     u+i
+not ok  ToString[u+Style[i,Red],TraditionalForm]    ==>     i+u

@@ -1,0 +1,13 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Fibonacci.nb output/Tests/Fibonacci_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Fibonacci.nb
+# WRITING OUTPUT TO:     output/Tests/Fibonacci_Tests.m
+ok  Table[Fibonacci[n],{n,20}]    ==>     {1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,6765}
+#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{1953282128707757731632014947596256, 208919<<}], >>, 84301719893411568996526838242546875}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`1953282128707757731632014947596256<<208919>>84301719893411568996526838242546875\)
+#!                                                                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{1953282128707757731632014947596256, 208919<<}], >>, 84301719893411568996526838242546875}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`1953282128707757731632014947596256<<208919>>84301719893411568996526838242546875\)
+#!                                                                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  Fibonacci[10^6]//Short    ==>     1953282128707757731632014947596256<<208919>>84301719893411568996526838242546875

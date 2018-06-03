@@ -1,0 +1,7 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/ClearAttributes.nb output/Tests/ClearAttributes_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/ClearAttributes.nb
+# WRITING OUTPUT TO:     output/Tests/ClearAttributes_Tests.m
+ok  Log[{1,2,3}]    ==>     Log[{1,2,3}]
+not ok  Attributes[f]    ==>     {Flat,Orderless}
+ok  Attributes[f]=Complement[Attributes[f],{HoldFirst,NHoldFirst}]    ==>     {}
+ok  Attributes[{f,g}]    ==>     {{},{}}

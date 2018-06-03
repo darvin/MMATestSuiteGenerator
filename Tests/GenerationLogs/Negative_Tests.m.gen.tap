@@ -1,0 +1,5 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Negative.nb output/Tests/Negative_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Negative.nb
+# WRITING OUTPUT TO:     output/Tests/Negative_Tests.m
+ok  Negative[{1.6,3/4,Pi,0,-5,1+I,Sin[10^5]}]    ==>     {False,False,False,False,True,False,False}
+ok  Negative[{x,Sin[y]}]    ==>     {Negative[x],Negative[Sin[y]]}

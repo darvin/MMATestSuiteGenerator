@@ -1,6 +1,8 @@
+#! DOCKER > wolfram -script output/Tests/AtomQ_Tests.m
+#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[s[[2,2]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[s[[2,2]]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: AtomQ_Tests
-# OUTPUT: output/Results/Mathematica_10/AtomQ_Tests.json
 # Test if an expression cannot be subdivided:
 ok  e = x + 22/7    ==>     22/7 + x
     ---

@@ -1,0 +1,298 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Infinity.nb output/Tests/Infinity_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Infinity.nb
+# WRITING OUTPUT TO:     output/Tests/Infinity_Tests.m
+ok  Sum[1/n^2,{n,Infinity}]    ==>     \[Pi]^2/6
+ok  1/Infinity    ==>     0
+ok  Limit[1/x,x->\[Infinity]]    ==>     0
+#! TextForm[ColonForm[MessageName[SeriesData, sdatv], StringForm[First argument `1` is not a valid variable., Short[HoldForm[x^(-1)], 3]]]]
+not ok  Series[1/(x^2+x+1),{x,Infinity,5}]    ==>     (1/x)^2-(1/x)^3+(1/x)^5+O[1/x]^6
+ok  Integrate[Exp[-x^2],{x,-Infinity,Infinity}]    ==>     Sqrt[\[Pi]]
+not ok  NIntegrate[Exp[-x^4/(x^2+1)],{x,-Infinity,Infinity}]    ==>     2.31402
+ok  Sum[Exp[-n^2],{n,-Infinity,Infinity}]    ==>     EllipticTheta[3,0,1/E]
+not ok  NSum[Exp[-n^4/(n^2+1)],{n,-Infinity,Infinity}]    ==>     2.29519
+ok  Infinity Infinity    ==>     \[Infinity]
+#! TextForm[ColonForm[MessageName[Infinity, indet], StringForm[Indeterminate expression `1` encountered., Short[HoldForm[-Infinity + Infinity], 3]]]]
+ok  2 Infinity-Infinity    ==>     Indeterminate
+ok  Limit[2t-(t^2+1),t->Infinity]    ==>     -\[Infinity]
+ok  Limit[2t-(t+1),t->Infinity]    ==>     \[Infinity]
+ok  10^100<Infinity    ==>     True
+ok  Exp[-Infinity]    ==>     0
+ok  Exp[Infinity]    ==>     \[Infinity]
+ok  Sin[Infinity]    ==>     Interval[{-1,1}]
+ok  Tan[Infinity]    ==>     Interval[{-\[Infinity],\[Infinity]}]
+#! TextForm[ColonForm[MessageName[Infinity, indet], StringForm[Indeterminate expression `1` encountered., Short[HoldForm[E^DirectedInfinity[I]], 3]]]]
+ok  Exp[I Infinity]    ==>     Indeterminate
+ok  Log[0]    ==>     -\[Infinity]
+ok  Gamma[0]    ==>     ComplexInfinity
+ok  e=x Gamma[x]+(x+1)Gamma[x^2+1]    ==>     x Gamma[x]+(1+x) Gamma[1+x^2]
+ok  Cases[e,_Gamma]    ==>     {}
+ok  Cases[e,_Gamma,Infinity]    ==>     {Gamma[x],Gamma[1+x^2]}
+#! TextForm[ColonForm[MessageName[SeriesData, sdatv], StringForm[First argument `1` is not a valid variable., Short[HoldForm[n^(-1)], 3]]]]
+#! TextForm[ColonForm[MessageName[SeriesData, sdatv], StringForm[First argument `1` is not a valid variable., Short[HoldForm[n^(-1)], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[SeriesData, sdatv]], 3]]]]
+not ok  Series[n!,{n,Infinity,2}]    ==>     E^(-1-Log[1/n]) n+O[1/n]^3 (Sqrt[2 \[Pi]] Sqrt[n]+Sqrt[\[Pi]/2]/(6 Sqrt[n])+Sqrt[\[Pi]/2]/(144 n^(3/2))+O[1/n]^(5/2))
+ok  SetPrecision[3.14,Infinity]    ==>     7070651414971679/2251799813685248
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  N[%]    ==>     3.14
+#! TextForm[ColonForm[MessageName[CylindricalDecomposition, nrtpi], StringForm[`1` is not a logical formula consisting of polynomial equations and inequalities in `2` with rational number coefficients., Short[HoldForm[2.5*x^2 + y^2 < 1.5], 3], Short[HoldForm[{x, y}], 3]]]]
+#! TextForm[ColonForm[MessageName[CylindricalDecomposition, nrtpi], StringForm[`1` is not a logical formula consisting of polynomial equations and inequalities in `2` with rational number coefficients., Short[HoldForm[2.5*x^2 + y^2 < 1.5], 3], Short[HoldForm[{x, y}], 3]]]]
+ok  CylindricalDecomposition[y^2+2.5 x^2<1.5,{x,y}]    ==>     CylindricalDecomposition[2.5 x^2+y^2<1.5,{x,y}]
+not ok  CylindricalDecomposition[SetPrecision[y^2+2.5 x^2<1.5,Infinity],{x,y}]    ==>     -Sqrt[(3/5)]<x<Sqrt[3/5]&&-(Sqrt[3-5 x^2]/Sqrt[2])<y<Sqrt[3-5 x^2]/Sqrt[2]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{{}]]], 3], Short[HoldForm[DisplayForm[RowBox[{Graphics[{{}, {}, {Hue[0.67, 0.6, 0.6], Line[{{5.*^-7, 1.000001}, {0.4809021994374947, 1.9618043988749894}, {0.9999995, 2.999999}}]}}, AspectRatio -> 0.6180339887498948, Axes -> True, AxesOrigin -> {0, 1.}, PlotRange -> {{0, 1}, {1.000001, 2.999999}}, PlotRangeClipping -> True, PlotRangePadding -> {Scaled[0.02], Scaled[0.02]}], ,, RowBox[{{, RowBox[{{, RowBox[{RowBox[{4722366482869645, /, 9444732965739290427392}], ,, RowBox[{2165790966188353, /, 4503599627370496}], ,, RowBox[{9007194751141365, /, 9007199254740992}]}], }}], }}], }}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\),{{4722366482869645/9444732965739290427392,2165790966188353/4503599627370496,9007194751141365/9007199254740992}}}\)
+#!                                                                                                                                                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{{}]]], 3], Short[HoldForm[DisplayForm[RowBox[{Graphics[{{}, {}, {Hue[0.67, 0.6, 0.6], Line[{{5.*^-7, 1.000001}, {0.4809021994374947, 1.9618043988749894}, {0.9999995, 2.999999}}]}}, AspectRatio -> 0.6180339887498948, Axes -> True, AxesOrigin -> {0, 1.}, PlotRange -> {{0, 1}, {1.000001, 2.999999}}, PlotRangeClipping -> True, PlotRangePadding -> {Scaled[0.02], Scaled[0.02]}], ,, RowBox[{{, RowBox[{{, RowBox[{RowBox[{4722366482869645, /, 9444732965739290427392}], ,, RowBox[{2165790966188353, /, 4503599627370496}], ,, RowBox[{9007194751141365, /, 9007199254740992}]}], }}], }}], }}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\),{{4722366482869645/9444732965739290427392,2165790966188353/4503599627370496,9007194751141365/9007199254740992}}}\)
+#!                                                                                                                                                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  Reap[Plot[2x+1,{x,0,1},WorkingPrecision->Infinity,EvaluationMonitor:>Sow[x],PlotPoints->3,MaxRecursion->0 ]]    ==>     {\!\(\*
+#! GraphicsBox[{{}, {}, 
+#! {Hue[0.67, 0.6, 0.6], LineBox[{{5.*^-7, 1.000001}, {0.4809021994374947, 1.9618043988749894`}, {0.9999995, 2.999999}}]}},
+#! AspectRatio->0.6180339887498948,
+#! Axes->True,
+#! AxesOrigin->{0, 1.},
+#! PlotRange->{{0, 1}, {1.000001, 2.999999}},
+#! PlotRangeClipping->True,
+#! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\),{{4722366482869645/9444732965739290427392,2165790966188353/4503599627370496,9007194751141365/9007199254740992}}}
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  Plot[Numerator[x],{x,0,10},WorkingPrecision->Infinity,PlotPoints->1000,MaxRecursion->0 ]    ==>     \!\(\*
+#! GraphicsBox[{{}, {}, 
+#! {Hue[0.67, 0.6, 0.6], LineBox[CompressedData["
+#! 1:eJwt2HVYVVkXB2AaJC9cOm8ggtS9dO/l/aljoI6dY2Ar1igGOhY2Jtgz5tg5
+#! 9qiIMSi2ICaKYiDYgIIKKB+f6/z1PvvZe6119tr3POecq0wa02mwgZ6eXpmh
+#! nt7/Tam+ucdmRosENhx7E3pE7juRJthQnPw12rU6faVgw/D6q1ibM2+jYBNg
+#! KRt741STbYK1R7e3AaujJu4WrB9MZu/YaDXigGCDEDa25RfDl4cEa4vG9f3O
+#! TZl3VLBhuPK2u9+ftccFG4GWcSYRt7afFKwfJr7JeH5AlSXYAAz52kJjmpkt
+#! 2CA4H7svi/7rnGD1cO+vqT2bPzgvWCVmHa/59CDoP8GGwlLP6qnfjBzB2mPs
+#! ZOv1ef9eFGyV7rzq7Q49q1zBRuJt7fG0eW0uCzYKBqZ9D6/aekWwfvjWbK12
+#! wOergo3Blb3nZ84Ovi7YOMz75ZIycO4NwQbC3e5URmDOTcF6IsOyWZc3dbcE
+#! G4ypf+WHOu/KE6wGLm1SGw9pmS9YLQ4sl537WpEvWCVCx5TPHr7+tmBD4F2S
+#! Gzg3skCwclh+Xjyr5FmBYOXov771mfKZdwT7UrftQQdloftdwTrg6UEEmV26
+#! K9hwzPMMVj8beE+wPvD2MTv/w/q+YJ0QdPFBy9wD9wXbBL51lZ9HtX0gWDO4
+#! XK9p27PqgWCjMDG0ZtHHzIeC9cPV0NLfr4pCwTaF9XWPtLSyQsE2RXZt26ml
+#! cx8J1h+Dc4a6L9c8FmwcpnhP3f7i1mPBxmGa+4NuDslFgvXAxP2qQ+kOTwQb
+#! hKK7gz7tO/JEsAmIWbPyiV2/p4INBr6aTNlrWCxYDTaPPVut6lQsJHWTj324
+#! HLezWLB6MLnkYrOvuliwCtj8fXr3mcRngtVClji7R8KWZ4Kt0F0+13yqffkz
+#! weqjVn965eIWzwUbgpfWR4p6rXouWDtcLLUsWvPiuWBDoFxSpJkU9UKwoQj7
+#! sfvr3vkvBCvHhdj39mlFLwSrRqsWXVtc0b4UrBHmuJ58PWjmS8HaIy4r8/nW
+#! uy8Fa489fiM6RDQuEWxjyAYOzosaXyLYKl3FsPvbi3JLBBuOBTEtPt53fCVY
+#! E/z5wG/JhORXgo3AIJ35piFZrwTriMaTbS7mmpcKNhIDUtPFtX6lgo1E51aG
+#! Qd4HSwUbifPPK8Z6GZcJNgpNWhtfXtizTLBRwFT7zNa7ygQbhcIp6w/v/V4m
+#! WF80ae7ecmC714KNRnLhhfcL/3wtWBcExhe/7lT+WrDR2DbyW89x4o1gXbF6
+#! yELPkFVvBNsUMwMTvgx4/UawV3WKcx9QGvlWSOrivBxLrJe8FawbrNtE16Q/
+#! fitYfzygWerJTd8J1hIeRrTFZMY7wcbBJbMm482Nd4KNw/IP/g/Hqt8L9rvu
+#! jEPPzMTx7wUbj+dmewesOf9esIGYfXn8nDmOHwQbhIedo9xyB38QbAL27h1v
+#! su/0B8EmIOVWgbGe7KNgBaqyg6fs7vtRsALlqQbNqo58FGy9ruOsYQnX9MsF
+#! q4GPf9KQAt9ywSoQFbvm34DO5YLVg4/2as4/qQ3zP1Wg45Ko2rnbG+J/qsHk
+#! DidPZ9wqF6weUr9ERlytLhesAqeMKws7KSsEq8Tdb7ujTVpXCFaLoC4bLphP
+#! qBCsEmn2f99tubFCsFocObVj6/6LFYLVQpFbsm5weYVgn+mGn1S1beVcKdgQ
+#! HLD9fV6SqBSsCpq8urc3hlcKSd2SCXMtBq2oFGwIfGe07to2q1KwBjj70ctv
+#! xKtKwYZA2/Lz8SNWnwQbimcGRmPaR30SbCiSt9s+k/f/JFg5Pu3XFsnmfxJs
+#! KE64LzHsd+iTYEPRfdyrF/cffBJsw/0fMPXDFsPPgrXHu+tWR1b7fxasPTYX
+#! HNb/r9Nnwb7UZVBmKv3xWbDe6Jc5bn/Zts+CDcOIxHTz57c+C9Yb40aeqLCr
+#! +SzYMHQe+yxjtLJKsOH4/VHLvm6JVYJtjFEBe15Ujq8SbDgGvfD6pP9nlWAd
+#! sFYvPyDpYpVgjbHTcKbi/bsqwYbjc/KIhCtO1YJ1RHzc0FePm1ULNgIDKga0
+#! chteLdgI/Ge59s6ezGrBRkDP+rrr4NPVgt2hm5oSmz72VbVgI1CpOzP3iOyL
+#! YJugeXVcjDLqi2CdUGDz1bk46YtgIxFvc+jQlUVfBBuJvydMu/Pm0BfBRuIX
+#! SlP+9viLYCNxqWK+b43hV8H6Iq3R5Z5lQV8FG4W4+a4O1j2/CtYZeW9GLOo7
+#! 86uQ1G09Wu2nt/erYH3RYdDMtOu3vwo2Cl+nuA/N+/ZVsGZ4UvVpQmPvb4L1
+#! w+buV+K2t/0m2Ne6TV6FQRMnfhNsNNa3+75n+uZvgvXD2AGezw7lfhOSujmP
+#! UptFVH4TrAvGx97tXeJSI9gYbNYfubmkeY1g3+iuBMrHeIypEWwMboiTX2as
+#! rhFsDKz/Xb8n9HyNYJvC3zHVye51jWBj0LxwpLWvrFawblhvtC54WUytYP1x
+#! zT7HXJlUK9hYxKQ3lRktqRWsP7YP/XuT54lawcbirZ/r64FPagUbizGdrvep
+#! MasTbBxu9p+26LSmTrAB8LuboDvavU6wcTh/MM77x6w6wcYhfGzUud931wk2
+#! Dq9Wj5kXdadOsAH4/e9tJn51dYINQI3DO1lH9XfBBuLch9Etrrb7Ltgi3YD9
+#! H0NHp3wXbDzo9t7EgZu/C7ZI5/Zb6sdlV78LNh75N1omllZ8F2w8cra1L1jm
+#! /kOwnsgc0MV+YPMfgk1A3znJT0eN/CHYIAyxOnfnyqofgg1C62m2c34980Ow
+#! CRjRceNvvmU/BBuE+Yvjz0fa1QtWYMb+wifjousFK3As7IjP94H1ghW4tGWh
+#! 75H0esEGwz7lzy6njtcL1gt9D5w1/1ZcL9hgXHg1Nl5rpEesAhN2b1q01EWP
+#! WBnk/W6EzQrUI1aDf34x2mbTTI/Ycl3yix67WnbTI1YGx9/3NZKP0CNWgSdH
+#! PPQWzNAjVoFtvmtPr12pR6wMPZbb3knYpUeS8N+7a9aSM3rEavD234TF4/L1
+#! iNVg97ei3hUv9YjVYN779edcavSIbXie3ek2+76VPrFaxI7WPIxX6xOrhV2t
+#! 2ZLoSH1ilSg99cY4v40+sVo8Cnwjt+2vT6wWWZll01+N1yfWFln7jGYMWtgw
+#! /qktTn31az59oz6xSuyIbD8k8LA+sUoc8lvuMTdXn1gtdlvna39/pE+sFpt8
+#! 3CxqP+gTq8XRitlTAowMiLXDiYOvm39yMiA2BA8Uo7cnBRqQJL7k1F4dpTMg
+#! NgRGfRa0s+5mQKwdNDtCBncfaUBspa71i0cPw2cYEBuC/p2Xyv/JMCD2uW71
+#! xL7Pb+80IFaFU4sDrdNPGxCrwveurrfe5hkQG4JAO5P3z14aEBuC3vq1t8Z/
+#! NSA2BLv+tmp1wMqQJPEiystjutKQ2FDEzWo/vzrCkFg5MuvmHTdPNCQ2FA9G
+#! ZOuO9jMkScQtlg8ySWlY/1M5lmwe+vz9AkNiQ/G4NKfxuL8MiZWjzXPx469D
+#! hsSqsePWydC+Fw2JVUMxtuOP3EJDYl/o1qJyyY2PhiSJH40yUocZGhHrjbS0
+#! DnV7nY2IDUPVR4tHcwKMiA3DPJtX7U10RsR6wyHpynx1dyNiw5Cxc6/HvRFG
+#! xHojaPPeVtqZRsR640T6njzlSiNiw5Cw57DHgZ1GxHrj5dQH9c+zjIi1x2T6
+#! nrA/z4gk0fRfIVe8MiLWG4VJ6fuCao2I9cZkvXtbb1sbkyTCOyYEeXkbExuO
+#! pyu3O+pHGRMbjvkWjjnT2xoTG4724dtMtvc3JrYxDDtpd/SfYExsOO4pHxfm
+#! LDQmtjHWvJybnL3BmNhwdCuM+q/zIWNiGyMsrdHBFZeMiXVAvefDL4MKjYkN
+#! x+tRl+4WfzQmNhz5H7MmfzUyITYCOwcdnrzd2YTYCPy1+KJVbaAJsY6YvvN+
+#! fUkzE2J90Leq8nhyVxNiffBbtb/hXyNMiI1AmzcD9/WfbkKsD7quOPnmRqYJ
+#! sRHoO9L5w71dDfE/bZiPmtg+Jath/qcRGPlvBbLyTYiNwGj/5NVrS0yI9cHy
+#! jkbTPWpNiK3W/bNne9MEmSmxX3TZ1S3CPqtNiW2Ct1WGBZ2iTYmNhHHZuZst
+#! 25kSGwkPq/nL7vU3JTYSXUpGlFhPNCXWCZP/abf28UJTksTpoPbFnTaZEhuJ
+#! uqfd3w86akqsE/zn9O9uedmU2EhMeTSvW58iU2IjcbTxvsPNKkyJdcL7rYUF
+#! F4zMiI1CiwKfRe9czIiNQnr1uA17A82IjcLH64Ut5DAjNgod7yUecexhRmwU
+#! ttw+88fBkWbERkE2O7GofKYZsV91yd6F63JXmhHrjNIpc9+23GNGbBT6G8QY
+#! JJ01I7ZMl/vH+xS7AjNio9BuX/b0kWVmxEbh3I2lL3vWmRH7QKdVDbN5adOI
+#! 2Gic9+t3y7FxI2KjIby7vnsS1YjYaDzKH7axQ/tGxEYj5fBchz4DGxEbje9z
+#! t7z+PrERsQ3fs5aPOrVa3IhYF0TNk7v4bm5Ekrga0nXb30caEeuHqRlHc3Iv
+#! NyI2Gq4ldrpZjxsR64f7b5Z2eVHRiNhozH7RKKfQ2JzYhvc7m6VfR7mYExuD
+#! T++DL+wOMic2BrvO5pWl6sxJEtOaL9v2ubs5sa5oX9etsfkoc2Kbwnqnh+Gx
+#! mebENsV7I4OJZqvNiY3Bya4lLSp2mxMbg7SH+YUpZ8yJjUGy7LHR37fNiXUF
+#! YkrSB78yJzYGUU6Wu/JqzUkS/k3iFt6XWRAbC8umI3PHe1sQ6wbL4hPr/41u
+#! GP/UDd8WGF7LaGdBbCyMS5KXOwy0IDYWNhOeuoZNtiA2FqbVvxqUpVsQGwsP
+#! /+LpzbdYEBsLZefRPSKOWRAbC/UB4y//XbYgNhbNs041rSmyINYNnc6MPn2x
+#! woJYf8wYR8+iTS2JjcOeHm7XW7tbEhuA/0Kq5B+DLYmNQ+3Zd+VxLSyJjYOC
+#! XjRV9LQk9p0On577bUq2JDYOc3vqZV+aZUlsHI4ddj+YtsqS2DgYnu0W/nqP
+#! JbFxENnLnF9mWxIbhynl+edSb1sSG4fbd7U/TpZaEhsA5wPL1y6ttSRJ/BFt
+#! ddnC1orYeBR/ycjy9rEi9r1Ou9vJuiDaith4bLE69dmvgxWx8fgxqHeU40Ar
+#! YgPR86Nxs40TrYiNR0HAzSc3062IjUfMb6sertxkRWzD+zulDjc8ZkVska55
+#! 92HZVletiPXA8f5dx+4vsiI2EL949D9RVWlFbDwuXh/eu8DEmtgEJAWvWNnT
+#! 3ZrYIHzPOZ8xVWtNbALmtat4H9LCmtggBC5MeJLRy5rYBFw4sch/wWhrYoPQ
+#! 1aU43mW2NbEJMA3qXNJpjTWxCdgRfvG1cq81sUEYVN4lbd05a2I9oXjy/tm+
+#! u9bEftBdzZ67oetra2KDkNkp9sOOH9bEJqD1w49/LrGzIVbge8Z+a5mPDbEC
+#! efULHGNjbYit163oN3BqbXsbYgXG/t47ZdAgG2Lrde3+7RM2fIoNsQLOFX1+
+#! NVxiQ5IwKErVb7nVhthgPDy9xsbzuA2xArfa3T688ZoNsQL/2Tm6nS62IVZg
+#! +9UexcmfbYgVKFjfZ8MLIxmxGlxtbTnlkbWMWAUogyK3OMuIzdO1OGpIsWoZ
+#! sRqc79Dyi1egjFgNbuQ4fXsQKSNWgx4Fo4r66WTE6qFnb4zVJsqI1eBN1s52
+#! 97vJiFWgck36w9z+MmIVmGL5+Zd5I2TEarCs11s9lxQZsRq4q5KGVU+XkSSi
+#! /hvqumuhjFg9XCt6l7otU0asBkUrqs+M3iAjVoPpXsvaWu2SEavAap+d86sP
+#! yYhVIMG0vfXRLBmxCgyeNWWSyJURq4FBivcyh3wZsQoE6/pWnH0kI1aDggVO
+#! BsdKGvr7Uw2qh3WtmvRRRqwCu1SqUJsaGbF6yO862qvC0JZYLRYmte6209qW
+#! WC3Ome0e4+9iS2y+brTvgsgalS2xSuxVVrfeEGhLrBb9Vr4wT4+0JVaLv4v7
+#! ObbT2RKrxeBL/Y2KEm2J1WJj42ebT3SzJVaJoX3L5w8ZYEusFjtkMzz6j7Ql
+#! VolBfTJWNUmxJUkcnhXW478ZtsQqMUnR7cruhbbEanFtrcncQSttiW2otydW
+#! /X5jQ72fKlEWXj7m3C5bYvVxfn2o6bAjtsRqYTulOrHXGVtitSguj09xzbUl
+#! 9pkuQWdfdiDfllgl5FYjGi19ZEusFpMPtU9p9sqWWH10vnV4mSi3JVaL/fP+
+#! XGxRY0usFmuc5Hf2GtkRG4KvSvOrq63tiDVAmfFy824udsQaoHva+sAXajti
+#! QxCf6l1/KtCO2BAcbhPvNjTKjlgVNq68W/Kbzo5YFRpNrsxQJdoRGwLD8I2L
+#! TnezIzYEE0Ze0Wzqb0eSSJmapuw+0o7YEFR5X/j8OMWO2BC8/WXmxP0z7IgN
+#! wbjmN3SdFtkRG4LRp9adabbSjlgV3lx541q/wY5YFaoOX72wfFdDvp+GYJJD
+#! U5dRh+2IDcGCjs6nPM7YEWsAmem8Ri65dsRW6py6TY59nmdHbAj2T/92YsYj
+#! O2JDcEpR83xoiR2xKnT/a2EP7/KG/v00BOMPbfjnQI0dsSEwJu2JNCM5saFo
+#! squzWaCNnNhQnFtYZap0kRNboHtg5P7muUpOrCFm9Mx3nBIoJzYUG5qYVPaM
+#! lBMbija3rjjZ6OTEqjFRZqfISJQTq4bLtYf3+nWTExuKtv00D/QHyIkNxedk
+#! kwUfRshJEgFdRs4+mCInSby406Vfwkw5saGwvXXmjdMiObGhuLX12LmLK+XE
+#! hsKwPKBF9kY5saE4fs9335xdcmLV+Lb6yG9eR+TEhuJI3pkzRmfkxIai7kW3
+#! Ydm5cpJEzvIJVS1uy0kShidstc6PG/L/NBT5x+NPZL+SExsKR83rtwfL5cSq
+#! UahzMRxTIydWjcDgB4MMjO2JDcOXlY4pxdb2xIah450XtzJc7IkNg3KJ5uEy
+#! tT2xYRj7VP9ir0B7Yj/rOlgk1X6LtCc2DNv/aVb8opk9sWFYFPyPzdZEe2K9
+#! 8eGXv5VB3e2J9caVhw7PjQbYExuG0BZO7w+OtCc2DPZN1+7YnmJPkpiwa4Nu
+#! +Ax7ksRAvRA//UX2xIbhSn6L7BeZDfl+Goaz08o2rN9oT2wYws7b9PfabU+S
+#! 8JpxPO/DYXtiw7De8V16xhl7Yr2xuMmWqpm59iQJK7uS3bhtT2wYrFbvpzuP
+#! G8Y/DcOczKq5B1/ZkyQWjbju0K+iYf8/9YbpaVWXnrX2xIbBcPv3CUpjB2LD
+#! sXTY0OIzNg7ENsby7b/WbHNxILZKp8q63Le/twOxjRGafHH76yAHYsNxalWz
+#! P89EORDbGPlrEx8NhgOx4ejncP9Kj3YOxIYj2f/VepfuDiQJM7c5xw8McCDW
+#! GG5ztsxcOtKB2HCcudRulW6iA7HheLJ1+uKcmQ7ENsbEr0EhKxY5ENu44X4d
+#! rQpZ5UBsOGLzAs57bHIgNhzDOqXuKdrtQKwx7EcnThx51IEkEWm4sRzZDsSG
+#! 48246cfKLzsQ2xjyXk98y247EBuO048uTN//2IHYcHyKiPD6pdSB2HBstfAb
+#! 7V/hQGxjFJ/cY/qy1oHYEt0G/UNpI0wciY1A/oWIA7EyR2IjsPK3tupnro4k
+#! iZvjnrbM93Yk1gfzvb4mLgtyJDYCt3Zs2qCMdiQ2Akt3Xvrrh86RWB8UzZr2
+#! 6mA7R2IjsPXuoSd7uzsS64NXF0aeTBngSKwPTi08+kSe7EisD4yvTjtcl+JI
+#! bASevijIOznTkdgIRK05mN883ZFYE5jlmM9yXeVIrAmGXv2cmrPJkdgIxLfp
+#! qz6525HYCGQMTDww9YgjsT6Y2O1Kml22I7E+Df25aPo59//9+b8RyDLreG/3
+#! bUeShE9Z//mBRY7E+sCkWfmr2leOxDbkG2+9YmNFQ76f+uA3r32v02sdiY1A
+#! wbYHi9uZOBEbicv/LbQrkjkRa4qwPqdannB1IkkE35xycXBjJ2IjseXkv5V9
+#! g52IjURGwjQDn2gnYpvAbsPNPufhRGwTNErZPHhnOydiI7HcR//kgB5OxH7R
+#! rR736sPrJCdiG+Ij2hZkJTfE/7QJPO8kGAya5ERsE2x+e+hp11lOxJbqtvy1
+#! e5NDesP1/DQSIU00e3avciK2CWL8IwYu2OREbBPkm10bErvHidhIPO331Dn6
+#! qBOxkUj+dfJ+o2wnksQC182Lt112ItYUbn1/cV1224nYSMRP/aOyXZETsZF4
+#! oo3aX1jqRGwTVA/43fFwhROxTbBxZOzV3+qciG2CrA9pAV1MnEkSPS06jnOW
+#! ORMbhXn6+/UOuToT64um4xYkrPR2JtYXv52qvNQ22JnYKNhseKbNj3YmNgpR
+#! 3zq03QJnYs1QHtTuYIv2zsR+1Xk9uXI+rIczsVG44XPteMUAZ2KjYN66d/Xs
+#! ZGdifZH9csTLvhOdifWFQa9GHjaznIn1RVarJkbm6Q37YVGVd+XG7ZXOxEYh
+#! O6T22ZhNDfE/9cUPq33buu92JtYXNy68PSQ/2lD/p1Fws/1ny4ZsZ2KjUPzg
+#! k/j9sjOxZbqw1Eu+bgXOJIn6lc7nrIuciY1C69Yfo/NeORMbBdX9Lj8GVzgT
+#! 64vfn0SPa1nrTKwvOp3dH1Rr7EKsHw5F77j5h8yF2GjMC/T0aOvqQqwf3tZ4
+#! H3/n7UJsNHKb7f3+IMiF2GiEJJ1bti7ahVg/uLv3MvJt7kKS+KPD+Cb67V2I
+#! jcaoPm6rDvRwITYad57rDu1IciFJnDL4eDA52YVYPwTX+X0zmeRCbDTcxrws
+#! fzvThdhorD4dGLo93YVYPyzfUts9YLULsd90+vqt/X9sciE2GgYxjVtv2+NC
+#! rB+mvJvpsOqoC7HRGBM1IKdztgux0aj6Le/Mq8suxEajsi57cM5tF2L9MD0l
+#! rsfEIhdi/TBraPS330tdiI2G4adT0+IrXIiNhn2Pa20e17qQJP6K6J170diV
+#! JHHkw5SlaTJXYmPQmjyibNxciY1BNwtaXuLtSmxTfDpYEbI82JXYGJjcVM2Z
+#! G+1KbFOsnfvgRCu4EmuOU44eEcXtXIltis7KZ0kXursSG4OpxmGFk5NciY2B
+#! Ks0i7HuyK7FNQalJcdcnuhJbqHvfptWyMbNciY2B7ar9y39LdyU2Bjn/bnns
+#! tdqVJFGd4mrxz2ZXYpti0z67skV7XImNwYOsdTYxx1yJNcf8lptLQs+6EhuD
+#! Y8P9N9ZediU2BuOHtNiypsCV2Bjsevyk0/QiV2LNkRxg2iG6zJUkcdDhaOCF
+#! SldiYzB8cvGpVXWuxMbg8NE/M+JN3Yj1x+8j7jlrbN2I9cehk6tmlbu6ERuL
+#! Gc9fhM1t7EZsLHLmHFo9KNiNJLFOzxrOMW7ExuJl1esNjs3dSBIH5rR59Lyd
+#! G7H+MHsfPTCthxuxFnh4c9e60UluxMYietEO16BRbsTGwvmp7/TTk9yItcDo
+#! /U2XZ85yI9YfnbueficWuxEbi4MTr32JWO1GbCwWafuX1G5yI9Yfny+meaza
+#! 40aSuFvgYzTlqBuxsWhxuke49qwbsbEIi7NpfeKKG0lifUQLiwUFbsT6Y7m5
+#! uXPgEzdia3V13dsXuJe5kSRKE5zGFVa4ERuLpPrRPZPr3Ij1R5foluWtTNxJ
+#! EncT9+V/k7kTG4cbD1cMqHJ1JzYOzfXqCrK93UkSbfSqlvcJdic2ALlTRtU1
+#! j3YnNg4F1ycc1m/uTmwc+p7Ua7u4vTuxAejvZZkxoIc7se90lX13qC0GuhMb
+#! gBqncwPrk92JDcCsEX3nnZ/oTmwc1q5O/9R9ljuxlvCJi7KJTncnNgA4PT7l
+#! wyp3YuPwtCA0e9xmd2LjUDl4/DGxp6HeTwOwMr/Zl2dH3UkS+48vK72Z7U5s
+#! HLqmJKuWX3EnNg7TbtwQXnfcSRKumw5YfCtyJzYArdp4qnaWuRNriXejrUo3
+#! VbqTJGwCZy0dUudObBwu5KTN1Df1IDYQ7+4aK0tlHiSJ7eccLbe4eRAbj6Lm
+#! +x76+ngQG4/FuvNda4M9SBJXXQa7b43xIDYQM0YsWJHZ3IPYeBzponndqb0H
+#! sfGY6Dw0/VUPD2ID8U9Xj8c5SR7EftelJidNmjTKg9hAnKrzOT9hkgexgZji
+#! M/a9mOVBbDwu+7Ua9DTdg1grLNmxaeGVVR7ExuN53dxv8zd7EBuI4+/K29rv
+#! 9SA2EPrdHiW+PepBbDwere2ydvVZD2LjEdC1XcbiKx4kibo9V0f/WuBBkuhd
+#! eG9VWZEHsfHQpiWNvFbqQWw8Vhv/kT670oPYQKQq3Zeafm/Y308Dcfd4jLhv
+#! 4klsAs41LouZautJ7BOd0tqhZLibJ7EJsMvLexjg40lsEGb72x46o/EkNgjD
+#! 9fIj1sV4EpuApwe8TFu38CQ2AdfvvZ+LDp4kiai1VGrR05NYa4SGqjJ3DfQk
+#! NgHbf0l7v2yUJ7H//39+fEbbyZ7EBsHnTKnL3dmexAbBI/tRh92LPYlNwLa1
+#! ffM6rvEkSWx517+++RZPYhPgUVgqM9nbsP6nCfDb8j35z2OexCZg37OMSVPP
+#! epIksmuPXw++6klsEDoc7Gd0+I4nsQno/nj+m+lPPIlNwIfnCW6K157EBqEu
+#! KaXG4pMnSWJdVoz39e+exCbg2ME5ml5mXsQKtHJv/zbEzotYG4xM2lH+1N2L
+#! WAEj1fRt9328SBLuUwtjNmi8SBI5+y+6RcZ6kSRe9NTsdWvhRazAiqd+c+90
+#! 8CJWIPvHzma9e3kRG4ykNdv3BQzyIjYYqxqFJN0e7UWsgKiKv3RhshexAsNS
+#! b1rOmu1FrA0UD99vkC/xIvajrsOhxUXlq72IFbAaeGro1i1exArolg7dvHGv
+#! F7HBqO607vSwY17EBiOmoqfS9JwXscH4bLY+vPyKF0kioWbYyv13vIgNhunc
+#! rLtRT72IFfhl4bKL1q+9iBVwHFpR/+8nL2KD0Sf7dtn+714kieXd3Xv9a6gg
+#! tlx3KsuxxLCRgiSx+cmvuZ+tFMQW69qNun2zg1xBrAanWq3OXeHcsJ7F8+J1
+#! TlM8FCSJ2yUvF19VKUgSf+wc0/N8EwWxGpTfbdZWFaggtlyn6tgtaESIgiQh
+#! W7hnWPdIBbHlukuBLS8fiFOQJCKXKWfsbaYgVoOh8aLJspYKYjXo12Pb58dt
+#! FcRqYKdp7ZL3q4IksWRC+MDAbgpiNbhsPGjjuN4KYvWQ3fm2pnd/BUlimvWC
+#! sgODFcTKUDX3jy87RyiI1SCozbEv88coSBJBU8M8bk9oGLN4M+zTuvNTFCSJ
+#! Uf99i3WboSBWg32FItx1joJYGfYkXPbSW6ggSYy1WRv861IFseW6ir92rm6R
+#! qSBWg5g1P1Tb1ypIEniyZvPbDQpiNTB9Pjbl/lYFsRpkdloxJnCXglgNCmdU
+#! nPPdryBJPPuWaWhxWEGsBgeL/xjZ/YSCWA2i5+xs2jpLQawGi1Y622w/ryBJ
+#! /Flx7WXpJQWxDedjcdY271rD+fxUg9oV3waq8hXEatDm7ngr13sKkkTPwZpd
+#! XwsVxGqgSQob1qxYQWy57oLb5BnBJQqShLvOMGv+GwWxMmgb3+ww96OCWA1M
+#! uj66M/yzgiSxtSJ4xr/fFCSJmjY5M/f9UJAkXGw37zQ3UhKrxVd19tkOjZTE
+#! 6iPjk1twjLWSJPE5+Px/S+VKYm1h67fj4AJnJbFafBh9Y/FwDyVJIlMZt+yo
+#! SkmsFp+Wvynb1kRJrBZuo4qH1gcoidXCYLXzAwpRkiS2T12+qUmkklgtbG52
+#! WDw5TkmsFuFF7fNGN1MSq4Wq56roWy2VJIlbSs+VjolKYrWI3PmqhWFHJbFa
+#! DF1X7d6rm5JYLTq1atm2W28lSeI7HoyI7q8kVoux+w4dnDdYSWyFbmP+1bZT
+#! RihJEisH+lvdG6Mk1hatdTfPuqQoidXiVNE/VwxSlSSJypLCr11nKEkSr/Y0
+#! n9F+jpIkG54v5dWBC5XEamEf+zJz0lIlsbZoM9FpwZBMJUmilWfGlrNrlcTq
+#! Qz8t0S57g5JYLVLDWk/4e6uSJHG605Layp1KYrU4EWhbWLpPSawWU1MeF7U8
+#! rCRWix+N3txefEJJkojvHek1OUtJrBZwub78xnklsVoYr9zc8/IlJbFazOt9
+#! Qr7nmpIkcWuZw6eqvIbz+akWBTOP+JXeVRKrxaYna+fqHimJ1aLpwnO35xQr
+#! SRLjyptMSi5REqvFzJx7lP1GSex5XZuuFwcc+9jQHxaPO9XudKxSEmuLwA3j
+#! n/atURKrRcw2/9GJ9UqShLWzv2qbkYoksbHViMAtjVQkifcX3/rNtVYRGwKj
+#! f462LZCriLXDvW5nci45q0gSY0dYDfT2VBFbqbtydVPlMLWK2BA8KR33sJOv
+#! iiRxelx6yY5AFbEh6Pzvy1abQ1TEhmBP25kbZkaqSBJX2g50uhbXkO+nIdhm
+#! Nq/sVDMVsXZoGVL+xP4XFUli166/LnVNVBFrgIuPFhjHdVQR25B/atbwxd0a
+#! 8rNo8yC48ezeKpLE4S1vjJ/3V5EkHp4ove87REVsCLIWees7jFQRa4chV3d1
+#! GDlWRZK4fim5akiKilg7VNiMX9w6VUVsQz8unmu1ekZDP1jMi2rfZ8EcFUmi
+#! 2km96uVCFUnCp3nM2SbLVCQJ28AVJFupIjYEObODS5PWqYi1Q8gqq5JeG1Uk
+#! if6fA+9E/60i9rmu67lVZbN3qYgNgUnr+C7j9qtIEtMTAkquHFaRJA6X97qR
+#! e6KhHyy2f7y2Y1+WitgQ9O89Z3vt+Yb8P32uu5c2rfbjpYbfBwt7l6yJ7a+r
+#! iLWDXW38i8x8FUni2rr6HdPvqYgNQeJ2s+UFj1TE2mHBqI55N4pVxBpgzuzH
+#! +gdLVMTa4Rejgz1q3qiIDcEl3XmTtx9VJAnLD66FLapUxDbUf3V84/yahvos
+#! CtZnnBpdryI2BH2yjtWeNVITK8fm9c4rjzdSE/tCt6/kQkcnGzWxckz+46Be
+#! P3s1sYaoz39kkuiiJjYU7TM7hPztqSZJ9LA1PLZJrSbWEKrHX33TfNUkiSPy
+#! iAt5gWpiQ6FnduTwfyFqYtN09sMnXVZEqYmVo8xx+q1B8WpiDTFpVk5ge52a
+#! 2FDc7NHp0JZf1CSJ4ndei9cnqol9oTt8I7hHakc1SSLRbX7rnG5qYuXY0tgz
+#! 40hvNbGhyP6rrt5ygJoksTrP9aLFEDVJIqjj1KkVI9QkiSUJ6u7NxqqJDcWu
+#! MvNFESlqYg2xqD76+apUNUkiYOBe/8cz1MTKsTCtz/XcOWpiQ3FA1jXDY5Ga
+#! JLG015KDzsvUJImgCtPsmsyG+ixWf75S0XJdw/WxOHn02rSojWpiQ7HtmX3g
+#! yr/VxMrRvvfmm/d2NZwXi6MrRuZm71cTK8ezsOklsiNqYkNxdWVeL7N/1SSJ
+#! 1AEjqoafUZMk3qS2nHX4gpok4dAxadDmXDWxoTBbeTH563U1sYY4njnselW+
+#! miThXdzOo/Cemlg5eq1LzfR9rCZJtLUp7e/+TE1sKIwq13dOfaUmVo5pyhWR
+#! Z9+qiZXjH6vc33eXq4n9pNs7pHnB9yo1saFImqaf/qVGTZI4b7invr5eTWwo
+#! /gcsKlDB
+#! "]]}},
+#! AspectRatio->0.6180339887498948,
+#! Axes->True,
+#! AxesOrigin->{0, 0},
+#! PlotRange->{{0, 10}, {0., 8.994472735591077*^15}},
+#! PlotRangeClipping->True,
+#! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)

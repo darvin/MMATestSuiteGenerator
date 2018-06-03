@@ -1,0 +1,184 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Solve.nb output/Tests/Solve_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Solve.nb
+# WRITING OUTPUT TO:     output/Tests/Solve_Tests.m
+ok  Solve[x^2+a x+1==0,x]    ==>     {{x->1/2 (-a-Sqrt[-4+a^2])},{x->1/2 (-a+Sqrt[-4+a^2])}}
+ok  Solve[a x+y==7&&b x-y==1,{x,y}]    ==>     {{x->8/(a+b),y->-((a-7 b)/(a+b))}}
+ok  Solve[(x^2+2)(x^2-2)==0,x,Reals]    ==>     {{x->-Sqrt[2]},{x->Sqrt[2]}}
+ok  Solve[x^2+2y^3==3681&&x>0 &&y>0,{x,y},Integers]    ==>     {{x->15,y->12},{x->41,y->10},{x->57,y->6}}
+#! TextForm[ColonForm[MessageName[Solve, naqs], StringForm[`1` is not a quantified system of equations and inequalities., Short[HoldForm[Element[{x, y}, InfiniteLine[{{0, 0}, {2, 1}}]] && Element[{x, y}, Circle[{0, 0}]]], 3]]]]
+not ok  Solve[{x,y}\[Element]InfiniteLine[{{0,0},{2,1}}]&&{x,y}\[Element]Circle[],{x,y}]    ==>     {{x->-(2/Sqrt[5]),y->-(1/Sqrt[5])},{x->2/Sqrt[5],y->1/Sqrt[5]}}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[ReplaceAll, reps], StringForm[`1` is neither a list of replacement rules nor a valid dispatch table, and so cannot be used for replacing., Short[HoldForm[{Hold[Out[$Line - 1]]}], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[                                                                                                                                                                                                                                           ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[                                                                                                                                                                                                                                           ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  Graphics[{{Blue,InfiniteLine[{{0,0},{2,1}}],Circle[]},{Red,Point[{x,y}]/.%}}]    ==>     \!\(\*
+#! GraphicsBox[{
+#! {RGBColor[0, 0, 1], 
+#! TagBox[ConicHullRegionBox[{{0, 0}, {2, 1}}],
+#! "InfiniteLine"], CircleBox[{0, 0}]}, 
+#! {RGBColor[1, 0, 0], PointBox[NCache[{(-2) 5^Rational[-1, 2], -5^Rational[-1, 2]}, {-0.8944271909999159, -0.4472135954999579}]], PointBox[NCache[{2 5^Rational[-1, 2], 5^Rational[-1, 2]}, {0.8944271909999159, 0.4472135954999579}]]}}]\)
+ok  sol=Solve[x^2+y^2==2&&x-y==1,{x,y}]    ==>     {{x->1/2 (1-Sqrt[3]),y->1/2 (-1-Sqrt[3])},{x->1/2 (1+Sqrt[3]),y->1/2 (-1+Sqrt[3])}}
+ok  x/.sol    ==>     {1/2 (1-Sqrt[3]),1/2 (1+Sqrt[3])}
+ok  x^2+y^2==2&&x-y==1/.sol    ==>     {True,True}
+ok  Solve[x==1&&x==2,x]    ==>     {}
+ok  Solve[x==x,x]    ==>     {{}}
+ok  Solve[(x^4-1)(x^4-4)==0,x,Complexes]    ==>     {{x->-1},{x->-I},{x->I},{x->1},{x->-Sqrt[2]},{x->-I Sqrt[2]},{x->I Sqrt[2]},{x->Sqrt[2]}}
+ok  Solve[(x^4-1)(x^4-4)==0,x,Reals]    ==>     {{x->-1},{x->1},{x->-Sqrt[2]},{x->Sqrt[2]}}
+ok  Solve[(x^4-1)(x^4-4)==0,x,Integers]    ==>     {{x->-1},{x->1}}
+ok  sol=Solve[x^2+y^2==1&&x+y==a,{x,y}]    ==>     {{x->1/2 (a-Sqrt[2-a^2]),y->1/2 (a+Sqrt[2-a^2])},{x->1/2 (a+Sqrt[2-a^2]),y->1/2 (a-Sqrt[2-a^2])}}
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 240}, {0, 137}}]\)\)
+#!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  Plot[Evaluate[Re[y/.sol]],{a,0,2}]    ==>     \!\(\*
+#! GraphicsBox[
+#! TagBox[RasterBox[CompressedData["
+#! 1:eJztnftXG9edwHN294f9N/acPJ3HJmmaNk3O9sTbbLJNm5ym6Wm67TYvZ5qX
+#! 5SZOlCaOsrGD8zCxE+IksoV4WLaRMZYfYGQDxsggBAIGkMECZCyQkAaEEGLQ
+#! II2k0bDf0RgQtrExSLoz4n4O5sh6fpn56Dvfe+fOvf/2yqbniH+65ZZbNv8r
+#! /Hru5Q8ef/fdlz/8/b/Af9Z/+N5rr/wz3PgK/k3BP+H2bDogCCIt74PBSAHs
+#! MyaXwD5jJA7jqCQUenrxnW6zlkiiNbtT78c+Y6QMReoFa5UGJvVemlQSCjPF
+#! spRZQShtKY9hnzHShbXnKwsq9XmQn1N9Zuw6ghDvYQ0KQmdbSN7YZ4zE4Zz6
+#! OXsvAz4r1aR426ZVabHPKyLB89E4NzkdmaDDoXAUfphILMzGY3GO53nU0ckG
+#! n2eQi8eX/3zGcZXPNp1CbRVvk2rlFT6LpCdWuRHnEhNT4UFPkOwfM3W6q5oG
+#! 9bX2wuO2bw91fF7aotrb9N53DRt3niG+qHn5M+Nft1Zf5+fVvFNvfFX7zrf1
+#! W9SN8NrvDpOlJ3t2HmzTGXt7BsdHJxj4LNR/Lkr8Y8NtJ79u1z7p0t7a1169
+#! /Bcy9gWfWSZAM9ysz0QQeQ5WyN15BGF0s/NPXiMm0ww7OBJs7fVWmQcFzcra
+#! t+xpfCu/7ppmvrTN+OaOWjD5E00TmAlP/r6iU3O8u+Rkz/5TvXDPl7rW8jN9
+#! 8HOorq+sxg53Fled33O0q6C846v91k8Lze/vbnj9q5or3vbFbdXwnrv07YfP
+#! 9FsvUOOTM6i3SjaY9Hvaqr9p0/56uPBWMPmC5kGLfpPX2bP8d2Adhvn6WSic
+#! dXbhRmW+mIfzDPbUJ+eez1AGONyT5zrd4Nvuw+THexpf+/z0FWq9/XUduPqN
+#! vh3cPn7uYgPp6uwfA+F9kzNhNpauSCAhD45MdvSNtvZS8D0qqjyfV2J5Y0dt
+#! ahiQxuvahiB7p+tDJcLU5FjH6R+sRc8MFd4mJGTN/ZaDb/V31nAJLl0fwbEM
+#! w175bnL3eXomah+aACXATLDlipQLdcLHe5u+ryAhJZ7tcJ0XjvshKHfRxgwV
+#! eNfAmKFhAPL8hrnvGqT08rq+YWoKbWyrZHrKT9busRb9zll4O2jcr7nPcuB1
+#! e9vJmyqYV4O8fIYWmXc8ZOnxwq7PP2CFynbhaL5VOJpDbQAFMFTCAy4otNgb
+#! vyNqIIdDqBX1/R/+eE78Qz5SN9Zah9J4mMgCzPRkZ31Ra/HzosYDmnss+zf0
+#! th6PxbK9CyTuMwjsGZ9u6h6BVtW2ouYNKZUDHKx37LeCvfCo0zvFxhBn3dVD
+#! +UNHzg78/Zt68cgC31k4+qAO6npEGLrLpGspeeFS4Z2g8UXNOovupZ7mI1E2
+#! jCokCfoMh+N2+yiICi0v4osFgSH97q4goRCFsmEqJIPcuzLgK0z2jX1WbBGt
+#! rmy6KLWOETbMdDeWtZT+ebDwLtAYfrfs+4utsQzuRx3arBQ667hEAhLs6VYn
+#! FLpidhJ/4HZBeQcIfMHpn4nI6fibFi44J/6v0Azb4YMfTIOeIOpwZiHr9pgr
+#! LPtehDwMGkNObin9U7dpP2Rp1KEtgEpmKA/A0qMNA1/sW2gTbdh+anuJ5VBd
+#! X0ffaDB3M/Dy4Xm+gXT97cual7YZq5svIYkBauDe1mOW/a86NPckNb6jpfgP
+#! nfXFTEiKTdds+sxG41AqlJ/p21rUPH96Atp0uw+Tp1uclzxBSNRZC0ZGTEyF
+#! oe0A26rwhC2RyNKJyHg8am+rshwg+jX3gsbQ0Gstfo6s2ztNT2QngJWRaZ+h
+#! 9rMPTRw5278txeF3vz2791i3qdOde/2uGQI2I2wx2HRqQ1dGz61zCa6frLEc
+#! fLNP8++g8VDhbdaiZztqfqQnfZn70DSSCZ9hgw+P0nB83LHfCiXEfDEMe6Sp
+#! ewSyTdo/cS0AW7Wo8jxsyfK6vrS/eSKRcHTXW/QKu+ZBUeM27dPtxoLghDft
+#! n5VR0ujzVIg12zx7jna9/fXlkxpv7KjdXUHWd7jGAjgPp4EEz+8sa4MN2zWQ
+#! tmw52HPOcuidXs1DoPFw4a3t2qesJ3dO+Fzpev8ss0qfoZwTTweo9jaJDkNR
+#! 8cW+lqqmwSFqCo86SztMOLZp1xn4gcbIat7HaW+xlL/fo3kYNIafjsInrFVf
+#! jVNompxpZGX9daFwtPm858cjnfOjbt77rkFn7IW8scrtjLkh1gsUbHAo3lbw
+#! Wpejo6Xio/OaR0SNycLHW49vHxsZSHuQqLgpmb3+0Enz4GfFlhe3CQ6/kndq
+#! xwFrTWsODqeRONAqeXFrdWTZqWPkUneLQdWteUzUuEvzy9ajW6nh3owGiYQb
+#! +gw1W/9woKzG/v7uhvkeNmiYkH1jOBWjApqEsCM6+8eu/zRq+ELLsW1gr6hx
+#! t+ZRsBrczk6QSFjK51icg+IBvJ0fsbZF3XjkbP8lTxBXxcgJzUQhP5dUnb/m
+#! o1A/tJ74nCxcL2oM1YWl4kPXQHuWg0TCFT6zMa7tAgWFsThwAuqK7SWW0y3O
+#! 8eCaGHwuIyC9bNnTmHrPOOWENh207ESNoa1nKX/PaW9GFSESRJ+hEmvp8RaU
+#! d4jdxS9/ZtxZ1nau0y3x8V1rGcg5r24/BTcCPndb9a527VPiBSC9mocsh94Z
+#! 7DmXWHsnWyEbg8+g8atJjeE33G4+75HX4Nu1yaHqltJdb17U3itqbNc8YCnb
+#! 6Og6swY1ngdysthf991hsrXXi9t3MqLlyJbkGZDbuvc9299xKo3XMckXEBhk
+#! Xn63D0Y6DNZ8DD5Hw1Ic5IYQ5IOfMSvDb9rsKl6HOgrJgX2WKaMnnvdW/Bfq
+#! KCQH9lmO8AnOXXqvv34j6kAkB/ZZjrC+Liie6Z5i1IFIDuyzHAl2fAs+xyYd
+#! qAORHFK4HhZzs3grnvSWr0cdhRTBMssOdrwbknOQLEAdiBTBPsuOCdP7Lu1t
+#! 8WkP6kCkCPZZXsSZUVfxXeN1b6AOJDuwZq0qWRGrTO5FY+wdc/OLEkSeHa83
+#! IVsC5k+g2ICSA3Ug2YC26QhCS7GzlFm7eEkgRq8gdKQ7EPBRbipVdOyzjIjT
+#! LlfRneO1a2WX2XUKRXK251nOriQUC+v+cA7I2nqz1WyyUsyigSvYZxnhr98I
+#! lXM00I86kCxh16nU1kDyJq1TqMg5nznKJIwL1RuN+gK4YfItKL3G15uQERFP
+#! M1QaE00foQ4ke9h0yjmfA1pCSS4UFtz8ROakWqEyOucfwCbLgkQ87C1fP7L/
+#! p1xkEnUs2cNnLiCUlSw0C91GaPc5ucvrpyRXCNImpyAJCBU2Xt9Kbky2bIfk
+#! zFw8jjqQLENX5ivE+sFgFxL13PopdJ1aKd6v0plxe1BeRLwtIPN4zRrdU9da
+#! JkWAY3Jw/ZSch4sEPGWPjhx4mAv7UcciA7DPUobned+plyE5h0fOoY5FHmCf
+#! pYw4ji7Ylo86ENmAO+sky8xQDcjsM/6Vx9e6LhssszSJ+nvdpfd6y9dzLPqV
+#! U2QE9lmCxGnXyMFH3PvujwUvoo5FZmCfpQYX9kNadpWsi1CtqGORH9hnSZGI
+#! TlNHf+Mqun1mqBZ1LLIE+ywdEvHIWNUL0AYMDVSgjkWuYJ8lAs9FfTUbhKu2
+#! bYWoY5ExuL9OCvBxVjxvgruaVwmWGTmJeHjM+L+CzO07Uccie7DPaEnEmLGT
+#! fwKZpzq/Rx1LLoB9RkiCpUcrn0/WzBrUseQI2GdUxJlRyvDfIPN0bynqWHIH
+#! 7DMSopMOj/4xV9GdIcdR1LHkFNjn7BMZbXPrHnCX3hceabzxszE3A+6vyzLM
+#! pZOu4nUjB34W9efgcpbIwTJnDZ7nxfHM3oon4rRcF3yXONjn7JCIh8fPvJ0c
+#! z/xigqVv/ALMisA+ZwGhK+PYMyBzoPlTPDg/o2CfM02EskK17Cq6Y9p+EHUs
+#! uQ/2OaPQPUVg8siBh/Fg5uyAfc4QidiMv14BNcboiefjDIU6nLUC9jkTxIIX
+#! vUeeEgpm8yc8h9dAzx64/znthAaOuEvucZfcjc/9ZR8scxoRagzTZqGH+chT
+#! Ubz4FAqwz+kiOnHBW/GEMKVt4z8S8TDqcNYo2OfVw/M8bdO4iu9yl9639qYA
+#! lRZS9lkWscUZaqz6L2I/RoweRhuViJS322yGw7v+m6/m0bXwcuZS9YjuQVfR
+#! 7UGygE/EJRWbTF++SrDPK365/+wmoelX/jg71im12OT78puFwGCkRBrdnpV8
+#! rSU1Eiw9cU4JadlT9igejS9BsM/LZ2a4buTgIyCz37QZj/mUJtjn5cCFJ8TB
+#! GJ6yx8Kus6jDwSwJ9vmGhByGkf0PCYMxmrYkotOow8FcD+zzdYhNDYl9y97y
+#! 9RFvC+pwMDdGOj67zVqxwas1u1PvZxyVirm2sMGepaqVT8Smun5wlaxzFd0Z
+#! bN/Jx1kIpFJF6GyLA2DdOnEdPKXWzWYntGvjqMxT6myL71tYvI9QGZhrvy7D
+#! cJRhLgbd4t261O5eJZnoM1kJNKkkFGaKZSmzglDaUra+Xa9U6qyBQICiqACT
+#! jYuVIBV7K54UTvlV/uHysCLGbVCJX6hFXth0SoXazM6yZu3cyukIYEh9XtLZ
+#! xQGwdiWhsrp9AZ+w5ZBc5UXVqQiFHj6bdlSKC7xeZundvUokITPsEmHhT33y
+#! z2INitQ0yEJWzDOYrGazncp4juFmxv0N74LJI7qfTPeV8Twv3u8w5OfrK/Mh
+#! xEUHCEYvrFYqRMUKK/DqkXR5MA6DKl8PRiv1i3xmnYJCwoazZuuodhUBh9ns
+#! SC7AzZIEoZj3dundvVqk47NSTYq3bVrVworMHKWGDVGgrzPq4bhVYM7UhR58
+#! Ik73lLj33S8MkDv3ARcJXPWU5JZfpAYNhw6reAdDKhVofBZxGpRXHCAoE2w5
+#! pd5Ypy+ALadGeoWMTw/pWGudT89L7u5VIxWfbTqF2ireJtXK1D+Qm1vTlia1
+#! hMqYiSoVCgwqeTkJZXiaHetYKkb9VT7rFHM+01bwCaHPUJVdWfBw3Jw/NJSq
+#! lYjqe5ay5gmrbFtTC57r7O5VIhGfZ30mODg6YJNzTvjzjbDxWSZAs8kikLAm
+#! kyWpVRBa243e6OaIh7z++o3JAuPB6Qu6604mkOozGwjQ3CxnzidUlU74v9OY
+#! l6Hv2jJJ9ZkJCO0MB+RE0ZkAqUg51mcT1l0ntAStQotP/HoJexWCu3p3pwmp
+#! +Ax7RKhPBfKS7Zr5EstRB8dNQmgkq3RpzDGJeDjY8a275G6X9rZA05ZrFRhX
+#! wBiUcz4ztsuG0PbLQRP56csxKwGK6DmfGZ1Y1dMO9Vz3hi6tfQjLhq2b2zpi
+#! JwtsMXsyuNmrdne6kI7Ps0JpwTDstTJk8oF0fQq08hjHMU/Zo5CWx6r+uOp5
+#! 5DiGyUq3y4pYaotKgSV39yqQSn9dtoiMto8e/51w5vrQL2ecRtThYNLM2pE5
+#! NjU0XvcGmOwuvW+qW508RYLJNdaCz1AbByxbXUV3uopuDzR9zIX9qCPCZIrc
+#! 9jkRm5nq/F7sVfbVvIaXw855ctVnPhGfth8YOfhz4bT18efw9HFrhNzzWei+
+#! GKwUlnTX3uo9/Cvc6FtT5JjPM8NnKMOvkwPvfyEMwEi55hqzFsiZ/rqwp2n0
+#! xO+FM337H6JthYl4BHVEGATkgMxQG49V/VHoiNt3f5AsSERDqCPCIEPWPkco
+#! 61j1n8Uu5WBbPscGUUeEQYxMfRZy8sn/EUwuuWfS+uUyRl9g1gSy8zniaRYX
+#! cHeX3iuYHJ5AHRFGQsjI57CrfvTE83PVxQ5sMuZqpO8zzydmnEbq6G8vt/g6
+#! dnGRSdRBYSSKlPvreC4a6i/3Hv7PZC/cT6e6fsTTX2CujzRlTkRD9Hmtp+wX
+#! wpkR/WN0Twme8R6zHKTmMzfjC7blu3UPJNe5fjI0cIRPxFAHhZEN0vE5NumY
+#! aPyHq/guceKLmaHa+ekCMGsV1qxViddqmdyLLoB0VM5fypWXOieKFHyOeMy+
+#! 06+AxvAzXvs3doxEHRFGEtA2HUFoKXaWMmuJRdNBJK9NJt2BgI9yL5qWBaHP
+#! PMdCOUEZnk6eFrk7YFbFppyogsFIELtubtYpzq5MvUSdc0DW1putZpOVWnzt
+#! JhKfubA/SBaMHHhY6Lg4+POpzu9xFxyGDVBOp9OdBG4EGM6uU6nFuSqEqU5U
+#! 5JzPHGUCbwv0RqO+AG6YfAtKZ2ja/yVjHj8/YXpPLJKpY8+EHEfxcsAYEaex
+#! gFAoRRSEotLB2HTKOZ8DWkJJLhQW85MMzZJqhcq4cFjPjskgLTN4Qjy75yq6
+#! fbzuzchoWxY+FyNrfOYCQlnJCvPSGMXpHMXpaBhhtkCtT3hKQKiwU6Y+ybTP
+#! 8RAV7Ng1cuBn4sjkYNuOeMib0U/E5BALU/4a7EKinpuOhq5TKy9PUqMzZ6E9
+#! yPN82NM0Xvc6ZOPLpUX/YTxFAGYFLDnJEHONB9LuMxcJ0LZC8fI9V/E6v2kz
+#! 6+tK70dgMEuRRp8jVKv/7N/BYXGBBtqmwcOSMVlm9T5z4QlQ13v4V8m23h3j
+#! Z96KeMz41B4GCSvurOMTXNhtAnuFeYeSCXmqW83NjKc9Qgxm+axA5hg9HGz/
+#! WpyfU6iQz26KeC04IWOkwPJ9TkRDof7DY1UviAMtqKO/ne7dhy9BxUiKG/rM
+#! 8wmoh/0Nm90l94h9yIHmT1c9ZzIGkxGu43M00D9p/VIcVC809GqImaHT+PQ0
+#! Rspc7XM8RNG2veKwN2Eo8rFn6Z4SfPEpRhbM+wyVcKhPL04FkJy+/j+Cbfl4
+#! glmMvBD763w1G8RuN6E8Nn8SGW3H/RUY2TEzVAsyizNa+BveDbvO4ov1MPIl
+#! HvKCzzNOI56NE5MbSOH6QQwmXWCfMbkE9hmTS2CfMbmElOevw2BuFiwzBoPB
+#! pJ3/B4QKrMM=
+#! "], {{0, 137}, {240, 0}}, {0, 255},
+#! ColorFunction->RGBColor],
+#! BoxForm`ImageTag["Byte", ColorSpace -> "RGB", Interleaving -> True],
+#! Selectable->False],
+#! BaseStyle->"ImageGraphics",
+#! ImageSize->Automatic,
+#! ImageSizeRaw->{240, 137},
+#! PlotRange->{{0, 240}, {0, 137}}]\)
+ok  sol=Solve[x^2+a x+b==0,x,Reals]    ==>     {{x->ConditionalExpression[-(a/2)-1/2 Sqrt[a^2-4 b],b<a^2/4]},{x->ConditionalExpression[-(a/2)+1/2 Sqrt[a^2-4 b],b<a^2/4]}}
+ok  x^2+a x/.sol//Simplify    ==>     {ConditionalExpression[-b,4 b<a^2],ConditionalExpression[-b,4 b<a^2]}
+ok  Normal[sol]    ==>     {{x->-(a/2)-1/2 Sqrt[a^2-4 b]},{x->-(a/2)+1/2 Sqrt[a^2-4 b]}}
+ok  sol=Solve[x^2-2y^2==1&&x>0&&y>0,{x,y},Integers]    ==>     {{x->ConditionalExpression[1/2 ((3-2 Sqrt[2])^C[1]+(3+2 Sqrt[2])^C[1]),C[1]\[Element]Integers&&C[1]>=1],y->ConditionalExpression[-(((3-2 Sqrt[2])^C[1]-(3+2 Sqrt[2])^C[1])/(2 Sqrt[2])),C[1]\[Element]Integers&&C[1]>=1]}}
+ok  {x,y}/.First[sol]/.Table[{C[1]->i},{i,10}]//Simplify    ==>     {{3,2},{17,12},{99,70},{577,408},{3363,2378},{19601,13860},{114243,80782},{665857,470832},{3880899,2744210},{22619537,15994428}}
+ok  Solve[x^4-x^2-5==0,x]    ==>     {{x->-I Sqrt[1/2 (-1+Sqrt[21])]},{x->I Sqrt[1/2 (-1+Sqrt[21])]},{x->-Sqrt[1/2 (1+Sqrt[21])]},{x->Sqrt[1/2 (1+Sqrt[21])]}}
+ok  Solve[x^3-2x^2+5x+7==0,x]    ==>     {{x->1/3 (2-11 (2/(-263+3 Sqrt[8277]))^(1/3)+(1/2 (-263+3 Sqrt[8277]))^(1/3))},{x->2/3-1/6 (1+I Sqrt[3]) (1/2 (-263+3 Sqrt[8277]))^(1/3)+(11 (1-I Sqrt[3]))/(3 2^(2/3) (-263+3 Sqrt[8277])^(1/3))},{x->2/3-1/6 (1-I Sqrt[3]) (1/2 (-263+3 Sqrt[8277]))^(1/3)+(11 (1+I Sqrt[3]))/(3 2^(2/3) (-263+3 Sqrt[8277])^(1/3))}}
+ok  Solve[x^5-2x+17==0,x]    ==>     {{x->Root[17-2 #1+#1^5&,1]},{x->Root[17-2 #1+#1^5&,2]},{x->Root[17-2 #1+#1^5&,3]},{x->Root[17-2 #1+#1^5&,4]},{x->Root[17-2 #1+#1^5&,5]}}
+ok  Solve[(x^2-1)(x^4-1)==0,x]    ==>     {{x->-1},{x->-1},{x->-I},{x->I},{x->1},{x->1}}
+ok  Solve[a x^2+b x+c==0,x]    ==>     {{x->(-b-Sqrt[b^2-4 a c])/(2 a)},{x->(-b+Sqrt[b^2-4 a c])/(2 a)}}
+ok  Solve[a x^5+b x+c==0,x]    ==>     {{x->Root[c+b #1+a #1^5&,1]},{x->Root[c+b #1+a #1^5&,2]},{x->Root[c+b #1+a #1^5&,3]},{x->Root[c+b #1+a #1^5&,4]},{x->Root[c+b #1+a #1^5&,5]}}
+ok  Solve[Sqrt[x]+3x^(1/3)==5,x]    ==>     {{x->-2-957 (2/(1217+5125 Sqrt[5]))^(1/3)+3 (1/2 (1217+5125 Sqrt[5]))^(1/3)}}
+ok  Solve[Sin[x]==1/3,x]    ==>     {{x->ConditionalExpression[\[Pi]-ArcSin[1/3]+2 \[Pi] C[1],C[1]\[Element]Integers]},{x->ConditionalExpression[ArcSin[1/3]+2 \[Pi] C[1],C[1]\[Element]Integers]}}
+#! TextForm[ColonForm[MessageName[Solve, ifun], StringForm[Inverse functions are being used by `1`, so some solutions may not be found; use Reduce for complete solution information., Short[HoldForm[Solve], 3]]]]
+ok  Solve[x^(2a)+2x^a+1==0,x]    ==>     {{x->(-1)^(1/a)}}
+ok  Solve[(x^5-1)^x==0,x]    ==>     {{x->1},{x->(-1)^(2/5)},{x->-(-1)^(3/5)}}
+#! TextForm[ColonForm[MessageName[Solve, ifun], StringForm[Inverse functions are being used by `1`, so some solutions may not be found; use Reduce for complete solution information., Short[HoldForm[Solve], 3]]]]
+ok  Solve[5==x*2^(x^2),x]    ==>     {{x->Sqrt[ProductLog[50 Log[2]]/(2 Log[2])]}}
+ok  Solve[ArcTan[1/Sqrt[1+x^2],x/Sqrt[1+x^2]]==a,x]    ==>     {{x->-((I (-1+Cos[2 a]+I Sin[2 a]))/(1+Cos[2 a]+I Sin[2 a]))}}
+not ok  Solve[Sin[E^x]-Cos[2 x]==1&&-1<=Re[x]<=1&&-1<=Im[x]<=1,x]    ==>     {{x->Root[{1+Cos[2 #1]-Sin[E^#1]&,0.9152269083602888019872464528179028171988770252894399817912-0.2016748387163763435906302927177470835291663508602157554148 I}]},{x->Root[{1+Cos[2 #1]-Sin[E^#1]&,0.9152269083602888019872464528179028171988770252894399817912+0.2016748387163763435906302927177470835291663508602157554148 I}]}}

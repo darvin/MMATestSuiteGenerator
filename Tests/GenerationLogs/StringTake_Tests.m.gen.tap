@@ -1,0 +1,35 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/StringTake.nb output/Tests/StringTake_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/StringTake.nb
+# WRITING OUTPUT TO:     output/Tests/StringTake_Tests.m
+not ok  StringTake["abcdefghijklm",6]    ==>     abcdef
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  InputForm[%]    ==>     "abcdef"
+not ok  StringTake["abcdefghijklm",-4]    ==>     jklm
+not ok  StringTake["abcdefghijklm",{5,10}]    ==>     efghij
+not ok  StringTake["abcdefghijklm",{6}]    ==>     f
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  InputForm[%]    ==>     "f"
+not ok  StringTake["abcdefghijklm",{1,-1,2}]    ==>     acegikm
+not ok  StringTake[{"abcdef","stuv","xyzw"},-2]    ==>     {ef,uv,zw}
+not ok  StringTake["\[FilledDiamond]\[Alpha]\[Beta]\[Gamma]\[LongLeftRightArrow]\[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC]\[ReturnIndicator]",-4]    ==>     \[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC]\[ReturnIndicator]
+not ok  StringTake["abc\ndef",5]    ==>     abc
+#! d
+not ok  Characters["abcdefghijklm"][[6]]    ==>     f
+not ok  StringTake["abcdefghijklm",{6}]    ==>     f
+not ok  Take[Characters["abcdefghijklm"],{5,-4}]    ==>     {e,f,g,h,i,j}
+not ok  StringTake["abcdefghijklm",{5,-4}]    ==>     efghij
+not ok  StringTake["abcdef",{1,0}]    ==>     
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+not ok  FullForm[%]    ==>     ""
+#! TextForm[ColonForm[MessageName[StringTake, take], StringForm[Cannot take positions `1` through `2` in "`3`"., Short[HoldForm[-20], 3], Short[HoldForm[-1], 3], Short[HoldForm[red], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, bktmop], StringForm[Expression "`1`" has no opening "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{FormBox[RowBox[{>, RowBox[{RGBColor, [, RowBox[{1, ,, 0, ,, 0}], ]}]}], StandardForm], ]}]]], 3], Short[HoldForm[[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`>RGBColor[1, 0, 0]]\)\)
+#!                                        ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, bktmop], StringForm[Expression "`1`" has no opening "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{FormBox[RowBox[{>, RowBox[{RGBColor, [, RowBox[{1, ,, 0, ,, 0}], ]}]}], StandardForm], ]}]]], 3], Short[HoldForm[[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`>RGBColor[1, 0, 0]]\)\)
+#!                                        ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  StringTake["red",-20]    ==>     >RGBColor[1, 0, 0]]\)
+not ok  FullForm["red"]    ==>     "\!\(\* StyleBox[\"red\",\nFontColor->RGBColor[1, 0, 0]]\)"

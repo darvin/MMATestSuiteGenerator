@@ -1,0 +1,10 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/HoldPattern.nb output/Tests/HoldPattern_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/HoldPattern.nb
+# WRITING OUTPUT TO:     output/Tests/HoldPattern_Tests.m
+ok  HoldPattern[_+_]->0    ==>     HoldPattern[_+_]->0
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[ReplaceAll, reps], StringForm[`1` is neither a list of replacement rules nor a valid dispatch table, and so cannot be used for replacing., Short[HoldForm[{Hold[Out[$Line - 1]]}], 3]]]]
+not ok  a+b/.%    ==>     0
+not ok  f[a+b]    ==>     0
+ok  MatchQ[Log[a,b],HoldPattern[Log[_]/Log[_]]]    ==>     True
+ok  Cases[{a->b,c->d},HoldPattern[a->_]]    ==>     {a->b}

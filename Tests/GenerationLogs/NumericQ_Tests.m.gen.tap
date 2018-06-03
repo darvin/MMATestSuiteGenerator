@@ -1,0 +1,156 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/NumericQ.nb output/Tests/NumericQ_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/NumericQ.nb
+# WRITING OUTPUT TO:     output/Tests/NumericQ_Tests.m
+ok  NumericQ[Sin[Sqrt[2]]]    ==>     True
+not ok  N[Sin[Sqrt[2]]]    ==>     0.987766
+ok  NumericQ[expr]    ==>     False
+not ok  TableForm[Map[{#,NumericQ[#]}&,Level[expr,{0,Infinity}]],TableHeadings->{{},{"e","NumericQ[e]"}}]    ==>     \[Null]	e	NumericQ[e]
+#! \[Null]	2	True
+#! \[Null]	x	False
+#! \[Null]	3	True
+#! \[Null]	E	True
+#! \[Null]	4	True
+#! \[Null]	E^4	True
+#! \[Null]	3 E^4	True
+#! \[Null]	Sin[3 E^4]	True
+#! \[Null]	x+Sin[3 E^4]	False
+#! \[Null]	BesselJ[2,x+Sin[3 E^4]]	False
+not ok  NumericQ[f[Pi,Sin[1+I]]]    ==>     True
+#! TextForm[ColonForm[MessageName[Select, normal], StringForm[Nonatomic expression expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[Select[ssymb, MemberQ[Attributes[#1], Constant] & ]], 3]]]]
+not ok  constants=Select[ssymb,MemberQ[Attributes[#],Constant]&]    ==>     {Catalan,ChampernowneNumber,Degree,E,EulerGamma,Glaisher,GoldenRatio,Khinchin,MachinePrecision,Pi}
+#! TextForm[ColonForm[MessageName[Select, normal], StringForm[Nonatomic expression expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[Select[ssymb, MemberQ[Attributes[#1], NumericFunction] & ]], 3]]]]
+not ok  nfuns=Select[ssymb,MemberQ[Attributes[#],NumericFunction]&]    ==>     {Abs,AiryAi,AiryAiPrime,AiryAiZero,AiryBi,AiryBiPrime,AiryBiZero,AngerJ,AppellF1,ArcCos,ArcCosh,ArcCot,ArcCoth,ArcCsc,ArcCsch,ArcSec,ArcSech,ArcSin,ArcSinh,ArcTan,ArcTanh,Arg,ArithmeticGeometricMean,BarnesG,BartlettHannWindow,BartlettWindow,BernsteinBasis,BesselI,BesselJ,BesselJZero,BesselK,BesselY,BesselYZero,Beta,BetaRegularized,Binomial,BlackmanHarrisWindow,BlackmanNuttallWindow,BlackmanWindow,BohmanWindow,BSplineBasis,CatalanNumber,CauchyWindow,Ceiling,ChampernowneNumber,ChebyshevT,ChebyshevU,Clip,Conjugate,ConnesWindow,Cos,Cosh,CoshIntegral,CosineWindow,CosIntegral,Cot,Coth,Csc,Csch,CubeRoot,DawsonF,DedekindEta,DiracComb,DirichletWindow,DiscreteDelta,Divide,EllipticE,EllipticExp,EllipticExpPrime,EllipticF,EllipticK,EllipticLog,EllipticNomeQ,EllipticPi,EllipticTheta,EllipticThetaPrime,Erf,Erfc,Erfi,ExactBlackmanWindow,Exp,ExpIntegralE,ExpIntegralEi,Factorial,Factorial2,FactorialPower,Fibonacci,FlatTopWindow,Floor,FractionalPart,FresnelC,FresnelS,Gamma,GammaRegularized,GaussianWindow,GegenbauerC,Gudermannian,HammingWindow,HankelH1,HankelH2,HannPoissonWindow,HannWindow,HarmonicNumber,Haversine,HeavisideLambda,HeavisidePi,HermiteH,HurwitzLerchPhi,HurwitzZeta,Hyperfactorial,Hypergeometric0F1,Hypergeometric0F1Regularized,Hypergeometric1F1,Hypergeometric1F1Regularized,Hypergeometric2F1,Hypergeometric2F1Regularized,HypergeometricPFQ,HypergeometricPFQRegularized,HypergeometricU,Im,IntegerPart,InverseBetaRegularized,InverseEllipticNomeQ,InverseErf,InverseErfc,InverseGammaRegularized,InverseGudermannian,InverseHaversine,InverseJacobiCD,InverseJacobiCN,InverseJacobiCS,InverseJacobiDC,InverseJacobiDN,InverseJacobiDS,InverseJacobiNC,InverseJacobiND,InverseJacobiNS,InverseJacobiSC,InverseJacobiSD,InverseJacobiSN,InverseWeierstrassP,JacobiAmplitude,JacobiCD,JacobiCN,JacobiCS,JacobiDC,JacobiDN,JacobiDS,JacobiNC,JacobiND,JacobiNS,JacobiP,JacobiSC,JacobiSD,JacobiSN,JacobiZeta,KaiserBesselWindow,KaiserWindow,KelvinBei,KelvinBer,KelvinKei,KelvinKer,KleinInvariantJ,KroneckerDelta,LaguerreL,LanczosWindow,LegendreP,LegendreQ,LerchPhi,Log,Log10,Log2,LogBarnesG,LogGamma,LogIntegral,LogisticSigmoid,LucasL,MarcumQ,MathieuC,MathieuCharacteristicA,MathieuCharacteristicB,MathieuCharacteristicExponent,MathieuCPrime,MathieuS,MathieuSPrime,Max,MeijerG,Min,Minus,Mod,ModularLambda,Multinomial,NevilleThetaC,NevilleThetaD,NevilleThetaN,NevilleThetaS,NuttallWindow,OwenT,ParabolicCylinderD,ParzenWindow,Plus,Pochhammer,PoissonWindow,PolyGamma,PolyLog,Power,PrimeZetaP,QBinomial,QFactorial,QGamma,QHypergeometricPFQ,QPochhammer,QPolyGamma,Quotient,QuotientRemainder,RamanujanTau,RamanujanTauL,RamanujanTauTheta,RamanujanTauZ,Re,Rescale,RiemannR,RiemannSiegelTheta,RiemannSiegelZ,Round,Sec,Sech,Sign,Sin,Sinc,Sinh,SinhIntegral,SinIntegral,SphericalBesselJ,SphericalBesselY,SphericalHankelH1,SphericalHankelH2,SphericalHarmonicY,SpheroidalEigenvalue,SpheroidalJoiningFactor,SpheroidalPS,SpheroidalPSPrime,SpheroidalQS,SpheroidalQSPrime,SpheroidalRadialFactor,SpheroidalS1,SpheroidalS1Prime,SpheroidalS2,SpheroidalS2Prime,Sqrt,StruveH,StruveL,Subfactorial,Subtract,Surd,Tan,Tanh,Times,TukeyWindow,UnitBox,UnitStep,UnitTriangle,WeberE,WeierstrassP,WeierstrassPPrime,WeierstrassSigma,WeierstrassZeta,WelchWindow,WhittakerM,WhittakerW,ZernikeR,Zeta,ZetaZero}
+#! TextForm[ColonForm[MessageName[InverseErfc, argx], StringForm[`1` called with `2` arguments; 1 argument is expected., Short[HoldForm[InverseErfc], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[Re, argx], StringForm[`1` called with `2` arguments; 1 argument is expected., Short[HoldForm[Re], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[SpheroidalJoiningFactor, argrx], StringForm[`1` called with `2` arguments; `3` arguments are expected., Short[HoldForm[SpheroidalJoiningFactor], 3], Short[HoldForm[2], 3], Short[HoldForm[3], 3]]]]
+#! TextForm[ColonForm[MessageName[Sec, argx], StringForm[`1` called with `2` arguments; 1 argument is expected., Short[HoldForm[Sec], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[Round, meprec], StringForm[Internal precision limit $MaxExtraPrecision = `1` reached while evaluating `2`., Short[HoldForm[50.], 3], Short[HoldForm[Round[GoldenRatio/Sec[Glaisher, SpheroidalJoiningFactor[Degree, JacobiCS[GoldenRatio, Re[MachinePrecision, JacobiSD[Pi, InverseErfc[Pi, 1]]]]]]]], 3]]]]
+#! TextForm[ColonForm[MessageName[SinIntegral, argx], StringForm[`1` called with `2` arguments; 1 argument is expected., Short[HoldForm[SinIntegral], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[Csch, argx], StringForm[`1` called with `2` arguments; 1 argument is expected., Short[HoldForm[Csch], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[N, meprec], StringForm[Internal precision limit $MaxExtraPrecision = `1` reached while evaluating `2`., Short[HoldForm[50.], 3], Short[HoldForm[Csch[E, SinIntegral[MachinePrecision, Round[GoldenRatio, Sec[Glaisher, SpheroidalJoiningFactor[Degree, JacobiCS[GoldenRatio, Re[MachinePrecision, JacobiSD[Pi, InverseErfc[Pi, 1]]]]]]]]]], 3]]]]
+not ok  e=Quiet[Nest[RandomChoice[nfuns][RandomChoice[constants],#]&,1,10]]    ==>     Zeta[\[Pi],Csch[E,SinIntegral[MachinePrecision,Round[GoldenRatio,Sec[Glaisher,SpheroidalJoiningFactor[\[Degree],JacobiCS[GoldenRatio,Re[MachinePrecision,JacobiSD[\[Pi],InverseErfc[\[Pi],1]]]]]]]]]]
+not ok  NumericQ[e]    ==>     True
+not ok  Quiet[N[e]]    ==>     Indeterminate
+not ok  MatrixQ[m,NumericQ]    ==>     True
+ok  f[a]    ==>     f[a]
+not ok  f[Sqrt[2]]    ==>     -0.5+1.07899 I
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
+#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  Plot[{Re[f[a]],Im[f[a]]},{a,-2,2}]    ==>     \!\(\*
+#! GraphicsBox[{{}, {}, 
+#! {Hue[0.67, 0.6, 0.6], LineBox[CompressedData["
+#! 1:eJxF1nk01HsfB/Bp8eiq0OKWGyFXi6Uoy6XlI3GbEuG62cpwy+UmLZ5kShGp
+#! hhZd11ra7mhRHpRd+DD2ZWZkG4zsDdIYwmQmzPPc58z5+Z7zPd/zOu/393s+
+#! v/9+Gr+dcfBaSCKRbv1v/3Nuhe8/SSQSVNM+MS6RCOCMSJMmEkvQ43rjrucz
+#! AsjINNg4MSXBFmvXQ4dEAti+2eY33ogEh7nXcuO/CMBkRXhHPUeCu926CnU+
+#! CsC8f7w2MV2CnMEkKrlWAA43ma93UCRolJLt6hgjgEB2uJ938RwOq03y324S
+#! QHPz0k+lnrNYpM7/UvjTKKiWnFltojKDN4YMeDq/8iHbt1xG4YMYvXyWvXl+
+#! 7jN43DYYaw8TYdjMfYgLGIHp6CAawjRSXTz8Vl//BHT5LuWEXiGGlFzKPnBp
+#! GJIOGvg3RUyhfYKNd6rfEISd8qRuOTCJ9rrN/q9PDULQoleB/vwvuLMg1MfD
+#! lgeeV9k/tr4cR/PCAV2XnR8htuhjQtLJMWwjZ6fXaw1AQffmZakbRrH1XazX
+#! yGgfaCqaWzg+GkF+9twvZYxeeKtNO9nXP4TMD2NqW871QHfFG3VjYx5StPj+
+#! T7d1wUfd2O2Y049ONbcU7aO4sCI4xXjrgl60Korn9Ua3ga6xQPfZRCeSQu9R
+#! ltBb4JolvyGfykHuTk58u0UjKDmm3XNZ04iJikHd8b5MeCusUKj+sRYz89wc
+#! xiwr4Rn3453h8GIsnXOMz7nzDo7Zq2Rxjycj7eyV0uV0OnyemDINKKcjw6kk
+#! ukOeDpfj2CivRcf0QW+K06W/IYkbVreX9xTPUzp73O2eQlZdY8Xh949wvaS9
+#! S2/8IaRPntIc6ojBDNvgi8f9Y+Bq8+bmdWU22KauRt1RaAP5ckEtjAA6KC3e
+#! vXfJvmR8oqfUlL4hGWRWaZuqSpLxhl16QxI7GQQh1w1q3j1Dx7j+ugtbnoPx
+#! 9OHeEeMXOKZxiKH94SX0rbpVcN3wFW40VU2PtkyD5F9SVYw3ZWBNJsXyTUQW
+#! 7N9m/rg6PAd3VeiWberJAt2jVv1D/BzMaBXtfWScDc6zCejvlItxor/gVn82
+#! GHqePlitk4cnoNrMa3cu9Jztdnncno+SWn0D5fF8uOxG+9PMugiN+hasD3VG
+#! UOpe/fozmYFbC5zG9VMQ2G5LIiJDGbgx+j/lPSKEaJ1iwzMFDFz6NNXoiU0J
+#! RLzQ0VuhV4Yzds6dktESiGoaft2qVI4fMtK3oAEDVF+GZ18UVmBHkuuqNa4M
+#! MBqMTFtpWImtNJnZ02EMuD0nmvqXfyWyPNwa1jcxIKXXb1BWUInFirKBwefL
+#! YFGRL+UBvwofn3Uv351bDqY1Zwby5mow6eh3abHd5eDdc0STZ1GLCeSseL5s
+#! BayiWvhF3azFe+pyvg+dK0Ar84XQY2UdXm3IXjErqoCmrwUX7bfWo6f+ckrh
+#! riqwNLsUfDSMhe4qeeTVXlWgPJ3pw2Kz0HXJ8e2n7lTBmDclR6jKRoeePBmV
+#! rir42i+3J6SQjRb3TqQGhVQD9YKa5GZoA2qOvROZMWrgSEyNkWbXe7zM3Bc+
+#! ya8BgY8taUahEVtf1cmnKdeC/v4DSREWjRjpxdXUOFcLgZU6N/pTGnGsQ2wj
+#! q14HZF6TOCGsCQ/mhbWVWNdB6qBoh8q7JkyOlTt+KbAOHGKYkS8nm9DJ7gcq
+#! n1UHTLtlCT/4NmNxhenfTVfqgXOdfzPQuwXX0kt176TUg/2eOaHdqxb0v3og
+#! 9+eWenB5OqjNG21BrZ0u9fm6TKBl0do7rrRi8NreI/92ZkIxa1wjproV26Z8
+#! enXDmVCjEuyFShy8nUEVPuYy4UZreUBIHgd5d0ihLrIsiJtTTyqRb0NzX9rS
+#! VTtY4Nfo/6XZpw3vkxXj6t1Z8NDsTax1VRtOaCWo34hkwRKyhn2HdjseWqT+
+#! GnJYsEfBSOF0TDs+73lhJOplgee1B5FWMh1IKt5W8nY5G34OJzurhXSg64Pc
+#! g6dM2bDG/klD1GIuZlGhRcuLDWTS+cDMRC7KH6midN9jQ6XJyvpuq0702XH4
+#! U0IhG8rWOP7xee0HLFXknHcYYkPPt73xMfu7cHlgukRGrgGEkn9WNxZ4TZT3
+#! qTWARGpvR5NINGoA0v9XD67eF3Q4yXo+r56NPKFAn8+D8u5fDBPPu0+vgO6T
+#! 8p7oH6C3M22dG4l8/3TAkIZsC5Fb2axcNJXNIfKTrZOl0cYdhKMonKv6uZ0w
+#! Ju3fnaPZDPl1E/erbFWX263sJfquPyVa/XmkjzBfQym48X4/4YDzOp5R3/MI
+#! czoVHX6vHiLscXHXoOyhEcJlOiaRZTKjhDd+VziUTB4jrFroayVDGydMEi9M
+#! 8e/7QvirfZF7hdYkYa4hZZ1W+BQx/8ZKkzhNfSGRn3VSXLGhUwgN0rw8QGz4
+#! 1+WvMCy1csyA82LVaVgs7Q8EWpBmaqdBTuo0tycvJqgikJE6rF5h+tg6McxJ
+#! 7zvtDiFXF4lhWurFtheMFhz7BmKp37j7bTCb+UbM12zYFi16OQMLpO9Ny+1b
+#! lP/rLCyU+u6uBYoOz+etdRpVRoSzRN/h/U5j1YQ54vsSN6icvTslId4f0FfW
+#! qxLPW/p/Qsz7XyHioaA=
+#! "]]}, 
+#! {Hue[0.9060679774997897, 0.6, 0.6], LineBox[CompressedData["
+#! 1:eJxF1nk01AsbB3DCnXCtxU24GEt08aKQmu7jJi1uekmyRqjIWi4hN9kSIiJL
+#! pRSplIiSJUs0k0EYY8xYBmVrZBvGyD73955z39/vOec5z/mc8z3nOc9/j4p7
+#! wIlzm/j4+DKR/t/UBdnvPB6vnu/fClhWjV9ewfz6jb4Gh4vZQNPSfXwSs7FU
+#! bN9nBmbTkbmWuyWYT9xoe7nLFXNIR6yfZ90GahpN9HuD2zpqxQ8BW40V1lCX
+#! +xCFJAZWUJ9J0mf3Ri+jXkoLj6+HJdT54oNy2V8XUedY6Ad2JXBRR/u6hWod
+#! XUAdLvAiJHB6HrVbZIca/fkc6ozasewcbzbq6iHNn4vwM6hVJU0PnHw4ibps
+#! Z7z38AgL9RCpVNnIaBz1mHaGQf27EdRSEYVGuvxfUWsbzWoXcJioYw5OU6pC
+#! GahlThanOvxCxfYtkiTIai2oC/rHkidi61CftlZ42+/xBHWVSHh3Y3A+/N+G
+#! w/y/RtnXo9attpvTK8SskfaK+GUZs+jjIsNHlh9Qr1nZM3kzmAdel2jV6zei
+#! zr3oQtxfQUSd4yxcnDGEOfvI26xpHAl1qrKIzwN7zJGUcqn1ZcxuemKuNYQm
+#! 1Krs98t7G5tR/91mFrswjZn+olW8WK4FdeK5flWVS5jZfSuWOOVW1HUkk7yu
+#! q59Rb8tv0E4uxBwYebTiUDdm9X0On6u021AnvQ5dzO3HPJ7MF+WAa0dt6hMv
+#! umUXZo56tnJcImbH+xUWviYdqN+GQrf6Oczip5pch1IxN0gygk6wMIuFlPCE
+#! RCiQ+v3Q3Wmbu1B9jkMcVqJA+gT7zKHMp+B50jix3pAC8v7qzw7avIKtZuH/
+#! zfmTAoKXQ0Qkz5ZCg3791jA3CrjatXwbrXsD/soCfbYhFHApzRRU7i0HeYnD
+#! uQbJFIj9EfBh6mMFkNcTz0rkU+DqU8fR1YQqCJ5q15qqpEDd6V+TIgzeA75f
+#! epbcTgEZJY3HtxtrILzyXlj0CgVqWUvvXj2rB81ng7+7SnaC7I1h5/nID0DL
+#! wAsSNDqhKO/5H4QdDaD714tbXOtOiO8z3DB2b4Rhnep8r8JOYHrgWhUeESFF
+#! YcPLvL4TtNVuUGQ1SEAQPaCL7+6ECxFJjrTnJMhkNVf281Fh3COYElrwCY7m
+#! 97Ydt6dC45VbdpaRZGBfLz5P8qMCfs3WNnCWDNleMbx9MVQoe3nF5rVzM7B0
+#! dPS1iqnQxlOXp+u3QHxl5B0BwS4wTbKc2CC3Arlth1NlSRf4OrI+2VS2w8XX
+#! axxdUhckx+YZ/CHVAdvSO5MK+rqAMLtzyOBCB3jZh9elCdHg3fy7ByqiFNg8
+#! 0q7i50SDC6SUnLkyChxeCmap4Lph97F7jobsTpjps4jKVuiGzQpPs07JUiGz
+#! Vmm7hEE3cK+7bNckIHdFN/+55twNyWxi8kgcFeLEFEvoZd3wJSHcf3pbF3zC
+#! E4NvutBhXBS3nq9HA3NLaQFuOQMxbe+cER1uuQnPLTczQGfLKq7chg49wXxD
+#! GwMM8Onz5NpcpIP3w5nqzT/1gFg3wVW9EMnPtgQqnOqBOTXvH2pyDOi5HTNs
+#! ttgDE6MZhfwcBnjTFxrSjPpgxcSjfdPtXkhxZUTqVTBBRL/s9/k4JsRNEWD8
+#! MxPYNeImB3KZEBGWt35/mAkWRLGHV5Gcf7rfFZz4ACjRei5XfGPC8SaBoMGz
+#! AyD5MnqAcHgAxP+j55kkPQjK7oKfKjYNwq2NeEuW3xAU7pGpueM7BE3HFcWs
+#! pL8CT/LYeqnwV5hWkYmg3hsBaYpmnKn5CAQH/eaWIjsOZX2OWXH7xoDBlDxx
+#! nswClpPtpcfa3+BMGOEb7tgk2L2ZFIzqZcHH34wTPwrNQGdcEH7q5nfQEK5h
+#! PTnChjdPLh0bEp4CxRofc6H4OfjosKSa4jcNfCubCgOH50GynKdhMTADP6xr
+#! XUjqC/BFRTOLIc2G/t2u8uqxXMh1ENpTXMuGi3aSUnjmIljLi/71k+scyN0Z
+#! tRdUXIL915hLvuw5KHZ69IwTugxu0oa7xRLmwW7/tSPk2hXI1HiuuH8LB0pd
+#! /PB711bB2svnrUAWB5ZEzASqbNfBPCahXRu/ACc69xkpZm9AlHWgbNWjBbiL
+#! V7h4i8sDpa1Z5CQNLvwsKmhUifi0t39GDuIIzuTqV8RiHBP3IsTuxPc3DBd5
+#! sDPn1WorYu3zTrlMxOZWOF3RHVyoK7zXvnOJB3J2sakJiEf15HSaVngA2QXH
+#! 4jS5cEqOn8NGzAoQ2JaJmMw/Ubl9lQfWV21HChC/olYe9EfcbEIPIyG+HGTv
+#! LLPGg30Ei6eCWlwQrsy66bGOOGJtLRrx34+uWScj3lP3oCkN8Uy85y8ViO8b
+#! 7krLQ0x1MM4X2eDBSsveHY2Ic1bp1aWIBdJrrPh3ckF8tC6yH7HEbd52KcSR
+#! n58eEuLxwKbJaEwZ8bkHl6n2iGeZUWGmiHuuu2RHIw6vyTCzQmzhf8ilCHEh
+#! 7YHYGcQ1p3TV6IjT1e8xAhD/+0/ByZLEx9cQ/wNkcuLd
+#! "]]}},
+#! AspectRatio->0.6180339887498948,
+#! Axes->True,
+#! AxesOrigin->{0, 0},
+#! PlotRange->{{-2, 2}, {-0.5000000000000011, 1.3228756246780522`}},
+#! PlotRangeClipping->True,
+#! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)
+not ok  f[Exp[1]+Exp[-1]]    ==>     3.08616
+not ok  f[Exp[x]+Exp[-x]]    ==>     2 Cosh[x]
+ok  e=1/(Sin[1]^2+Cos[1]^2-1)    ==>     1/(-1+Cos[1]^2+Sin[1]^2)
+ok  NumericQ[e]    ==>     True
+not ok  N[e]    ==>     ComplexInfinity
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+ok  NumberQ[%]    ==>     False
+#! TextForm[ColonForm[MessageName[Sin, argx], StringForm[`1` called with `2` arguments; 1 argument is expected., Short[HoldForm[Sin], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[Sin, argx], StringForm[`1` called with `2` arguments; 1 argument is expected., Short[HoldForm[Sin], 3], Short[HoldForm[2], 3]]]]
+ok  e=Sin[1,2]    ==>     Sin[1,2]
+ok  NumericQ[e]    ==>     True
+#! TextForm[ColonForm[MessageName[Sin, argx], StringForm[`1` called with `2` arguments; 1 argument is expected., Short[HoldForm[Sin], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Sin, argx]], 3]]]]
+ok  NumberQ[N[e]]    ==>     False

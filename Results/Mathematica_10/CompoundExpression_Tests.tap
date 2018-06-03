@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/CompoundExpression_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: CompoundExpression_Tests
-# OUTPUT: output/Results/Mathematica_10/CompoundExpression_Tests.json
 ok  a = 2; b = 3; a + b    ==>     5
     ---
     data:

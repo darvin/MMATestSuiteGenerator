@@ -1,0 +1,6 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/TrueQ.nb output/Tests/TrueQ_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/TrueQ.nb
+# WRITING OUTPUT TO:     output/Tests/TrueQ_Tests.m
+ok  TrueQ[True]    ==>     True
+ok  TrueQ[False]    ==>     False
+ok  TrueQ[x]    ==>     False

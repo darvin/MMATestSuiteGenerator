@@ -1,6 +1,7 @@
+#! DOCKER > wolfram -script output/Tests/Slot_Tests.m
+#! TextForm[ColonForm[MessageName[Function, slotn], StringForm[Slot number `1` in `2` cannot be filled from `3`., Short[HoldForm[4], 3], Short[HoldForm[f[#4] & ], 3], Short[HoldForm[(f[#4] & )[a, b, c]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Slot_Tests
-# OUTPUT: output/Results/Mathematica_10/Slot_Tests.json
 # # represents the first argument of a pure function:
 ok  (f[#1, a, #1, b] & )[x, y]    ==>     f[x, a, x, b]
     ---

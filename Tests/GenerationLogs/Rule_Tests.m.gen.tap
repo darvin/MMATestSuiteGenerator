@@ -1,0 +1,10 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Rule.nb output/Tests/Rule_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Rule.nb
+# WRITING OUTPUT TO:     output/Tests/Rule_Tests.m
+ok  {x,x^2,a,b}/.x->3    ==>     {3,9,a,b}
+ok  {x,x^2,x^3,a,b}/.x^2->y    ==>     {x,y,x^3,a,b}
+ok  {x,x^2,x^3,a,b}/.x^n_->f[n]    ==>     {x,f[2],f[3],a,b}
+not ok  {x,x,x,x}/.x->RandomReal[]    ==>     {0.526621,0.526621,0.526621,0.526621}
+not ok  {x,x,x,x}/.x:>RandomReal[]    ==>     {0.123567,0.815383,0.768442,0.930826}
+not ok  x->y->z//FullForm    ==>     Rule[x,Rule[y,z]]
+ok  x/.x->y->z    ==>     y->z

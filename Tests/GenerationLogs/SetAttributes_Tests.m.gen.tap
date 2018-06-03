@@ -1,0 +1,26 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/SetAttributes.nb output/Tests/SetAttributes_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/SetAttributes.nb
+# WRITING OUTPUT TO:     output/Tests/SetAttributes_Tests.m
+ok  f[1+2]    ==>     f[1+2]
+not ok  plus[a,plus[c,b]]    ==>     plus[a,b,c]
+not ok  Attributes[f]    ==>     {Flat,Orderless}
+not ok  Attributes[{f,g}]    ==>     {{HoldAll,Listable},{HoldAll}}
+ok  Attributes[f]=Union[Attributes[f],{HoldFirst,NHoldFirst}]    ==>     {HoldFirst,NHoldFirst}
+not ok  Attributes[f]    ==>     {Flat,Orderless}
+not ok  Attributes[{f,g}]    ==>     {{Protected},{Protected}}
+ok  Unprotect[f]    ==>     {}
+ok  Attributes[SetAttributes]    ==>     {HoldFirst,Protected}
+not ok  Attributes[syms]    ==>     {Protected}
+not ok  Attributes[{f,g,h}]    ==>     {{Protected},{Protected},{Protected}}
+#! TextForm[ColonForm[MessageName[Thread, tdlen], StringForm[Objects of unequal length in `1` cannot be combined., Short[HoldForm[Times*{Flat, Listable, NumericFunction, OneIdentity, Orderless, Protected}*Plus*{Flat, Listable, NumericFunction, OneIdentity, Orderless, Protected}*Min*{Flat, NumericFunction, OneIdentity, Orderless, Protected}*Max*{Flat, NumericFunction, OneIdentity, Orderless, Protected}*LCM*{Flat, Listable, OneIdentity, Orderless, Protected}*GCD*{Flat, Listable, OneIdentity, Orderless, Protected}*BitXor*{Flat, Listable, OneIdentity, Orderless, Protected}*BitOr*{Flat, Listable, OneIdentity, Orderless, Protected}*BitAnd*{Flat, Listable, OneIdentity, Orderless, Protected}*ArithmeticGeometricMean*{Listable, NumericFunction, Orderless, Protected, ReadProtected}], 3]]]]
+#! TextForm[ColonForm[MessageName[Thread, tdlen], StringForm[Objects of unequal length in `1` cannot be combined., Short[HoldForm[ArithmeticGeometricMean*BitAnd*BitOr*BitXor*GCD*LCM*Max*Min*Plus*Times*{Flat^5, Listable^5, OneIdentity^5, Orderless^5, Protected^5}*{Flat^2, NumericFunction^2, OneIdentity^2, Orderless^2, Protected^2}*{Listable, NumericFunction, Orderless, Protected, ReadProtected}*{Flat^2, Listable^2, NumericFunction^2, OneIdentity^2, Orderless^2, Protected^2}], 3]]]]
+not ok  TableForm[Take[Sort[{#,Attributes[#]}&/@Names["System`*"],Length[#1[[2]]]>Length[#2[[2]]]&],10],TableDepth->2]    ==>     Times	{Flat,Listable,NumericFunction,OneIdentity,Orderless,Protected}
+#! Plus	{Flat,Listable,NumericFunction,OneIdentity,Orderless,Protected}
+#! Min	{Flat,NumericFunction,OneIdentity,Orderless,Protected}
+#! Max	{Flat,NumericFunction,OneIdentity,Orderless,Protected}
+#! LCM	{Flat,Listable,OneIdentity,Orderless,Protected}
+#! GCD	{Flat,Listable,OneIdentity,Orderless,Protected}
+#! BitXor	{Flat,Listable,OneIdentity,Orderless,Protected}
+#! BitOr	{Flat,Listable,OneIdentity,Orderless,Protected}
+#! BitAnd	{Flat,Listable,OneIdentity,Orderless,Protected}
+#! ArithmeticGeometricMean	{Listable,NumericFunction,Orderless,Protected,ReadProtected}

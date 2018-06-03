@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/First_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: First_Tests
-# OUTPUT: output/Results/Mathematica_10/First_Tests.json
 # Extract the first element of a list:
 ok  First[{a, b, c}]    ==>     a
     ---

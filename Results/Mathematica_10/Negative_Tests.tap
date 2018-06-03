@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Negative_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Negative_Tests
-# OUTPUT: output/Results/Mathematica_10/Negative_Tests.json
 # Evaluate different types of numbers:
 ok  Negative[{1.6, 3/4, Pi, 0, -5, 1 + I, Sin[10^5]}]    ==>     {False, False, False, False, True, False, False}
     ---

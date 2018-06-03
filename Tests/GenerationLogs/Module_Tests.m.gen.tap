@@ -1,0 +1,36 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Module.nb output/Tests/Module_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Module.nb
+# WRITING OUTPUT TO:     output/Tests/Module_Tests.m
+not ok  f[2.0]    ==>     -0.366513
+not ok  fib[5]    ==>     5
+not ok  gcd[18,21]    ==>     3
+not ok  {Module[{x},x],Module[{x},x]}    ==>     {x$100,x$101}
+#! x$575
+ok  Module[{x},Print[x];Attributes[x]]    ==>     {Temporary}
+not ok  Names["x$*"]    ==>     {}
+not ok  {$ModuleNumber,Module[{x},x],$ModuleNumber}    ==>     {37,x$37,38}
+not ok  With[{x=2.0},Sqrt[x]+1]    ==>     2.41421
+not ok  Timing[Do[Module[{x=5},x;],{10^5}]]    ==>     {0.312,Null}
+not ok  Timing[Do[With[{x=5},x;],{10^5}]]    ==>     {0.093,Null}
+#! 5
+ok  x=7;
+#! Block[{x=5},Print[x]];x    ==>     7
+#! TextForm[ColonForm[MessageName[Unique, usym], StringForm[`1` is not a symbol or a valid symbol name., Short[HoldForm[InputForm[7]], 3]]]]
+not ok  {Unique[x],Module[{x},x]}    ==>     {x$949,x$950}
+ok  x=17;
+#! Module[{x=x},x=x+1;x]    ==>     18
+ok  x    ==>     17
+not ok  Module[{x=5},x+y]    ==>     5+x^2
+not ok  Module[{e=Expand[(1+x)^5]},Function[x,e]]    ==>     Function[x$,e$100477]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  %[10]    ==>     1+5 x+10 x^2+10 x^3+5 x^4+x^5
+#! TextForm[ColonForm[MessageName[Function, flpar], StringForm[Parameter specification `1` in `2` should be a symbol or a list of symbols., Short[HoldForm[17], 3], Short[HoldForm[Function[17, 1889568]], 3]]]]
+not ok  Module[{e=Expand[(1+x)^5]},Function@@{x,e}]    ==>     Function[x,1+5 x+10 x^2+10 x^3+5 x^4+x^5]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  %[10]    ==>     161051
+#! TextForm[ColonForm[MessageName[Module, lvset], StringForm[Local variable specification `1` contains `2`, which is an assignment to `3`; only assignments to symbols are allowed., Short[HoldForm[{{x, y} = v}], 3], Short[HoldForm[{x, y} = v], 3], Short[HoldForm[{x, y}], 3]]]]
+#! TextForm[ColonForm[MessageName[Module, lvset], StringForm[Local variable specification `1` contains `2`, which is an assignment to `3`; only assignments to symbols are allowed., Short[HoldForm[{{x, y} = v}], 3], Short[HoldForm[{x, y} = v], 3], Short[HoldForm[{x, y}], 3]]]]
+ok  Module[{{x,y}=v},x^2+y^2]    ==>     Module[{{x,y}=v},x^2+y^2]
+#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[v[[1]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[v[[2]]], 3]]]]
+not ok  Module[{x=v[[1]],y=v[[2]]},x^2+y^2]    ==>     a^2+b^2

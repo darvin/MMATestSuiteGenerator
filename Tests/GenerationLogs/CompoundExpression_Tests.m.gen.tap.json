@@ -1,0 +1,103 @@
+{
+    "stats": {
+        "suites": 0,
+        "tests": 3,
+        "passes": 2,
+        "pending": 0,
+        "failures": 1,
+        "start": "2018-06-03T12:21:47.531Z",
+        "end": "2018-06-03T12:21:47.531Z",
+        "duration": 0,
+        "testsRegistered": 3,
+        "passPercent": 66.66666666666666,
+        "pendingPercent": 0,
+        "other": 0,
+        "hasOther": false,
+        "skipped": 0,
+        "hasSkipped": false,
+        "passPercentClass": "danger",
+        "pendingPercentClass": "danger"
+    },
+    "suites": {
+        "title": "",
+        "suites": [],
+        "tests": [
+            {
+                "title": "a=2;b=3;a+b    ➡️     5",
+                "fullTitle": "a=2;b=3;a+b    ➡️     5",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "013601da-91bc-490f-afdd-4931cddec722",
+                "parentUUID": "4336a6cd-9751-4d4e-8f87-ed5a9819d0ce",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/CompoundExpression.nb output/Tests/CompoundExpression_Tests.m\\n# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/CompoundExpression.nb\\n# WRITING OUTPUT TO:     output/Tests/CompoundExpression_Tests.m\\n\"",
+                "state": "passed",
+                "err": {}
+            },
+            {
+                "title": "%    ➡️     1606938044258990275541962092341162602522202993782792835301376",
+                "fullTitle": "%    ➡️     1606938044258990275541962092341162602522202993782792835301376",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": false,
+                "fail": true,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "1cf780b1-52a3-461f-81e8-9225ad613ede",
+                "parentUUID": "4336a6cd-9751-4d4e-8f87-ed5a9819d0ce",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n\"",
+                "state": "failed",
+                "err": {}
+            },
+            {
+                "title": "Catch[a=2;Throw[a];a=5]    ➡️     2",
+                "fullTitle": "Catch[a=2;Throw[a];a=5]    ➡️     2",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "3e68bbbb-01e6-4f74-b9f1-f65ad7d3b354",
+                "parentUUID": "4336a6cd-9751-4d4e-8f87-ed5a9819d0ce",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"\"",
+                "state": "passed",
+                "err": {}
+            }
+        ],
+        "root": true,
+        "fullFile": "",
+        "file": "",
+        "pending": [],
+        "passes": [
+            "013601da-91bc-490f-afdd-4931cddec722",
+            "3e68bbbb-01e6-4f74-b9f1-f65ad7d3b354"
+        ],
+        "failures": [
+            "1cf780b1-52a3-461f-81e8-9225ad613ede"
+        ],
+        "skipped": [],
+        "duration": 0,
+        "rootEmpty": false,
+        "_timeout": 0,
+        "uuid": "4336a6cd-9751-4d4e-8f87-ed5a9819d0ce",
+        "beforeHooks": [],
+        "afterHooks": []
+    },
+    "copyrightYear": 2018
+}

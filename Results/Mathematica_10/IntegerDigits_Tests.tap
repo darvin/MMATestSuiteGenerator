@@ -1,6 +1,7 @@
+#! DOCKER > wolfram -script output/Tests/IntegerDigits_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: IntegerDigits_Tests
-# OUTPUT: output/Results/Mathematica_10/IntegerDigits_Tests.json
 # Find digits in base 10:
 ok  IntegerDigits[58127]    ==>     {5, 8, 1, 2, 7}
     ---

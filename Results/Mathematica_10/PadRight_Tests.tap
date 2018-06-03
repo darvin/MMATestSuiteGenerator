@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/PadRight_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: PadRight_Tests
-# OUTPUT: output/Results/Mathematica_10/PadRight_Tests.json
 # Pad with 0 to make the list be of length 10:
 ok  PadRight[{a, b, c}, 10]    ==>     {a, b, c, 0, 0, 0, 0, 0, 0, 0}
     ---

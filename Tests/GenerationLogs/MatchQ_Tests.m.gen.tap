@@ -1,0 +1,8 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/MatchQ.nb output/Tests/MatchQ_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/MatchQ.nb
+# WRITING OUTPUT TO:     output/Tests/MatchQ_Tests.m
+ok  MatchQ[12345,_Integer]    ==>     True
+ok  MatchQ[(x-1)(1 + 2 x + 3 x^2),Plus[_,__]]    ==>     False
+ok  MatchQ[Expand[x(1 + 2 x + 3 x^2)],Plus[_,__]]    ==>     True
+ok  MatchQ[1+1/GoldenRatio-GoldenRatio,0]    ==>     False
+ok  MatchQ[Simplify[1+1/GoldenRatio-GoldenRatio],0]    ==>     True

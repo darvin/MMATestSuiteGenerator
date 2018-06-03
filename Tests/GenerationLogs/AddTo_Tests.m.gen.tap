@@ -1,0 +1,25 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/AddTo.nb output/Tests/AddTo_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/AddTo.nb
+# WRITING OUTPUT TO:     output/Tests/AddTo_Tests.m
+ok  k=1;k+=5    ==>     6
+ok  k    ==>     6
+ok  x=1.5; x+=3.75;x    ==>     5.25
+ok  v=a;v+=b;v    ==>     a+b
+ok  x={1,2,3}    ==>     {1,2,3}
+ok  x+=17;x    ==>     {18,19,20}
+ok  x+={20,21,22};x    ==>     {38,40,42}
+ok  i=10^6-1;
+#! While[!PrimeQ[i],i+=2];
+#! i    ==>     1000003
+ok  k=1;
+#! k=k+5    ==>     6
+ok  k=1;
+#! k+=1    ==>     2
+ok  ++k    ==>     3
+ok  k=10;
+#! k+=-5    ==>     5
+ok  k-=5    ==>     0
+#! TextForm[ColonForm[MessageName[AppendTo, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[list], 3]]]]
+not ok  AppendTo[list,4];
+#! list    ==>     {1,2,3,4}
+not ok  x+=2    ==>     x+=2

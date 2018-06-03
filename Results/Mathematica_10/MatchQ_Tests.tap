@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/MatchQ_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: MatchQ_Tests
-# OUTPUT: output/Results/Mathematica_10/MatchQ_Tests.json
 # Test if an expression is an integer:
 ok  MatchQ[12345, _Integer]    ==>     True
     ---

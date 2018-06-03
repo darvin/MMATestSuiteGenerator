@@ -1,0 +1,62 @@
+{
+    "stats": {
+        "suites": 0,
+        "tests": 1,
+        "passes": 1,
+        "pending": 0,
+        "failures": 0,
+        "start": "2018-06-03T12:22:26.848Z",
+        "end": "2018-06-03T12:22:26.848Z",
+        "duration": 0,
+        "testsRegistered": 1,
+        "passPercent": 100,
+        "pendingPercent": 0,
+        "other": 0,
+        "hasOther": false,
+        "skipped": 0,
+        "hasSkipped": false,
+        "passPercentClass": "danger",
+        "pendingPercentClass": "danger"
+    },
+    "suites": {
+        "title": "",
+        "suites": [],
+        "tests": [
+            {
+                "title": "PrintTemporary[\"text\"];Pause[2];17    ➡️     17",
+                "fullTitle": "PrintTemporary[\"text\"];Pause[2];17    ➡️     17",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "0f3d1134-eb54-41b5-96a2-7b0fdb016785",
+                "parentUUID": "88b15e0c-06d5-440d-bc11-60d54e2d422f",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/PrintTemporary.nb output/Tests/PrintTemporary_Tests.m\\n# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/PrintTemporary.nb\\n# WRITING OUTPUT TO:     output/Tests/PrintTemporary_Tests.m\\n\"",
+                "state": "passed",
+                "err": {}
+            }
+        ],
+        "root": true,
+        "fullFile": "",
+        "file": "",
+        "pending": [],
+        "passes": [
+            "0f3d1134-eb54-41b5-96a2-7b0fdb016785"
+        ],
+        "failures": [],
+        "skipped": [],
+        "duration": 0,
+        "rootEmpty": false,
+        "_timeout": 0,
+        "uuid": "88b15e0c-06d5-440d-bc11-60d54e2d422f",
+        "beforeHooks": [],
+        "afterHooks": []
+    },
+    "copyrightYear": 2018
+}

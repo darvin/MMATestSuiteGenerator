@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Except_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Except_Tests
-# OUTPUT: output/Results/Mathematica_10/Except_Tests.json
 # This gives all elements except 0:
 ok  Cases[{1, 0, 2, 0, 3}, Except[0]]    ==>     {1, 2, 3}
     ---

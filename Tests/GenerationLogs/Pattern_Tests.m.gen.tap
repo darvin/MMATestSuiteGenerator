@@ -1,0 +1,5 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Pattern.nb output/Tests/Pattern_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Pattern.nb
+# WRITING OUTPUT TO:     output/Tests/Pattern_Tests.m
+ok  Cases[{{1,2,3},a,{4,5}},t:{__Integer}:>t^2]    ==>     {{1,4,9},{16,25}}
+ok  Cases[{{1,2,3},a,{4,5}},Pattern[t,{__Integer}]:>t^2]    ==>     {{1,4,9},{16,25}}

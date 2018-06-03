@@ -1,0 +1,5 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Alternatives.nb output/Tests/Alternatives_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Alternatives.nb
+# WRITING OUTPUT TO:     output/Tests/Alternatives_Tests.m
+ok  {a,b,c,d,a,b,b,b}/.a|b->x    ==>     {x,x,c,d,x,x,x,x}
+ok  Cases[{5.6,5/6,5,6,x},_Integer|_Real]    ==>     {5.6,5,6}

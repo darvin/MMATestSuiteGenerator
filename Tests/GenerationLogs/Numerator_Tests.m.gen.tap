@@ -1,0 +1,20 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Numerator.nb output/Tests/Numerator_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Numerator.nb
+# WRITING OUTPUT TO:     output/Tests/Numerator_Tests.m
+ok  Numerator[2/3]    ==>     2
+ok  Numerator[(x-1)(x-2)/(x-3)^2]    ==>     (-2+x) (-1+x)
+ok  Numerator[3/7]    ==>     3
+ok  Numerator[(x-1)^2/((x-2)(x-3))]    ==>     (-1+x)^2
+ok  expr=a x^n y^-m Exp[a-b-2c+3d]    ==>     a E^(a-b-2 c+3 d) x^n y^-m
+ok  Numerator[expr]    ==>     a E^(a+3 d) x^n
+ok  Numerator[a^-b/x]    ==>     1
+ok  Numerator[2x^y b^2]    ==>     2 b^2 x^y
+ok  Numerator[{1,2,3,4,5,6}/3]    ==>     {1,2,1,4,5,2}
+ok  Numerator[(1/3 x+3/4 y)/(3/5x-1/2y),Modulus->7]    ==>     5 x+6 y
+ok  Numerator[{Sin[x],Cos[x],Tan[x],Csc[x],Sec[x],Cot[x]},Trig->True]    ==>     {Sin[x],Cos[x],Sin[x],1,1,Cos[x]}
+ok  Denominator[2/3(x-1)/(x-2)]    ==>     3 (-2+x)
+not ok  num=Numerator[expr]    ==>     5 a^b (-1+x)^2
+not ok  den=Denominator[expr]    ==>     7 c^d (-2+x)^3
+ok  expr===num/den    ==>     True
+ok  Cancel[(x-1)(x-2)/(x^2-1)]    ==>     (-2+x)/(1+x)
+ok  Together[x (x-2)/(x^2-1)+x/(x^2-1)-2/(x^2-1)]    ==>     (-2+x)/(-1+x)

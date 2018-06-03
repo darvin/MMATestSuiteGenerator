@@ -1,0 +1,18 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/HoldComplete.nb output/Tests/HoldComplete_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/HoldComplete.nb
+# WRITING OUTPUT TO:     output/Tests/HoldComplete_Tests.m
+ok  HoldComplete[1+1,Evaluate[1+2],Sequence[3,4]]    ==>     HoldComplete[1+1,Evaluate[1+2],Sequence[3,4]]
+ok  Attributes[HoldComplete]    ==>     {HoldAllComplete,Protected}
+ok  HoldComplete[Sequence[a,b],1+2]    ==>     HoldComplete[Sequence[a,b],1+2]
+ok  HoldComplete[1+2]    ==>     HoldComplete[1+2]
+ok  HoldComplete[Evaluate[1+2]]    ==>     HoldComplete[Evaluate[1+2]]
+ok  HoldComplete[Sequence[a,b]]    ==>     HoldComplete[Sequence[a,b]]
+ok  HoldComplete[g[1]]    ==>     HoldComplete[g[1]]
+ok  HoldComplete[f[1+2]]/.f[x_]:>g[x]    ==>     HoldComplete[g[1+2]]
+not ok  ReleaseHold[HoldComplete[Sequence[1,2]]]    ==>     Sequence[1,2]
+ok  Hold[1+2]    ==>     Hold[1+2]
+ok  Hold[Evaluate[1+2]]    ==>     Hold[3]
+ok  Hold[Sequence[a,b]]    ==>     Hold[a,b]
+not ok  Hold[g[1]]    ==>     1
+ok  ToExpression["Sequence[a,b]",InputForm,HoldComplete]    ==>     HoldComplete[Sequence[a,b]]
+not ok  FullForm[HoldComplete[a-b,a/b]]    ==>     HoldComplete[Plus[a,Times[-1,b]],Times[a,Power[b,-1]]]

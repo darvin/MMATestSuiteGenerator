@@ -1,0 +1,13 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/IntegerQ.nb output/Tests/IntegerQ_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/IntegerQ.nb
+# WRITING OUTPUT TO:     output/Tests/IntegerQ_Tests.m
+ok  IntegerQ[4]    ==>     True
+ok  IntegerQ[4+x]    ==>     False
+ok  ArrayQ[{{1,4},{9,16}},_,IntegerQ]    ==>     True
+ok  ArrayQ[{{1.,4.},{9.,16.}},_,IntegerQ]    ==>     False
+not ok  gaussIntegerQ[1 + 2 I]    ==>     True
+not ok  {IntegerQ[x],Head[x]}    ==>     {True,Integer}
+ok  IntegerQ[Integer[x]]    ==>     False
+ok  IntegerQ[Integer[1.2]]    ==>     False
+ok  IntegerQ[x]    ==>     False
+not ok  FullSimplify[x]    ==>     1

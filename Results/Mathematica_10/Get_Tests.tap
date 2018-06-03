@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Get_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Get_Tests
-# OUTPUT: output/Results/Mathematica_10/Get_Tests.json
 # This has set up definitions for several symbols in the EquationTrekker` context:
 ok  Names["EquationTrekker`*"]    ==>     {DifferentialEquationTrek, EquationTrekker, EquationTrekkerNonModal, EquationTrekkerState, InitializeGenerator, PoincareSection, TrekData, TrekGenerator, TrekParameters} # skip
 ok  << "ExampleData/language"    ==>     22*a*b + 56*c + 13*a*d # skip

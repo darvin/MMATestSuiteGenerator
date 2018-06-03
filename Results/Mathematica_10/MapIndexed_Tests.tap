@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/MapIndexed_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: MapIndexed_Tests
-# OUTPUT: output/Results/Mathematica_10/MapIndexed_Tests.json
 ok  MapIndexed[f, {a, b, c, d}]    ==>     {f[a, {1}], f[b, {2}], f[c, {3}], f[d, {4}]}
     ---
     data:

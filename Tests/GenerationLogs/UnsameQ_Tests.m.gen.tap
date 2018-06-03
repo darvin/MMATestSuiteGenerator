@@ -1,0 +1,15 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/UnsameQ.nb output/Tests/UnsameQ_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/UnsameQ.nb
+# WRITING OUTPUT TO:     output/Tests/UnsameQ_Tests.m
+ok  x=!=y    ==>     True
+ok  x=!=x    ==>     False
+ok  x!=y    ==>     x!=y
+ok  UnsameQ[x,y]    ==>     True
+ok  "abc"=!="ABC"    ==>     True
+ok  0.=!=0    ==>     True
+ok  0.!=0    ==>     False
+not ok  x=!=x=!=y    ==>     False
+ok  x=!=y=!=z    ==>     True
+ok  Boole[Array[UnsameQ,{3,3,3}]]    ==>     {{{0,0,0},{0,0,1},{0,1,0}},{{0,0,1},{0,0,0},{1,0,0}},{{0,1,0},{1,0,0},{0,0,0}}}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  Position[%,1]    ==>     {{1,2,3},{1,3,2},{2,1,3},{2,3,1},{3,1,2},{3,2,1}}

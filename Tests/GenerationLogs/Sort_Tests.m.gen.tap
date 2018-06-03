@@ -1,0 +1,134 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Sort.nb output/Tests/Sort_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Sort.nb
+# WRITING OUTPUT TO:     output/Tests/Sort_Tests.m
+ok  Sort[{d,b,c,a}]    ==>     {a,b,c,d}
+ok  Sort[{4,1,3,2,2},Greater]    ==>     {4,3,2,2,1}
+ok  Sort[{4,1,3,2,2},#1>#2&]    ==>     {4,3,2,2,1}
+ok  Sort[{{a,2},{c,1},{d,3}},#1[[2]]<#2[[2]]&]    ==>     {{c,1},{a,2},{d,3}}
+#! TextForm[ColonForm[MessageName[Sort, normal], StringForm[Nonatomic expression expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[Sort[Raw[Association, b05b48eb00dc79f6000000000200000030e2acf400dc79f600dc79f600dc79f600000000]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{<|}]]], 3], Short[HoldForm[DisplayForm[RowBox[{RowBox[{RowBox[{b, ->, 1}], ,, RowBox[{d, ->, 2}], ,, RowBox[{e, ->, 2}], ,, RowBox[{c, ->, 3}], ,, RowBox[{a, ->, 4}]}], |>}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`\[LeftAssociation]b->1,d->2,e->2,c->3,a->4\[RightAssociation]\)
+#!                                                                                  ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{<|}]]], 3], Short[HoldForm[DisplayForm[RowBox[{RowBox[{RowBox[{b, ->, 1}], ,, RowBox[{d, ->, 2}], ,, RowBox[{e, ->, 2}], ,, RowBox[{c, ->, 3}], ,, RowBox[{a, ->, 4}]}], |>}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`\[LeftAssociation]b->1,d->2,e->2,c->3,a->4\[RightAssociation]\)
+#!                                                                                  ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  Sort[<|a->4,b->1,c->3,d->2,e->2|>]    ==>     \[LeftAssociation]b->1,d->2,e->2,c->3,a->4\[RightAssociation]
+#! TextForm[ColonForm[MessageName[Sort, normal], StringForm[Nonatomic expression expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[Sort[Raw[Association, d04048eb00dc79f6000000000200000030e2acf400dc79f600dc79f600dc79f600000000], Greater]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{<|}]]], 3], Short[HoldForm[DisplayForm[RowBox[{RowBox[{RowBox[{a, ->, 4}], ,, RowBox[{c, ->, 3}], ,, RowBox[{e, ->, 2}], ,, RowBox[{d, ->, 2}], ,, RowBox[{b, ->, 1}]}], |>}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`\[LeftAssociation]a->4,c->3,e->2,d->2,b->1\[RightAssociation]\)
+#!                                                                                  ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{<|}]]], 3], Short[HoldForm[DisplayForm[RowBox[{RowBox[{RowBox[{a, ->, 4}], ,, RowBox[{c, ->, 3}], ,, RowBox[{e, ->, 2}], ,, RowBox[{d, ->, 2}], ,, RowBox[{b, ->, 1}]}], |>}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  Sort[<|a->4,b->1,c->3,d->2,e->2|>,Greater]    ==>     \[LeftAssociation]a->4,c->3,e->2,d->2,b->1\[RightAssociation]
+ok  Sort[{y,x^2,x+y,y^3}]    ==>     {x^2,y,y^3,x+y}
+not ok  Sort[{"cat", "fish", "catfish", "Cat"}]    ==>     {cat,Cat,catfish,fish}
+ok  Sort[{Pi,E,2,3,1,Sqrt[2]}]    ==>     {1,2,3,Sqrt[2],E,\[Pi]}
+ok  Sort[{Pi,E,2,3,1,Sqrt[2]},Less]    ==>     {1,Sqrt[2],2,E,3,\[Pi]}
+ok  Sort[f[4,2,1,3]]    ==>     f[1,2,3,4]
+ok  Sort[b.c.d.a]    ==>     a.b.c.d
+ok  Sort[{-11,10,2,1,-4}]    ==>     {-11,-4,1,2,10}
+ok  Sort[{-11,10,2,1,-4},Abs[#1]<Abs[#2]&]    ==>     {1,2,-4,10,-11}
+ok  Sort[Join[Log[Range[10]],Sqrt[Range[10]]]]    ==>     {0,1,2,3,Sqrt[2],2 Sqrt[2],Sqrt[3],Sqrt[5],Sqrt[6],Sqrt[7],Sqrt[10],Log[2],Log[3],Log[4],Log[5],Log[6],Log[7],Log[8],Log[9],Log[10]}
+ok  Sort[Join[Log[Range[10]],Sqrt[Range[10]]],Less]    ==>     {0,Log[2],1,Log[3],Log[4],Sqrt[2],Log[5],Sqrt[3],Log[6],Log[7],2,Log[8],Log[9],Sqrt[5],Log[10],Sqrt[6],Sqrt[7],2 Sqrt[2],3,Sqrt[10]}
+not ok  Sort[{"aa","abb","ba","b","aaa"}]    ==>     {aa,aaa,abb,b,ba}
+not ok  Sort[{"aa","abb","ba","b","aaa"},StringLength[#1]<StringLength[#2]&]    ==>     {b,ba,aa,aaa,abb}
+not ok  RandomInteger[{-5,5},{10,3}]    ==>     {{3,1,4},{5,-3,-3},{-4,4,3},{5,2,-3},{3,3,-1},{2,-4,4},{0,3,5},{-5,5,-4},{1,0,0},{-2,-1,-3}}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  Sort[%,Norm[#1]<Norm[#2]&]    ==>     {{1,0,0},{-2,-1,-3},{3,3,-1},{3,1,4},{0,3,5},{2,-4,4},{5,2,-3},{-4,4,3},{5,-3,-3},{-5,5,-4}}
+ok  Sort[{I,1+I,1-I,2+3I},Re[#1]<Re[#2]&]    ==>     {I,1-I,1+I,2+3 I}
+ok  Sort[{a+b+c,a+b,a+c}]    ==>     {a+b,a+c,a+b+c}
+ok  Sort[{5.6,5,2.3,-1,4/3,1}]    ==>     {-1,1,4/3,2.3,5,5.6}
+ok  Sort[{a+b+c,a+b,a+c},OrderedQ[{#2,#1}]&]    ==>     {a+b+c,a+c,a+b}
+ok  (a+b+c)(a+b)(a+c)    ==>     (a+b) (a+c) (a+b+c)
+#! {4, 1}
+#! {3, 2}
+#! {1, 3}
+#! {4, 3}
+#! {1, 2}
+ok  Sort[{4,1,3,2},(Print[{#1,#2}];#1>#2)&]    ==>     {4,3,2,1}
+not ok  Reap[Sort[{4,1,3,2},(Sow[{#1,#2}];#1>#2)&]]    ==>     {{4,3,2,1},{{{4,1},{1,3},{4,1},{3,2},{4,3},{1,3},{1,2}}}}
+#! TextForm[ColonForm[MessageName[Sort, normal], StringForm[Nonatomic expression expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[Sort[list]], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Sort, normal]], 3]]]]
+not ok  Sort[list]    ==>     {0,0,1,3,3,6,6,7,8,10}
+#! TextForm[ColonForm[MessageName[Ordering, normal], StringForm[Nonatomic expression expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[Ordering[list]], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, pspec1], StringForm[Part specification `1` is invalid., Short[HoldForm[Ordering[list]], 3]]]]
+not ok  list[[Ordering[list]]]    ==>     {0,0,1,3,3,6,6,7,8,10}
+ok  Sort[{\[Infinity],Sqrt[2],1,2,-\[Infinity],1/Sqrt[2]}]    ==>     {1,2,1/Sqrt[2],Sqrt[2],-\[Infinity],\[Infinity]}
+ok  Sort[{\[Infinity],Sqrt[2],1,2,-\[Infinity],1/Sqrt[2]},Less]    ==>     {-\[Infinity],1/Sqrt[2],1,Sqrt[2],2,\[Infinity]}
+ok  Sort[{4,1,3,7,9},#>3&]    ==>     {4,7,9,3,1}
+ok  Sort[{4,3,1,7,9},#>3&]    ==>     {4,7,9,1,3}
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  ListPlot[Reap[Sort[Table[Round[10Sin[t]],{t,0,50}],(Sow[#1];#1>#2)&]][[2,1]]]    ==>     \!\(\*
+#! GraphicsBox[
+#! TagBox[RasterBox[CompressedData["
+#! 1:eJztnT2Pq0gWhrt3J5ibb7bRJvsLOt1g9xesZn/BjLQVMtLsFasJyJx1sHLk
+#! hMgJkRMCJze5gZOWxgEJ0jhw4ACpR0IaSwQEltgCDKYBm8JQH5TfR+qWjXFx
+#! KN4+ferU119++PE78oenp6f/fEt/fff9f//+00/f//yvb+ibf/z8+d8//JG+
+#! +B/9+Z3+pK8TAAAAkyLaucRwjtnr+LCxSIplb+LKOfSIHOMA6EOwdVL5mqso
+#! fXd0DLLYBEkc2IQs/WN5GvQMJkDsv5pz15lR/5zqOfIMYvqZX945Jll65YnQ
+#! M5gKpz110Wc9W4YdZgePnm3a0DOYHtHuomeTFHreLmp6zsnffv78+dOnTy8v
+#! L/Q3fX33pfNyOktgPC0/85uMayc3i+r8Cg/YL0or+enp6fn5eSzz7rjf/CvP
+#! BYLrqi+RX+g5CeaEuHsacMRri1jrfXlOzT9TSTwV0Nd3Xzovp7MExtOqhl07
+#! uVlU51d4wH7RUer5vks3vzK6MTyId6tz/Ezdsu+eHfHMDSvn1PQM/zwQ+Gdx
+#! nOIoimvHED8DnYCegU5Az0An8pj6WhzLEt+OGCpXI0D20PpuyuixM27kF4qP
+#! XvKQAqvh9MRi6YLcP1/LM7DkH0ZMZVRb6Oypj7thT+bwS5WMXvKQAmvpDpVz
+#! HdfI9Qz/DP+caOSfAdAD6BnoBPQMdIJRz53RLEvY1jck5n1+32/lPXr0d6/y
+#! GW1gjOSFQc2g9nC6X35UByPdoDPbwNKs7puy4H1+32+VDf9e5bPboFRWoWqS
+#! bFt6AP8M/9zKdP2zbBMAGA3oGegE9Ax0AnoGOsGY32gyen+0xA5uKSP/WxnL
+#! krEqU8GG6m3u9s+jjxeSOABJysysVsayZKzKVDCReJu79Qz/zAP454EgfgY6
+#! AT0DnYCegU701fPkwmYBYXnziiqMihd/4yrQN183ubSGgLRJ6xWlpwXE37gK
+#! wD/zuCL8sywQP4MJcnRfjfN6X1a+IvQZ6BlMj9g3ifV2eA/fgyAIT5VPoGcw
+#! OeK9S8js69tm81ZZmj8DegaTI/i6IMR01l+cOY06FkHlo9r6zyxMrqEh0WC5
+#! dTW5J8XK6VTEGEebEPdwWWX0Dv88uUSQRIPl1tXknhQj6Z4pi7f0Vbg1iOFV
+#! GoR36Hlyf/Xwz1KuzpHjblGkN5abQ/UTxM9goqSrmZ/qB6FnoBPQM9AJfnrm
+#! MRR8ootC9EWd+QUlinTid3L3/MFOeEzVmeiiPX1RZ/5XiSKDrDqBf1YQ+Oe7
+#! QfwMdAJ6BjoBPQOdgJ6BTrDnN2qdp0P6UrXth21Dvy5vBZurJez+uTa4ZchY
+#! F13HybSi35AkBdOJJex6hn++D/hnkSB+BjoBPQOdgJ6BTkDPQCf4jUcCQDwQ
+#! M9AJ6BnoBPQMdAJ6BjoBPQOdUDy/ca1rldPkl84yRXb1jnWPnDrc1dwqSGUx
+#! J9eHvvCenHitTJFDcca6R04DotTcyk1xPcM/wz/3QnE9A9ALdfSsjiWJSsao
+#! Y0mimDGt3LBw9I8euUwNbkF8mXdAS7sWEOYXao2+Shuag/zpRzeiKZa7bl6R
+#! fnQjAhy9km/fRf5Rqz2cdPLy8tK65Ah7mTWDx7UzN+92jfUtkx0CgMIM0XZy
+#! 0z/n3G4djzgJ68YVBU9Z6rycYHuu+Wd2uBqcm/f8/KxClmP4XwQA6gA9A52A
+#! noFOQM9AJ0ZpVLLzsb+4vmttfNhY+Tt7E3cX1lk+I5FrkaWXb8wYb+yzCV8P
+#! 6bZJw03qRbRzieEci9dF7ZBVum9k3TZ+vG9X50vPnGwztO5qUWRNFcH++cN4
+#! nvqutUfHIItNkMSBTciyvvNn//JZiA4rKxdM+piO3pIQO4iTYGNnuhrBJHaC
+#! rZOaYp43pPYd01y+hWGY1k50atjGj8OMEMcLU4djEcvds1SLImteCdZz1X/W
+#! d62NPIOYfvbXnm4wt/QGls9y/m71+uq4r/TxZSb4S8NY+ukHJ/q3Zni/jWAS
+#! K7H/as5dZ0YFk+k5plqardLq8YOoxTZ+HvoUbr68hdlLb0H16rFUy2P65yr1
+#! XWsjzzLsvBqPnm3aPMXzgZj+c12e9Wwtzk/yuDSs7W+iTTrtqYvO9HwKaO0Y
+#! c+fLmvpCMt8Eddv4Rhwp7+n/C+Pt/SS9WtiR2R6s7Vr76y8mKWppuxBYS5FT
+#! 6NlbmsWDC21i0gcn2KRoV+iZVk+xu95xaxNr/UvNNr56jrf0PwWNBt9TG6RX
+#! CzsS9dzYtTaYU1Xv6b+xeE3DtvVelCEXPb9v5sR0UwsOaxoL7U+iTYr8Qs9p
+#! 44LkItraBrG9hm38rIi/0ts2l1lLMHU60quFHZn++eOutTT0+uvf/nl+P3ND
+#! nlf+GGZHK7Ns611SLis/NeHou2JMyol3qyJ+TnZfaMRBUmusXFp123rBHt9m
+#! or1gOb70amFHcL6uSblr7bmB/Kc/0wO8L3o7DVLfSPcUCzCpncalWzf5ZWF4
+#! /kGharmOOv0pIhvIKq9gzAlF8g+8UUfPAAwHegY6AT0DnYCegU5U8xvVJsOI
+#! zYfh0ytuwKllxzJFRWSLUs3FLmqosMd31T9XUzojDi8pV9EZXlQTTgsWdd6+
+#! 4D3L1FyMqEbVSFl2kiuzgOGf4Z/7opp/BmDqQM9AJ6BnoBPSx2+IQW4HtwqB
+#! ZSK2EmRV+COIOZG9hboKDf9E0uLVgm/2QfQM/5xo5Z/rM6lLHkTPQCvqM6kv
+#! QM9gctRnUleAnoHixGGw3+8PGfRFGJ3qM6krJzf1zLU7bxQeZGh6K5PoKCwZ
+#! JYrer+fEMHMMYri7qD6T+nCZJlNOEyuPcB1uMQqKLF0ihUkM5CjhlOVozKS+
+#! fAT/PC0e0D+38HEmdfUTxM9gorRODYaegU5Az0AnoGegEyqMR3qo1TCkN2al
+#! G8AV6WJOZA8WEoz0ZKN0A7iigp7hnx/KAK6ooGcAxgJ6BjoBPQOdkKXnh4qZ
+#! HxyRz1pWvu6hchoPjshnDf8MeCPYP/O+BADCgJ6BTkDPQCegZ6ATZX6j2Q3K
+#! 3jFaW5h0ePDft0+WRx8uy0wQiQtrDLm0lClI1EJqap7o4FdXpX9uDlNhH7jS
+#! XDh6YHKm75gZHmNsWGbqSVz4aMilpUwRFVNXrYvzXztyDfhn+OdOBPtnADQA
+#! egY6AT0DnWDR87XoVNmR4dNapEIKcp8dvx5wlvFI17IHys7cmdYiQlKQ++z4
+#! jVCCf35MNPbP4xYIACeinUsMJ18gNz5srHw5c3sTV86BnsEkCLZOKl8zX43/
+#! 6BhksQmSOLAJWVYWgYaewQSI/Vdz7joz6p9TPUeeQUw/88vpWqNLrzwRegaq
+#! 0VzAPD9+2lMXfdazZdhhdvDo2ab9Qc/sU67KRoQK/dHCYDSevY0zemvovvav
+#! 9IdyrR5aFjDPiHYXPZuk0PN2UdMzuwFlkkeF8ULCYDSePQc1erbqvvyk9IfS
+#! tx4iv9BzEswJcfc04IjXFrHW+/KcXnqGf759GvxzL/rWQ7xbneNn6pZ99xxY
+#! zNywcg7iZzBVTumK5rVj0DPQCegZAAAAACz8HzQva98=
+#! "], {{0, 143}, {240, 0}}, {0, 255},
+#! ColorFunction->RGBColor],
+#! BoxForm`ImageTag["Byte", ColorSpace -> "RGB", Interleaving -> True],
+#! Selectable->False],
+#! BaseStyle->"ImageGraphics",
+#! ImageSize->Automatic,
+#! ImageSizeRaw->{240, 143},
+#! PlotRange->{{0, 240}, {0, 143}}]\)

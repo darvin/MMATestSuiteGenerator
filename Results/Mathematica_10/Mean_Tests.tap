@@ -1,0 +1,2 @@
+#! DOCKER > wolfram -script output/Tests/Mean_Tests.m
+#! TextForm[ColonForm[MessageName[Get, noopen], StringForm[Cannot open `1`., Short[HoldForm[output/Tests/Mean_Tests.m], 3]]]]

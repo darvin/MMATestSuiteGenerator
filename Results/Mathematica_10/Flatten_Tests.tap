@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/Flatten_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: Flatten_Tests
-# OUTPUT: output/Results/Mathematica_10/Flatten_Tests.json
 # Flatten out lists at all levels:
 ok  Flatten[{{a, b}, {c, {d}, e}, {f, {g, h}}}]    ==>     {a, b, c, d, e, f, g, h}
     ---

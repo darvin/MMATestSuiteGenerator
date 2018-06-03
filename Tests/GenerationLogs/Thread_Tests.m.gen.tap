@@ -1,0 +1,39 @@
+#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Thread.nb output/Tests/Thread_Tests.m
+# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Thread.nb
+# WRITING OUTPUT TO:     output/Tests/Thread_Tests.m
+ok  Thread[f[{a,b,c}]]    ==>     {f[a],f[b],f[c]}
+ok  Thread[f[{a,b,c},x]]    ==>     {f[a,x],f[b,x],f[c,x]}
+ok  Thread[f[{a,b,c},{x,y,z}]]    ==>     {f[a,x],f[b,y],f[c,z]}
+ok  Thread[{a,b,c}=={x,y,z}]    ==>     {a==x,b==y,c==z}
+ok  Thread[Log[x==y],Equal]    ==>     Log[x]==Log[y]
+ok  Thread[f[{a,b},{r,s},{u,v},{x,y}],List]    ==>     {f[a,r,u,x],f[b,s,v,y]}
+ok  Thread[f[{a,b},{r,s},{u,v},{x,y}],List,All]    ==>     {f[a,r,u,x],f[b,s,v,y]}
+ok  Thread[f[{a,b},{r,s},{u,v},{x,y}],List,None]    ==>     f[{a,b},{r,s},{u,v},{x,y}]
+ok  Thread[f[{a,b},{r,s},{u,v},{x,y}],List,2]    ==>     {f[a,r,{u,v},{x,y}],f[b,s,{u,v},{x,y}]}
+ok  Thread[f[{a,b},{r,s},{u,v},{x,y}],List,-2]    ==>     {f[{a,b},{r,s},u,x],f[{a,b},{r,s},v,y]}
+ok  Thread[f[{a,b},{r,s},{u,v},{x,y}],List,{2}]    ==>     {f[{a,b},r,{u,v},{x,y}],f[{a,b},s,{u,v},{x,y}]}
+ok  Thread[f[{a,b},{r,s},{u,v},{x,y}],List,{2,4}]    ==>     {f[{a,b},r,u,x],f[{a,b},s,v,y]}
+ok  Thread[f[{a,b},{r,s},{u,v},{x,y}],List,{1,-1,2}]    ==>     {f[a,{r,s},u,{x,y}],f[b,{r,s},v,{x,y}]}
+ok  Thread[f[{a,b},{c,d}]]    ==>     {f[a,c],f[b,d]}
+ok  Thread[f[{a,b},{c,d}],List]    ==>     {f[a,c],f[b,d]}
+ok  Thread[f[a+b,c+d]]    ==>     f[a+b,c+d]
+ok  Thread[f[a+b,c+d],Plus]    ==>     f[a,c]+f[b,d]
+ok  Thread[f[{a,b,c},h,{x,y,z}]]    ==>     {f[a,h,x],f[b,h,y],f[c,h,z]}
+ok  {1,2,3}^2    ==>     {1,4,9}
+ok  Thread[{a,b,c}->{1,2,3}]    ==>     {a->1,b->2,c->3}
+ok  CoefficientList[#,x]&/@(1+2x+3x^2==a+b x + c x^2)    ==>     {1,2,3}=={a,b,c}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  Thread[%]    ==>     {1==a,2==b,3==c}
+ok  SolveAlways[1+2x+3x^2==a+b x + c x^2,x]    ==>     {{a->1,b->2,c->3}}
+ok  Thread[{{a,b,c},0}]    ==>     {{a,0},{b,0},{c,0}}
+ok  Sqrt[{1,2,3,4}]    ==>     {1,Sqrt[2],Sqrt[3],2}
+ok  {1,2,3,4}+1    ==>     {2,3,4,5}
+ok  {1,2,3,4}+{a,b,c,d}    ==>     {1+a,2+b,3+c,4+d}
+ok  MapThread[f,{{a,b,c},{x,y,z}}]    ==>     {f[a,x],f[b,y],f[c,z]}
+ok  Thread[f[{a,b,c},{x,y,z}]]    ==>     {f[a,x],f[b,y],f[c,z]}
+ok  Thread[{{a,b,c},{x,y,z}}]    ==>     {{a,x},{b,y},{c,z}}
+ok  Transpose[{{a,b,c},{x,y,z}}]    ==>     {{a,x},{b,y},{c,z}}
+#! TextForm[ColonForm[MessageName[D, dvar], StringForm[Multiple derivative specifier `1` does not have the form {variable, n}, where n is a non-negative machine integer., Short[HoldForm[{x, y, z}], 3]]]]
+ok  Thread[D[{x,x y, x z},{x,y,z}]]    ==>     {1,x,x}
+ok  MapThread[D,{{x,x y,x z},{x,y,z}}]    ==>     {1,x,x}
+ok  Thread[Unevaluated[D[{x,x y, x z},{x,y,z}]]]    ==>     {1,x,x}

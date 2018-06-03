@@ -1,0 +1,82 @@
+{
+    "stats": {
+        "suites": 0,
+        "tests": 2,
+        "passes": 2,
+        "pending": 0,
+        "failures": 0,
+        "start": "2018-06-03T12:22:20.451Z",
+        "end": "2018-06-03T12:22:20.451Z",
+        "duration": 0,
+        "testsRegistered": 2,
+        "passPercent": 100,
+        "pendingPercent": 0,
+        "other": 0,
+        "hasOther": false,
+        "skipped": 0,
+        "hasSkipped": false,
+        "passPercentClass": "danger",
+        "pendingPercentClass": "danger"
+    },
+    "suites": {
+        "title": "",
+        "suites": [],
+        "tests": [
+            {
+                "title": "Cases[{{1,2,3},a,{4,5}},t:{__Integer}:>t^2]    ➡️     {{1,4,9},{16,25}}",
+                "fullTitle": "Cases[{{1,2,3},a,{4,5}},t:{__Integer}:>t^2]    ➡️     {{1,4,9},{16,25}}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "9f30bd38-caf8-4dad-91d7-19abdd1ab241",
+                "parentUUID": "ef0c8b46-d940-42f0-b052-bde71a52fb6f",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Pattern.nb output/Tests/Pattern_Tests.m\\n# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Pattern.nb\\n# WRITING OUTPUT TO:     output/Tests/Pattern_Tests.m\\n\"",
+                "state": "passed",
+                "err": {}
+            },
+            {
+                "title": "Cases[{{1,2,3},a,{4,5}},Pattern[t,{__Integer}]:>t^2]    ➡️     {{1,4,9},{16,25}}",
+                "fullTitle": "Cases[{{1,2,3},a,{4,5}},Pattern[t,{__Integer}]:>t^2]    ➡️     {{1,4,9},{16,25}}",
+                "timedOut": false,
+                "duration": 0,
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "",
+                "isRoot": false,
+                "uuid": "e6f6b55b-83c8-4d59-a664-cfcaed43003c",
+                "parentUUID": "ef0c8b46-d940-42f0-b052-bde71a52fb6f",
+                "skipped": false,
+                "isHook": false,
+                "context": "\"\"",
+                "state": "passed",
+                "err": {}
+            }
+        ],
+        "root": true,
+        "fullFile": "",
+        "file": "",
+        "pending": [],
+        "passes": [
+            "9f30bd38-caf8-4dad-91d7-19abdd1ab241",
+            "e6f6b55b-83c8-4d59-a664-cfcaed43003c"
+        ],
+        "failures": [],
+        "skipped": [],
+        "duration": 0,
+        "rootEmpty": false,
+        "_timeout": 0,
+        "uuid": "ef0c8b46-d940-42f0-b052-bde71a52fb6f",
+        "beforeHooks": [],
+        "afterHooks": []
+    },
+    "copyrightYear": 2018
+}

@@ -1,6 +1,6 @@
+#! DOCKER > wolfram -script output/Tests/E_Tests.m
 # SYSTEM: Mathematica_10
 # TEST: E_Tests
-# OUTPUT: output/Results/Mathematica_10/E_Tests.json
 # RefLink[E,paclet:ref/E] can be entered as Esc\[ThinSpace]ee\[ThinSpace]Esc (for "exponential e"):
 ok  E    ==>     E
     ---
