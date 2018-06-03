@@ -3,7 +3,7 @@ dist: trusty
 language: node_js
 node_js:
   - "8"
-  
+
 services:
   - docker
 cache:
@@ -19,7 +19,6 @@ before_install:
   - mkdir build_docs/ || true
   - aws s3 sync s3://mmabackupdocs/MMA10 build_docs/
   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - docker pull mmacompat/mathematica || true
 
 

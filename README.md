@@ -5,14 +5,15 @@
    - Test that your installation of Mathematica actually works:
       - Local installation: `LOCAL=1 make mathematica-self-tests`
       - Installation on Docker: `make mathematica-self-tests`
-   - Generate tests:
+   - Generate tests (It's gonna run pretty fast thanks to [GNU Parallel](https://www.gnu.org/software/parallel/)
       - `make generate-compat-tests`
       - `LOCAL=1 make generate-compat-tests`
    - Find generated from docstrings tests in `./output/Tests`.
    - Run tests:
       - `make run-compat-tests`
       - `LOCAL=1 make run-compat-tests`
-   - Find test results in `./output/Results/$YourInterpreterName/*.tap`
+   - Find [TAP](https://testanything.org/) results in `./output/Results/$YourInterpreterName/*.tap`
+      - Checkout compatibility of [Expreduce](https://github.com/corywalker/expreduce) or [mmaclone](https://github.com/jyh1/mmaclone)
    - Generate very pretty website with [Mochawesome](https://github.com/adamgruber/mochawesome):
       - `make website`
 
