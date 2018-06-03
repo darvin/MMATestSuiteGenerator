@@ -1,5 +1,5 @@
 #!/bin/bash
-TIMEOUT=7m
+TIMEOUT=500
 if [ -z ${CORES+x} ]; then 
 	CORES=+0
 fi
