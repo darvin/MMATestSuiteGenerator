@@ -14,11 +14,15 @@ CORES=+0
 MATHEMATICA_RUN_PREFIX=
 endif
 
-.PHONY: builder install  docker-tests website 
+.PHONY: docker mathematica-self-tests generate-compat-tests run-compat-tests website 
 
-all : builder docker-tests generate-compat-tests run-compat-tests
+all : clean docker mathematica-self-tests generate-compat-tests run-compat-tests website
 
-generate-compat-tests : builder
+
+clean :
+	rm -Rf ./output/ || true
+
+generate-compat-tests :
 	./export_all_tests_from_docs.sh
 	echo "Generated tests:"
 	ls output/Tests/
@@ -29,13 +33,18 @@ run-compat-tests :
 	ls output/Results/*/*
 	ls ./output/
 
-website :
+generate-website :
 	./generate_website.sh
 
 clean-website :
 	rm output/*/*/*.html || true
 	rm output/*/*/*.json || true
 	rm -Rf output/*/*/assets || true
+	rm output/index.html || true
+
+website : clean-website generate-website
+	cd ./output/
+	`npm bin`/http-server ./ -o
 
 mathematica-self-tests :
 	rm docker_tests/plot_graphics_output.png || true
@@ -53,10 +62,6 @@ docker :
     fi
 	docker build -t $(DOCKER_BUILDER_NAME)  -f Dockerfile ./build	
 	echo "building docker image finished!"
-
-install :
-	cp wolfram /usr/local/bin/wolfram-on-docker
-
 
 docker-sh :
 	docker run --rm -it --entrypoint "bash" -v `pwd`:/mnt $(DOCKER_BUILDER_NAME)

@@ -1,7 +1,12 @@
 [![Build Status](https://travis-ci.org/darvin/MMATestSuiteGenerator.svg?branch=master)](https://travis-ci.org/darvin/MMATestSuiteGenerator)
 
+## [Website with automated build results](https://darvin.github.io/MMATestSuiteGenerator/)
+
+## Local Usage
+
    - Install `parallel` : `apt-get install parallel` or `brew install parallel`
-   -  Add file from `/Applications/Mathematica.app/Contents/Documentation/English/System/ReferencePages/Symbols/` to `./WHITELIST`
+   - Install Node, run `npm install`
+   - Add desired `.nb` files from `/Applications/Mathematica.app/Contents/Documentation/English/System/ReferencePages/Symbols/` to `./WHITELIST`
    - Test that your installation of Mathematica actually works:
       - Local installation: `LOCAL=1 make mathematica-self-tests`
       - Installation on Docker: `make mathematica-self-tests`
@@ -16,11 +21,13 @@
       - Checkout compatibility of [Expreduce](https://github.com/corywalker/expreduce) or [mmaclone](https://github.com/jyh1/mmaclone)
    - Generate very pretty website with [Mochawesome](https://github.com/adamgruber/mochawesome):
       - `make website`
+   - ...Or just run whole thing at once:
+      - `make` for Mathematica on Docker
+      - `LOCAL=1 make` for natively installed Mathematica
 
 
-## [Website with automated build results](https://darvin.github.io/MMATestSuiteGenerator/)
    
-### Example output:
+### Example of generated test:
 
 
 
