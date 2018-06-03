@@ -24,6 +24,6 @@ export -f task
 
 mkdir -p output/Tests/GenerationLogs || true
 
-bash ./cat_portion.sh WHITELIST | parallel --timeout $TIMEOUT --will-cite -j$CORES task 
+bash ./cat_portion.sh WHITELIST | parallel --timeout $TIMEOUT --will-cite -j$CORES task || true
 
 
