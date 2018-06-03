@@ -21,7 +21,7 @@
       - Checkout compatibility of [Expreduce](https://github.com/corywalker/expreduce) or [mmaclone](https://github.com/jyh1/mmaclone)
    - Generate very pretty website with [Mochawesome](https://github.com/adamgruber/mochawesome):
       - `make website`
-   - ...Or just run whole thing at once:
+   - ...Or just run the whole thing at once:
       - `make` for Mathematica on Docker
       - `LOCAL=1 make` for natively installed Mathematica
 
@@ -77,3 +77,6 @@ pattern:"], TapTestSame[MatchQ[Association[a -> 1], Association[a -> _]],
    Association[_ -> Association[_]]], True]]
 
 ```
+
+
+
