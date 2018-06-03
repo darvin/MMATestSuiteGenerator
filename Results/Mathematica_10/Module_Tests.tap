@@ -1,5 +1,5 @@
 #! DOCKER > wolfram -script output/Tests/Module_Tests.m
-#! x$414
+#! x$533
 #! 5
 #! TextForm[ColonForm[MessageName[Module, lvset], StringForm[Local variable specification `1` contains `2`, which is an assignment to `3`; only assignments to symbols are allowed., Short[HoldForm[{{x, y} = v}], 3], Short[HoldForm[{x, y} = v], 3], Short[HoldForm[{x, y}], 3]]]]
 #! TextForm[ColonForm[MessageName[Module, lvset], StringForm[Local variable specification `1` contains `2`, which is an assignment to `3`; only assignments to symbols are allowed., Short[HoldForm[{{x, y} = v}], 3], Short[HoldForm[{x, y} = v], 3], Short[HoldForm[{x, y}], 3]]]]

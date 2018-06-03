@@ -34,10 +34,10 @@ ok  Reap[Sow[1, x]; Sow[2, y]; Sow[3, x]; Sow[4, y], x]    ==>     {4, {{1, 3}}}
         expect_evaluated: {4, {{1, 3}}}
     ...
 # RefLink[Sow,paclet:ref/Sow] can be used anywhere in a computation:
-ok  Reap[(If[PrimeQ[#1], Sow[#1]] & ) //@ Integrate[1/(x^5 - 1), x]; ]    ==>     {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 5, 5, 2}}}
+not ok  Reap[(If[PrimeQ[#1], Sow[#1]] & ) //@ Integrate[1/(x^5 - 1), x]; ]    ==>     {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 5, 5, 2}}}
     ---
     data:
-        got: {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 5, 5, 2}}}
+        got: {Null, {{5, 5, 5, 5, 5, 5, 5, 5, 2, 5, 5, 2}}}
         expect: {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 5, 5, 2}}}
         expect_evaluated: {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 5, 5, 2}}}
     ...

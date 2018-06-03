@@ -46,7 +46,7 @@ umulate] values of a tensor at all levels:"],
  TapTestSameBROKEN[HoldComplete[ArrayPlot[Multidimensionalize[Reverse][
      data]]], $Failed], TapComment["Transposing by a permutation \\[Sigma] \
 transposes the element positions by \\[Sigma]^-1: "], 
- TapTestSameBROKEN[{\[Sigma] = RandomSample[Range[3]], 
+ TapTestSame[{\[Sigma] = RandomSample[Range[3]], 
    \[Sigma]i = \[Sigma]; \[Sigma]i[[\[Sigma]]] = Range[3]}, 
   {{2, 3, 1}, {1, 2, 3}}], TapTestSameBROKEN[Extract[T, {1, 3, 1}] == 
    Extract[Transpose[T, \[Sigma]], {1, 3, 1}[[\[Sigma]i]]], True], 

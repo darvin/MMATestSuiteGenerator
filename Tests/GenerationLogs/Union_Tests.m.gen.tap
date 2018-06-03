@@ -22,4 +22,4 @@ not ok  tally= Tally[ints]    ==>     {{0,3},{4,1},{7,1},{6,1},{1,2},{3,1},{5,1}
 ok  Union[ints] === Sort[tally[[All,1]]]    ==>     True
 not ok  Timing[Length[u=Union[ints, SameTest->(Floor[#1/2]==Floor[#2/2]&)]]]    ==>     {0.719,429}
 not ok  Timing[Length[fu=2*Union[Floor[ints/2]]]]    ==>     {0.,429}
-not ok  Union[u-fu]    ==>     {0,1}
+ok  Union[u-fu]    ==>     {0,1}
