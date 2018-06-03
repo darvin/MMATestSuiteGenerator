@@ -1,4 +1,5 @@
 #!/bin/bash
+TIMEOUT=7m
 if [ -z ${CORES+x} ]; then 
 	CORES=+0
 fi
@@ -20,4 +21,4 @@ task(){
 
 export -f task
 
-bash ./cat_portion.sh WHITELIST | parallel --will-cite -j$CORES task 
+bash ./cat_portion.sh WHITELIST | parallel --timeout $TIMEOUT --will-cite -j$CORES task 
