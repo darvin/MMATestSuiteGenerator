@@ -32,6 +32,11 @@ run-compat-tests :
 website :
 	./generate_website.sh
 
+clean-website :
+	rm output/*/*/*.html || true
+	rm output/*/*/*.json || true
+	rm -Rf output/*/*/assets || true
+
 mathematica-self-tests :
 	rm docker_tests/plot_graphics_output.png || true
 	$(MATHEMATICA_RUN_PREFIX) wolfram -script docker_tests/plot.m	

@@ -1,4 +1,9 @@
 #!/bin/bash
+
+if [ -z ${CORES+x} ]; then 
+	CORES=+0
+fi
+
 set -e
 PATH=$(npm bin):$PATH
 
@@ -13,6 +18,9 @@ processFile () {
 	marge -t $BASENAME -p $BASENAME  --reportDir ./ --showSkipped false --showHooks never --showPending false --showPassed false $JSON
 
 }
+
+export -f processFile
+
 
 spinner()
 {
@@ -38,10 +46,8 @@ processDirectory () {
 	spinner
 	marge -t $SYSTEM_NAME -p $SYSTEM_NAME  --reportDir ./ --showSkipped false --showHooks never --showPending false --showPassed false _ALL_TESTS_CONCAT.json
 
-	for f in *.tap ; do
-	    processFile $f
-	done
 
+	ls *.tap | parallel --will-cite -j$CORES processFile
 
 	popd
 }

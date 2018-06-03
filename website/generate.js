@@ -7,26 +7,6 @@ const { lstatSync, readdirSync } = require('fs')
 const { join } = require('path')
 const util = require('util')
 
-// obj = {
-// 	"systems": [{
-// 		"name": "Mathematica_10",
-// 		"allTestsUrl": "/Results/Mathematica_10/allTests.html",
-// 		"tests": [{
-// 			"name": "And",
-// 			"url": "/Results/Mathematica_10/And_Test.html",
-// 			"tapUrl": "/Results/Mathematica_10/And_Test.tap",
-// 			"srcUrl": "/Tests/And_Test.m"
-// 		},
-// 		{
-// 			"name": "Which",
-// 			"url": "/Results/Mathematica_10/Which_Test.html",
-// 			"tapUrl": "/Results/Mathematica_10/Which_Test.tap",
-// 			"srcUrl": "/Tests/Which_Test.m"
-// 		}
-
-// 		]
-// 	}]
-// }
 
 const isDirectory = source => lstatSync(source).isDirectory()
 const getDirectories = source => readdirSync(source).map(name => join(source, name)).filter(isDirectory)
@@ -50,9 +30,9 @@ function getAllTests() {
 			"tapUrl":path.relative(rootPath,tapFile)
 		}
 	}
-	function getSystem(p) {
+	function getSystem(p, overrideName) {
 		return {
-			"name":path.basename(p).replace("_", " "),
+			"name":overrideName || path.basename(p).replace("_", " "),
 			"allTestsUrl":path.relative(rootPath, join(p, "_ALL_TESTS_CONCAT.html")),
 			"tests": getHtmls(p).map(getTest)
 		}
@@ -60,7 +40,10 @@ function getAllTests() {
 	function getAllSystems(p) {
 		return getDirectories(p).map(getSystem)
 	}
-	const systems = getAllSystems(path.join(__dirname,"..","output", "Results"));
+	var systems = getAllSystems(path.join(__dirname,"..", "output", "Results"));
+	const generationLogs = getSystem(path.join(__dirname,"..", "output", "Tests", "GenerationLogs"), "Test Suite Generation");
+	
+	systems.push(generationLogs)
 	return {
 		"systems":systems
 	}
