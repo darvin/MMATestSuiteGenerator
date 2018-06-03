@@ -52,7 +52,6 @@ jobs:
     - script: PORTION_COUNT=5 PORTION_INDEX=5 make run-compat-tests    
     - stage: deploy
       script: 
-        - "travis_wait 30 sleep 1800 &"
         - make website
       after_success:
         - aws s3 rm --recursive s3://buildjobs/$TRAVIS_BUILD_NUMBER # clean up after ourselves
