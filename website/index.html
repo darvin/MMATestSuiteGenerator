@@ -115,8 +115,10 @@ dd {
 <i class="material-icons one-test-summary-icon quick-summary--circle-icon---Ampym"></i>{{stats.passes}} /
                            <i class="material-icons one-test-summary-icon"></i>{{stats.tests}}
 
-                           
+                       {{#if stats.failures}}
+
                            <i class="material-icons one-test-summary-icon quick-summary--circle-icon---Ampym"></i>{{stats.failures}}
+                       {{/if}}
 
                            |
 

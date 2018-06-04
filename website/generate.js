@@ -25,7 +25,7 @@ function getAllTests() {
 			"failed":jsonObj.stats.failures>0,
 			"stats":jsonObj.stats,
 			"url":path.relative(rootPath,p),
-			"name":b.replace("_Tests.html",""),
+			"name":b.replace("_Tests.html","").replace("_Tests.m.gen.html", ""),
 			"srcUrl": path.relative(rootPath,path.join(rootPath, "Tests", bNoExt+".m")),
 			"tapUrl":path.relative(rootPath,tapFile)
 		}
