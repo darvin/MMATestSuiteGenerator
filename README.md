@@ -6,7 +6,7 @@
 
    - Install `parallel` : `apt-get install parallel` or `brew install parallel`
    - Install Node, run `npm install`
-   - Add desired `.nb` files from `/Applications/Mathematica.app/Contents/Documentation/English/System/ReferencePages/Symbols/` to `./WHITELIST`
+   - Add desired `.nb` files from `/Applications/Mathematica.app/Contents/Documentation/English/System/ReferencePages/Symbols/` to `./WHITELIST` ([edit](WHITELIST) it to add stuff in upstream repo)
    - Test that your installation of Mathematica actually works:
       - Local installation: `LOCAL=1 make mathematica-self-tests`
       - Installation on Docker: `make mathematica-self-tests`
