@@ -10,8 +10,8 @@
   .test-failure {background-color: #fecdcd;}
 
 .one-test-summary-icon {
-  font-size: 10px;
-  width: 12px;
+  font-size: 13px;
+  width: 14px;
 }
 li.quick-summary--item---nDp-P {
   color:black;
@@ -109,9 +109,7 @@ dd {
           <ul class="tests">
             {{#each tests}}
               <li class="test {{#if failed}}test-failure{{/if}}"> <a  href="{{url}}">{{name}}</a> 
-               (<a  href="{{srcUrl}}">src</a>) 
-               (<a  href="{{tapUrl}}">tap</a>) 
-
+                |
 <!--                            <i class="material-icons one-test-summary-icon"></i><span><span class="">{{stats.duration}}</span><span class="duration-units">ms</span></span>
  -->
 <i class="material-icons one-test-summary-icon quick-summary--circle-icon---Ampym"></i>{{stats.passes}} /
@@ -120,6 +118,10 @@ dd {
                            
                            <i class="material-icons one-test-summary-icon quick-summary--circle-icon---Ampym"></i>{{stats.failures}}
 
+                           |
+
+         <a  href="{{srcUrl}}"><i class="material-icons  one-test-summary-icon">wrap_text</i>    </a> 
+               <a  href="{{tapUrl}}"> <i class="material-icons  one-test-summary-icon">bug_report</i>  </a>
 
 
              </li>
