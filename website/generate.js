@@ -80,7 +80,5 @@ function writeIndex(obj) {
 
 writeIndex(getAllTests());
 
-console.log("index.html generated");
-// const obj = getAllTests();
+console.log("> index.html generated");
 
-// console.log(util.inspect(obj, false, null))

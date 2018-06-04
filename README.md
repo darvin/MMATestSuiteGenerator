@@ -20,11 +20,26 @@
    - Find [TAP](https://testanything.org/) results in `./output/Results/$YourInterpreterName/*.tap`
       - Checkout compatibility of [Expreduce](https://github.com/corywalker/expreduce) or [mmaclone](https://github.com/jyh1/mmaclone)
    - Generate very pretty website with [Mochawesome](https://github.com/adamgruber/mochawesome):
-      - `make website`
+      - `LOCAL=1 make website`
+   - Open website with test reports in browser:
+      - `LOCAL=1 make serve-website`
    - ...Or just run the whole thing at once:
       - `make` for Mathematica on Docker
       - `LOCAL=1 make` for natively installed Mathematica
 
+## About test reports
+
+![suite generation report](docs/suite_generation.png)
+
+This is report of Test generation. This is Mathematica Documentation `.nb` -> `$NotebookName_Tests.m` generator. As it parses out test cases, it runs them. If test failed, it marks it as failed on generation step, and marks it as “`Skip`” for the test suite - because its clearly broken. Right now there are tons of tests broken like that, I think thats because of my inferior parsing that I gonna fix shortly (it doesn’t respect multiline-multibox examples and there are tons of them, its totally fixable tho)
+
+
+Then, I’m taking generated (and verified) tests from MMA10 docs and running them against MMA10
+
+
+![mma report](docs/mma.png)
+
+Here, all wrong tests suppose to be skipped. And here should be not a single error - those tests are already verified. Like you see there are few errors, because im doing something wrong, and im gonna fix it :)
 
    
 ### Example of generated test:
