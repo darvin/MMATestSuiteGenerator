@@ -12,6 +12,8 @@ const isDirectory = source => lstatSync(source).isDirectory()
 const getDirectories = source => readdirSync(source).map(name => join(source, name)).filter(isDirectory)
 const getHtmls = source => readdirSync(source).map(name => join(source, name)).filter( f => { return path.extname(f)==".html" && path.basename(f)!="index.html" } )
 
+const local = (process.env.LOCAL=="1");
+
 function getAllTests() {
 	const rootPath = path.join(__dirname,"..","output");
 	function getTest(p) {
@@ -21,13 +23,30 @@ function getAllTests() {
 		const jsonFile = tapFile + ".json";
 		const jsonObj = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
 
+		function nullIfDoesntExists(relativePath) {
+			if (fs.existsSync(path.join(rootPath, relativePath))) {
+				return relativePath;
+			} else {
+				return null;
+			}
+		}
+
+		function prefixSrcFiles(path) {
+			if (path) {
+				if (!local) {
+					return "https://github.com/darvin/MMATestSuiteGenerator/blob/gh-pages/"+path;
+				}
+			}
+			return path;
+		}
+
 		return {
 			"failed":jsonObj.stats.failures>0,
 			"stats":jsonObj.stats,
-			"url":path.relative(rootPath,p),
+			"url": nullIfDoesntExists(path.relative(rootPath,p)),
 			"name":b.replace("_Tests.html","").replace("_Tests.m.gen.html", ""),
-			"srcUrl": path.relative(rootPath,path.join(rootPath, "Tests", bNoExt+".m")),
-			"tapUrl":path.relative(rootPath,tapFile)
+			"srcUrl": prefixSrcFiles(nullIfDoesntExists(path.relative(rootPath,path.join(rootPath, "Tests", bNoExt+".m")))),
+			"tapUrl": prefixSrcFiles(nullIfDoesntExists(path.relative(rootPath,tapFile)))
 		}
 	}
 	function getSystem(p, overrideName) {

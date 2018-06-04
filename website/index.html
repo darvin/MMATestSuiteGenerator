@@ -108,7 +108,14 @@ dd {
       </H2>
           <ul class="tests">
             {{#each tests}}
-              <li class="test {{#if failed}}test-failure{{/if}}"> <a  href="{{url}}">{{name}}</a> 
+              <li class="test {{#if failed}}test-failure{{/if}}"> 
+
+                {{#if url}}
+                <a  href="{{url}}">{{name}}</a> 
+
+                {{else}}
+                  {{name}} <i class="material-icons one-test-summary-icon quick-summary--circle-icon---Ampym"></i>
+                {{/if}}
                 |
 <!--                            <i class="material-icons one-test-summary-icon"></i><span><span class="">{{stats.duration}}</span><span class="duration-units">ms</span></span>
  -->
@@ -121,10 +128,15 @@ dd {
                        {{/if}}
 
                            |
+                         {{#if srcUrl}}
 
          <a  href="{{srcUrl}}"><i class="material-icons  one-test-summary-icon">wrap_text</i>    </a> 
-               <a  href="{{tapUrl}}"> <i class="material-icons  one-test-summary-icon">bug_report</i>  </a>
+                {{/if}}
 
+                         {{#if tapUrl}}
+
+               <a  href="{{tapUrl}}"> <i class="material-icons  one-test-summary-icon">bug_report</i>  </a>
+                {{/if}}
 
              </li>
             {{/each}}
