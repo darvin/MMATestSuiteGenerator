@@ -34,14 +34,22 @@ getExamplesFromNotebook[nbImported_] :=
     nb = Select[nb, MatchQ[#, _TEMPExample] &];
     nb)];
 
-Clear[testFunc, exportTests];
+Clear[testFunc, exportTests, lastOutputVar];
+lastOutputVar = Null;
 testFunc[in_, out_, noBroken_] := 
-  Module[{isGood, inExpr, outExpr, inInact, outInact}, 
-   inExpr = ToExpression[in, StandardForm];
-   outExpr = ToExpression[out, StandardForm];
+  Module[{isGood, inExpr, outExpr, inResStr, outResStr, inInact, outInact}, 
+   
+   inExpr = ToExpression[in] /. % -> lastOutputVar;
+   outExpr = ToExpression[out];
+   lastOutputVar = outExpr;
+   inResStr = ToString[inExpr, OutputForm];
+   outResStr = ToString[outExpr, OutputForm];
+
    inInact = ToExpression[in, StandardForm, HoldComplete];
    outInact = ToExpression[out, StandardForm, HoldComplete];
-   isGood = inExpr === outExpr;
+   isGood = ((inResStr) === (outResStr));
+
+
    Print[If[isGood, "ok ", "not ok "], 
            " ", in, "    \[DoubleLongRightArrow]     ", out];
    If[isGood, TapTestSame[inInact, outInact], 
