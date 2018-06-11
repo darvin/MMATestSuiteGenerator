@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/Distribute_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Distribute_Tests
 # Apply the distributive law:
@@ -29,24 +33,26 @@ ok  Distribute[f[g[a, b], g[c, d, e]], g]    ==>     g[f[a, c], f[a, d], f[a, e]
 ok  Distribute[(a + b + c)*(u + v), Plus]    ==>     a*u + b*u + c*u + a*v + b*v + c*v
     ---
     data:
-        got: a*u + b*u + c*u + a*v + b*v + c*v
+        got: a u + b u + c u + a v + b v + c v
         expect: a*u + b*u + c*u + a*v + b*v + c*v
-        expect_evaluated: a*u + b*u + c*u + a*v + b*v + c*v
+        expect_evaluated: a u + b u + c u + a v + b v + c v
     ...
 # Distribute only a product of sums:
 ok  Distribute[(a + b + c)*(u + v), Plus, Times]    ==>     a*u + b*u + c*u + a*v + b*v + c*v
     ---
     data:
-        got: a*u + b*u + c*u + a*v + b*v + c*v
+        got: a u + b u + c u + a v + b v + c v
         expect: a*u + b*u + c*u + a*v + b*v + c*v
-        expect_evaluated: a*u + b*u + c*u + a*v + b*v + c*v
+        expect_evaluated: a u + b u + c u + a v + b v + c v
     ...
 ok  Distribute[(a + b + c)^(u + v), Plus, Times]    ==>     (a + b + c)^(u + v)
     ---
     data:
-        got: (a + b + c)^(u + v)
+        got:            u + v
+#! (a + b + c)
         expect: (a + b + c)^(u + v)
-        expect_evaluated: (a + b + c)^(u + v)
+        expect_evaluated:            u + v
+#! (a + b + c)
     ...
 # Distributive laws for logical operators: 
 ok  Distribute[(a || b || c) && (u || v), Or, And]    ==>     (a && u) || (a && v) || (b && u) || (b && v) || (c && u) || (c && v)
@@ -136,34 +142,42 @@ ok  Distribute[({{}, {#1}} & ) /@ {a, b, c}, List, List, List, Join]    ==>     
 ok  Distribute[Factor[x^6 - 1], Plus, Times, List, Times]    ==>     {-1, -x, -x^2, x, x^2, x^3, -x^2, -x^3, -x^4, -x, -x^2, -x^3, x^2, x^3, x^4, -x^3, -x^4, -x^5, x, x^2, x^3, -x^2, -x^3, -x^4, x^3, x^4, x^5, x^2, x^3, x^4, -x^3, -x^4, -x^5, x^4, x^5, x^6}
     ---
     data:
-        got: {-1, -x, -x^2, x, x^2, x^3, -x^2, -x^3, -x^4, -x, -x^2, -x^3, x^2, x^3, x^4, -x^3, -x^4, -x^5, x, x^2, x^3, -x^2, -x^3, -x^4, x^3, x^4, x^5, x^2, x^3, x^4, -x^3, -x^4, -x^5, x^4, x^5, x^6}
+        got:            2      2   3    2    3    4        2    3   2   3   4    3    4    5      2   3    2    3    4   3   4   5   2   3   4    3    4    5   4   5   6
+#! {-1, -x, -x , x, x , x , -x , -x , -x , -x, -x , -x , x , x , x , -x , -x , -x , x, x , x , -x , -x , -x , x , x , x , x , x , x , -x , -x , -x , x , x , x }
         expect: {-1, -x, -x^2, x, x^2, x^3, -x^2, -x^3, -x^4, -x, -x^2, -x^3, x^2, x^3, x^4, -x^3, -x^4, -x^5, x, x^2, x^3, -x^2, -x^3, -x^4, x^3, x^4, x^5, x^2, x^3, x^4, -x^3, -x^4, -x^5, x^4, x^5, x^6}
-        expect_evaluated: {-1, -x, -x^2, x, x^2, x^3, -x^2, -x^3, -x^4, -x, -x^2, -x^3, x^2, x^3, x^4, -x^3, -x^4, -x^5, x, x^2, x^3, -x^2, -x^3, -x^4, x^3, x^4, x^5, x^2, x^3, x^4, -x^3, -x^4, -x^5, x^4, x^5, x^6}
+        expect_evaluated:            2      2   3    2    3    4        2    3   2   3   4    3    4    5      2   3    2    3    4   3   4   5   2   3   4    3    4    5   4   5   6
+#! {-1, -x, -x , x, x , x , -x , -x , -x , -x, -x , -x , x , x , x , -x , -x , -x , x, x , x , -x , -x , -x , x , x , x , x , x , x , -x , -x , -x , x , x , x }
     ...
 ok  Plus @@ %    ==>     -1 + x^6 # skip
 # For pure products, RefLink[Distribute,paclet:ref/Distribute] gives the same results as RefLink[Expand,paclet:ref/Expand]:
 ok  Factor[x^10 - 1]    ==>     (-1 + x)*(1 + x)*(1 - x + x^2 - x^3 + x^4)*(1 + x + x^2 + x^3 + x^4)
     ---
     data:
-        got: (-1 + x)*(1 + x)*(1 - x + x^2 - x^3 + x^4)*(1 + x + x^2 + x^3 + x^4)
+        got:                            2    3    4            2    3    4
+#! (-1 + x) (1 + x) (1 - x + x  - x  + x ) (1 + x + x  + x  + x )
         expect: (-1 + x)*(1 + x)*(1 - x + x^2 - x^3 + x^4)*(1 + x + x^2 + x^3 + x^4)
-        expect_evaluated: (-1 + x)*(1 + x)*(1 - x + x^2 - x^3 + x^4)*(1 + x + x^2 + x^3 + x^4)
+        expect_evaluated:                            2    3    4            2    3    4
+#! (-1 + x) (1 + x) (1 - x + x  - x  + x ) (1 + x + x  + x  + x )
     ...
 ok  Distribute[%]    ==>     -1 + x^10 # skip
 # RefLink[PowerExpand,paclet:ref/PowerExpand] corresponds to distribution over RefLink[Times,paclet:ref/Times]:
 ok  PowerExpand[(x*y*z)^n]    ==>     x^n*y^n*z^n
     ---
     data:
-        got: x^n*y^n*z^n
+        got:  n  n  n
+#! x  y  z
         expect: x^n*y^n*z^n
-        expect_evaluated: x^n*y^n*z^n
+        expect_evaluated:  n  n  n
+#! x  y  z
     ...
 ok  Distribute[(x*y*z)^n, Times]    ==>     x^n*y^n*z^n
     ---
     data:
-        got: x^n*y^n*z^n
+        got:  n  n  n
+#! x  y  z
         expect: x^n*y^n*z^n
-        expect_evaluated: x^n*y^n*z^n
+        expect_evaluated:  n  n  n
+#! x  y  z
     ...
 # RefLink[Outer,paclet:ref/Outer] forms the same combinations of all elements, but in a nested structure:
 ok  Outer[List, {a, b, c}, {x, y}]    ==>     {{{a, x}, {a, y}}, {{b, x}, {b, y}}, {{c, x}, {c, y}}}
@@ -184,26 +198,32 @@ ok  Distribute[{{a, b, c}, {x, y}}, List]    ==>     {{a, x}, {a, y}, {b, x}, {b
 ok  Distribute[(a + b)*(a + b)]    ==>     a^2 + b^2
     ---
     data:
-        got: a^2 + b^2
+        got:  2    2
+#! a  + b
         expect: a^2 + b^2
-        expect_evaluated: a^2 + b^2
+        expect_evaluated:  2    2
+#! a  + b
     ...
 # The reason is that the argument is evaluated first and the product vanishes:
 ok  (a + b)*(a + b)    ==>     (a + b)^2
     ---
     data:
-        got: (a + b)^2
+        got:        2
+#! (a + b)
         expect: (a + b)^2
-        expect_evaluated: (a + b)^2
+        expect_evaluated:        2
+#! (a + b)
     ...
 ok  Distribute[%]    ==>     a^2 + b^2 # skip
 # Prevent evaluation of the argument before RefLink[Distribute,paclet:ref/Distribute] sees it:
 ok  Distribute[Unevaluated[(a + b)*(a + b)]]    ==>     a^2 + 2*a*b + b^2
     ---
     data:
-        got: a^2 + 2*a*b + b^2
+        got:  2            2
+#! a  + 2 a b + b
         expect: a^2 + 2*a*b + b^2
-        expect_evaluated: a^2 + 2*a*b + b^2
+        expect_evaluated:  2            2
+#! a  + 2 a b + b
     ...
 # Find all possible sums of sublists of a list:
 ok  Union[Distribute[Thread[{{1, 2, 2, 8}, 0}], List, List, List, Plus]]    ==>     {0, 1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13}

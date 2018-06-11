@@ -16,7 +16,9 @@ be collected by RefLink[Reap,paclet:ref/Reap]:"],
   "RefLink[Sow,paclet:ref/Sow] can be used anywhere in a computation:"], 
  TapTestSame[Reap[(If[PrimeQ[#1], Sow[#1]] & ) //@ Integrate[1/(x^5 - 1), 
       x]; ], {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 
-     5, 5, 2}}}], TapTestSameBROKEN[Reap[f //@ Integrate[1/(x^5 - 1), x]; ], 
+     5, 5, 2}}}], TapComment["It still works inside a function:"], 
+ TapTestSame[f[e_] := If[PrimeQ[e], Sow[e]]; 
+   Reap[f //@ Integrate[1/(x^5 - 1), x]; ], 
   {Null, {{-2, 2, 5, 5, 2, 5, 5, 5, -2, -2, 5, -2, 5, 5, 5, 5, 2, 5, 5, 
      2}}}], TapComment[
   "A single expression can be \"sown\" with multiple tags:"], 
@@ -39,11 +41,10 @@ RefLink[True,paclet:ref/True] and RefLink[False,paclet:ref/False]:"],
  TapTestSame[Reap[(Sow[#1, #1 > 0] & ) /@ {1, -1, 2, -3, 1, 4, 5}; , True], 
   {Null, {{1, 2, 1, 4, 5}}}], TapComment["Make a list of all the steps taken \
 in evaluating RefLink[FindRoot,paclet:ref/FindRoot]:"], 
- TapTestSameBROKEN[Reap[FindRoot[Cos[x] == x, {x, 1}, 
-    StepMonitor :> Sow[x]]], {{x -> 0.739085}, 
-   {{0.750364, 0.739113, 0.739085, 0.739085}}}], 
+ TapTestSame[Reap[FindRoot[Cos[x] == x, {x, 1}, StepMonitor :> Sow[x]]], 
+  {{x -> 0.739085}, {{0.750364, 0.739113, 0.739085, 0.739085}}}], 
  TapComment["Evaluate an iterated map, keeping iterates that are below \
-1/100:"], TapTestSameBROKEN[
+1/100:"], TapTestSame[
   Reap[Nest[(If[#1 < 1/100, Sow[#1]]; (4*#1)*(1 - #1)) & , 0.2, 100]], 
   {0.875591, {{0.000246305, 0.000984976, 0.00393603, 0.00631451, 
      0.00264312}}}], TapComment[

@@ -1,8 +1,14 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/RandomReal.nb output/Tests/RandomReal_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/RandomReal.nb
 # WRITING OUTPUT TO:     output/Tests/RandomReal_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  RandomReal[]    ==>     0.097196
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  RandomReal[{-10,10}]    ==>     0.669505
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 not ok  RandomReal[10]    ==>     2.23927
 not ok  RandomReal[1,5]    ==>     {0.971496,0.659645,0.345808,0.5159,0.928815}
 not ok  RandomReal[{-1,1},{3,2}]    ==>     {{-0.913821,-0.0781397},{0.367039,-0.49319},{-0.684801,-0.803185}}
@@ -17,11 +23,7 @@ not ok  RandomReal[{-1,1},WorkingPrecision->50]    ==>     -0.479150487780862246
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Ticks->{Automatic, Automatic}]\)\)
 #!                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Ticks->{Automatic, Automatic}]\)\)
-#!                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-not ok  ListLinePlot[Accumulate[RandomReal[{-1,1},100]]]    ==>     \!\(\*
+ok  ListLinePlot[Accumulate[RandomReal[{-1,1},100]]]    ==>     \!\(\*
 #! GraphicsBox[{{}, {{}, {}, 
 #! {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.01388888888888889], AbsoluteThickness[1.6], LineBox[CompressedData["
 #! 1:eJw1lA0w22ccx/9im5fuVrNuY2OlJVWsaBlWla/3tyIikehK3frCrPVy6zp9
@@ -69,13 +71,14 @@ not ok  ListLinePlot[Accumulate[RandomReal[{-1,1},100]]]    ==>     \!\(\*
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[ImageMargins->0.]\)\)
 #!                      ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  Graphics[Circle/@RandomReal[10,{40,2}]]    ==>     \!\(\*
+ok  Graphics[Circle/@RandomReal[10,{40,2}]]    ==>     \!\(\*
 #! GraphicsBox[{CircleBox[{7.0124351944156835`, 1.1558876705072691`}], CircleBox[{3.4862234249326782`, 0.14721244848053772`}], CircleBox[{2.8647054600879294`, 4.801521477337518}], CircleBox[{5.078438297828097, 3.030538557209848}], CircleBox[{6.490200914622907, 0.10488333454061483`}], CircleBox[{2.3811591022424423`, 9.550799296295857}], CircleBox[{6.6638515091939645`, 7.84525070968893}], CircleBox[{0.7472138129309425, 3.661461501767633}], CircleBox[{2.363254360590796, 7.266084250173041}], CircleBox[{1.8633734985833215`, 3.423816753420537}], CircleBox[{7.471857617122399, 8.90163269650354}], CircleBox[{7.536380312151994, 2.979355283219796}], CircleBox[{2.156501685736602, 7.038224918010556}], CircleBox[{1.958447664001305, 5.380949747961347}], CircleBox[{6.174392619083029, 0.7555234091228602}], CircleBox[{8.934235758635573, 2.0200635500045045`}], CircleBox[{1.6812676499126553`, 0.9053333275287407}], CircleBox[{7.2094287647531665`, 6.198602823225134}], CircleBox[{5.639236056530649, 1.2025970755910347`}], CircleBox[{7.572587081452053, 4.330407542578403}], CircleBox[{6.052625984163932, 6.262944354851246}], CircleBox[{6.994482745660335, 7.496206349594122}], CircleBox[{1.9713689123348317`, 7.851432383721622}], CircleBox[{1.450945958425054, 1.084211118271078}], CircleBox[{9.927877339535602, 4.5565627675265965`}], CircleBox[{5.57683282542688, 4.397684344457781}], CircleBox[{4.0198799277521005`, 2.1443567072433574`}], CircleBox[{0.9853032780449684, 5.053180122560493}], CircleBox[{4.24233977109032, 0.8842172534579014}], CircleBox[{1.001649968684326, 0.5862527633892185}], CircleBox[{7.254366561244396, 5.383704890382813}], CircleBox[{5.907170425879114, 8.527328707599445}], CircleBox[{2.1515041081560717`, 7.116451372803315}], CircleBox[{5.8014604552624185`, 9.539428843686398}], CircleBox[{7.269088300312546, 3.3114971612237536`}], CircleBox[{9.774716446173606, 4.712933122593048}], CircleBox[{5.088814339161502, 0.8747609188176}], CircleBox[{1.478195939509737, 4.79464457917317}], CircleBox[{3.773759658827558, 6.202054461772729}], CircleBox[{6.599273758648458, 2.755094434072811}]},
 #! ImageMargins->0.]\)
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 225}, {0, 171}}]\)\)
+#!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
 not ok  ArrayPlot[RandomReal[1,{30,40}]]    ==>     \!\(\*
 #! GraphicsBox[
 #! TagBox[RasterBox[CompressedData["
@@ -163,8 +166,7 @@ not ok  ArrayPlot[RandomReal[1,{30,40}]]    ==>     \!\(\*
 #! ImageSizeRaw->{225, 171},
 #! PlotRange->{{0, 225}, {0, 171}}]\)
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  Graphics3D[Sphere/@RandomReal[10,{50,3}]]    ==>     \!\(\*
+ok  Graphics3D[Sphere/@RandomReal[10,{50,3}]]    ==>     \!\(\*
 #! Graphics3DBox[{SphereBox[{8.893446834166411, 6.885918923393223, 0.018711255384548764`}], SphereBox[{2.86876434080245, 9.952367500581218, 4.518300475950628}], SphereBox[{2.949088505427884, 4.617727477632483, 1.1396859033852778`}], SphereBox[{9.996799618789527, 5.46525722986242, 9.731777461036103}], SphereBox[{9.43667099344523, 1.676578172013084, 5.863474795743063}], SphereBox[{9.811484940555331, 5.053433550166686, 6.356089163691227}], SphereBox[{8.617851515704206, 5.022667617194232, 5.266770593336984}], SphereBox[{9.052572318551913, 7.187852589541713, 9.380614332139807}], SphereBox[{2.075888822600634, 7.798014905173826, 7.915469828638582}], SphereBox[{3.096204739466515, 9.86941741733509, 3.2135328917104644`}], SphereBox[{0.19622245399409088`, 1.463443875012258, 3.4472570852055977`}], SphereBox[{2.373826097124251, 1.2299325020972258`, 3.231732616146859}], SphereBox[{2.7597091148566157`, 8.542603187798743, 5.513175732542354}], SphereBox[{6.198522094652212, 8.822433782713734, 0.9597207304036441}], SphereBox[{9.83312736675503, 4.749205076015482, 1.876546559517557}], SphereBox[{7.104006426930308, 8.866473083505113, 1.5588345816754963`}], SphereBox[{7.5349118074190535`, 6.5017767163101965`, 3.1620278725863784`}], SphereBox[{3.2687551160030477`, 6.018435123076692, 3.660832829116723}], SphereBox[{9.699670000696983, 3.292431320792552, 8.969424152423997}], SphereBox[{9.72651165789777, 8.938059414179136, 7.387421469097838}], SphereBox[{8.915642366713008, 6.401802043982585, 6.964883923434925}], SphereBox[{0.2708489546547792, 1.9527914616524846`, 7.415761965613854}], SphereBox[{0.0153625196420073, 6.594475298639647, 2.3953866717282573`}], SphereBox[{2.6896425328533553`, 7.758401065621406, 0.9767260686676078}], SphereBox[{8.708131624188436, 7.641800340258566, 5.252062512687381}], SphereBox[{6.626284539046935, 5.674699562182937, 6.334933564604597}], SphereBox[{9.957451841149247, 4.463624493069457, 9.859440964966208}], SphereBox[{3.3179585149368442`, 3.5935160882093697`, 3.4169440657607115`}], SphereBox[{6.759572743499465, 4.526120115335468, 9.818777086125841}], SphereBox[{0.2827832730491089, 9.180418623558914, 2.2524836815574574`}], SphereBox[{9.815467484933617, 3.6899130211255926`, 3.830334962857103}], SphereBox[{0.37355701024390164`, 0.08939707601739855, 0.6017318652764132}], SphereBox[{4.8494904534373635`, 9.797235581489009, 1.1279582036007056`}], SphereBox[{4.819686744158558, 4.934418772342239, 1.2344278812101255`}], SphereBox[{3.313286654107717, 0.11737024071026525`, 4.804428861224503}], SphereBox[{0.911517178459798, 2.7484914640165243`, 5.292448922344832}], SphereBox[{5.200721245611534, 5.929406228848293, 4.750209849637379}], SphereBox[{9.81509977867795, 5.884684737887159, 9.071905343196477}], SphereBox[{1.6915317647826544`, 7.066509969296984, 6.576823858579356}], SphereBox[{5.104119459327096, 1.4792736882610846`, 0.21961842154956734`}], SphereBox[{5.833841238457875, 7.833156524223334, 3.0834721447691376`}], SphereBox[{2.679236908664981, 5.222243749467438, 4.5771267958167545`}], SphereBox[{1.6800357181156471`, 3.7306681580672834`, 3.172035948696104}], SphereBox[{4.292437674478329, 1.5529350738783148`, 7.681180150854988}], SphereBox[{2.101903595606755, 3.7583291231611113`, 8.094441508455134}], SphereBox[{5.817185575643148, 7.074263964833975, 5.206669754665336}], SphereBox[{8.548447509152016, 5.643133864643865, 1.5775722177251694`}], SphereBox[{7.545316418485179, 9.834022528380352, 6.108113892269785}], SphereBox[{4.088436315144898, 1.2817524824934434`, 2.278791432059041}], SphereBox[{9.05153693356069, 5.6490486366698605`, 4.876474454083491}]},
 #! ImageMargins->0.,
 #! ViewAngle->Automatic,
@@ -172,8 +174,7 @@ not ok  Graphics3D[Sphere/@RandomReal[10,{50,3}]]    ==>     \!\(\*
 #! ViewPoint->{1.3, -2.4, 2.},
 #! ViewVertical->{0., 0., 1.}]\)
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  Graphics[Line[Accumulate[RandomReal[{-1,1},{500,2}]]]]    ==>     \!\(\*
+ok  Graphics[Line[Accumulate[RandomReal[{-1,1},{500,2}]]]]    ==>     \!\(\*
 #! GraphicsBox[LineBox[CompressedData["
 #! 1:eJwVl3k41N8Xx8c2djNjGWMZZmztWgghn48le7ZKhKJsLSRJvsoekUIlokLK
 #! kpTIlso9lWylSMmWnWTfSZbf/P66z3me+885931f7/dhHj9r48ZOIBDm2AiE
@@ -350,7 +351,6 @@ not ok  Graphics[Line[Accumulate[RandomReal[{-1,1},{500,2}]]]]    ==>     \!\(\*
 #! b2yXg/wrDkYpvb3Y/wArmGr5
 #! "]],
 #! ImageMargins->0.]\)
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  Graphics3D[Line[Accumulate[RandomReal[{-1,1},{500,3}]]]]    ==>     \!\(\*
 #! GraphicsBox[
@@ -555,13 +555,12 @@ not ok  Table[Det[RandomReal[1,{100,100}]],{10}]    ==>     {-5.92492*10^25,-1.0
 not ok  Complex@@RandomReal[1,2]    ==>     0.0182069+0.059136 I
 not ok  Complex@@@RandomReal[1,{5,2}]    ==>     {0.742297+0.66322 I,0.736816+0.457873 I,0.557258+0.194895 I,0.377257+0.364522 I,0.709416+0.668859 I}
 not ok  {RandomReal[],RandomReal[]}    ==>     {0.199285,0.662607}
-not ok  {SeedRandom[1234];RandomReal[],SeedRandom[1234];RandomReal[]}    ==>     {0.876608,0.876608}
-not ok  {BlockRandom[RandomReal[]],RandomReal[]}    ==>     {0.521964,0.521964}
-ok  Table[SeedRandom[4567];RandomReal[WorkingPrecision->p],{p,10}]    ==>     {0.5,0.52,0.521,0.5220,0.52199,0.521992,0.5219920,0.52199200,0.521992002,0.5219920025}
-not ok  Mean[RandomReal[1,10000]]    ==>     0.497923
+ok  {SeedRandom[1234];RandomReal[],SeedRandom[1234];RandomReal[]}    ==>     {0.876608,0.876608}
+ok  {BlockRandom[RandomReal[]],RandomReal[]}    ==>     {0.521964,0.521964}
+not ok  Table[SeedRandom[4567];RandomReal[WorkingPrecision->p],{p,10}]    ==>     {0.5,0.52,0.521,0.5220,0.52199,0.521992,0.5219920,0.52199200,0.521992002,0.5219920025}
+ok  Mean[RandomReal[1,10000]]    ==>     0.497923
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ListLinePlot[Abs[Fourier[RandomReal[{-1,1},1000]]]]    ==>     \!\(\*
+ok  ListLinePlot[Abs[Fourier[RandomReal[{-1,1},1000]]]]    ==>     \!\(\*
 #! GraphicsBox[{{}, {{}, {}, 
 #! {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.006944444444444445], AbsoluteThickness[1.6], LineBox[CompressedData["
 #! 1:eJxdW3dYk1f7po6KG60DbdW0olJXY13UebvBGcUBrgYQAQEJO+yQnZDEOEvr
@@ -762,7 +761,6 @@ not ok  ListLinePlot[Abs[Fourier[RandomReal[{-1,1},1000]]]]    ==>     \!\(\*
 #! PlotRangeClipping->True,
 #! PlotRangePadding->{{Scaled[0.02], Scaled[0.02]}, {Scaled[0.02], Scaled[0.05]}},
 #! Ticks->{Automatic, Automatic}]\)
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  ListPlot3D[Log[RandomReal[1,{50,50}]]]    ==>     \!\(\*
 #! GraphicsBox[

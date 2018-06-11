@@ -1,23 +1,73 @@
 #! DOCKER > wolfram -script output/Tests/StringJoin_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[Hold[Out[$Line - 1]]]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[Hold[Out[$Line - 1]]]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[dog, Null, cat, Null, sheep, Null, cow]], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[StringJoin, string]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: StringJoin_Tests
 # Join strings:
-ok  StringJoin["abcd", "ABCD", "xyz"]    ==>     abcdABCDxyz # skip
+ok  StringJoin["abcd", "ABCD", "xyz"]    ==>     abcdABCDxyz
+    ---
+    data:
+        got: abcdABCDxyz
+        expect: abcdABCDxyz
+        expect_evaluated: abcdABCDxyz
+    ...
 # Use RefLink[InputForm,paclet:ref/InputForm] to show string quotes:
-ok  InputForm[%]    ==>     "abcdABCDxyz" # skip
+ok  InputForm[%]    ==>     "abcdABCDxyz"
+    ---
+    data:
+        got: abcdABCDxyz
+        expect: "abcdABCDxyz"
+        expect_evaluated: abcdABCDxyz
+    ...
 # All lists are ignored:
-ok  StringJoin[{{"AB", "CD"}, "XY"}]    ==>     ABCDXY # skip
+ok  StringJoin[{{"AB", "CD"}, "XY"}]    ==>     ABCDXY
+    ---
+    data:
+        got: ABCDXY
+        expect: ABCDXY
+        expect_evaluated: ABCDXY
+    ...
 # RefLink[StringJoin,paclet:ref/StringJoin] works with special characters:
 ok  StringJoin["\[Alpha]\[Beta]\[Gamma]", "(+)(x)", " \[ReturnIndicator]"]    ==>     \[Alpha]\[Beta]\[Gamma] (+) (x)\[ReturnIndicator] # skip
 # Join strings, with a newline in between:
 ok  StringJoin["one", "\n", "two"]    ==>     one*two # skip
 # RefLink[StringJoin,paclet:ref/StringJoin] preserves formatting information embedded in strings:
-ok  StringJoin["red", "blue"]    ==>     redblue # skip
+ok  StringJoin["red", "blue"]    ==>     redblue
+    ---
+    data:
+        got: redblue
+        expect: redblue
+        expect_evaluated: redblue
+    ...
 # Iteratively join a string to its reverse:
-ok  NestList[StringJoin[#1, StringReverse[#1]] & , "AB", 5]    ==>     {AB, ABBA, ABBAABBA, ABBAABBAABBAABBA, ABBAABBAABBAABBAABBAABBAABBAABBA, ABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBA} # skip
+ok  NestList[StringJoin[#1, StringReverse[#1]] & , "AB", 5]    ==>     {AB, ABBA, ABBAABBA, ABBAABBAABBAABBA, ABBAABBAABBAABBAABBAABBAABBAABBA, ABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBA}
+    ---
+    data:
+        got: {AB, ABBA, ABBAABBA, ABBAABBAABBAABBA, ABBAABBAABBAABBAABBAABBAABBAABBA, ABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBA}
+        expect: {AB, ABBA, ABBAABBA, ABBAABBAABBAABBA, ABBAABBAABBAABBAABBAABBAABBAABBA, ABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBA}
+        expect_evaluated: {AB, ABBA, ABBAABBA, ABBAABBAABBAABBA, ABBAABBAABBAABBAABBAABBAABBAABBA, ABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBA}
+    ...
 # Find trigrams in a string:
-ok  data = Partition[Characters["aabcaabc"], 3, 1]    ==>     {{a, a, b}, {a, b, c}, {b, c, a}, {c, a, a}, {a, a, b}, {a, b, c}} # skip
-ok  StringJoin /@ data    ==>     {aab, abc, bca, caa, aab, abc} # skip
+ok  data = Partition[Characters["aabcaabc"], 3, 1]    ==>     {{a, a, b}, {a, b, c}, {b, c, a}, {c, a, a}, {a, a, b}, {a, b, c}}
+    ---
+    data:
+        got: {{a, a, b}, {a, b, c}, {b, c, a}, {c, a, a}, {a, a, b}, {a, b, c}}
+        expect: {{a, a, b}, {a, b, c}, {b, c, a}, {c, a, a}, {a, a, b}, {a, b, c}}
+        expect_evaluated: {{a, a, b}, {a, b, c}, {b, c, a}, {c, a, a}, {a, a, b}, {a, b, c}}
+    ...
+ok  StringJoin /@ data    ==>     {aab, abc, bca, caa, aab, abc}
+    ---
+    data:
+        got: {aab, abc, bca, caa, aab, abc}
+        expect: {aab, abc, bca, caa, aab, abc}
+        expect_evaluated: {aab, abc, bca, caa, aab, abc}
+    ...
 # Join a list of words, after inserting spaces in between:
 ok  Riffle[{"dog", "cat", "sheep", "cow"}, " "]    ==>     {dog, Null, cat, Null, sheep, Null, cow} # skip
 ok  StringJoin[%]    ==>     dog*cat*sheep*cow # skip
@@ -25,12 +75,18 @@ ok  StringJoin[%]    ==>     dog*cat*sheep*cow # skip
 ok  ToExpression[StringJoin["0.", ToString /@ Range[30]]]    ==>     0.12345678910111213141516171819202122232425262728293`50.091514977524966
     ---
     data:
-        got: 0.12345678910111213141516171819202122232425262728293`50.091514977524966
+        got: 0.12345678910111213141516171819202122232425262728293
         expect: 0.12345678910111213141516171819202122232425262728293`50.091514977524966
-        expect_evaluated: 0.12345678910111213141516171819202122232425262728293`50.091514977524966
+        expect_evaluated: 0.12345678910111213141516171819202122232425262728293
     ...
 # RefLink[StringJoin,paclet:ref/StringJoin] acts as a kind of inverse to RefLink[Characters,paclet:ref/Characters]:
-ok  Characters["abcdefg"]    ==>     {a, b, c, d, e, f, g} # skip
+ok  Characters["abcdefg"]    ==>     {a, b, c, d, e, f, g}
+    ---
+    data:
+        got: {a, b, c, d, e, f, g}
+        expect: {a, b, c, d, e, f, g}
+        expect_evaluated: {a, b, c, d, e, f, g}
+    ...
 ok  StringJoin[%]    ==>     abcdefg # skip
 # RefLink[StringJoin,paclet:ref/StringJoin] works only with explicit strings:
 ok  StringJoin["item ", 456]    ==>     StringJoin[item, 456] # skip

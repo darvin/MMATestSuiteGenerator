@@ -5,8 +5,8 @@
         "passes": 1,
         "pending": 0,
         "failures": 0,
-        "start": "2018-06-03T23:01:53.252Z",
-        "end": "2018-06-03T23:01:53.252Z",
+        "start": "2018-06-11T04:13:59.912Z",
+        "end": "2018-06-11T04:13:59.912Z",
         "duration": 0,
         "testsRegistered": 1,
         "passPercent": 100,
@@ -33,11 +33,11 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "ed1e7f9c-727c-4527-ba50-e92f0c03c1f7",
-                "parentUUID": "6ce4f0a2-6ee9-4b95-a835-3f627812c18c",
+                "uuid": "5971e53d-7efe-4b33-8b7e-8e673d75468b",
+                "parentUUID": "f409c2db-384a-49c8-a10c-894d4f35d6d7",
                 "skipped": false,
                 "isHook": false,
-                "context": "\"#! DOCKER > wolfram -script output/Tests/Infix_Tests.m\\n# SYSTEM: Mathematica_10\\n# TEST: Infix_Tests\\n# Use an infix notation:\\n\"",
+                "context": "\"#! DOCKER > wolfram -script output/Tests/Infix_Tests.m\\n#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n# SYSTEM: Mathematica_10\\n# TEST: Infix_Tests\\n# Use an infix notation:\\n\"",
                 "state": "passed",
                 "err": {}
             }
@@ -47,14 +47,14 @@
         "file": "",
         "pending": [],
         "passes": [
-            "ed1e7f9c-727c-4527-ba50-e92f0c03c1f7"
+            "5971e53d-7efe-4b33-8b7e-8e673d75468b"
         ],
         "failures": [],
         "skipped": [],
         "duration": 0,
         "rootEmpty": false,
         "_timeout": 0,
-        "uuid": "6ce4f0a2-6ee9-4b95-a835-3f627812c18c",
+        "uuid": "f409c2db-384a-49c8-a10c-894d4f35d6d7",
         "beforeHooks": [],
         "afterHooks": []
     },

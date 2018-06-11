@@ -1,8 +1,14 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/ComplexExpand.nb output/Tests/ComplexExpand_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/ComplexExpand.nb
 # WRITING OUTPUT TO:     output/Tests/ComplexExpand_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  ComplexExpand[Sin[x + I y]]    ==>     Cosh[y] Sin[x]+I Cos[x] Sinh[y]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  ComplexExpand[Sin[x],x]    ==>     Cosh[Im[x]] Sin[Re[x]]+I Cos[Re[x]] Sinh[Im[x]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  ComplexExpand[Re[z^5-2z^3-z+1],z]    ==>     1-Re[z]+6 Im[z]^2 Re[z]+5 Im[z]^4 Re[z]-2 Re[z]^3-10 Im[z]^2 Re[z]^3+Re[z]^5
 ok  ComplexExpand[Cos[x+I y]+Tanh[z],{z}]    ==>     Cos[x] Cosh[y]+I (Sin[2 Im[z]]/(Cos[2 Im[z]]+Cosh[2 Re[z]])-Sin[x] Sinh[y])+Sinh[2 Re[z]]/(Cos[2 Im[z]]+Cosh[2 Re[z]])
 ok  ComplexExpand[Re[ArcCot[x+I y]]+Im[ArcSinh[x-I y]]]    ==>     -(1/2) Arg[1-I/(x+I y)]+1/2 Arg[1+I/(x+I y)]+Arg[x+Sqrt[1+(x-I y)^2]-I y]
@@ -13,5 +19,4 @@ ok  ComplexExpand[Re[Tan[z]],z,TargetFunctions->{Abs,Arg}]    ==>     Sin[2 Abs[
 ok  ComplexExpand[Re[Tan[z]],z,TargetFunctions->Conjugate]    ==>     Sin[z+Conjugate[z]]/(Cos[z-Conjugate[z]]+Cos[z+Conjugate[z]])
 ok  ComplexExpand[Re[Sin[x+I y]]]    ==>     Cosh[y] Sin[x]
 ok  TrigExpand[Sin[x+I y]]    ==>     Cosh[y] Sin[x]+I Cos[x] Sinh[y]
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  Refine[Re[%],Element[x|y,Reals]]    ==>     Cosh[y] Sin[x]

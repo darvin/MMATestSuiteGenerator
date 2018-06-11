@@ -1,15 +1,16 @@
 #! DOCKER > wolfram -script output/Tests/PowerMod_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[FromCharacterCode, intnm], StringForm[Non-negative machine-sized integer expected at position `2` in `1`., Short[HoldForm[FromCharacterCode[PowerMod[Hold[Out[$Line - 1]], 36532066141, 109596198419]]], 3], Short[HoldForm[1], 3]]]]
+#! TextForm[ColonForm[MessageName[FromCharacterCode, intnm], StringForm[Non-negative machine-sized integer expected at position `2` in `1`., Short[HoldForm[FromCharacterCode[PowerMod[Hold[Out[$Line - 1]], 36532066141, 109596198419]]], 3], Short[HoldForm[1], 3]]]]
+#! TextForm[ColonForm[MessageName[FromCharacterCode, notunicode], StringForm[A character code, which should be a non-negative integer less than 65536, is expected at position `2` in `1`., Short[HoldForm[{38981759976, 87278491014, 29516053513, 55975870917, 85765100492, 2404906721, 55975870917, 63183374465, 79638505032, 82835764508, 43181121581, 60358850888, 24454360492, 79638505032, 82835764508, 85765100492, 6484444580, 79638505032}], 3], Short[HoldForm[1], 3]]]]
 #! TextForm[ColonForm[MessageName[PowerMod, root], StringForm[The equation x^`1` = `2` (mod `3`) has no integer solutions., Short[HoldForm[2], 3], Short[HoldForm[2], 3], Short[HoldForm[5], 3]]]]
 #! TextForm[ColonForm[MessageName[PowerMod, root], StringForm[The equation x^`1` = `2` (mod `3`) has no integer solutions., Short[HoldForm[2], 3], Short[HoldForm[2], 3], Short[HoldForm[5], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: PowerMod_Tests
-ok  PowerMod[2, 10, 3]    ==>     1
-    ---
-    data:
-        got: 1
-        expect: 1
-        expect_evaluated: 1
-    ...
+ok  $Failed    ==>     HoldComplete[1] # skip
 ok  Mod[2^10, 3]    ==>     1
     ---
     data:
@@ -73,7 +74,11 @@ ok  FromCharacterCode[PowerMod[%, d, n]]    ==>     RSA*in*Mathematica # skip
 ok  PowerMod[2, 1/2, 5]    ==>     PowerMod[2, 1/2, 5]
     ---
     data:
-        got: PowerMod[2, 1/2, 5]
+        got:             1
+#! PowerMod[2, -, 5]
+#!             2
         expect: PowerMod[2, 1/2, 5]
-        expect_evaluated: PowerMod[2, 1/2, 5]
+        expect_evaluated:             1
+#! PowerMod[2, -, 5]
+#!             2
     ...

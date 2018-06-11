@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/Last_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Last_Tests
 # Extract the last element of a list:
@@ -29,9 +33,11 @@ ok  Last[<| 1 -> a, 2 -> b |>]    ==>     b
 ok  Last[a^2 + b^2]    ==>     b^2
     ---
     data:
-        got: b^2
+        got:  2
+#! b
         expect: b^2
-        expect_evaluated: b^2
+        expect_evaluated:  2
+#! b
     ...
 # RefLink[Last,paclet:ref/Last] works on RefLink[SparseArray,paclet:ref/SparseArray] objects:
 ok  Last[SparseArray[Range[100]]]    ==>     100
@@ -60,9 +66,11 @@ ok  {a, b, c}[[-1]]    ==>     c
 ok  Last[b^2 + a^2]    ==>     b^2
     ---
     data:
-        got: b^2
+        got:  2
+#! b
         expect: b^2
-        expect_evaluated: b^2
+        expect_evaluated:  2
+#! b
     ...
 # RefLink[Last,paclet:ref/Last] always operates on the RefLink[FullForm,paclet:ref/FullForm] of expressions:
 ok  Last[1/b]    ==>     -1

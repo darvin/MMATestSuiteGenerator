@@ -20,8 +20,10 @@ TapSuite[TapComment["Replace any list of a's by x:"],
  TapComment["Replace lists of length exactly 3:"], 
  TapTestSame[{{}, {a}, {a, a}, {a, a, a}, {a, a, a, a}} /. 
    {Repeated[a, {3}]} -> x, {{}, {a}, {a, a}, x, {a, a, a, a}}], 
- TapTestSameBROKEN[f[{{1, 1}, {1, 2}, {1, 3}}], 4.07914], 
- TapTestSame[f[{{1, 1, 1}, {1, 2}, {1, 3}}], f[{{1, 1, 1}, {1, 2}, {1, 3}}]], 
- TapComment["Use parentheses or spaces to indicate that 1.. is not 1. \
-followed by a dot:"], TapTestSame[{{1, 1}, {1}, {2, 1}} /. {(1)..} -> x, 
-  {x, x, {2, 1}}]]
+ TapComment[
+  "Define a function that takes as an argument any list of pairs:"], 
+ TapTestSame[f[x:{{_, _}..}] := Norm[N[x]]; f[{{1, 1}, {1, 2}, {1, 3}}], 
+  4.07914], TapTestSame[f[{{1, 1, 1}, {1, 2}, {1, 3}}], 
+  f[{{1, 1, 1}, {1, 2}, {1, 3}}]], TapComment["Use parentheses or spaces to \
+indicate that 1.. is not 1. followed by a dot:"], 
+ TapTestSame[{{1, 1}, {1}, {2, 1}} /. {(1)..} -> x, {x, x, {2, 1}}]]

@@ -14,7 +14,9 @@ package function definitions private, reducing the possibility for conflict:"]\
   $Failed], Global`TapComment["When the context given to \
 RefLink[Begin,paclet:ref/Begin] starts with ` it extends from the current \
 context:"], Global`TapTestSameBROKEN[HoldComplete[Begin["`Private`"]], 
-  $Failed], Global`TapTestSameBROKEN[HoldComplete[End[]], $Failed], 
+  $Failed], Global`TapTestSameBROKEN[
+  HoldComplete[MyPackage`Private`f[MyPackage`Private`x_] := 
+    MyPackage`Private`x^2 + 1 ;; End[]], $Failed], 
  Global`TapComment["Since the symbol f is in the package context, the \
 function works after RefLink[EndPackage,paclet:ref/EndPackage]:"], 
  Global`TapTestSameBROKEN[f[a + b], 1 + (a + b)^2]]

@@ -1,7 +1,12 @@
 #! DOCKER > wolfram -script output/Tests/With_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Function, flpar], StringForm[Parameter specification `1` in `2` should be a symbol or a list of symbols., Short[HoldForm[5], 3], Short[HoldForm[Function[5, 7776]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: With_Tests
-ok  f[a]    ==>     2 + a + (1 + a)^2 # skip
+ok  $Failed    ==>     HoldComplete[2 + a + (1 + a)^2] # skip
 # Use RefLink[With,paclet:ref/With] to insert values into held expressions:
 ok  With[{x = y}, Hold[x]]    ==>     Hold[y]
     ---
@@ -26,7 +31,13 @@ ok  x = 5; With[{x = x}, Hold[x]]    ==>     Hold[5]
         expect_evaluated: 5
     ...
 # Use a constant for a value that is needed more than once:
-ok  With[{y = Sin[1.]}, Sum[y^i, {i, 0, 10}]]    ==>     5.36323 # skip
+ok  With[{y = Sin[1.]}, Sum[y^i, {i, 0, 10}]]    ==>     5.36323
+    ---
+    data:
+        got: 5.36323
+        expect: 5.36323
+        expect_evaluated: 5.36323
+    ...
 # RefLink[With,paclet:ref/With] allows inserting values into unevaluated expressions:
 ok  With[{v = {a, b, c}, w = {x, y, z}}, Thread[Unevaluated[v . w]]]    ==>     {a . x, b . y, c . z}
     ---
@@ -38,12 +49,18 @@ ok  With[{v = {a, b, c}, w = {x, y, z}}, Thread[Unevaluated[v . w]]]    ==>     
 ok  Thread[{a, b, c} . {x, y, z}]    ==>     a*x + b*y + c*z
     ---
     data:
-        got: 5*a + b*y + c*z
+        got: 5 a + b y + c z
         expect: a*x + b*y + c*z
-        expect_evaluated: 5*a + b*y + c*z
+        expect_evaluated: 5 a + b y + c z
     ...
 # RefLink[Module,paclet:ref/Module] introduces local variables to which you can assign values:
-ok  Module[{x = 2.}, While[x > 0, x = Log[x]]; x]    ==>     -0.366513 # skip
+ok  Module[{x = 2.}, While[x > 0, x = Log[x]]; x]    ==>     -0.366513
+    ---
+    data:
+        got: -0.366513
+        expect: -0.366513
+        expect_evaluated: -0.366513
+    ...
 # RefLink[With,paclet:ref/With] is faster than RefLink[Module,paclet:ref/Module]:
 ok  Timing[Do[Module[{x = 5}, x; ], {10^5}]]    ==>     {0.312, Null} # skip
 ok  Timing[Do[With[{x = 5}, x; ], {10^5}]]    ==>     {0.093, Null} # skip
@@ -62,19 +79,39 @@ ok  Function[x, e] /. e :> x    ==>     Function[x, x]
     ...
 # RefLink[With,paclet:ref/With] is a scoping construct; variables are renamed in nested scopes:
 ok  With[{e = Expand[(1 + x)^5]}, Function[x, e]]    ==>     Function[x$, 1 + 5*x + 10*x^2 + 10*x^3 + 5*x^4 + x^5] # skip
-ok  %[10]    ==>     1 + 5*x + 10*x^2 + 10*x^3 + 5*x^4 + x^5 # skip
+ok  %[10]    ==>     1 + 5*x + 10*x^2 + 10*x^3 + 5*x^4 + x^5
+    ---
+    data:
+        got: 7776
+        expect: 1 + 5*x + 10*x^2 + 10*x^3 + 5*x^4 + x^5
+        expect_evaluated: 7776
+    ...
 # Build the function from its elements to avoid the renaming:
 ok  With[{e = Expand[(1 + x)^5]}, Function @@ {x, e}]    ==>     Function[x, 1 + 5*x + 10*x^2 + 10*x^3 + 5*x^4 + x^5] # skip
-ok  %[10]    ==>     161051 # skip
-ok  newton[Cos, 1.`20.]    ==>     1.570796326794896619`18.196119877030153 # skip
+ok  %[10]    ==>     161051
+    ---
+    data:
+        got: 161051
+        expect: 161051
+        expect_evaluated: 161051
+    ...
+# Find a zero of an arbitrary function using Newton's method:
+ok  newton[f_, x0_] := With[{fp = Derivative[1][f]}, FixedPoint[#1 - f[#1]/fp[#1] & , x0]]; newton[Cos, 1.`20.]    ==>     1.570796326794896619`18.196119877030153 # skip
 # Find a fixed point:
 ok  newton[Cos[#1] - #1 & , 1.`20.]    ==>     0.739085133215160642`17.868694466481546 # skip
-ok  letrec[{f = Function[n, If[n == 0, 1, n*f[n - 1]]]}, f[10]]    ==>     3628800 # skip
+# A version of RefLink[With,paclet:ref/With] where the initializer is within the scope of the local variable:
+ok  SetAttributes[letrec, HoldAll]; letrec[{var_ = val_}, body_] := Module[{var}, var = val; body]; letrec[{f = Function[n, If[n == 0, 1, n*f[n - 1]]]}, f[10]]    ==>     3628800
+    ---
+    data:
+        got: 3628800
+        expect: 3628800
+        expect_evaluated: 3628800
+    ...
 # Here the f inside the function definition is not inside its own scope:
 ok  With[{f = Function[n, If[n == 0, 1, n*f[n - 1]]]}, f[10]]    ==>     10*f[9]
     ---
     data:
-        got: 10*f[9]
+        got: 10 f[9]
         expect: 10*f[9]
-        expect_evaluated: 10*f[9]
+        expect_evaluated: 10 f[9]
     ...

@@ -1,4 +1,16 @@
 #! DOCKER > wolfram -script output/Tests/Increment_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Increment, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[a], 3]]]]
+#! TextForm[ColonForm[MessageName[PreIncrement, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[b], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, shape], StringForm[Lists `1` and `2` are not the same shape., Short[HoldForm[{a, b}], 3], Short[HoldForm[Span[{1, 1}, {a++, ++b}]], 3]]]]
+#! TextForm[ColonForm[MessageName[Increment, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[a], 3]]]]
+#! TextForm[ColonForm[MessageName[PreIncrement, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[b], 3]]]]
+#! TextForm[ColonForm[MessageName[Decrement, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[c], 3]]]]
+#! TextForm[ColonForm[MessageName[PreDecrement, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[d], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, shape], StringForm[Lists `1` and `2` are not the same shape., Short[HoldForm[{a, b, c, d}], 3], Short[HoldForm[Span[{1, 1, 1, 1}, {a++, ++b, c--, --d}]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Increment_Tests
 # Increment the value by one, and return the old value:
@@ -55,7 +67,8 @@ ok  i = 1; While[Prime[i] < 10^6, i++]; i    ==>     78499
         expect: 78499
         expect_evaluated: 78499
     ...
-ok  {a++, ++b}    ==>     {1, 2} # skip
+# RefLink[Increment,paclet:ref/Increment] and RefLink[PreIncrement,paclet:ref/PreIncrement] differ only in the return value of the operation:
+ok  {a, b} = {1, 1} ;; {a++, ++b}    ==>     {1, 2} # skip
 ok  {a, b}    ==>     {2, 2} # skip
 # RefLink[Increment,paclet:ref/Increment] is a short form of this assignment:
 ok  k = 1; k = k + 1    ==>     2
@@ -73,7 +86,8 @@ ok  k = 1; k += 1    ==>     2
         expect: 2
         expect_evaluated: 2
     ...
-ok  {a++, ++b, c--, --d}    ==>     {1, 2, 1, 0} # skip
+# RefLink[Decrement,paclet:ref/Decrement] and RefLink[PreDecrement,paclet:ref/PreDecrement] are closely related operations:
+ok  {a, b, c, d} = {1, 1, 1, 1} ;; {a++, ++b, c--, --d}    ==>     {1, 2, 1, 0} # skip
 ok  {a, b, c, d}    ==>     {2, 2, 0, 0} # skip
 # A variable to be incremented must have an initial value:
 ok  x++    ==>     x++ # skip

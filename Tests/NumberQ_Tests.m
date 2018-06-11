@@ -24,8 +24,9 @@ RefLink[NumberQ,paclet:ref/NumberQ][RefLink[Underflow,paclet:ref/Underflow][]\
   {True, True}], TapComment[
   "They are both treated as RefLink[Real,paclet:ref/Real]:"], 
  TapTestSame[{Head[o], Head[u]}, {Real, Real}], 
- TapTestSameBROKEN[MatrixQ[m, NumberQ], True], 
- TapComment["It does not evaluate with a symbolic argument:"], 
+ TapComment["Test if a matrix consists entirely of numbers:"], 
+ TapTestSameBROKEN[m = {{1, 2/3}, {4., 5 + 6*I}} ;; MatrixQ[m, NumberQ], 
+  True], TapComment["It does not evaluate with a symbolic argument:"], 
  TapTestSame[f[xp0], f[xp0]], 
  TapComment["It does evaluate when the argument is a number:"], 
  TapTestSameBROKEN[HoldComplete[Plot[f[xp0], {xp0, 0, 2}]], $Failed], 

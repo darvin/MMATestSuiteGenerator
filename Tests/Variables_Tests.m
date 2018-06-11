@@ -12,8 +12,11 @@ TapSuite[TapComment["Find a list of variables of a polynomial:"],
  TapTestSame[Variables[Sqrt[x + y - z^2] + (-2*t)^(2/3)], {t, x, y, z}], 
  TapComment["Find variables present after reducing coefficients modulo 2:"], 
  TapTestSame[Variables[x + 2*y + 3*z, Modulus -> 2], {x, z}], 
- TapTestSameBROKEN[CoefficientList[f, Variables[f]], 
-  {{6, 5, 3}, {4, -2, 0}, {1, 0, 0}}], TapComment["RefLink[Variables,paclet:r\
-ef/Variables] looks for variables only inside sums, products, and rational \
-powers:"], TapTestSame[Variables[Sin[x] + Cos[x]], {Cos[x], Sin[x]}], 
+ TapComment["Use RefLink[CoefficientList,paclet:ref/CoefficientList] to find \
+coefficients of polynomials:"], TapTestSameBROKEN[
+  f = x^2 - 2*x*y + 3*y^2 + 4*x + 5*y + 6 ;; CoefficientList[f, 
+     Variables[f]], {{6, 5, 3}, {4, -2, 0}, {1, 0, 0}}], 
+ TapComment["RefLink[Variables,paclet:ref/Variables] looks for variables only \
+inside sums, products, and rational powers:"], 
+ TapTestSame[Variables[Sin[x] + Cos[x]], {Cos[x], Sin[x]}], 
  TapTestSame[Variables[E^x], {}]]

@@ -1,4 +1,10 @@
 #! DOCKER > wolfram -script output/Tests/Attributes_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Attributes, attnf], StringForm[`1` is not a known attribute., Short[HoldForm[Span[HoldAll, {{HoldAll, Listable, Protected}, {}}]], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Span], 3], Short[HoldForm[Span[Listable, {HoldAll, Listable, Protected}]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Attributes_Tests
 # Attributes for an existing symbol: 
@@ -48,10 +54,13 @@ ok  Attributes["Set"]    ==>     {HoldFirst, Protected, SequenceHold}
         expect: {HoldFirst, Protected, SequenceHold}
         expect_evaluated: {HoldFirst, Protected, SequenceHold}
     ...
-ok  Attributes[{f, g}]    ==>     {{HoldAll, Listable}, {HoldAll}} # skip
-ok  Attributes[f] = {Listable}    ==>     Attributes[f] = {Listable} # skip
-ok  Attributes[f]    ==>     {Protected} # skip
-ok  Attributes[f]    ==>     {} # skip
+# RefLink[SetAttributes,paclet:ref/SetAttributes] adds to the already existing attributes; RefLink[Attributes,paclet:ref/Attributes][g]={..} resets the list:
+ok  SetAttributes[f, HoldAll]; Attributes[g] = HoldAll ;; Attributes[{f, g}]    ==>     {{HoldAll, Listable}, {HoldAll}} # skip
+# An assignment to RefLink[Attributes,paclet:ref/Attributes] is associated with f, not with RefLink[Attributes,paclet:ref/Attributes]:
+ok  Attributes[f] = Listable ;; Attributes[f] = {Listable}    ==>     Attributes[f] = {Listable} # skip
+# Protecting a symbol is equivalent to setting the RefLink[Protected,paclet:ref/Protected] attribute:
+ok  Protect[f] ;; Attributes[f]    ==>     {Protected} # skip
+ok  Unprotect[f] ;; Attributes[f]    ==>     {} # skip
 # RefLink[Attributes,paclet:ref/Attributes] has the attribute RefLink[HoldAll,paclet:ref/HoldAll]:
 ok  Attributes[Attributes]    ==>     {HoldAll, Listable, Protected}
     ---

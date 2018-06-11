@@ -1,15 +1,19 @@
 #! DOCKER > wolfram -script output/Tests/Identity_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Identity_Tests
-ok  Identity[x + y]    ==>     x + y
+ok  $Failed    ==>     HoldComplete[x + y] # skip
+# Plot a collection of functions together with the y=x line:
+not ok  HoldComplete[Plot[Evaluate[Through[{Identity, Exp, Log}[x]]], {x, -2, 2}, AspectRatio -> Automatic, PlotRange -> 2]]    ==>     $Failed
     ---
     data:
-        got: x + y
-        expect: x + y
-        expect_evaluated: x + y
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
     ...
-# Plot a collection of functions together with the y=x line:
-ok  HoldComplete[Plot[Evaluate[Through[{Identity, Exp, Log}[x]]], {x, -2, 2}, AspectRatio -> Automatic, PlotRange -> 2]]    ==>     $Failed # skip
 # RefLink[Identity,paclet:ref/Identity] is removed from functional composition:
 ok  Composition[f, g, Identity, h, Identity]    ==>     Composition[f, g, h]
     ---

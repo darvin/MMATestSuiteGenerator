@@ -1,7 +1,8 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSameBROKEN[Unique["x"], x1], TapTestSameBROKEN[Unique[sym], 
-  sym$149], TapComment["Create a unique symbol with no particular name:"], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[x1]], 
+ TapTestSameBROKEN[Unique[sym], sym$149], 
+ TapComment["Create a unique symbol with no particular name:"], 
  TapTestSameBROKEN[Unique[], $1], 
  TapComment["Create a unique symbol whose name begins with x:"], 
  TapTestSameBROKEN[Unique["x"], x1], 

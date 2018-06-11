@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/While_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 #! 8
 #! 4
 #! 2
@@ -20,7 +24,14 @@ ok  n = 1; While[n < 4, n++]; n    ==>     4
         expect: 4
         expect_evaluated: 4
     ...
-ok  n    ==>     11 # skip
+# RefLink[Break,paclet:ref/Break] breaks out of the RefLink[While,paclet:ref/While]:
+ok  n = 1; While[True, If[n > 10, Break[]]; n++]; n    ==>     11
+    ---
+    data:
+        got: 11
+        expect: 11
+        expect_evaluated: 11
+    ...
 # Compute the GCD of two numbers:
 ok  {a, b} = {27, 6}; While[b != 0, {a, b} = {b, Mod[a, b]}]; a    ==>     3
     ---
@@ -30,9 +41,21 @@ ok  {a, b} = {27, 6}; While[b != 0, {a, b} = {b, Mod[a, b]}]; a    ==>     3
         expect_evaluated: 3
     ...
 # Count the number of iterations in a fixed-point calculation:
-ok  x = 1.; i = 0; While[Cos[x] != x, x = Cos[x]; i++]; {x, i}    ==>     {0.739085, 80} # skip
+ok  x = 1.; i = 0; While[Cos[x] != x, x = Cos[x]; i++]; {x, i}    ==>     {0.739085, 80}
+    ---
+    data:
+        got: {0.739085, 80}
+        expect: {0.739085, 80}
+        expect_evaluated: {0.739085, 80}
+    ...
 # RefLink[While,paclet:ref/While] returns RefLink[Null,paclet:ref/Null]:
-ok  FullForm[n = 1; While[n < 5, n++]]    ==>     Null # skip
+ok  FullForm[n = 1; While[n < 5, n++]]    ==>     Null
+    ---
+    data:
+        got: Null
+        expect: Null
+        expect_evaluated: Null
+    ...
 # Use RefLink[Print,paclet:ref/Print] to see the iterations:
 ok  n = 17; While[(n = Floor[n/2]) != 0, Print[n]]; n    ==>     0
     ---
@@ -42,7 +65,13 @@ ok  n = 17; While[(n = Floor[n/2]) != 0, Print[n]]; n    ==>     0
         expect_evaluated: 0
     ...
 # RefLink[Do,paclet:ref/Do] iterates a fixed number of times:
-ok  x = 1.; Do[x = (x + 2/x)/2, {5}]; x    ==>     1.41421 # skip
+ok  x = 1.; Do[x = (x + 2/x)/2, {5}]; x    ==>     1.41421
+    ---
+    data:
+        got: 1.41421
+        expect: 1.41421
+        expect_evaluated: 1.41421
+    ...
 # RefLink[NestWhile,paclet:ref/NestWhile] is a functional form of RefLink[While,paclet:ref/While]:
 ok  NestWhile[Floor[#1/2] & , 10, #1 > 0 & ]    ==>     0
     ---

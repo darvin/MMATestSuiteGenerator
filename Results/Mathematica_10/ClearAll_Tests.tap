@@ -1,26 +1,74 @@
 #! DOCKER > wolfram -script output/Tests/ClearAll_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[SetDelayed, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Times], 3], Short[HoldForm[{Listable}*(x_)^2], 3]]]]
+#! TextForm[ColonForm[MessageName[Attributes, attnf], StringForm[`1` is not a known attribute., Short[HoldForm[$Failed], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Times], 3], Short[HoldForm[0*{opt1 -> def1, opt2 -> def2}], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: ClearAll_Tests
-ok  Default[f] = {opt1 -> def1, opt2 -> def2}    ==>     Attributes[f] = {Listable}*f[x_] := x^2 # skip
-ok  Default[f] = {opt1 -> def1, opt2 -> def2}    ==>     Null # skip
-ok  x    ==>     x
+# Define values and attributes for a symbol: 
+ok  SetAttributes[f, Listable]; f[x_] := x^2;     ==>     Attributes[f] = {Listable}*f[x_] := x^2 # skip
+# Clear values and attributes: 
+ok  ClearAll[f];     ==>     Null
     ---
     data:
-        got: x
-        expect: x
-        expect_evaluated: x
+        got: Null
+        expect: Null
+        expect_evaluated: Null
     ...
-ok  fact[n_] := n*fact[n - 1]    ==>     Null # skip
-ok  f[a]    ==>     f[a]
+# Clear values of variables:
+ok  x = 5 ;; ClearAll[x]; x    ==>     x
+    ---
+    data:
+        got: 5 ;; Null
+        expect: x
+        expect_evaluated: 5 ;; Null
+    ...
+# Clear functions (downvalues):
+ok  fact[1] = 1; fact[n_] := n*fact[n - 1]; ClearAll[fact];     ==>     Null
+    ---
+    data:
+        got: Null
+        expect: Null
+        expect_evaluated: Null
+    ...
+# Clear several symbols:
+ok  a = 5; f[x_] := x^3; ClearAll[a, f]; f[a]    ==>     f[a]
     ---
     data:
         got: f[a]
         expect: f[a]
         expect_evaluated: f[a]
     ...
-ok  {x1, x2, y}    ==>     {x1, x2, 5} # skip
-ok  fib[5]    ==>     5 # skip
-ok  Default[f] = {opt1 -> def1, opt2 -> def2}    ==>     Default[f] = 0*Options[f] = {opt1 -> def1, opt2 -> def2} # skip
-ok  Default[f] = {opt1 -> def1, opt2 -> def2}    ==>     Null # skip
-ok  fact[n_] := n*fact[n - 1]    ==>     fact[n_] := n*fact[n - 1] # skip
-ok  fact[n_] := n*fact[n - 1]    ==>     Null # skip
+# Specify symbols to clear as string patterns:
+ok  x1 = 1; x2 = 3; y = 5 ;; ClearAll["x*"]; {x1, x2, y}    ==>     {x1, x2, 5} # skip
+# Clear any old definitions before making new ones:
+ok  ClearAll[fib]; fib[1] = fib[2] = 1; fib[n_] := fib[n] = fib[n - 1] + fib[n - 2]; fib[5]    ==>     5
+    ---
+    data:
+        got: 5
+        expect: 5
+        expect_evaluated: 5
+    ...
+# RefLink[Clear,paclet:ref/Clear] does not remove defaults, options, or attributes: 
+ok  Default[f] = 0; Options[f] = {opt1 -> def1, opt2 -> def2}; f[x_] := x^2; Clear[f];     ==>     Default[f] = 0*Options[f] = {opt1 -> def1, opt2 -> def2} # skip
+# Use RefLink[ClearAll,paclet:ref/ClearAll] to clear everything:
+ok  ClearAll[f];     ==>     Null
+    ---
+    data:
+        got: Null
+        expect: Null
+        expect_evaluated: Null
+    ...
+# Use =. to clear definitions with a particular left-hand side:
+ok  fact[1] = 1; fact[n_] := n*fact[n - 1]; fact[1] =. ;     ==>     fact[n_] := n*fact[n - 1] # skip
+# Clear all definitions:
+ok  ClearAll[fact];     ==>     Null
+    ---
+    data:
+        got: Null
+        expect: Null
+        expect_evaluated: Null
+    ...

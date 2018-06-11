@@ -1,4 +1,9 @@
 #! DOCKER > wolfram -script output/Tests/Slot_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Function, slot], StringForm[`1` (in `2`) should contain a non-negative integer., Short[HoldForm[Slot[z]], 3], Short[HoldForm[Slot[z] & ], 3]]]]
 #! TextForm[ColonForm[MessageName[Function, slotn], StringForm[Slot number `1` in `2` cannot be filled from `3`., Short[HoldForm[4], 3], Short[HoldForm[f[#4] & ], 3], Short[HoldForm[(f[#4] & )[a, b, c]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Slot_Tests
@@ -72,7 +77,13 @@ ok  Evaluate[f @@ Array[Slot, 5]] &     ==>     f[#1, #2, #3, #4, #5] &
         expect: f[#1, #2, #3, #4, #5] & 
         expect_evaluated: f[#1, #2, #3, #4, #5] & 
     ...
-ok  % @@ Range[10]    ==>     f[1, 2, 3, 4, 5] # skip
+ok  % @@ Range[10]    ==>     f[1, 2, 3, 4, 5]
+    ---
+    data:
+        got: f[1, 2, 3, 4, 5]
+        expect: f[1, 2, 3, 4, 5]
+        expect_evaluated: f[1, 2, 3, 4, 5]
+    ...
 # # allows function arguments to be referenced without giving them names:
 ok  Function[u, 1 + u][x]    ==>     1 + x
     ---
@@ -193,9 +204,9 @@ ok  InputForm[#1*name]    ==>     name*#1 # skip
 ok  f = If[#1 == 1, 1, #1*#0[#1 - 1]] &     ==>     If[#1 == 1, 1, #1*#0[#1 - 1]] & 
     ---
     data:
-        got: If[#1 == 1, 1, #1*#0[#1 - 1]] & 
+        got: If[#1 == 1, 1, #1 #0[#1 - 1]] & 
         expect: If[#1 == 1, 1, #1*#0[#1 - 1]] & 
-        expect_evaluated: If[#1 == 1, 1, #1*#0[#1 - 1]] & 
+        expect_evaluated: If[#1 == 1, 1, #1 #0[#1 - 1]] & 
     ...
 ok  f[10]    ==>     3628800
     ---

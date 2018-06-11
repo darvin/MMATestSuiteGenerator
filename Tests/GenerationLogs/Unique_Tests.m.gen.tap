@@ -1,8 +1,21 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Unique.nb output/Tests/Unique_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Unique.nb
 # WRITING OUTPUT TO:     output/Tests/Unique_Tests.m
-not ok  Unique["x"]    ==>     x1
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/Unique.html; Unique["x"]
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{Unique, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`http://reference.wolfram.com/language/ref/Unique.html; Unique["x"]\)
+#!                                                                                       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/Unique.html; Unique["x"]    ==>     x1
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  Unique[sym]    ==>     sym$149
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 not ok  Unique[]    ==>     $1
 not ok  Unique["x"]    ==>     x1
 not ok  Unique[x]    ==>     x$160

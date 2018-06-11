@@ -1,4 +1,11 @@
 #! DOCKER > wolfram -script output/Tests/String_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[Hold[Out[$Line - 1]]]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[$Failed]], 3]]]]
+#! TextForm[ColonForm[MessageName[FromCharacterCode, intnm], StringForm[Non-negative machine-sized integer expected at position `2` in `1`., Short[HoldForm[FromCharacterCode[Hold[Out[$Line - 1]]]], 3], Short[HoldForm[1], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: String_Tests
 # Enter a string:
@@ -26,7 +33,13 @@ ok  Head["a string"]    ==>     String
         expect_evaluated: String
     ...
 # _String matches any string, but not a symbol:
-ok  Cases[{1, 2, "ab", "cd", x, y}, _String]    ==>     {ab, cd} # skip
+ok  Cases[{1, 2, "ab", "cd", x, y}, _String]    ==>     {ab, cd}
+    ---
+    data:
+        got: {ab, cd}
+        expect: {ab, cd}
+        expect_evaluated: {ab, cd}
+    ...
 # Strings can have any expression embedded:
 ok  HoldComplete["ab \[Integral]1/xdx cd"]    ==>     $Failed # skip
 ok  FullForm[%]    ==>     "ab \[Integral]\!\(\*FractionBox[\(1\), \(x\)]\)dx cd" # skip
@@ -35,11 +48,30 @@ ok  HoldComplete["ab \!\(\*\nGraphicsBox[DiskBox[{0, 0}],\nImageSize->{34., Auto
 ok  FullForm[%]    ==>     "ab \!\(\*\nGraphicsBox[DiskBox[{0, 0}],\nImageSize->{34., Automatic}]\) cd" # skip
 # Create formatted text:
 ok  HoldComplete[Style["This is a string.", FontSize -> 25, FontFamily -> "Helvetica"]]    ==>     $Failed # skip
-ok  {f["X"], f["ABCDEF"], f[x], f[{a, b, c}]}    ==>     {X, BCDEFA, f[x], f[{a, b, c}]} # skip
+# Define a function that applies only to strings:
+ok  f[s_String] := StringJoin[RotateLeft[Characters[s]]]; {f["X"], f["ABCDEF"], f[x], f[{a, b, c}]}    ==>     {X, BCDEFA, f[x], f[{a, b, c}]}
+    ---
+    data:
+        got: {X, BCDEFA, f[x], f[{a, b, c}]}
+        expect: {X, BCDEFA, f[x], f[{a, b, c}]}
+        expect_evaluated: {X, BCDEFA, f[x], f[{a, b, c}]}
+    ...
 # Use strings as plot markers:
-ok  HoldComplete[ListPlot[{{1, 2, 3}, {3, 1, 4}}, PlotMarkers -> {"A", "B"}]]    ==>     $Failed # skip
+not ok  HoldComplete[ListPlot[{{1, 2, 3}, {3, 1, 4}}, PlotMarkers -> {"A", "B"}]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Give text in graphics:
-ok  HoldComplete[Graphics[{Text["abcde", {0, -2}], Disk[{0, 0}], Text["ABCDE", {0, 2}]}]]    ==>     $Failed # skip
+not ok  HoldComplete[Graphics[{Text["abcde", {0, -2}], Disk[{0, 0}], Text["ABCDE", {0, 2}]}]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Break a string into characters:
 ok  HoldComplete[Characters["This is a string."]]    ==>     $Failed # skip
 # Reconstruct the string:
@@ -58,9 +90,11 @@ ok  HoldComplete[FromCharacterCode[%]]    ==>     $Failed # skip
 ok  ToExpression["1+x^4"]    ==>     1 + x^4
     ---
     data:
-        got: 1 + x^4
+        got:      4
+#! 1 + x
         expect: 1 + x^4
-        expect_evaluated: 1 + x^4
+        expect_evaluated:      4
+#! 1 + x
     ...
 # RefLink[ToString,paclet:ref/ToString] creates strings, by default with RefLink[OutputForm,paclet:ref/OutputForm]:
 ok  ToString[1 + x^4]    ==>     4*1 + x # skip
@@ -101,7 +135,13 @@ ok  ToString[%, InputForm]    ==>     x -> a + b + c + d # skip
 ok  FullForm["red italic"]    ==>     "\!\(\*\nStyleBox[\"red\",\nFontColor->RGBColor[1, 0, 0]]\) \!\(\*\nStyleBox[\"italic\",\nFontSlant->\"Italic\"]\)" # skip
 ok  FullForm["ab \!\(\*\nGraphicsBox[DiskBox[{0, 0}],\nImageSize->{34., Automatic}]\) cd"]    ==>     "ab \!\(\*\nGraphicsBox[DiskBox[{0, 0}],\nImageSize->{34., Automatic}]\) cd" # skip
 # A string with special characters usually does not include the long form of the character: 
-ok  "\[Alpha]"    ==>     \[Alpha] # skip
+ok  "\[Alpha]"    ==>     \[Alpha]
+    ---
+    data:
+        got: \[Alpha]
+        expect: \[Alpha]
+        expect_evaluated: \[Alpha]
+    ...
 # Force long form names to be used: 
 ok  ToString[FullForm["\[Alpha]"]]    ==>     "\[Alpha]" # skip
 ok  ToString["\[Alpha]", InputForm, CharacterEncoding -> None]    ==>     "\[Alpha]" # skip

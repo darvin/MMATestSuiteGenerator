@@ -1,16 +1,24 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/LCM.nb output/Tests/LCM_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/LCM.nb
 # WRITING OUTPUT TO:     output/Tests/LCM_Tests.m
-ok  LCM[2,3,5]    ==>     30
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/LCM.html; LCM[2,3,5]
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{LCM, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`http://reference.wolfram.com/language/ref/LCM.html; LCM[2,3,5]\)
+#!                                                                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/LCM.html; LCM[2,3,5]    ==>     30
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
 #!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
-#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-not ok  DiscretePlot[LCM[1000,n],{n,100}]    ==>     \!\(\*
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+ok  DiscretePlot[LCM[1000,n],{n,100}]    ==>     \!\(\*
 #! GraphicsBox[GraphicsComplexBox[CompressedData["
 #! 1:eJzt17trFFEUBvBREAI2EVKkiBBDCCEuIe/348ZoNMZHshpNECxEa7eysjj4
 #! B5jGysbSThtB0MIrohIQlKAiIuILo2gkGl+dYs73XZnvb5htDr/99szembm7
@@ -44,22 +52,17 @@ not ok  DiscretePlot[LCM[1000,n],{n,100}]    ==>     \!\(\*
 #! PlotRange->{{0., 100.}, {0., 99000.}},
 #! PlotRangeClipping->True,
 #! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  LCM[2,{3,5,7}]    ==>     {6,10,14}
 ok  LCM[1/3,2/5,3/7]    ==>     6
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-not ok  %/{1/3,2/5,3/7}    ==>     {18,15,14}
+ok  %/{1/3,2/5,3/7}    ==>     {18,15,14}
 ok  LCM[3-4I,5-6I]    ==>     9+38 I
-#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{(}]]], 3], Short[HoldForm[DisplayForm[RowBox[{RowBox[{m, ,, n}], )}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`lcm(m,n)\)
-#!                             ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{(}]]], 3], Short[HoldForm[DisplayForm[RowBox[{RowBox[{m, ,, n}], )}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  LCM[m,n]//TraditionalForm    ==>     lcm(m,n)
 ok  Apply[LCM,Range[100]]    ==>     69720375229712477164533808935312303556800
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ArrayPlot[Table[LCM[m,n],{m,60},{n,60}]]    ==>     \!\(\*
+ok  ArrayPlot[Table[LCM[m,n],{m,60},{n,60}]]    ==>     \!\(\*
 #! GraphicsBox[RasterBox[CompressedData["
 #! 1:eJxtmwuQVdWVhrEft+/jHAZIDRKkHIKIBDv4CKOIyCCiEgRssQrRURTCGKKI
 #! 2LZIWkQ0FBJkkGiBIG2LqDxaRERAROWlIAIiYqmMg8rMCCEEH4lEMaKZ/7vr
@@ -210,8 +213,7 @@ not ok  ArrayPlot[Table[LCM[m,n],{m,60},{n,60}]]    ==>     \!\(\*
 ok  Table[Max[LCM@@@IntegerPartitions[n]],{n,20}]    ==>     {1,2,3,4,6,6,12,15,20,30,30,60,60,84,105,140,210,210,420,420}
 ok   FoldList[LCM,1,Range[2,10]]    ==>     {1,2,6,12,60,60,420,840,2520,2520}
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ListPlot[Log[FoldList[LCM,1,Range[2,100]]]]    ==>     \!\(\*
+ok  ListPlot[Log[FoldList[LCM,1,Range[2,100]]]]    ==>     \!\(\*
 #! GraphicsBox[
 #! {Hue[0.67, 0.6, 0.6], PointBox[CompressedData["
 #! 1:eJxdy11I01EcxvHD6kIqbUiWNKtpS3LJ0Flrc778mq6tNefenJNCy6bdFV0U
@@ -235,8 +237,7 @@ not ok  ListPlot[Log[FoldList[LCM,1,Range[2,100]]]]    ==>     \!\(\*
 #! PlotRange->Automatic,
 #! PlotRangeClipping->True]\)
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ArrayPlot[Mod[Table[LCM[Fibonacci[j],Fibonacci[k]],{j,100},{k,100}],Fibonacci[11]]]    ==>     \!\(\*
+ok  ArrayPlot[Mod[Table[LCM[Fibonacci[j],Fibonacci[k]],{j,100},{k,100}],Fibonacci[11]]]    ==>     \!\(\*
 #! GraphicsBox[RasterBox[CompressedData["
 #! 1:eJy9Wl1T28gSlcYSg1mtHZIhxmCyHoMBY+MFgscbPoyXWcAuLUaRLM08b933
 #! +//fbveMTMxHSLK7F1elUkWdGrlb3adPnzH/67/xX8RxnP/k/ziXnHvpqeJ6
@@ -331,31 +332,37 @@ not ok  ArrayPlot[Mod[Table[LCM[Fibonacci[j],Fibonacci[k]],{j,100},{k,100}],Fibo
 #! ImageMargins->0.]\)
 ok  Table[LCM@@Binomial[n, Range[0,n]],{n,0,12}]    ==>     {1,1,2,3,12,10,60,105,280,252,2520,2310,27720}
 ok  Table[1/n LCM@@Range[1,n],{n,13}]    ==>     {1,1,2,3,12,10,60,105,280,252,2520,2310,27720}
-#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[nvec[[1]]], 3]]]]
-#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[nvec[[2]]], 3]]]]
-#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[nvec[[3]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[mvec[[1]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[mvec[[2]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[mvec[[3]]], 3]]]]
 #! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Part, partd]], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{LCM, [}]]], 3], Short[HoldForm[DisplayForm[RowBox[{2^nvec[[1]]*3^nvec[[2]]*5^nvec[[3]]*7^nvec[[4]]*11^nvec[[5]], ,, 2^mvec[[1]]*3^mvec[[2]]*5^mvec[[3]]*7^mvec[[4]]*11^mvec[[5]], ]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{LCM, [}]]], 3], Short[HoldForm[DisplayForm[RowBox[{2^nvec[[1]]*3^nvec[[2]]*5^nvec[[3]]*7^nvec[[4]]*11^nvec[[5]], ,, 2^mvec[[1]]*3^mvec[[2]]*5^mvec[[3]]*7^mvec[[4]]*11^mvec[[5]], ]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  LCM[\!\(
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$RecursionLimit, reclim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{LCM, [, 870037764750, ,}]]], 3], Short[HoldForm[DisplayForm[RowBox[{2310^Hold[Span[{5, 4, 3, 2, 1}, LCM[870037764750, 2^mvec[[1]]*3^mvec[[2]]*5^mvec[[3]]*7^mvec[[4]]*11^mvec[[5]]]]], ]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  nvec={1,2,3,4,5};
+#! mvec={5,4,3,2,1};; LCM[\!\(
 #! \*SubsuperscriptBox[\(\[Product]\), \(i = 1\), \(5\)]
 #! \*SuperscriptBox[\(Prime[i]\), \(nvec[[i]]\)]\),\!\(
 #! \*SubsuperscriptBox[\(\[Product]\), \(i = 1\), \(5\)]
 #! \*SuperscriptBox[\(Prime[i]\), \(mvec[[i]]\)]\)]==\!\(
 #! \*SubsuperscriptBox[\(\[Product]\), \(i = 1\), \(5\)]
 #! \*SuperscriptBox[\(Prime[i]\), \(Max[nvec[[i]], mvec[[i]]]\)]\)    ==>     True
-ok  LCM[a,LCM[b,c]]==LCM[LCM[a,b],c]    ==>     True
-ok  LCM[a,b]==LCM[b,a]    ==>     True
-not ok  LCM[a]==a    ==>     True
+#! TextForm[ColonForm[MessageName[Set, shape], StringForm[Lists `1` and `2` are not the same shape., Short[HoldForm[{a, b, c}], 3], Short[HoldForm[Span[{1449725214, 8993243731, 1723993798}, LCM[a, b, c]] == LCM[a, b, c]], 3]]]]
+not ok  {a,b,c}=RandomInteger[10^10,3];; LCM[a,LCM[b,c]]==LCM[LCM[a,b],c]    ==>     True
+#! TextForm[ColonForm[MessageName[Set, shape], StringForm[Lists `1` and `2` are not the same shape., Short[HoldForm[{a, b}], 3], Short[HoldForm[Span[{2516038573, 5493921996}, LCM[a, b]] == LCM[a, b]], 3]]]]
+not ok  {a,b}=RandomInteger[10^10,2];; LCM[a,b]==LCM[b,a]    ==>     True
+not ok  a=RandomInteger[10^10];; LCM[a]==a    ==>     True
 ok  Sum[LCM[3,k], {k,100}]    ==>     11784
 ok  FullSimplify[LCM[a,a b],{a,b}\[Element]Integers&&a>0&&b>0]    ==>     a b
 ok  FullSimplify[LCM[m,n]GCD[m,n],{m,n}\[Element]Integers&&m>0&&n>0]    ==>     m n
-ok  Reduce[LCM[a,3]<6 && -10<a<10,a,Integers]    ==>     a==-3||a==-1||a==0||a==1||a==3
+#! TextForm[ColonForm[MessageName[Reduce, naqs], StringForm[`1` is not a quantified system of equations and inequalities., Short[HoldForm[Hold[Span[8875439418, LCM[a]]] && Hold[Span[8875439418, LCM[a]]]], 3]]]]
+not ok  Reduce[LCM[a,3]<6 && -10<a<10,a,Integers]    ==>     a==-3||a==-1||a==0||a==1||a==3
 ok  LCM[-3,7]    ==>     21
 #! TextForm[ColonForm[MessageName[LCM, exact], StringForm[Argument `1` in `2` is not an exact number., Short[HoldForm[2.], 3], Short[HoldForm[LCM[2., 3]], 3]]]]
 #! TextForm[ColonForm[MessageName[LCM, exact], StringForm[Argument `1` in `2` is not an exact number., Short[HoldForm[2.], 3], Short[HoldForm[LCM[2., 3]], 3]]]]
 ok  LCM[2.,3]    ==>     LCM[2.,3]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  ArrayPlot[Arg[Fourier[Table[LCM[m,n],{m,100},{n,100}]]]]    ==>     \!\(\*
 #! GraphicsBox[
@@ -795,8 +802,7 @@ not ok  ArrayPlot[Arg[Fourier[Table[LCM[m,n],{m,100},{n,100}]]]]    ==>     \!\(
 #! ImageSizeRaw->{182, 182},
 #! PlotRange->{{0, 182}, {0, 182}}]\)
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ListPlot[{#,LCM[1,#]}&/@ Union[Flatten[Table[i/j,{j,40},{i,2j}]]]]    ==>     \!\(\*
+ok  ListPlot[{#,LCM[1,#]}&/@ Union[Flatten[Table[i/j,{j,40},{i,2j}]]]]    ==>     \!\(\*
 #! GraphicsBox[
 #! {Hue[0.67, 0.6, 0.6], PointBox[CompressedData["
 #! 1:eJxdWgmQVtWZpWaqFDMuoK1hkCggIcggYWkaaBq4vQPd0N1QU3ELRpNMdDRi

@@ -1,4 +1,12 @@
 #! DOCKER > wolfram -script output/Tests/Sequence_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[ReleaseHold, argx], StringForm[`1` called with `2` arguments; 1 argument is expected., Short[HoldForm[ReleaseHold], 3], Short[HoldForm[3], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[ReleaseHold, argx], StringForm[`1` called with `2` arguments; 1 argument is expected., Short[HoldForm[ReleaseHold], 3], Short[HoldForm[3], 3]]]]
+#! TextForm[ColonForm[MessageName[ReleaseHold, argx], StringForm[`1` called with `2` arguments; 1 argument is expected., Short[HoldForm[ReleaseHold], 3], Short[HoldForm[3], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ReleaseHold, argx]], 3]]]]
 #! TextForm[ColonForm[MessageName[Head, argx], StringForm[`1` called with `2` arguments; 1 argument is expected., Short[HoldForm[Head], 3], Short[HoldForm[2], 3]]]]
 #! TextForm[ColonForm[MessageName[Head, argx], StringForm[`1` called with `2` arguments; 1 argument is expected., Short[HoldForm[Head], 3], Short[HoldForm[2], 3]]]]
 # SYSTEM: Mathematica_10
@@ -20,10 +28,10 @@ ok  {u, u, u} /. u -> Sequence[a, b, c]    ==>     {a, b, c, a, b, c, a, b, c}
         expect_evaluated: {a, b, c, a, b, c, a, b, c}
     ...
 ok  u = Sequence[a, b, c]    ==>     Sequence[a, b, c] # skip
-not ok  {u, u, u}    ==>     {a, b, c, a, b, c, a, b, c}
+ok  {u, u, u}    ==>     {a, b, c, a, b, c, a, b, c}
     ---
     data:
-        got: {u, u, u}
+        got: {a, b, c, a, b, c, a, b, c}
         expect: {a, b, c, a, b, c, a, b, c}
         expect_evaluated: {a, b, c, a, b, c, a, b, c}
     ...
@@ -59,7 +67,7 @@ ok  Head[Sequence[a, b]]    ==>     Head[a, b]
 ok  u -> Sequence[a, b]    ==>     u -> Sequence[a, b]
     ---
     data:
-        got: u -> Sequence[a, b]
+        got: Sequence[a, b, c] -> Sequence[a, b]
         expect: u -> Sequence[a, b]
-        expect_evaluated: u -> Sequence[a, b]
+        expect_evaluated: Sequence[a, b, c] -> Sequence[a, b]
     ...

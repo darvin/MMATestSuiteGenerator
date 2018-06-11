@@ -1,11 +1,16 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/AllTrue.nb output/Tests/AllTrue_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/AllTrue.nb
 # WRITING OUTPUT TO:     output/Tests/AllTrue_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  AllTrue[{2,3,4,6,8}, EvenQ]    ==>     False
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  AllTrue[{2,4,6,8}, EvenQ]    ==>     True
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 not ok   AllTrue[<|"a"->1,"b"->3,"c"->5|>,OddQ]    ==>     True
 not ok  AllTrue[{2,6,x,4,y},#<10&]    ==>     x<10&&y<10
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  %/.{x->3,y->7}    ==>     True
 not ok  AllTrue[{2,6,x,4,y,15},#<10&]    ==>     False
 not ok  AllTrue[{2,6,x,4,y},TrueQ[#<10]&]    ==>     False
@@ -15,7 +20,7 @@ not ok  AllTrue[3,EvenQ]    ==>     True
 not ok  AllTrue[{},EvenQ]    ==>     True
 not ok  AllTrue[{x,y,z},Composition[TrueQ,f]]    ==>     False
 not ok  LogicalExpand/@{AllTrue[{x,y,z},f],NoneTrue[{x,y,z},!f[#]&]}    ==>     {f[x]&&f[y]&&f[z],f[x]&&f[y]&&f[z]}
-not ok  AllTrue[Range[10],IntegerQ]
+ok  AllTrue[Range[10],IntegerQ]
 #! VectorQ[Range[10],IntegerQ]    ==>     True
 not ok  AllTrue[{x,y,z},#<10&]
 #! VectorQ[{x,y,z},#<10&]    ==>     x<10&&y<10&&z<10

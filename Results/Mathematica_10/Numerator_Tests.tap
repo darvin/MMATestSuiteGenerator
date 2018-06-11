@@ -1,4 +1,9 @@
 #! DOCKER > wolfram -script output/Tests/Numerator_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Span], 3], Short[HoldForm[Span[(5*a^b*(-1 + x)^2)/(7*c^d*(-2 + x)^3), num]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Numerator_Tests
 # Extract the numerator of a rational number:
@@ -13,9 +18,9 @@ ok  Numerator[2/3]    ==>     2
 ok  Numerator[(x - 1)*((x - 2)/(x - 3)^2)]    ==>     (-2 + x)*(-1 + x)
     ---
     data:
-        got: (-2 + x)*(-1 + x)
+        got: (-2 + x) (-1 + x)
         expect: (-2 + x)*(-1 + x)
-        expect_evaluated: (-2 + x)*(-1 + x)
+        expect_evaluated: (-2 + x) (-1 + x)
     ...
 # Rational numbers:
 ok  Numerator[3/7]    ==>     3
@@ -29,24 +34,36 @@ ok  Numerator[3/7]    ==>     3
 ok  Numerator[(x - 1)^2/((x - 2)*(x - 3))]    ==>     (-1 + x)^2
     ---
     data:
-        got: (-1 + x)^2
+        got:         2
+#! (-1 + x)
         expect: (-1 + x)^2
-        expect_evaluated: (-1 + x)^2
+        expect_evaluated:         2
+#! (-1 + x)
     ...
 # Select terms without syntactically negative exponents:
 ok  expr = (a*x^n*Exp[a - b - 2*c + 3*d])/y^m    ==>     (a*E^(a - b - 2*c + 3*d)*x^n)/y^m
     ---
     data:
-        got: (a*E^(a - b - 2*c + 3*d)*x^n)/y^m
+        got:    a - b - 2 c + 3 d  n
+#! a E                  x
+#! -----------------------
+#!            m
+#!           y
         expect: (a*E^(a - b - 2*c + 3*d)*x^n)/y^m
-        expect_evaluated: (a*E^(a - b - 2*c + 3*d)*x^n)/y^m
+        expect_evaluated:    a - b - 2 c + 3 d  n
+#! a E                  x
+#! -----------------------
+#!            m
+#!           y
     ...
 ok  Numerator[expr]    ==>     a*E^(a + 3*d)*x^n
     ---
     data:
-        got: a*E^(a + 3*d)*x^n
+        got:    a + 3 d  n
+#! a E        x
         expect: a*E^(a + 3*d)*x^n
-        expect_evaluated: a*E^(a + 3*d)*x^n
+        expect_evaluated:    a + 3 d  n
+#! a E        x
     ...
 # All exponents syntactically negative:
 ok  Numerator[1/(a^b*x)]    ==>     1
@@ -60,9 +77,11 @@ ok  Numerator[1/(a^b*x)]    ==>     1
 ok  Numerator[2*x^y*b^2]    ==>     2*b^2*x^y
     ---
     data:
-        got: 2*b^2*x^y
+        got:    2  y
+#! 2 b  x
         expect: 2*b^2*x^y
-        expect_evaluated: 2*b^2*x^y
+        expect_evaluated:    2  y
+#! 2 b  x
     ...
 # RefLink[Numerator,paclet:ref/Numerator] automatically threads over lists:
 ok  Numerator[{1, 2, 3, 4, 5, 6}/3]    ==>     {1, 2, 1, 4, 5, 2}
@@ -76,9 +95,9 @@ ok  Numerator[{1, 2, 3, 4, 5, 6}/3]    ==>     {1, 2, 1, 4, 5, 2}
 ok  Numerator[((1/3)*x + (3/4)*y)/((3/5)*x - (1/2)*y), Modulus -> 7]    ==>     5*x + 6*y
     ---
     data:
-        got: 5*x + 6*y
+        got: 5 x + 6 y
         expect: 5*x + 6*y
-        expect_evaluated: 5*x + 6*y
+        expect_evaluated: 5 x + 6 y
     ...
 # Numerators of trigonometric functions:
 ok  Numerator[{Sin[x], Cos[x], Tan[x], Csc[x], Sec[x], Cot[x]}, Trig -> True]    ==>     {Sin[x], Cos[x], Sin[x], 1, 1, Cos[x]}
@@ -92,32 +111,35 @@ ok  Numerator[{Sin[x], Cos[x], Tan[x], Csc[x], Sec[x], Cot[x]}, Trig -> True]   
 ok  Denominator[(2/3)*((x - 1)/(x - 2))]    ==>     3*(-2 + x)
     ---
     data:
-        got: 3*(-2 + x)
+        got: 3 (-2 + x)
         expect: 3*(-2 + x)
-        expect_evaluated: 3*(-2 + x)
+        expect_evaluated: 3 (-2 + x)
     ...
-ok  num = Numerator[expr]    ==>     5*a^b*(-1 + x)^2 # skip
+# An expression is a quotient of its numerator and denominator:
+ok  expr = ((5/7)*((x - 1)^2/(x - 2)^3)*a^b)/c^d ;; num = Numerator[expr]    ==>     5*a^b*(-1 + x)^2 # skip
 ok  den = Denominator[expr]    ==>     7*c^d*(-2 + x)^3 # skip
-not ok  expr === num/den    ==>     True
-    ---
-    data:
-        got: False
-        expect: True
-        expect_evaluated: True
-    ...
+ok  expr === num/den    ==>     True # skip
 # Use RefLink[Cancel,paclet:ref/Cancel] to cancel common factors between the numerator and the denominator:
 ok  Cancel[(x - 1)*((x - 2)/(x^2 - 1))]    ==>     (-2 + x)/(1 + x)
     ---
     data:
-        got: (-2 + x)/(1 + x)
+        got: -2 + x
+#! ------
+#! 1 + x
         expect: (-2 + x)/(1 + x)
-        expect_evaluated: (-2 + x)/(1 + x)
+        expect_evaluated: -2 + x
+#! ------
+#! 1 + x
     ...
 # RefLink[Together,paclet:ref/Together] writes an expression as a fraction and cancels common terms:
 ok  Together[x*((x - 2)/(x^2 - 1)) + x/(x^2 - 1) - 2/(x^2 - 1)]    ==>     (-2 + x)/(-1 + x)
     ---
     data:
-        got: (-2 + x)/(-1 + x)
+        got: -2 + x
+#! ------
+#! -1 + x
         expect: (-2 + x)/(-1 + x)
-        expect_evaluated: (-2 + x)/(-1 + x)
+        expect_evaluated: -2 + x
+#! ------
+#! -1 + x
     ...

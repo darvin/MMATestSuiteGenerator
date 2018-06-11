@@ -1,10 +1,28 @@
 #! DOCKER > wolfram -script output/Tests/PrependTo_Tests.m
-#! TextForm[ColonForm[MessageName[PrependTo, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[s], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[PrependTo, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[m], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[m[[1]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, pspec1], StringForm[Part specification `1` is invalid., Short[HoldForm[m], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, noval], StringForm[Symbol `1` in part assignment does not have an immediate value., Short[HoldForm[m], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[m[[2]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, pspec1], StringForm[Part specification `1` is invalid., Short[HoldForm[m], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, noval], StringForm[Symbol `1` in part assignment does not have an immediate value., Short[HoldForm[m], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[m[[3]]], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Part, partd]], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, pspec1], StringForm[Part specification `1` is invalid., Short[HoldForm[m], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Part, pspec1]], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, noval], StringForm[Symbol `1` in part assignment does not have an immediate value., Short[HoldForm[m], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Set, noval]], 3]]]]
 #! TextForm[ColonForm[MessageName[PrependTo, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[{1, 2}], 3]]]]
 #! TextForm[ColonForm[MessageName[PrependTo, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[{1, 2}], 3]]]]
 #! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[PrependTo, rvalue]], 3]]]]
 #! TextForm[ColonForm[MessageName[PrependTo, normal], StringForm[Nonatomic expression expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[PrependTo[k, 2]], 3]]]]
 #! TextForm[ColonForm[MessageName[PrependTo, normal], StringForm[Nonatomic expression expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[PrependTo[k, 2]], 3]]]]
+#! TextForm[ColonForm[MessageName[PrependTo, normal], StringForm[Nonatomic expression expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[PrependTo[k, 2]], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[PrependTo, normal]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: PrependTo_Tests
 # Assign l to a list:
@@ -66,10 +84,10 @@ ok  HoldComplete[s = SparseArray[{{i_, i_} -> i}, 3]]    ==>     $Failed # skip
 # Add a row to the top of the matrix:
 ok  HoldComplete[PrependTo[s, {1, 2, 3}]]    ==>     $Failed # skip
 # Prepending an element with inconsistent dimensions requires converting to ordinary lists:
-not ok  PrependTo[s, {4, 5}]    ==>     {{4, 5}, {1, 2, 3}, {1, 0, 0}, {0, 2, 0}, {0, 0, 3}}
+ok  PrependTo[s, {4, 5}]    ==>     {{4, 5}, {1, 2, 3}, {1, 0, 0}, {0, 2, 0}, {0, 0, 3}}
     ---
     data:
-        got: PrependTo[s, {4, 5}]
+        got: {{4, 5}, {1, 2, 3}, {1, 0, 0}, {0, 2, 0}, {0, 0, 3}}
         expect: {{4, 5}, {1, 2, 3}, {1, 0, 0}, {0, 2, 0}, {0, 0, 3}}
         expect_evaluated: {{4, 5}, {1, 2, 3}, {1, 0, 0}, {0, 2, 0}, {0, 0, 3}}
     ...

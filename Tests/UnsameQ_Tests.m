@@ -12,8 +12,8 @@ TapSuite[TapComment[
  TapComment["!= nevertheless treats them as equal:"], 
  TapTestSame[0. != 0, False], 
  TapComment["Test whether multiple expressions are all distinct:"], 
- TapTestSameBROKEN[(x =!= x) =!= y, False], TapTestSame[(x =!= y) =!= z, 
-  True], TapComment[
+ TapTestSame[(x =!= x) =!= y, False], TapTestSame[(x =!= y) =!= z, True], 
+ TapComment[
   "Construct the permanent analog of the totally antisymmetric tensor:"], 
  TapTestSame[Boole[Array[UnsameQ, {3, 3, 3}]], 
   {{{0, 0, 0}, {0, 0, 1}, {0, 1, 0}}, {{0, 0, 1}, {0, 0, 0}, {1, 0, 0}}, 

@@ -87,7 +87,7 @@ number is zero:"], TapTestSame[PossibleZeroQ[a - b + 10^(-100)], True],
  TapTestSame[2.00006`16. - 2.00005000000000000000000000001`16. != 1.`16.*^-5, 
   False], TapComment["Thanks to automatic-precision tracking, \
 RefLink[Unequal,paclet:ref/Unequal] knows to look only at the first 10 \
-digits:"], TapTestSameBROKEN[Precision[2.00006`16. - 
+digits:"], TapTestSame[Precision[2.00006`16. - 
     2.00005000000000000000000000001`16.], 10.3979], 
  TapComment["In this case, the unequality test for machine numbers gives the \
 expected result:"], TapTestSame[2.6 - 2.5 != 0.1, False], 

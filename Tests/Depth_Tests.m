@@ -1,7 +1,8 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[Depth[a], 1], TapTestSame[Depth[{a}], 2], 
- TapTestSame[Depth[{{{a}}}], 4], TapTestSame[Depth[{{{a}, b}}], 4], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[1]], 
+ TapTestSame[Depth[{a}], 2], TapTestSame[Depth[{{{a}}}], 4], 
+ TapTestSame[Depth[{{{a}, b}}], 4], 
  TapComment["Depth of an RefLink[Association,paclet:ref/Association]:"], 
  TapTestSame[Depth[\[LeftAssociation] 1 -> a \[RightAssociation]], 2], 
  TapTestSame[Depth[\[LeftAssociation] 1 -> {a} \[RightAssociation]], 3], 

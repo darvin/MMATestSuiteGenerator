@@ -2,8 +2,11 @@
 Import["CompatTests.m"]; 
 TapSuite[TapComment["Hold an expression to prevent evaluation:"], 
  TapTestSame[Hold[2 + 2], Hold[2 + 2]], TapComment["Release the hold:"], 
- TapTestSameBROKEN[ReleaseHold[%], 4], TapTestSameBROKEN[
-  List @@ Hold /@ list, {Hold[1 + 2], Hold[2*3*4*5], Hold[1/0], 
+ TapTestSameBROKEN[ReleaseHold[%], 4], 
+ TapComment[
+  "Find the length of each expression in a held list without evaluation:"], 
+ TapTestSameBROKEN[list = Hold[1 + 2, 2*3*4*5, 1/0, Quit[]] ;; 
+    List @@ Hold /@ list, {Hold[1 + 2], Hold[2*3*4*5], Hold[1/0], 
    Hold[Quit[]]}], TapTestSameBROKEN[% /. Hold[e_] :> Length[Unevaluated[e]], 
   {2, 4, 2, 0}], TapComment[
   "Evaluate every sum (only) inside a held expression:"], 
@@ -28,8 +31,13 @@ expression is not removed:"], TapTestSame[Hold[Unevaluated[1 + 1]],
  TapComment["Use the container RefLink[HoldComplete,paclet:ref/HoldComplete] \
 to suppress even such transformations:"], 
  TapTestSame[HoldComplete[Sequence[1 + 1, 2 + 2]], 
-  HoldComplete[Sequence[1 + 1, 2 + 2]]], TapTestSameBROKEN[Hold[h[1 + 2]], 
-  f[3]], TapTestSame[HoldComplete[h[1 + 2]], HoldComplete[h[1 + 2]]], 
+  HoldComplete[Sequence[1 + 1, 2 + 2]]], 
+ TapComment["Upvalues work inside RefLink[Hold,paclet:ref/Hold]:"], 
+ TapTestSame[h /: Hold[h[x_]] := f[x]; Hold[h[1 + 2]], f[3]], 
+ TapComment[
+  "They do not work inside RefLink[HoldComplete,paclet:ref/HoldComplete]:"], 
+ TapTestSame[h /: HoldComplete[h[x_]] := f[x]; HoldComplete[h[1 + 2]], 
+  HoldComplete[h[1 + 2]]], 
  TapComment["Substitution works inside RefLink[Hold,paclet:ref/Hold]:"], 
  TapTestSame[Hold[f[1 + 2]] /. f[x_] :> g[x], Hold[g[1 + 2]]], 
  TapComment["Insert into a held expression:"], 

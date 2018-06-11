@@ -1,8 +1,16 @@
 #! DOCKER > wolfram -script output/Tests/Get_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, noopen], StringForm[Cannot open `1`., Short[HoldForm[ExampleData/language], 3]]]]
+#! TextForm[ColonForm[MessageName[Get, noopen], StringForm[Cannot open `1`., Short[HoldForm[ExampleData/language], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Get, noopen], StringForm[Cannot open `1`., Short[HoldForm[ExampleData/language], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Get_Tests
 # This has set up definitions for several symbols in the EquationTrekker` context:
 ok  Names["EquationTrekker`*"]    ==>     {DifferentialEquationTrek, EquationTrekker, EquationTrekkerNonModal, EquationTrekkerState, InitializeGenerator, PoincareSection, TrekData, TrekGenerator, TrekParameters} # skip
-ok  << "ExampleData/language"    ==>     22*a*b + 56*c + 13*a*d # skip
+# Get Wolfram Language input from a file:
+ok  FilePrint["ExampleData/language"]; << "ExampleData/language"    ==>     22*a*b + 56*c + 13*a*d # skip
 # The input is evaluated:
 ok  Block[{a = 1, b = 2, c = 3, d = 4}, << "ExampleData/language"]    ==>     264 # skip

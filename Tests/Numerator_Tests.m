@@ -25,11 +25,14 @@ TapSuite[TapComment["Extract the numerator of a rational number:"],
    Trig -> True], {Sin[x], Cos[x], Sin[x], 1, 1, Cos[x]}], 
  TapComment["RefLink[Denominator,paclet:ref/Denominator] gives the terms with \
 negative exponents:"], TapTestSame[Denominator[(2/3)*((x - 1)/(x - 2))], 
-  3*(-2 + x)], TapTestSameBROKEN[num = Numerator[expr], 5*a^b*(-1 + x)^2], 
- TapTestSameBROKEN[den = Denominator[expr], 7*c^d*(-2 + x)^3], 
- TapTestSame[expr === num/den, True], TapComment["Use \
-RefLink[Cancel,paclet:ref/Cancel] to cancel common factors between the \
-numerator and the denominator:"], 
+  3*(-2 + x)], TapComment[
+  "An expression is a quotient of its numerator and denominator:"], 
+ TapTestSameBROKEN[expr = ((5/7)*((x - 1)^2/(x - 2)^3)*a^b)/c^d ;; num = 
+    Numerator[expr], 5*a^b*(-1 + x)^2], TapTestSameBROKEN[
+  den = Denominator[expr], 7*c^d*(-2 + x)^3], 
+ TapTestSameBROKEN[expr === num/den, True], 
+ TapComment["Use RefLink[Cancel,paclet:ref/Cancel] to cancel common factors \
+between the numerator and the denominator:"], 
  TapTestSame[Cancel[(x - 1)*((x - 2)/(x^2 - 1))], (-2 + x)/(1 + x)], 
  TapComment["RefLink[Together,paclet:ref/Together] writes an expression as a \
 fraction and cancels common terms:"], 

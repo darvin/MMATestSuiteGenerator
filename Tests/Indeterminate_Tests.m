@@ -6,11 +6,14 @@ returned when a value cannot be unambiguously defined:"],
 RefLink[Indeterminate,paclet:ref/Indeterminate] also gives \
 RefLink[Indeterminate,paclet:ref/Indeterminate]:"], 
  TapTestSame[Sin[Indeterminate], Indeterminate], 
- TapTestSameBROKEN[f[Indeterminate], Indeterminate], 
- TapComment["Negative precision/accuracy can yield \
+ TapComment["RefLink[Indeterminate,paclet:ref/Indeterminate] \"takes over\" \
+any function with attribute \
+RefLink[NumericFunction,paclet:ref/NumericFunction]:"], 
+ TapTestSame[SetAttributes[f, NumericFunction]; f[Indeterminate], 
+  Indeterminate], TapComment["Negative precision/accuracy can yield \
 RefLink[Indeterminate,paclet:ref/Indeterminate]:"], 
- TapTestSame[SetAccuracy[2, -1], 0.], TapTestSameBROKEN[%/%, Indeterminate], 
- TapComment["Infinity in an unknown direction:"], 
+ TapTestSameBROKEN[SetAccuracy[2, -1], 0.], TapTestSameBROKEN[%/%, 
+  Indeterminate], TapComment["Infinity in an unknown direction:"], 
  TapTestSame[DirectedInfinity[Indeterminate], ComplexInfinity], 
  TapComment["Mathematical operations with \
 RefLink[Indeterminate,paclet:ref/Indeterminate] produce \
@@ -30,7 +33,7 @@ RefLink[Indeterminate,paclet:ref/Indeterminate]:"],
   {{6, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Indeterminate, 
     Indeterminate, Indeterminate, Indeterminate}, 1}], 
  TapComment["Create a number of lower precision:"], 
- TapTestSame[FromDigits[{{6, 7, 0, 0, 0, Indeterminate}, 1}], 6.7], 
+ TapTestSameBROKEN[FromDigits[{{6, 7, 0, 0, 0, Indeterminate}, 1}], 6.7], 
  TapComment[
   "RefLink[Indeterminate,paclet:ref/Indeterminate] is not a number:"], 
  TapTestSame[NumberQ[Indeterminate], False], 
@@ -54,10 +57,10 @@ RefLink[Indeterminate,paclet:ref/Indeterminate] result:"],
    Indeterminate}], TapComment[
   "In this case an equivalent function does not lower precision: "], 
  TapTestSame[Simplify[(x^2 - 1)/(x - 1) - 1], x], 
- TapTestSame[NestList[Function[x, x], 3.`10., 16], 
+ TapTestSameBROKEN[NestList[Function[x, x], 3.`10., 16], 
   {3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3.}], 
  TapComment["Sometimes a higher precision is needed: "], 
- TapTestSame[NestList[Function[x, (x^2 - 1)/(x - 1) - 1], 3.`20., 16], 
+ TapTestSameBROKEN[NestList[Function[x, (x^2 - 1)/(x - 1) - 1], 3.`20., 16], 
   {3.`19.477121254719663, 3.`18.477121254719663, 3.`18.477121254719663, 
    3.`17.477121254719663, 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 
    3.}], TapComment[

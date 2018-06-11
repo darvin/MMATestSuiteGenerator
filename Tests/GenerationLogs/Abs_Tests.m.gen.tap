@@ -1,18 +1,20 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Abs.nb output/Tests/Abs_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Abs.nb
 # WRITING OUTPUT TO:     output/Tests/Abs_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Abs[-4]    ==>     4
-not ok  Abs[1.4+2.3I]    ==>     2.69258
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+ok  Abs[1.4+2.3I]    ==>     2.69258
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  Abs[{-2,-1,0,1,2}]    ==>     {2,1,0,1,2}
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Ticks->{Automatic, Automatic}]\)\)
 #!                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Ticks->{Automatic, Automatic}]\)\)
-#!                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-not ok  Plot[Abs[x],{x,-3,3}]     ==>     \!\(\*
+ok  Plot[Abs[x],{x,-3,3}]     ==>     \!\(\*
 #! GraphicsBox[{{}, {}, 
 #! {RGBColor[0.368417, 0.506779, 0.709798], AbsoluteThickness[1.6], Opacity[1.], LineBox[CompressedData["
 #! 1:eJxF1f831XccwPHr6yVLdbhS+kJ3so4lyU5tOr0/GaYmOyjMGku+b7M7Y9eX
@@ -59,21 +61,16 @@ not ok  Plot[Abs[x],{x,-3,3}]     ==>     \!\(\*
 ok  Abs[E-Pi]    ==>     -E+\[Pi]
 ok  Abs[E+I]    ==>     Sqrt[1+E^2]
 ok  Root[5 #^6+3#^2-5&,4]    ==>     Root[-5+3 #1^2+5 #1^6&,4]
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  RootReduce[Abs[%]]    ==>     Root[-5-3 #1^8+5 #1^12&,2]
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 not ok  {N[%], Abs[N[%%]]}    ==>     {1.05633,1.05633}
 not ok  Abs[x]//TraditionalForm    ==>     \[LeftBracketingBar]x\[RightBracketingBar]
 ok  Abs[Interval[{-1, 2}]]    ==>     Interval[{0,2}]
 ok  Abs[{Infinity,-Infinity,ComplexInfinity}]    ==>     {\[Infinity],\[Infinity],\[Infinity]}
+#! TextForm[ColonForm[MessageName[SparseArray, list], StringForm[List expected at position `2` in `1`., Short[HoldForm[SparseArray[Specified*Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}]*Graphics[Raster[{{{0.235431, 0.32765, 0.833291}, {0.5, 0., 0.}, {0.235431, 0.32765, 0.833291}}, {{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.4308552875068765, 0.7415571184291267, 0.9808525018544965}}, {{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}, {{0.265989157136036, 0.5454408935405741, 0.9243848572995182}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}}}, {{0, 0}, {3, 4}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {AxisPadding -> 18.740000000000002, DefaultBoundaryStyle -> Automatic, DefaultPlotStyle -> Automatic, DomainPadding -> 18.740000000000002, RangePadding -> 46.85}]*(elements:4*Dimensions:{4, 3})]], 3], Short[HoldForm[1], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[Raster[{{{0.235431, 0.32765, 0.833291}, {0.5, 0., 0.}, {0.235431, 0.32765, 0.833291}}, {{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.4308552875068765, 0.7415571184291267, 0.9808525018544965}}, {{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}, {{0.265989157136036, 0.5454408935405741, 0.9243848572995182}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}}}, {{0, 0}, {3, 4}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {AxisPadding -> 18.740000000000002, DefaultBoundaryStyle -> Automatic, DefaultPlotStyle -> Automatic, DomainPadding -> 18.740000000000002, RangePadding -> 46.85}], Specified, RowBox[{elements, :, RowBox[{4, Dimensions}], :, RowBox[{{, RowBox[{4, ,, 3}], }}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[]\)
 #!    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[Raster[{{{0.235431, 0.32765, 0.833291}, {0.5, 0., 0.}, {0.235431, 0.32765, 0.833291}}, {{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.4308552875068765, 0.7415571184291267, 0.9808525018544965}}, {{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}, {{0.265989157136036, 0.5454408935405741, 0.9243848572995182}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}}}, {{0, 0}, {3, 4}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {AxisPadding -> 18.740000000000002, DefaultBoundaryStyle -> Automatic, DefaultPlotStyle -> Automatic, DomainPadding -> 18.740000000000002, RangePadding -> 46.85}], Specified, RowBox[{elements, :, RowBox[{4, Dimensions}], :, RowBox[{{, RowBox[{4, ,, 3}], }}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  Abs[SparseArray[{{1,1}->1,{1,3}->I Pi,{3,3}->2,{4,2}->u}]]    ==>     SparseArray[\!\(\*
 #! GraphicsBox[RasterBox[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255},
 #! ColorFunction->GrayLevel],
@@ -98,7 +95,10 @@ not ok  Normal[%]//MatrixForm    ==>     (1	0	\[Pi]
 #! 0	Abs[u]	0
 #! )
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 225}, {0, 180}}]\)\)
+#!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
 not ok  Plot3D[Abs[x+I y],{x,-3,3},{y,-3,3}]    ==>     \!\(\*
 #! GraphicsBox[
 #! TagBox[RasterBox[CompressedData["
@@ -578,7 +578,6 @@ not ok  Plot3D[Abs[x+I y],{x,-3,3},{y,-3,3}]    ==>     \!\(\*
 #! ImageSizeRaw->{225, 180},
 #! PlotRange->{{0, 225}, {0, 180}}]\)
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  Plot[Sin[x],{x,0,4Pi},ColorFunction->(Hue[Abs[#2]]&)]    ==>     \!\(\*
 #! GraphicsBox[
 #! TagBox[RasterBox[CompressedData["
@@ -730,7 +729,6 @@ not ok  Plot[Sin[x],{x,0,4Pi},ColorFunction->(Hue[Abs[#2]]&)]    ==>     \!\(\*
 #! ImageSize->Automatic,
 #! ImageSizeRaw->{240, 138},
 #! PlotRange->{{0, 240}, {0, 138}}]\)
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  Plot3D[Re[Sin[x+I y]],{x,-2Pi,2Pi},{y,-1,1},ColorFunction->(Hue[Abs[Sin[#1+I #2]]]&)]    ==>     \!\(\*
 #! GraphicsBox[
@@ -1528,29 +1526,9 @@ ok  Integrate[Abs[x],{x,-2,Pi}]    ==>     1/2 (4+\[Pi]^2)
 ok  Integrate[Abs[x Sin[x]],{x,-2,Pi}]    ==>     \[Pi]-2 Cos[2]+Sin[2]
 ok  Integrate[Abs[x],{x,-2+I,Pi+I}]    ==>     1/2 (2 Sqrt[5]+\[Pi] Sqrt[1+\[Pi]^2]+ArcSinh[2]+ArcSinh[\[Pi]])
 not ok  N[%]    ==>     9.06781
-not ok  NIntegrate[Abs[x],{x,-2+I,Pi+I}]    ==>     9.06781+0. I
+ok  NIntegrate[Abs[x],{x,-2+I,Pi+I}]    ==>     9.06781+0. I
 ok  Integrate[Abs[x],x]    ==>     \[Integral]Abs[x]\[DifferentialD]x
 #! TextForm[ColonForm[MessageName[Piecewise, pairs], StringForm[The first argument `1` of Piecewise is not a list of pairs., Short[HoldForm[-x^2/2], 3]]]]
 not ok  Assuming[x\[Element]Reals,Integrate[Abs[x],x]]    ==>     \[Piecewise]-(x^2/2)	x<=0
 #! (x^2/2)	True
 ok   FourierTransform[Abs[y],y,x]     ==>     -(Sqrt[(2/\[Pi])]/x^2)
-ok  LaplaceTransform[Abs[y],y,x]     ==>     1/x^2
-ok  Assuming[x\[Element]Reals,1 /\[Pi] Limit[ArcTan[x/\[CurlyEpsilon]],\[CurlyEpsilon]->+0]+1/2]    ==>     1/2+Abs[x]/(2 x)
-#! TextForm[ColonForm[MessageName[Piecewise, pairs], StringForm[The first argument `1` of Piecewise is not a list of pairs., Short[HoldForm[1 - x], 3]]]]
-not ok  PiecewiseExpand[Abs[x]Abs[1-x],x\[Element]Reals]    ==>     \[Piecewise]-(-1+x) x	0<=x<=1
-#! (-1+x) x	True
-#! TextForm[ColonForm[MessageName[Piecewise, pairs], StringForm[The first argument `1` of Piecewise is not a list of pairs., Short[HoldForm[1], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Piecewise, pairs]], 3]]]]
-not ok  PiecewiseExpand[Abs[x+Abs[1-x]^3],x\[Element]Reals]    ==>     \[Piecewise]1-2 x+3 x^2-x^3	x<=1
-#! -1+4 x-3 x^2+x^3	True
-ok  Norm[{x,y,z}]    ==>     Sqrt[Abs[x]^2+Abs[y]^2+Abs[z]^2]
-#! TextForm[ColonForm[MessageName[N, meprec], StringForm[Internal precision limit $MaxExtraPrecision = `1` reached while evaluating `2`., Short[HoldForm[50.], 3], Short[HoldForm[-1 - 2*E - E^2 + (1 + E)^2], 3]]]]
-#! TextForm[ColonForm[MessageName[N, meprec], StringForm[Internal precision limit $MaxExtraPrecision = `1` reached while evaluating `2`., Short[HoldForm[50.], 3], Short[HoldForm[-1 - 2*E - E^2 + (1 + E)^2], 3]]]]
-ok  Abs[-1-2 E-E^2+(1+E)^2]    ==>     Abs[-1-2 E-E^2+(1+E)^2]
-not ok  Simplify[%]    ==>     0
-ok  Series[Abs[x],{x,0,2}]    ==>     Abs[x]
-not ok  Series[Abs[x],{x,0,2}, Assumptions->Element[x,Reals]]    ==>     \[Piecewise]-x+O[x]^3	x<=0
-#! x+O[x]^3	True
-not ok  SeedRandom[3];
-#! NestList[
-#! Module[{r:=RandomChoice[{-2/3,-1/2,-1/3,0,1/3,1/2,2/3}]},(#/. Abs[x_]:>Sum[r Abs[r+r x +r Abs[r+r x]],{2}])]&,Abs[x],3] // TraditionalForm    ==>     {\[LeftBracketingBar]x\[RightBracketingBar],-(2/3) \[LeftBracketingBar]x/3+1/2 \[LeftBracketingBar]-(x/3)-1/3\[RightBracketingBar]-2/3\[RightBracketingBar],-(2/3) (4/9 \[LeftBracketingBar]1/2 (x/3+1/2 \[LeftBracketingBar]-(x/3)-1/3\[RightBracketingBar]-2/3)-1/2\[RightBracketingBar]-1/3 \[LeftBracketingBar]-(2/3) (x/3+1/2 \[LeftBracketingBar]-(x/3)-1/3\[RightBracketingBar]-2/3)-2/3 \[LeftBracketingBar]1/2 (-(x/3)-1/2 \[LeftBracketingBar]-(x/3)-1/3\[RightBracketingBar]+2/3)-1/3\[RightBracketingBar]-1/2\[RightBracketingBar]),-(2/3) (4/9 (2/3 \[LeftBracketingBar]1/3 (1/2 (x/3+1/2 \[LeftBracketingBar]-(x/3)-1/3\[RightBracketingBar]-2/3)-1/2)+1/2\[RightBracketingBar]-1/3 \[LeftBracketingBar]1/2 (1/2 (x/3+1/2 \[LeftBracketingBar]-(x/3)-1/3\[RightBracketingBar]-2/3)-1/2)+1/2 \[LeftBracketingBar]2/3 (1/2 (x/3+1/2 \[LeftBracketingBar]-(x/3)-1/3\[RightBracketingBar]-2/3)-1/2)+1/2\[RightBracketingBar]\[RightBracketingBar])+1/3 (1/3 \[LeftBracketingBar]1/2 (2/3 (x/3+1/2 \[LeftBracketingBar]-(x/3)-1/3\[RightBracketingBar]-2/3)+2/3 \[LeftBracketingBar]1/2 (-(x/3)-1/2 \[LeftBracketingBar]-(x/3)-1/3\[RightBracketingBar]+2/3)-1/3\[RightBracketingBar]+1/2)-1/2 \[LeftBracketingBar]1/2 (-(2/3) (x/3+1/2 \[LeftBracketingBar]-(x/3)-1/3\[RightBracketingBar]-2/3)-2/3 \[LeftBracketingBar]1/2 (-(x/3)-1/2 \[LeftBracketingBar]-(x/3)-1/3\[RightBracketingBar]+2/3)-1/3\[RightBracketingBar]-1/2)-1/2\[RightBracketingBar]-1/3\[RightBracketingBar]-1/2 \[LeftBracketingBar]2/3 (-(2/3) (x/3+1/2 \[LeftBracketingBar]-(x/3)-1/3\[RightBracketingBar]-2/3)-2/3 \[LeftBracketingBar]1/2 (-(x/3)-1/2 \[LeftBracketingBar]-(x/3)-1/3\[RightBracketingBar]+2/3)-1/3\[RightBracketingBar]-1/2)+1/2 \[LeftBracketingBar]-(2/3) (-(2/3) (x/3+1/2 \[LeftBracketingBar]-(x/3)-1/3\[RightBracketingBar]-2/3)-2/3 \[LeftBracketingBar]1/2 (-(x/3)-1/2 \[LeftBracketingBar]-(x/3)-1/3\[RightBracketingBar]+2/3)-1/3\[RightBracketingBar]-1/2)-1/2\[RightBracketingBar]-1/2\[RightBracketingBar]))}

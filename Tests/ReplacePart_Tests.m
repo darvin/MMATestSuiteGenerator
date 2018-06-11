@@ -65,23 +65,23 @@ objects:"], TapTestSameBROKEN[HoldComplete[
  TapTestSameBROKEN[MatrixForm[ReplacePart[IdentityMatrix[5], 
     {_, 1 | 5} -> x]], x*0*0*0*x*x*1*0*0*x*x*0*1*0*x*x*0*0*1*x*x*0*0*0*x], 
  TapComment["Highlight two squares in an array:"], 
- TapTestSameBROKEN[HoldComplete[ArrayPlot[ReplacePart[Array[GCD, {15, 15}], 
+ TapTestSame[HoldComplete[ArrayPlot[ReplacePart[Array[GCD, {15, 15}], 
      {{6, 6}, {12, 12}} -> Red]]], $Failed], 
  TapComment["Generate a difference pattern for two cellular automaton initial \
-conditions differing by one bit:"], TapTestSameBROKEN[
-  HoldComplete[With[{u = RandomInteger[1, 100]}, 
+conditions differing by one bit:"], 
+ TapTestSame[HoldComplete[With[{u = RandomInteger[1, 100]}, 
     ArrayPlot[Sum[(-1)^i*CellularAutomaton[30, ReplacePart[u, 50 -> i], 50], 
       {i, 0, 1}]]]], $Failed], 
  TapComment["Insert a black cell at a random position at each step:"], 
- TapTestSameBROKEN[HoldComplete[
-   ArrayPlot[NestList[ReplacePart[#1, RandomInteger[{1, 30}] -> 1] & , 
-     Table[0, {30}], 20], Mesh -> All]], $Failed], 
+ TapTestSame[HoldComplete[ArrayPlot[
+    NestList[ReplacePart[#1, RandomInteger[{1, 30}] -> 1] & , Table[0, {30}], 
+     20], Mesh -> All]], $Failed], 
  TapComment["Successively replace parts of a list:"], 
  TapTestSame[FoldList[ReplacePart[#1, #2 -> x] & , {a, b, c, d, e}, 
    {5, 2, 3, 1, 4}], {{a, b, c, d, e}, {a, b, c, d, x}, {a, x, c, d, x}, 
    {a, x, x, d, x}, {x, x, x, d, x}, {x, x, x, x, x}}], 
  TapComment["Successively replace disks in a graphic by circles:"], 
- TapTestSameBROKEN[HoldComplete[
+ TapTestSame[HoldComplete[
    g = Graphics[{Gray, Table[Disk[RandomReal[5, 2]], {5}]}, 
      ImageSize -> Tiny]], $Failed], TapTestSame[Position[g, Disk], 
   {{1, 2, 1, 0}, {1, 2, 2, 0}, {1, 2, 3, 0}, {1, 2, 4, 0}, {1, 2, 5, 0}}], 

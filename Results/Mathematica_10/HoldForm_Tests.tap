@@ -1,4 +1,12 @@
 #! DOCKER > wolfram -script output/Tests/HoldForm_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Integrate, ilim], StringForm[Invalid integration variable or limit(s) in `1`., Short[HoldForm[3], 3]]]]
+#! TextForm[ColonForm[MessageName[Integrate, ilim], StringForm[Invalid integration variable or limit(s) in `1`., Short[HoldForm[3], 3]]]]
+#! TextForm[ColonForm[MessageName[Integrate, ilim], StringForm[Invalid integration variable or limit(s) in `1`., Short[HoldForm[3], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Integrate, ilim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: HoldForm_Tests
 # Addition in held form:
@@ -8,7 +16,13 @@ ok  HoldForm[x = 3]    ==>     x = 3 # skip
 # An unevaluated power:
 ok  HoldForm[34^78]    ==>     34^78 # skip
 # Evaluate the expression by applying RefLink[ReleaseHold,paclet:ref/ReleaseHold]:
-ok  ReleaseHold[%]    ==>     285335317058486027411405324166464744463360460002598071329967949465250689557820764970048082035633315075321399848988573696 # skip
+ok  ReleaseHold[%]    ==>     285335317058486027411405324166464744463360460002598071329967949465250689557820764970048082035633315075321399848988573696
+    ---
+    data:
+        got: 285335317058486027411405324166464744463360460002598071329967949465250689557820764970048082035633315075321399848988573696
+        expect: 285335317058486027411405324166464744463360460002598071329967949465250689557820764970048082035633315075321399848988573696
+        expect_evaluated: 285335317058486027411405324166464744463360460002598071329967949465250689557820764970048082035633315075321399848988573696
+    ...
 # Show a formula and its evaluation: 
 ok  HoldForm[Integrate[x^2/E^x^2, x]] == Integrate[x^2/E^x^2, x]    ==>     Integrate[x^2/E^x^2, x] == ((-(1/2))*x)/E^x^2 + (1/4)*Sqrt[Pi]*Erf[x] # skip
 # Display a sum of squares in unevaluated form:

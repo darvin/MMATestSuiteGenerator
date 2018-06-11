@@ -24,21 +24,26 @@ et:ref/Denominator] automatically threads over lists:"],
    Trig -> True], {1, 1, Cos[x], Sin[x], Cos[x], Sin[x]}], 
  TapComment["RefLink[Numerator,paclet:ref/Numerator] gives the terms without \
 negative exponents:"], TapTestSame[Numerator[(2/3)*a*((x - 1)/(x - 2))], 
-  2*a*(-1 + x)], TapTestSameBROKEN[num = Numerator[expr], 5*a^b*(-1 + x)^2], 
- TapTestSameBROKEN[den = Denominator[expr], 7*c^d*(-2 + x)^3], 
- TapTestSame[expr === num/den, True], TapComment["Use \
-RefLink[Cancel,paclet:ref/Cancel] to cancel common factors between the \
-numerator and the denominator:"], 
+  2*a*(-1 + x)], TapComment[
+  "An expression is a quotient of its numerator and denominator:"], 
+ TapTestSameBROKEN[expr = ((5/7)*((x - 1)^2/(x - 2)^3)*a^b)/c^d ;; num = 
+    Numerator[expr], 5*a^b*(-1 + x)^2], TapTestSameBROKEN[
+  den = Denominator[expr], 7*c^d*(-2 + x)^3], 
+ TapTestSameBROKEN[expr === num/den, True], 
+ TapComment["Use RefLink[Cancel,paclet:ref/Cancel] to cancel common factors \
+between the numerator and the denominator:"], 
  TapTestSame[Cancel[(x - 1)*((x - 2)/(x^2 - 1))], (-2 + x)/(1 + x)], 
  TapComment["RefLink[Together,paclet:ref/Together] writes an expression as a \
 fraction and cancels common terms:"], 
  TapTestSame[Together[x*((x - 2)/(x^2 - 1)) + x/(x^2 - 1) - 2/(x^2 - 1)], 
-  (-2 + x)/(-1 + x)], TapTestSameBROKEN[ExpandDenominator[r], 
-  (1 + x)/(4 + 4*x + x^2)], TapTestSameBROKEN[
-  Numerator[r]/Expand[Denominator[r]], (1 + x)/(4 + 4*x + x^2)], 
- TapTestSameBROKEN[HoldComplete[ArrayPlot[Table[Denominator[i/j], {i, 30}, 
-     {j, 30}]]], $Failed], TapComment["Cyclic addition [WebLink[more \
+  (-2 + x)/(-1 + x)], TapComment["Use \
+RefLink[ExpandDenominator,paclet:ref/ExpandDenominator] to directly expand \
+all denominators:"], TapTestSameBROKEN[
+  r = (x + 1)/(x + 2)^2 ;; ExpandDenominator[r], (1 + x)/(4 + 4*x + x^2)], 
+ TapTestSameBROKEN[Numerator[r]/Expand[Denominator[r]], 
+  (1 + x)/(4 + 4*x + x^2)], TapTestSame[
+  HoldComplete[ArrayPlot[Table[Denominator[i/j], {i, 30}, {j, 30}]]], 
+  $Failed], TapComment["Cyclic addition [WebLink[more \
 info,http://www.wolframscience.com/nksonline/page-950b-text]]:"], 
- TapTestSameBROKEN[HoldComplete[
-   ListPlot[Flatten[Table[{i/j, Denominator[i/j]}, {i, 20}, {j, 20}], 1]]], 
-  $Failed]]
+ TapTestSame[HoldComplete[ListPlot[Flatten[Table[{i/j, Denominator[i/j]}, 
+      {i, 20}, {j, 20}], 1]]], $Failed]]

@@ -1,6 +1,6 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[Thread[f[{a, b, c}]], {f[a], f[b], f[c]}], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[{f[a], f[b], f[c]}]], 
  TapTestSame[Thread[f[{a, b, c}, x]], {f[a, x], f[b, x], f[c, x]}], 
  TapTestSame[Thread[f[{a, b, c}, {x, y, z}]], {f[a, x], f[b, y], f[c, z]}], 
  TapComment["Convert equations for lists to lists of equations:"], 

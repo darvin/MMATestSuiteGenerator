@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/Unequal_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 #! TextForm[ColonForm[MessageName[PossibleZeroQ, ztest1], StringForm[Unable to decide whether numeric quantity `1` is equal to zero. Assuming it is., Short[HoldForm[Log[Sqrt[2] + Sqrt[3]] - Log[5 + 2*Sqrt[6]]/2], 3]]]]
 #! TextForm[ColonForm[MessageName[PossibleZeroQ, ztest1], StringForm[Unable to decide whether numeric quantity `1` is equal to zero. Assuming it is., Short[HoldForm[1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Log[Sqrt[2] + Sqrt[3]] - Log[5 + 2*Sqrt[6]]/2], 3]]]]
 # SYSTEM: Mathematica_10
@@ -77,9 +81,11 @@ ok  Sqrt[2] + Sqrt[3] != Sqrt[5 + 2*Sqrt[6]]    ==>     False
 ok  Sqrt[2] + Sqrt[3] != Root[#1^4 - 10*#1^2 + 1 & , 4]    ==>     Sqrt[2] + Sqrt[3] != Root[1 - 10*#1^2 + #1^4 & , 4]
     ---
     data:
-        got: Sqrt[2] + Sqrt[3] != Root[1 - 10*#1^2 + #1^4 & , 4, 0]
+        got:                                    2     4
+#! Sqrt[2] + Sqrt[3] != Root[1 - 10 #1  + #1  & , 4]
         expect: Sqrt[2] + Sqrt[3] != Root[1 - 10*#1^2 + #1^4 & , 4]
-        expect_evaluated: Sqrt[2] + Sqrt[3] != Root[1 - 10*#1^2 + #1^4 & , 4, 0]
+        expect_evaluated:                                    2     4
+#! Sqrt[2] + Sqrt[3] != Root[1 - 10 #1  + #1  & , 4]
     ...
 # Use RefLink[RootReduce,paclet:ref/RootReduce] to decide whether two algebraic numbers are unequal:
 ok  RootReduce[%]    ==>     False # skip
@@ -87,9 +93,13 @@ ok  RootReduce[%]    ==>     False # skip
 ok  Sqrt[2] + Sqrt[3] != Root[#1^4 - 10*#1^2 + 1 & , 4] + 10^(-100)    ==>     Sqrt[2] + Sqrt[3] != 1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Root[1 - 10*#1^2 + #1^4 & , 4]
     ---
     data:
-        got: Sqrt[2] + Sqrt[3] != 1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Root[1 - 10*#1^2 + #1^4 & , 4, 0]
+        got:                                                                        1                                                                   2     4
+#! Sqrt[2] + Sqrt[3] != ----------------------------------------------------------------------------------------------------- + Root[1 - 10 #1  + #1  & , 4]
+#!                      10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
         expect: Sqrt[2] + Sqrt[3] != 1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Root[1 - 10*#1^2 + #1^4 & , 4]
-        expect_evaluated: Sqrt[2] + Sqrt[3] != 1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Root[1 - 10*#1^2 + #1^4 & , 4, 0]
+        expect_evaluated:                                                                        1                                                                   2     4
+#! Sqrt[2] + Sqrt[3] != ----------------------------------------------------------------------------------------------------- + Root[1 - 10 #1  + #1  & , 4]
+#!                      10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     ...
 # RefLink[RootReduce,paclet:ref/RootReduce] proves that the two algebraic numbers are not equal:
 ok  RootReduce[%]    ==>     True # skip
@@ -113,9 +123,11 @@ ok  x != x    ==>     False
 ok  (x + 1)^2 - x^2 - 2*x != 0    ==>     -2*x - x^2 + (1 + x)^2 != 0
     ---
     data:
-        got: -2*x - x^2 + (1 + x)^2 != 0
+        got:         2          2
+#! -2 x - x  + (1 + x)  != 0
         expect: -2*x - x^2 + (1 + x)^2 != 0
-        expect_evaluated: -2*x - x^2 + (1 + x)^2 != 0
+        expect_evaluated:         2          2
+#! -2 x - x  + (1 + x)  != 0
     ...
 # Use RefLink[Expand,paclet:ref/Expand] to prove it:
 ok  Expand[%]    ==>     True # skip
@@ -169,9 +181,9 @@ ok   !x != y    ==>     x == y
 ok   !x != y != z    ==>      !x != y != z
     ---
     data:
-        got:  !x != y != z
+        got: !x != y != z
         expect:  !x != y != z
-        expect_evaluated:  !x != y != z
+        expect_evaluated: !x != y != z
     ...
 # Use RefLink[LogicalExpand,paclet:ref/LogicalExpand] to express it in terms of two-argument RefLink[Equal,paclet:ref/Equal]:
 ok  LogicalExpand[%]    ==>     y == x || z == x || z == y # skip
@@ -203,9 +215,13 @@ ok  {x =!= x, x =!= y, Sqrt[2] + Sqrt[3] =!= Sqrt[5 + 2*Sqrt[6]], Pi =!= N[Pi]} 
 ok  a = Log[Sqrt[2] + Sqrt[3]]; b = Log[5 + 2*Sqrt[6]]/2; a != b    ==>     Log[Sqrt[2] + Sqrt[3]] != (1/2)*Log[5 + 2*Sqrt[6]]
     ---
     data:
-        got: Log[Sqrt[2] + Sqrt[3]] != Log[5 + 2*Sqrt[6]]/2
+        got:                           Log[5 + 2 Sqrt[6]]
+#! Log[Sqrt[2] + Sqrt[3]] != ------------------
+#!                                   2
         expect: Log[Sqrt[2] + Sqrt[3]] != (1/2)*Log[5 + 2*Sqrt[6]]
-        expect_evaluated: Log[Sqrt[2] + Sqrt[3]] != Log[5 + 2*Sqrt[6]]/2
+        expect_evaluated:                           Log[5 + 2 Sqrt[6]]
+#! Log[Sqrt[2] + Sqrt[3]] != ------------------
+#!                                   2
     ...
 # RefLink[FullSimplify,paclet:ref/FullSimplify] uses exact symbolic transformations to disprove the unequality:
 ok  FullSimplify[a != b]    ==>     False
@@ -250,7 +266,13 @@ ok  2.00006`16. - 2.00005000000000000000000000001`16. != 1.`16.*^-5    ==>     F
         expect_evaluated: False
     ...
 # Thanks to automatic-precision tracking, RefLink[Unequal,paclet:ref/Unequal] knows to look only at the first 10 digits:
-ok  Precision[2.00006`16. - 2.00005000000000000000000000001`16.]    ==>     10.3979 # skip
+ok  Precision[2.00006`16. - 2.00005000000000000000000000001`16.]    ==>     10.3979
+    ---
+    data:
+        got: 10.3979
+        expect: 10.3979
+        expect_evaluated: 10.3979
+    ...
 # In this case, the unequality test for machine numbers gives the expected result:
 ok  2.6 - 2.5 != 0.1    ==>     False
     ---

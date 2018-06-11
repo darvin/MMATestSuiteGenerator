@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/FreeQ_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: FreeQ_Tests
 # Test whether a list is free of 0:
@@ -32,7 +36,14 @@ ok  FreeQ[{x^2, y^3, x^5, x^6}, y^_]    ==>     False
         expect: False
         expect_evaluated: False
     ...
-ok  {f[3*x, x], f[a*x, x], f[(1 + x)*x, x]}    ==>     {3*f[x, x], a*f[x, x], f[x*(1 + x), x]} # skip
+# Define a function that factors out "constants":
+ok  f[(c_)*(x_), x_] := c*f[x, x] /; FreeQ[c, x]; {f[3*x, x], f[a*x, x], f[(1 + x)*x, x]}    ==>     {3*f[x, x], a*f[x, x], f[x*(1 + x), x]}
+    ---
+    data:
+        got: {3 f[x, x], a f[x, x], f[x (1 + x), x]}
+        expect: {3*f[x, x], a*f[x, x], f[x*(1 + x), x]}
+        expect_evaluated: {3 f[x, x], a f[x, x], f[x (1 + x), x]}
+    ...
 # Test which integrals are free of logarithms:
 ok  Table[FreeQ[Integrate[x^n, x], Log], {n, -5, 5}]    ==>     {True, True, True, True, False, True, True, True, True, True, True}
     ---

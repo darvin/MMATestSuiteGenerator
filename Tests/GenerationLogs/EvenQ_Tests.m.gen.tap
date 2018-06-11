@@ -1,8 +1,14 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/EvenQ.nb output/Tests/EvenQ_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/EvenQ.nb
 # WRITING OUTPUT TO:     output/Tests/EvenQ_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  EvenQ[8]    ==>     True
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  EvenQ[x]    ==>     False
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  ArrayQ[{{2,4},{6,10}},_,EvenQ]    ==>     True
 ok  ArrayQ[{{1,4},{6,10}},_,EvenQ]    ==>     False
 ok  EvenQ[3]    ==>     False
@@ -10,5 +16,5 @@ ok  OddQ[3]    ==>     True
 ok  EvenQ[12]    ==>     True
 ok  Divisible[12,2]    ==>     True
 ok  Series[2x/(x-1)^2,{x,0,10}]    ==>     2 x+4 x^2+6 x^3+8 x^4+10 x^5+12 x^6+14 x^7+16 x^8+18 x^9+20 x^10+O[x]^11
-ok  EvenQ[x]    ==>     False
+not ok  x = 2(GoldenRatio - 1/GoldenRatio);; EvenQ[x]    ==>     False
 not ok  FullSimplify[x]    ==>     2

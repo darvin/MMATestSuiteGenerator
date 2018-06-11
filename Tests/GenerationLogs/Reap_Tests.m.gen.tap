@@ -1,23 +1,28 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Reap.nb output/Tests/Reap_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Reap.nb
 # WRITING OUTPUT TO:     output/Tests/Reap_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Reap[Sow[a];b;Sow[c];Sow[d];e]    ==>     {e,{{a,c,d}}}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Reap[Sum[Sow[i^2]+1,{i,10}]]    ==>     {395,{{1,4,9,16,25,36,49,64,81,100}}}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  Reap[Sow[1,{x,x}];Sow[2,y];Sow[3,x],{x,x,y}]    ==>     {3,{{{1,1,3}},{{1,1,3}},{{2}}}}
 not ok  Reap[Sow[1, RandomInteger[{-9,9}, 100]], {_?Negative, _?NonNegative}, #1->Total[#2]&]    ==>     {1,{{-1->4,-3->5,-2->5,-9->6,-4->4,-7->3,-8->3,-5->8,-6->1},{1->7,0->7,6->6,4->7,8->9,9->2,7->12,2->3,5->2,3->6}}}
 ok  Reap[Sow[1,{x,x}];Sow[2,y];Sow[3,x],_,f]    ==>     {3,{f[x,{1,1,3}],f[y,{2}]}}
 ok  Reap[Sow[1,{x,x}];Sow[2,y];Sow[3,x],_,Rule]    ==>     {3,{x->{1,1,3},y->{2}}}
 ok  Reap[Sow[1,{a,a,b,d,c,a}],_,#&][[2]]    ==>     {a,b,d,c}
-#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{301<<, ,}], 9.9999}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`{Null,{{2.04082*10^-7,<<301>>,9.9999}}}\)
-#!                                                            ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[{Null,{{2.04082*10^-7,<<301>>,9.9999}}}
+#!                       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{301<<, ,}], 9.9999}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`{Null,{{2.04082*10^-7,<<301>>,9.9999}}}\)
 #!                                                            ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
 not ok  Reap[Plot[Sin[x],{x,0,10},EvaluationMonitor:>Sow[x]];]//Short    ==>     {Null,{{2.04082*10^-7,<<301>>,9.9999}}}
-not ok  unsortedUnion[{b,b,c,a,c,a,b,d}]    ==>     {b,c,a,d}
+ok  unsortedUnion[x_]:=Reap[Sow[1,x],_,#1&][[2]]; unsortedUnion[{b,b,c,a,c,a,b,d}]    ==>     {b,c,a,d}
 ok  Union[{b,b,c,a,c,a,b,d}]    ==>     {a,b,c,d}
 ok  Reap[x]    ==>     {x,{}}
 ok  Reap[MapAll[Sow,(a+b)(c+x^2)];]    ==>     {Null,{{a,b,a+b,c,x,2,x^2,c+x^2,(a+b) (c+x^2)}}}

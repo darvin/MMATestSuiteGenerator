@@ -5,8 +5,8 @@
         "passes": 1,
         "pending": 0,
         "failures": 0,
-        "start": "2018-06-03T23:02:14.563Z",
-        "end": "2018-06-03T23:02:14.563Z",
+        "start": "2018-06-11T04:14:23.179Z",
+        "end": "2018-06-11T04:14:23.179Z",
         "duration": 0,
         "testsRegistered": 1,
         "passPercent": 100,
@@ -33,13 +33,18 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "9af83c5e-9d33-4a97-9059-9fce44f1f7da",
-                "parentUUID": "7244bcb0-ab46-4658-88b3-99aeeef2d615",
-                "skipped": true,
+                "uuid": "05e08468-d120-41fe-a242-8c2178f8967a",
+                "parentUUID": "c09c50f9-7953-4e26-97ac-674f1bfb13b6",
+                "skipped": false,
                 "isHook": false,
-                "context": "\"#! DOCKER > wolfram -script output/Tests/Print_Tests.m\\n# SYSTEM: Mathematica_10\\n# TEST: Print_Tests\\n# The actual expression returned by RefLink[Print,paclet:ref/Print] is RefLink[Null,paclet:ref/Null]:\\n\"",
+                "context": "\"#! DOCKER > wolfram -script output/Tests/Print_Tests.m\\n#! x\\n#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n# SYSTEM: Mathematica_10\\n# TEST: Print_Tests\\n# The actual expression returned by RefLink[Print,paclet:ref/Print] is RefLink[Null,paclet:ref/Null]:\\n\\n\\ndata: \\n  got:              null\\n  expect:           null\\n  expect_evaluated: null\"",
                 "state": "passed",
-                "err": {}
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "expected": null
+                }
             }
         ],
         "root": true,
@@ -47,16 +52,14 @@
         "file": "",
         "pending": [],
         "passes": [
-            "9af83c5e-9d33-4a97-9059-9fce44f1f7da"
+            "05e08468-d120-41fe-a242-8c2178f8967a"
         ],
         "failures": [],
-        "skipped": [
-            "9af83c5e-9d33-4a97-9059-9fce44f1f7da"
-        ],
+        "skipped": [],
         "duration": 0,
         "rootEmpty": false,
         "_timeout": 0,
-        "uuid": "7244bcb0-ab46-4658-88b3-99aeeef2d615",
+        "uuid": "c09c50f9-7953-4e26-97ac-674f1bfb13b6",
         "beforeHooks": [],
         "afterHooks": []
     },

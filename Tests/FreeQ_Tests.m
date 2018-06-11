@@ -7,8 +7,10 @@ expression:"], TapTestSame[FreeQ[{{1, 1, 3, 0}, {2, 1, 2, 2}}, 0], False],
  TapComment["RefLink[FreeQ,paclet:ref/FreeQ] works with patterns:"], 
  TapTestSame[FreeQ[{a, b, b, a, a, a}, _Integer], True], 
  TapTestSame[FreeQ[{x^2, y^3, x^5, x^6}, y^_], False], 
- TapTestSameBROKEN[{f[3*x, x], f[a*x, x], f[(1 + x)*x, x]}, 
-  {3*f[x, x], a*f[x, x], f[x*(1 + x), x]}], 
- TapComment["Test which integrals are free of logarithms:"], 
+ TapComment["Define a function that factors out \"constants\":"], 
+ TapTestSame[f[(c_)*(x_), x_] := c*f[x, x] /; FreeQ[c, x]; 
+   {f[3*x, x], f[a*x, x], f[(1 + x)*x, x]}, {3*f[x, x], a*f[x, x], 
+   f[x*(1 + x), x]}], TapComment[
+  "Test which integrals are free of logarithms:"], 
  TapTestSame[Table[FreeQ[Integrate[x^n, x], Log], {n, -5, 5}], 
   {True, True, True, True, False, True, True, True, True, True, True}]]

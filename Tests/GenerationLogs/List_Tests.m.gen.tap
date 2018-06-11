@@ -1,16 +1,29 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/List.nb output/Tests/List_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/List.nb
 # WRITING OUTPUT TO:     output/Tests/List_Tests.m
-ok  List[a,b,c,d]    ==>     {a,b,c,d}
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/List.html; List[a,b,c,d]
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{List, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`http://reference.wolfram.com/language/ref/List.html; List[a,b,c,d]\)
+#!                                                                                       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/List.html; List[a,b,c,d]    ==>     {a,b,c,d}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  FullForm[{a,b,c,d}]    ==>     List[a,b,c,d]
-not ok  VectorQ[v]    ==>     True
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+not ok  v = {1,2.3,x+4};; VectorQ[v]    ==>     True
 not ok  v.v    ==>     6.29+(4+x)^2
-not ok  MatrixQ[m]    ==>     True
+not ok  m = {{1,2,3},{1,4,9}};; MatrixQ[m]    ==>     True
 not ok  m.Transpose[m]    ==>     {{14,36},{36,98}}
 not ok  Det[Transpose[m].m]    ==>     0
-not ok  ArrayQ[ra]    ==>     True
+not ok  ra = {{{1,2,3},{4,5,6}},{{7,8,9},{10,11,12}},{{13,14,15},{16,17,18}},{{19,20,21},{22,23,24}}};; ArrayQ[ra]    ==>     True
 not ok  ra.{1,2,3}    ==>     {{14,32},{50,68},{86,104},{122,140}}
-#! TextForm[ColonForm[MessageName[Fourier, fftl], StringForm[Argument `1` is not a non-empty list or rectangular array of numeric quantities., Short[HoldForm[ra], 3]]]]
+#! TextForm[ColonForm[MessageName[Fourier, fftl], StringForm[Argument `1` is not a non-empty list or rectangular array of numeric quantities., Short[HoldForm[Span[{{{1, 2, 3}, {4, 5, 6}}, {{7, 8, 9}, {10, 11, 12}}, {{13, 14, 15}, {16, 17, 18}}, {{19, 20, 21}, {22, 23, 24}}}, False]], 3]]]]
 not ok  Fourier[ra]    ==>     {{{61.2372+0. I,-2.44949-1.41421 I,-2.44949+1.41421 I},{-7.34847+0. I,0.+0. I,0.+0. I}},{{-14.6969-14.6969 I,0.+0. I,0.+0. I},{0.+0. I,0.+0. I,0.+0. I}},{{-14.6969+0. I,0.+0. I,0.+0. I},{0.+0. I,0.+0. I,0.+0. I}},{{-14.6969+14.6969 I,0.+0. I,0.+0. I},{0.+0. I,0.+0. I,0.+0. I}}}
 #! TextForm[ColonForm[MessageName[Symbol, argx], StringForm[`1` called with `2` arguments; 1 argument is expected., Short[HoldForm[Symbol], 3], Short[HoldForm[0], 3]]]]
 not ok  ragged[[All,1]]    ==>     {1,4,6}
@@ -26,21 +39,21 @@ ok  h[i_,j_]:=1/(i+j-1);
 #! Array[h,{4,3}]    ==>     {{1,1/2,1/3},{1/2,1/3,1/4},{1/3,1/4,1/5},{1/4,1/5,1/6}}
 ok  Table[f[i],{i,4}]    ==>     {f[1],f[2],f[3],f[4]}
 ok  Table[2^i,{i,-4,4}]    ==>     {1/16,1/8,1/4,1/2,1,2,4,8,16}
-ok  Table[h[i,j],{i,4},{j,3}]    ==>     {{1,1/2,1/3},{1/2,1/3,1/4},{1/3,1/4,1/5},{1/4,1/5,1/6}}
-ok  Table[h[i,j],{i,4},{j,i}]    ==>     {{1},{1/2,1/3},{1/3,1/4,1/5},{1/4,1/5,1/6,1/7}}
-not ok  NestList[3#(1-#)&,.1,20]    ==>     {0.1,0.27,0.5913,0.724993,0.598135,0.721109,0.603333,0.717967,0.607471,0.71535,0.610873,0.713121,0.613738,0.711191,0.616195,0.709496,0.618334,0.707991,0.620219,0.706642,0.621897}
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  h[i_,j_]:=1/(i+j-1);; Table[h[i,j],{i,4},{j,3}]    ==>     {{1,1/2,1/3},{1/2,1/3,1/4},{1/3,1/4,1/5},{1/4,1/5,1/6}}
+#! TextForm[ColonForm[MessageName[Table, itraw], StringForm[Raw object `1` cannot be used as an iterator., Short[HoldForm[1], 3]]]]
+#! TextForm[ColonForm[MessageName[Table, itraw], StringForm[Raw object `1` cannot be used as an iterator., Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[Table, itraw], StringForm[Raw object `1` cannot be used as an iterator., Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Table, itraw]], 3]]]]
+not ok  Table[h[i,j],{i,4},{j,i}]    ==>     {{1},{1/2,1/3},{1/3,1/4,1/5},{1/4,1/5,1/6,1/7}}
+ok  NestList[3#(1-#)&,.1,20]    ==>     {0.1,0.27,0.5913,0.724993,0.598135,0.721109,0.603333,0.717967,0.607471,0.71535,0.610873,0.713121,0.613738,0.711191,0.616195,0.709496,0.618334,0.707991,0.620219,0.706642,0.621897}
 #! TextForm[ColonForm[MessageName[ListPlot, lpn], StringForm[`1` is not a list of numbers or pairs of numbers., Short[HoldForm[Hold[Out[$Line - 1]]], 3]]]]
 #! TextForm[ColonForm[MessageName[ListPlot, lpn], StringForm[`1` is not a list of numbers or pairs of numbers., Short[HoldForm[Hold[Out[$Line - 1]]], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Ticks->{Automatic, Automatic}]\)\)
 #!                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Ticks->{Automatic, Automatic}]\)\)
-#!                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-not ok  ListPlot[%,Filling->Axis]    ==>     \!\(\*
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+ok  ListPlot[%,Filling->Axis]    ==>     \!\(\*
 #! GraphicsBox[{{}, GraphicsComplexBox[CompressedData["
 #! 1:eJxTTMoPSmViYGCwA2IQDQEf7Fcpz9+ixn7bHsb/H7D5rCH/LSifwyHun/Ov
 #! t68fQfkCDu1nWuNVjJ9D+SIOf14H8b1WfgzlSzjc7Va/GiQMk5dxWFG70K3B
@@ -73,31 +86,49 @@ not ok  rolls    ==>     {5,1}
 not ok  rolls    ==>     {5,1,2,4,5,1,2}
 ok  {1,2,3}+{a,b,c}    ==>     {1+a,2+b,3+c}
 ok  2*{1,2,3}    ==>     {2,4,6}
-not ok  Sin[2 Pi Range[0.,1.,1/13]]    ==>     {0.,0.464723,0.822984,0.992709,0.935016,0.663123,0.239316,-0.239316,-0.663123,-0.935016,-0.992709,-0.822984,-0.464723,-2.44929*10^-16}
+ok  Sin[2 Pi Range[0.,1.,1/13]]    ==>     {0.,0.464723,0.822984,0.992709,0.935016,0.663123,0.239316,-0.239316,-0.663123,-0.935016,-0.992709,-0.822984,-0.464723,-2.44929*10^-16}
 ok  a*{{1,2},{3,4}}    ==>     {{a,2 a},{3 a,4 a}}
 ok  {{1,2},{3,4}}+{a,b}    ==>     {{1+a,2+a},{3+b,4+b}}
-not ok  Exp[{{1.,2.,3.},{4.,5.,6.}}]    ==>     {{2.71828,7.38906,20.0855},{54.5982,148.413,403.429}}
-not ok  f[{1,2,3,4}]    ==>     {f[1],f[2],f[3],f[4]}
+ok  Exp[{{1.,2.,3.},{4.,5.,6.}}]    ==>     {{2.71828,7.38906,20.0855},{54.5982,148.413,403.429}}
+ok  SetAttributes[f,Listable]; f[{1,2,3,4}]    ==>     {f[1],f[2],f[3],f[4]}
 ok  Apply[f,{1,2,3}]    ==>     f[1,2,3]
 ok  Apply[f,{{1,2},{3,4},{5,6}},{1}]    ==>     {f[1,2],f[3,4],f[5,6]}
 ok  Map[f,{1,2,3,4}]    ==>     {f[1],f[2],f[3],f[4]}
 ok  Map[f,{{1,2},{3,4},{5,6}},{2}]    ==>     {{f[1],f[2]},{f[3],f[4]},{f[5],f[6]}}
 ok  Map[f,{{1,2},{3,4},{5,6}},2]    ==>     {f[{f[1],f[2]}],f[{f[3],f[4]}],f[{f[5],f[6]}]}
-#! TextForm[ColonForm[MessageName[Table, iterb], StringForm[Iterator `1` does not have appropriate bounds., Short[HoldForm[{i, list}], 3]]]]
-not ok  Table[Log[2,i],{i,list}]    ==>     {0,1,2,3}
+#! TextForm[ColonForm[MessageName[Do, iterb], StringForm[Iterator `1` does not have appropriate bounds., Short[HoldForm[{i, list}], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$RecursionLimit, reclim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Do, iterb], StringForm[Iterator `1` does not have appropriate bounds., Short[HoldForm[{i, list}], 3]]]]
+#! TextForm[ColonForm[MessageName[Do, iterb], StringForm[Iterator `1` does not have appropriate bounds., Short[HoldForm[{i, list}], 3]]]]
+#! TextForm[ColonForm[MessageName[Do, iterb], StringForm[Iterator `1` does not have appropriate bounds., Short[HoldForm[{i, list}], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Do, iterb]], 3]]]]
+#! TextForm[ColonForm[MessageName[Table, iterb], StringForm[Iterator `1` does not have appropriate bounds., Short[HoldForm[{i, Span[{1, 2, 4, 8}, Do[Print[{i, Log[2, i]}], {i, list}]]}], 3]]]]
+#! TextForm[ColonForm[MessageName[Table, iterb], StringForm[Iterator `1` does not have appropriate bounds., Short[HoldForm[{i, Span[{1, 2, 4, 8}, Do[Print[{i, Log[2, i]}], {i, list}]]}], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  list={1,2,4,8};; Do[Print[{i,Log[2,i]}],{i,list}]; Table[Log[2,i],{i,list}]    ==>     {0,1,2,3}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  Sum[k,{k,list}]    ==>     15
-#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[list[[3]]], 3]]]]
-not ok  list[[3]]    ==>     4
-#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[list[[{1, -1}]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, partw], StringForm[Part `1` of `2` does not exist., Short[HoldForm[3], 3], Short[HoldForm[Span[{1, 2, 4, 8}, Do[Print[{i, Log[2, i]}], {i, list}]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, partw], StringForm[Part `1` of `2` does not exist., Short[HoldForm[3], 3], Short[HoldForm[Span[{1, 2, 4, 8}, Do[Print[{i, Log[2, i]}], {i, list}]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, partw], StringForm[Part `1` of `2` does not exist., Short[HoldForm[3], 3], Short[HoldForm[Span[{1, 2, 4, 8}, Do[Print[{i, Log[2, i]}], {i, list}]]], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Part, partw]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+not ok  list={1,2,4,8};; list[[3]]    ==>     4
 not ok  list[[{1,-1}]]    ==>     {1,8}
-#! TextForm[ColonForm[MessageName[Symbol, argx], StringForm[`1` called with `2` arguments; 1 argument is expected., Short[HoldForm[Symbol], 3], Short[HoldForm[0], 3]]]]
 not ok  list[[1;;-1;;2]]    ==>     {1,4}
 ok  Outer[f,{1,2},{a,b,c}]    ==>     {{f[1,a],f[1,b],f[1,c]},{f[2,a],f[2,b],f[2,c]}}
-#! TextForm[ColonForm[MessageName[Complement, normal], StringForm[Nonatomic expression expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[Complement[s1, s2]], 3]]]]
-not ok  Complement[s1,s2]    ==>     {a,b}
-#! TextForm[ColonForm[MessageName[Union, normal], StringForm[Nonatomic expression expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[Union[s1, s2]], 3]]]]
+#! TextForm[ColonForm[MessageName[Complement, normal], StringForm[Nonatomic expression expected at position `1` in `2`., Short[HoldForm[2], 3], Short[HoldForm[Complement[{a, b, c}, s2]], 3]]]]
+not ok  s1={a,b,c};
+#! s2={c,d,e};; Complement[s1,s2]    ==>     {a,b}
+#! TextForm[ColonForm[MessageName[Union, heads], StringForm[Heads `1` and `2` at positions `3` and `4` are expected to be the same., Short[HoldForm[Hold], 3], Short[HoldForm[List], 3], Short[HoldForm[2], 3], Short[HoldForm[1], 3]]]]
 not ok  Union[s1,s2]    ==>     {a,b,c,d,e}
-#! TextForm[ColonForm[MessageName[Intersection, normal], StringForm[Nonatomic expression expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[Intersection[s1, s2]], 3]]]]
+#! TextForm[ColonForm[MessageName[Intersection, heads], StringForm[Heads `1` and `2` at positions `3` and `4` are expected to be the same., Short[HoldForm[Hold], 3], Short[HoldForm[List], 3], Short[HoldForm[2], 3], Short[HoldForm[1], 3]]]]
 not ok  Intersection[s1,s2]    ==>     {c}
 ok  Subsets[{1,2,3}]    ==>     {{},{1},{2},{3},{1,2},{1,3},{2,3},{1,2,3}}
 ok  Tuples[{{0,1},{a,b}}]    ==>     {{0,a},{0,b},{1,a},{1,b}}
@@ -107,8 +138,6 @@ ok  Integrate[Sin[x],{x,0,Pi/2}]    ==>     1
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[]}}\)
      ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[{{}, {}, {RGBColor[0.368417, 0.506779, 0.709798], AbsoluteThickness[1], Opacity[1.], Line[{{1.6949152542372882*^-8, 1.0000000169491532}, {0.016301768919855672, 1.0164353965031858}, {0.03397473608878023, 1.0345584668914107}, {0.05047654566075241, 1.0517721939619036}, {0.06665465523416349, 1.0689262678629536}, {0.084203980005796, 1.087850771296489}, {0.10058214718047613, 1.1058144792097302}, {0.1183315295533777, 1.1256172228524064}, {0.13575721192771817, 1.145403766306772}, {0.15201173670510626, 1.1641738986626893}, {0.16963747668071577, 1.184875225969416}, {0.1860920590593729, 1.20453314198156}, {0.20222294143946892, 1.2241208837736905}, {0.2197250390177864, 1.2457341353824345}, {0.23605597899915148, 1.2662451361854699}, {0.253758134178738, 1.2888599988813134}, {0.27113658935976337, 1.31145420044933}, {0.2873438869438364, 1.3328824821818088}, {0.30492239972613083, 1.3565196754815767}, {0.3213297549114729, 1.3789601846980037}, {0.33910832529503643, 1.4036953965136365}, {0.3565631956800388, 1.428411762897394}, {0.3728469084680888, 1.451861987107225}, {0.39050183645436026, 1.477722147190806}, {0.40698560684367935, 1.5022824877131444}, {0.4231456772344373, 1.5267566560262003}, {0.4406769628234167, 1.55375862832259}, {0.4570370908154437, 1.5793874295796908}, {0.47476843400569213, 1.6076418860629778}, {0.4921760771973795, 1.635872085968432}, {0.5084125627921146, 1.6626496741485173}, {0.5260202635850709, 1.6921844187170767}, {0.542456806781075, 1.7202279500739635}, {0.5585696499785179, 1.7481701665283151}, {0.5760537083741822, 1.7790040174721615}, {0.5923666091728942, 1.808262785128725}, {0.6100507251698276, 1.8405247553953903}, {0.6265636835698086, 1.8711693813128938}, {0.6427529419712286, 1.901708555392748}, {0.66031341557087, 1.9353983566926927}, {0.676702731573559, 1.9673797391144112}, {0.6944632627744693, 2.002633854722484}, {0.7119000939768186, 2.037859708339562}, {0.7281657675822155, 2.071277675683858}, {0.7458026563858339, 2.1081323802185525}, {0.7622683875924998, 2.1431316609795097}, {0.7784104188006047, 2.1780070757975216}, {0.795923665206931, 2.2164873055942915}, {0.812265754016305, 2.2530069560624}, {0.8299790580239004, 2.293270428088035}, {0.8473686620329346, 2.3334980412996598}, {0.8635871084450165, 2.371652347504967}, {0.8811767700553198, 2.4137382159383782}, {0.8975952740686708, 2.45369555072843}, {0.9153849932802431, 2.4977365818957846}, {0.9328510124932544, 2.5417449920834914}, {0.9491458741093133, 2.5835015077177554}, {0.9668119509235936, 2.629547494781927}, {0.9833068701409216, 2.6732816725775503}, {0.9999999830508475, 2.718281815320396}}]}}, AspectRatio -> 1, Axes -> {False, False}, AxesLabel -> {None, None}, AxesOrigin -> {0, 0.8}, DisplayFunction -> Identity, Frame -> {{True, True}, {True, True}}, FrameLabel -> {{None, None}, {None, None}}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLines -> {None, None}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {DefaultBoundaryStyle -> Automatic, ScalingFunctions -> None}, PlotRange -> {{0., 0.9999999830508475}, {1.0000000169491532, 2.718281815320396}}, PlotRangeClipping -> True, PlotRangePadding -> {{Scaled[0.1], Scaled[0.1]}, {Scaled[0.1], Scaled[0.1]}}, Ticks -> {Automatic, Automatic}], RowBox[{Domain, :, RowBox[{RowBox[{{, RowBox[{{, RowBox[{0., ,, 1.}], }}], }}], Output}], :, scalar}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  NDSolve[{x'[t]==x[t],x[0]==1},x,{t,0,1}]    ==>     {{x->InterpolatingFunction[\!\(\*
 #! GraphicsBox[RasterBox[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255},
 #! ColorFunction->GrayLevel],
@@ -161,18 +190,20 @@ not ok  NDSolve[{x'[t]==x[t],x[0]==1},x,{t,0,1}]    ==>     {{x->InterpolatingFu
 #! ]}}
 ok  Table[var^2,{var,-1,3}]    ==>     {1,0,1,4,9}
 ok  Solve[{x+y+z==0,x+y==1,y+z==2},{x,y,z}]    ==>     {{x->-2,y->3,z->-1}}
-not ok  DSolve[{x'[t]==y[t],y'[t]==-x[t]},{x,y},t]    ==>     {{x->Function[{t},C[1] Cos[t]+C[2] Sin[t]],y->Function[{t},C[2] Cos[t]-C[1] Sin[t]]}}
-not ok  r=FindRoot[{Cos[x^2+y],(x-2 y)},{{x,1},{y,2}}]    ==>     {x->-1.528,y->-0.764002}
-not ok  {x,y} /.r    ==>     {-1.528,-0.764002}
-not ok  {Cos[x^2+y],(x-2 y)}/.r    ==>     {-5.26784*10^-15,0.}
+ok  DSolve[{x'[t]==y[t],y'[t]==-x[t]},{x,y},t]    ==>     {{x->Function[{t},C[1] Cos[t]+C[2] Sin[t]],y->Function[{t},C[2] Cos[t]-C[1] Sin[t]]}}
+ok  r=FindRoot[{Cos[x^2+y],(x-2 y)},{{x,1},{y,2}}]    ==>     {x->-1.528,y->-0.764002}
+ok  {x,y} /.r    ==>     {-1.528,-0.764002}
+ok  {Cos[x^2+y],(x-2 y)}/.r    ==>     {-5.26784*10^-15,0.}
 ok  s2=Solve[{x^2+y^2==1,x+y==0},{x,y}]    ==>     {{x->-(1/Sqrt[2]),y->1/Sqrt[2]},{x->1/Sqrt[2],y->-(1/Sqrt[2])}}
 ok  {x,y} /. s2    ==>     {{-(1/Sqrt[2]),1/Sqrt[2]},{1/Sqrt[2],-(1/Sqrt[2])}}
 ok  x^2+y^2==1 && x+y==0 /.s2    ==>     {True,True}
 ok  Solve[{x-y==1,x+y==0},{x,y}]    ==>     {{x->1/2,y->-(1/2)}}
-not ok  ssq=N[Sin[Range[10]^2]]    ==>     {0.841471,-0.756802,0.412118,-0.287903,-0.132352,-0.991779,-0.953753,0.920026,-0.629888,-0.506366}
+ok  ssq=N[Sin[Range[10]^2]]    ==>     {0.841471,-0.756802,0.412118,-0.287903,-0.132352,-0.991779,-0.953753,0.920026,-0.629888,-0.506366}
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ListPlot[ssq]    ==>     \!\(\*
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Ticks->{Automatic, Automatic}]\)\)
+#!                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+ok  ListPlot[ssq]    ==>     \!\(\*
 #! GraphicsBox[{{}, 
 #! {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.019444444444444445`], AbsoluteThickness[1.6], PointBox[{{1., 0.8414709848078965}, {2., -0.7568024953079282}, {3., 0.4121184852417566}, {4., -0.2879033166650653}, {5., -0.13235175009777303`}, {6., -0.9917788534431158}, {7., -0.9537526527594719}, {8., 0.9200260381967906}, {9., -0.6298879942744539}, {10., -0.5063656411097588}}]}, {}},
 #! AspectRatio->0.6180339887498948,
@@ -190,11 +221,13 @@ not ok  ListPlot[ssq]    ==>     \!\(\*
 #! PlotRangeClipping->True,
 #! PlotRangePadding->{{Scaled[0.02], Scaled[0.02]}, {Scaled[0.05], Scaled[0.05]}},
 #! Ticks->{Automatic, Automatic}]\)
-#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{119<<, ,}], RowBox[{{, RowBox[{RowBox[{{, RowBox[{1., ,, 1.}], }}], ,, RowBox[{RowBox[{-, 2.44929}], *, RowBox[{10, ^, RowBox[{-, 16}]}]}]}], }}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[{{{0.,0.},0.},<<119>>,{{1.,1.},-2.44929*10^-16}}
+#!               ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{119<<, ,}], RowBox[{{, RowBox[{RowBox[{{, RowBox[{1., ,, 1.}], }}], ,, RowBox[{RowBox[{-, 2.44929}], *, RowBox[{10, ^, RowBox[{-, 16}]}]}]}], }}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  f[x_,y_]:=Sin[2 Pi x y];
 #! Short[data = Flatten[Table[{{x,y},f[x,y]},{x,0.,1.,.1},{y,0.,1.,.1}],1]]    ==>     {{{0.,0.},0.},<<119>>,{{1.,1.},-2.44929*10^-16}}
-#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[{{GrayLevel[0.6], AbsolutePointSize[5], Point[{1, 1}], Point[{2, 4}], Point[{3, 2}], Point[{4, 3}]}, {{}, {}, {AbsoluteThickness[1], Opacity[1.], Line[{{0.8000000734693878, -0.02399960375510868}, {0.8706631774413012, 0.3505011865071658}, {0.9472700794966304, 0.741016921665379}, {1.018800371921923, 1.090336068290569}, {1.0889275239549963, 1.4177197929560479}, {1.1649984740714856, 1.7551585465529884}, {1.2359928145579382, 2.0527120057670984}, {1.3129309531278068, 2.3553962652737637}, {1.3884659513054562, 2.6316861505449225}, {1.458924339853069, 2.869998729253504}, {1.5353265264840976, 3.1064128343075392}, {1.6066521034850896, 3.30569026585425}, {1.6765745400938625, 3.480245915089907}, {1.7524407747860515, 3.6455439900914355}, {1.8232303998482038, 3.776414473223901}, {1.899963822993772, 3.891952122620712}, {1.9752941057471212, 3.977890828433398}, {2.0455477788704335, 3.9569830084470086}, {2.121745250077162, 3.86389685566803}, {2.1928661116538537, 3.755850372068315}, {2.269930771313961, 3.619124955407053}, {2.3455922905818496, 3.4684553201793844}, {2.4161772002197015, 3.3162881206952397}, {2.4927059079409695, 3.1419924288172396}, {2.5641580060322005, 2.9735919815565484}, {2.6342069637312124, 2.806067690004063}, {2.7101997195136405, 2.62482529079835}, {2.7811158656660315, 2.4591705803817088}, {2.8579758099018386, 2.2868143189639065}, {2.9334326137454267, 2.1282937341321193}, {3.003812807958978, 1.9962090260121765}, {3.080136800255945, 1.9297533754064011}, {3.1513841829228757, 1.8847262219271643}, {3.2212284251975873, 1.8575982815511225}, {3.297016465555715, 1.848412920897189}, {3.3677278962838058, 1.859970595073917}, {3.4443831250953125, 1.8957089991189071}, {3.5159617442767828, 1.9520418084678872}, {3.5861372230660336, 2.029883770660295}, {3.6622564999387004, 2.140846451306701}, {3.7332991671813307, 2.2704499614751943}, {3.810285632507377, 2.4405602812351344}, {3.885868957441204, 2.638875706189683}, {3.9563756727449944, 2.852982590058416}, {4.0328261861322, 3.118142013018538}, {4.10420008988937, 3.397838975319635}, {4.174170853254321, 3.7032462235111296}, {4.250085414702688, 4.070747605765018}, {4.320923366521018, 4.448733443103126}, {4.3999999265306124, 4.91199954889798}}]}}}, AspectRatio -> 1, Axes -> False, Background -> GrayLevel[0.93], Frame -> True, FrameStyle -> Directive[GrayLevel[0.7], Thickness[Tiny]], FrameTicks -> None, ImageSize -> {Automatic, 28.}, PlotRange -> {{0, 5}, {0, 5}}], RowBox[{Domain, :, RowBox[{RowBox[{{, RowBox[{RowBox[{{, RowBox[{0., ,, 1.}], }}], ,, RowBox[{{, RowBox[{0., ,, 1.}], }}]}], }}], Output}], :, scalar}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[{{GrayLevel[0.6], AbsolutePointSize[5], Point[{1, 1}], Point[{2, 4}], Point[{3, 2}], Point[{4, 3}]}, {{}, {}, {AbsoluteThickness[1], Opacity[1.], Line[{{0.8000000734693878, -0.02399960375510868}, {0.8706631774413012, 0.3505011865071658}, {0.9472700794966304, 0.741016921665379}, {1.018800371921923, 1.090336068290569}, {1.0889275239549963, 1.4177197929560479}, {1.1649984740714856, 1.7551585465529884}, {1.2359928145579382, 2.0527120057670984}, {1.3129309531278068, 2.3553962652737637}, {1.3884659513054562, 2.6316861505449225}, {1.458924339853069, 2.869998729253504}, {1.5353265264840976, 3.1064128343075392}, {1.6066521034850896, 3.30569026585425}, {1.6765745400938625, 3.480245915089907}, {1.7524407747860515, 3.6455439900914355}, {1.8232303998482038, 3.776414473223901}, {1.899963822993772, 3.891952122620712}, {1.9752941057471212, 3.977890828433398}, {2.0455477788704335, 3.9569830084470086}, {2.121745250077162, 3.86389685566803}, {2.1928661116538537, 3.755850372068315}, {2.269930771313961, 3.619124955407053}, {2.3455922905818496, 3.4684553201793844}, {2.4161772002197015, 3.3162881206952397}, {2.4927059079409695, 3.1419924288172396}, {2.5641580060322005, 2.9735919815565484}, {2.6342069637312124, 2.806067690004063}, {2.7101997195136405, 2.62482529079835}, {2.7811158656660315, 2.4591705803817088}, {2.8579758099018386, 2.2868143189639065}, {2.9334326137454267, 2.1282937341321193}, {3.003812807958978, 1.9962090260121765}, {3.080136800255945, 1.9297533754064011}, {3.1513841829228757, 1.8847262219271643}, {3.2212284251975873, 1.8575982815511225}, {3.297016465555715, 1.848412920897189}, {3.3677278962838058, 1.859970595073917}, {3.4443831250953125, 1.8957089991189071}, {3.5159617442767828, 1.9520418084678872}, {3.5861372230660336, 2.029883770660295}, {3.6622564999387004, 2.140846451306701}, {3.7332991671813307, 2.2704499614751943}, {3.810285632507377, 2.4405602812351344}, {3.885868957441204, 2.638875706189683}, {3.9563756727449944, 2.852982590058416}, {4.0328261861322, 3.118142013018538}, {4.10420008988937, 3.397838975319635}, {4.174170853254321, 3.7032462235111296}, {4.250085414702688, 4.070747605765018}, {4.320923366521018, 4.448733443103126}, {4.3999999265306124, 4.91199954889798}}]}}}, AspectRatio -> 1, Axes -> False, Background -> GrayLevel[0.93], Frame -> True, FrameStyle -> Directive[GrayLevel[0.7], Thickness[Tiny]], FrameTicks -> None, ImageSize -> {Automatic, 28.}, PlotRange -> {{0, 5}, {0, 5}}], RowBox[{Domain, :, RowBox[{RowBox[{{, RowBox[{RowBox[{{, RowBox[{0., ,, 1.}], }}], ,, RowBox[{{, RowBox[{0., ,, 1.}], }}]}], }}], Output}], :, scalar}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  ifun = Interpolation[data]    ==>     InterpolatingFunction[\!\(\*
 #! GraphicsBox[RasterBox[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255},
@@ -235,7 +268,6 @@ not ok  ifun = Interpolation[data]    ==>     InterpolatingFunction[\!\(\*
 #! PlotRange->{{0, 5}, {0, 5}}]\)	Domain: {{0.,1.},{0.,1.}}
 #! Output: scalar
 #! ]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  Plot3D[ifun[x,y],{x,0,1},{y,0,1}]    ==>     \!\(\*
 #! GraphicsBox[
@@ -805,7 +837,6 @@ not ok  Plot3D[ifun[x,y],{x,0,1},{y,0,1}]    ==>     \!\(\*
 #! ImageSizeRaw->{240, 188},
 #! PlotRange->{{0, 240}, {0, 188}}]\)
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  ListPlot3D[Map[Flatten,data]]    ==>     \!\(\*
 #! GraphicsBox[
 #! TagBox[RasterBox[CompressedData["
@@ -1360,10 +1391,11 @@ not ok  ListPlot3D[Map[Flatten,data]]    ==>     \!\(\*
 #! ImageSize->Automatic,
 #! ImageSizeRaw->{240, 188},
 #! PlotRange->{{0, 240}, {0, 188}}]\)
-#! TextForm[ColonForm[MessageName[SparseArray, list], StringForm[List expected at position `2` in `1`., Short[HoldForm[SparseArray[list]], 3], Short[HoldForm[1], 3]]]]
+#! TextForm[ColonForm[MessageName[SparseArray, list], StringForm[List expected at position `2` in `1`., Short[HoldForm[SparseArray[Span[{1, 2, 4, 8}, Span[{1, 2, 4, 8}, Do[Print[{i, Log[2, i]}], {i, list}]][[3]]]]], 3], Short[HoldForm[1], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Span], 3], Short[HoldForm[Span[{1, 0, 1, 0, 0, 1, 0, 0, 0, 1}, slist]], 3]]]]
+#! TextForm[ColonForm[MessageName[SparseArray, list], StringForm[List expected at position `2` in `1`., Short[HoldForm[SparseArray[Specified*Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}]*Graphics[Raster[{{{0.772061, 0.92462, 0.998703}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}}}, {{0, 0}, {10, 1}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {AxisPadding -> 18.740000000000002, DefaultBoundaryStyle -> Automatic, DefaultPlotStyle -> Automatic, DomainPadding -> 18.740000000000002, RangePadding -> 46.85}]*(elements:4*Dimensions:{10})]], 3], Short[HoldForm[1], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[Raster[{{{0.772061, 0.92462, 0.998703}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}}}, {{0, 0}, {10, 1}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {AxisPadding -> 18.740000000000002, DefaultBoundaryStyle -> Automatic, DefaultPlotStyle -> Automatic, DomainPadding -> 18.740000000000002, RangePadding -> 46.85}], Specified, RowBox[{elements, :, RowBox[{4, Dimensions}], :, RowBox[{{, 10, }}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[Raster[{{{0.772061, 0.92462, 0.998703}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}}}, {{0, 0}, {10, 1}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {AxisPadding -> 18.740000000000002, DefaultBoundaryStyle -> Automatic, DefaultPlotStyle -> Automatic, DomainPadding -> 18.740000000000002, RangePadding -> 46.85}], Specified, RowBox[{elements, :, RowBox[{4, Dimensions}], :, RowBox[{{, 10, }}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  slist=SparseArray[list]    ==>     SparseArray[\!\(\*
+not ok  list={1,0,1,0,0,1,0,0,0,1};; slist=SparseArray[list]    ==>     SparseArray[\!\(\*
 #! GraphicsBox[RasterBox[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255},
 #! ColorFunction->GrayLevel],
 #! BaselinePosition->Bottom,
@@ -1383,8 +1415,9 @@ not ok  slist=SparseArray[list]    ==>     SparseArray[\!\(\*
 #! ]
 not ok  slist==list    ==>     True
 not ok  slist+3 == list+3    ==>     True
+#! TextForm[ColonForm[MessageName[SparseArray, list], StringForm[List expected at position `2` in `1`., Short[HoldForm[SparseArray[Span[{1., 2., 4., 8.}, Span[{1., 2., 4., 8.}, Do[Print[{i, Log[2., i]}], {i, list}]][[3]]]]], 3], Short[HoldForm[1], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[SparseArray, list]], 3]]]]
 not ok  Sin[N[slist]]==Sin[N[list]]    ==>     True
 ok  slist===list    ==>     False
 not ok  Normal[slist]    ==>     {1,0,1,0,0,1,0,0,0,1}
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  %===list    ==>     True

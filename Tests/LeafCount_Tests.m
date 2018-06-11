@@ -57,7 +57,7 @@ structure of expression heads:"], TapTestSameBROKEN[
  TapTestSame[LeafCount[f[a[b]][c, d]], 5], TapComment["This shows the \
 expression tree whose leaves are counted by \
 RefLink[LeafCount,paclet:ref/LeafCount]:"], 
- TapTestSameBROKEN[HoldComplete[LayeredGraphPlot[{f[a[b]][c, d] -> f[a[b]], 
+ TapTestSame[HoldComplete[LayeredGraphPlot[{f[a[b]][c, d] -> f[a[b]], 
      f[a[b]][c, d] -> c, f[a[b]][c, d] -> d, f[a[b]] -> f, f[a[b]] -> a[b], 
      a[b] -> a, a[b] -> b}, VertexLabeling -> True, DirectedEdges -> True, 
     VertexCoordinateRules -> {{0, 0}, {-1, -1}, {0, -1}, {1, -1}, {-2, -2}, 

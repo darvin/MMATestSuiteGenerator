@@ -1,13 +1,11 @@
 #! DOCKER > wolfram -script output/Tests/Rest_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Rest_Tests
-ok  Rest[{a, b, c, d}]    ==>     {b, c, d}
-    ---
-    data:
-        got: {b, c, d}
-        expect: {b, c, d}
-        expect_evaluated: {b, c, d}
-    ...
+ok  $Failed    ==>     HoldComplete[{b, c, d}] # skip
 ok  Rest[<| 1 :> a, 2 -> b, 3 :> c |>]    ==>     <| 2 -> b, 3 :> c |>
     ---
     data:

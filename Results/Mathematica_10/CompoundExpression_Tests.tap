@@ -1,13 +1,11 @@
 #! DOCKER > wolfram -script output/Tests/CompoundExpression_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: CompoundExpression_Tests
-ok  a = 2; b = 3; a + b    ==>     5
-    ---
-    data:
-        got: 5
-        expect: 5
-        expect_evaluated: 5
-    ...
+ok  $Failed    ==>     HoldComplete[5] # skip
 # % is still set to be the output:
 ok  %    ==>     1606938044258990275541962092341162602522202993782792835301376 # skip
 # Use RefLink[Throw,paclet:ref/Throw], RefLink[Catch,paclet:ref/Catch] to exit immediately:

@@ -14,16 +14,24 @@ rational expressions of input coefficients:"],
  TapComment["Use a prime modulus:"], 
  TapTestSame[PolynomialRemainder[x^2 + 4*x + 1, 2*x + 1, x, Modulus -> 2], 
   0], TapTestSame[PolynomialRemainder[x^2 + 4*x + 1, 2*x + 1, x, 
-   Modulus -> 5], 3], TapTestSameBROKEN[Euclid[(x + 1)*(x + 2), 
-   (x + 2)*(x + 3), x], -4 - 2*x], 
+   Modulus -> 5], 3], TapComment[
+  "Euclid's algorithm for the greatest common divisor:"], 
+ TapTestSame[Euclid[f_, g_, x_] /; Exponent[f, x] < Exponent[g, x] := 
+    Euclid[g, f, x]; Euclid[f_, (g_)?NumericQ, x_] := 
+    If[PossibleZeroQ[g], f, 1]; Euclid[f_, g_, x_] := 
+    Euclid[g, PolynomialRemainder[f, g, x], x]; Euclid[(x + 1)*(x + 2), 
+    (x + 2)*(x + 3), x], -4 - 2*x], 
  TapComment["Divide by the leading coefficient:"], 
  TapTestSameBROKEN[Expand[%/Coefficient[%, x, 1]], 2 + x], 
  TapTestSame[PolynomialGCD[(x + 1)*(x + 2), (x + 2)*(x + 3)], 2 + x], 
- TapTestSameBROKEN[q = PolynomialQuotient[f, g, x], 2 + x], 
- TapTestSameBROKEN[r = PolynomialRemainder[f, g, x], -3], 
+ TapComment["For a polynomial f, f==qg+r, where q is given by \
+RefLink[PolynomialQuotient,paclet:ref/PolynomialQuotient]:"], 
+ TapTestSameBROKEN[{f, g} = {x^2 + 4*x + 1, x + 2} ;; q = 
+    PolynomialQuotient[f, g, x], 2 + x], TapTestSameBROKEN[
+  r = PolynomialRemainder[f, g, x], -3], 
  TapComment["Use RefLink[Expand,paclet:ref/Expand] to verify identity:"], 
- TapTestSame[Expand[q*g + r] == f, True], TapComment["To get both quotient \
-and remainder use \
+ TapTestSameBROKEN[Expand[q*g + r] == f, True], 
+ TapComment["To get both quotient and remainder use \
 RefLink[PolynomialQuotientRemainder,paclet:ref/PolynomialQuotientRemainder]:"]\
 , TapTestSameBROKEN[PolynomialQuotientRemainder[f, g, x], {2 + x, -3}], 
  TapComment["RefLink[PolynomialReduce,paclet:ref/PolynomialReduce] \

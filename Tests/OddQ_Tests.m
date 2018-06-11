@@ -12,6 +12,8 @@ RefLink[EvenQ,paclet:ref/EvenQ] to check that an integer is even:"],
  TapTestSame[OddQ[2], False], TapTestSame[EvenQ[2], True], 
  TapComment["Odd integers are not divisible by 2:"], 
  TapTestSame[OddQ[15], True], TapTestSame[ !Divisible[15, 2], True], 
- TapTestSame[OddQ[x], False], 
+ TapComment["Expressions that represent odd integers but do not evaluate \
+explicitly will still give RefLink[False,paclet:ref/False]:"], 
+ TapTestSameBROKEN[x = 3*(GoldenRatio - 1/GoldenRatio) ;; OddQ[x], False], 
  TapComment["It is necessary to use symbolic simplification first:"], 
  TapTestSameBROKEN[FullSimplify[x], 3]]

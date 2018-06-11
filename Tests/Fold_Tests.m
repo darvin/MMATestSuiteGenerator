@@ -1,6 +1,6 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[Fold[f, x, {a, b, c, d}], f[f[f[f[x, a], b], c], d]], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[f[f[f[f[x, a], b], c], d]]], 
  TapTestSame[Fold[List, x, {a, b, c, d}], {{{{x, a}, b}, c}, d}], 
  TapTestSame[Fold[Times, 1, {a, b, c, d}], a*b*c*d], 
  TapTestSame[Fold[#1^#2 & , x, {a, b, c, d}], (((x^a)^b)^c)^d], 

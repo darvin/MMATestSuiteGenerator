@@ -1,12 +1,22 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Min.nb output/Tests/Min_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Min.nb
 # WRITING OUTPUT TO:     output/Tests/Min_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Min[9,2]    ==>     2
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Min[{4,1,7,2}]    ==>     1
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  Min[{Pi,E,Sqrt[2]}]    ==>     Sqrt[2]
 ok  Min[{3,4,1},{2,2},7]    ==>     1
-not ok  Min[mat]    ==>     -3
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+not ok  mat={{-1,0,1,2},{0,2,4,6},{-3,-2,-1,0}};; Min[mat]    ==>     -3
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
 not ok  Min/@mat    ==>     {-1,0,-3}
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$RecursionLimit, reclim]], 3]]]]
 not ok  Min/@Transpose[mat]    ==>     {-3,-2,-1,0}
 ok  Min[x,y,Min[x,z]]    ==>     Min[x,y,z]
 ok  Simplify[Min[1-x,x,1+x]]    ==>     Min[1-x,x]
@@ -15,10 +25,6 @@ ok  Integrate[Min[Sin[x],Cos[x]],{x,0,Pi}]//FullSimplify    ==>     1-Sqrt[2]
 not ok  Integrate[Exp[Min[x,a-x]],{x,0,1}]    ==>     \[Piecewise]	-1+E	a>=2
 #! (-1+E) E^(-1+a)	a<=0
 #! (-E+2 E^(1+a/2)-E^a)/E	True
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 225}, {0, 128}}]\)\)
-#!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 225}, {0, 128}}]\)\)
 #!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
@@ -133,7 +139,7 @@ not ok  Plot[Min[Sin[x],Cos[x]],{x,0,2Pi},PlotRange->All]    ==>     \!\(\*
 #! ImageSize->Automatic,
 #! ImageSizeRaw->{225, 128},
 #! PlotRange->{{0, 225}, {0, 128}}]\)
-not ok  Reduce[{Min[Sin[x],Cos[x]]>0,0<x<20},x]    ==>     0<x<\[Pi]/2||2 \[Pi]<x<(5 \[Pi])/2||4 \[Pi]<x<(9 \[Pi])/2||6 \[Pi]<x<20
+ok  Reduce[{Min[Sin[x],Cos[x]]>0,0<x<20},x]    ==>     0<x<\[Pi]/2||2 \[Pi]<x<(5 \[Pi])/2||4 \[Pi]<x<(9 \[Pi])/2||6 \[Pi]<x<20
 ok  Min[SparseArray[{1->x,2->y},10]]    ==>     Min[0,x,y]
 ok  Table[i j k,{i,3},{j,3},{k,Min[i,j],3}]    ==>     {{{1,2,3},{2,4,6},{3,6,9}},{{2,4,6},{8,12},{12,18}},{{3,6,9},{12,18},{27}}}
 ok  Rest[FoldList[Min,Infinity,{10,18,16,22,12,30,6,24,24,2}]]    ==>     {10,10,10,10,10,10,6,6,6,2}
@@ -141,8 +147,6 @@ ok  Rest[FoldList[Min,Infinity,{10,18,16,22,12,30,6,24,24,2}]]    ==>     {10,10
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 240}, {0, 143}}]\)\)
 #!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  Plot[Sin[x]+Sin[Sqrt[3] x],{x,0,20 Pi}]    ==>     \!\(\*
 #! GraphicsBox[
 #! TagBox[RasterBox[CompressedData["
@@ -431,12 +435,14 @@ not ok  Plot[Sin[x]+Sin[Sqrt[3] x],{x,0,20 Pi}]    ==>     \!\(\*
 #! ImageSize->Automatic,
 #! ImageSizeRaw->{240, 143},
 #! PlotRange->{{0, 240}, {0, 143}}]\)
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 #! TextForm[ColonForm[MessageName[Last, nolast], StringForm[`1` has a length of zero and no last element., Short[HoldForm[{}], 3]]]]
 not ok  Min[Last/@Level[Cases[%,_Line,Infinity],{-2}]]    ==>     -1.99914
 ok  Integrate[Min[x,1-x]/Max[x,1-x],{x,0,1}]    ==>     -1+2 Log[2]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 215}, {0, 240}}]\)\)
+#!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
 not ok  RegionPlot3D[Min[x-y z,y-z,x+z^2]>0, {x,-3,3},{y,-3,3},{z,-3,3}]    ==>     \!\(\*
 #! GraphicsBox[
 #! TagBox[RasterBox[CompressedData["
@@ -949,7 +955,6 @@ not ok  Derivative[1,0][Min]    ==>     \[Piecewise]1	#1-#2<=0
 ok  Min[{a,b},{c,d}]    ==>     Min[a,b,c,d]
 ok  Min[I]    ==>     I
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  Table[RegionPlot[Min[x,y]<t,{x,-2,2},{y,-2,2},PlotLabel->Min[x,y]<t],{t,{-1,0,1}}]    ==>     \!\(\*
 #! GraphicsBox[
 #! TagBox[RasterBox[CompressedData["
@@ -1064,7 +1069,6 @@ not ok  Table[RegionPlot[Min[x,y]<t,{x,-2,2},{y,-2,2},PlotLabel->Min[x,y]<t],{t,
 #! ImageSizeRaw->{486, 172},
 #! PlotRange->{{0, 486}, {0, 172}}]\)
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  Table[RegionPlot[Min[x,y]>t,{x,-2,2},{y,-2,2},PlotLabel->Min[x,y]>t],{t,{-1,0,1}}]    ==>     \!\(\*
 #! GraphicsBox[
 #! TagBox[RasterBox[CompressedData["
@@ -1173,7 +1177,6 @@ not ok  Table[RegionPlot[Min[x,y]>t,{x,-2,2},{y,-2,2},PlotLabel->Min[x,y]>t],{t,
 #! ImageSize->Automatic,
 #! ImageSizeRaw->{486, 172},
 #! PlotRange->{{0, 486}, {0, 172}}]\)
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  Table[RegionPlot3D[Min[x,y,z]<t,{x,-2,2},{y,-2,2},{z,-2,2},PlotLabel->Min[x,y,z]<t],{t,{-1,0,1}}]    ==>     \!\(\*
 #! GraphicsBox[
@@ -1729,7 +1732,6 @@ ok2vmMQhA3HSk4G4/VAce7A7evkaShAyECc9GYjbD8W9B7uRy4lGBuKkJwOx
 #! ImageSize->Automatic,
 #! ImageSizeRaw->{486, 201},
 #! PlotRange->{{0, 486}, {0, 201}}]\)
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  Table[RegionPlot3D[Min[x,y,z]>t,{x,-2,2},{y,-2,2},{z,-2,2},PlotLabel->Min[x,y,z]>t],{t,{-1,0,1}}]    ==>     \!\(\*
 #! GraphicsBox[

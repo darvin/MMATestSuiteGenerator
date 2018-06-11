@@ -1,3 +1,0 @@
-#! DOCKER > wolfram -script output/Tests/ToString_Tests.m
-#! TextForm[ColonForm[MessageName[Syntax, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Language syntax:"], TapTestSameBROKEN[t = \exp (y)+1.2 x, 1.2*x + e^y], 
-#!                                           ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[ (line 60 of "output/Tests/ToString_Tests.m")], 3]]]]

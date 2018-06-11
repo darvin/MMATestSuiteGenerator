@@ -1,7 +1,7 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[MapIndexed[f, {a, b, c, d}], 
-  {f[a, {1}], f[b, {2}], f[c, {3}], f[d, {4}]}], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[
+   {f[a, {1}], f[b, {2}], f[c, {3}], f[d, {4}]}]], 
  TapComment["#2 gives the indices of each part:"], 
  TapTestSame[MapIndexed[First[#2] + f[#1] & , {a, b, c, d}], 
   {1 + f[a], 2 + f[b], 3 + f[c], 4 + f[d]}], 

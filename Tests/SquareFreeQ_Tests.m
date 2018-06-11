@@ -1,6 +1,6 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[SquareFreeQ[10], True], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[True]], 
  TapComment["12 has a factor 4, which is a square:"], 
  TapTestSame[SquareFreeQ[12], False], TapTestSame[SquareFreeQ[x^4 - 1], 
   True], TapTestSame[SquareFreeQ[x^4 - 2*x^2 + 1], False], 
@@ -36,14 +36,17 @@ RefLink[Binomial,paclet:ref/Binomial][2n,n] are not square-free for n>4:"],
 RefLink[FactorSquareFreeList,paclet:ref/FactorSquareFreeList]:"], 
  TapTestSame[SquareFreeQ[Expand[(x + 1)^3*(x + 2)^2*(x + 3)^2]], False], 
  TapTestSame[FactorSquareFreeList[Expand[(x + 1)^3*(x + 2)^2*(x + 3)^2]], 
-  {{1, 1}, {1 + x, 3}, {6 + 5*x + x^2, 2}}], 
- TapTestSame[SquareFreeQ[Cancel[p/PolynomialGCD[p, D[p, x]]]], True], 
+  {{1, 1}, {1 + x, 3}, {6 + 5*x + x^2, 2}}], TapComment["The polynomial \
+p[x]/RefLink[PolynomialGCD,paclet:ref/PolynomialGCD][p[x],p'[x]] is always \
+square-free:"], TapTestSameBROKEN[
+  p = Expand[(x + 1)^3*(x + 2)^2*(x + 3)^2] ;; 
+    SquareFreeQ[Cancel[p/PolynomialGCD[p, D[p, x]]]], True], 
  TapComment["RefLink[MoebiusMu,paclet:ref/MoebiusMu] is zero for \
 non-square-free integers:"], TapTestSame[MoebiusMu[12], 0], 
  TapTestSame[SquareFreeQ[12], False], TapComment["Square-free integers: "], 
- TapTestSameBROKEN[HoldComplete[
-   ArrayPlot[Partition[Table[Boole[SquareFreeQ[i]], {i, 300^2}], 300]]], 
-  $Failed], TapComment["Square-free Gaussian integers:"], 
- TapTestSameBROKEN[HoldComplete[
-   ArrayPlot[Table[Boole[SquareFreeQ[x + I*y, GaussianIntegers -> True]], 
-     {x, 300}, {y, 300}]]], $Failed]]
+ TapTestSame[HoldComplete[ArrayPlot[Partition[Table[Boole[SquareFreeQ[i]], 
+      {i, 300^2}], 300]]], $Failed], 
+ TapComment["Square-free Gaussian integers:"], 
+ TapTestSame[HoldComplete[ArrayPlot[
+    Table[Boole[SquareFreeQ[x + I*y, GaussianIntegers -> True]], {x, 300}, 
+     {y, 300}]]], $Failed]]

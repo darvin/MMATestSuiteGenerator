@@ -23,7 +23,16 @@ random numbers repeatable:"], TapTestSameBROKEN[
    Eigenvalues[RandomReal[1, {100, 100}], -1], {0.149017 - 0.119666*I}], 
  TapTestSameBROKEN[SeedRandom[1234]; Eigenvalues[RandomReal[1, {100, 100}]][[
     {1, -1}]], {50.0846, 0.149017 - 0.119666*I}], 
- TapTestSameBROKEN[HoldComplete[p100 = rplot[Sin[x], {x, 0, 10*Pi}]], 
-  $Failed], TapComment["Using the function again with more points just adds \
-the additional points:"], TapTestSameBROKEN[
-  HoldComplete[rplot[Sin[x], {x, 0, 10*Pi}, PlotPoints -> 125]], $Failed]]
+ TapComment[
+  "Write a function that uses randomness, but returns predictable results:"], 
+ TapTestSameBROKEN[HoldComplete[
+   Options[rplot] = {PlotPoints -> 100, RandomSeed -> 1234} ;; 
+       rplot[f_, {x_, xmin_, xmax_}, OptionsPattern[]] := 
+      Module[{n = OptionValue[PlotPoints], s = OptionValue[RandomSeed]}, 
+       BlockRandom[SeedRandom[s]; ListPlot[Table[{x, f}, 
+           {x, RandomReal[{xmin, xmax}, n]}]]]]; 
+    p100 = rplot[Sin[x], {x, 0, 10*Pi}]], $Failed], 
+ TapComment[
+  "Using the function again with more points just adds the additional \
+points:"], TapTestSameBROKEN[HoldComplete[rplot[Sin[x], {x, 0, 10*Pi}, 
+    PlotPoints -> 125]], $Failed]]

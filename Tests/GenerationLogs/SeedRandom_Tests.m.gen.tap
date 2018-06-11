@@ -1,8 +1,14 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/SeedRandom.nb output/Tests/SeedRandom_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/SeedRandom.nb
 # WRITING OUTPUT TO:     output/Tests/SeedRandom_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  SeedRandom[1234];RandomReal[]    ==>     0.918946
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  SeedRandom[1234];RandomReal[]    ==>     0.918946
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 not ok  SeedRandom["password"];RandomReal[]    ==>     0.42532
 not ok  SeedRandom[4567];{RandomInteger[10],RandomReal[]}    ==>     {5,0.352724}
 not ok  SeedRandom[4567];{RandomReal[],RandomInteger[10]}    ==>     {0.334545,8}
@@ -11,15 +17,14 @@ not ok  SeedRandom[4321];RandomReal[1,5]    ==>     {0.448897,0.199816,0.907441,
 not ok  SeedRandom[1234]; Eigenvalues[RandomReal[1, {100, 100}], 1]    ==>     {50.0846}
 not ok  SeedRandom[1234]; Eigenvalues[RandomReal[1, {100, 100}], -1]    ==>     {0.149017-0.119666 I}
 not ok  SeedRandom[1234];Eigenvalues[RandomReal[1, {100, 100}]][[{1,-1}]]    ==>     {50.0846,0.149017-0.119666 I}
+#! TextForm[ColonForm[MessageName[SetDelayed, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Span], 3], Short[HoldForm[Span[{PlotPoints -> 100, RandomSeed -> 1234}, rplot[f_, {x_, xmin_, xmax_}, OptionsPattern[]]]], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
 #!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
-#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-not ok  p100 = rplot[Sin[x],{x,0,10\[Pi]}]    ==>     \!\(\*
+not ok  Options[rplot] = {PlotPoints->100, RandomSeed->1234};; rplot[f_,{x_, xmin_, xmax_}, OptionsPattern[]]:=Module[{n = OptionValue[PlotPoints], s = OptionValue[RandomSeed]},
+#! BlockRandom[SeedRandom[s];
+#! ListPlot[Table[{x, f},{x,RandomReal[{xmin, xmax}, n]}]]]]; p100 = rplot[Sin[x],{x,0,10\[Pi]}]    ==>     \!\(\*
 #! GraphicsBox[{{}, 
 #! {Hue[0.67, 0.6, 0.6], PointBox[CompressedData["
 #! 1:eJwdlGs41HkfxieUctiSY85MKSKHGafB/L5ry8Ou2ixlaZNjSslpU4tQOaQe
@@ -70,8 +75,6 @@ not ok  p100 = rplot[Sin[x],{x,0,10\[Pi]}]    ==>     \!\(\*
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
 #!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  rplot[Sin[x], {x,0,10\[Pi]}, PlotPoints->125]    ==>     \!\(\*
 #! GraphicsBox[{{}, 
 #! {Hue[0.67, 0.6, 0.6], PointBox[CompressedData["

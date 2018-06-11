@@ -1,7 +1,0 @@
-#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Timing.nb output/Tests/Timing_Tests.m
-# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Timing.nb
-# WRITING OUTPUT TO:     output/Tests/Timing_Tests.m
-not ok  Timing[Total[Range[123456]]]    ==>     {0.07,7620753696}
-not ok  Timing[Module[{x = 1/Pi},Do[x = 3.5 x(1-x),{10^6}];x]]    ==>     {3.054,0.500884}
-not ok  Timing[Nest[3.5 # (1-#)&,1./Pi,10^6]]    ==>     {0.16,0.500884}
-not ok  Timing[f = Fourier[RandomReal[1,2^16]];]    ==>     {0.03,Null}

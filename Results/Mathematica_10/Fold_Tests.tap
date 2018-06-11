@@ -1,13 +1,11 @@
 #! DOCKER > wolfram -script output/Tests/Fold_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Fold_Tests
-ok  Fold[f, x, {a, b, c, d}]    ==>     f[f[f[f[x, a], b], c], d]
-    ---
-    data:
-        got: f[f[f[f[x, a], b], c], d]
-        expect: f[f[f[f[x, a], b], c], d]
-        expect_evaluated: f[f[f[f[x, a], b], c], d]
-    ...
+ok  $Failed    ==>     HoldComplete[f[f[f[f[x, a], b], c], d]] # skip
 ok  Fold[List, x, {a, b, c, d}]    ==>     {{{{x, a}, b}, c}, d}
     ---
     data:
@@ -18,16 +16,18 @@ ok  Fold[List, x, {a, b, c, d}]    ==>     {{{{x, a}, b}, c}, d}
 ok  Fold[Times, 1, {a, b, c, d}]    ==>     a*b*c*d
     ---
     data:
-        got: a*b*c*d
+        got: a b c d
         expect: a*b*c*d
-        expect_evaluated: a*b*c*d
+        expect_evaluated: a b c d
     ...
 ok  Fold[#1^#2 & , x, {a, b, c, d}]    ==>     (((x^a)^b)^c)^d
     ---
     data:
-        got: (((x^a)^b)^c)^d
+        got:     a b c d
+#! (((x ) ) )
         expect: (((x^a)^b)^c)^d
-        expect_evaluated: (((x^a)^b)^c)^d
+        expect_evaluated:     a b c d
+#! (((x ) ) )
     ...
 # The head need not be RefLink[List,paclet:ref/List]:
 ok  Fold[f, x, p[a, b, c, d]]    ==>     f[f[f[f[x, a], b], c], d]
@@ -64,25 +64,41 @@ ok  Fold[g[#2, #1] & , x, {a, b, c, d}]    ==>     g[d, g[c, g[b, g[a, x]]]]
 ok  Fold[x*#1 + #2 & , 0, {a, b, c, d, e}]    ==>     e + x*(d + x*(c + x*(b + a*x)))
     ---
     data:
-        got: e + x*(d + x*(c + x*(b + a*x)))
+        got: e + x (d + x (c + x (b + a x)))
         expect: e + x*(d + x*(c + x*(b + a*x)))
-        expect_evaluated: e + x*(d + x*(c + x*(b + a*x)))
+        expect_evaluated: e + x (d + x (c + x (b + a x)))
     ...
 # RefLink[HornerForm,paclet:ref/HornerForm] directly produces this output:
 ok  HornerForm[Reverse[{a, b, c, d, e}] . x^Range[0, 4], x]    ==>     e + x*(d + x*(c + x*(b + a*x)))
     ---
     data:
-        got: e + x*(d + x*(c + x*(b + a*x)))
+        got: e + x (d + x (c + x (b + a x)))
         expect: e + x*(d + x*(c + x*(b + a*x)))
-        expect_evaluated: e + x*(d + x*(c + x*(b + a*x)))
+        expect_evaluated: e + x (d + x (c + x (b + a x)))
     ...
 # Form a continued fraction:
 ok  Fold[1/(#2 + #1) & , x, Reverse[{a, b, c, d}]]    ==>     1/(a + 1/(b + 1/(c + 1/(d + x))))
     ---
     data:
-        got: (a + (b + (c + (d + x)^(-1))^(-1))^(-1))^(-1)
+        got:         1
+#! -----------------
+#!           1
+#! a + -------------
+#!             1
+    b + ---------
+#!               1
+        c + -----
+#!             d + x
         expect: 1/(a + 1/(b + 1/(c + 1/(d + x))))
-        expect_evaluated: (a + (b + (c + (d + x)^(-1))^(-1))^(-1))^(-1)
+        expect_evaluated:         1
+#! -----------------
+#!           1
+#! a + -------------
+#!             1
+    b + ---------
+#!               1
+        c + -----
+#!             d + x
     ...
 # Form a number from digits:
 ok  Fold[10*#1 + #2 & , 0, {4, 5, 1, 6, 7, 8}]    ==>     451678
@@ -200,7 +216,9 @@ ok  Fold[Union[#1, #1 + #2] & , {0}, {1, 2, 2, 8}]    ==>     {0, 1, 2, 3, 4, 5,
 ok  Fold[Expand[(#1 /. x -> x + #2)*(#1 /. x -> x - #2)] & , x, Sqrt[Prime[Range[4]]]]    ==>     46225 - 5596840*x^2 + 13950764*x^4 - 7453176*x^6 + 1513334*x^8 - 141912*x^10 + 6476*x^12 - 136*x^14 + x^16
     ---
     data:
-        got: 46225 - 5596840*x^2 + 13950764*x^4 - 7453176*x^6 + 1513334*x^8 - 141912*x^10 + 6476*x^12 - 136*x^14 + x^16
+        got:                  2             4            6            8           10         12        14    16
+#! 46225 - 5596840 x  + 13950764 x  - 7453176 x  + 1513334 x  - 141912 x   + 6476 x   - 136 x   + x
         expect: 46225 - 5596840*x^2 + 13950764*x^4 - 7453176*x^6 + 1513334*x^8 - 141912*x^10 + 6476*x^12 - 136*x^14 + x^16
-        expect_evaluated: 46225 - 5596840*x^2 + 13950764*x^4 - 7453176*x^6 + 1513334*x^8 - 141912*x^10 + 6476*x^12 - 136*x^14 + x^16
+        expect_evaluated:                  2             4            6            8           10         12        14    16
+#! 46225 - 5596840 x  + 13950764 x  - 7453176 x  + 1513334 x  - 141912 x   + 6476 x   - 136 x   + x
     ...

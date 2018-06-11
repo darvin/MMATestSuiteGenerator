@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/RandomReal_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: RandomReal_Tests
 # A random real number in the range 0 to 1:
@@ -24,15 +28,39 @@ ok  RandomReal[{-1, 1}, 5, WorkingPrecision -> 5]    ==>     {-0.91953, -0.76353
 ok  RandomReal[WorkingPrecision -> 50]    ==>     0.31918832523749509908670507276463385641549235623071`49.504046998036905 # skip
 ok  RandomReal[{-1, 1}, WorkingPrecision -> 50]    ==>     -0.47915048778086224644991844244514281568096945072073`49.680471934601414 # skip
 # A random walk:
-ok  HoldComplete[ListLinePlot[Accumulate[RandomReal[{-1, 1}, 100]]]]    ==>     $Failed # skip
+not ok  HoldComplete[ListLinePlot[Accumulate[RandomReal[{-1, 1}, 100]]]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Circles at random positions:
-ok  HoldComplete[Graphics[Circle /@ RandomReal[10, {40, 2}]]]    ==>     $Failed # skip
+not ok  HoldComplete[Graphics[Circle /@ RandomReal[10, {40, 2}]]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Random array of gray levels:
 ok  HoldComplete[ArrayPlot[RandomReal[1, {30, 40}]]]    ==>     $Failed # skip
 # Spheres at random positions:
-ok  HoldComplete[Graphics3D[Sphere /@ RandomReal[10, {50, 3}]]]    ==>     $Failed # skip
+not ok  HoldComplete[Graphics3D[Sphere /@ RandomReal[10, {50, 3}]]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics3D-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # 2D random walk:
-ok  HoldComplete[Graphics[Line[Accumulate[RandomReal[{-1, 1}, {500, 2}]]]]]    ==>     $Failed # skip
+not ok  HoldComplete[Graphics[Line[Accumulate[RandomReal[{-1, 1}, {500, 2}]]]]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # 3D random walk:
 ok  HoldComplete[Graphics3D[Line[Accumulate[RandomReal[{-1, 1}, {500, 3}]]]]]    ==>     $Failed # skip
 # Determinants of random 100*100 matrices:
@@ -43,20 +71,38 @@ ok  Complex @@ RandomReal[1, 2]    ==>     0.0182069 + 0.059136*I # skip
 ok  Apply[Complex, RandomReal[1, {5, 2}], {1}]    ==>     {0.742297 + 0.66322*I, 0.736816 + 0.457873*I, 0.557258 + 0.194895*I, 0.377257 + 0.364522*I, 0.709416 + 0.668859*I} # skip
 # Use RefLink[SeedRandom,paclet:ref/SeedRandom] to get repeatable random values:
 ok  {RandomReal[], RandomReal[]}    ==>     {0.199285, 0.662607} # skip
-ok  {SeedRandom[1234]; RandomReal[], SeedRandom[1234]; RandomReal[]}    ==>     {0.876608, 0.876608} # skip
-# Use RefLink[BlockRandom,paclet:ref/BlockRandom] to block one use of RefLink[RandomReal,paclet:ref/RandomReal] from affecting others:
-ok  {BlockRandom[RandomReal[]], RandomReal[]}    ==>     {0.521964, 0.521964} # skip
-# With the same seed, RefLink[RandomReal,paclet:ref/RandomReal] generates the "same" number, regardless of precision:
-ok  Table[SeedRandom[4567]; RandomReal[WorkingPrecision -> p], {p, 10}]    ==>     {0.5, 0.52, 0.521, 0.522, 0.52199, 0.521992, 0.521992, 0.521992, 0.521992002, 0.5219920025}
+ok  {SeedRandom[1234]; RandomReal[], SeedRandom[1234]; RandomReal[]}    ==>     {0.876608, 0.876608}
     ---
     data:
-        got: {0.5`1., 0.515625`2., 0.521484375`3., 0.52197265625`4., 0.5219879150390625`5., 0.521991729736328125`6., 0.5219919681549072266`7., 0.5219919979572296143`8., 0.5219920016825199127`9., 0.52199200249742716550827026367`10.}
-        expect: {0.5, 0.52, 0.521, 0.522, 0.52199, 0.521992, 0.521992, 0.521992, 0.521992002, 0.5219920025}
-        expect_evaluated: {0.5, 0.52, 0.521, 0.522, 0.52199, 0.521992, 0.521992, 0.521992, 0.521992002, 0.5219920025}
+        got: {0.876608, 0.876608}
+        expect: {0.876608, 0.876608}
+        expect_evaluated: {0.876608, 0.876608}
     ...
+# Use RefLink[BlockRandom,paclet:ref/BlockRandom] to block one use of RefLink[RandomReal,paclet:ref/RandomReal] from affecting others:
+ok  {BlockRandom[RandomReal[]], RandomReal[]}    ==>     {0.521964, 0.521964}
+    ---
+    data:
+        got: {0.521964, 0.521964}
+        expect: {0.521964, 0.521964}
+        expect_evaluated: {0.521964, 0.521964}
+    ...
+# With the same seed, RefLink[RandomReal,paclet:ref/RandomReal] generates the "same" number, regardless of precision:
+ok  Table[SeedRandom[4567]; RandomReal[WorkingPrecision -> p], {p, 10}]    ==>     {0.5, 0.52, 0.521, 0.522, 0.52199, 0.521992, 0.521992, 0.521992, 0.521992002, 0.5219920025} # skip
 # RefLink[RandomReal,paclet:ref/RandomReal] generates a uniform distribution, here with mean 0.5:
-ok  Mean[RandomReal[1, 10000]]    ==>     0.497923 # skip
+ok  Mean[RandomReal[1, 10000]]    ==>     0.497923
+    ---
+    data:
+        got: 0.497923
+        expect: 0.497923
+        expect_evaluated: 0.497923
+    ...
 # RefLink[RandomReal,paclet:ref/RandomReal] generates white noise:
-ok  HoldComplete[ListLinePlot[Abs[Fourier[RandomReal[{-1, 1}, 1000]]]]]    ==>     $Failed # skip
+not ok  HoldComplete[ListLinePlot[Abs[Fourier[RandomReal[{-1, 1}, 1000]]]]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Construct a surface from random heights:
 ok  HoldComplete[ListPlot3D[Log[RandomReal[1, {50, 50}]]]]    ==>     $Failed # skip

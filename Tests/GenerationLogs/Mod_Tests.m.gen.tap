@@ -1,17 +1,19 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Mod.nb output/Tests/Mod_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Mod.nb
 # WRITING OUTPUT TO:     output/Tests/Mod_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Mod[{1,2,3,4,5,6,7},3]    ==>     {1,2,0,1,2,0,1}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Mod[{1,2,3,4,5,6,7},3,1]    ==>     {1,2,3,1,2,3,1}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
 #!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
-#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-not ok  DiscretePlot[Mod[n,8],{n,50}]    ==>     \!\(\*
+ok  DiscretePlot[Mod[n,8],{n,50}]    ==>     \!\(\*
 #! GraphicsBox[GraphicsComplexBox[CompressedData["
 #! 1:eJzt1EsOAUEURuGKkaGBgYEBHRER6aC9X93eTC1BYmwLtQRLtQRE/925ZwtU
 #! IjdHJb7JVfXr/XIrOOce789nfs8zttMldhYxS5hlzApmFbOm309PkFi/Ab8J
@@ -34,9 +36,7 @@ not ok  DiscretePlot[Mod[n,8],{n,50}]    ==>     \!\(\*
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
 #!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  DiscretePlot[Mod[100,m],{m,50}]    ==>     \!\(\*
+ok  DiscretePlot[Mod[100,m],{m,50}]    ==>     \!\(\*
 #! GraphicsBox[GraphicsComplexBox[CompressedData["
 #! 1:eJztlEtqAlEQRZuMHGaQgQMHRoKIiPiJ/08/E010miUIjrOFWoFrdQmJWPdB
 #! nS3og+ZyuNX1qqqLfj3+/pyeiqI4/z9XvZ1LWcSTIlZSjHuG/wKuphhXk+9a
@@ -55,9 +55,8 @@ not ok  DiscretePlot[Mod[100,m],{m,50}]    ==>     \!\(\*
 #! PlotRange->{{0., 50.}, {0., 32.}},
 #! PlotRangeClipping->True,
 #! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)
-not ok  Mod[4.56,2]    ==>     0.56
+ok  Mod[4.56,2]    ==>     0.56
 ok  Mod[Exp[Pi],2]    ==>     -22+E^\[Pi]
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  N[%]    ==>     1.14069
 ok  Mod[20,Pi]    ==>     20-6 \[Pi]
 ok  Mod[Sqrt[-113],2]    ==>     -10 I+I Sqrt[113]
@@ -69,7 +68,10 @@ ok  Integrate[Mod[x^2,2],{x,0,4}]    ==>     2/3 (-46+9 Sqrt[2]+6 Sqrt[3]+3 Sqrt
 ok  {a,b,c}[[Mod[Range[10],3,1]]]    ==>     {a,b,c,a,b,c,a,b,c,a}
 ok  Select[Array[Prime,PrimePi[100]],Mod[#,6]==1&]    ==>     {7,13,19,31,37,43,61,67,73,79,97}
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 225}, {0, 162}}]\)\)
+#!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
 not ok  Graphics[Line[Table[Mod[t,{Sqrt[2],1}],{t,0,20,.001}]]]    ==>     \!\(\*
 #! GraphicsBox[
 #! TagBox[RasterBox[CompressedData["
@@ -692,12 +694,11 @@ not ok  Graphics[Line[Table[Mod[t,{Sqrt[2],1}],{t,0,20,.001}]]]    ==>     \!\(\
 #! ImageSize->Automatic,
 #! ImageSizeRaw->{225, 162},
 #! PlotRange->{{0, 225}, {0, 162}}]\)
-not ok  (1\[CirclePlus]0)\[CirclePlus]1    ==>     0
+ok  x_\[CirclePlus]y_:=Mod[x+y,2]; (1\[CirclePlus]0)\[CirclePlus]1    ==>     0
 ok  Mod[{-3,-2,-1,0,1,2,3},3]    ==>     {0,1,2,0,1,2,0}
 ok  Mod[{-3,-2,-1,0,1,2,3},-3]    ==>     {0,-2,-1,0,-2,-1,0}
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  Plot[Mod[x,2],{x,-6,6}]    ==>     \!\(\*
+ok  Plot[Mod[x,2],{x,-6,6}]    ==>     \!\(\*
 #! GraphicsBox[{{{}, {}, 
 #! {Hue[0.67, 0.6, 0.6], LineBox[CompressedData["
 #! 1:eJwBcQKO/SFib1JlAgAAACYAAAACAAAAY6+Q7///F8AAAACdUG+QPhT7GiY7
@@ -818,18 +819,14 @@ not ok  Plot[Mod[x,2],{x,-6,6}]    ==>     \!\(\*
 #! PlotRangeClipping->True,
 #! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)
 ok  Mod[GoldenRatio^100,1]    ==>     -792070839848372253126+GoldenRatio^100
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  N[%]    ==>     2.62144*10^6
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 not ok  N[%%,30]    ==>     0.999999999999999999998737486662
 #! TextForm[ColonForm[MessageName[Floor, meprec], StringForm[Internal precision limit $MaxExtraPrecision = `1` reached while evaluating `2`., Short[HoldForm[50.], 3], Short[HoldForm[Floor[GoldenRatio^1000]], 3]]]]
 #! TextForm[ColonForm[MessageName[Floor, meprec], StringForm[Internal precision limit $MaxExtraPrecision = `1` reached while evaluating `2`., Short[HoldForm[50.], 3], Short[HoldForm[Floor[GoldenRatio^1000]], 3]]]]
 ok  Mod[GoldenRatio^1000,1]    ==>     GoldenRatio^1000-Floor[GoldenRatio^1000]
 ok  Block[{$MaxExtraPrecision=Infinity},Mod[GoldenRatio^1000,1]]    ==>     -97194177735908175207981982079326473737797879155345685082728081084772518818444815269080619149045968297679578305403209347401163036907660573971740862463751801641201490284097309096322681531675707666695323797578126+GoldenRatio^1000
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ArrayPlot[Table[Mod[i,j],{i,30},{j,30}]]    ==>     \!\(\*
+ok  ArrayPlot[Table[Mod[i,j],{i,30},{j,30}]]    ==>     \!\(\*
 #! GraphicsBox[RasterBox[CompressedData["
 #! 1:eJx1kkmSgzAQBDGzr95YpO7qifCX5gn+wPz/Nl0Cg4QhA04ZCaKCy/Xv91pX
 #! VfUz3mamfvVibR/V9ofj6dy0XR+iKMygiAFBmy4IFtJbmESLSGkpdztKFX8w
@@ -843,8 +840,7 @@ not ok  ArrayPlot[Table[Mod[i,j],{i,30},{j,30}]]    ==>     \!\(\*
 #! FrameTicks->{{None, None}, {None, None}},
 #! ImageMargins->0.]\)
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ArrayPlot[Table[Mod[Binomial[i,j],2],{i,0,63},{j,0,63}]]    ==>     \!\(\*
+ok  ArrayPlot[Table[Mod[Binomial[i,j],2],{i,0,63},{j,0,63}]]    ==>     \!\(\*
 #! GraphicsBox[RasterBox[CompressedData["
 #! 1:eJylldEJAzEMQ+1u0k06Q0foAt3/r7R3JRebSJF9IQgjLg9jhO+v9/N1M7PH
 #! edufN49573rzflvo6O+Vhh5SV2/qf4zV+jzl2kYvpfrSS6m262uFenqtUM+l
@@ -858,8 +854,7 @@ not ok  ArrayPlot[Table[Mod[Binomial[i,j],2],{i,0,63},{j,0,63}]]    ==>     \!\(
 #! FrameTicks->{{None, None}, {None, None}},
 #! ImageMargins->0.]\)
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ArrayPlot[CellularAutomaton[{Mod[Total[#],4]&,{},1},{{1},0},50]]    ==>     \!\(\*
+ok  ArrayPlot[CellularAutomaton[{Mod[Total[#],4]&,{},1},{{1},0},50]]    ==>     \!\(\*
 #! GraphicsBox[RasterBox[CompressedData["
 #! 1:eJy1V1uS4zAI5HGSOcPeZI8wVfu99/8bC4GEW1JkxxnHLgKEtIPpAF/f//9+
 #! CxH9Oa5/xyVMLKrK9lJFHeVdf9VFiu2wMptEHeVdf9WrTZVdoo7yrr/qQvVk

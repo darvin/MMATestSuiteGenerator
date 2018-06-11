@@ -1,37 +1,46 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/NestList.nb output/Tests/NestList_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/NestList.nb
 # WRITING OUTPUT TO:     output/Tests/NestList_Tests.m
-ok  NestList[f,x,4]    ==>     {x,f[x],f[f[x]],f[f[f[x]]],f[f[f[f[x]]]]}
-not ok  NestList[Cos,1.0,10]    ==>     {1.,0.540302,0.857553,0.65429,0.79348,0.701369,0.76396,0.722102,0.750418,0.731404,0.744237}
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/NestList.html; NestList[f,x,4]
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{NestList, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`http://reference.wolfram.com/language/ref/NestList.html; NestList[f,x,4]\)
+#!                                                                                             ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/NestList.html; NestList[f,x,4]    ==>     {x,f[x],f[f[x]],f[f[f[x]]],f[f[f[f[x]]]]}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+ok  NestList[Cos,1.0,10]    ==>     {1.,0.540302,0.857553,0.65429,0.79348,0.701369,0.76396,0.722102,0.750418,0.731404,0.744237}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  NestList[(1+#)^2&,x,3]    ==>     {x,(1+x)^2,(1+(1+x)^2)^2,(1+(1+(1+x)^2)^2)^2}
 ok  NestList[(1+#)^2&,x,3]    ==>     {x,(1+x)^2,(1+(1+x)^2)^2,(1+(1+(1+x)^2)^2)^2}
-not ok  NestList[Sqrt,100.0,4]    ==>     {100.,10.,3.16228,1.77828,1.33352}
-not ok  With[{\[Epsilon]=0.1},NestList[Function[xy,{2\[Epsilon],0}+{{1-2\[Epsilon],0},{0,1-2\[Epsilon]}}.xy],{1.0,1.0},4]]    ==>     {{1.,1.},{1.,0.8},{1.,0.64},{1.,0.512},{1.,0.4096}}
-not ok  NestList[{(#[[1]]+#[[2]])/2,Sqrt[#[[1]] #[[2]]]}&,{0.5,1.0},4]    ==>     {{0.5,1.},{0.75,0.707107},{0.728553,0.728238},{0.728396,0.728396},{0.728396,0.728396}}
+ok  NestList[Sqrt,100.0,4]    ==>     {100.,10.,3.16228,1.77828,1.33352}
+ok  With[{\[Epsilon]=0.1},NestList[Function[xy,{2\[Epsilon],0}+{{1-2\[Epsilon],0},{0,1-2\[Epsilon]}}.xy],{1.0,1.0},4]]    ==>     {{1.,1.},{1.,0.8},{1.,0.64},{1.,0.512},{1.,0.4096}}
+ok  NestList[{(#[[1]]+#[[2]])/2,Sqrt[#[[1]] #[[2]]]}&,{0.5,1.0},4]    ==>     {{0.5,1.},{0.75,0.707107},{0.728553,0.728238},{0.728396,0.728396},{0.728396,0.728396}}
 ok  NestList[2 #&, 1, 10]    ==>     {1,2,4,8,16,32,64,128,256,512,1024}
 ok  NestList[#+1&,0,10]    ==>     {0,1,2,3,4,5,6,7,8,9,10}
 ok  NestList[#^2&, 2, 6]    ==>     {2,4,16,256,65536,4294967296,18446744073709551616}
-not ok  NestList[#(1+0.05)&,1000,10]    ==>     {1000,1050.,1102.5,1157.63,1215.51,1276.28,1340.1,1407.1,1477.46,1551.33,1628.89}
+ok  NestList[#(1+0.05)&,1000,10]    ==>     {1000,1050.,1102.5,1157.63,1215.51,1276.28,1340.1,1407.1,1477.46,1551.33,1628.89}
 ok  NestList[D[#,x]&,x^n,3]    ==>     {x^n,n x^(-1+n),(-1+n) n x^(-2+n),(-2+n) (-1+n) n x^(-3+n)}
-not ok  NestList[(# + 2/# )/2&,1.0,5]    ==>     {1.,1.5,1.41667,1.41422,1.41421,1.41421}
+ok  NestList[(# + 2/# )/2&,1.0,5]    ==>     {1.,1.5,1.41667,1.41422,1.41421,1.41421}
 ok  NestList[1/(1+#)&,x,5]    ==>     {x,1/(1+x),1/(1+1/(1+x)),1/(1+1/(1+1/(1+x))),1/(1+1/(1+1/(1+1/(1+x)))),1/(1+1/(1+1/(1+1/(1+1/(1+x)))))}
 ok  NestList[4#(1-#)&,1/3,5]    ==>     {1/3,8/9,32/81,6272/6561,7250432/43046721,1038154236987392/1853020188851841}
-not ok  NestList[4#(1-#)&,N[1/3],10]    ==>     {0.333333,0.888889,0.395062,0.955952,0.168432,0.56025,0.98548,0.0572373,0.215845,0.677023,0.874651}
+ok  NestList[4#(1-#)&,N[1/3],10]    ==>     {0.333333,0.888889,0.395062,0.955952,0.168432,0.56025,0.98548,0.0572373,0.215845,0.677023,0.874651}
 ok  NestList[If[EvenQ[#],#/2,(3#+1)/2]&,100,20]    ==>     {100,50,25,38,19,29,44,22,11,17,26,13,20,10,5,8,4,2,1,2,1}
 ok  NestList[Mod[59#,101]&,1,15]    ==>     {1,59,47,46,88,41,96,8,68,73,65,98,25,61,64,39}
 not ok  NestList[#+RandomChoice[{-1,1}]&,0,20]    ==>     {0,-1,-2,-3,-2,-1,-2,-1,-2,-1,0,1,2,1,2,3,2,3,2,1,0}
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 #! TextForm[ColonForm[MessageName[ListLinePlot, lpn], StringForm[`1` is not a list of numbers or pairs of numbers., Short[HoldForm[Hold[Out[$Line - 1]]], 3]]]]
 #! TextForm[ColonForm[MessageName[ListLinePlot, lpn], StringForm[`1` is not a list of numbers or pairs of numbers., Short[HoldForm[Hold[Out[$Line - 1]]], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
 #!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
-#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-not ok  ListLinePlot[%]    ==>     \!\(\*
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+ok  ListLinePlot[%]    ==>     \!\(\*
 #! GraphicsBox[{{}, {}, 
 #! {Hue[0.67, 0.6, 0.6], LineBox[CompressedData["
 #! 1:eJxTTMoPSmViYGAQBWIQDQEf7BlQgQNUfD+E5oDyGQ5AKAEonwPKF0GTl0DT
@@ -44,7 +53,7 @@ not ok  ListLinePlot[%]    ==>     \!\(\*
 #! PlotRange->{{0., 21.}, {-3., 3.}},
 #! PlotRangeClipping->True,
 #! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)
-not ok  NestList[StringReplace[#,{"A"->"BA","B"->"AB"}]&,"A",5]    ==>     {A,BA,ABBA,BAABABBA,ABBABAABBAABABBA,BAABABBAABBABAABABBABAABBAABABBA}
+ok  NestList[StringReplace[#,{"A"->"BA","B"->"AB"}]&,"A",5]    ==>     {A,BA,ABBA,BAABABBA,ABBABAABBAABABBA,BAABABBAABBABAABABBABAABBAABABBA}
 ok  NestList[Append[#,x]&,{a},5]    ==>     {{a},{a,x},{a,x,x},{a,x,x,x},{a,x,x,x,x},{a,x,x,x,x,x}}
 ok  NestList[RotateLeft,{a,b,c,d},4]    ==>     {{a,b,c,d},{b,c,d,a},{c,d,a,b},{d,a,b,c},{a,b,c,d}}
 ok  NestList[{f[Last[#]],g[First[#]]}&,{x,y},5]    ==>     {{x,y},{f[y],g[x]},{f[g[x]],g[f[y]]},{f[g[f[y]]],g[f[g[x]]]},{f[g[f[g[x]]]],g[f[g[f[y]]]]},{f[g[f[g[f[y]]]]],g[f[g[f[g[x]]]]]}}
@@ -59,11 +68,6 @@ ok  FoldList[f,x,{a,a,a}]    ==>     {x,f[x,a],f[f[x,a],a],f[f[f[x,a],a],a]}
 not ok  NestList[Framed,x,6]    ==>     {x,x,x,x,x,x,x}
 ok  NestList[x^#&,x,6]    ==>     {x,x^x,x^x^x,x^x^x^x,x^x^x^x^x,x^x^x^x^x^x,x^x^x^x^x^x^x}
 ok  NestList[#^#&,x,4]    ==>     {x,x^x,(x^x)^x^x,((x^x)^x^x)^(x^x)^x^x,(((x^x)^x^x)^(x^x)^x^x)^((x^x)^x^x)^(x^x)^x^x}
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 535}, {0, 55}}]\)\)
-#!                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  NestList[Framed[Row[{#,#}]]&,x,4]    ==>     \!\(\*
 #! GraphicsBox[
@@ -115,7 +119,6 @@ not ok  NestList[Framed[Row[{#,#}]]&,x,4]    ==>     \!\(\*
 #! ImageSizeRaw->{535, 55},
 #! PlotRange->{{0, 535}, {0, 55}}]\)
 ok  NestList[p[#][#]&,x,3]    ==>     {x,p[x][x],p[p[x][x]][p[x][x]],p[p[p[x][x]][p[x][x]]][p[p[x][x]][p[x][x]]]}
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  NestList[Subsuperscript[#,#,#]&,x,4]    ==>     \!\(\*
 #! GraphicsBox[

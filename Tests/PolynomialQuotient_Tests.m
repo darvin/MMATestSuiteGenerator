@@ -15,19 +15,23 @@ ient,paclet:ref/PolynomialQuotient] also works for rational functions:"],
   (3 + x)/(2 + x)], TapComment["Use a prime modulus:"], 
  TapTestSame[PolynomialQuotient[x^2 + 4*x + 1, 2*x + 1, x, Modulus -> 2], 
   1 + x^2], TapTestSame[PolynomialQuotient[x^2 + 4*x + 1, 2*x + 1, x, 
-   Modulus -> 3], 1 + 2*x], TapTestSameBROKEN[
-  q = PolynomialQuotient[f, g, x], 2 + x], 
- TapTestSameBROKEN[r = PolynomialRemainder[f, g, x], -3], 
+   Modulus -> 3], 1 + 2*x], TapComment["For a polynomial f, f==gq+r, where r \
+is given by RefLink[PolynomialRemainder,paclet:ref/PolynomialRemainder]:"], 
+ TapTestSameBROKEN[{f, g} = {x^2 + 4*x + 1, x + 2} ;; q = 
+    PolynomialQuotient[f, g, x], 2 + x], TapTestSameBROKEN[
+  r = PolynomialRemainder[f, g, x], -3], 
  TapComment["Use RefLink[Expand,paclet:ref/Expand] to verify identity:"], 
- TapTestSame[Expand[q*g + r] == f, True], TapComment["To get both quotient \
-and remainder use \
+ TapTestSameBROKEN[Expand[q*g + r] == f, True], 
+ TapComment["To get both quotient and remainder use \
 RefLink[PolynomialQuotientRemainder,paclet:ref/PolynomialQuotientRemainder]:"]\
 , TapTestSameBROKEN[PolynomialQuotientRemainder[f, g, x], {2 + x, -3}], 
  TapComment["RefLink[PolynomialReduce,paclet:ref/PolynomialReduce] \
 generalizes RefLink[PolynomialQuotient,paclet:ref/PolynomialQuotient] for \
 multivariate polynomials:"], TapTestSame[PolynomialReduce[x^2 + 4*x + 1, 
-   {x + 2}, {x}], {{2 + x}, -3}], TapTestSameBROKEN[h = PolynomialGCD[f, g], 
-  2 + x], TapComment["Use \
+   {x + 2}, {x}], {{2 + x}, -3}], TapComment["Use \
+RefLink[PolynomialGCD,paclet:ref/PolynomialGCD] to find a common divisor:"], 
+ TapTestSameBROKEN[{f, g} = {x^2 + 3*x + 2, x^2 + 5*x + 6} ;; h = 
+    PolynomialGCD[f, g], 2 + x], TapComment["Use \
 RefLink[PolynomialQuotient,paclet:ref/PolynomialQuotient] to see the \
 resulting factorization:"], TapTestSameBROKEN[
   f == PolynomialQuotient[f, h, x]*h, 2 + 3*x + x^2 == (1 + x)*(2 + x)], 
@@ -51,7 +55,9 @@ RefLink[PolynomialQuotient,paclet:ref/PolynomialQuotient] depends on \
 recognizing zeros:"], TapTestSame[PolynomialQuotient[x^3 + x + 1, 
    zero*x^2 + x + 1, x], -(1/zero^2) + x/zero], 
  TapTestSame[PolynomialQuotient[x^3 + x + 1, x + 1, x], 2 - x + x^2], 
- TapTestSameBROKEN[FullSimplify[zero], 0], 
+ TapComment["This is a hidden zero:"], TapTestSameBROKEN[
+  zero = Sin[Sqrt[2] + Sqrt[3]] - Sin[Sqrt[5 + 2*Sqrt[6]]] ;; 
+    FullSimplify[zero], 0], 
  TapComment["The result is as if the hidden zero was not zero:"], 
  TapTestSameBROKEN[N[PolynomialQuotient[x^3 + x + 1, zero*x^2 + x + 1, x]], 
   -5.0706*10^30 - 2.2518*10^15*x]]

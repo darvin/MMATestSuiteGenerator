@@ -1,21 +1,31 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/ClearAll.nb output/Tests/ClearAll_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/ClearAll.nb
 # WRITING OUTPUT TO:     output/Tests/ClearAll_Tests.m
-#! TextForm[ColonForm[MessageName[SetDelayed, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Times], 3], Short[HoldForm[f[x_]*{Listable}], 3]]]]
-#! TextForm[ColonForm[MessageName[Attributes, attnf], StringForm[`1` is not a known attribute., Short[HoldForm[$Failed], 3]]]]
-not ok  Definition[f]    ==>     Attributes[f]={Listable}
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  SetAttributes[f,Listable];
+#! f[x_]:=x^2; Definition[f]    ==>     Attributes[f]={Listable}
 #!  
 #! f[x_]:=x^2
-not ok  Definition[f]    ==>     Null
-ok  x    ==>     x
-not ok  Definition[fact]    ==>     Null
-ok  f[a]    ==>     f[a]
-not ok  {x1,x2,y}    ==>     {x1,x2,5}
-not ok  fib[5]    ==>     5
-#! TextForm[ColonForm[MessageName[Set, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Times], 3], Short[HoldForm[0*{}], 3]]]]
-not ok  Definition[f]    ==>     Default[f]=0
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+ok  ClearAll[f]; Definition[f]    ==>     Null
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+ok  x=5;; ClearAll[x]; x    ==>     x
+ok  fact[1]=1;
+#! fact[n_]:=n fact[n-1]; ClearAll[fact]; Definition[fact]    ==>     Null
+ok  a=5;
+#! f[x_]:=x^3; ClearAll[a,f]; f[a]    ==>     f[a]
+not ok  x1=1;x2=3;y=5;; ClearAll["x*"]; {x1,x2,y}    ==>     {x1,x2,5}
+ok  ClearAll[fib]; fib[1]=fib[2]=1;
+#! fib[n_]:=fib[n]=fib[n-1]+fib[n-2]; fib[5]    ==>     5
+not ok  Default[f]=0;
+#! Options[f]={opt1->def1,opt2->def2};
+#! f[x_]:=x^2; Clear[f]; Definition[f]    ==>     Default[f]=0
 #!  
 #! Options[f]={opt1->def1,opt2->def2}
-not ok  Definition[f]    ==>     Null
-not ok  Definition[fact]    ==>     fact[n_]:=n fact[n-1]
-not ok  Definition[fact]    ==>     Null
+ok  ClearAll[f]; Definition[f]    ==>     Null
+not ok  fact[1]=1;
+#! fact[n_]:=n fact[n-1]; fact[1]=.; Definition[fact]    ==>     fact[n_]:=n fact[n-1]
+ok  ClearAll[fact]; Definition[fact]    ==>     Null

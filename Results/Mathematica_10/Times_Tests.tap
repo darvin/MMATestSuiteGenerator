@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/Times_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Times_Tests
 # Enter RefLink[Times,paclet:ref/Times] with spaces; * is added automatically between numbers:
@@ -21,16 +25,16 @@ ok  2*3*4    ==>     24
 ok  2*{x, y, z}    ==>     {2*x, 2*y, 2*z}
     ---
     data:
-        got: {2*x, 2*y, 2*z}
+        got: {2 x, 2 y, 2 z}
         expect: {2*x, 2*y, 2*z}
-        expect_evaluated: {2*x, 2*y, 2*z}
+        expect_evaluated: {2 x, 2 y, 2 z}
     ...
 ok  {{a, b}, {c, d}}*{x, y}    ==>     {{a*x, b*x}, {c*y, d*y}}
     ---
     data:
-        got: {{a*x, b*x}, {c*y, d*y}}
+        got: {{a x, b x}, {c y, d y}}
         expect: {{a*x, b*x}, {c*y, d*y}}
-        expect_evaluated: {{a*x, b*x}, {c*y, d*y}}
+        expect_evaluated: {{a x, b x}, {c y, d y}}
     ...
 # Explicit RefLink[FullForm,paclet:ref/FullForm]:
 ok  1*2*3    ==>     6
@@ -44,70 +48,74 @@ ok  1*2*3    ==>     6
 ok  {{a, b}, {c, d}}*{x, y}    ==>     {{a*x, b*x}, {c*y, d*y}}
     ---
     data:
-        got: {{a*x, b*x}, {c*y, d*y}}
+        got: {{a x, b x}, {c y, d y}}
         expect: {{a*x, b*x}, {c*y, d*y}}
-        expect_evaluated: {{a*x, b*x}, {c*y, d*y}}
+        expect_evaluated: {{a x, b x}, {c y, d y}}
     ...
 # Pattern matching works with RefLink[Times,paclet:ref/Times]:
 ok  a*b*c*d /. a*d -> x    ==>     b*c*x
     ---
     data:
-        got: b*c*x
+        got: b c x
         expect: b*c*x
-        expect_evaluated: b*c*x
+        expect_evaluated: b c x
     ...
 ok  a*b*c*d /. a*c*(x_) -> f[x]    ==>     f[b*d]
     ---
     data:
-        got: f[b*d]
+        got: f[b d]
         expect: f[b*d]
-        expect_evaluated: f[b*d]
+        expect_evaluated: f[b d]
     ...
 ok  {a, a*b, a*b*c} /. a*(x_.) -> f[x]    ==>     {f[1], f[b], f[b*c]}
     ---
     data:
-        got: {f[1], f[b], f[b*c]}
+        got: {f[1], f[b], f[b c]}
         expect: {f[1], f[b], f[b*c]}
-        expect_evaluated: {f[1], f[b], f[b*c]}
+        expect_evaluated: {f[1], f[b], f[b c]}
     ...
 # Use RefLink[Expand,paclet:ref/Expand] to expand out products:
 ok  (1 + x)*(2 + x)    ==>     (1 + x)*(2 + x)
     ---
     data:
-        got: (1 + x)*(2 + x)
+        got: (1 + x) (2 + x)
         expect: (1 + x)*(2 + x)
-        expect_evaluated: (1 + x)*(2 + x)
+        expect_evaluated: (1 + x) (2 + x)
     ...
 ok  Expand[%]    ==>     2 + 3*x + x^2 # skip
 # Use RefLink[Dot,paclet:ref/Dot] for matrix or vector multiplication:
 ok  {{a, b}, {c, d}} . {x, y}    ==>     {a*x + b*y, c*x + d*y}
     ---
     data:
-        got: {a*x + b*y, c*x + d*y}
+        got: {a x + b y, c x + d y}
         expect: {a*x + b*y, c*x + d*y}
-        expect_evaluated: {a*x + b*y, c*x + d*y}
+        expect_evaluated: {a x + b y, c x + d y}
     ...
 # Use RefLink[Product,paclet:ref/Product] for products of indexed elements: 
 ok  Product[a[i], {i, 5}]    ==>     a[1]*a[2]*a[3]*a[4]*a[5]
     ---
     data:
-        got: a[1]*a[2]*a[3]*a[4]*a[5]
+        got: a[1] a[2] a[3] a[4] a[5]
         expect: a[1]*a[2]*a[3]*a[4]*a[5]
-        expect_evaluated: a[1]*a[2]*a[3]*a[4]*a[5]
+        expect_evaluated: a[1] a[2] a[3] a[4] a[5]
     ...
 # As well as for closed forms of products: 
 ok  Product[(i + 1)/(i + 2), {i, 1, n}]    ==>     2/(2 + n)
     ---
     data:
-        got: 2/(2 + n)
+        got:   2
+#! -----
+#! 2 + n
         expect: 2/(2 + n)
-        expect_evaluated: 2/(2 + n)
+        expect_evaluated:   2
+#! -----
+#! 2 + n
     ...
 # Use RefLink[NonCommutativeMultiply,paclet:ref/NonCommutativeMultiply] for non commuting products: 
 ok  a**b - b**a    ==>     a**b - b**a
     ---
     data:
-        got: a**b - b**a
+        got: a ** b - b ** a
         expect: a**b - b**a
-        expect_evaluated: a**b - b**a
+        expect_evaluated: a ** b - b ** a
     ...

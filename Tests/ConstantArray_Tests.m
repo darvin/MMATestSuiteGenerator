@@ -19,8 +19,11 @@ TapSuite[TapComment["Make a vector of 10 c's:"],
    1.}], TapComment["A deeply nested constant array:"], 
  TapTestSame[ConstantArray[x, {2, 1, 2, 1, 2}], 
   {{{{{x, x}}, {{x, x}}}}, {{{{x, x}}, {{x, x}}}}}], 
- TapTestSameBROKEN[HoldComplete[ListPlot[sol, DataRange -> {0, 1}]], 
-  $Failed], TapComment["Find the sum of the elements in a list:"], 
+ TapComment["Numerically solve x'[t]==1/(t+x[t]^2) using Euler's method:"], 
+ TapTestSameBROKEN[HoldComplete[
+   sol = esteps[Function[{t, x}, 1/(t + x^2)], 1, 0.01, 100] ;; 
+     ListPlot[sol, DataRange -> {0, 1}]], $Failed], 
+ TapComment["Find the sum of the elements in a list:"], 
  TapTestSameBROKEN[list = RandomInteger[9, 20], 
   {4, 0, 2, 3, 9, 3, 2, 9, 8, 2, 2, 7, 1, 6, 7, 9, 2, 3, 1, 1}], 
  TapTestSameBROKEN[list . ConstantArray[1, Length[list]], 81], 
@@ -40,10 +43,17 @@ the effects of conditioning on the solution of a linear system:"],
 RefLink[Dimensions,paclet:ref/Dimensions][dims]:"], 
  TapTestSameBROKEN[dims = RandomInteger[{1, 4}, 5], {3, 1, 3, 4, 3}], 
  TapTestSameBROKEN[Dimensions[ConstantArray[c, dims]], {3, 1, 3, 4, 3}], 
- TapTestSameBROKEN[HoldComplete[s = SparseArray[{}, dims, c]], $Failed], 
- TapTestSame[ConstantArray[c, dims] == s, True], 
+ TapComment["RefLink[ConstantArray,paclet:ref/ConstantArray][c,dims] is equal \
+to RefLink[SparseArray,paclet:ref/SparseArray][{},dims,c]:"], 
+ TapTestSameBROKEN[HoldComplete[dims = RandomInteger[{1, 4}, 5] ;; s = 
+     SparseArray[{}, dims, c]], $Failed], 
+ TapTestSameBROKEN[ConstantArray[c, dims] == s, True], 
  TapComment["RefLink[Normal,paclet:ref/Normal][s] is identical to \
 RefLink[ConstantArray,paclet:ref/ConstantArray][c,dims]:"], 
- TapTestSame[ConstantArray[c, dims] === Normal[s], True], 
- TapTestSame[ConstantArray[c, dims] === (Table[c, ##1] & ) @@ List /@ dims, 
-  True]]
+ TapTestSameBROKEN[ConstantArray[c, dims] === Normal[s], True], 
+ TapComment["RefLink[ConstantArray,paclet:ref/ConstantArray][c,dims] is \
+equivalent to \
+RefLink[Apply,paclet:ref/Apply][RefLink[Table,paclet:ref/Table][c,##]&,RefLin\
+k[Map,paclet:ref/Map][RefLink[List,paclet:ref/List],dims]]:"], 
+ TapTestSameBROKEN[dims = RandomInteger[{1, 4}, 5] ;; 
+     ConstantArray[c, dims] === (Table[c, ##1] & ) @@ List /@ dims, True]]

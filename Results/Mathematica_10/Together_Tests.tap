@@ -1,29 +1,49 @@
 #! DOCKER > wolfram -script output/Tests/Together_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Together_Tests
 # Combine terms over a common denominator:
 ok  Together[a/b + c/d]    ==>     (b*c + a*d)/(b*d)
     ---
     data:
-        got: (b*c + a*d)/(b*d)
+        got: b c + a d
+#! ---------
+#!    b d
         expect: (b*c + a*d)/(b*d)
-        expect_evaluated: (b*c + a*d)/(b*d)
+        expect_evaluated: b c + a d
+#! ---------
+#!    b d
     ...
 # Cancel common factors between the numerator and the denominator:
 ok  Together[x^2/(x^2 - 1) + x/(x^2 - 1)]    ==>     x/(-1 + x)
     ---
     data:
-        got: x/(-1 + x)
+        got:   x
+#! ------
+#! -1 + x
         expect: x/(-1 + x)
-        expect_evaluated: x/(-1 + x)
+        expect_evaluated:   x
+#! ------
+#! -1 + x
     ...
 # Combine a sum of any number of terms:
 ok  Together[1/x + 1/(x + 1) + 1/(x + 2) + 1/(x + 3)]    ==>     (2*(3 + 11*x + 9*x^2 + 2*x^3))/(x*(1 + x)*(2 + x)*(3 + x))
     ---
     data:
-        got: (2*(3 + 11*x + 9*x^2 + 2*x^3))/(x*(1 + x)*(2 + x)*(3 + x))
+        got:                  2      3
+#! 2 (3 + 11 x + 9 x  + 2 x )
+#! --------------------------
+#! x (1 + x) (2 + x) (3 + x)
         expect: (2*(3 + 11*x + 9*x^2 + 2*x^3))/(x*(1 + x)*(2 + x)*(3 + x))
-        expect_evaluated: (2*(3 + 11*x + 9*x^2 + 2*x^3))/(x*(1 + x)*(2 + x)*(3 + x))
+        expect_evaluated:                  2      3
+#! 2 (3 + 11 x + 9 x  + 2 x )
+#! --------------------------
+#! x (1 + x) (2 + x) (3 + x)
     ...
 # Here all factors of the denominator divide the numerator:
 ok  Together[x^2/(x - y) - x*(y/(x - y))]    ==>     x
@@ -37,24 +57,42 @@ ok  Together[x^2/(x - y) - x*(y/(x - y))]    ==>     x
 ok  Together[1 < 1/x + 1/(1 + x) < 2]    ==>     1 < (1 + 2*x)/(x*(1 + x)) < 2
     ---
     data:
-        got: 1 < (1 + 2*x)/(x*(1 + x)) < 2
+        got:      1 + 2 x
+#! 1 < --------- < 2
+    x (1 + x)
         expect: 1 < (1 + 2*x)/(x*(1 + x)) < 2
-        expect_evaluated: 1 < (1 + 2*x)/(x*(1 + x)) < 2
+        expect_evaluated:      1 + 2 x
+#! 1 < --------- < 2
+    x (1 + x)
     ...
 # By default, RefLink[Together,paclet:ref/Together] treats algebraic numbers as independent variables:
 ok  Together[(x^2 - 2)/(Sqrt[2] + x)]    ==>     (-2 + x^2)/(Sqrt[2] + x)
     ---
     data:
-        got: (-2 + x^2)/(Sqrt[2] + x)
+        got:         2
+#!   -2 + x
+#! -----------
+#! Sqrt[2] + x
         expect: (-2 + x^2)/(Sqrt[2] + x)
-        expect_evaluated: (-2 + x^2)/(Sqrt[2] + x)
+        expect_evaluated:         2
+#!   -2 + x
+#! -----------
+#! Sqrt[2] + x
     ...
 ok  Together[1/(Sqrt[2] + x) + 1/(x^2 - 2)]    ==>     (-2 + Sqrt[2] + x + x^2)/((Sqrt[2] + x)*(-2 + x^2))
     ---
     data:
-        got: (-2 + Sqrt[2] + x + x^2)/((Sqrt[2] + x)*(-2 + x^2))
+        got:                      2
+#!  -2 + Sqrt[2] + x + x
+#! -----------------------
+#!                      2
+#! (Sqrt[2] + x) (-2 + x )
         expect: (-2 + Sqrt[2] + x + x^2)/((Sqrt[2] + x)*(-2 + x^2))
-        expect_evaluated: (-2 + Sqrt[2] + x + x^2)/((Sqrt[2] + x)*(-2 + x^2))
+        expect_evaluated:                      2
+#!  -2 + Sqrt[2] + x + x
+#! -----------------------
+#!                      2
+#! (Sqrt[2] + x) (-2 + x )
     ...
 # With RefLink[Extension,paclet:ref/Extension]->RefLink[Automatic,paclet:ref/Automatic], RefLink[Together,paclet:ref/Together] recognizes algebraically dependent coefficients:
 ok  Together[(x^2 - 2)/(Sqrt[2] + x), Extension -> Automatic]    ==>     -Sqrt[2] + x
@@ -67,33 +105,49 @@ ok  Together[(x^2 - 2)/(Sqrt[2] + x), Extension -> Automatic]    ==>     -Sqrt[2
 ok  Together[1/(Sqrt[2] + x) + 1/(x^2 - 2), Extension -> Automatic]    ==>     (-1 + Sqrt[2] - x)/((Sqrt[2] - x)*(Sqrt[2] + x))
     ---
     data:
-        got: (-1 + Sqrt[2] - x)/((Sqrt[2] - x)*(Sqrt[2] + x))
+        got:      -1 + Sqrt[2] - x
+#! ---------------------------
+#! (Sqrt[2] - x) (Sqrt[2] + x)
         expect: (-1 + Sqrt[2] - x)/((Sqrt[2] - x)*(Sqrt[2] + x))
-        expect_evaluated: (-1 + Sqrt[2] - x)/((Sqrt[2] - x)*(Sqrt[2] + x))
+        expect_evaluated:      -1 + Sqrt[2] - x
+#! ---------------------------
+#! (Sqrt[2] - x) (Sqrt[2] + x)
     ...
 # Computations over rational numbers:
 ok  Together[1/x + 1/(1 + x)]    ==>     (1 + 2*x)/(x*(1 + x))
     ---
     data:
-        got: (1 + 2*x)/(x*(1 + x))
+        got:  1 + 2 x
+#! ---------
+#! x (1 + x)
         expect: (1 + 2*x)/(x*(1 + x))
-        expect_evaluated: (1 + 2*x)/(x*(1 + x))
+        expect_evaluated:  1 + 2 x
+#! ---------
+#! x (1 + x)
     ...
 ok  Together[(x - 1)*((x - 2)/((x - 3)*(x - 4)*(x - 5)))]    ==>     ((-2 + x)*(-1 + x))/(-60 + 47*x - 12*x^2 + x^3) # skip
 # The same computations over integers modulo 2:
 ok  Together[1/x + 1/(1 + x), Modulus -> 2]    ==>     1/(x*(1 + x))
     ---
     data:
-        got: 1/(x*(1 + x))
+        got:     1
+#! ---------
+#! x (1 + x)
         expect: 1/(x*(1 + x))
-        expect_evaluated: 1/(x*(1 + x))
+        expect_evaluated:     1
+#! ---------
+#! x (1 + x)
     ...
 ok  Together[(x - 1)*((x - 2)/((x - 3)*(x - 4)*(x - 5))), Modulus -> 2]    ==>     1/(1 + x)
     ---
     data:
-        got: (1 + x)^(-1)
+        got:   1
+#! -----
+#! 1 + x
         expect: 1/(1 + x)
-        expect_evaluated: (1 + x)^(-1)
+        expect_evaluated:   1
+#! -----
+#! 1 + x
     ...
 # By default, RefLink[Together,paclet:ref/Together] treats trigonometric functions as independent variables:
 ok  Together[1/Sin[x] + 1/Cos[x]]    ==>     Csc[x] + Sec[x]
@@ -107,30 +161,40 @@ ok  Together[1/Sin[x] + 1/Cos[x]]    ==>     Csc[x] + Sec[x]
 ok  Together[1/Sin[x] + 1/Cos[x], Trig -> True]    ==>     Csc[x]*Sec[x]*(Cos[x] + Sin[x])
     ---
     data:
-        got: Csc[x]*Sec[x]*(Cos[x] + Sin[x])
+        got: Csc[x] Sec[x] (Cos[x] + Sin[x])
         expect: Csc[x]*Sec[x]*(Cos[x] + Sin[x])
-        expect_evaluated: Csc[x]*Sec[x]*(Cos[x] + Sin[x])
+        expect_evaluated: Csc[x] Sec[x] (Cos[x] + Sin[x])
     ...
-ok  rationalFunctionQ[1/x + y/x, {x, y}]    ==>     True # skip
+# Test whether a function is a rational function:
+ok  rationalFunctionQ[e_, vars_] := Module[{r = Together[e]}, And @@ (PolynomialQ[#1, vars] & ) /@ {Denominator[r], Numerator[r]}] ;; rationalFunctionQ[1/x + y/x, {x, y}]    ==>     True # skip
 # RefLink[Apart,paclet:ref/Apart] acts as a partial inverse of RefLink[Together,paclet:ref/Together]:
 ok  Together[a/b + c/d]    ==>     (b*c + a*d)/(b*d)
     ---
     data:
-        got: (b*c + a*d)/(b*d)
+        got: b c + a d
+#! ---------
+#!    b d
         expect: (b*c + a*d)/(b*d)
-        expect_evaluated: (b*c + a*d)/(b*d)
+        expect_evaluated: b c + a d
+#! ---------
+#!    b d
     ...
 ok  Apart[%]    ==>     a/b + c/d # skip
-ok  Together[r]    ==>     (3 + 2*x)/((1 + x)*(2 + x)) # skip
+# RefLink[Together,paclet:ref/Together] combines terms over a common denominator and cancels common factors:
+ok  r = (x - 1)/(x^2 - 1) + (x - 2)/(x^2 - 4) ;; Together[r]    ==>     (3 + 2*x)/((1 + x)*(2 + x)) # skip
 # RefLink[Cancel,paclet:ref/Cancel] only cancels common factors between numerators and denominators:
 ok  Cancel[r]    ==>     1/(1 + x) + 1/(2 + x) # skip
 # Use RefLink[Numerator,paclet:ref/Numerator] and RefLink[Denominator,paclet:ref/Denominator] to extract numerators and denominators:
 ok  expr = Together[1/x + 1/y]    ==>     (x + y)/(x*y)
     ---
     data:
-        got: (x + y)/(x*y)
+        got: x + y
+#! -----
+#!  x y
         expect: (x + y)/(x*y)
-        expect_evaluated: (x + y)/(x*y)
+        expect_evaluated: x + y
+#! -----
+#!  x y
     ...
 ok  Numerator[expr]    ==>     x + y
     ---
@@ -142,7 +206,7 @@ ok  Numerator[expr]    ==>     x + y
 ok  Denominator[expr]    ==>     x*y
     ---
     data:
-        got: x*y
+        got: x y
         expect: x*y
-        expect_evaluated: x*y
+        expect_evaluated: x y
     ...

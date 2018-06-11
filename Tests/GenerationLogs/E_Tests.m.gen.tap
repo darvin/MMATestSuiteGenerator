@@ -1,8 +1,14 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/E.nb output/Tests/E_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/E.nb
 # WRITING OUTPUT TO:     output/Tests/E_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  E    ==>     E
-ok  N[E,50]    ==>     2.7182818284590452353602874713526624977572470937000
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  N[E,50]    ==>     2.7182818284590452353602874713526624977572470937000
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  Round[E^100]    ==>     26881171418161354484126255515800135873611119
 ok  RealDigits[E,10,20]    ==>     {{2,7,1,8,2,8,1,8,2,8,4,5,9,0,4,5,2,3,5,3},1}
 ok  ContinuedFraction[E,20]    ==>     {2,1,2,1,1,4,1,1,6,1,1,8,1,1,10,1,1,12,1,1}
@@ -16,10 +22,6 @@ ok  RealDigits[E,10,20,-1000000]    ==>     {{8,8,3,7,4,7,1,1,5,1,5,6,2,3,9,6,8,
 ok  Limit[z^z/(z-1)^(z-1)-(z-1)^(z-1)/(z-2)^(z-2),z->Infinity]    ==>     E
 ok  Sum[1/k!,{k,0,Infinity}]    ==>     E
 ok  FullSimplify[Sum[(2k+1)/(2k)!,{k,0,Infinity}]]    ==>     E
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 240}, {0, 149}}]\)\)
-#!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 240}, {0, 149}}]\)\)
 #!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[

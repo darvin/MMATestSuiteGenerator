@@ -1,13 +1,11 @@
 #! DOCKER > wolfram -script output/Tests/Depth_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Depth_Tests
-ok  Depth[a]    ==>     1
-    ---
-    data:
-        got: 1
-        expect: 1
-        expect_evaluated: 1
-    ...
+ok  $Failed    ==>     HoldComplete[1] # skip
 ok  Depth[{a}]    ==>     2
     ---
     data:

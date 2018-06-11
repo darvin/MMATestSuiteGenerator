@@ -10,8 +10,8 @@ TapSuite[TapComment["Select elements that are even:"],
  TapTestSame[Select[EvenQ][{1, 2, 4, 7, 6, 2}], {2, 4, 6, 2}], 
  TapComment["RefLink[Select,paclet:ref/Select] operates on values in an \
 RefLink[Association,paclet:ref/Association]:"], 
- TapTestSameBROKEN[HoldComplete[Select[\[LeftAssociation] a -> 1, b -> 2, 
-     c -> 3, d -> 4 \[RightAssociation], #1 > 2 & ]], $Failed], 
+ TapTestSame[HoldComplete[Select[\[LeftAssociation] a -> 1, b -> 2, c -> 3, 
+     d -> 4 \[RightAssociation], #1 > 2 & ]], $Failed], 
  TapComment["RefLink[Select,paclet:ref/Select] picks out elements for which \
 applying the criterion explicitly yields RefLink[True,paclet:ref/True]:"], 
  TapTestSame[Select[{1, 2, 4, 7, x}, #1 > 2 & ], {4, 7}], 
@@ -56,8 +56,11 @@ RefLink[SparseArray,paclet:ref/SparseArray] objects:"],
    \[SpanFromLeft]}], TapComment[
   "Select numeric quantities from a product:"], 
  TapTestSame[Select[7*Pi^2*x^2*y^2, NumericQ], 7*Pi^2], 
- TapTestSameBROKEN[TableForm[Table[n = 10^k; p = app[n]; {n, p, Pi - p}, 
-    {k, 1, 6}], TableHeadings -> {{}, {"n", "approximation", "error"}}], 
+ TapComment["Find an approximation to \\[Pi] by finding the proportion of \
+points that lie within a disk:"], TapTestSameBROKEN[
+  app[n_] := 4*N[Length[Select[RandomReal[{-1, 1}, {n, 2}], #1 . #1 <= 1 & ]]/
+       n]; TableForm[Table[n = 10^k; p = app[n]; {n, p, Pi - p}, {k, 1, 6}], 
+    TableHeadings -> {{}, {"n", "approximation", "error"}}], 
   \[Null]*n*approximation*error*\[Null]*10*2.4*0.741593*\[Null]*100*2.92*
     0.221593*\[Null]*1000*3.216 - 0.0744073*\[Null]*10000*3.1544 - 
    0.0128073*\[Null]*100000*3.14812 - 0.00652735*\[Null]*1000000*3.14213 - 
@@ -65,6 +68,9 @@ RefLink[SparseArray,paclet:ref/SparseArray] objects:"],
 RefLink[Cases,paclet:ref/Cases] except that it uses a function instead of a \
 pattern:"], TapTestSameBROKEN[list = RandomInteger[9, {10, 2}], 
   {{0, 7}, {5, 9}, {8, 7}, {2, 8}, {6, 8}, {4, 1}, {1, 8}, {3, 9}, {9, 7}, 
-   {8, 5}}], TapTestSameBROKEN[Select[list, f], {{0, 7}, {4, 1}, {1, 8}}], 
+   {8, 5}}], TapComment[
+  "Select the lists that have sum of elements less than 10:"], 
+ TapTestSameBROKEN[f = (Total[#1] < 10 & ) ;; Select[list, f], 
+  {{0, 7}, {4, 1}, {1, 8}}], 
  TapComment["Use RefLink[Cases,paclet:ref/Cases] to get the same result:"], 
  TapTestSameBROKEN[Cases[list, x_ /; f[x]], {{0, 7}, {4, 1}, {1, 8}}]]

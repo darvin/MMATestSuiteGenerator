@@ -1,22 +1,28 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/PolynomialRemainder.nb output/Tests/PolynomialRemainder_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/PolynomialRemainder.nb
 # WRITING OUTPUT TO:     output/Tests/PolynomialRemainder_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  PolynomialRemainder[x^2,x+a,x]    ==>     a^2
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  PolynomialRemainder[x^2+x+1,2x+1,x]    ==>     3/4
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  PolynomialRemainder[x^2+ b x+1,a x+1,x]    ==>     1+1/a^2-b/a
 ok  PolynomialRemainder[x^2+x+1,Pi x+1,x]    ==>     1+1/\[Pi]^2-1/\[Pi]
 ok  PolynomialRemainder[(x+1)/(x+2),(x+1)/(x+3),x]    ==>     0
 ok  PolynomialRemainder[x^2+4 x+1,2x+1,x,Modulus->2]    ==>     0
 ok  PolynomialRemainder[x^2+4 x+1,2x+1,x,Modulus->5]    ==>     3
-not ok  Euclid[(x+1)(x+2),(x+2)(x+3),x]    ==>     -4-2 x
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+ok  Euclid[f_,g_,x_]/;Exponent[f,x]<Exponent[g,x] :=Euclid[g,f,x]; Euclid[f_,g_?NumericQ,x_]:=If[PossibleZeroQ[g],f,1]; Euclid[f_,g_,x_]:=Euclid[g,PolynomialRemainder[f,g,x],x]; Euclid[(x+1)(x+2),(x+2)(x+3),x]    ==>     -4-2 x
 #! TextForm[ColonForm[MessageName[Power, infy], StringForm[Infinite expression `1` encountered., Short[HoldForm[0^(-1)], 3]]]]
 not ok  Expand[%/Coefficient[%,x,1]]    ==>     2+x
 ok  PolynomialGCD[(x+1)(x+2),(x+2)(x+3)]    ==>     2+x
-not ok  q=PolynomialQuotient[f,g,x]    ==>     2+x
+#! TextForm[ColonForm[MessageName[Set, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Span], 3], Short[HoldForm[Span[{1 + 4*x + x^2, 2 + x}, q]], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, shape], StringForm[Lists `1` and `2` are not the same shape., Short[HoldForm[{f, g}], 3], Short[HoldForm[f/g], 3]]]]
+not ok  {f,g}={x^2+4x+1,x+2};; q=PolynomialQuotient[f,g,x]    ==>     2+x
 not ok  r=PolynomialRemainder[f,g,x]    ==>     -3
-ok  Expand[q g+r]==f    ==>     True
+not ok  Expand[q g+r]==f    ==>     True
 not ok  PolynomialQuotientRemainder[f,g,x]    ==>     {2+x,-3}
 ok  PolynomialReduce[x^2+4x+1,{x+2},{x}]    ==>     {{2+x},-3}
 ok  PolynomialRemainder[x^2,x+a,x]    ==>     a^2

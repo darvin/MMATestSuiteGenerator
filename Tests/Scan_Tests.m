@@ -4,8 +4,9 @@ TapSuite[TapComment[
   "RefLink[Throw,paclet:ref/Throw] works inside \
 RefLink[Scan,paclet:ref/Scan]:"], 
  TapTestSame[Catch[Scan[If[#1 > 5, Throw[#1]] & , {2, 4, 6, 8}]], 6], 
- TapTestSameBROKEN[{u[76], u[77], u[78]}, {u[76], x, u[78]}], 
- TapComment["Find all leaves in an expression:"], 
+ TapComment["Make assignments based on data:"], 
+ TapTestSame[Scan[(u[#1] = x) & , {55, 11, 77, 88}]; {u[76], u[77], u[78]}, 
+  {u[76], x, u[78]}], TapComment["Find all leaves in an expression:"], 
  TapTestSameBROKEN[Integrate[1/(x^3 - 1), x], 
   -(ArcTan[(1 + 2*x)/Sqrt[3]]/Sqrt[3]) + (1/3)*Log[-1 + x] - 
    (1/6)*Log[1 + x + x^2]], TapTestSameBROKEN[Reap[Scan[Sow, %, {-1}]][[2,

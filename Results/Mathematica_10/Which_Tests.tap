@@ -1,20 +1,22 @@
 #! DOCKER > wolfram -script output/Tests/Which_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Piecewise, pairs], StringForm[The first argument `1` of Piecewise is not a list of pairs., Short[HoldForm[-1], 3]]]]
+#! TextForm[ColonForm[MessageName[Piecewise, pairs], StringForm[The first argument `1` of Piecewise is not a list of pairs., Short[HoldForm[a1], 3]]]]
+#! TextForm[ColonForm[MessageName[Piecewise, pairs], StringForm[The first argument `1` of Piecewise is not a list of pairs., Short[HoldForm[a2!], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Piecewise, pairs]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Which_Tests
-ok  a = 2; Which[a == 1, x, a == 2, b]    ==>     b
-    ---
-    data:
-        got: b
-        expect: b
-        expect_evaluated: b
-    ...
+ok  $Failed    ==>     HoldComplete[b] # skip
 # RefLink[Which,paclet:ref/Which] can be maintained in symbolic form:
 ok  Which[a == 1, x, a == 2, b]    ==>     Which[a == 1, x, a == 2, b]
     ---
     data:
-        got: b
+        got: Which[a == 1, x, a == 2, b]
         expect: Which[a == 1, x, a == 2, b]
-        expect_evaluated: b
+        expect_evaluated: Which[a == 1, x, a == 2, b]
     ...
 ok  % /. a -> 2    ==>     b # skip
 # Conditions are evaluated until one is found that is neither RefLink[True,paclet:ref/True] nor RefLink[False,paclet:ref/False]:
@@ -25,30 +27,78 @@ ok  Which[1 < 0, a, x == 0, b, 0 < 1, c]    ==>     Which[x == 0, b, 0 < 1, c]
         expect: Which[x == 0, b, 0 < 1, c]
         expect_evaluated: Which[x == 0, b, 0 < 1, c]
     ...
-ok  sign /@ {-2, 0, 3}    ==>     {-1, Indeterminate, 1} # skip
+# Use RefLink[True,paclet:ref/True] for an else clause that always matches:
+ok  sign[x_] := Which[x < 0, -1, x > 0, 1, True, Indeterminate]; sign /@ {-2, 0, 3}    ==>     {-1, Indeterminate, 1}
+    ---
+    data:
+        got: {-1, Indeterminate, 1}
+        expect: {-1, Indeterminate, 1}
+        expect_evaluated: {-1, Indeterminate, 1}
+    ...
 # Define a piecewise function:
-ok  f = Which[x < -(Pi/2), -1, -(Pi/2) <= x <= Pi/2, Sin[x], True, 1]    ==>     Which[x < -(Pi/2), -1, -(Pi/2) <= x <= Pi/2, Sin[x], True, 1] # skip
+ok  f = Which[x < -(Pi/2), -1, -(Pi/2) <= x <= Pi/2, Sin[x], True, 1]    ==>     Which[x < -(Pi/2), -1, -(Pi/2) <= x <= Pi/2, Sin[x], True, 1]
+    ---
+    data:
+        got:           -Pi        Pi          Pi
+#! Which[x < ---, -1, -(--) <= x <= --, Sin[x], True, 1]
+#!            2         2           2
+        expect: Which[x < -(Pi/2), -1, -(Pi/2) <= x <= Pi/2, Sin[x], True, 1]
+        expect_evaluated:           -Pi        Pi          Pi
+#! Which[x < ---, -1, -(--) <= x <= --, Sin[x], True, 1]
+#!            2         2           2
+    ...
 # Expand it to use RefLink[Piecewise,paclet:ref/Piecewise]: 
 ok  PiecewiseExpand[f]    ==>     Inequality[Piecewise[-1]*x, Less, (-(Pi/2))*1*x, Greater, (Pi/2)*Sin[x]*True] # skip
 # Do symbolic operations: 
-not ok  Reduce[f == 1/2, x]    ==>     x == Pi/6
+ok  Reduce[f == 1/2, x]    ==>     x == Pi/6
     ---
     data:
-        got: f == 1/2
+        got:      Pi
+#! x == --
+     6
         expect: x == Pi/6
-        expect_evaluated: x == Pi/6
+        expect_evaluated:      Pi
+#! x == --
+     6
     ...
-not ok  Integrate[f, {x, 0, 3}]    ==>     (8 - Pi)/2
+ok  Integrate[f, {x, 0, 3}]    ==>     (8 - Pi)/2
     ---
     data:
-        got: 3*f
+        got: 8 - Pi
+#! ------
+#!   2
         expect: (8 - Pi)/2
-        expect_evaluated: (8 - Pi)/2
+        expect_evaluated: 8 - Pi
+#! ------
+#!   2
     ...
-ok  D[f, x]    ==>     Which[x < -(Pi/2), 0, -(Pi/2) <= x <= Pi/2, Cos[x], True, 0] # skip
+ok  D[f, x]    ==>     Which[x < -(Pi/2), 0, -(Pi/2) <= x <= Pi/2, Cos[x], True, 0]
+    ---
+    data:
+        got:           -Pi       Pi          Pi
+#! Which[x < ---, 0, -(--) <= x <= --, Cos[x], True, 0]
+#!            2        2           2
+        expect: Which[x < -(Pi/2), 0, -(Pi/2) <= x <= Pi/2, Cos[x], True, 0]
+        expect_evaluated:           -Pi       Pi          Pi
+#! Which[x < ---, 0, -(--) <= x <= --, Cos[x], True, 0]
+#!            2        2           2
+    ...
 ok  HoldComplete[Plot[f, {x, -Pi, Pi}]]    ==>     $Failed # skip
-ok  cut1 /@ {-2, -1, 0, 1, 2}    ==>     {-1, -1, 0, 1, 1} # skip
-ok  cut2 /@ {-2, -1, 0, 1, 2}    ==>     {-1, -1, 0, 1, 1} # skip
+# Use RefLink[Which,paclet:ref/Which] rather than a nested if-then-elsif chain:
+ok  cut1[x_] := If[x < -1, -1, If[x < 1, x, 1]]; cut1 /@ {-2, -1, 0, 1, 2}    ==>     {-1, -1, 0, 1, 1}
+    ---
+    data:
+        got: {-1, -1, 0, 1, 1}
+        expect: {-1, -1, 0, 1, 1}
+        expect_evaluated: {-1, -1, 0, 1, 1}
+    ...
+ok  cut2[x_] := Which[x < -1, -1, x < 1, x, True, 1]; cut2 /@ {-2, -1, 0, 1, 2}    ==>     {-1, -1, 0, 1, 1}
+    ---
+    data:
+        got: {-1, -1, 0, 1, 1}
+        expect: {-1, -1, 0, 1, 1}
+        expect_evaluated: {-1, -1, 0, 1, 1}
+    ...
 # Use RefLink[PiecewiseExpand,paclet:ref/PiecewiseExpand] to convert RefLink[Which,paclet:ref/Which] to RefLink[Piecewise,paclet:ref/Piecewise]:
 ok  PiecewiseExpand[Which[c1, a1, c2, a2, True, a3]]    ==>     Piecewise[a1]*c1*a2!*c1 && c2*a3*True # skip
 ok  PiecewiseExpand[Which[c1, Which[d1, b1, True, b2], True, a2]]    ==>     Piecewise[a2!]*c1*b1*c1 && d1*b2*True # skip

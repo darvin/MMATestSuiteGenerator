@@ -10,12 +10,18 @@ TapSuite[TapComment[
  TapTestSame[x = {1, 2, 3}, {1, 2, 3}], TapTestSame[x--; x, {0, 1, 2}], 
  TapComment["Find the largest prime smaller than a given number:"], 
  TapTestSame[i = 10^6; While[ !PrimeQ[i], i--]; i, 999983], 
- TapTestSameBROKEN[{a--, --b}, {1, 0}], TapTestSameBROKEN[{a, b}, {0, 0}], 
- TapComment["RefLink[Decrement,paclet:ref/Decrement] is a short form of this \
-assignment:"], TapTestSame[k = 1; k = k - 1, 0], 
- TapComment["RefLink[Decrement,paclet:ref/Decrement] is a special case of \
+ TapComment["RefLink[Decrement,paclet:ref/Decrement] and \
+RefLink[PreDecrement,paclet:ref/PreDecrement] differ in the return value of \
+the operation:"], TapTestSameBROKEN[{a, b} = {1, 1} ;; {a--, --b}, {1, 0}], 
+ TapTestSameBROKEN[{a, b}, {0, 0}], TapComment["RefLink[Decrement,paclet:ref/\
+Decrement] is a short form of this assignment:"], 
+ TapTestSame[k = 1; k = k - 1, 0], TapComment["RefLink[Decrement,paclet:ref/D\
+ecrement] is a special case of \
 RefLink[SubtractFrom,paclet:ref/SubtractFrom]:"], 
- TapTestSame[k = 1; k -= 1, 0], TapTestSameBROKEN[{a++, ++b, c--, --d}, 
-  {1, 2, 1, 0}], TapTestSameBROKEN[{a, b, c, d}, {2, 2, 0, 0}], 
+ TapTestSame[k = 1; k -= 1, 0], TapComment["RefLink[Increment,paclet:ref/Incr\
+ement] and RefLink[PreIncrement,paclet:ref/PreIncrement] are closely related \
+operations:"], TapTestSameBROKEN[{a, b, c, d} = 
+   {1, 1, 1, 1} ;; {a++, ++b, c--, --d}, {1, 2, 1, 0}], 
+ TapTestSameBROKEN[{a, b, c, d}, {2, 2, 0, 0}], 
  TapComment["A variable to be decremented must have an initial value:"], 
  TapTestSameBROKEN[x--, x--]]

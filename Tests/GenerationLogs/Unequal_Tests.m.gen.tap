@@ -1,8 +1,14 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Unequal.nb output/Tests/Unequal_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Unequal.nb
 # WRITING OUTPUT TO:     output/Tests/Unequal_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  a!= b    ==>     a!=b
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  1!=2    ==>     True
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  3/2!=5/3    ==>     True
 ok  1.!= 1.+2^7 10^-16    ==>     False
 ok  1.!= 1.+2^8 10^-16    ==>     True
@@ -11,16 +17,12 @@ ok  N[Pi,20]!=Pi(1+2^8 10^-20)    ==>     True
 ok  Pi^E!=E^Pi    ==>     True
 ok  Sqrt[2]+Sqrt[3]!=Sqrt[5+2Sqrt[6]]    ==>     False
 ok  Sqrt[2]+Sqrt[3]!=Root[#^4-10#^2+1&,4]    ==>     Sqrt[2]+Sqrt[3]!=Root[1-10 #1^2+#1^4&,4]
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  RootReduce[%]    ==>     False
 ok  Sqrt[2]+Sqrt[3]!=Root[#^4-10#^2+1&,4]+10^-100    ==>     Sqrt[2]+Sqrt[3]!=1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000+Root[1-10 #1^2+#1^4&,4]
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  RootReduce[%]    ==>     True
 ok  Block[{$MaxExtraPrecision=100},Sqrt[2]+Sqrt[3]!=Root[#^4-10#^2+1&,4]+10^-100]    ==>     True
 ok  x!=x    ==>     False
 ok  (x+1)^2-x^2-2x!=0    ==>     -2 x-x^2+(1+x)^2!=0
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 not ok  Expand[%]    ==>     True
 ok  3!= 4!=5    ==>     True
 ok  x!=y!=z!=t    ==>     x!=y!=z!=t
@@ -44,6 +46,6 @@ ok  PossibleZeroQ[a-b+10^-100]    ==>     True
 ok  2.00006-2.00005!=0.00001    ==>     True
 not ok  2.00006-2.00005//InputForm    ==>     0.000010000000000065512
 ok  2.00006`16-2.00005`16!=0.00001`16    ==>     False
-not ok  Precision[2.00006`16-2.00005`16]    ==>     10.3979
+ok  Precision[2.00006`16-2.00005`16]    ==>     10.3979
 ok  2.6-2.5!=0.1    ==>     False
 not ok  2.6-2.5//InputForm    ==>     0.10000000000000009

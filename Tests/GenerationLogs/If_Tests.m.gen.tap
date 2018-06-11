@@ -1,25 +1,35 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/If.nb output/Tests/If_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/If.nb
 # WRITING OUTPUT TO:     output/Tests/If_Tests.m
-not ok  abs/@{-1,0,1}    ==>     {1,0,1}
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/If.html; abs[x_]:=If[x<0,-x,x]; abs/@{-1,0,1}
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{If, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`http://reference.wolfram.com/language/ref/If.html; abs[x_]:=If[x<0,-x,x]; abs/@{-1,0,1}\)
+#!                                                                                                            ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/If.html; abs[x_]:=If[x<0,-x,x]; abs/@{-1,0,1}    ==>     {1,0,1}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  If[a<b,1,0]    ==>     If[a<b,1,0]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  If[a<b,1,0,Indeterminate]    ==>     Indeterminate
 ok  If[TrueQ[a<b],1,0]    ==>     0
 ok  f=If[Round[x]>x,x,-x]    ==>     If[Round[x]>x,x,-x]
 #! TextForm[ColonForm[MessageName[Piecewise, pairs], StringForm[The first argument `1` of Piecewise is not a list of pairs., Short[HoldForm[-x], 3]]]]
 not ok  PiecewiseExpand[f,0<x<5]    ==>     \[Piecewise]-x	1<=x<3/2||2<=x<=5/2||3<=x<7/2||4<=x<=9/2||x<=1/2
 #! x	True
-not ok  Reduce[f<5&&0<x<10,x,Reals]    ==>     0<x<11/2||6<=x<=13/2||7<=x<15/2||8<=x<=17/2||9<=x<19/2
+ok  Reduce[f<5&&0<x<10,x,Reals]    ==>     0<x<11/2||6<=x<=13/2||7<=x<15/2||8<=x<=17/2||9<=x<19/2
 ok  Integrate[f,{x,0,10}]    ==>     5/2
 ok  D[f,x]    ==>     If[Round[x]>x,1,-1]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 240}, {0, 155}}]\)\)
 #!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 240}, {0, 155}}]\)\)
-#!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
 not ok  Plot[f,{x,-2,2}]    ==>     \!\(\*
 #! GraphicsBox[
 #! TagBox[RasterBox[CompressedData["
@@ -125,10 +135,19 @@ ok  y=If[x<0,-x,x]    ==>     2
 ok  x=1;
 #! If[x!=0,1/x,Indeterminate]    ==>     1
 #! TextForm[ColonForm[MessageName[Less, nord], StringForm[Invalid comparison with `1` attempted., Short[HoldForm[I], 3]]]]
-not ok  sign/@{-1,0,1,I}    ==>     {-1,1,1,If[I<0,-1,1]}
-not ok  sign2/@{-1,0,1,I}    ==>     {-1,0,1,sign2[I]}
-not ok  cut/@{-2,-1,0,1,2}    ==>     {-1,-1,0,1,1}
-not ok  cut2/@{-2,-1,0,1,2}    ==>     {-1,-1,0,1,1}
+#! TextForm[ColonForm[MessageName[Less, nord], StringForm[Invalid comparison with `1` attempted., Short[HoldForm[I], 3]]]]
+ok  sign[x_]:=If[x<0,-1,1]; sign/@{-1,0,1,I}    ==>     {-1,1,1,If[I<0,-1,1]}
+#! TextForm[ColonForm[MessageName[Less, nord], StringForm[Invalid comparison with `1` attempted., Short[HoldForm[I], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Less, nord]], 3]]]]
+#! TextForm[ColonForm[MessageName[GreaterEqual, nord], StringForm[Invalid comparison with `1` attempted., Short[HoldForm[I], 3]]]]
+#! TextForm[ColonForm[MessageName[GreaterEqual, nord], StringForm[Invalid comparison with `1` attempted., Short[HoldForm[I], 3]]]]
+ok  sign2[x_/;x<0]:=-1
+#! sign2[x_/;x>=0]:=x; sign2/@{-1,0,1,I}    ==>     {-1,0,1,sign2[I]}
+ok  cut[x_]:=If[x<-1,-1,If[x<1,x,1]]; cut/@{-2,-1,0,1,2}    ==>     {-1,-1,0,1,1}
+ok  cut2[x_]:=Which[
+#! x<-1,-1,
+#! x<1,x,
+#! True,1]; cut2/@{-2,-1,0,1,2}    ==>     {-1,-1,0,1,1}
 #! TextForm[ColonForm[MessageName[Piecewise, pairs], StringForm[The first argument `1` of Piecewise is not a list of pairs., Short[HoldForm[a], 3]]]]
 not ok  PiecewiseExpand[If[c,a,b]]    ==>     \[Piecewise]a	c
 #! b	True

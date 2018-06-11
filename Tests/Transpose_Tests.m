@@ -2,7 +2,7 @@
 Import["CompatTests.m"]; 
 TapSuite[TapComment["Transpose a 2*3 matrix:"], 
  TapTestSame[Transpose[{{a, b, c}, {x, y, z}}], {{a, x}, {b, y}, {c, z}}], 
- TapTestSameBROKEN[MatrixForm[m], a*b*c*x*y*z], 
+ TapTestSameBROKEN[m = {{a, b, c}, {x, y, z}} ;; MatrixForm[m], a*b*c*x*y*z], 
  TapTestSameBROKEN[MatrixForm[Transpose[m]], a*x*b*y*c*z], 
  TapTestSame[m = Array[a, {2, 3, 2}], 
   {{{a[1, 1, 1], a[1, 1, 2]}, {a[1, 2, 1], a[1, 2, 2]}, 
@@ -46,15 +46,17 @@ umulate] values of a tensor at all levels:"],
  TapTestSameBROKEN[HoldComplete[ArrayPlot[Multidimensionalize[Reverse][
      data]]], $Failed], TapComment["Transposing by a permutation \\[Sigma] \
 transposes the element positions by \\[Sigma]^-1: "], 
- TapTestSame[{\[Sigma] = RandomSample[Range[3]], 
+ TapTestSameBROKEN[{\[Sigma] = RandomSample[Range[3]], 
    \[Sigma]i = \[Sigma]; \[Sigma]i[[\[Sigma]]] = Range[3]}, 
   {{2, 3, 1}, {1, 2, 3}}], TapTestSameBROKEN[Extract[T, {1, 3, 1}] == 
    Extract[Transpose[T, \[Sigma]], {1, 3, 1}[[\[Sigma]i]]], True], 
- TapTestSameBROKEN[Transpose[m, {1, 1}], {0.0102966, 0.440439, 0.137455, 
-   0.555521}], TapTestSameBROKEN[Diagonal[m], {0.0102966, 0.440439, 0.137455, 
-   0.555521}], TapComment["RefLink[Transpose,paclet:ref/Transpose] only works \
-for rectangular arrays:"], TapTestSame[
-  Transpose[{{1, 2, 3, 4}, {5}, {6, 7}}], 
+ TapComment["RefLink[Transpose,paclet:ref/Transpose][m,{1,1}] is equivalent \
+to RefLink[Diagonal,paclet:ref/Diagonal][m]:"], 
+ TapTestSameBROKEN[m = RandomReal[1, {4, 4}] ;; Transpose[m, {1, 1}], 
+  {0.0102966, 0.440439, 0.137455, 0.555521}], TapTestSameBROKEN[Diagonal[m], 
+  {0.0102966, 0.440439, 0.137455, 0.555521}], TapComment["RefLink[Transpose,p\
+aclet:ref/Transpose] only works for rectangular arrays:"], 
+ TapTestSame[Transpose[{{1, 2, 3, 4}, {5}, {6, 7}}], 
   Transpose[{{1, 2, 3, 4}, {5}, {6, 7}}]], 
  TapComment["Generalize transposition by padding:"], 
  TapTestSame[Transpose[PadRight[{{1, 2, 3, 4}, {5}, {6, 7}}, {3, 4}, p]], 

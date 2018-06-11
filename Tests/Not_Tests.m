@@ -7,9 +7,9 @@ TapSuite[TapComment["Negate assertions:"], TapTestSame[ !x > 1, x <= 1],
   "Double negation simplifies to the identity:"], TapTestSame[ !( !a), a], 
  TapComment["Negate equations and inequalities:"], 
  TapTestSame[ !a == b, a != b], TapTestSame[ !a >= b, a < b], 
- TapComment["Negate quantifiers:"], TapTestSameBROKEN[
-  HoldComplete[ !Exists[x, f[x]]], $Failed], 
- TapTestSameBROKEN[HoldComplete[ !ForAll[x, f[x]]], $Failed], 
+ TapComment["Negate quantifiers:"], 
+ TapTestSame[HoldComplete[ !Exists[x, f[x]]], $Failed], 
+ TapTestSame[HoldComplete[ !ForAll[x, f[x]]], $Failed], 
  TapComment[
   "RefLink[TraditionalForm,paclet:ref/TraditionalForm] formatting:"], 
  TapTestSameBROKEN[! x,  !x], 

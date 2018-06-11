@@ -16,12 +16,11 @@ TapSuite[TapComment["Test whether a number is prime:"],
  TapTestSameBROKEN[(If[PrimeQ[#1], Framed[#1], #1] & ) /@ Range[20], 
   {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}], 
  TapComment["The distribution of Gaussian primes:"], 
- TapTestSameBROKEN[HoldComplete[
-   ArrayPlot[Boole[Table[PrimeQ[a + b*I], {a, 100}, {b, 100}]]]], $Failed], 
- TapTestSameBROKEN[HoldComplete[
-   ArrayPlot[Boole[Table[PrimeQ[a^2 + b^2], {a, 100}, {b, 100}]]]], $Failed], 
- TapTestSameBROKEN[HoldComplete[
-   ArrayPlot[Boole[Table[PrimeQ[a^b + 3], {a, 100}, {b, 100}]]]], $Failed], 
- TapTestSameBROKEN[HoldComplete[Graphics3D[
-    Cuboid /@ Position[Array[PrimeQ[#1 + #2^#3] & , {30, 30, 30}], True]]], 
-  $Failed]]
+ TapTestSame[HoldComplete[ArrayPlot[Boole[Table[PrimeQ[a + b*I], {a, 100}, 
+      {b, 100}]]]], $Failed], TapTestSame[
+  HoldComplete[ArrayPlot[Boole[Table[PrimeQ[a^2 + b^2], {a, 100}, 
+      {b, 100}]]]], $Failed], TapTestSame[
+  HoldComplete[ArrayPlot[Boole[Table[PrimeQ[a^b + 3], {a, 100}, {b, 100}]]]], 
+  $Failed], TapTestSameBROKEN[HoldComplete[
+   Graphics3D[Cuboid /@ Position[Array[PrimeQ[#1 + #2^#3] & , {30, 30, 30}], 
+      True]]], $Failed]]

@@ -27,8 +27,11 @@ list, in the order they first occur (unsorted union):"],
   "Find the list of values sampled by RefLink[Plot,paclet:ref/Plot]:"], 
  TapTestSameBROKEN[HoldComplete[
    Short[Reap[Plot[Sin[x], {x, 0, 10}, EvaluationMonitor :> Sow[x]]; ]]], 
-  $Failed], TapTestSameBROKEN[unsortedUnion[{b, b, c, a, c, a, b, d}], 
-  {b, c, a, d}], TapComment[
+  $Failed], TapComment[
+  "Remove duplicates from a list, keeping original order:"], 
+ TapTestSame[unsortedUnion[x_] := Reap[Sow[1, x], _, #1 & ][[2]]; 
+   unsortedUnion[{b, b, c, a, c, a, b, d}], {b, c, a, d}], 
+ TapComment[
   "This is like RefLink[Union,paclet:ref/Union] without the sorting:"], 
  TapTestSame[Union[{b, b, c, a, c, a, b, d}], {a, b, c, d}], 
  TapComment["If no expressions are sown, RefLink[Reap,paclet:ref/Reap] \

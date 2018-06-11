@@ -1,9 +1,25 @@
 #! DOCKER > wolfram -script output/Tests/FixedPoint_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: FixedPoint_Tests
 # Find a value x such that x^2=2:
-ok  FixedPoint[(#1 + 2/#1)/2 & , 1.]    ==>     1.41421 # skip
-ok  Sqrt[2.]    ==>     1.41421 # skip
+ok  FixedPoint[(#1 + 2/#1)/2 & , 1.]    ==>     1.41421
+    ---
+    data:
+        got: 1.41421
+        expect: 1.41421
+        expect_evaluated: 1.41421
+    ...
+ok  Sqrt[2.]    ==>     1.41421
+    ---
+    data:
+        got: 1.41421
+        expect: 1.41421
+        expect_evaluated: 1.41421
+    ...
 # Fixed point of an integer-valued function:
 ok  NestList[1 + Floor[#1/2] & , 1000, 20]    ==>     {1000, 501, 251, 126, 64, 33, 17, 9, 5, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}
     ---
@@ -35,7 +51,13 @@ ok  GCD[28, 21]    ==>     7
         expect_evaluated: 7
     ...
 # Numerical fixed point of a function:
-ok  FixedPoint[Erf, 1.]    ==>     0.617447 # skip
+ok  FixedPoint[Erf, 1.]    ==>     0.617447
+    ---
+    data:
+        got: 0.617447
+        expect: 0.617447
+        expect_evaluated: 0.617447
+    ...
 # Fixed point of a repeated transformation:
 ok  FixedPoint[#1 /. {fact[0] -> 1, fact[n_] :> n*fact[n - 1]} & , fact[17]]    ==>     355687428096000
     ---
@@ -60,32 +82,46 @@ ok  FixedPoint[1 + Floor[#1/2] & , 10^6]    ==>     2
         expect_evaluated: 2
     ...
 # Stop as soon as successive iterations differ by less than 10^-10:
-ok  FixedPoint[(#1 + 2/#1)/2 & , 1.`20., SameTest -> (Abs[#1 - #2] < 1/10000000000 & )]    ==>     1.4142135623730950488`19.15051499783199
-    ---
-    data:
-        got: 1.41421356237309504880168962350253024361`20.
-        expect: 1.4142135623730950488`19.15051499783199
-        expect_evaluated: 1.4142135623730950488`19.15051499783199
-    ...
+ok  FixedPoint[(#1 + 2/#1)/2 & , 1.`20., SameTest -> (Abs[#1 - #2] < 1/10000000000 & )]    ==>     1.4142135623730950488`19.15051499783199 # skip
 ok  FixedPoint[(#1 + 2/#1)/2 & , 1, SameTest -> (Abs[#1 - #2] < 1/10000000000 & )]    ==>     886731088897/627013566048
     ---
     data:
-        got: 886731088897/627013566048
+        got: 886731088897
+#! ------------
+#! 627013566048
         expect: 886731088897/627013566048
-        expect_evaluated: 886731088897/627013566048
+        expect_evaluated: 886731088897
+#! ------------
+#! 627013566048
     ...
 # Perform exact arithmetic, but use a numerical comparison function:
 ok  FixedPoint[(#1 + 2/#1)/2 & , 1, SameTest -> (N[#1] == N[#2] & )]    ==>     1572584048032918633353217/1111984844349868137938112
     ---
     data:
-        got: 1572584048032918633353217/1111984844349868137938112
+        got: 1572584048032918633353217
+#! -------------------------
+#! 1111984844349868137938112
         expect: 1572584048032918633353217/1111984844349868137938112
-        expect_evaluated: 1572584048032918633353217/1111984844349868137938112
+        expect_evaluated: 1572584048032918633353217
+#! -------------------------
+#! 1111984844349868137938112
     ...
 # Find Sqrt[2] using Newton's method:
-ok  FixedPoint[(#1 + 2/#1)/2 & , 1.]    ==>     1.41421 # skip
+ok  FixedPoint[(#1 + 2/#1)/2 & , 1.]    ==>     1.41421
+    ---
+    data:
+        got: 1.41421
+        expect: 1.41421
+        expect_evaluated: 1.41421
+    ...
 # Fixed point of a complex iteration:
-ok  FixedPoint[Log, 1. + I]    ==>     0.318132 + 1.33724*I # skip
+ok  FixedPoint[Log, 1. + I]    ==>     0.318132 + 1.33724*I
+    ---
+    data:
+        got: 0.318132 + 1.33724 I
+        expect: 0.318132 + 1.33724*I
+        expect_evaluated: 0.318132 + 1.33724 I
+    ...
 # Matrix-multiplication convergence:
 ok  MatrixForm[FixedPoint[{{0.51, 0.49}, {0.49, 0.51}} . #1 & , {{1, 0}, {0, 1}}]]    ==>     0.5*0.5*0.5*0.5 # skip
 # Root of the current directory tree (the result will depend on computer system):
@@ -116,34 +152,65 @@ ok  FixedPoint[#1 /. {s[x_][y_][z_] -> x[z][y[z]], k[x_][y_] -> x} & , s[s[s[s][
         expect: s[k[s[s[s]][k]]][s[k[k[s[s[s]][k]]]][s[s[s]][k]]]
         expect_evaluated: s[k[s[s[s]][k]]][s[k[k[s[s[s]][k]]]][s[s[s]][k]]]
     ...
-ok  ConnectedNodes[{{3, 2}, {4, 3}, {5, 4}, {1, 5}, {2, 1}}, 1]    ==>     {1, 2, 3, 4, 5} # skip
+# Connected components in a graph:
+ok  ConnectedNodes[list_, i_] := FixedPoint[Union[Flatten[{#1, list[[#1]]}]] & , {i}]; ConnectedNodes[{{3, 2}, {4, 3}, {5, 4}, {1, 5}, {2, 1}}, 1]    ==>     {1, 2, 3, 4, 5}
+    ---
+    data:
+        got: {1, 2, 3, 4, 5}
+        expect: {1, 2, 3, 4, 5}
+        expect_evaluated: {1, 2, 3, 4, 5}
+    ...
 # RefLink[FixedPoint,paclet:ref/FixedPoint] gives the last element of RefLink[FixedPointList,paclet:ref/FixedPointList]:
-ok  FixedPointList[Function[x, (x + 2/x)/2], 1.]    ==>     {1., 1.5, 1.41667, 1.41422, 1.41421, 1.41421, 1.41421} # skip
-ok  FixedPoint[Function[x, (x + 2/x)/2], 1.]    ==>     1.41421 # skip
+ok  FixedPointList[Function[x, (x + 2/x)/2], 1.]    ==>     {1., 1.5, 1.41667, 1.41422, 1.41421, 1.41421, 1.41421}
+    ---
+    data:
+        got: {1., 1.5, 1.41667, 1.41422, 1.41421, 1.41421, 1.41421}
+        expect: {1., 1.5, 1.41667, 1.41422, 1.41421, 1.41421, 1.41421}
+        expect_evaluated: {1., 1.5, 1.41667, 1.41422, 1.41421, 1.41421, 1.41421}
+    ...
+ok  FixedPoint[Function[x, (x + 2/x)/2], 1.]    ==>     1.41421
+    ---
+    data:
+        got: 1.41421
+        expect: 1.41421
+        expect_evaluated: 1.41421
+    ...
 # Apply rules repeatedly until the result no longer changes using RefLink[ReplaceRepeated,paclet:ref/ReplaceRepeated] (//.):
 ok  FixedPoint[#1 /. {a -> b, b -> c, c -> d} & , a^2 + c^3]    ==>     d^2 + d^3
     ---
     data:
-        got: d^2 + d^3
+        got:  2    3
+#! d  + d
         expect: d^2 + d^3
-        expect_evaluated: d^2 + d^3
+        expect_evaluated:  2    3
+#! d  + d
     ...
 ok  a^2 + c^3 /. {a -> b, b -> c, c -> d}    ==>     b^2 + d^3
     ---
     data:
-        got: b^2 + d^3
+        got:  2    3
+#! b  + d
         expect: b^2 + d^3
-        expect_evaluated: b^2 + d^3
+        expect_evaluated:  2    3
+#! b  + d
     ...
 ok  a^2 + c^3 //. {a -> b, b -> c, c -> d}    ==>     d^2 + d^3
     ---
     data:
-        got: d^2 + d^3
+        got:  2    3
+#! d  + d
         expect: d^2 + d^3
-        expect_evaluated: d^2 + d^3
+        expect_evaluated:  2    3
+#! d  + d
     ...
 # RefLink[FixedPoint,paclet:ref/FixedPoint] is equivalent to a particular choice of arguments of RefLink[NestWhile,paclet:ref/NestWhile]:
-ok  NestWhile[Function[x, (x + 2/x)/2], 1., UnsameQ, 2]    ==>     1.41421 # skip
+ok  NestWhile[Function[x, (x + 2/x)/2], 1., UnsameQ, 2]    ==>     1.41421
+    ---
+    data:
+        got: 1.41421
+        expect: 1.41421
+        expect_evaluated: 1.41421
+    ...
 # Calculations may not converge in a finite number of steps:
 ok  TimeConstrained[FixedPoint[#1/3 + 1/4 & , Interval[{0, 1}]], 1]    ==>     $Aborted
     ---
@@ -156,17 +223,31 @@ ok  TimeConstrained[FixedPoint[#1/3 + 1/4 & , Interval[{0, 1}]], 1]    ==>     $
 ok  FixedPoint[#1/3 + 1/4 & , Interval[{0, 1}], 50]    ==>     Interval[{89737248461481573596281/239299329230617529590083, 269211745384444720788844/717897987691852588770249}]
     ---
     data:
-        got: Interval[{89737248461481573596281/239299329230617529590083, 269211745384444720788844/717897987691852588770249}]
+        got:           89737248461481573596281   269211745384444720788844
+#! Interval[{------------------------, ------------------------}]
+#!           239299329230617529590083  717897987691852588770249
         expect: Interval[{89737248461481573596281/239299329230617529590083, 269211745384444720788844/717897987691852588770249}]
-        expect_evaluated: Interval[{89737248461481573596281/239299329230617529590083, 269211745384444720788844/717897987691852588770249}]
+        expect_evaluated:           89737248461481573596281   269211745384444720788844
+#! Interval[{------------------------, ------------------------}]
+#!           239299329230617529590083  717897987691852588770249
     ...
 # Using a numerical test for convergence works in this case as well:
 ok  FixedPoint[#1/3 + 1/4 & , Interval[{0, 1}], SameTest -> (N[#1] === N[#2] & )]    ==>     Interval[{2084647712458321/5559060566555523, 6253943137374964/16677181699666569}]
     ---
     data:
-        got: Interval[{2084647712458321/5559060566555523, 6253943137374964/16677181699666569}]
+        got:           2084647712458321  6253943137374964
+#! Interval[{----------------, -----------------}]
+#!           5559060566555523  16677181699666569
         expect: Interval[{2084647712458321/5559060566555523, 6253943137374964/16677181699666569}]
-        expect_evaluated: Interval[{2084647712458321/5559060566555523, 6253943137374964/16677181699666569}]
+        expect_evaluated:           2084647712458321  6253943137374964
+#! Interval[{----------------, -----------------}]
+#!           5559060566555523  16677181699666569
     ...
 # Sometimes convergence may fail on certain platforms due to insufficient accuracy of a machine arithmetic library function. This can be addressed by using a comparison function with a larger tolerance:
-ok  FixedPoint[Cos, 0.5, SameTest -> Equal]    ==>     0.739085 # skip
+ok  FixedPoint[Cos, 0.5, SameTest -> Equal]    ==>     0.739085
+    ---
+    data:
+        got: 0.739085
+        expect: 0.739085
+        expect_evaluated: 0.739085
+    ...

@@ -28,11 +28,15 @@ RefLink[True,paclet:ref/True]:"],
  TapComment[
   "RefLink[TraditionalForm,paclet:ref/TraditionalForm] formatting:"], 
  TapTestSameBROKEN[x || y || z, x || y || z], 
- TapTestSameBROKEN[NotRealNegativeQ[-2], False], 
- TapComment["If an argument of RefLink[Or,paclet:ref/Or] evaluates to \
-RefLink[True,paclet:ref/True], any subsequent arguments are not evaluated:"], 
- TapTestSameBROKEN[NotRealNegativeQ[I], True], 
- TapTestSameBROKEN[NotRealNegativeQ2[I], True], 
+ TapComment["Combine conditions in a Wolfram Language program:"], 
+ TapTestSame[NotRealNegativeQ[(x_)?NumberQ] := Head[x] === Complex || x >= 0; 
+   NotRealNegativeQ[-2], False], TapComment["If an argument of \
+RefLink[Or,paclet:ref/Or] evaluates to RefLink[True,paclet:ref/True], any \
+subsequent arguments are not evaluated:"], TapTestSame[NotRealNegativeQ[I], 
+  True], TapComment["The argument order in RefLink[Or,paclet:ref/Or] matters; \
+if the last two arguments are reversed, RefLink[I,paclet:ref/I]>=0 is \
+evaluated:"], TapTestSame[NotRealNegativeQ2[(x_)?NumberQ] := 
+    x >= 0 || Head[x] === Complex; NotRealNegativeQ2[I], True], 
  TapComment["Combine assumptions:"], 
  TapTestSame[Refine[Sqrt[(x^2 - 1)^2], x <= -1 || x >= 1], -1 + x^2], 
  TapComment["Combine equations and inequalities; RefLink[Or,paclet:ref/Or] is \
@@ -44,9 +48,9 @@ used both in the input and the output:"],
   HoldComplete[RegionPlot3D[x^2 + y^2 + z^2 < 1 || (x - 1)^2 + y^2 + z^2 < 1, 
     {x, -1, 2}, {y, -1, 1}, {z, -1, 1}]], $Failed], 
  TapComment["A cellular automaton based on RefLink[Or,paclet:ref/Or]:"], 
- TapTestSameBROKEN[HoldComplete[
-   ArrayPlot[Boole[CellularAutomaton[{Or @@ #1 & , {}}, {{True}, False}, 
-      20]]]], $Failed], TapComment[
+ TapTestSame[HoldComplete[ArrayPlot[
+    Boole[CellularAutomaton[{Or @@ #1 & , {}}, {{True}, False}, 20]]]], 
+  $Failed], TapComment[
   "Find the area of the union of sets given by algebraic conditions:"], 
  TapTestSame[Integrate[Boole[x^2 + y^2 < 1 || (x - 1)^2 + y^2 < 2], 
    {x, -Infinity, Infinity}, {y, -Infinity, Infinity}], 1 + 2*Pi], 

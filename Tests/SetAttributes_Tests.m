@@ -1,24 +1,39 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[f[1 + 2], f[1 + 2]], 
- TapTestSameBROKEN[plus[a, plus[c, b]], plus[a, b, c]], 
- TapTestSameBROKEN[Attributes[f], {Flat, Orderless}], 
- TapTestSameBROKEN[Attributes[{f, g}], {{HoldAll, Listable}, {HoldAll}}], 
- TapComment["RefLink[SetAttributes,paclet:ref/SetAttributes] is equivalent to \
-this assignment to the attributes:"], 
- TapTestSame[Attributes[f] = Union[Attributes[f], {HoldFirst, NHoldFirst}], 
-  {HoldFirst, NHoldFirst}], TapTestSameBROKEN[Attributes[f], 
-  {Flat, Orderless}], TapTestSameBROKEN[Attributes[{f, g}], 
-  {{Protected}, {Protected}}], TapComment["A locked symbol can no longer be \
-unprotected, as the RefLink[Protected,paclet:ref/Protected] attribute cannot \
-be cleared:"], TapTestSame[Unprotect[f], {}], TapComment["RefLink[SetAttribut\
-es,paclet:ref/SetAttributes] has the attribute \
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[f[1 + 2]]], 
+ TapTestSame[SetAttributes[plus, {Flat, Orderless}]; plus[a, plus[c, b]], 
+  plus[a, b, c]], TapComment[
+  "Add more attributes; the previous ones are retained:"], 
+ TapTestSameBROKEN[SetAttributes[f, Orderless]; Attributes[f], 
+  {Flat, Orderless}], TapComment["RefLink[SetAttributes,paclet:ref/SetAttribu\
+tes] adds to the already existing attributes; \
+RefLink[Attributes,paclet:ref/Attributes][g]={..} resets the list:"], 
+ TapTestSameBROKEN[SetAttributes[f, HoldAll]; 
+   Attributes[g] = HoldAll ;; Attributes[{f, g}], 
+  {{HoldAll, Listable}, {HoldAll}}], TapComment["RefLink[SetAttributes,paclet\
+:ref/SetAttributes] is equivalent to this assignment to the attributes:"], 
+ TapTestSameBROKEN[Attributes[f] = Union[Attributes[f], 
+    {HoldFirst, NHoldFirst}], {HoldFirst, NHoldFirst}], 
+ TapComment["Use RefLink[ClearAttributes,paclet:ref/ClearAttributes] to clear \
+a particular attribute:"], TapTestSameBROKEN[
+  SetAttributes[f, {Flat, Orderless, OneIdentity}]; 
+   ClearAttributes[f, OneIdentity]; Attributes[f], {Flat, Orderless}], 
+ TapComment["Protecting a symbol is equivalent to setting the \
+RefLink[Protected,paclet:ref/Protected] attribute:"], 
+ TapTestSameBROKEN[Protect[f]; SetAttributes[g, Protected] ;; 
+    Attributes[{f, g}], {{Protected}, {Protected}}], 
+ TapComment["A locked symbol can no longer be unprotected, as the \
+RefLink[Protected,paclet:ref/Protected] attribute cannot be cleared:"], 
+ TapTestSameBROKEN[Unprotect[f], {}], TapComment["RefLink[SetAttributes,pacle\
+t:ref/SetAttributes] has the attribute \
 RefLink[HoldFirst,paclet:ref/HoldFirst]:"], 
  TapTestSame[Attributes[SetAttributes], {HoldFirst, Protected}], 
- TapTestSameBROKEN[Attributes[syms], {Protected}], 
- TapTestSameBROKEN[Attributes[{f, g, h}], {{Protected}, {Protected}, 
-   {Protected}}], TapComment[
-  "The 10 system symbols with the most attributes:"], 
+ TapComment["This sets attributes of the symbol syms itself:"], 
+ TapTestSame[SetAttributes[syms, Protected]; Attributes[syms], {Protected}], 
+ TapComment["This sets the attributes of all symbols in the list syms:"], 
+ TapTestSameBROKEN[SetAttributes[Evaluate[syms], Protected]; 
+   Attributes[{f, g, h}], {{Protected}, {Protected}, {Protected}}], 
+ TapComment["The 10 system symbols with the most attributes:"], 
  TapTestSameBROKEN[TableForm[Take[Sort[({#1, Attributes[#1]} & ) /@ 
       Names["System`*"], Length[#1[[2]]] > Length[#2[[2]]] & ], 10], 
    TableDepth -> 2], Times*{Flat, Listable, NumericFunction, OneIdentity, 

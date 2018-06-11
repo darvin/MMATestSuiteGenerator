@@ -38,11 +38,17 @@ RefLink[Trig,paclet:ref/Trig]->RefLink[True,paclet:ref/True], \
 RefLink[Together,paclet:ref/Together] recognizes dependencies between \
 trigonometric functions:"], TapTestSame[Together[1/Sin[x] + 1/Cos[x], 
    Trig -> True], Csc[x]*Sec[x]*(Cos[x] + Sin[x])], 
- TapTestSameBROKEN[rationalFunctionQ[1/x + y/x, {x, y}], True], 
- TapComment["RefLink[Apart,paclet:ref/Apart] acts as a partial inverse of \
-RefLink[Together,paclet:ref/Together]:"], TapTestSame[Together[a/b + c/d], 
-  (b*c + a*d)/(b*d)], TapTestSameBROKEN[Apart[%], a/b + c/d], 
- TapTestSameBROKEN[Together[r], (3 + 2*x)/((1 + x)*(2 + x))], 
+ TapComment["Test whether a function is a rational function:"], 
+ TapTestSameBROKEN[rationalFunctionQ[e_, vars_] := 
+   Module[{r = Together[e]}, And @@ (PolynomialQ[#1, vars] & ) /@ 
+       {Denominator[r], Numerator[r]}] ;; rationalFunctionQ[1/x + y/x, 
+     {x, y}], True], TapComment["RefLink[Apart,paclet:ref/Apart] acts as a \
+partial inverse of RefLink[Together,paclet:ref/Together]:"], 
+ TapTestSame[Together[a/b + c/d], (b*c + a*d)/(b*d)], 
+ TapTestSameBROKEN[Apart[%], a/b + c/d], TapComment["RefLink[Together,paclet:\
+ref/Together] combines terms over a common denominator and cancels common \
+factors:"], TapTestSameBROKEN[r = (x - 1)/(x^2 - 1) + (x - 2)/(x^2 - 4) ;; 
+    Together[r], (3 + 2*x)/((1 + x)*(2 + x))], 
  TapComment["RefLink[Cancel,paclet:ref/Cancel] only cancels common factors \
 between numerators and denominators:"], TapTestSameBROKEN[Cancel[r], 
   1/(1 + x) + 1/(2 + x)], TapComment["Use \

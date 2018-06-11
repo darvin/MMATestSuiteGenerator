@@ -1,9 +1,18 @@
 #! DOCKER > wolfram -script output/Tests/Part_Tests.m
-#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[s[[1,2]]], 3]]]]
-#! TextForm[ColonForm[MessageName[Set, noval], StringForm[Symbol `1` in part assignment does not have an immediate value., Short[HoldForm[s], 3]]]]
-#! TextForm[ColonForm[MessageName[Part, partw], StringForm[Part `1` of `2` does not exist., Short[HoldForm[{2, 3}], 3], Short[HoldForm[{{a, b, c}, {g, h, i}}], 3]]]]
-#! TextForm[ColonForm[MessageName[Part, partw], StringForm[Part `1` of `2` does not exist., Short[HoldForm[{2, 3}], 3], Short[HoldForm[{{a, b, c}, {g, h, i}}], 3]]]]
-#! TextForm[ColonForm[MessageName[Set, partw], StringForm[Part `1` of `2` does not exist., Short[HoldForm[5], 3], Short[HoldForm[{Hold[2*x + 2*3], b, c, d}], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Span], 3], Short[HoldForm[Span[{a, b, c, d}, x]], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, partw], StringForm[Part `1` of `2` does not exist., Short[HoldForm[{3, 1}], 3], Short[HoldForm[x + Span[{a, b, c, d}, x]], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Span], 3], Short[HoldForm[Span[{a, b, c, d}, x + Span[{a, b, c, d}, x]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, partw], StringForm[Part `1` of `2` does not exist., Short[HoldForm[{4, 2}], 3], Short[HoldForm[x + Span[{a, b, c, d}, x]], 3]]]]
+#! TextForm[ColonForm[MessageName[Part, partw], StringForm[Part `1` of `2` does not exist., Short[HoldForm[3], 3], Short[HoldForm[(x + Span[{a, b, c, d}, x])[[{4, 2}]]], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Part, partw]], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, partw], StringForm[Part `1` of `2` does not exist., Short[HoldForm[3], 3], Short[HoldForm[(x + Span[{a, b, c, d}, x])[[{4, 2}]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, partw], StringForm[Part `1` of `2` does not exist., Short[HoldForm[5], 3], Short[HoldForm[(x + Span[{a, b, c, d}, x])[[{4, 2}]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, partw], StringForm[Part `1` of `2` does not exist., Short[HoldForm[7], 3], Short[HoldForm[(x + Span[{a, b, c, d}, x])[[{4, 2}]]], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Set, partw]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Part_Tests
 # Pick out a part of a list:
@@ -87,11 +96,29 @@ ok  <| 2 -> b, 1 -> a |>[[Key[1]]]    ==>     a
         expect_evaluated: a
     ...
 # Take several parts in an RefLink[Association,paclet:ref/Association]:
-ok  HoldComplete[<| "a" -> 1, "b" -> 2, "c" -> 3, "d" -> 4 |>[[1 ;; 2]]]    ==>     $Failed # skip
+not ok  HoldComplete[<| "a" -> 1, "b" -> 2, "c" -> 3, "d" -> 4 |>[[1 ;; 2]]]    ==>     $Failed
+    ---
+    data:
+        got: <|a -> 1, b -> 2|>
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Extract parts by keys:
-ok  HoldComplete[<| "a" -> 1, "b" -> 2, "c" -> 3 |>[[{Key["a"], Key["c"]}]]]    ==>     $Failed # skip
+not ok  HoldComplete[<| "a" -> 1, "b" -> 2, "c" -> 3 |>[[{Key["a"], Key["c"]}]]]    ==>     $Failed
+    ---
+    data:
+        got: <|a -> 1, c -> 3|>
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Extract subexpressions from an RefLink[Association,paclet:ref/Association]:
-ok  HoldComplete[<| "a" -> <| 1 -> "a1" |>, "b" -> <| 1 -> "b1" |> |>[[All,Key[1]]]]    ==>     $Failed # skip
+not ok  HoldComplete[<| "a" -> <| 1 -> "a1" |>, "b" -> <| 1 -> "b1" |> |>[[All,Key[1]]]]    ==>     $Failed
+    ---
+    data:
+        got: <|a -> a1, b -> b1|>
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Reassign a part:
 ok  m = {{a, b}, {c, d}}    ==>     {{a, b}, {c, d}}
     ---
@@ -147,9 +174,11 @@ ok  f[g[a, b], g[c, d]][[2,1]]    ==>     c
 ok  (1 + 2*x^2 + y^2)[[2]]    ==>     2*x^2
     ---
     data:
-        got: 2*x^2
+        got:    2
+#! 2 x
         expect: 2*x^2
-        expect_evaluated: 2*x^2
+        expect_evaluated:    2
+#! 2 x
     ...
 ok  {x -> 4, y -> 5}[[1,2]]    ==>     4
     ---
@@ -162,9 +191,13 @@ ok  {x -> 4, y -> 5}[[1,2]]    ==>     4
 ok  (x/y)[[2]]    ==>     1/y
     ---
     data:
-        got: y^(-1)
+        got: 1
+#! -
+#! y
         expect: 1/y
-        expect_evaluated: y^(-1)
+        expect_evaluated: 1
+#! -
+#! y
     ...
 ok  FullForm[x/y]    ==>     x/y # skip
 # Equivalent forms:
@@ -286,17 +319,19 @@ ok  m    ==>     {s, x, t, u}
         expect: {s, x, t, u}
         expect_evaluated: {s, x, t, u}
     ...
-ok  m[[2]] += x    ==>     b + x # skip
+# All standard assignment operations work on parts:
+ok  m = {a, b, c, d} ;; m[[2]] += x    ==>     b + x # skip
 ok  m    ==>     {a, b + x, c, d} # skip
-ok  m[[{1, 2}]] = m[[{3, 1}]]    ==>     {c, a} # skip
+# Rearrange elements by reassigning parts:
+ok  m = {a, b, c, d} ;; m[[{1, 2}]] = m[[{3, 1}]]    ==>     {c, a} # skip
 ok  m    ==>     {c, a, c, d} # skip
 # For RefLink[SparseArray,paclet:ref/SparseArray] objects, RefLink[Part,paclet:ref/Part] gives the parts in the corresponding ordinary array:
 ok  HoldComplete[s = SparseArray[{{i_, j_} /; Abs[i - j] == 1 -> i - j}, {4, 4}]]    ==>     $Failed # skip
 ok  MatrixForm[s]    ==>     0 - 1*0*0*1*0 - 1*0*0*1*0 - 1*0*0*1*0 # skip
-not ok  s[[1,2]]    ==>     -1
+ok  s[[1,2]]    ==>     -1
     ---
     data:
-        got: s[[1,2]]
+        got: -1
         expect: -1
         expect_evaluated: -1
     ...
@@ -367,21 +402,30 @@ ok  f[g[a, b], h[c, d]][[{1, 2},{2}]]    ==>     f[g[b], h[d]]
 ok  Solve[x^2 + 5*x + 1 == 0, x]    ==>     {{x -> (1/2)*(-5 - Sqrt[21])}, {x -> (1/2)*(-5 + Sqrt[21])}}
     ---
     data:
-        got: {{x -> (-5 - Sqrt[21])/2}, {x -> (-5 + Sqrt[21])/2}}
+        got:        -5 - Sqrt[21]         -5 + Sqrt[21]
+#! {{x -> -------------}, {x -> -------------}}
+#!              2                     2
         expect: {{x -> (1/2)*(-5 - Sqrt[21])}, {x -> (1/2)*(-5 + Sqrt[21])}}
-        expect_evaluated: {{x -> (-5 - Sqrt[21])/2}, {x -> (-5 + Sqrt[21])/2}}
+        expect_evaluated:        -5 - Sqrt[21]         -5 + Sqrt[21]
+#! {{x -> -------------}, {x -> -------------}}
+#!              2                     2
     ...
 ok  %[[1,1,2]]    ==>     (1/2)*(-5 - Sqrt[21]) # skip
 # Pick out all solutions for a univariate equation:
 ok  Solve[x^2 + 5*x + 1 == 0, x]    ==>     {{x -> (1/2)*(-5 - Sqrt[21])}, {x -> (1/2)*(-5 + Sqrt[21])}}
     ---
     data:
-        got: {{x -> (-5 - Sqrt[21])/2}, {x -> (-5 + Sqrt[21])/2}}
+        got:        -5 - Sqrt[21]         -5 + Sqrt[21]
+#! {{x -> -------------}, {x -> -------------}}
+#!              2                     2
         expect: {{x -> (1/2)*(-5 - Sqrt[21])}, {x -> (1/2)*(-5 + Sqrt[21])}}
-        expect_evaluated: {{x -> (-5 - Sqrt[21])/2}, {x -> (-5 + Sqrt[21])/2}}
+        expect_evaluated:        -5 - Sqrt[21]         -5 + Sqrt[21]
+#! {{x -> -------------}, {x -> -------------}}
+#!              2                     2
     ...
 ok  %[[All,1,2]]    ==>     {(1/2)*(-5 - Sqrt[21]), (1/2)*(-5 + Sqrt[21])} # skip
-ok  m    ==>     {245, 1, 253, 0, 1, 0, 254, 0, 246, 0} # skip
+# Go through the first 1000 primes, and count how many lie in each possible "mod 10 bin":
+ok  m = Table[0, {10}] ;; Do[m[[Mod[Prime[i], 10, 1]]]++, {i, 1000}]; m    ==>     {245, 1, 253, 0, 1, 0, 254, 0, 246, 0} # skip
 # Another way to get the same result:
 ok  Table[Count[Table[Mod[Prime[i], 10], {i, 1000}], j], {j, 0, 9}]    ==>     {0, 245, 1, 253, 0, 1, 0, 254, 0, 246}
     ---
@@ -448,9 +492,13 @@ ok  FullForm[x/y]    ==>     x/y # skip
 ok  (x/y)[[2]]    ==>     1/y
     ---
     data:
-        got: y^(-1)
+        got: 1
+#! -
+#! y
         expect: 1/y
-        expect_evaluated: y^(-1)
+        expect_evaluated: 1
+#! -
+#! y
     ...
 # RefLink[Position,paclet:ref/Position] does not return part specifications in a form that can immediately be used by RefLink[Part,paclet:ref/Part]:
 ok  Position[{1, 0, 0, 1, 0, 0, 1, 1}, 1]    ==>     {{1}, {4}, {7}, {8}}
@@ -488,24 +536,24 @@ ok  {{a, b, c}, {d, e, f}, {g, h, i}}[[{1, 3},{2, 3}]]    ==>     {{b, c}, {h, i
 ok  a = Hold[2*x + 2*3]    ==>     Hold[2*x + 2*3]
     ---
     data:
-        got: 6 + 2*x
+        got: 6 + 2 x
         expect: Hold[2*x + 2*3]
-        expect_evaluated: 6 + 2*x
+        expect_evaluated: 6 + 2 x
     ...
 ok  a[[1]]    ==>     6 + 2*x
     ---
     data:
-        got: 6 + 2*x
+        got: 6 + 2 x
         expect: 6 + 2*x
-        expect_evaluated: 6 + 2*x
+        expect_evaluated: 6 + 2 x
     ...
 # This can lead to a difference between direct part extraction and successive part extraction:
 ok  a[[1,1]]    ==>     2*x
     ---
     data:
-        got: 2*x
+        got: 2 x
         expect: 2*x
-        expect_evaluated: 2*x
+        expect_evaluated: 2 x
     ...
 ok  a[[1]][[1]]    ==>     6
     ---
@@ -518,9 +566,9 @@ ok  a[[1]][[1]]    ==>     6
 ok  m = {a, b, c, d}    ==>     {a, b, c, d}
     ---
     data:
-        got: {6 + 2*x, b, c, d}
+        got: {6 + 2 x, b, c, d}
         expect: {a, b, c, d}
-        expect_evaluated: {6 + 2*x, b, c, d}
+        expect_evaluated: {6 + 2 x, b, c, d}
     ...
 ok  m[[5]] = x    ==>     x
     ---

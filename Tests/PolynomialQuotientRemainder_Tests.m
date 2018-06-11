@@ -17,14 +17,19 @@ tRemainder] also works for rational functions:"],
  TapTestSame[PolynomialQuotientRemainder[x^2 + 4*x + 1, 2*x + 1, x, 
    Modulus -> 2], {1 + x^2, 0}], TapTestSame[PolynomialQuotientRemainder[
    x^2 + 4*x + 1, 2*x + 1, x, Modulus -> 3], {1 + 2*x, 0}], 
- TapTestSameBROKEN[{q, r} = PolynomialQuotientRemainder[f, g, x], {x, 1}], 
+ TapComment[
+  "Express the rational function as a polynomial and simple fraction:"], 
+ TapTestSameBROKEN[{f, g} = {x^2 + 2*x + 1, x + 2} ;; {q, r} = 
+    PolynomialQuotientRemainder[f, g, x], {x, 1}], 
  TapComment["The transformed rational function:"], 
  TapTestSameBROKEN[f/g == q + r/g, (1 + 2*x + x^2)/(2 + x) == x + 1/(2 + x)], 
- TapTestSameBROKEN[Simplify[%], True], TapTestSameBROKEN[
-  {q, r} = PolynomialQuotientRemainder[f, g, x], {2 + x, -3}], 
+ TapTestSameBROKEN[Simplify[%], True], 
+ TapComment["For a polynomial f, f==g q+r:"], 
+ TapTestSameBROKEN[{f, g} = {x^2 + 4*x + 1, x + 2} ;; {q, r} = 
+    PolynomialQuotientRemainder[f, g, x], {2 + x, -3}], 
  TapComment["Use RefLink[Expand,paclet:ref/Expand] to verify identity:"], 
- TapTestSame[Expand[q*g + r] == f, True], TapComment["RefLink[PolynomialQuoti\
-ent,paclet:ref/PolynomialQuotient] and \
+ TapTestSameBROKEN[Expand[q*g + r] == f, True], 
+ TapComment["RefLink[PolynomialQuotient,paclet:ref/PolynomialQuotient] and \
 RefLink[PolynomialRemainder,paclet:ref/PolynomialRemainder]: "], 
  TapTestSameBROKEN[{PolynomialQuotient[f, g, x], PolynomialRemainder[f, g, 
     x]}, {2 + x, -3}], TapComment["RefLink[PolynomialReduce,paclet:ref/Polyno\

@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/PrimePi_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: PrimePi_Tests
 # The number of primes up to a billion:
@@ -25,12 +29,30 @@ ok  PrimePi[10.1]    ==>     4
         expect: 4
         expect_evaluated: 4
     ...
-ok  HoldComplete[Plot[PrimePi[n], {n, 0, 20}]]    ==>     $Failed # skip
+not ok  HoldComplete[Plot[PrimePi[n], {n, 0, 20}]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # RefLink[TraditionalForm,paclet:ref/TraditionalForm] formatting:
 ok  \(TraditionalForm\`\(\*TemplateBox[List[n], PrimePi]\)\)    ==>     Pi*n # skip
-ok  HoldComplete[Plot[PrimePi[n], {n, 0, 100}]]    ==>     $Failed # skip
+not ok  HoldComplete[Plot[PrimePi[n], {n, 0, 100}]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Plot RefLink[PrimePi,paclet:ref/PrimePi] compared with estimates:
-ok  HoldComplete[Plot[{PrimePi[n], n/Log[n], LogIntegral[n], RiemannR[n]}, {n, 1.5, 100}]]    ==>     $Failed # skip
+not ok  HoldComplete[Plot[{PrimePi[n], n/Log[n], LogIntegral[n], RiemannR[n]}, {n, 1.5, 100}]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Compute RefLink[PrimePi,paclet:ref/PrimePi] based on the Hardy\[Dash]Wright formula:
 ok  Sum[Mod[(j - 2)!, j], {j, 4, 1000}]    ==>     168
     ---
@@ -54,7 +76,13 @@ ok  PrimePi[997]    ==>     168
         expect: 168
         expect_evaluated: 168
     ...
-ok  Prime[%]    ==>     997 # skip
+ok  Prime[%]    ==>     997
+    ---
+    data:
+        got: 997
+        expect: 997
+        expect_evaluated: 997
+    ...
 # Integrate \[Pi](n):
 ok  Integrate[PrimePi[n], {n, 0, 10}]    ==>     23
     ---

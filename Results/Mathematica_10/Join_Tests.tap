@@ -1,13 +1,24 @@
 #! DOCKER > wolfram -script output/Tests/Join_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[Join, heads], StringForm[Heads `1` and `2` at positions `3` and `4` are expected to be the same., Short[HoldForm[List], 3], Short[HoldForm[Hold], 3], Short[HoldForm[1], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[Join, headsd], StringForm[Expression `1` at position `2` is expected to have head `3` for all subexpressions through level `4`., Short[HoldForm[Hold[{{{Subscript[b, 1], Subscript[b, 1]}, {Subscript[b, 1], Subscript[b, 1]}}, {{Subscript[b, 2], Subscript[b, 2]}, {Subscript[b, 2], Subscript[b, 2]}}}]], 3], Short[HoldForm[2], 3], Short[HoldForm[List], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[Join, heads], StringForm[Heads `1` and `2` at positions `3` and `4` are expected to be the same., Short[HoldForm[List], 3], Short[HoldForm[Hold], 3], Short[HoldForm[1], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[Join, headsd], StringForm[Expression `1` at position `2` is expected to have head `3` for all subexpressions through level `4`., Short[HoldForm[Hold[{{{Subscript[b, 1], Subscript[b, 1]}, {Subscript[b, 1], Subscript[b, 1]}}, {{Subscript[b, 2], Subscript[b, 2]}, {Subscript[b, 2], Subscript[b, 2]}}}]], 3], Short[HoldForm[2], 3], Short[HoldForm[List], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[Join, heads], StringForm[Heads `1` and `2` at positions `3` and `4` are expected to be the same., Short[HoldForm[List], 3], Short[HoldForm[Hold], 3], Short[HoldForm[1], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Join, heads]], 3]]]]
+#! TextForm[ColonForm[MessageName[Join, headsd], StringForm[Expression `1` at position `2` is expected to have head `3` for all subexpressions through level `4`., Short[HoldForm[Hold[{{{Subscript[b, 1], Subscript[b, 1]}, {Subscript[b, 1], Subscript[b, 1]}}, {{Subscript[b, 2], Subscript[b, 2]}, {Subscript[b, 2], Subscript[b, 2]}}}]], 3], Short[HoldForm[2], 3], Short[HoldForm[List], 3], Short[HoldForm[2], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Join, headsd]], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$RecursionLimit, reclim]], 3]]]]
+#! TextForm[ColonForm[MessageName[ArrayFlatten, depth], StringForm[The ArrayDepth of the expression at position 1 of `1` must be at least equal to the specified rank `2`. (The rank is given by the optional second argument, which defaults to 2.), Short[HoldForm[ArrayFlatten[Subscript[a, 1]^3*Subscript[a, 2]^3*Subscript[a, 3]^3*Subscript[b, 1]^3*Subscript[b, 2]^3*Subscript[b, 3]^3*Subscript[c, 1]^3*Subscript[c, 2]^3*Subscript[c, 3]^3*Subscript[d, 1]^3*Subscript[d, 2]^3*Subscript[d, 3]^3]], 3], Short[HoldForm[2], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Join_Tests
-ok  Join[{a, b, c}, {x, y}, {u, v, w}]    ==>     {a, b, c, x, y, u, v, w}
-    ---
-    data:
-        got: {a, b, c, x, y, u, v, w}
-        expect: {a, b, c, x, y, u, v, w}
-        expect_evaluated: {a, b, c, x, y, u, v, w}
-    ...
+ok  $Failed    ==>     HoldComplete[{a, b, c, x, y, u, v, w}] # skip
 # Infix syntax:
 ok  Join[Join[{a, b, c}, {x, y}], {u, v, w}]    ==>     {a, b, c, x, y, u, v, w}
     ---
@@ -56,7 +67,8 @@ ok  Join[{{x}}, {{1, 2}, {3, 4}}, 2]    ==>     {{x, 1, 2}, {3, 4}}
         expect: {{x, 1, 2}, {3, 4}}
         expect_evaluated: {{x, 1, 2}, {3, 4}}
     ...
-ok  Join[aa, bb]    ==>     {{{Subscript[a, 1], Subscript[a, 1]}, {Subscript[a, 1], Subscript[a, 1]}}, {{Subscript[a, 2], Subscript[a, 2]}, {Subscript[a, 2], Subscript[a, 2]}}, {{Subscript[b, 1], Subscript[b, 1]}, {Subscript[b, 1], Subscript[b, 1]}}, {{Subscript[b, 2], Subscript[b, 2]}, {Subscript[b, 2], Subscript[b, 2]}}} # skip
+# Join depth 3 arrays at different levels:
+ok  aa = Array[Subscript[a, #1] & , {2, 2, 2}]; bb = Array[Subscript[b, #1] & , {2, 2, 2}] ;; Join[aa, bb]    ==>     {{{Subscript[a, 1], Subscript[a, 1]}, {Subscript[a, 1], Subscript[a, 1]}}, {{Subscript[a, 2], Subscript[a, 2]}, {Subscript[a, 2], Subscript[a, 2]}}, {{Subscript[b, 1], Subscript[b, 1]}, {Subscript[b, 1], Subscript[b, 1]}}, {{Subscript[b, 2], Subscript[b, 2]}, {Subscript[b, 2], Subscript[b, 2]}}} # skip
 ok  Join[aa, bb, 2]    ==>     {{{Subscript[a, 1], Subscript[a, 1]}, {Subscript[a, 1], Subscript[a, 1]}, {Subscript[b, 1], Subscript[b, 1]}, {Subscript[b, 1], Subscript[b, 1]}}, {{Subscript[a, 2], Subscript[a, 2]}, {Subscript[a, 2], Subscript[a, 2]}, {Subscript[b, 2], Subscript[b, 2]}, {Subscript[b, 2], Subscript[b, 2]}}} # skip
 ok  Join[aa, bb, 3]    ==>     {{{Subscript[a, 1], Subscript[a, 1], Subscript[b, 1], Subscript[b, 1]}, {Subscript[a, 1], Subscript[a, 1], Subscript[b, 1], Subscript[b, 1]}}, {{Subscript[a, 2], Subscript[a, 2], Subscript[b, 2], Subscript[b, 2]}, {Subscript[a, 2], Subscript[a, 2], Subscript[b, 2], Subscript[b, 2]}}} # skip
 # Join expressions with any head:

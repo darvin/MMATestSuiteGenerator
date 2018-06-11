@@ -1,8 +1,14 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Element.nb output/Tests/Element_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Element.nb
 # WRITING OUTPUT TO:     output/Tests/Element_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Pi \[Element] Reals    ==>     True
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  {1/2,1/3}\[Element]Disk[]    ==>     True
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  Element[x+y,Reals]    ==>     x+y\[Element]Reals
 not ok  Element[{x,y,z},Ball[]]    ==>     {x,y,z}\[Element]Ball[{0,0,0}]
 #! TextForm[ColonForm[MessageName[Integrate, reg], StringForm[-- Message text not found -- (`1`), Short[Ball[], 3]]]]
@@ -11,13 +17,13 @@ not ok  Integrate[1,{x,y,z}\[Element]Ball[]]    ==>     (4 \[Pi])/3
 not ok  MinValue[x+y,{x,y,z}\[Element]Ball[]]    ==>     -Sqrt[2]
 ok  x\[Element]Reals    ==>     x\[Element]Reals
 ok  Element[Sqrt[2],#]&/@{Complexes,Algebraics,Reals,Rationals,Integers,Primes}    ==>     {True,True,True,False,False,False}
-not ok  Element[{3/2,3/2},#]&/@{Subscript[\[ScriptCapitalR], 1],Subscript[\[ScriptCapitalR], 2],Subscript[\[ScriptCapitalR], 3],Subscript[\[ScriptCapitalR], 4]}    ==>     {True,False,True,True}
-#! TextForm[ColonForm[MessageName[Show, gcomb], StringForm[Could not combine the graphics objects in `1`., Short[HoldForm[Show[{DiscretizeRegion[Subscript[\[ScriptCapitalR], 3]], Graphics[{{Opacity[0.5], {RGBColor[1, 0.5, 0], Subscript[\[ScriptCapitalR], 1]}, {RGBColor[1, 1, 0], Subscript[\[ScriptCapitalR], 2]}, {RGBColor[0, 1, 0], Disk[{-1, 0}], Line[{{0, 0}, {2, 2}}]}}, {RGBColor[1, 0, 0], PointSize[Large], Point[{3/2, 3/2}]}}]}]], 3]]]]
-#! TextForm[ColonForm[MessageName[Show, gcomb], StringForm[Could not combine the graphics objects in `1`., Short[HoldForm[Show[{DiscretizeRegion[Subscript[\[ScriptCapitalR], 3]], Graphics[{{Opacity[0.5], {RGBColor[1, 0.5, 0], Subscript[\[ScriptCapitalR], 1]}, {RGBColor[1, 1, 0], Subscript[\[ScriptCapitalR], 2]}, {RGBColor[0, 1, 0], Disk[{-1, 0}], Line[{{0, 0}, {2, 2}}]}}, {RGBColor[1, 0, 0], PointSize[Large], Point[{3/2, 3/2}]}}]}]], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Method->{"ShrinkWrap" -> True}]\)\)
-#!                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+not ok  Subscript[\[ScriptCapitalR], 1]=Disk[{1,1}];
+#! Subscript[\[ScriptCapitalR], 2]=Rectangle[{0,0},{1,1}];
+#! Subscript[\[ScriptCapitalR], 3]=ImplicitRegion[x^2<=y^3+1,{x,y}];
+#! Subscript[\[ScriptCapitalR], 4]=RegionUnion[Disk[{-1,0}],Line[{{0,0},{2,2}}]];; Element[{3/2,3/2},#]&/@{Subscript[\[ScriptCapitalR], 1],Subscript[\[ScriptCapitalR], 2],Subscript[\[ScriptCapitalR], 3],Subscript[\[ScriptCapitalR], 4]}    ==>     {True,False,True,True}
+#! TextForm[ColonForm[MessageName[Show, gcomb], StringForm[Could not combine the graphics objects in `1`., Short[HoldForm[Show[{DiscretizeRegion[ImplicitRegion[x^2 <= 1 + y^3, {x, y}]], Graphics[{{Opacity[0.5], {RGBColor[1, 0.5, 0], Disk[{1, 1}]}, {RGBColor[1, 1, 0], Rectangle[{0, 0}, {1, 1}]}, {RGBColor[0, 1, 0], Disk[{-1, 0}], Line[{{0, 0}, {2, 2}}]}}, {RGBColor[1, 0, 0], PointSize[Large], Point[{3/2, 3/2}]}}]}]], 3]]]]
+#! TextForm[ColonForm[MessageName[Show, gcomb], StringForm[Could not combine the graphics objects in `1`., Short[HoldForm[Show[{DiscretizeRegion[ImplicitRegion[x^2 <= 1 + y^3, {x, y}]], Graphics[{{Opacity[0.5], {RGBColor[1, 0.5, 0], Disk[{1, 1}]}, {RGBColor[1, 1, 0], Rectangle[{0, 0}, {1, 1}]}, {RGBColor[0, 1, 0], Disk[{-1, 0}], Line[{{0, 0}, {2, 2}}]}}, {RGBColor[1, 0, 0], PointSize[Large], Point[{3/2, 3/2}]}}]}]], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Method->{"ShrinkWrap" -> True}]\)\)
 #!                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
@@ -131,7 +137,6 @@ ok  Simplify[Sin[2Pi x[1]+4x[2]x[3]^2Pi+a Pi],Element[x[_],Integers]]    ==>    
 not ok  Element[x,Reals]//TraditionalForm    ==>     x\[Element]\[DoubleStruckCapitalR]
 ok  !Element[a,Reals]    ==>     a\[NotElement]Reals
 ok  !Element[a|b|c,Reals]    ==>     !(a|b|c)\[Element]Reals
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  LogicalExpand[%]    ==>     a\[NotElement]Reals||b\[NotElement]Reals||c\[NotElement]Reals
 ok  Element[{x,y},Disk[]]    ==>     {x,y}\[Element]Disk[{0,0}]
 not ok  RegionMember[Disk[],{x,y}]    ==>     x^2+y^2<=1

@@ -3,7 +3,7 @@ Import["CompatTests.m"];
 TapSuite[TapComment[
   "Pi can be entered as Esc\\[ThinSpace]p\\[ThinSpace]Esc:"], 
  TapTestSame[Pi, Pi], TapComment["Evaluate to any precision:"], 
- TapTestSame[N[Pi, 50], 
+ TapTestSameBROKEN[N[Pi, 50], 
   3.1415926535897932384626433832795028841971693993751`49.49714987269414], 
  TapComment["Do an exact numerical computation:"], 
  TapTestSame[Round[Pi^100], 5187848314319613192086261524630301356268676068040\
@@ -29,8 +29,8 @@ TapSuite[TapComment[
   "RefLink[Pi,paclet:ref/Pi] is treated as a constant in differentiation:"], 
  TapTestSame[Dt[Pi, x], 0], 
  TapComment["Walk corresponding to the binary digits of \\[Pi]:"], 
- TapTestSameBROKEN[HoldComplete[ListLinePlot[
+ TapTestSame[HoldComplete[ListLinePlot[
     Accumulate[(-1)^First[RealDigits[Pi, 2, 200]]]]], $Failed], 
  TapComment["Terms in the continued fraction:"], 
- TapTestSameBROKEN[HoldComplete[ListLinePlot[ContinuedFraction[Pi, 400], 
+ TapTestSame[HoldComplete[ListLinePlot[ContinuedFraction[Pi, 400], 
     PlotRange -> All]], $Failed]]

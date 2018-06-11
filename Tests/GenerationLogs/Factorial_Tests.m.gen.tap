@@ -1,25 +1,29 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Factorial.nb output/Tests/Factorial_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Factorial.nb
 # WRITING OUTPUT TO:     output/Tests/Factorial_Tests.m
-ok  Table[n!,{n,10}]    ==>     {1,2,6,24,120,720,5040,40320,362880,3628800}
-ok  50!    ==>     30414093201713378043612608166064768844377641568960512000000000000
-#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{28462596809170545189064132121198688, 35589<<}], >>, 000000000000000000000000000000000000}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`28462596809170545189064132121198688<<35589>>000000000000000000000000000000000000\)
-#!                                                                                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/Factorial.html; Table[n!,{n,10}]
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{28462596809170545189064132121198688, 35589<<}], >>, 000000000000000000000000000000000000}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`28462596809170545189064132121198688<<35589>>000000000000000000000000000000000000\)
-#!                                                                                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-not ok  10000!//Short    ==>     28462596809170545189064132121198688<<35589>>000000000000000000000000000000000000
 #! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-not ok  N[%]    ==>     2.846259680917055*10^35659
-ok  (1/2)!    ==>     Sqrt[\[Pi]]/2
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 240}, {0, 156}}]\)\)
-#!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{Factorial, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`http://reference.wolfram.com/language/ref/Factorial.html; Table[n!,{n,10}]\)
+#!                                                                                               ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/Factorial.html; Table[n!,{n,10}]    ==>     {1,2,6,24,120,720,5040,40320,362880,3628800}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+ok  50!    ==>     30414093201713378043612608166064768844377641568960512000000000000
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[28462596809170545189064132121198688<<35589>>000000000000000000000000000000000000
+#!                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
 #! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{28462596809170545189064132121198688, 35589<<}], >>, 000000000000000000000000000000000000}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+not ok  10000!//Short    ==>     28462596809170545189064132121198688<<35589>>000000000000000000000000000000000000
+not ok  N[%]    ==>     2.846259680917055*10^35659
+ok  (1/2)!    ==>     Sqrt[\[Pi]]/2
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  Plot[n!,{n,-2.5,3}]    ==>     \!\(\*
 #! GraphicsBox[
@@ -150,25 +154,23 @@ not ok  Plot[n!,{n,-2.5,3}]    ==>     \!\(\*
 #! ImageSize->Automatic,
 #! ImageSizeRaw->{240, 156},
 #! PlotRange->{{0, 240}, {0, 156}}]\)
-not ok  (1.5+I)!    ==>     0.774762+0.707631 I
+ok  (1.5+I)!    ==>     0.774762+0.707631 I
 ok  {2,3,5,7,11}!    ==>     {2,6,120,5040,39916800}
 #! TextForm[ColonForm[MessageName[SeriesData, sdatv], StringForm[First argument `1` is not a valid variable., Short[HoldForm[n^(-1)], 3]]]]
 #! TextForm[ColonForm[MessageName[SeriesData, sdatv], StringForm[First argument `1` is not a valid variable., Short[HoldForm[n^(-1)], 3]]]]
 not ok  Series[n!,{n,Infinity,2}]    ==>     E^(-1-Log[1/n]) n+O[1/n]^3 (Sqrt[2 \[Pi]] Sqrt[n]+Sqrt[\[Pi]/2]/(6 Sqrt[n])+Sqrt[\[Pi]/2]/(144 n^(3/2))+O[1/n]^(5/2))
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  Simplify[Normal[%]]    ==>     1/144 E^-n (1/n)^(3/2-n) (1+24 n+288 n^2) Sqrt[\[Pi]/2]
 #! TextForm[ColonForm[MessageName[SeriesData, sdatv], StringForm[First argument `1` is not a valid variable., Short[HoldForm[-1 + n], 3]]]]
 #! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[SeriesData, sdatv]], 3]]]]
 not ok  Series[n!,{n,1,2}]    ==>     1+(1-EulerGamma) (n-1)+1/12 (-12 EulerGamma+6 EulerGamma^2+\[Pi]^2) (n-1)^2+O[n-1]^3
-ok  N[(22/10)!,50]    ==>     2.4239654799353680120921123696905922578132100790989
-ok  (2.20000000000000000000000)!    ==>     2.4239654799353680120921
+not ok  N[(22/10)!,50]    ==>     2.4239654799353680120921123696905922578132100790989
+not ok  (2.20000000000000000000000)!    ==>     2.4239654799353680120921
 ok  Factorial[Infinity]    ==>     \[Infinity]
 ok  Factorial[-Infinity]    ==>     Indeterminate
 ok  D[n!,n]    ==>     Gamma[1+n] PolyGamma[0,1+n]
 ok  Table[(n-1/2)!,{n,10}]    ==>     {Sqrt[\[Pi]]/2,(3 Sqrt[\[Pi]])/4,(15 Sqrt[\[Pi]])/8,(105 Sqrt[\[Pi]])/16,(945 Sqrt[\[Pi]])/32,(10395 Sqrt[\[Pi]])/64,(135135 Sqrt[\[Pi]])/128,(2027025 Sqrt[\[Pi]])/256,(34459425 Sqrt[\[Pi]])/512,(654729075 Sqrt[\[Pi]])/1024}
 ok  Length[Permutations[Range[6]]]    ==>     720
 ok  6!    ==>     720
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  Plot3D[Abs[Factorial[x+I y]],{x,-5,2},{y,-1,1}]    ==>     \!\(\*
 #! GraphicsBox[
@@ -930,12 +932,9 @@ not ok  Plot3D[Abs[Factorial[x+I y]],{x,-5,2},{y,-1,1}]    ==>     \!\(\*
 #! PlotRange->{{0, 240}, {0, 196}}]\)
 not ok  Series[(n+\[Alpha])!/(n+\[Beta])!,{n,Infinity,2}]//Simplify    ==>     (1/n)^(-\[Alpha]+\[Beta]) (1+(\[Alpha]+\[Alpha]^2-\[Beta] (1+\[Beta]))/(2 n)+1/(24 n^2) (2 \[Alpha]^3+3 \[Alpha]^4-3 \[Alpha]^2 (1+2 \[Beta]+2 \[Beta]^2)-2 \[Alpha] (1+3 \[Beta]+3 \[Beta]^2)+\[Beta] (2+9 \[Beta]+10 \[Beta]^2+3 \[Beta]^3))+O[1/n]^3)
 ok  Pi^(n/2)/(n/2)!    ==>     \[Pi]^(n/2)/(n/2)!
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 not ok  Table[% r^n,{n,1,4}]    ==>     {2 r,\[Pi] r^2,(4 \[Pi] r^3)/3,(\[Pi]^2 r^4)/2}
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ListPlot[Table[%%,{n,0,25}]]    ==>     \!\(\*
+ok  ListPlot[Table[%%,{n,0,25}]]    ==>     \!\(\*
 #! GraphicsBox[{{}, 
 #! {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.019444444444444445`], AbsoluteThickness[1.6], PointBox[CompressedData["
 #! 1:eJxTTMoPSmViYGCQAmIQDQEf7FFpBgdUmsNBQtcl5LciJ5Qv4JBWrGsRdFAA
@@ -966,18 +965,14 @@ not ok  Simplify[Normal[%]]    ==>     -((I E^(I n (I+\[Pi])) (1/n)^(5/2-n) (-13
 ok  FullSimplify[(n+3)!/n!]    ==>     (1+n) (2+n) (3+n)
 ok  Sum[x^n/n!,{n,Infinity}]    ==>     -1+E^x
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  \!\(
+ok  \!\(
 #! \*UnderoverscriptBox[\(\[Sum]\), \(k = 0\), \(n\)]\(k!\)\)    ==>     -Subfactorial[-1]-(-1)^n Gamma[2+n] Subfactorial[-2-n]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  \!\(
+ok  \!\(
 #! \*UnderoverscriptBox[\(\[Sum]\), \(k = 1\), \(n\)]
 #! \*FractionBox[\(k - 1\), \(k!\)]\)    ==>     (-1-n+(1+n)!)/(1+n)!
 #! TextForm[ColonForm[MessageName[Sum, div], StringForm[Sum does not converge.]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Sum, div], StringForm[Sum does not converge.]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Sum, div], StringForm[Sum does not converge.]]]
 #! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Sum, div]], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
@@ -996,7 +991,6 @@ not ok  Round[%/.n->10]    ==>     304070441538593700643913431821732867483536182
 ok  Product[(3k+1)!,{k,10}]    ==>     304070441538593700643913431821732867483536182284730649529111009230000759502004123991394976893839700728512593582441843858666946560000000000000000000000000000000000
 #! TextForm[ColonForm[MessageName[General, ovfl], StringForm[Overflow occurred in computation.]]]
 ok  (10^8.)!    ==>     Overflow[]
-ok  (10.^6)!    ==>     8.2639317*10^5565708
-ok  Factorial[10.^3]    ==>     4.02387260077*10^2567
+not ok  (10.^6)!    ==>     8.2639317*10^5565708
+not ok  Factorial[10.^3]    ==>     4.02387260077*10^2567
 ok  MachineNumberQ[%]    ==>     False
-ok  DigitCount[100000!]    ==>     {43238,43275,43003,42990,42935,43184,43470,42777,43082,68620}

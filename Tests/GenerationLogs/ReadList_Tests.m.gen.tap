@@ -1,7 +1,12 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/ReadList.nb output/Tests/ReadList_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/ReadList.nb
 # WRITING OUTPUT TO:     output/Tests/ReadList_Tests.m
-ok  ReadList[StringToStream["123\n45\nx\ny"]]    ==>     {123,45,x,y}
-not ok  ReadList[StringToStream["123\n45\nx\ny"],String]    ==>     {123,45,x,y}
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
 #! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-not ok  InputForm[%]    ==>     {"123", "45", "x", "y"}
+ok  ReadList[StringToStream["123\n45\nx\ny"]]    ==>     {123,45,x,y}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+ok  ReadList[StringToStream["123\n45\nx\ny"],String]    ==>     {123,45,x,y}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+ok  InputForm[%]    ==>     {"123", "45", "x", "y"}

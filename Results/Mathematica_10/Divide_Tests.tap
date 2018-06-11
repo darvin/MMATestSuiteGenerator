@@ -1,16 +1,14 @@
 #! DOCKER > wolfram -script output/Tests/Divide_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 #! TextForm[ColonForm[MessageName[Power, infy], StringForm[Infinite expression `1` encountered., Short[HoldForm[0^(-1)], 3]]]]
 #! TextForm[ColonForm[MessageName[Power, infy], StringForm[Infinite expression `1` encountered., Short[HoldForm[0^(-1)], 3]]]]
 #! TextForm[ColonForm[MessageName[Infinity, indet], StringForm[Indeterminate expression `1` encountered., Short[HoldForm[0*ComplexInfinity], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Divide_Tests
-ok  77/11    ==>     7
-    ---
-    data:
-        got: 7
-        expect: 7
-        expect_evaluated: 7
-    ...
+ok  $Failed    ==>     HoldComplete[7] # skip
 # Enter in 2D form using Control+/:
 ok  77/11    ==>     7
     ---
@@ -23,19 +21,33 @@ ok  77/11    ==>     7
 ok  616/33    ==>     56/3
     ---
     data:
-        got: 56/3
+        got: 56
+#! --
+#! 3
         expect: 56/3
-        expect_evaluated: 56/3
+        expect_evaluated: 56
+#! --
+#! 3
     ...
 # Force a numerical result by including a decimal point in the input:
-ok  616./33    ==>     18.6667 # skip
+ok  616./33    ==>     18.6667
+    ---
+    data:
+        got: 18.6667
+        expect: 18.6667
+        expect_evaluated: 18.6667
+    ...
 # / is applied sequentially:
 ok  a/(b*c*d)    ==>     a/(b*c*d)
     ---
     data:
-        got: a/(b*c*d)
+        got:   a
+#! -----
+#! b c d
         expect: a/(b*c*d)
-        expect_evaluated: a/(b*c*d)
+        expect_evaluated:   a
+#! -----
+#! b c d
     ...
 # x/y is always converted to products and powers:
 ok  FullForm[a^2/b^3]    ==>     a^2/b^3 # skip
@@ -51,39 +63,59 @@ ok  20/4    ==>     5
 ok  {2, 3, 4, 5}/3    ==>     {2/3, 1, 4/3, 5/3}
     ---
     data:
-        got: {2/3, 1, 4/3, 5/3}
+        got:  2     4  5
+#! {-, 1, -, -}
+#!  3     3  3
         expect: {2/3, 1, 4/3, 5/3}
-        expect_evaluated: {2/3, 1, 4/3, 5/3}
+        expect_evaluated:  2     4  5
+#! {-, 1, -, -}
+#!  3     3  3
     ...
 ok  {x, y, z}/{a, b, c}    ==>     {x/a, y/b, z/c}
     ---
     data:
-        got: {x/a, y/b, z/c}
+        got:  x  y  z
+#! {-, -, -}
+#!  a  b  c
         expect: {x/a, y/b, z/c}
-        expect_evaluated: {x/a, y/b, z/c}
+        expect_evaluated:  x  y  z
+#! {-, -, -}
+#!  a  b  c
     ...
 ok  FoldList[Divide, 1, Range[10]]    ==>     {1, 1, 1/2, 1/6, 1/24, 1/120, 1/720, 1/5040, 1/40320, 1/362880, 1/3628800}
     ---
     data:
-        got: {1, 1, 1/2, 1/6, 1/24, 1/120, 1/720, 1/5040, 1/40320, 1/362880, 1/3628800}
+        got:        1  1  1    1    1    1      1      1        1
+#! {1, 1, -, -, --, ---, ---, ----, -----, ------, -------}
+       2  6  24  120  720  5040  40320  362880  3628800
         expect: {1, 1, 1/2, 1/6, 1/24, 1/120, 1/720, 1/5040, 1/40320, 1/362880, 1/3628800}
-        expect_evaluated: {1, 1, 1/2, 1/6, 1/24, 1/120, 1/720, 1/5040, 1/40320, 1/362880, 1/3628800}
+        expect_evaluated:        1  1  1    1    1    1      1      1        1
+#! {1, 1, -, -, --, ---, ---, ----, -----, ------, -------}
+       2  6  24  120  720  5040  40320  362880  3628800
     ...
 # Successive ratios in a list:
 ok  Apply[Divide, Partition[{a, b, c, d, e}, 2, 1], {1}]    ==>     {a/b, b/c, c/d, d/e}
     ---
     data:
-        got: {a/b, b/c, c/d, d/e}
+        got:  a  b  c  d
+#! {-, -, -, -}
+#!  b  c  d  e
         expect: {a/b, b/c, c/d, d/e}
-        expect_evaluated: {a/b, b/c, c/d, d/e}
+        expect_evaluated:  a  b  c  d
+#! {-, -, -, -}
+#!  b  c  d  e
     ...
 # Expand quotients:
 ok  (x + y)/z    ==>     (x + y)/z
     ---
     data:
-        got: (x + y)/z
+        got: x + y
+#! -----
+#!   z
         expect: (x + y)/z
-        expect_evaluated: (x + y)/z
+        expect_evaluated: x + y
+#! -----
+#!   z
     ...
 ok  Expand[%]    ==>     x/z + y/z # skip
 # Cancel common factors in rational expressions:
@@ -98,9 +130,13 @@ ok  Cancel[(1 - x^2)/(1 - x)]    ==>     1 + x
 ok  Apart[1/(x^2 - 1)]    ==>     1/(2*(-1 + x)) - 1/(2*(1 + x))
     ---
     data:
-        got: 1/(2*(-1 + x)) - 1/(2*(1 + x))
+        got:     1            1
+#! ---------- - ---------
+#! 2 (-1 + x)   2 (1 + x)
         expect: 1/(2*(-1 + x)) - 1/(2*(1 + x))
-        expect_evaluated: 1/(2*(-1 + x)) - 1/(2*(1 + x))
+        expect_evaluated:     1            1
+#! ---------- - ---------
+#! 2 (-1 + x)   2 (1 + x)
     ...
 ok  1/0    ==>     ComplexInfinity
     ---
@@ -127,32 +163,72 @@ ok  1/Infinity    ==>     0
 ok  Replace[x^2/y^3, (a_)/(b_) -> f[a, b]]    ==>     x^2/y^3
     ---
     data:
-        got: x^2/y^3
+        got:  2
+#! x
+#! --
+#!  3
+#! y
         expect: x^2/y^3
-        expect_evaluated: x^2/y^3
+        expect_evaluated:  2
+#! x
+#! --
+#!  3
+#! y
     ...
 ok  FullForm[x^2/y^3]    ==>     x^2/y^3 # skip
 ok  Replace[x^2/y^3, (a:_^(_.))*(b:_^(_.)) -> f[a, b]]    ==>     f[x^2, 1/y^3]
     ---
     data:
-        got: f[x^2, y^(-3)]
+        got:    2   -3
+#! f[x , y  ]
         expect: f[x^2, 1/y^3]
-        expect_evaluated: f[x^2, y^(-3)]
+        expect_evaluated:    2   -3
+#! f[x , y  ]
     ...
 ok  NestList[1/(1 + #1) & , x, 5]    ==>     {x, 1/(1 + x), 1/(1 + 1/(1 + x)), 1/(1 + 1/(1 + 1/(1 + x))), 1/(1 + 1/(1 + 1/(1 + 1/(1 + x)))), 1/(1 + 1/(1 + 1/(1 + 1/(1 + 1/(1 + x)))))}
     ---
     data:
-        got: {x, (1 + x)^(-1), (1 + (1 + x)^(-1))^(-1), (1 + (1 + (1 + x)^(-1))^(-1))^(-1), (1 + (1 + (1 + (1 + x)^(-1))^(-1))^(-1))^(-1), (1 + (1 + (1 + (1 + (1 + x)^(-1))^(-1))^(-1))^(-1))^(-1)}
+        got:       1        1            1                1                    1
+#! {x, -----, ---------, -------------, -----------------, ---------------------}
+    1 + x        1            1                1                    1
+#!            1 + -----  1 + ---------  1 + -------------  1 + -----------------
+#!                1 + x            1                1                    1
+#!                           1 + -----      1 + ---------      1 + -------------
+#!                               1 + x                1                    1
+#!                                              1 + -----          1 + ---------
+#!                                                  1 + x                    1
+#!                                                                     1 + -----
+#!                                                                         1 + x
         expect: {x, 1/(1 + x), 1/(1 + 1/(1 + x)), 1/(1 + 1/(1 + 1/(1 + x))), 1/(1 + 1/(1 + 1/(1 + 1/(1 + x)))), 1/(1 + 1/(1 + 1/(1 + 1/(1 + 1/(1 + x)))))}
-        expect_evaluated: {x, (1 + x)^(-1), (1 + (1 + x)^(-1))^(-1), (1 + (1 + (1 + x)^(-1))^(-1))^(-1), (1 + (1 + (1 + (1 + x)^(-1))^(-1))^(-1))^(-1), (1 + (1 + (1 + (1 + (1 + x)^(-1))^(-1))^(-1))^(-1))^(-1)}
+        expect_evaluated:       1        1            1                1                    1
+#! {x, -----, ---------, -------------, -----------------, ---------------------}
+    1 + x        1            1                1                    1
+#!            1 + -----  1 + ---------  1 + -------------  1 + -----------------
+#!                1 + x            1                1                    1
+#!                           1 + -----      1 + ---------      1 + -------------
+#!                               1 + x                1                    1
+#!                                              1 + -----          1 + ---------
+#!                                                  1 + x                    1
+#!                                                                     1 + -----
+#!                                                                         1 + x
     ...
 # Array of possible fractions:
 ok  Array[Divide, {4, 4}]    ==>     {{1, 1/2, 1/3, 1/4}, {2, 1, 2/3, 1/2}, {3, 3/2, 1, 3/4}, {4, 2, 4/3, 1}}
     ---
     data:
-        got: {{1, 1/2, 1/3, 1/4}, {2, 1, 2/3, 1/2}, {3, 3/2, 1, 3/4}, {4, 2, 4/3, 1}}
+        got:      1  1  1          2  1       3     3          4
+#! {{1, -, -, -}, {2, 1, -, -}, {3, -, 1, -}, {4, 2, -, 1}}
+     2  3  4          3  2       2     4          3
         expect: {{1, 1/2, 1/3, 1/4}, {2, 1, 2/3, 1/2}, {3, 3/2, 1, 3/4}, {4, 2, 4/3, 1}}
-        expect_evaluated: {{1, 1/2, 1/3, 1/4}, {2, 1, 2/3, 1/2}, {3, 3/2, 1, 3/4}, {4, 2, 4/3, 1}}
+        expect_evaluated:      1  1  1          2  1       3     3          4
+#! {{1, -, -, -}, {2, 1, -, -}, {3, -, 1, -}, {4, 2, -, 1}}
+     2  3  4          3  2       2     4          3
     ...
 # Integers that divide exactly:
-ok  HoldComplete[ListPlot[Position[Array[Divide, {20, 20}], _Integer]]]    ==>     $Failed # skip
+not ok  HoldComplete[ListPlot[Position[Array[Divide, {20, 20}], _Integer]]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...

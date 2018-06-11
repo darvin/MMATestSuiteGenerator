@@ -5,8 +5,8 @@
         "passes": 1,
         "pending": 0,
         "failures": 2,
-        "start": "2018-06-03T23:03:49.887Z",
-        "end": "2018-06-03T23:03:49.887Z",
+        "start": "2018-06-11T04:16:07.797Z",
+        "end": "2018-06-11T04:16:07.797Z",
         "duration": 0,
         "testsRegistered": 3,
         "passPercent": 33.33333333333333,
@@ -23,8 +23,8 @@
         "suites": [],
         "tests": [
             {
-                "title": "Log[Sqrt[a (b c^d)^e]]//.rules    ➡️     1/2 (Log[a]+e (Log[b]+d Log[c]))",
-                "fullTitle": "Log[Sqrt[a (b c^d)^e]]//.rules    ➡️     1/2 (Log[a]+e (Log[b]+d Log[c]))",
+                "title": "rules={Log[x_ y_]:>Log[x]+Log[y],Log[x_^k_]:>k Log[x]};; Log[Sqrt[a (b c^d)^e]]//.rules    ➡️     1/2 (Log[a]+e (Log[b]+d Log[c]))",
+                "fullTitle": "rules={Log[x_ y_]:>Log[x]+Log[y],Log[x_^k_]:>k Log[x]};; Log[Sqrt[a (b c^d)^e]]//.rules    ➡️     1/2 (Log[a]+e (Log[b]+d Log[c]))",
                 "timedOut": false,
                 "duration": 0,
                 "speed": "fast",
@@ -33,11 +33,11 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "f0837388-0e90-4259-b597-74d68ccdc75e",
-                "parentUUID": "6688bd8f-f510-4ea2-ba53-e14a9b8c8263",
+                "uuid": "299a8a3e-22d7-4b8e-9aaf-dccde0d39fee",
+                "parentUUID": "85841752-cdeb-4ba3-b0ce-3fcbda11eea6",
                 "skipped": false,
                 "isHook": false,
-                "context": "\"#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/ReplaceRepeated.nb output/Tests/ReplaceRepeated_Tests.m\\n# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/ReplaceRepeated.nb\\n# WRITING OUTPUT TO:     output/Tests/ReplaceRepeated_Tests.m\\n#! TextForm[ColonForm[MessageName[ReplaceRepeated, reps], StringForm[`1` is neither a list of replacement rules nor a valid dispatch table, and so cannot be used for replacing., Short[HoldForm[{rules}], 3]]]]\\n\"",
+                "context": "\"#! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/ReplaceRepeated.nb output/Tests/ReplaceRepeated_Tests.m\\n# GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/ReplaceRepeated.nb\\n# WRITING OUTPUT TO:     output/Tests/ReplaceRepeated_Tests.m\\n#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]\\n#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]\\n#! TextForm[ColonForm[MessageName[ReplaceRepeated, reps], StringForm[`1` is neither a list of replacement rules nor a valid dispatch table, and so cannot be used for replacing., Short[HoldForm[{rules}], 3]]]]\\n#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]\\n#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n\"",
                 "state": "failed",
                 "err": {}
             },
@@ -52,11 +52,11 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "8cba4fd4-f085-456c-83c2-7e657297e0b0",
-                "parentUUID": "6688bd8f-f510-4ea2-ba53-e14a9b8c8263",
+                "uuid": "b3194d0d-379a-4b56-8136-e2299edcd911",
+                "parentUUID": "85841752-cdeb-4ba3-b0ce-3fcbda11eea6",
                 "skipped": false,
                 "isHook": false,
-                "context": "\"#! TextForm[ColonForm[MessageName[ReplaceAll, reps], StringForm[`1` is neither a list of replacement rules nor a valid dispatch table, and so cannot be used for replacing., Short[HoldForm[{rules}], 3]]]]\\n\"",
+                "context": "\"#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]\\n#! TextForm[ColonForm[MessageName[ReplaceAll, reps], StringForm[`1` is neither a list of replacement rules nor a valid dispatch table, and so cannot be used for replacing., Short[HoldForm[{Hold[Span[{Log[(x_)*(y_)] :> Log[x] + Log[y], Log[(x_)^(k_)] :> k*Log[x]}, Log[Sqrt[a*(b*c^d)^e]]]]}], 3]]]]\\n#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n\"",
                 "state": "failed",
                 "err": {}
             },
@@ -71,11 +71,11 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "3480b389-3994-45b3-ac9b-5a702b1e9205",
-                "parentUUID": "6688bd8f-f510-4ea2-ba53-e14a9b8c8263",
+                "uuid": "5979cbe6-00a8-471a-aeed-ce12f96ca44b",
+                "parentUUID": "85841752-cdeb-4ba3-b0ce-3fcbda11eea6",
                 "skipped": false,
                 "isHook": false,
-                "context": "\"\"",
+                "context": "\"#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]\\n\"",
                 "state": "passed",
                 "err": {}
             }
@@ -85,17 +85,17 @@
         "file": "",
         "pending": [],
         "passes": [
-            "3480b389-3994-45b3-ac9b-5a702b1e9205"
+            "5979cbe6-00a8-471a-aeed-ce12f96ca44b"
         ],
         "failures": [
-            "f0837388-0e90-4259-b597-74d68ccdc75e",
-            "8cba4fd4-f085-456c-83c2-7e657297e0b0"
+            "299a8a3e-22d7-4b8e-9aaf-dccde0d39fee",
+            "b3194d0d-379a-4b56-8136-e2299edcd911"
         ],
         "skipped": [],
         "duration": 0,
         "rootEmpty": false,
         "_timeout": 0,
-        "uuid": "6688bd8f-f510-4ea2-ba53-e14a9b8c8263",
+        "uuid": "85841752-cdeb-4ba3-b0ce-3fcbda11eea6",
         "beforeHooks": [],
         "afterHooks": []
     },

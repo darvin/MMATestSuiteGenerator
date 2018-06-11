@@ -1,17 +1,36 @@
 #! DOCKER > wolfram -script output/Tests/HoldPattern_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[ReplaceAll, reps], StringForm[`1` is neither a list of replacement rules nor a valid dispatch table, and so cannot be used for replacing., Short[HoldForm[{Hold[Out[$Line - 1]]}], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[ReplaceAll, reps], StringForm[`1` is neither a list of replacement rules nor a valid dispatch table, and so cannot be used for replacing., Short[HoldForm[{Hold[Out[$Line - 1]]}], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: HoldPattern_Tests
 # Set up a pattern whose left-hand side is kept unevaluated:
 ok  HoldPattern[_ + _] -> 0    ==>     HoldPattern[_ + _] -> 0
     ---
     data:
-        got: 2*_ -> 0
+        got: 2 _ -> 0
         expect: HoldPattern[_ + _] -> 0
-        expect_evaluated: 2*_ -> 0
+        expect_evaluated: 2 _ -> 0
     ...
 # Use the pattern:
-ok  a + b /. %    ==>     0 # skip
-ok  f[a + b]    ==>     0 # skip
+not ok  a + b /. %    ==>     0
+    ---
+    data:
+        got: a + b
+        expect: 0
+        expect_evaluated: 0
+    ...
+# Make a definition without the argument of f being evaluated:
+ok  f[HoldPattern[_ + _]] := 0; f[a + b]    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
 # RefLink[Log,paclet:ref/Log][a,b] autoevaluates to RefLink[Log,paclet:ref/Log][b]/RefLink[Log,paclet:ref/Log][a], so there is a match: 
 ok  MatchQ[Log[a, b], HoldPattern[Log[_]/Log[_]]]    ==>     True
     ---

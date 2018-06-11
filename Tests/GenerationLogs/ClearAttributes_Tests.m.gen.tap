@@ -1,7 +1,21 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/ClearAttributes.nb output/Tests/ClearAttributes_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/ClearAttributes.nb
 # WRITING OUTPUT TO:     output/Tests/ClearAttributes_Tests.m
-ok  Log[{1,2,3}]    ==>     Log[{1,2,3}]
-not ok  Attributes[f]    ==>     {Flat,Orderless}
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/ClearAttributes.html; ClearAttributes[Log,Listable]; Log[{1,2,3}]
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{ClearAttributes, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`http://reference.wolfram.com/language/ref/ClearAttributes.html; ClearAttributes[Log,Listable]; Log[{1,2,3}]\)
+#!                                                                                                                                ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/ClearAttributes.html; ClearAttributes[Log,Listable]; Log[{1,2,3}]    ==>     Log[{1,2,3}]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  ClearAttributes[f,OneIdentity]; Attributes[f]    ==>     {Flat,Orderless}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  Attributes[f]=Complement[Attributes[f],{HoldFirst,NHoldFirst}]    ==>     {}
-ok  Attributes[{f,g}]    ==>     {{},{}}
+not ok  Protect[f,g];; Unprotect[f];
+#! ClearAttributes[g,Protected];; Attributes[{f,g}]    ==>     {{},{}}

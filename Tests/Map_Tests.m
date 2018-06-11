@@ -1,8 +1,8 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[f /@ {a, b, c, d, e}, {f[a], f[b], f[c], f[d], f[e]}], 
- TapComment["Alternative input form:"], TapTestSame[f /@ {a, b, c, d, e}, 
-  {f[a], f[b], f[c], f[d], f[e]}], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[
+   {f[a], f[b], f[c], f[d], f[e]}]], TapComment["Alternative input form:"], 
+ TapTestSame[f /@ {a, b, c, d, e}, {f[a], f[b], f[c], f[d], f[e]}], 
  TapComment["Use explicit pure functions:"], 
  TapTestSame[(1 + g[#1] & ) /@ {a, b, c, d, e}, 
   {1 + g[a], 1 + g[b], 1 + g[c], 1 + g[d], 1 + g[e]}], 

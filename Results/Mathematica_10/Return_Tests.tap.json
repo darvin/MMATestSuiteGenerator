@@ -5,8 +5,8 @@
         "passes": 4,
         "pending": 0,
         "failures": 0,
-        "start": "2018-06-03T23:02:19.303Z",
-        "end": "2018-06-03T23:02:19.303Z",
+        "start": "2018-06-11T04:14:28.620Z",
+        "end": "2018-06-11T04:14:28.620Z",
         "duration": 0,
         "testsRegistered": 4,
         "passPercent": 100,
@@ -23,8 +23,8 @@
         "suites": [],
         "tests": [
             {
-                "title": "f[6]    ➡️     a",
-                "fullTitle": "f[6]    ➡️     a",
+                "title": "f[x_] := (If[x > 5, Return[a]]; x + 3); f[6]    ➡️     a",
+                "fullTitle": "f[x_] := (If[x > 5, Return[a]]; x + 3); f[6]    ➡️     a",
                 "timedOut": false,
                 "duration": 0,
                 "speed": "fast",
@@ -33,17 +33,23 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "8ff56e24-d859-4939-bb35-d9ebc99e47fd",
-                "parentUUID": "8e4298c0-b016-4166-a6a5-c6f479562cbe",
-                "skipped": true,
+                "uuid": "6b733036-4bb4-4cb6-8e7d-f0f6c5c0798f",
+                "parentUUID": "8dce95af-5a35-41ad-809e-309734337857",
+                "skipped": false,
                 "isHook": false,
-                "context": "\"#! DOCKER > wolfram -script output/Tests/Return_Tests.m\\n# SYSTEM: Mathematica_10\\n# TEST: Return_Tests\\n\"",
+                "context": "\"#! DOCKER > wolfram -script output/Tests/Return_Tests.m\\n#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]\\n# SYSTEM: Mathematica_10\\n# TEST: Return_Tests\\n# Return from a function:\\n\\n\\ndata: \\n  got:              a\\n  expect:           a\\n  expect_evaluated: a\"",
                 "state": "passed",
-                "err": {}
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": "a",
+                    "expected": "a"
+                }
             },
             {
-                "title": "f[6]    ➡️     a",
-                "fullTitle": "f[6]    ➡️     a",
+                "title": "f[x_] := (If[x > 5, Return[a]]; x); f[6]    ➡️     a",
+                "fullTitle": "f[x_] := (If[x > 5, Return[a]]; x); f[6]    ➡️     a",
                 "timedOut": false,
                 "duration": 0,
                 "speed": "fast",
@@ -52,17 +58,23 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "e1a5ad81-d3e8-49f5-93f0-6fafa1b149c4",
-                "parentUUID": "8e4298c0-b016-4166-a6a5-c6f479562cbe",
-                "skipped": true,
+                "uuid": "30e9a134-3130-4f81-8dc7-fb5d112e2c84",
+                "parentUUID": "8dce95af-5a35-41ad-809e-309734337857",
+                "skipped": false,
                 "isHook": false,
-                "context": "\"\"",
+                "context": "\"# RefLink[Return,paclet:ref/Return] exits only the innermost construct in which it is invoked:\\n\\n\\ndata: \\n  got:              a\\n  expect:           a\\n  expect_evaluated: a\"",
                 "state": "passed",
-                "err": {}
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": "a",
+                    "expected": "a"
+                }
             },
             {
-                "title": "g[6]    ➡️     6",
-                "fullTitle": "g[6]    ➡️     6",
+                "title": "g[x_] := (Do[If[x > 5, Return[a]], {3}]; x); g[6]    ➡️     6",
+                "fullTitle": "g[x_] := (Do[If[x > 5, Return[a]], {3}]; x); g[6]    ➡️     6",
                 "timedOut": false,
                 "duration": 0,
                 "speed": "fast",
@@ -71,17 +83,23 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "17e4f5fa-f0b3-492a-8736-4a082c44a665",
-                "parentUUID": "8e4298c0-b016-4166-a6a5-c6f479562cbe",
-                "skipped": true,
+                "uuid": "65a91bc9-efb0-4d9c-b7cf-b587ca6361e8",
+                "parentUUID": "8dce95af-5a35-41ad-809e-309734337857",
+                "skipped": false,
                 "isHook": false,
-                "context": "\"\"",
+                "context": "\"# Here it exits the RefLink[Do,paclet:ref/Do] loop, but not the function g:\\n\\n\\ndata: \\n  got:              6\\n  expect:           6\\n  expect_evaluated: 6\"",
                 "state": "passed",
-                "err": {}
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": 6,
+                    "expected": 6
+                }
             },
             {
-                "title": "h[6]    ➡️     a",
-                "fullTitle": "h[6]    ➡️     a",
+                "title": "h[x_] := Catch[Do[If[x > 5, Throw[a]], {3}]; x]; h[6]    ➡️     a",
+                "fullTitle": "h[x_] := Catch[Do[If[x > 5, Throw[a]], {3}]; x]; h[6]    ➡️     a",
                 "timedOut": false,
                 "duration": 0,
                 "speed": "fast",
@@ -90,13 +108,19 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "df875763-6d55-457b-9a76-676e87eb3847",
-                "parentUUID": "8e4298c0-b016-4166-a6a5-c6f479562cbe",
-                "skipped": true,
+                "uuid": "0e6c70fd-c85a-488c-9d40-a0cb4d893e6a",
+                "parentUUID": "8dce95af-5a35-41ad-809e-309734337857",
+                "skipped": false,
                 "isHook": false,
-                "context": "\"\"",
+                "context": "\"# Use RefLink[Catch,paclet:ref/Catch] and RefLink[Throw,paclet:ref/Throw] for explicit flow control:\\n\\n\\ndata: \\n  got:              a\\n  expect:           a\\n  expect_evaluated: a\"",
                 "state": "passed",
-                "err": {}
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": "a",
+                    "expected": "a"
+                }
             }
         ],
         "root": true,
@@ -104,22 +128,17 @@
         "file": "",
         "pending": [],
         "passes": [
-            "8ff56e24-d859-4939-bb35-d9ebc99e47fd",
-            "e1a5ad81-d3e8-49f5-93f0-6fafa1b149c4",
-            "17e4f5fa-f0b3-492a-8736-4a082c44a665",
-            "df875763-6d55-457b-9a76-676e87eb3847"
+            "6b733036-4bb4-4cb6-8e7d-f0f6c5c0798f",
+            "30e9a134-3130-4f81-8dc7-fb5d112e2c84",
+            "65a91bc9-efb0-4d9c-b7cf-b587ca6361e8",
+            "0e6c70fd-c85a-488c-9d40-a0cb4d893e6a"
         ],
         "failures": [],
-        "skipped": [
-            "8ff56e24-d859-4939-bb35-d9ebc99e47fd",
-            "e1a5ad81-d3e8-49f5-93f0-6fafa1b149c4",
-            "17e4f5fa-f0b3-492a-8736-4a082c44a665",
-            "df875763-6d55-457b-9a76-676e87eb3847"
-        ],
+        "skipped": [],
         "duration": 0,
         "rootEmpty": false,
         "_timeout": 0,
-        "uuid": "8e4298c0-b016-4166-a6a5-c6f479562cbe",
+        "uuid": "8dce95af-5a35-41ad-809e-309734337857",
         "beforeHooks": [],
         "afterHooks": []
     },

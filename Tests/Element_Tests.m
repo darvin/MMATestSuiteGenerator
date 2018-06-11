@@ -18,12 +18,17 @@ TapSuite[TapComment["Test whether \\[Pi] is an element of the reals:"],
  TapComment["Test domain membership:"], 
  TapTestSame[(Element[Sqrt[2], #1] & ) /@ {Complexes, Algebraics, Reals, 
     Rationals, Integers, Primes}, {True, True, True, False, False, False}], 
- TapTestSameBROKEN[(Element[{3/2, 3/2}, #1] & ) /@ 
-   {Subscript[\[ScriptCapitalR], 1], Subscript[\[ScriptCapitalR], 2], 
-    Subscript[\[ScriptCapitalR], 3], Subscript[\[ScriptCapitalR], 4]}, 
-  {True, False, True, True}], TapComment["Plot it:"], 
- TapTestSameBROKEN[HoldComplete[
-   Show[{DiscretizeRegion[Subscript[\[ScriptCapitalR], 3]], 
+ TapComment["Test region membership:"], TapTestSameBROKEN[
+  Subscript[\[ScriptCapitalR], 1] = Disk[{1, 1}]; 
+   Subscript[\[ScriptCapitalR], 2] = Rectangle[{0, 0}, {1, 1}]; 
+   Subscript[\[ScriptCapitalR], 3] = ImplicitRegion[x^2 <= y^3 + 1, {x, y}]; 
+   Subscript[\[ScriptCapitalR], 4] = 
+    (RegionUnion[Disk[{-1, 0}], Line[{{0, 0}, {2, 2}}]] ;; 
+       (Element[{3/2, 3/2}, #1]) & ) /@ {Subscript[\[ScriptCapitalR], 1], 
+      Subscript[\[ScriptCapitalR], 2], Subscript[\[ScriptCapitalR], 3], 
+      Subscript[\[ScriptCapitalR], 4]}, {True, False, True, True}], 
+ TapComment["Plot it:"], TapTestSameBROKEN[
+  HoldComplete[Show[{DiscretizeRegion[Subscript[\[ScriptCapitalR], 3]], 
      Graphics[{{Opacity[0.5], {Orange, Subscript[\[ScriptCapitalR], 1]}, 
         {Yellow, Subscript[\[ScriptCapitalR], 2]}, {Green, Disk[{-1, 0}], 
          Line[{{0, 0}, {2, 2}}]}}, {Red, PointSize[Large], 

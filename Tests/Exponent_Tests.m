@@ -16,11 +16,24 @@ TapSuite[TapComment["Find the highest exponent of x:"],
 RefLink[Trig,paclet:ref/Trig]->RefLink[True,paclet:ref/True], \
 RefLink[Exponent,paclet:ref/Exponent] recognizes dependencies between \
 trigonometric functions:"], TapTestSame[Exponent[Tan[x], Cos[x], 
-   Trig -> True], -1], TapTestSameBROKEN[LeadingCoefficient[2 + 3*x + 17*x^5, 
-   x], 17], TapTestSameBROKEN[LeadingTerm[2 + 3*x + 17*x^5, x], 17*x^5], 
- TapTestSameBROKEN[Exponent[f, x], 5], 
+   Trig -> True], -1], TapComment["Compute the leading coefficient:"], 
+ TapTestSame[LeadingCoefficient[poly_, x_] := Coefficient[poly, x, 
+     Exponent[poly, x]]; LeadingCoefficient[2 + 3*x + 17*x^5, x], 17], 
+ TapComment["Compute the leading term:"], 
+ TapTestSame[LeadingTerm[poly_, x_] := With[{n = Exponent[poly, x]}, 
+     Coefficient[poly, x, n]*x^n]; LeadingTerm[2 + 3*x + 17*x^5, x], 17*x^5], 
+ TapComment[
+  "The number of complex roots of a polynomial is equal to its degree:"], 
+ TapTestSameBROKEN[f = (x + 1)^5 - 2*x + 3 ;; Exponent[f, x], 5], 
  TapComment["Use RefLink[Solve,paclet:ref/Solve] to find the roots:"], 
- TapTestSameBROKEN[Length[x /. Solve[f == 0, x]], 5], 
- TapTestSameBROKEN[Exponent[f, x], 14], TapTestSameBROKEN[
-  Length[CoefficientList[f, x]], 15], TapTestSameBROKEN[Exponent[f, x], 2], 
+ TapTestSame[Length[x /. Solve[f == 0, x]], 5], 
+ TapComment["Length of the \
+RefLink[CoefficientList,paclet:ref/CoefficientList] of a polynomial is one \
+more than its degree:"], TapTestSameBROKEN[
+  f = (x^2 + 2*x - 1)^7 - 3 ;; Exponent[f, x], 14], 
+ TapTestSameBROKEN[Length[CoefficientList[f, x]], 15], 
+ TapComment["RefLink[Exponent,paclet:ref/Exponent] is purely syntactical; it \
+does not attempt to recognize zero coefficients:"], 
+ TapTestSameBROKEN[zero = Sqrt[2] + Sqrt[3] - Sqrt[5 + 2*Sqrt[6]]; 
+   f = zero*x^2 + x + 1 ;; Exponent[f, x], 2], 
  TapTestSameBROKEN[Exponent[RootReduce[f], x], 1]]

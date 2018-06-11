@@ -1,8 +1,21 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/AddTo.nb output/Tests/AddTo_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/AddTo.nb
 # WRITING OUTPUT TO:     output/Tests/AddTo_Tests.m
-ok  k=1;k+=5    ==>     6
-ok  k    ==>     6
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/AddTo.html; k=1;k+=5
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{AddTo, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`http://reference.wolfram.com/language/ref/AddTo.html; k=1;k+=5\)
+#!                                                                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/AddTo.html; k=1;k+=5    ==>     6
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  k    ==>     6
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  x=1.5; x+=3.75;x    ==>     5.25
 ok  v=a;v+=b;v    ==>     a+b
 ok  x={1,2,3}    ==>     {1,2,3}
@@ -20,6 +33,7 @@ ok  k=10;
 #! k+=-5    ==>     5
 ok  k-=5    ==>     0
 #! TextForm[ColonForm[MessageName[AppendTo, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[list], 3]]]]
-not ok  AppendTo[list,4];
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+not ok  list={1,2,3};; AppendTo[list,4];
 #! list    ==>     {1,2,3,4}
 not ok  x+=2    ==>     x+=2

@@ -2,4 +2,4 @@
 Import["CompatTests.m"]; 
 TapSuite[TapComment["The actual expression returned by \
 RefLink[Print,paclet:ref/Print] is RefLink[Null,paclet:ref/Null]:"], 
- TapTestSameBROKEN[InputForm[Print[x]], Null]]
+ TapTestSame[InputForm[Print[x]], Null]]

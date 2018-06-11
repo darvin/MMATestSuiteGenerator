@@ -49,11 +49,18 @@ with no branches are counted:"], TapTestSameBROKEN[leaves[e, Heads -> False],
   6], TapComment["This corresponds to the dangling leaves you see with \
 RefLink[TreeForm,paclet:ref/TreeForm]:"], 
  TapTestSameBROKEN[HoldComplete[TreeForm[e]], $Failed], 
- TapTestSameBROKEN[depth[1 + x + 2*x^2], {1, 3}], 
- TapTestSameBROKEN[depth[{{1, 2}, {3, 4}}], {2, 2}], 
+ TapComment["Find the minimum and maximum \"depth\" of an expression:"], 
+ TapTestSame[depth[expr_] := Block[{mind = Infinity, maxd = 0, burrow, d}, 
+     burrow[(e_)?AtomQ, d_] := (mind = Min[d, mind]; maxd = Max[d, maxd]); 
+      burrow[e_, d_] := Scan[burrow[#1, d + 1] & , e]; burrow[expr, 0]; 
+      {mind, maxd}]; depth[1 + x + 2*x^2], {1, 3}], 
+ TapTestSame[depth[{{1, 2}, {3, 4}}], {2, 2}], 
  TapComment[
   "RefLink[Depth,paclet:ref/Depth] gives the maximum depth plus 1:"], 
  TapTestSame[Depth[1 + x + 2*x^2], 4], TapComment["RefLink[Map,paclet:ref/Map\
 ][f,expr,{-1}] generally maps f on atoms in expr:"], 
  TapTestSame[Map[f, 1 + x + 2*x^2, {-1}], f[1] + f[x] + f[2]*f[x]^f[2]], 
- TapTestSame[Map[f, 1 + x + 2*x^2, {-1}], f[1] + f[x] + f[2]*f[x]^f[2]]]
+ TapComment["This is equivalent to the following recursive function:"], 
+ TapTestSame[mapf[(e_)?AtomQ] := f[e]; mapf[(head_)[args___]] := 
+    head @@ Table[mapf[arg], {arg, {args}}]; Map[f, 1 + x + 2*x^2, {-1}], 
+  f[1] + f[x] + f[2]*f[x]^f[2]]]

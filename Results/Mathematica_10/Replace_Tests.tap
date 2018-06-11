@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/Replace_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Replace_Tests
 # RefLink[Replace,paclet:ref/Replace] by default applies rules only to complete expressions:
@@ -13,9 +17,11 @@ ok  Replace[x^2, x^2 -> a + b]    ==>     a + b
 ok  Replace[1 + x^2, x^2 -> a + b]    ==>     1 + x^2
     ---
     data:
-        got: 1 + x^2
+        got:      2
+#! 1 + x
         expect: 1 + x^2
-        expect_evaluated: 1 + x^2
+        expect_evaluated:      2
+#! 1 + x
     ...
 # A list of rules gives a list of results:
 ok  Replace[x, {{x -> a}, {x -> b}}]    ==>     {a, b}

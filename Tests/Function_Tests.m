@@ -24,11 +24,11 @@ TapSuite[TapComment["Pure function with one parameter:"],
  TapTestSame[Sort[{{a, 2}, {c, 1}, {d, 3}}, #1[[2]] < #2[[2]] & ], 
   {{c, 1}, {a, 2}, {d, 3}}], TapComment["Specify a custom comparison function \
 in RefLink[FixedPoint,paclet:ref/FixedPoint]:"], 
- TapTestSame[FixedPoint[(#1 + 2/#1)/2 & , 1.`20., 
+ TapTestSameBROKEN[FixedPoint[(#1 + 2/#1)/2 & , 1.`20., 
    SameTest -> (Abs[#1 - #2] < 1/10000000000 & )], 
   1.4142135623730950488`19.15051499783199], 
  TapComment["Specify a custom color function:"], 
- TapTestSameBROKEN[HoldComplete[DensityPlot[Sin[x*y], {x, 0, 3}, {y, 0, 3}, 
+ TapTestSame[HoldComplete[DensityPlot[Sin[x*y], {x, 0, 3}, {y, 0, 3}, 
     ColorFunction -> (RGBColor[1 - #1, #1, 1 - #1] & )]], $Failed], 
  TapComment["Provide a custom distance function:"], 
  TapTestSame[Nearest[{1, 2, 4, 8, 16}, 5, DistanceFunction -> 
@@ -74,8 +74,11 @@ function with attribute RefLink[Listable,paclet:ref/Listable]:"],
   If[#1 == 1, 1, #1*#0[#1 - 1]] & ], TapTestSame[f[10], 3628800], 
  TapComment["Turn a function that takes several arguments into one that takes \
 a list of arguments:"], TapTestSame[cplus = Plus @@ #1 & , Plus @@ #1 & ], 
- TapTestSame[cplus[{a, b, c}], a + b + c], TapTestSameBROKEN[f2 = makef[2], 
-  Function[x$, 2*x$]], TapTestSameBROKEN[f2[5], 10], 
+ TapTestSame[cplus[{a, b, c}], a + b + c], 
+ TapComment[
+  "A function that returns a function that multiplies its argument by n:"], 
+ TapTestSame[makef[n_] := Function[x, n*x]; f2 = makef[2], 
+  Function[x$, 2*x$]], TapTestSame[f2[5], 10], 
  TapComment["Preserve arguments in unevaluated form:"], 
  TapTestSame[Select[Hold[x, $MaxMachineNumber], 
    Function[symbol, Context[symbol] === "System`", HoldAll]], 
@@ -86,10 +89,9 @@ a list of arguments:"], TapTestSame[cplus = Plus @@ #1 & , Plus @@ #1 & ],
  TapComment["Not using any arguments results in a constant pure function:"], 
  TapTestSame[(17 & ) /@ {1, 2, 3}, {17, 17, 17}], 
  TapComment["Replacements can be done inside pure functions:"], 
- TapTestSame[(p + #1 & ) /. p -> q, q + #1 & ], 
- TapTestSameBROKEN[%[x], q + x], TapComment["Formal parameters are renamed \
-whenever there is a possibility of confusion:"], 
- TapTestSame[Function[{x}, Function[{y}, f[x, y]]][y], 
+ TapTestSame[(p + #1 & ) /. p -> q, q + #1 & ], TapTestSame[%[x], q + x], 
+ TapComment["Formal parameters are renamed whenever there is a possibility of \
+confusion:"], TapTestSame[Function[{x}, Function[{y}, f[x, y]]][y], 
   Function[{y$}, f[y, y$]]], TapTestSame[
   Function[{x}, Function[{y}, f[x, y]]][a], Function[{y$}, f[a, y$]]], 
  TapTestSame[Function[{x}, Function[{y}, Function[{z}, f[x, y, z]]]][a], 
@@ -106,7 +108,9 @@ whenever there is a possibility of confusion:"],
  TapTestSame[(f[#1] & )[a], f[a]], 
  TapComment["In general f[##]& is the same as f:"], 
  TapTestSame[(f[##1] & )[a, b, c], f[a, b, c]], 
- TapTestSameBROKEN[Function[x, Evaluate[formula]], Function[x, (1 + x)^2]], 
+ TapComment["Turn a formula involving a variable x into a pure function:"], 
+ TapTestSameBROKEN[formula = (1 + x)^2 ;; Function[x, Evaluate[formula]], 
+  Function[x, (1 + x)^2]], 
  TapComment["Use a formula in RefLink[Table,paclet:ref/Table]:"], 
  TapTestSame[Table[i^2, {i, 10}], {1, 4, 9, 16, 25, 36, 49, 64, 81, 100}], 
  TapComment["Use the corresponding pure function in an equivalent \
@@ -133,7 +137,7 @@ RefLink[InterpolatingFunction,paclet:ref/InterpolatingFunction]:"],
 pattern tests:"], TapTestSame[Cases[{1, 2, 3, 4}, _?(OddQ[#1/2] & )], {2}], 
  TapComment["RefLink[Function,paclet:ref/Function] does not evaluate its body \
 until the function is applied:"], TapTestSame[#1 + #1 + #1 & , 
-  #1 + #1 + #1 & ], TapTestSameBROKEN[%[a], 3*a], 
+  #1 + #1 + #1 & ], TapTestSame[%[a], 3*a], 
  TapComment[
   "Supplying fewer than the required number of arguments generates an error:"]\
 , TapTestSame[(#2 & )[x], #2], TapComment["Define the recursion operator of \
@@ -143,4 +147,7 @@ info,http://www.wolframscience.com/nksonline/page-907b-text]]:"],
       ##2]] & , If[#1 == 0, g[##2], h[#0[#1 - 1, ##2], #1 - 1, ##2]] & ], 
  TapComment["Use it to define the factorial function:"], 
  TapTestSame[r[1 & , #1*(#2 + 1) & ][10], 3628800], 
- TapTestSameBROKEN[NewtonZero[BesselJ[2, #1] & , 5.], 5.13562]]
+ TapComment["Newton's formula for finding a zero of a function:"], 
+ TapTestSame[NewtonZero[f_, x0_] := FixedPoint[
+     #1 - f[#1]/Derivative[1][f][#1] & , x0]; NewtonZero[BesselJ[2, #1] & , 
+    5.], 5.13562]]

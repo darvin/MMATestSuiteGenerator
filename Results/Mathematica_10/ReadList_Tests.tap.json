@@ -5,8 +5,8 @@
         "passes": 3,
         "pending": 0,
         "failures": 0,
-        "start": "2018-06-03T23:02:16.328Z",
-        "end": "2018-06-03T23:02:16.328Z",
+        "start": "2018-06-11T04:14:25.144Z",
+        "end": "2018-06-11T04:14:25.144Z",
         "duration": 0,
         "testsRegistered": 3,
         "passPercent": 100,
@@ -33,11 +33,11 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "7685632c-d42d-41b8-ba30-cc3c62fcfc7a",
-                "parentUUID": "72240712-99cd-4990-b23d-4c56b82371bf",
+                "uuid": "eb4fa2d9-b965-4e2c-949f-c41a4fb0211a",
+                "parentUUID": "c137d05f-6ced-4d17-9ca6-48e98cca937c",
                 "skipped": false,
                 "isHook": false,
-                "context": "\"#! DOCKER > wolfram -script output/Tests/ReadList_Tests.m\\n# SYSTEM: Mathematica_10\\n# TEST: ReadList_Tests\\n# Read in each line as a separate expression:\\n\\n\\ndata: \\n  got: \\n    45:  null\\n    123: null\\n    x:   null\\n    y:   null\\n  expect: \\n    45:  null\\n    123: null\\n    x:   null\\n    y:   null\\n  expect_evaluated: \\n    45:  null\\n    123: null\\n    x:   null\\n    y:   null\"",
+                "context": "\"#! DOCKER > wolfram -script output/Tests/ReadList_Tests.m\\n#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]\\n# SYSTEM: Mathematica_10\\n# TEST: ReadList_Tests\\n# Read in each line as a separate expression:\\n\\n\\ndata: \\n  got: \\n    45:  null\\n    123: null\\n    x:   null\\n    y:   null\\n  expect: \\n    45:  null\\n    123: null\\n    x:   null\\n    y:   null\\n  expect_evaluated: \\n    45:  null\\n    123: null\\n    x:   null\\n    y:   null\"",
                 "state": "passed",
                 "err": {
                     "name": "",
@@ -68,13 +68,29 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "535d6568-ccf4-455c-9258-31191390f46c",
-                "parentUUID": "72240712-99cd-4990-b23d-4c56b82371bf",
-                "skipped": true,
+                "uuid": "04128b6f-dfa5-40a8-af02-3ea725a73aa6",
+                "parentUUID": "c137d05f-6ced-4d17-9ca6-48e98cca937c",
+                "skipped": false,
                 "isHook": false,
-                "context": "\"# Read each line as a string:\\n\"",
+                "context": "\"# Read each line as a string:\\n\\n\\ndata: \\n  got: \\n    45:  null\\n    123: null\\n    x:   null\\n    y:   null\\n  expect: \\n    45:  null\\n    123: null\\n    x:   null\\n    y:   null\\n  expect_evaluated: \\n    45:  null\\n    123: null\\n    x:   null\\n    y:   null\"",
                 "state": "passed",
-                "err": {}
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": {
+                        "45": null,
+                        "123": null,
+                        "x": null,
+                        "y": null
+                    },
+                    "expected": {
+                        "45": null,
+                        "123": null,
+                        "x": null,
+                        "y": null
+                    }
+                }
             },
             {
                 "title": "InputForm[%]    ➡️     {\"123\", \"45\", \"x\", \"y\"}",
@@ -87,13 +103,29 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "f2c10314-038c-4fe3-9cfd-af698e284a6c",
-                "parentUUID": "72240712-99cd-4990-b23d-4c56b82371bf",
-                "skipped": true,
+                "uuid": "54f6d28b-9c7c-448a-bf87-4dd0046b2d06",
+                "parentUUID": "c137d05f-6ced-4d17-9ca6-48e98cca937c",
+                "skipped": false,
                 "isHook": false,
-                "context": "\"\"",
+                "context": "\"\\n\\ndata: \\n  got: \\n    45:  null\\n    123: null\\n    x:   null\\n    y:   null\\n  expect: \\n    45:  null\\n    123: null\\n    x:   null\\n    y:   null\\n  expect_evaluated: \\n    45:  null\\n    123: null\\n    x:   null\\n    y:   null\"",
                 "state": "passed",
-                "err": {}
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": {
+                        "45": null,
+                        "123": null,
+                        "x": null,
+                        "y": null
+                    },
+                    "expected": {
+                        "45": null,
+                        "123": null,
+                        "x": null,
+                        "y": null
+                    }
+                }
             }
         ],
         "root": true,
@@ -101,19 +133,16 @@
         "file": "",
         "pending": [],
         "passes": [
-            "7685632c-d42d-41b8-ba30-cc3c62fcfc7a",
-            "535d6568-ccf4-455c-9258-31191390f46c",
-            "f2c10314-038c-4fe3-9cfd-af698e284a6c"
+            "eb4fa2d9-b965-4e2c-949f-c41a4fb0211a",
+            "04128b6f-dfa5-40a8-af02-3ea725a73aa6",
+            "54f6d28b-9c7c-448a-bf87-4dd0046b2d06"
         ],
         "failures": [],
-        "skipped": [
-            "535d6568-ccf4-455c-9258-31191390f46c",
-            "f2c10314-038c-4fe3-9cfd-af698e284a6c"
-        ],
+        "skipped": [],
         "duration": 0,
         "rootEmpty": false,
         "_timeout": 0,
-        "uuid": "72240712-99cd-4990-b23d-4c56b82371bf",
+        "uuid": "c137d05f-6ced-4d17-9ca6-48e98cca937c",
         "beforeHooks": [],
         "afterHooks": []
     },

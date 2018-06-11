@@ -1,6 +1,6 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSameBROKEN[f[a], 2 + a + (1 + a)^2], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[2 + a + (1 + a)^2]], 
  TapComment[
   "Use RefLink[With,paclet:ref/With] to insert values into held expressions:"]\
 , TapTestSame[With[{x = y}, Hold[x]], Hold[y]], 
@@ -9,14 +9,14 @@ TapSuite[TapTestSameBROKEN[f[a], 2 + a + (1 + a)^2],
  TapComment["The variable names can be the same:"], 
  TapTestSame[x = 5; With[{x = x}, Hold[x]], Hold[5]], 
  TapComment["Use a constant for a value that is needed more than once:"], 
- TapTestSameBROKEN[With[{y = Sin[1.]}, Sum[y^i, {i, 0, 10}]], 5.36323], 
+ TapTestSame[With[{y = Sin[1.]}, Sum[y^i, {i, 0, 10}]], 5.36323], 
  TapComment["RefLink[With,paclet:ref/With] allows inserting values into \
 unevaluated expressions:"], TapTestSame[With[{v = {a, b, c}, w = {x, y, z}}, 
    Thread[Unevaluated[v . w]]], {a . x, b . y, c . z}], 
  TapTestSame[Thread[{a, b, c} . {x, y, z}], a*x + b*y + c*z], 
  TapComment["RefLink[Module,paclet:ref/Module] introduces local variables to \
-which you can assign values:"], TapTestSameBROKEN[
-  Module[{x = 2.}, While[x > 0, x = Log[x]]; x], -0.366513], 
+which you can assign values:"], 
+ TapTestSame[Module[{x = 2.}, While[x > 0, x = Log[x]]; x], -0.366513], 
  TapComment["RefLink[With,paclet:ref/With] is faster than \
 RefLink[Module,paclet:ref/Module]:"], TapTestSameBROKEN[
   Timing[Do[Module[{x = 5}, x; ], {10^5}]], {0.312, Null}], 
@@ -35,16 +35,23 @@ inside an unevaluated expression, preserving nested scopes:"],
 are renamed in nested scopes:"], TapTestSameBROKEN[
   With[{e = Expand[(1 + x)^5]}, Function[x, e]], 
   Function[x$, 1 + 5*x + 10*x^2 + 10*x^3 + 5*x^4 + x^5]], 
- TapTestSameBROKEN[%[10], 1 + 5*x + 10*x^2 + 10*x^3 + 5*x^4 + x^5], 
+ TapTestSame[%[10], 1 + 5*x + 10*x^2 + 10*x^3 + 5*x^4 + x^5], 
  TapComment["Build the function from its elements to avoid the renaming:"], 
  TapTestSameBROKEN[With[{e = Expand[(1 + x)^5]}, Function @@ {x, e}], 
   Function[x, 1 + 5*x + 10*x^2 + 10*x^3 + 5*x^4 + x^5]], 
- TapTestSameBROKEN[%[10], 161051], TapTestSameBROKEN[newton[Cos, 1.`20.], 
+ TapTestSame[%[10], 161051], 
+ TapComment["Find a zero of an arbitrary function using Newton's method:"], 
+ TapTestSameBROKEN[newton[f_, x0_] := With[{fp = Derivative[1][f]}, 
+     FixedPoint[#1 - f[#1]/fp[#1] & , x0]]; newton[Cos, 1.`20.], 
   1.570796326794896619`18.196119877030153], 
  TapComment["Find a fixed point:"], TapTestSameBROKEN[
   newton[Cos[#1] - #1 & , 1.`20.], 0.739085133215160642`17.868694466481546], 
- TapTestSameBROKEN[letrec[{f = Function[n, If[n == 0, 1, n*f[n - 1]]]}, 
-   f[10]], 3628800], TapComment[
+ TapComment["A version of RefLink[With,paclet:ref/With] where the initializer \
+is within the scope of the local variable:"], 
+ TapTestSame[SetAttributes[letrec, HoldAll]; letrec[{var_ = val_}, body_] := 
+    Module[{var}, var = val; body]; 
+   letrec[{f = Function[n, If[n == 0, 1, n*f[n - 1]]]}, f[10]], 3628800], 
+ TapComment[
   "Here the f inside the function definition is not inside its own scope:"], 
  TapTestSame[With[{f = Function[n, If[n == 0, 1, n*f[n - 1]]]}, f[10]], 
   10*f[9]]]

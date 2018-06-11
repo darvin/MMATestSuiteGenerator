@@ -1,8 +1,21 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/PowerMod.nb output/Tests/PowerMod_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/PowerMod.nb
 # WRITING OUTPUT TO:     output/Tests/PowerMod_Tests.m
-ok  PowerMod[2,10,3]    ==>     1
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/PowerMod.html; PowerMod[2,10,3]
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{PowerMod, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`http://reference.wolfram.com/language/ref/PowerMod.html; PowerMod[2,10,3]\)
+#!                                                                                              ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/PowerMod.html; PowerMod[2,10,3]    ==>     1
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Mod[2^10,3]    ==>     1
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  PowerMod[3,-1,7]    ==>     5
 ok  Mod[3 5,7]    ==>     1
 ok  PowerMod[2,10^9,18]    ==>     16
@@ -14,8 +27,8 @@ not ok  \[Lambda]=CarmichaelLambda[n]    ==>     73599183960
 not ok  d=NestWhile[#1+1& ,Round[n/3],GCD[\[Lambda],#1]=!=1&]    ==>     147198853397
 not ok  e =PowerMod[d,-1,\[Lambda]]    ==>     43827926933
 not ok  PowerMod[ToCharacterCode["RSA in Mathematica"],e,n]    ==>     {370588429072,31547009034,13929388044,384734377610,162556565179,299295617632,384734377610,75741462274,285710361035,176224883944,85403059458,342434320296,188016646930,285710361035,176224883944,162556565179,65047462332,285710361035}
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-#! TextForm[ColonForm[MessageName[FromCharacterCode, intnm], StringForm[Non-negative machine-sized integer expected at position `2` in `1`., Short[HoldForm[FromCharacterCode[PowerMod[Hold[Out[$Line - 1]], 28655281537, 85965844609]]], 3], Short[HoldForm[1], 3]]]]
+#! TextForm[ColonForm[MessageName[FromCharacterCode, intnm], StringForm[Non-negative machine-sized integer expected at position `2` in `1`., Short[HoldForm[FromCharacterCode[PowerMod[Hold[Out[$Line - 1]], 444928914113, 1334786742337]]], 3], Short[HoldForm[1], 3]]]]
+#! TextForm[ColonForm[MessageName[FromCharacterCode, notunicode], StringForm[A character code, which should be a non-negative integer less than 65536, is expected at position `2` in `1`., Short[HoldForm[{176455924851, 992980431465, 413411926341, 1266224245403, 514005014085, 900954549728, 1266224245403, 411537409516, 975436301812, 1209182081229, 246106973702, 52393837865, 568233386015, 975436301812, 1209182081229, 514005014085, 907957880067, 975436301812}], 3], Short[HoldForm[1], 3]]]]
 not ok  FromCharacterCode[PowerMod[%,d,n]]    ==>     RSA in Mathematica
 #! TextForm[ColonForm[MessageName[PowerMod, root], StringForm[The equation x^`1` = `2` (mod `3`) has no integer solutions., Short[HoldForm[2], 3], Short[HoldForm[2], 3], Short[HoldForm[5], 3]]]]
 #! TextForm[ColonForm[MessageName[PowerMod, root], StringForm[The equation x^`1` = `2` (mod `3`) has no integer solutions., Short[HoldForm[2], 3], Short[HoldForm[2], 3], Short[HoldForm[5], 3]]]]

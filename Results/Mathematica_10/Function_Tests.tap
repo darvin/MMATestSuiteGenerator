@@ -1,5 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/Function_Tests.m
-#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 #! TextForm[ColonForm[MessageName[Function, slotn], StringForm[Slot number `1` in `2` cannot be filled from `3`., Short[HoldForm[2], 3], Short[HoldForm[#2 & ], 3], Short[HoldForm[(#2 & )[x]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Function_Tests
@@ -29,16 +32,20 @@ ok  (3 + #1 & )[x]    ==>     3 + x
 ok  Function[{u, v}, u^2 + v^4][x, y]    ==>     x^2 + y^4
     ---
     data:
-        got: x^2 + y^4
+        got:  2    4
+#! x  + y
         expect: x^2 + y^4
-        expect_evaluated: x^2 + y^4
+        expect_evaluated:  2    4
+#! x  + y
     ...
 ok  (#1^2 + #2^4 & )[x, y]    ==>     x^2 + y^4
     ---
     data:
-        got: x^2 + y^4
+        got:  2    4
+#! x  + y
         expect: x^2 + y^4
-        expect_evaluated: x^2 + y^4
+        expect_evaluated:  2    4
+#! x  + y
     ...
 # Set f to be a pure function:
 ok  f = 3 + #1 &     ==>     3 + #1 & 
@@ -62,9 +69,11 @@ ok  (f[u, v, u] & )[<| "u" -> x, "v" -> y |>]    ==>     f[x, y, x] # skip
 ok  (g[#1, #1^2] & ) /@ {x, y, z}    ==>     {g[x, x^2], g[y, y^2], g[z, z^2]}
     ---
     data:
-        got: {g[x, x^2], g[y, y^2], g[z, z^2]}
+        got:        2         2         2
+#! {g[x, x ], g[y, y ], g[z, z ]}
         expect: {g[x, x^2], g[y, y^2], g[z, z^2]}
-        expect_evaluated: {g[x, x^2], g[y, y^2], g[z, z^2]}
+        expect_evaluated:        2         2         2
+#! {g[x, x ], g[y, y ], g[z, z ]}
     ...
 # Select with a pure function:
 ok  Select[{1, -1, 2, -2, 3}, #1 > 0 & ]    ==>     {1, 2, 3}
@@ -99,15 +108,15 @@ ok  Sort[{{a, 2}, {c, 1}, {d, 3}}, #1[[2]] < #2[[2]] & ]    ==>     {{c, 1}, {a,
         expect_evaluated: {{c, 1}, {a, 2}, {d, 3}}
     ...
 # Specify a custom comparison function in RefLink[FixedPoint,paclet:ref/FixedPoint]:
-ok  FixedPoint[(#1 + 2/#1)/2 & , 1.`20., SameTest -> (Abs[#1 - #2] < 1/10000000000 & )]    ==>     1.4142135623730950488`19.15051499783199
+ok  FixedPoint[(#1 + 2/#1)/2 & , 1.`20., SameTest -> (Abs[#1 - #2] < 1/10000000000 & )]    ==>     1.4142135623730950488`19.15051499783199 # skip
+# Specify a custom color function:
+not ok  HoldComplete[DensityPlot[Sin[x*y], {x, 0, 3}, {y, 0, 3}, ColorFunction -> (RGBColor[1 - #1, #1, 1 - #1] & )]]    ==>     $Failed
     ---
     data:
-        got: 1.41421356237309504880168962350253024361`20.
-        expect: 1.4142135623730950488`19.15051499783199
-        expect_evaluated: 1.4142135623730950488`19.15051499783199
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
     ...
-# Specify a custom color function:
-ok  HoldComplete[DensityPlot[Sin[x*y], {x, 0, 3}, {y, 0, 3}, ColorFunction -> (RGBColor[1 - #1, #1, 1 - #1] & )]]    ==>     $Failed # skip
 # Provide a custom distance function:
 ok  Nearest[{1, 2, 4, 8, 16}, 5, DistanceFunction -> ((#1 - #2)^2 & )]    ==>     {4}
     ---
@@ -120,33 +129,39 @@ ok  Nearest[{1, 2, 4, 8, 16}, 5, DistanceFunction -> ((#1 - #2)^2 & )]    ==>   
 ok  Derivative[1][Function[x, x^2]]    ==>     Function[x, 2*x]
     ---
     data:
-        got: Function[x, 2*x]
+        got: Function[x, 2 x]
         expect: Function[x, 2*x]
-        expect_evaluated: Function[x, 2*x]
+        expect_evaluated: Function[x, 2 x]
     ...
 # Derivative of RefLink[Tan,paclet:ref/Tan]:
 ok  Derivative[1][Tan]    ==>     Sec[#1]^2 & 
     ---
     data:
-        got: Sec[#1]^2 & 
+        got:        2
+#! Sec[#1]  & 
         expect: Sec[#1]^2 & 
-        expect_evaluated: Sec[#1]^2 & 
+        expect_evaluated:        2
+#! Sec[#1]  & 
     ...
 # Solutions of differential equations may be expressed as pure functions:
 ok  DSolve[{Derivative[1][y][x] == a*y[x], y[0] == 1}, y, x]    ==>     {{y -> Function[{x}, E^(a*x)]}}
     ---
     data:
-        got: {{y -> Function[{x}, E^(a*x)]}}
+        got:                       a x
+#! {{y -> Function[{x}, E   ]}}
         expect: {{y -> Function[{x}, E^(a*x)]}}
-        expect_evaluated: {{y -> Function[{x}, E^(a*x)]}}
+        expect_evaluated:                       a x
+#! {{y -> Function[{x}, E   ]}}
     ...
 # Difference equations may return pure functions:
 ok  RSolve[{a[n + 1] - 2*a[n] == 1, a[0] == 1}, a, n]    ==>     {{a -> Function[{n}, -1 + 2^(1 + n)]}}
     ---
     data:
-        got: {{a -> Function[{n}, -1 + 2^(1 + n)]}}
+        got:                            1 + n
+#! {{a -> Function[{n}, -1 + 2     ]}}
         expect: {{a -> Function[{n}, -1 + 2^(1 + n)]}}
-        expect_evaluated: {{a -> Function[{n}, -1 + 2^(1 + n)]}}
+        expect_evaluated:                            1 + n
+#! {{a -> Function[{n}, -1 + 2     ]}}
     ...
 # #name is effectively a short form of #["name"]:
 ok  (x & )[<| "x" -> a, "y" -> b |>]    ==>     a # skip
@@ -224,9 +239,9 @@ ok  (f[#0] & )[x]    ==>     f[f[#0] & ]
 ok  f = If[#1 == 1, 1, #1*#0[#1 - 1]] &     ==>     If[#1 == 1, 1, #1*#0[#1 - 1]] & 
     ---
     data:
-        got: If[#1 == 1, 1, #1*#0[#1 - 1]] & 
+        got: If[#1 == 1, 1, #1 #0[#1 - 1]] & 
         expect: If[#1 == 1, 1, #1*#0[#1 - 1]] & 
-        expect_evaluated: If[#1 == 1, 1, #1*#0[#1 - 1]] & 
+        expect_evaluated: If[#1 == 1, 1, #1 #0[#1 - 1]] & 
     ...
 ok  f[10]    ==>     3628800
     ---
@@ -250,23 +265,38 @@ ok  cplus[{a, b, c}]    ==>     a + b + c
         expect: a + b + c
         expect_evaluated: a + b + c
     ...
-ok  f2 = makef[2]    ==>     Function[x$, 2*x$] # skip
-ok  f2[5]    ==>     10 # skip
+# A function that returns a function that multiplies its argument by n:
+ok  makef[n_] := Function[x, n*x]; f2 = makef[2]    ==>     Function[x$, 2*x$]
+    ---
+    data:
+        got: Function[x$, 2 x$]
+        expect: Function[x$, 2*x$]
+        expect_evaluated: Function[x$, 2 x$]
+    ...
+ok  f2[5]    ==>     10
+    ---
+    data:
+        got: 10
+        expect: 10
+        expect_evaluated: 10
+    ...
 # Preserve arguments in unevaluated form:
 ok  Select[Hold[x, $MaxMachineNumber], Function[symbol, Context[symbol] === "System`", HoldAll]]    ==>     Hold[$MaxMachineNumber]
     ---
     data:
-        got: 1.7976931348623157*^308
+        got:           308
+#! 1.79769 10
         expect: Hold[$MaxMachineNumber]
-        expect_evaluated: 1.7976931348623157*^308
+        expect_evaluated:           308
+#! 1.79769 10
     ...
 # #1 uses only the first argument supplied; the rest are ignored:
 ok  (f[#1] & )[x, y, z]    ==>     f[x]
     ---
     data:
-        got: If[x == 1, 1, x*(If[#1 == 1, 1, #1*#0[#1 - 1]] & )[x - 1]]
+        got: If[x == 1, 1, x (If[#1 == 1, 1, #1 #0[#1 - 1]] & )[x - 1]]
         expect: f[x]
-        expect_evaluated: If[x == 1, 1, x*(If[#1 == 1, 1, #1*#0[#1 - 1]] & )[x - 1]]
+        expect_evaluated: If[x == 1, 1, x (If[#1 == 1, 1, #1 #0[#1 - 1]] & )[x - 1]]
     ...
 # Not using any arguments results in a constant pure function:
 ok  (17 & ) /@ {1, 2, 3}    ==>     {17, 17, 17}
@@ -284,7 +314,13 @@ ok  (p + #1 & ) /. p -> q    ==>     q + #1 &
         expect: q + #1 & 
         expect_evaluated: q + #1 & 
     ...
-ok  %[x]    ==>     q + x # skip
+ok  %[x]    ==>     q + x
+    ---
+    data:
+        got: q + x
+        expect: q + x
+        expect_evaluated: q + x
+    ...
 # Formal parameters are renamed whenever there is a possibility of confusion:
 ok  Function[{x}, Function[{y}, f[x, y]]][y]    ==>     Function[{y$}, f[y, y$]]
     ---
@@ -311,57 +347,68 @@ ok  Function[{x}, Function[{y}, Function[{z}, f[x, y, z]]]][a]    ==>     Functi
 ok  Function[x, Function[y, x^y]][x][y]    ==>     x^y
     ---
     data:
-        got: x^y
+        got:  y
+#! x
         expect: x^y
-        expect_evaluated: x^y
+        expect_evaluated:  y
+#! x
     ...
 ok  Function[y, Function[x, y^x]][x][y]    ==>     x^y
     ---
     data:
-        got: x^y
+        got:  y
+#! x
         expect: x^y
-        expect_evaluated: x^y
+        expect_evaluated:  y
+#! x
     ...
 # However, reusing a name introduces a new scope:
 ok  Function[x, Function[x, x^x]][x][y]    ==>     y^y
     ---
     data:
-        got: y^y
+        got:  y
+#! y
         expect: y^y
-        expect_evaluated: y^y
+        expect_evaluated:  y
+#! y
     ...
 # Nested functions take their arguments one at a time:
 ok  Function[x, Function[y, x^y]][a][b]    ==>     a^b
     ---
     data:
-        got: a^b
+        got:  b
+#! a
         expect: a^b
-        expect_evaluated: a^b
+        expect_evaluated:  b
+#! a
     ...
 ok  Function[{x, y}, x^y][a, b]    ==>     a^b
     ---
     data:
-        got: a^b
+        got:  b
+#! a
         expect: a^b
-        expect_evaluated: a^b
+        expect_evaluated:  b
+#! a
     ...
 # f[#]& is the same as simply f in the univariate case:
 ok  (f[#1] & )[a]    ==>     f[a]
     ---
     data:
-        got: If[a == 1, 1, a*(If[#1 == 1, 1, #1*#0[#1 - 1]] & )[a - 1]]
+        got: If[a == 1, 1, a (If[#1 == 1, 1, #1 #0[#1 - 1]] & )[a - 1]]
         expect: f[a]
-        expect_evaluated: If[a == 1, 1, a*(If[#1 == 1, 1, #1*#0[#1 - 1]] & )[a - 1]]
+        expect_evaluated: If[a == 1, 1, a (If[#1 == 1, 1, #1 #0[#1 - 1]] & )[a - 1]]
     ...
 # In general f[##]& is the same as f:
 ok  (f[##1] & )[a, b, c]    ==>     f[a, b, c]
     ---
     data:
-        got: If[a == 1, 1, a*(If[#1 == 1, 1, #1*#0[#1 - 1]] & )[a - 1]]
+        got: If[a == 1, 1, a (If[#1 == 1, 1, #1 #0[#1 - 1]] & )[a - 1]]
         expect: f[a, b, c]
-        expect_evaluated: If[a == 1, 1, a*(If[#1 == 1, 1, #1*#0[#1 - 1]] & )[a - 1]]
+        expect_evaluated: If[a == 1, 1, a (If[#1 == 1, 1, #1 #0[#1 - 1]] & )[a - 1]]
     ...
-ok  Function[x, Evaluate[formula]]    ==>     Function[x, (1 + x)^2] # skip
+# Turn a formula involving a variable x into a pure function:
+ok  formula = (1 + x)^2 ;; Function[x, Evaluate[formula]]    ==>     Function[x, (1 + x)^2] # skip
 # Use a formula in RefLink[Table,paclet:ref/Table]:
 ok  Table[i^2, {i, 10}]    ==>     {1, 4, 9, 16, 25, 36, 49, 64, 81, 100}
     ---
@@ -380,39 +427,43 @@ ok  Array[#1^2 & , 10]    ==>     {1, 4, 9, 16, 25, 36, 49, 64, 81, 100}
     ...
 # Special-purpose function constructs include RefLink[InterpolatingFunction,paclet:ref/InterpolatingFunction]:
 ok  HoldComplete[f = Interpolation[{1, 2, 4, 5, 6}]]    ==>     $Failed # skip
-not ok  f[4]    ==>     5
+ok  f[4]    ==>     5
     ---
     data:
-        got: 24
+        got: 5
         expect: 5
         expect_evaluated: 5
     ...
 # RefLink[CompiledFunction,paclet:ref/CompiledFunction]:
 ok  HoldComplete[f = Compile[{x}, x^2]]    ==>     $Failed # skip
-not ok  f[5.]    ==>     25.
+ok  f[5.]    ==>     25.
     ---
     data:
-        got: 120.
+        got: 25.
         expect: 25.
         expect_evaluated: 25.
     ...
 # RefLink[NearestFunction,paclet:ref/NearestFunction]:
 ok  HoldComplete[f = Nearest[{1, 2, 3, 4, 5}]]    ==>     $Failed # skip
-not ok  f[3.1]    ==>     {3}
+ok  f[3.1]    ==>     {3}
     ---
     data:
-        got: inExpr$827
+        got: {3}
         expect: {3}
         expect_evaluated: {3}
     ...
 # RefLink[LinearSolveFunction,paclet:ref/LinearSolveFunction]:
 ok  HoldComplete[f = LinearSolve[{{1, 2}, {3, 4}}]]    ==>     $Failed # skip
-not ok  f[{5, 6}]    ==>     {-4, 9/2}
+ok  f[{5, 6}]    ==>     {-4, 9/2}
     ---
     data:
-        got: If[{5, 6} == 1, 1, {5, 6}*(If[#1 == 1, 1, #1*#0[#1 - 1]] & )[{5, 6} - 1]]
+        got:      9
+#! {-4, -}
+     2
         expect: {-4, 9/2}
-        expect_evaluated: {-4, 9/2}
+        expect_evaluated:      9
+#! {-4, -}
+     2
     ...
 # & binds more loosely than ->, so it usually needs parentheses in rules:
 ok  FullForm[x -> y & ]    ==>     x -> y &  # skip
@@ -433,7 +484,13 @@ ok  #1 + #1 + #1 &     ==>     #1 + #1 + #1 &
         expect: #1 + #1 + #1 & 
         expect_evaluated: #1 + #1 + #1 & 
     ...
-ok  %[a]    ==>     3*a # skip
+ok  %[a]    ==>     3*a
+    ---
+    data:
+        got: 3 a
+        expect: 3*a
+        expect_evaluated: 3 a
+    ...
 # Supplying fewer than the required number of arguments generates an error:
 ok  (#2 & )[x]    ==>     #2
     ---
@@ -458,4 +515,11 @@ ok  r[1 & , #1*(#2 + 1) & ][10]    ==>     3628800
         expect: 3628800
         expect_evaluated: 3628800
     ...
-ok  NewtonZero[BesselJ[2, #1] & , 5.]    ==>     5.13562 # skip
+# Newton's formula for finding a zero of a function:
+ok  NewtonZero[f_, x0_] := FixedPoint[#1 - f[#1]/Derivative[1][f][#1] & , x0]; NewtonZero[BesselJ[2, #1] & , 5.]    ==>     5.13562
+    ---
+    data:
+        got: 5.13562
+        expect: 5.13562
+        expect_evaluated: 5.13562
+    ...

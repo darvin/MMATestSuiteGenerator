@@ -1,15 +1,28 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Power.nb output/Tests/Power_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Power.nb
 # WRITING OUTPUT TO:     output/Tests/Power_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/Power.html; 2^100
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{Power, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`http://reference.wolfram.com/language/ref/Power.html; 2^100\)
+#!                                                                                ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/Power.html; 2^100    ==>     1267650600228229401496703205376
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  2^100    ==>     1267650600228229401496703205376
-ok  2^100    ==>     1267650600228229401496703205376
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  Power[2,100]    ==>     1267650600228229401496703205376
 ok  {2,3,4,5}^3    ==>     {8,27,64,125}
 ok  {x,y,z}^{a,b,c}    ==>     {x^a,y^b,z^c}
 ok  27^(1/3)    ==>     3
 ok  29^(1/3)    ==>     29^(1/3)
-not ok  N[29^(1/3)]    ==>     3.07232
-not ok  29.^(1/3)    ==>     3.07232
+ok  N[29^(1/3)]    ==>     3.07232
+ok  29.^(1/3)    ==>     3.07232
 ok  {0.2,0.5,1.8}^2    ==>     {0.04,0.25,3.24}
 not ok  (\:f3a21	2
 #! x	3
@@ -17,18 +30,14 @@ not ok  (\:f3a21	2
 ok  50!^(1/6)    ==>     604800 2^(5/6) Sqrt[13] 33^(2/3) 52003^(1/3) 2756205443^(1/6)
 ok  (-5)^(1/2)    ==>     I Sqrt[5]
 ok  (-1)^(1/3)    ==>     (-1)^(1/3)
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  N[%]    ==>     0.5+0.866025 I
 ok  (2+I/2)^10    ==>     -(1093425/1024)+(113221 I)/128
-not ok  (2.+3 I)^(3-I Pi)    ==>     483.755-906.588 I
+ok  (2.+3 I)^(3-I Pi)    ==>     483.755-906.588 I
 ok  Limit[(-2+\[CurlyEpsilon] I)^(1/3),\[CurlyEpsilon]->0,Direction->1]    ==>     (1-I Sqrt[3])/2^(2/3)
 ok  Limit[(-2+\[CurlyEpsilon] I)^(1/3),\[CurlyEpsilon]->0,Direction->-1]    ==>     (-2)^(1/3)
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 not ok  N[{%,%%}]    ==>     {0.629961+1.09112 I,0.629961-1.09112 I}
 ok  Interval[{1/3,2}]^3    ==>     Interval[{1/27,8}]
-not ok  Pi^Interval[{2,3.}]    ==>     Interval[{\[Pi]^2,31.0063}]
+ok  Pi^Interval[{2,3.}]    ==>     Interval[{\[Pi]^2,31.0063}]
 #! TextForm[ColonForm[MessageName[Infinity, indet], StringForm[Indeterminate expression `1` encountered., Short[HoldForm[Infinity^n], 3]]]]
 ok  Power[Infinity,n]    ==>     Indeterminate
 #! TextForm[ColonForm[MessageName[Infinity, indet], StringForm[Indeterminate expression `1` encountered., Short[HoldForm[ComplexInfinity^0], 3]]]]
@@ -36,14 +45,12 @@ ok  Power[ComplexInfinity,0]    ==>     Indeterminate
 #! TextForm[ColonForm[MessageName[Power, indet], StringForm[Indeterminate expression `1` encountered., Short[HoldForm[0^0], 3]]]]
 ok  0^0    ==>     Indeterminate
 ok  0^n    ==>     0^n
+#! TextForm[ColonForm[MessageName[SparseArray, list], StringForm[List expected at position `2` in `1`., Short[HoldForm[SparseArray[Specified*Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}]*Graphics[Raster[{{{0.235431, 0.32765, 0.833291}, {0.25192122690338165, 0.4451774161981149, 0.882448361475895}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}, {{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}, {0.235431, 0.32765, 0.833291}}, {{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}, {{0.25192122690338165, 0.4451774161981149, 0.882448361475895}, {0.235431, 0.32765, 0.833291}, {0.28043596378743946, 0.6484046591698394, 0.9674507836143207}, {0.235431, 0.32765, 0.833291}}}, {{0, 0}, {4, 4}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {AxisPadding -> 18.740000000000002, DefaultBoundaryStyle -> Automatic, DefaultPlotStyle -> Automatic, DomainPadding -> 18.740000000000002, RangePadding -> 46.85}]*(elements:4*Dimensions:{4, 4})]], 3], Short[HoldForm[1], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[Raster[{{{0.235431, 0.32765, 0.833291}, {0.25192122690338165, 0.4451774161981149, 0.882448361475895}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}, {{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}, {0.235431, 0.32765, 0.833291}}, {{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}, {{0.25192122690338165, 0.4451774161981149, 0.882448361475895}, {0.235431, 0.32765, 0.833291}, {0.28043596378743946, 0.6484046591698394, 0.9674507836143207}, {0.235431, 0.32765, 0.833291}}}, {{0, 0}, {4, 4}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {AxisPadding -> 18.740000000000002, DefaultBoundaryStyle -> Automatic, DefaultPlotStyle -> Automatic, DomainPadding -> 18.740000000000002, RangePadding -> 46.85}], Specified, RowBox[{elements, :, RowBox[{4, Dimensions}], :, RowBox[{{, RowBox[{4, ,, 4}], }}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[]\)
 #!    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxb], StringForm[Expression cannot begin with "`1`"`4`., Short[HoldForm[DisplayForm[RowBox[{Graphics[Raster[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255}, ColorFunction -> GrayLevel], BaselinePosition -> Bottom, ImageSize -> {12, 12}, PlotRange -> {{0, 12}, {0, 12}}], Graphics[Raster[{{{0.235431, 0.32765, 0.833291}, {0.25192122690338165, 0.4451774161981149, 0.882448361475895}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}, {{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.772061, 0.92462, 0.998703}, {0.235431, 0.32765, 0.833291}}, {{0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}, {0.235431, 0.32765, 0.833291}}, {{0.25192122690338165, 0.4451774161981149, 0.882448361475895}, {0.235431, 0.32765, 0.833291}, {0.28043596378743946, 0.6484046591698394, 0.9674507836143207}, {0.235431, 0.32765, 0.833291}}}, {{0, 0}, {4, 4}}, {0, 1}], AspectRatio -> 1, Axes -> False, Frame -> False, FrameLabel -> {None, None}, FrameStyle -> Directive[Opacity[0.5], Thickness[Tiny], RGBColor[0.368417, 0.506779, 0.709798]], FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 28.}, Method -> {AxisPadding -> 18.740000000000002, DefaultBoundaryStyle -> Automatic, DefaultPlotStyle -> Automatic, DomainPadding -> 18.740000000000002, RangePadding -> 46.85}], Specified, RowBox[{elements, :, RowBox[{4, Dimensions}], :, RowBox[{{, RowBox[{4, ,, 4}], }}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[]\)
-#!    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
 not ok  SparseArray[{{1,1}->1,{1,3}->2,{3,3}->-E,{4,2}->-1},4]^4    ==>     SparseArray[\!\(\*
 #! GraphicsBox[RasterBox[{{179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 180, 180, 180, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 248, 248, 178, 179, 179, 179, 179}, {179, 179, 180, 179, 179, 253, 248, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 248, 248, 248, 248, 248, 248, 248, 248, 179, 179}, {179, 179, 179, 179, 179, 248, 248, 179, 179, 179, 179, 179}, {179, 180, 179, 179, 179, 252, 248, 179, 178, 179, 180, 179}, {179, 180, 180, 179, 179, 248, 248, 179, 180, 180, 180, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}, {179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179, 179}}, {{0, 0}, {12, 12}}, {0, 255},
 #! ColorFunction->GrayLevel],
@@ -74,17 +81,12 @@ not ok  % // MatrixForm    ==>     (1	0	16	0
 ok  NumericQ[Power[1+E,3]]    ==>     True
 ok  Power[a,b,c,d]    ==>     a^b^c^d
 not ok  FullForm[%]    ==>     Power[a,Power[b,Power[c,d]]]
-not ok  Table[(1+0.05)^n,{n,5}]    ==>     {1.05,1.1025,1.15763,1.21551,1.27628}
+ok  Table[(1+0.05)^n,{n,5}]    ==>     {1.05,1.1025,1.15763,1.21551,1.27628}
 ok  Reduce[4/3 Pi r^3 ==a^3,r,Reals]    ==>     r==Root[(3 a^3)/\[Pi]-4 #1^3&,1]
 not ok  ToRadicals[%,Assumptions->a>0]    ==>     r==(a (3/\[Pi])^(1/3))/2^(2/3)
 not ok  %/.a->1.    ==>     r==0.62035
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Ticks->{Automatic, Automatic}]\)\)
-#!                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ContourPlot[Re[2^(1/(0.1+x+I y))],{x,-0.1,0.1},{y,-0.1,0.1}]    ==>     \!\(\*
+ok  ContourPlot[Re[2^(1/(0.1+x+I y))],{x,-0.1,0.1},{y,-0.1,0.1}]    ==>     \!\(\*
 #! GraphicsBox[GraphicsComplexBox[CompressedData["
 #! 1:eJyM3QW0XsX1N2CcIsWhuBcvWqDogSDFtTgUKV6CBglBAiQQIIEIBAmEJISE
 #! hLhTZCBIgSIlUKAtLsXdpc1373vmmcu7s+76f1msvv3dmTOyZ/vMmbPKMaft
@@ -13251,7 +13253,7 @@ ok  Table[Root[#^6-1&,m],{m,5}]    ==>     {-1,1,1/2 (-1-I Sqrt[3]),1/2 (-1+I Sq
 ok  (1+x)^10    ==>     (1+x)^10
 ok  Expand[(1+x)^10]    ==>     1+10 x+45 x^2+120 x^3+210 x^4+252 x^5+210 x^6+120 x^7+45 x^8+10 x^9+x^10
 ok  Series[Exp[x],{x,0,5}]    ==>     1+x+x^2/2+x^3/6+x^4/24+x^5/120+O[x]^6
-not ok  %^4    ==>     1+4 x+8 x^2+(32 x^3)/3+(32 x^4)/3+(128 x^5)/15+O[x]^6
+ok  %^4    ==>     1+4 x+8 x^2+(32 x^3)/3+(32 x^4)/3+(128 x^5)/15+O[x]^6
 #! TextForm[ColonForm[MessageName[Solve, ifun], StringForm[Inverse functions are being used by `1`, so some solutions may not be found; use Reduce for complete solution information., Short[HoldForm[Solve], 3]]]]
 ok  Solve[a^x==b,x]    ==>     {{x->Log[b]/Log[a]}}
 not ok  Reduce[a^x==b,x]//TraditionalForm    ==>     (a==0\[And]b==0\[And]Re(x)>0)\[Or](Subscript[c, 1]\[Element]\[DoubleStruckCapitalZ]\[And]b!=0\[And]a!=0\[And]((a==1\[And]b==1)\[Or](log(a)!=0\[And]x==(log(b)+2 I \[Pi] Subscript[c, 1])/log(a))))
@@ -13260,7 +13262,6 @@ not ok  Sqrt[x]//FullForm    ==>     Power[x,Rational[1,2]]
 not ok  Exp[x] // FullForm    ==>     Power[E,x]
 ok  Cases[{1/x,1,Sqrt[x],x,x^2,x^3},x^_]    ==>     {1/x,Sqrt[x],x^2,x^3}
 ok  Cases[{1/x,1,Sqrt[x],x,x^2,x^3},x^_.]    ==>     {1/x,Sqrt[x],x,x^2,x^3}
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  Plot3D[Im[(x+I y)^(1/3)],{x,-3,3},{y,-2,2}]    ==>     \!\(\*
 #! GraphicsBox[
@@ -13806,8 +13807,7 @@ ok  \[Integral]x^a a^x \[DifferentialD]x    ==>     -x^(1+a) Gamma[1+a,-x Log[a]
 ok  LaplaceTransform[t^n,t,s]    ==>     s^(-1-n) Gamma[1+n]
 ok  FourierTransform[1/t^2,t,s]    ==>     -Sqrt[(\[Pi]/2)] s Sign[s]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  \!\(
+ok  \!\(
 #! \*UnderoverscriptBox[\(\[Sum]\), \(k = 
 #! \*SubscriptBox[\(k\), \(1\)]\), 
 #! SubscriptBox[\(k\), \(2\)]]
@@ -13821,11 +13821,10 @@ ok  (z^3)^(1/3)    ==>     (z^3)^(1/3)
 ok  (z^3)^(1/3)/.z->-1    ==>     (-1)^(1/3)
 ok  PowerExpand[(z^3)^(1/3)]    ==>     z
 not ok  ((-1.)^(1/3))^3    ==>     -1.+3.63696*10^-16 I
-ok  ((N[-1,20])^(1/3))^3    ==>     -1.0000000000000000000+0.*10^-20 I
+not ok  ((N[-1,20])^(1/3))^3    ==>     -1.0000000000000000000+0.*10^-20 I
 not ok  Chop[%]    ==>     -1.0000000000000000000
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  Plot[Sqrt[z^2]/z,{z,-1,1}]    ==>     \!\(\*
+ok  Plot[Sqrt[z^2]/z,{z,-1,1}]    ==>     \!\(\*
 #! GraphicsBox[{{}, {}, 
 #! {RGBColor[0.368417, 0.506779, 0.709798], AbsoluteThickness[1.6], Opacity[1.], LineBox[CompressedData["
 #! 1:eJxTTMoPSmViYGBwBGIQrWcv9ur///f7GcDgw/4vi63XGMcj+Ls4EvPS972D
@@ -13859,24 +13858,8 @@ not ok  Plot[Sqrt[z^2]/z,{z,-1,1}]    ==>     \!\(\*
 #! PlotRangePadding->{{Scaled[0.02], Scaled[0.02]}, {Scaled[0.05], Scaled[0.05]}},
 #! Ticks->{Automatic, Automatic}]\)
 ok  D[Sqrt[z^2]/z,z]    ==>     1/Sqrt[z^2]-Sqrt[z^2]/z^2
-not ok  Simplify[%]    ==>     0
-not ok  N[(-2+I ((Pi+1)^2-Pi^2-2Pi-1-Exp[-Pi^4]))^(1/3)]    ==>     0.629961+1.09112 I
-ok  N[(-2+I ((Pi+1)^2-Pi^2-2Pi-1-Exp[-Pi^4]))^(1/3),8]    ==>     0.62996052-1.09112364 I
+ok  Simplify[%]    ==>     0
+ok  N[(-2+I ((Pi+1)^2-Pi^2-2Pi-1-Exp[-Pi^4]))^(1/3)]    ==>     0.629961+1.09112 I
+not ok  N[(-2+I ((Pi+1)^2-Pi^2-2Pi-1-Exp[-Pi^4]))^(1/3),8]    ==>     0.62996052-1.09112364 I
 not ok  5^5^5.    ==>     1.91101259794*10^2184
 ok  MachineNumberQ[%]    ==>     False
-ok  2^2^20.    ==>     6.741140125*10^315652
-#! TextForm[ColonForm[MessageName[General, ovfl], StringForm[Overflow occurred in computation.]]]
-ok  2^2^100.    ==>     Overflow[]
-#! TextForm[ColonForm[MessageName[Power, indet], StringForm[Indeterminate expression `1` encountered., Short[HoldForm[0^0], 3]]]]
-ok  0^0    ==>     Indeterminate
-ok  {x^0,x^0.0,x^0``10}    ==>     {1,1.,1.000000000}
-not ok  {1^x,1.0^x,1``10^x}    ==>     {1,1.,1.000000000^x}
-#! TextForm[ColonForm[MessageName[N, meprec], StringForm[Internal precision limit $MaxExtraPrecision = `1` reached while evaluating `2`., Short[HoldForm[50.], 3], Short[HoldForm[1 + E^(-1000) + 2*Pi + Pi^2 - (1 + Pi)^2], 3]]]]
-#! TextForm[ColonForm[MessageName[N, meprec], StringForm[Internal precision limit $MaxExtraPrecision = `1` reached while evaluating `2`., Short[HoldForm[50.], 3], Short[HoldForm[1 + E^(-1000) + 2*Pi + Pi^2 - (1 + Pi)^2], 3]]]]
-ok  (Pi^2+2Pi+1-(Pi+1)^2+Exp[-1000])^0    ==>     (1+1/E^1000+2 \[Pi]+\[Pi]^2-(1+\[Pi])^2)^0
-not ok  N[%]    ==>     Indeterminate
-not ok  Block[{$MaxExtraPrecision = 10^4},N[%%,20]]    ==>     1
-ok  Series[x^Sqrt[2] Sin[x],{x,0,5}]    ==>     x^Sqrt[2] (x-x^3/6+x^5/120+O[x]^6)
-not ok  Head[%]    ==>     Times
-ok  {{1,2},{3,4}}^2    ==>     {{1,4},{9,16}}
-ok  MatrixPower[{{1,2},{3,4}},2]    ==>     {{7,10},{15,22}}

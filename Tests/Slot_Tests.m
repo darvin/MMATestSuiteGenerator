@@ -29,7 +29,7 @@ RefLink[Slot,paclet:ref/Slot][\"name\"]:"], TapTestSameBROKEN[FullForm[z & ],
  TapTestSame[(f[#0] & )[x], f[f[#0] & ]], 
  TapComment["Programmatically create a pure function of 5 arguments:"], 
  TapTestSame[Evaluate[f @@ Array[Slot, 5]] & , f[#1, #2, #3, #4, #5] & ], 
- TapTestSameBROKEN[% @@ Range[10], f[1, 2, 3, 4, 5]], 
+ TapTestSame[% @@ Range[10], f[1, 2, 3, 4, 5]], 
  TapComment[
   "# allows function arguments to be referenced without giving them names:"], 
  TapTestSame[Function[u, 1 + u][x], 1 + x], TapTestSame[(1 + #1 & )[x], 

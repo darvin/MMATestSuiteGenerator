@@ -25,7 +25,10 @@ ic] algebraic dependencies between coefficients are recognized:"],
  TapTestSame[FactorSquareFree[1 + x^4, Modulus -> 2], (1 + x)^4], 
  TapComment["Pull out multiple factors in a trigonometric expression:"], 
  TapTestSame[FactorSquareFree[1 - Cos[2*x], Trig -> True], 2*Sin[x]^2], 
- TapTestSameBROKEN[FactorSquareFree[f], (3 + x)^3*(-4 + x^2)*(-1 + x^2)^2], 
+ TapComment["RefLink[FactorSquareFree,paclet:ref/FactorSquareFree] only pulls \
+out multiple factors:"], TapTestSameBROKEN[
+  f = x^9 + 9*x^8 + 21*x^7 - 27*x^6 - 153*x^5 - 81*x^4 + 239*x^3 + 207*x^2 - 
+     108*x - 108 ;; FactorSquareFree[f], (3 + x)^3*(-4 + x^2)*(-1 + x^2)^2], 
  TapComment[
   "RefLink[Factor,paclet:ref/Factor] gives a complete factorization:"], 
  TapTestSameBROKEN[Factor[f], (-2 + x)*(-1 + x)^2*(1 + x)^2*(2 + x)*

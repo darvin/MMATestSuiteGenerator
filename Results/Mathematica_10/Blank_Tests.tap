@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/Blank_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Blank_Tests
 # A pattern that matches any expression:
@@ -17,5 +21,21 @@ ok  MatchQ[symbol, _Symbol]    ==>     True
         expect: True
         expect_evaluated: True
     ...
-ok  {f[1], f[a + b*c]}    ==>     {4, (1 + a + b*c)^2} # skip
-ok  {g[10], g[z]}    ==>     {19, g[z]} # skip
+# A function definition that will take any single argument:
+ok  f[x_] := (x + 1)^2; {f[1], f[a + b*c]}    ==>     {4, (1 + a + b*c)^2}
+    ---
+    data:
+        got:                  2
+#! {4, (1 + a + b c) }
+        expect: {4, (1 + a + b*c)^2}
+        expect_evaluated:                  2
+#! {4, (1 + a + b c) }
+    ...
+# A function definition for integer arguments only:
+ok  g[x_Integer] := Prime[x] - x; {g[10], g[z]}    ==>     {19, g[z]}
+    ---
+    data:
+        got: {19, g[z]}
+        expect: {19, g[z]}
+        expect_evaluated: {19, g[z]}
+    ...

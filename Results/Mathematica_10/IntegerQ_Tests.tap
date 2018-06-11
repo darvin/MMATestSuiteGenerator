@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/IntegerQ_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: IntegerQ_Tests
 # RefLink[IntegerQ,paclet:ref/IntegerQ] tests whether an expression is explicitly an integer:
@@ -31,8 +35,16 @@ ok  ArrayQ[{{1., 4.}, {9., 16.}}, _, IntegerQ]    ==>     False
         expect: False
         expect_evaluated: False
     ...
-ok  gaussIntegerQ[1 + 2*I]    ==>     True # skip
-ok  {IntegerQ[x], Head[x]}    ==>     {True, Integer} # skip
+# Make a test for Gaussian integers:
+ok  gaussIntegerQ[x_] := IntegerQ[Re[x]] && IntegerQ[Im[x]]; gaussIntegerQ[1 + 2*I]    ==>     True
+    ---
+    data:
+        got: True
+        expect: True
+        expect_evaluated: True
+    ...
+# Integers have head RefLink[Integer,paclet:ref/Integer]:
+ok  x = 8529050985092184098210948213048204809218402184 ;; {IntegerQ[x], Head[x]}    ==>     {True, Integer} # skip
 # An expression may have head RefLink[Integer,paclet:ref/Integer], but RefLink[IntegerQ,paclet:ref/IntegerQ] gives RefLink[False,paclet:ref/False]: 
 ok  IntegerQ[Integer[x]]    ==>     False
     ---
@@ -48,12 +60,7 @@ ok  IntegerQ[Integer[1.2]]    ==>     False
         expect: False
         expect_evaluated: False
     ...
-ok  IntegerQ[x]    ==>     False
-    ---
-    data:
-        got: False
-        expect: False
-        expect_evaluated: False
-    ...
+# Expressions that do not evaluate to integers explicitly will still give RefLink[False,paclet:ref/False]:
+ok  x = GoldenRatio - 1/GoldenRatio ;; IntegerQ[x]    ==>     False # skip
 # It is necessary to use symbolic simplification first:
 ok  FullSimplify[x]    ==>     1 # skip

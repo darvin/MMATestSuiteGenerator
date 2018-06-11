@@ -1,42 +1,40 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Real.nb output/Tests/Real_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Real.nb
 # WRITING OUTPUT TO:     output/Tests/Real_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  1.23    ==>     1.23
 #! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-not ok  Head[%]    ==>     Real
-not ok  1.23456789    ==>     1.23457
 #! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+not ok  Head[%]    ==>     Real
+ok  1.23456789    ==>     1.23457
 not ok  MachineNumberQ[%]    ==>     True
 ok  x=987654321123456789.987654321123456789    ==>     9.87654321123456789987654321123456789*10^17
 ok  MachineNumberQ[x]    ==>     False
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 not ok  Accuracy[%%]    ==>     18.
-ok  x=1`23    ==>     1.0000000000000000000000
+not ok  x=1`23    ==>     1.0000000000000000000000
 ok  Precision[x]    ==>     23.
-ok  x=0``12    ==>     0.*10^-12
+not ok  x=0``12    ==>     0.*10^-12
 ok  Accuracy[x]    ==>     12.
 ok  1.23*^45    ==>     1.23*10^45
-ok  1.23`45*^67    ==>     1.23000000000000000000000000000000000000000000*10^67
-not ok  2^^101001000100001.0101101110111101111    ==>     21025.4
-ok  2^^101001000100001.0101101110111101111`100    ==>     21025.3583660125732421875000000
+not ok  1.23`45*^67    ==>     1.23000000000000000000000000000000000000000000*10^67
+ok  2^^101001000100001.0101101110111101111    ==>     21025.4
+not ok  2^^101001000100001.0101101110111101111`100    ==>     21025.3583660125732421875000000
 not ok  Precision[%]    ==>     30.103
-not ok  %*Log[2,10]    ==>     100.
-not ok  16^^fab.bead    ==>     4011.74
-ok  35^^thecowjumpedoverthemoon.    ==>     2.7496745411240259616541453819182289*10^35
+ok  %*Log[2,10]    ==>     100.
+ok  16^^fab.bead    ==>     4011.74
+not ok  35^^thecowjumpedoverthemoon.    ==>     2.7496745411240259616541453819182289*10^35
 ok  MachineNumberQ[%]    ==>     False
 not ok  BaseForm[1.2345,2]    ==>     Subscript[1.001111000000100001, 2]
 ok  MatchQ[1.23,_Real]    ==>     True
 ok  1.4142135623730951*E^(3.141592653589793  t) /. x_Real:>Rationalize[x,0]    ==>     (77227930 E^(245850922 t/78256779))/54608393
-ok  MatrixQ[m,MatchQ[#,_Real]&]    ==>     False
+not ok  m={{1`20,2.},{3,4.5}};; MatrixQ[m,MatchQ[#,_Real]&]    ==>     False
 not ok  MatrixQ[N[m],MatchQ[#,_Real]&]    ==>     True
 #! TextForm[ColonForm[MessageName[ReplaceAll, reps], StringForm[`1` is neither a list of replacement rules nor a valid dispatch table, and so cannot be used for replacing., Short[HoldForm[{rule}], 3]]]]
 not ok  123.50/7 /. rule    ==>     17.64
-not ok  {f[1.2],f[4]}    ==>     {3,f[4]}
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 240}, {0, 143}}]\)\)
-#!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
+ok  f[x_Real]:=Total[First[RealDigits[x]]]; {f[1.2],f[4]}    ==>     {3,f[4]}
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 240}, {0, 143}}]\)\)
 #!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
@@ -298,14 +296,27 @@ not ok  Plot[f[x],{x,0,1}]    ==>     \!\(\*
 #! ImageSize->Automatic,
 #! ImageSizeRaw->{240, 143},
 #! PlotRange->{{0, 240}, {0, 143}}]\)
-not ok  sqrt[2`47]    ==>     1.4142135623730950488016887242096980785696718754
-not ok  sqrt[2]    ==>     1.41421
+not ok  sqrt[x_Real]:=s/.FindRoot[s^2-x,{s,1.},WorkingPrecision->Precision[x]];; sqrt[2`47]    ==>     1.4142135623730950488016887242096980785696718754
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$RecursionLimit, reclim]], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$RecursionLimit, reclim]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  sqrt[x_Integer]:=sqrt[N[x]]
+#! sqrt[x_Rational]:=sqrt[N[x]]; sqrt[2]    ==>     1.41421
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  NumberQ[12.34]    ==>     True
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  ExactNumberQ[12.34]    ==>     False
 ok  AtomQ[12.34]    ==>     True
-not ok  r=-Pi^10.    ==>     -93648.
+ok  r=-Pi^10.    ==>     -93648.
 not ok  Table[f[r],{f,{ScientificForm,EngineeringForm,AccountingForm}}]    ==>     {-9.3648*10^(4),-93.648*10^(3),(93648.)}
 #! TextForm[ColonForm[MessageName[Reduce, ivar], StringForm[`1` is not a valid variable., Short[HoldForm[0``12.], 3]]]]
 not ok  Reduce[x Log[x]<1,x,Reals]    ==>     0<x<E^ProductLog[1]
 ok  MatchQ[3/4,Real]    ==>     False
-not ok  realAxisQ[3/4]    ==>     True
+ok  realAxisQ[x_]:=NumberQ[x]&&!MatchQ[x,_Complex]; realAxisQ[3/4]    ==>     True

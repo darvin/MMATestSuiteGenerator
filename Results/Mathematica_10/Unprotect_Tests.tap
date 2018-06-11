@@ -1,13 +1,20 @@
 #! DOCKER > wolfram -script output/Tests/Unprotect_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[SetDelayed, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Span], 3], Short[HoldForm[Span[{f}, (x_)^2]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Unprotect_Tests
 # Default behavior: 
 ok  Sqrt[x^2]    ==>     Sqrt[x^2]
     ---
     data:
-        got: Sqrt[x^2]
+        got:       2
+#! Sqrt[x ]
         expect: Sqrt[x^2]
-        expect_evaluated: Sqrt[x^2]
+        expect_evaluated:       2
+#! Sqrt[x ]
     ...
 # New behavior: 
 ok  Sqrt[x^2]    ==>     x # skip
@@ -20,19 +27,35 @@ ok  Unprotect["`*"]    ==>     {}
         expect_evaluated: {}
     ...
 # Unprotect a system symbol to make a definition for it:
-ok  protected = Unprotect[Sqrt]    ==>     {Sqrt} # skip
-# Restore protection:
-ok  Protect[Evaluate[protected]]    ==>     {Sqrt} # skip
-ok  Attributes[{f, g}]    ==>     {{}, {}}
+ok  protected = Unprotect[Sqrt]    ==>     {Sqrt}
     ---
     data:
-        got: {{}, {}}
-        expect: {{}, {}}
-        expect_evaluated: {{}, {}}
+        got: {Sqrt}
+        expect: {Sqrt}
+        expect_evaluated: {Sqrt}
     ...
-ok  Unprotect[f, g]    ==>     {f} # skip
-ok  f[x_] := x^3    ==>     $Failed # skip
-ok  Unprotect[Evaluate[syms]]    ==>     {f, g, h} # skip
+# Restore protection:
+ok  Protect[Evaluate[protected]]    ==>     {Sqrt}
+    ---
+    data:
+        got: {Sqrt}
+        expect: {Sqrt}
+        expect_evaluated: {Sqrt}
+    ...
+# Unprotecting a symbol is equivalent to clearing the RefLink[Protected,paclet:ref/Protected] attribute:
+ok  Protect[f, g] ;; Unprotect[f]; ClearAttributes[g, Protected] ;; Attributes[{f, g}]    ==>     {{}, {}} # skip
+# RefLink[Unprotect,paclet:ref/Unprotect] returns the list of symbols actually unprotected:
+ok  Protect[f] ;; Unprotect[f, g]    ==>     {f} # skip
+# To modify definitions of a protected symbol, unprotect it first:
+ok  f[x_] := x^2; Protect[f] ;; f[x_] := x^3    ==>     $Failed
+    ---
+    data:
+        got: $Failed
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
+# To unprotect all symbols given in a variable, use RefLink[Evaluate,paclet:ref/Evaluate]:
+ok  syms = {f, g, h}; Protect /@ syms ;; Unprotect[Evaluate[syms]]    ==>     {f, g, h} # skip
 ok  Attributes[f]    ==>     {}
     ---
     data:

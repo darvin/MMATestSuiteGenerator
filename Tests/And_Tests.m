@@ -29,11 +29,15 @@ RefLink[False,paclet:ref/False]:"],
  TapComment[
   "RefLink[TraditionalForm,paclet:ref/TraditionalForm] formatting:"], 
  TapTestSameBROKEN[x && y && z, x && y && z], 
- TapTestSameBROKEN[PositiveNumberQ[1], True], TapComment["If an argument of \
+ TapComment["Combine conditions in Wolfram Language code:"], 
+ TapTestSame[PositiveNumberQ[x_] := NumberQ[x] && Head[x] =!= Complex && 
+     x > 0; PositiveNumberQ[1], True], TapComment["If an argument of \
 RefLink[And,paclet:ref/And] evaluates to RefLink[False,paclet:ref/False], any \
-subsequent arguments are not evaluated:"], 
- TapTestSameBROKEN[PositiveNumberQ[I], False], 
- TapTestSameBROKEN[PositiveNumberQ2[I], False], 
+subsequent arguments are not evaluated:"], TapTestSame[PositiveNumberQ[I], 
+  False], TapComment["The argument order in RefLink[And,paclet:ref/And] \
+matters; if the last two arguments are reversed, RefLink[I,paclet:ref/I]>0 is \
+evaluated:"], TapTestSame[PositiveNumberQ2[x_] := NumberQ[x] && x > 0 && 
+     Head[x] =!= Complex; PositiveNumberQ2[I], False], 
  TapComment["Combine assumptions:"], 
  TapTestSame[Refine[(a^b)^c, a >= 0 && Element[b, Reals]], a^(b*c)], 
  TapComment["Combine equations and inequalities; RefLink[And,paclet:ref/And] \
@@ -48,12 +52,11 @@ is used both in the input and in the output:"],
   HoldComplete[RegionPlot3D[x^2 + y^2 + z^2 < 1 && x^2 + y^2 < z^2, 
     {x, -1, 1}, {y, -1, 1}, {z, -1, 1}]], $Failed], 
  TapComment["A cellular automaton based on RefLink[And,paclet:ref/And]:"], 
- TapTestSameBROKEN[HoldComplete[
-   ArrayPlot[Boole[CellularAutomaton[{And @@ #1 & , {}}, 
-      RandomChoice[{True, False}, 40], 20]]]], $Failed], 
- TapComment[
-  "Find the area of the intersection of sets given by algebraic conditions:"]\
-, TapTestSame[Integrate[Boole[x^2 + y^2 < 1 && (x - 1)^2 + y^2 < 2], 
+ TapTestSame[HoldComplete[ArrayPlot[
+    Boole[CellularAutomaton[{And @@ #1 & , {}}, RandomChoice[{True, False}, 
+       40], 20]]]], $Failed], TapComment["Find the area of the intersection \
+of sets given by algebraic conditions:"], 
+ TapTestSame[Integrate[Boole[x^2 + y^2 < 1 && (x - 1)^2 + y^2 < 2], 
    {x, -Infinity, Infinity}, {y, -Infinity, Infinity}], -1 + Pi], 
  TapComment["This shows the set:"], TapTestSameBROKEN[
   HoldComplete[RegionPlot[x^2 + y^2 < 1 && (x - 1)^2 + y^2 < 2, 

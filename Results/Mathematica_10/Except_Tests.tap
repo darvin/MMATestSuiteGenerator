@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/Except_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Except_Tests
 # This gives all elements except 0:
@@ -10,7 +14,13 @@ ok  Cases[{1, 0, 2, 0, 3}, Except[0]]    ==>     {1, 2, 3}
         expect_evaluated: {1, 2, 3}
     ...
 # Delete all nonvowel characters from a string:
-ok  StringReplace["the cat in the hat", Except[Characters["aeiou"]] -> ""]    ==>     eaiea # skip
+ok  StringReplace["the cat in the hat", Except[Characters["aeiou"]] -> ""]    ==>     eaiea
+    ---
+    data:
+        got: eaiea
+        expect: eaiea
+        expect_evaluated: eaiea
+    ...
 # RefLink[Except,paclet:ref/Except] works with patterns and string patterns:
 ok  Cases[{a, b, 0, 1, 2, x, y}, Except[_Integer]]    ==>     {a, b, x, y}
     ---
@@ -19,7 +29,13 @@ ok  Cases[{a, b, 0, 1, 2, x, y}, Except[_Integer]]    ==>     {a, b, x, y}
         expect: {a, b, x, y}
         expect_evaluated: {a, b, x, y}
     ...
-ok  StringReplace["1a2b3c4", Except[DigitCharacter].. -> ""]    ==>     1234 # skip
+ok  StringReplace["1a2b3c4", Except[DigitCharacter].. -> ""]    ==>     1234
+    ---
+    data:
+        got: 1234
+        expect: 1234
+        expect_evaluated: 1234
+    ...
 # Constraints on patterns:
 ok  Cases[{a, b, 0, 1, 2, x, y}, Except[0, _Integer]]    ==>     {1, 2}
     ---
@@ -33,9 +49,13 @@ ok  StringReplace["1a2b3c4", Except["a", LetterCharacter].. -> ""]    ==>     1*
 ok  Cases[{1, 1, -5, EulerGamma, r, I, 0, Pi, 1/2}, Except[_Integer]]    ==>     {EulerGamma, r, I, Pi, 1/2}
     ---
     data:
-        got: {EulerGamma, r, I, Pi, 1/2}
+        got:                        1
+#! {EulerGamma, r, I, Pi, -}
+#!                        2
         expect: {EulerGamma, r, I, Pi, 1/2}
-        expect_evaluated: {EulerGamma, r, I, Pi, 1/2}
+        expect_evaluated:                        1
+#! {EulerGamma, r, I, Pi, -}
+#!                        2
     ...
 # Find words containing nonword characters:
 ok  StringMatchQ[{"ain't", "test", "A&M", "anybody"}, ___~~Except[WordCharacter]~~___]    ==>     {True, False, True, False}

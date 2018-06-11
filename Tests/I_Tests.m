@@ -8,16 +8,15 @@ Esc\\[ThinSpace]ii\\[ThinSpace]Esc (for \"imaginary i\"):"],
  TapComment[
   "Use RefLink[I,paclet:ref/I] in exact and approximate calculations:"], 
  TapTestSame[(3 + I)^2/(5 - I), 17/13 + (19*I)/13], 
- TapTestSameBROKEN[Tan[3.5 + I], 0.145477 + 0.803096*I], 
+ TapTestSame[Tan[3.5 + I], 0.145477 + 0.803096*I], 
  TapComment["Built-in mathematical functions work with complex numbers:"], 
- TapTestSameBROKEN[Log[4.5 + 2*I], 1.59421 + 0.418224*I], 
+ TapTestSame[Log[4.5 + 2*I], 1.59421 + 0.418224*I], 
  TapTestSame[GCD[3 - I, 66 + 2*I], 1 + I], 
  TapComment["Extract imaginary parts:"], TapTestSame[Im[(E + I*Pi)^3], 
   3*E^2*Pi - Pi^3], TapComment["Use Esc\\[ThinSpace]jj\\[ThinSpace]Esc to \
 enter the engineering notation \\[ImaginaryJ] for RefLink[I,paclet:ref/I]:"], 
  TapTestSame[I, I], TapComment["Use as a direction in infinite quantities:"], 
- TapTestSame[DirectedInfinity[I], I*Infinity], 
- TapTestSameBROKEN[Exp[I*%], 0], 
+ TapTestSame[DirectedInfinity[I], I*Infinity], TapTestSame[Exp[I*%], 0], 
  TapComment["Use as a direction in RefLink[Limit,paclet:ref/Limit]:"], 
  TapTestSame[Limit[Exp[I/x], x -> 0, Direction -> I], 0], 
  TapComment["Use as a generator of extension fields:"], 
@@ -32,7 +31,7 @@ enter the engineering notation \\[ImaginaryJ] for RefLink[I,paclet:ref/I]:"],
    ((1/4)*(Pi + 2*I*Log[2] - 2*I*Log[-I + z]) + (z - I)/4 + 
     (1/16)*I*(z - I)^2 + O[z - I]^3)], 
  TapComment["Convert a complex number from polar to rectangular form:"], 
- TapTestSameBROKEN[2.5*Exp[I*30*Degree], 2.16506 + 1.25*I], 
+ TapTestSame[2.5*Exp[I*30*Degree], 2.16506 + 1.25*I], 
  TapComment[
   "Flow around a cylinder as the real part of a complex-valued function:"], 
  TapTestSameBROKEN[HoldComplete[ContourPlot[Im[(#1 + 1/#1 & )[I*x - y]], 
@@ -67,7 +66,7 @@ functions with purely imaginary arguments evaluate to simpler forms:"],
  TapTestSameBROKEN[Chop[%], 2.], 
  TapComment["Use RefLink[I,paclet:ref/I] as limits of integration:"], 
  TapTestSame[Integrate[Abs[x], {x, -I, I}], I], 
- TapTestSameBROKEN[NIntegrate[Abs[x], {x, -I, I}], 0. + 1.*I], 
+ TapTestSame[NIntegrate[Abs[x], {x, -I, I}], 0. + 1.*I], 
  TapComment["Sort numbers by increasing imaginary parts:"], 
  TapTestSame[SortBy[{3 - 2*I, 5 + 3*I, 2*I, -4, -6 + 6*I}, Im], 
   {3 - 2*I, -4, 2*I, 5 + 3*I, -6 + 6*I}], TapComment["Machine-precision \
@@ -75,17 +74,17 @@ evaluation of RefLink[I,paclet:ref/I] yields an approximate zero real part:"]\
 , TapTestSame[N[I], 0. + 1.*I], 
  TapComment[
   "Arbitrary-precision evaluation yields an exact zero real part:"], 
- TapTestSame[N[I, 20], 1.`19.*I], 
+ TapTestSameBROKEN[N[I, 20], 1.`19.*I], 
  TapComment[
   "Real and imaginary parts of complex numbers can have different \
 precisions:"], TapTestSame[1.64 + I, 1.64 + I], 
  TapComment["Arithmetic operations will typically mix them:"], 
- TapTestSameBROKEN[%^4, -7.90365 + 11.0838*I], 
- TapComment["The overall precision of a complex number depends on both real \
-and imaginary parts:"], TapTestSame[SetPrecision[1, 10] + 
-   I*SetPrecision[100, 20], 1. + 100.`19.*I], TapTestSameBROKEN[Precision[%], 
-  12.], TapComment["Complex numbers are atomic objects and do not explicitly \
-contain RefLink[I,paclet:ref/I]:"], TapTestSameBROKEN[FullForm[2 + I], 
+ TapTestSame[%^4, -7.90365 + 11.0838*I], TapComment["The overall precision of \
+a complex number depends on both real and imaginary parts:"], 
+ TapTestSameBROKEN[SetPrecision[1, 10] + I*SetPrecision[100, 20], 
+  1. + 100.`19.*I], TapTestSameBROKEN[Precision[%], 12.], 
+ TapComment["Complex numbers are atomic objects and do not explicitly contain \
+RefLink[I,paclet:ref/I]:"], TapTestSameBROKEN[FullForm[2 + I], 
   Complex[2, 1]], TapTestSame[MatchQ[2 + I, _ + I], False], 
  TapTestSame[MemberQ[2 + I, I], False], TapComment["Disguised purely real \
 quantities that contain RefLink[I,paclet:ref/I] cannot be used in numerical \
@@ -118,14 +117,14 @@ explicitly real roots:"], TapTestSame[
  TapTestSameBROKEN[N[%], x == 1.05435 || x == 1.89897 || x == 3.04668], 
  TapComment["Finite imaginary quantities are absorbed by infinite real or \
 complex quantities:"], TapTestSame[Infinity + I, Infinity], 
- TapTestSameBROKEN[Im[%], 0], 
- TapComment["RefLink[I,paclet:ref/I] cannot be used in intervals:"], 
+ TapTestSame[Im[%], 0], TapComment[
+  "RefLink[I,paclet:ref/I] cannot be used in intervals:"], 
  TapTestSame[IntervalMemberQ[Interval[{-I, I}], 0], False], 
  TapComment["The symbol RefLink[I,paclet:ref/I] needs to be evaluated to \
 become a complex number:"], TapTestSame[NumberQ[Unevaluated[I]], False], 
  TapTestSame[Head[Unevaluated[I]], Symbol], 
  TapComment["Nested powers of RefLink[I,paclet:ref/I]:"], 
- TapTestSameBROKEN[HoldComplete[ListPlot[({Re[#1], Im[#1]} & ) /@ 
+ TapTestSame[HoldComplete[ListPlot[({Re[#1], Im[#1]} & ) /@ 
      NestList[I^#1 & , N[I], 100]]], $Failed], 
  TapComment["Find the limit in closed form:"], 
  TapTestSame[Solve[I^w == w, w], {{w -> (2*I*ProductLog[-((I*Pi)/2)])/Pi}}], 

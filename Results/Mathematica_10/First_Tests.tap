@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/First_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: First_Tests
 # Extract the first element of a list:
@@ -29,9 +33,11 @@ ok  First[<| 1 -> a, 2 -> b |>]    ==>     a
 ok  First[a^2 + b^2]    ==>     a^2
     ---
     data:
-        got: a^2
+        got:  2
+#! a
         expect: a^2
-        expect_evaluated: a^2
+        expect_evaluated:  2
+#! a
     ...
 # RefLink[First,paclet:ref/First] works on RefLink[SparseArray,paclet:ref/SparseArray] objects:
 ok  First[SparseArray[Range[100]]]    ==>     1
@@ -68,9 +74,11 @@ ok  {a, b, c}[[1]]    ==>     a
 ok  First[b^2 + a^2]    ==>     a^2
     ---
     data:
-        got: a^2
+        got:  2
+#! a
         expect: a^2
-        expect_evaluated: a^2
+        expect_evaluated:  2
+#! a
     ...
 # RefLink[First,paclet:ref/First] always operates on the RefLink[FullForm,paclet:ref/FullForm] of expressions: 
 ok  First[1/a^2]    ==>     a

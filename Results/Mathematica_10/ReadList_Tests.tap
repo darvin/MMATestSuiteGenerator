@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/ReadList_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: ReadList_Tests
 # Read in each line as a separate expression:
@@ -10,5 +14,17 @@ ok  ReadList[StringToStream["123\n45\nx\ny"]]    ==>     {123, 45, x, y}
         expect_evaluated: {123, 45, x, y}
     ...
 # Read each line as a string:
-ok  ReadList[StringToStream["123\n45\nx\ny"], String]    ==>     {123, 45, x, y} # skip
-ok  InputForm[%]    ==>     {"123", "45", "x", "y"} # skip
+ok  ReadList[StringToStream["123\n45\nx\ny"], String]    ==>     {123, 45, x, y}
+    ---
+    data:
+        got: {123, 45, x, y}
+        expect: {123, 45, x, y}
+        expect_evaluated: {123, 45, x, y}
+    ...
+ok  InputForm[%]    ==>     {"123", "45", "x", "y"}
+    ---
+    data:
+        got: {123, 45, x, y}
+        expect: {"123", "45", "x", "y"}
+        expect_evaluated: {123, 45, x, y}
+    ...

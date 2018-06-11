@@ -1,9 +1,17 @@
 #! DOCKER > wolfram -script output/Tests/Indeterminate_Tests.m
 #! TextForm[ColonForm[MessageName[Power, infy], StringForm[Infinite expression `1` encountered., Short[HoldForm[0^(-1)], 3]]]]
 #! TextForm[ColonForm[MessageName[Infinity, indet], StringForm[Indeterminate expression `1` encountered., Short[HoldForm[0*ComplexInfinity], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 #! TextForm[ColonForm[MessageName[Power, indet], StringForm[Indeterminate expression `1` encountered., Short[HoldForm[0^0], 3]]]]
 #! TextForm[ColonForm[MessageName[Power, infy], StringForm[Infinite expression `1` encountered., Short[HoldForm[0^(-1)], 3]]]]
 #! TextForm[ColonForm[MessageName[Infinity, indet], StringForm[Indeterminate expression `1` encountered., Short[HoldForm[0*ComplexInfinity], 3]]]]
+#! TextForm[ColonForm[MessageName[Power, infy], StringForm[Infinite expression `1` encountered., Short[HoldForm[0``-0.7398225701435863^(-1)], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Power, infy]], 3]]]]
+#! TextForm[ColonForm[MessageName[Infinity, indet], StringForm[Indeterminate expression `1` encountered., Short[HoldForm[0``-1.4796451402871726*ComplexInfinity], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Infinity, indet]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Indeterminate_Tests
 # RefLink[Indeterminate,paclet:ref/Indeterminate] is returned when a value cannot be unambiguously defined:
@@ -22,15 +30,16 @@ ok  Sin[Indeterminate]    ==>     Indeterminate
         expect: Indeterminate
         expect_evaluated: Indeterminate
     ...
-ok  f[Indeterminate]    ==>     Indeterminate # skip
-# Negative precision/accuracy can yield RefLink[Indeterminate,paclet:ref/Indeterminate]:
-ok  SetAccuracy[2, -1]    ==>     0.
+# RefLink[Indeterminate,paclet:ref/Indeterminate] "takes over" any function with attribute RefLink[NumericFunction,paclet:ref/NumericFunction]:
+ok  SetAttributes[f, NumericFunction]; f[Indeterminate]    ==>     Indeterminate
     ---
     data:
-        got: 0``-1.
-        expect: 0.
-        expect_evaluated: 0.
+        got: Indeterminate
+        expect: Indeterminate
+        expect_evaluated: Indeterminate
     ...
+# Negative precision/accuracy can yield RefLink[Indeterminate,paclet:ref/Indeterminate]:
+ok  SetAccuracy[2, -1]    ==>     0. # skip
 ok  %/%    ==>     Indeterminate # skip
 # Infinity in an unknown direction:
 ok  DirectedInfinity[Indeterminate]    ==>     ComplexInfinity
@@ -93,13 +102,7 @@ ok  RealDigits[6.7, 10, 20]    ==>     {{6, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
         expect_evaluated: {{6, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Indeterminate, Indeterminate, Indeterminate, Indeterminate}, 1}
     ...
 # Create a number of lower precision:
-ok  FromDigits[{{6, 7, 0, 0, 0, Indeterminate}, 1}]    ==>     6.7
-    ---
-    data:
-        got: 6.7`5.826074802700826
-        expect: 6.7
-        expect_evaluated: 6.7
-    ...
+ok  FromDigits[{{6, 7, 0, 0, 0, Indeterminate}, 1}]    ==>     6.7 # skip
 # RefLink[Indeterminate,paclet:ref/Indeterminate] is not a number:
 ok  NumberQ[Indeterminate]    ==>     False
     ---
@@ -136,9 +139,17 @@ ok  Limit[t^t, t -> 0]    ==>     1
 ok  s = Sum[Exp[k*x], {k, n}]    ==>     (E^x*(-1 + E^(n*x)))/(-1 + E^x)
     ---
     data:
-        got: (E^x*(-1 + E^(n*x)))/(-1 + E^x)
+        got:  x        n x
+#! E  (-1 + E   )
+#! --------------
+         x
+#!    -1 + E
         expect: (E^x*(-1 + E^(n*x)))/(-1 + E^x)
-        expect_evaluated: (E^x*(-1 + E^(n*x)))/(-1 + E^x)
+        expect_evaluated:  x        n x
+#! E  (-1 + E   )
+#! --------------
+         x
+#!    -1 + E
     ...
 # This particular parameter value gives an RefLink[Indeterminate,paclet:ref/Indeterminate] result:
 ok  s /. x -> 0    ==>     Indeterminate
@@ -166,21 +177,9 @@ ok  Simplify[(x^2 - 1)/(x - 1) - 1]    ==>     x
         expect: x
         expect_evaluated: x
     ...
-ok  NestList[Function[x, x], 3.`10., 16]    ==>     {3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3.}
-    ---
-    data:
-        got: {3.`10., 3.`10., 3.`10., 3.`10., 3.`10., 3.`10., 3.`10., 3.`10., 3.`10., 3.`10., 3.`10., 3.`10., 3.`10., 3.`10., 3.`10., 3.`10., 3.`10.}
-        expect: {3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3.}
-        expect_evaluated: {3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3.}
-    ...
+ok  NestList[Function[x, x], 3.`10., 16]    ==>     {3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3.} # skip
 # Sometimes a higher precision is needed: 
-ok  NestList[Function[x, (x^2 - 1)/(x - 1) - 1], 3.`20., 16]    ==>     {3.`19.477121254719663, 3.`18.477121254719663, 3.`18.477121254719663, 3.`17.477121254719663, 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3.}
-    ---
-    data:
-        got: {3.`20., 3.`19.301029995663985, 3.`18.60205999132797, 3.`17.90308998699195, 3.`17.204119982655936, 3.`16.50514997831992, 3.`15.806179973983902, 3.`15.107209969647887, 3.`14.40823996531187, 3.`13.709269960975853, 3.`13.010299956639836, 3.`12.31132995230382, 3.`11.612359947967803, 3.`10.913389943631786, 3.`10.21441993929577, 3.`9.515449934959753, 3.`8.816479930623734}
-        expect: {3.`19.477121254719663, 3.`18.477121254719663, 3.`18.477121254719663, 3.`17.477121254719663, 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3.}
-        expect_evaluated: {3.`19.477121254719663, 3.`18.477121254719663, 3.`18.477121254719663, 3.`17.477121254719663, 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3.}
-    ...
+ok  NestList[Function[x, (x^2 - 1)/(x - 1) - 1], 3.`20., 16]    ==>     {3.`19.477121254719663, 3.`18.477121254719663, 3.`18.477121254719663, 3.`17.477121254719663, 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3., 3.} # skip
 # RefLink[Indeterminate,paclet:ref/Indeterminate] does not equal itself:
 ok  Indeterminate == Indeterminate    ==>     Indeterminate == Indeterminate
     ---

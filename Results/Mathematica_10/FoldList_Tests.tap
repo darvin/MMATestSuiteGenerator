@@ -1,13 +1,11 @@
 #! DOCKER > wolfram -script output/Tests/FoldList_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: FoldList_Tests
-ok  FoldList[f, x, {a, b, c, d}]    ==>     {x, f[x, a], f[f[x, a], b], f[f[f[x, a], b], c], f[f[f[f[x, a], b], c], d]}
-    ---
-    data:
-        got: {x, f[x, a], f[f[x, a], b], f[f[f[x, a], b], c], f[f[f[f[x, a], b], c], d]}
-        expect: {x, f[x, a], f[f[x, a], b], f[f[f[x, a], b], c], f[f[f[f[x, a], b], c], d]}
-        expect_evaluated: {x, f[x, a], f[f[x, a], b], f[f[f[x, a], b], c], f[f[f[f[x, a], b], c], d]}
-    ...
+ok  $Failed    ==>     HoldComplete[{x, f[x, a], f[f[x, a], b], f[f[f[x, a], b], c], f[f[f[f[x, a], b], c], d]}] # skip
 # Cumulative sums of the elements of the list:
 ok  FoldList[Plus, 0, {a, b, c, d}]    ==>     {0, a, a + b, a + b + c, a + b + c + d}
     ---
@@ -20,9 +18,11 @@ ok  FoldList[Plus, 0, {a, b, c, d}]    ==>     {0, a, a + b, a + b + c, a + b + 
 ok  FoldList[#1^#2 & , x, {a, b, c, d}]    ==>     {x, x^a, (x^a)^b, ((x^a)^b)^c, (((x^a)^b)^c)^d}
     ---
     data:
-        got: {x, x^a, (x^a)^b, ((x^a)^b)^c, (((x^a)^b)^c)^d}
+        got:      a    a b     a b c      a b c d
+#! {x, x , (x ) , ((x ) ) , (((x ) ) ) }
         expect: {x, x^a, (x^a)^b, ((x^a)^b)^c, (((x^a)^b)^c)^d}
-        expect_evaluated: {x, x^a, (x^a)^b, ((x^a)^b)^c, (((x^a)^b)^c)^d}
+        expect_evaluated:      a    a b     a b c      a b c d
+#! {x, x , (x ) , ((x ) ) , (((x ) ) ) }
     ...
 # The head need not be RefLink[List,paclet:ref/List]:
 ok  FoldList[f, x, p[a, b, c, d]]    ==>     p[x, f[x, a], f[f[x, a], b], f[f[f[x, a], b], c], f[f[f[f[x, a], b], c], d]]
@@ -68,17 +68,29 @@ ok  FoldList[Plus, 0, {a, b, c, d}]    ==>     {0, a, a + b, a + b + c, a + b + 
 ok  FoldList[1/(#2 + #1) & , x, Reverse[{a, b, c}]]    ==>     {x, 1/(c + x), 1/(b + 1/(c + x)), 1/(a + 1/(b + 1/(c + x)))}
     ---
     data:
-        got: {x, (c + x)^(-1), (b + (c + x)^(-1))^(-1), (a + (b + (c + x)^(-1))^(-1))^(-1)}
+        got:       1        1            1
+#! {x, -----, ---------, -------------}
+    c + x        1            1
+#!            b + -----  a + ---------
+#!                c + x            1
+#!                           b + -----
+#!                               c + x
         expect: {x, 1/(c + x), 1/(b + 1/(c + x)), 1/(a + 1/(b + 1/(c + x)))}
-        expect_evaluated: {x, (c + x)^(-1), (b + (c + x)^(-1))^(-1), (a + (b + (c + x)^(-1))^(-1))^(-1)}
+        expect_evaluated:       1        1            1
+#! {x, -----, ---------, -------------}
+    c + x        1            1
+#!            b + -----  a + ---------
+#!                c + x            1
+#!                           b + -----
+#!                               c + x
     ...
 # Build up a nested polynomial (Horner form):
 ok  FoldList[x*#1 + #2 & , 0, {a, b, c, d}]    ==>     {0, a, b + a*x, c + x*(b + a*x), d + x*(c + x*(b + a*x))}
     ---
     data:
-        got: {0, a, b + a*x, c + x*(b + a*x), d + x*(c + x*(b + a*x))}
+        got: {0, a, b + a x, c + x (b + a x), d + x (c + x (b + a x))}
         expect: {0, a, b + a*x, c + x*(b + a*x), d + x*(c + x*(b + a*x))}
-        expect_evaluated: {0, a, b + a*x, c + x*(b + a*x), d + x*(c + x*(b + a*x))}
+        expect_evaluated: {0, a, b + a x, c + x (b + a x), d + x (c + x (b + a x))}
     ...
 # Build up a number from digits:
 ok  FoldList[10*#1 + #2 & , 0, {4, 5, 1, 6, 7, 8}]    ==>     {0, 4, 45, 451, 4516, 45167, 451678}
@@ -111,16 +123,20 @@ ok  DeleteDuplicates[%]    ==>     {0, 1, 3, 4, 5, 6, 8, 11} # skip
 ok  FoldList[#1[[#2]] & , (a + b)*(x^2 + y^2), {2, 1, 1}]    ==>     {(a + b)*(x^2 + y^2), x^2 + y^2, x^2, x}
     ---
     data:
-        got: {(a + b)*(x^2 + y^2), x^2 + y^2, x^2, x}
+        got:            2    2    2    2   2
+#! {(a + b) (x  + y ), x  + y , x , x}
         expect: {(a + b)*(x^2 + y^2), x^2 + y^2, x^2, x}
-        expect_evaluated: {(a + b)*(x^2 + y^2), x^2 + y^2, x^2, x}
+        expect_evaluated:            2    2    2    2   2
+#! {(a + b) (x  + y ), x  + y , x , x}
     ...
 ok  FoldList[Part, (a + b)*(x^2 + y^2), {2, 1, 1}]    ==>     {(a + b)*(x^2 + y^2), x^2 + y^2, x^2, x}
     ---
     data:
-        got: {(a + b)*(x^2 + y^2), x^2 + y^2, x^2, x}
+        got:            2    2    2    2   2
+#! {(a + b) (x  + y ), x  + y , x , x}
         expect: {(a + b)*(x^2 + y^2), x^2 + y^2, x^2, x}
-        expect_evaluated: {(a + b)*(x^2 + y^2), x^2 + y^2, x^2, x}
+        expect_evaluated:            2    2    2    2   2
+#! {(a + b) (x  + y ), x  + y , x , x}
     ...
 # Successively append to a list:
 ok  FoldList[Append, {x}, {a, b, c, d}]    ==>     {{x}, {x, a}, {x, a, b}, {x, a, b, c}, {x, a, b, c, d}}
@@ -158,9 +174,11 @@ ok  FoldList[#2[#1] & , x, {a, b, c, d}]    ==>     {x, a[x], b[a[x]], c[b[a[x]]
 ok  With[{m = x, t = 85}, FoldList[#1^2*m^#2 & , 1, IntegerDigits[t, 2]]]    ==>     {1, x, x^2, x^5, x^10, x^21, x^42, x^85}
     ---
     data:
-        got: {1, x, x^2, x^5, x^10, x^21, x^42, x^85}
+        got:         2   5   10   21   42   85
+#! {1, x, x , x , x  , x  , x  , x  }
         expect: {1, x, x^2, x^5, x^10, x^21, x^42, x^85}
-        expect_evaluated: {1, x, x^2, x^5, x^10, x^21, x^42, x^85}
+        expect_evaluated:         2   5   10   21   42   85
+#! {1, x, x , x , x  , x  , x  , x  }
     ...
 ok  With[{m = 3, t = 85}, FoldList[#1^2*m^#2 & , 1, IntegerDigits[t, 2]]]    ==>     {1, 3, 9, 243, 59049, 10460353203, 109418989131512359209, 35917545547686059365808220080151141317043}
     ---
@@ -238,4 +256,11 @@ ok  Accumulate[{a, b, c, d}]    ==>     {a, a + b, a + b + c, a + b + c + d}
         expect: {a, a + b, a + b + c, a + b + c + d}
         expect_evaluated: {a, a + b, a + b + c, a + b + c + d}
     ...
-ok  makeChange[1.63]    ==>     {6, 1, 0, 3} # skip
+# Compute the minimum number of coins of different value needed to make up an amount d:
+ok  makeChange[d_] := Quotient[FoldList[Mod, 100*d, {25, 10, 5}], {25, 10, 5, 1}]; makeChange[1.63]    ==>     {6, 1, 0, 3}
+    ---
+    data:
+        got: {6, 1, 0, 3}
+        expect: {6, 1, 0, 3}
+        expect_evaluated: {6, 1, 0, 3}
+    ...

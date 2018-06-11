@@ -1,4 +1,11 @@
 #! DOCKER > wolfram -script output/Tests/Denominator_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Span], 3], Short[HoldForm[Span[(5*a^b*(-1 + x)^2)/(7*c^d*(-2 + x)^3), num]], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Denominator_Tests
 # Extract denominator of a rational number:
@@ -13,9 +20,11 @@ ok  Denominator[2/3]    ==>     3
 ok  Denominator[(x - 1)*((x - 2)/(x - 3)^2)]    ==>     (-3 + x)^2
     ---
     data:
-        got: (-3 + x)^2
+        got:         2
+#! (-3 + x)
         expect: (-3 + x)^2
-        expect_evaluated: (-3 + x)^2
+        expect_evaluated:         2
+#! (-3 + x)
     ...
 # Rational numbers:
 ok  Denominator[3/7]    ==>     7
@@ -29,32 +38,44 @@ ok  Denominator[3/7]    ==>     7
 ok  Denominator[(x - 1)^2/((x - 2)*(x - 3))]    ==>     (-3 + x)*(-2 + x)
     ---
     data:
-        got: (-3 + x)*(-2 + x)
+        got: (-3 + x) (-2 + x)
         expect: (-3 + x)*(-2 + x)
-        expect_evaluated: (-3 + x)*(-2 + x)
+        expect_evaluated: (-3 + x) (-2 + x)
     ...
 # Select terms with syntactically negative exponents:
 ok  expr = (a*x^n*Exp[a - b - 2*c + 3*d])/y^m    ==>     (a*E^(a - b - 2*c + 3*d)*x^n)/y^m
     ---
     data:
-        got: (a*E^(a - b - 2*c + 3*d)*x^n)/y^m
+        got:    a - b - 2 c + 3 d  n
+#! a E                  x
+#! -----------------------
+#!            m
+#!           y
         expect: (a*E^(a - b - 2*c + 3*d)*x^n)/y^m
-        expect_evaluated: (a*E^(a - b - 2*c + 3*d)*x^n)/y^m
+        expect_evaluated:    a - b - 2 c + 3 d  n
+#! a E                  x
+#! -----------------------
+#!            m
+#!           y
     ...
 ok  Denominator[expr]    ==>     E^(b + 2*c)*y^m
     ---
     data:
-        got: E^(b + 2*c)*y^m
+        got:  b + 2 c  m
+#! E        y
         expect: E^(b + 2*c)*y^m
-        expect_evaluated: E^(b + 2*c)*y^m
+        expect_evaluated:  b + 2 c  m
+#! E        y
     ...
 # All exponents syntactically negative:
 ok  Denominator[1/(a^b*x)]    ==>     a^b*x
     ---
     data:
-        got: a^b*x
+        got:  b
+#! a  x
         expect: a^b*x
-        expect_evaluated: a^b*x
+        expect_evaluated:  b
+#! a  x
     ...
 # No syntactically negative exponents:
 ok  Denominator[2*x^y*b^2]    ==>     1
@@ -76,9 +97,9 @@ ok  Denominator[{1, 2, 3, 4, 5, 6}/3]    ==>     {3, 3, 1, 3, 3, 1}
 ok  Denominator[((1/3)*x + (3/4)*y)/((3/5)*x - (1/2)*y), Modulus -> 7]    ==>     2*x + 3*y
     ---
     data:
-        got: 2*x + 3*y
+        got: 2 x + 3 y
         expect: 2*x + 3*y
-        expect_evaluated: 2*x + 3*y
+        expect_evaluated: 2 x + 3 y
     ...
 # Denominators of trigonometric functions:
 ok  Denominator[{Sin[x], Cos[x], Tan[x], Csc[x], Sec[x], Cot[x]}, Trig -> True]    ==>     {1, 1, Cos[x], Sin[x], Cos[x], Sin[x]}
@@ -92,37 +113,53 @@ ok  Denominator[{Sin[x], Cos[x], Tan[x], Csc[x], Sec[x], Cot[x]}, Trig -> True] 
 ok  Numerator[(2/3)*a*((x - 1)/(x - 2))]    ==>     2*a*(-1 + x)
     ---
     data:
-        got: 2*a*(-1 + x)
+        got: 2 a (-1 + x)
         expect: 2*a*(-1 + x)
-        expect_evaluated: 2*a*(-1 + x)
+        expect_evaluated: 2 a (-1 + x)
     ...
-ok  num = Numerator[expr]    ==>     5*a^b*(-1 + x)^2 # skip
+# An expression is a quotient of its numerator and denominator:
+ok  expr = ((5/7)*((x - 1)^2/(x - 2)^3)*a^b)/c^d ;; num = Numerator[expr]    ==>     5*a^b*(-1 + x)^2 # skip
 ok  den = Denominator[expr]    ==>     7*c^d*(-2 + x)^3 # skip
-not ok  expr === num/den    ==>     True
-    ---
-    data:
-        got: False
-        expect: True
-        expect_evaluated: True
-    ...
+ok  expr === num/den    ==>     True # skip
 # Use RefLink[Cancel,paclet:ref/Cancel] to cancel common factors between the numerator and the denominator:
 ok  Cancel[(x - 1)*((x - 2)/(x^2 - 1))]    ==>     (-2 + x)/(1 + x)
     ---
     data:
-        got: (-2 + x)/(1 + x)
+        got: -2 + x
+#! ------
+#! 1 + x
         expect: (-2 + x)/(1 + x)
-        expect_evaluated: (-2 + x)/(1 + x)
+        expect_evaluated: -2 + x
+#! ------
+#! 1 + x
     ...
 # RefLink[Together,paclet:ref/Together] writes an expression as a fraction and cancels common terms:
 ok  Together[x*((x - 2)/(x^2 - 1)) + x/(x^2 - 1) - 2/(x^2 - 1)]    ==>     (-2 + x)/(-1 + x)
     ---
     data:
-        got: (-2 + x)/(-1 + x)
+        got: -2 + x
+#! ------
+#! -1 + x
         expect: (-2 + x)/(-1 + x)
-        expect_evaluated: (-2 + x)/(-1 + x)
+        expect_evaluated: -2 + x
+#! ------
+#! -1 + x
     ...
-ok  ExpandDenominator[r]    ==>     (1 + x)/(4 + 4*x + x^2) # skip
+# Use RefLink[ExpandDenominator,paclet:ref/ExpandDenominator] to directly expand all denominators:
+ok  r = (x + 1)/(x + 2)^2 ;; ExpandDenominator[r]    ==>     (1 + x)/(4 + 4*x + x^2) # skip
 ok  Numerator[r]/Expand[Denominator[r]]    ==>     (1 + x)/(4 + 4*x + x^2) # skip
-ok  HoldComplete[ArrayPlot[Table[Denominator[i/j], {i, 30}, {j, 30}]]]    ==>     $Failed # skip
+not ok  HoldComplete[ArrayPlot[Table[Denominator[i/j], {i, 30}, {j, 30}]]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Cyclic addition [WebLink[more info,http://www.wolframscience.com/nksonline/page-950b-text]]:
-ok  HoldComplete[ListPlot[Flatten[Table[{i/j, Denominator[i/j]}, {i, 20}, {j, 20}], 1]]]    ==>     $Failed # skip
+not ok  HoldComplete[ListPlot[Flatten[Table[{i/j, Denominator[i/j]}, {i, 20}, {j, 20}], 1]]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...

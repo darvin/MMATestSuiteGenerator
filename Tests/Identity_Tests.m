@@ -1,10 +1,9 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[Identity[x + y], x + y], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[x + y]], 
  TapComment["Plot a collection of functions together with the y=x line:"], 
- TapTestSameBROKEN[HoldComplete[
-   Plot[Evaluate[Through[{Identity, Exp, Log}[x]]], {x, -2, 2}, 
-    AspectRatio -> Automatic, PlotRange -> 2]], $Failed], 
+ TapTestSame[HoldComplete[Plot[Evaluate[Through[{Identity, Exp, Log}[x]]], 
+    {x, -2, 2}, AspectRatio -> Automatic, PlotRange -> 2]], $Failed], 
  TapComment["RefLink[Identity,paclet:ref/Identity] is removed from functional \
 composition:"], TapTestSame[Composition[f, g, Identity, h, Identity], 
   Composition[f, g, h]], TapComment[

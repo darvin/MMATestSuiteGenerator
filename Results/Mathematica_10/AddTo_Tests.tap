@@ -1,20 +1,14 @@
 #! DOCKER > wolfram -script output/Tests/AddTo_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[AppendTo, rvalue], StringForm[`1` is not a variable with a value, so its value cannot be changed., Short[HoldForm[list], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: AddTo_Tests
-ok  k = 1; k += 5    ==>     6
-    ---
-    data:
-        got: 6
-        expect: 6
-        expect_evaluated: 6
-    ...
-ok  k    ==>     6
-    ---
-    data:
-        got: 6
-        expect: 6
-        expect_evaluated: 6
-    ...
+ok  $Failed    ==>     HoldComplete[6] # skip
+ok  k    ==>     6 # skip
 # Add to a numerical value:
 ok  x = 1.5; x += 3.75; x    ==>     5.25
     ---
@@ -99,6 +93,7 @@ ok  k -= 5    ==>     0
         expect: 0
         expect_evaluated: 0
     ...
-ok  AppendTo[list, 4]; list    ==>     {1, 2, 3, 4} # skip
+# A related operation for lists is RefLink[AppendTo,paclet:ref/AppendTo]:
+ok  list = {1, 2, 3} ;; AppendTo[list, 4]; list    ==>     {1, 2, 3, 4} # skip
 # A variable to be incremented must have an initial value:
 ok  x += 2    ==>     x += 2 # skip

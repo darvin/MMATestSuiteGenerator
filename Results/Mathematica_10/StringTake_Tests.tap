@@ -1,31 +1,114 @@
 #! DOCKER > wolfram -script output/Tests/StringTake_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringTake, take], StringForm[Cannot take positions `1` through `2` in "`3`"., Short[HoldForm[-20], 3], Short[HoldForm[-1], 3], Short[HoldForm[red], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: StringTake_Tests
 # Take the first 6 characters in a string:
-ok  StringTake["abcdefghijklm", 6]    ==>     abcdef # skip
+ok  StringTake["abcdefghijklm", 6]    ==>     abcdef
+    ---
+    data:
+        got: abcdef
+        expect: abcdef
+        expect_evaluated: abcdef
+    ...
 # Use RefLink[InputForm,paclet:ref/InputForm] to show quotes:
-ok  InputForm[%]    ==>     "abcdef" # skip
+ok  InputForm[%]    ==>     "abcdef"
+    ---
+    data:
+        got: abcdef
+        expect: "abcdef"
+        expect_evaluated: abcdef
+    ...
 # Take from the end of the string:
-ok  StringTake["abcdefghijklm", -4]    ==>     jklm # skip
+ok  StringTake["abcdefghijklm", -4]    ==>     jklm
+    ---
+    data:
+        got: jklm
+        expect: jklm
+        expect_evaluated: jklm
+    ...
 # Take characters 5 through 10:
-ok  StringTake["abcdefghijklm", {5, 10}]    ==>     efghij # skip
+ok  StringTake["abcdefghijklm", {5, 10}]    ==>     efghij
+    ---
+    data:
+        got: efghij
+        expect: efghij
+        expect_evaluated: efghij
+    ...
 # Find character 6 in a string:
-ok  StringTake["abcdefghijklm", {6}]    ==>     f # skip
-ok  InputForm[%]    ==>     "f" # skip
+ok  StringTake["abcdefghijklm", {6}]    ==>     f
+    ---
+    data:
+        got: f
+        expect: f
+        expect_evaluated: f
+    ...
+ok  InputForm[%]    ==>     "f"
+    ---
+    data:
+        got: f
+        expect: "f"
+        expect_evaluated: f
+    ...
 # Take every other character:
-ok  StringTake["abcdefghijklm", {1, -1, 2}]    ==>     acegikm # skip
+ok  StringTake["abcdefghijklm", {1, -1, 2}]    ==>     acegikm
+    ---
+    data:
+        got: acegikm
+        expect: acegikm
+        expect_evaluated: acegikm
+    ...
 # Take the last 2 characters from several strings:
-ok  StringTake[{"abcdef", "stuv", "xyzw"}, -2]    ==>     {ef, uv, zw} # skip
+ok  StringTake[{"abcdef", "stuv", "xyzw"}, -2]    ==>     {ef, uv, zw}
+    ---
+    data:
+        got: {ef, uv, zw}
+        expect: {ef, uv, zw}
+        expect_evaluated: {ef, uv, zw}
+    ...
 # RefLink[StringTake,paclet:ref/StringTake] works with special characters:
-ok  StringTake["\[FilledDiamond]\[Alpha]\[Beta]\[Gamma]<-->\[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC]\[ReturnIndicator]", -4]    ==>     \[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC]\[ReturnIndicator] # skip
+ok  StringTake["\[FilledDiamond]\[Alpha]\[Beta]\[Gamma]<-->\[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC]\[ReturnIndicator]", -4]    ==>     \[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC]\[ReturnIndicator]
+    ---
+    data:
+        got: \[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC]\[ReturnIndicator]
+        expect: \[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC]\[ReturnIndicator]
+        expect_evaluated: \[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC]\[ReturnIndicator]
+    ...
 # Newline (\n) counts as a single character:
 ok  StringTake["abc\ndef", 5]    ==>     abc*d # skip
 # RefLink[StringTake,paclet:ref/StringTake] can effectively do "part" extraction in strings:
-ok  Characters["abcdefghijklm"][[6]]    ==>     f # skip
-ok  StringTake["abcdefghijklm", {6}]    ==>     f # skip
+ok  Characters["abcdefghijklm"][[6]]    ==>     f
+    ---
+    data:
+        got: f
+        expect: f
+        expect_evaluated: f
+    ...
+ok  StringTake["abcdefghijklm", {6}]    ==>     f
+    ---
+    data:
+        got: f
+        expect: f
+        expect_evaluated: f
+    ...
 # RefLink[StringTake,paclet:ref/StringTake] works like applying RefLink[Take,paclet:ref/Take] to the list of characters:
-ok  Take[Characters["abcdefghijklm"], {5, -4}]    ==>     {e, f, g, h, i, j} # skip
-ok  StringTake["abcdefghijklm", {5, -4}]    ==>     efghij # skip
+ok  Take[Characters["abcdefghijklm"], {5, -4}]    ==>     {e, f, g, h, i, j}
+    ---
+    data:
+        got: {e, f, g, h, i, j}
+        expect: {e, f, g, h, i, j}
+        expect_evaluated: {e, f, g, h, i, j}
+    ...
+ok  StringTake["abcdefghijklm", {5, -4}]    ==>     efghij
+    ---
+    data:
+        got: efghij
+        expect: efghij
+        expect_evaluated: efghij
+    ...
 # Taking between positions 1 and 0 gives a zero-length string:
 ok  StringTake["abcdef", {1, 0}]    ==>     Null # skip
 ok  FullForm[%]    ==>     "" # skip

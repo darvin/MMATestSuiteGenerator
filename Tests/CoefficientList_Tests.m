@@ -22,7 +22,10 @@ when the polynomial has not been expanded out:"],
     {0, 0, 0, 0, 0}}}], TapComment[
   "Coefficient list over the integers modulo 2:"], 
  TapTestSame[CoefficientList[(x + 1)^5, x, Modulus -> 2], 
-  {1, 1, 0, 0, 1, 1}], TapTestSameBROKEN[Coefficient[f, x, 2], 36], 
+  {1, 1, 0, 0, 1, 1}], TapComment["Use \
+RefLink[Coefficient,paclet:ref/Coefficient] to get a coefficient at a \
+specified power of the variable:"], TapTestSameBROKEN[
+  f = (2*x + 3)^3 ;; Coefficient[f, x, 2], 36], 
  TapComment["The list of coefficients can be obtained using \
 RefLink[Coefficient,paclet:ref/Coefficient] and \
 RefLink[Exponent,paclet:ref/Exponent]:"], 
@@ -43,7 +46,10 @@ convolution as performed by RefLink[ListConvolve,paclet:ref/ListConvolve]:"],
   {a, 2*a + b, 3*a + 2*b + c, 4*a + 3*b + 2*c, 4*b + 3*c, 4*c}], 
  TapTestSame[ListConvolve[{a, b, c}, {1, 2, 3, 4}, {1, -1}, 0], 
   {a, 2*a + b, 3*a + 2*b + c, 4*a + 3*b + 2*c, 4*b + 3*c, 4*c}], 
- TapTestSameBROKEN[cl = CoefficientList[f, {x, y}], 
+ TapComment["For multivariate polynomials \
+RefLink[CoefficientList,paclet:ref/CoefficientList] gives a tensor of the \
+coefficients:"], TapTestSameBROKEN[
+  f = (3*x + 5*y)^4 ;; cl = CoefficientList[f, {x, y}], 
   {{0, 0, 0, 0, 625}, {0, 0, 0, 1500, 0}, {0, 0, 1350, 0, 0}, 
    {0, 540, 0, 0, 0}, {81, 0, 0, 0, 0}}], TapComment["RefLink[CoefficientArra\
 ys,paclet:ref/CoefficientArrays] gives the list of arrays of polynomial \

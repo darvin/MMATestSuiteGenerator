@@ -70,7 +70,7 @@ for RefLink[Flatten,paclet:ref/Flatten] on rectangular arrays:"],
   {{{5, 2, 3, 7}, {8, 6, 5, 9}}, {{1, 1, 4, 5}, {0, 9, 3, 7}}, 
    {{2, 0, 1, 3}, {3, 4, 3, 6}}}], TapTestSameBROKEN[Flatten[array], 
   {5, 2, 3, 7, 8, 6, 5, 9, 1, 1, 4, 5, 0, 9, 3, 7, 2, 0, 1, 3, 3, 4, 3, 6}], 
- TapTestSameBROKEN[ArrayReshape[%, {3, 2, 4}], {{{5, 2, 3, 7}, {8, 6, 5, 9}}, 
+ TapTestSame[ArrayReshape[%, {3, 2, 4}], {{{5, 2, 3, 7}, {8, 6, 5, 9}}, 
    {{1, 1, 4, 5}, {0, 9, 3, 7}}, {{2, 0, 1, 3}, {3, 4, 3, 6}}}], 
  TapComment["RefLink[Flatten,paclet:ref/Flatten] effectively arranges \
 elements in the lexicographic order of their indices:"], 

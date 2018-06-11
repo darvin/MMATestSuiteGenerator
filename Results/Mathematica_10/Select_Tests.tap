@@ -1,5 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/Select_Tests.m
-#! TextForm[ColonForm[MessageName[Select, normal], StringForm[Nonatomic expression expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[Select[s, OddQ]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Select_Tests
 # Select elements that are even:
@@ -35,7 +38,13 @@ ok  Select[EvenQ][{1, 2, 4, 7, 6, 2}]    ==>     {2, 4, 6, 2}
         expect_evaluated: {2, 4, 6, 2}
     ...
 # RefLink[Select,paclet:ref/Select] operates on values in an RefLink[Association,paclet:ref/Association]:
-ok  HoldComplete[Select[<| a -> 1, b -> 2, c -> 3, d -> 4 |>, #1 > 2 & ]]    ==>     $Failed # skip
+not ok  HoldComplete[Select[<| a -> 1, b -> 2, c -> 3, d -> 4 |>, #1 > 2 & ]]    ==>     $Failed
+    ---
+    data:
+        got: <|c -> 3, d -> 4|>
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # RefLink[Select,paclet:ref/Select] picks out elements for which applying the criterion explicitly yields RefLink[True,paclet:ref/True]:
 ok  Select[{1, 2, 4, 7, x}, #1 > 2 & ]    ==>     {4, 7}
     ---
@@ -88,10 +97,10 @@ ok  Select[f[1, a, 2, b, 3], IntegerQ]    ==>     f[1, 2, 3]
 ok  HoldComplete[s = SparseArray[Table[2^i -> i, {i, 0, 5}]]]    ==>     $Failed # skip
 ok  HoldComplete[Select[s, EvenQ]]    ==>     $Failed # skip
 # The result may be a list if it is not sparse:
-not ok  Select[s, OddQ]    ==>     {1, 3, 5}
+ok  Select[s, OddQ]    ==>     {1, 3, 5}
     ---
     data:
-        got: Select[s, OddQ]
+        got: {1, 3, 5}
         expect: {1, 3, 5}
         expect_evaluated: {1, 3, 5}
     ...
@@ -127,13 +136,17 @@ ok  Select[Names["*"], StringLength[#1] < 3 & ]    ==>     {C, D, Do, Dt, E, I, 
 ok  Select[7*Pi^2*x^2*y^2, NumericQ]    ==>     7*Pi^2
     ---
     data:
-        got: 7*Pi^2
+        got:     2
+#! 7 Pi
         expect: 7*Pi^2
-        expect_evaluated: 7*Pi^2
+        expect_evaluated:     2
+#! 7 Pi
     ...
-ok  TableForm[Table[n = 10^k; p = app[n]; {n, p, Pi - p}, {k, 1, 6}], TableHeadings -> {{}, {"n", "approximation", "error"}}]    ==>     *n*approximation*error**10*2.4*0.741593**100*2.92*0.221593**1000*3.216 - 0.0744073**10000*3.1544 - 0.0128073**100000*3.14812 - 0.00652735**1000000*3.14213 - 0.000535346 # skip
+# Find an approximation to \[Pi] by finding the proportion of points that lie within a disk:
+ok  app[n_] := 4*N[Length[Select[RandomReal[{-1, 1}, {n, 2}], #1 . #1 <= 1 & ]]/n]; TableForm[Table[n = 10^k; p = app[n]; {n, p, Pi - p}, {k, 1, 6}], TableHeadings -> {{}, {"n", "approximation", "error"}}]    ==>     *n*approximation*error**10*2.4*0.741593**100*2.92*0.221593**1000*3.216 - 0.0744073**10000*3.1544 - 0.0128073**100000*3.14812 - 0.00652735**1000000*3.14213 - 0.000535346 # skip
 # RefLink[Select,paclet:ref/Select] is similar to RefLink[Cases,paclet:ref/Cases] except that it uses a function instead of a pattern:
 ok  list = RandomInteger[9, {10, 2}]    ==>     {{0, 7}, {5, 9}, {8, 7}, {2, 8}, {6, 8}, {4, 1}, {1, 8}, {3, 9}, {9, 7}, {8, 5}} # skip
-ok  Select[list, f]    ==>     {{0, 7}, {4, 1}, {1, 8}} # skip
+# Select the lists that have sum of elements less than 10:
+ok  f = (Total[#1] < 10 & ) ;; Select[list, f]    ==>     {{0, 7}, {4, 1}, {1, 8}} # skip
 # Use RefLink[Cases,paclet:ref/Cases] to get the same result:
 ok  Cases[list, x_ /; f[x]]    ==>     {{0, 7}, {4, 1}, {1, 8}} # skip

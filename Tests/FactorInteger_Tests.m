@@ -37,7 +37,7 @@ factorization of n! only to the first power:"],
   {1, 2, 3, 4, 5, 7, 8, 9, 11, 13, 16, 17, 19, 23, 25, 27, 29, 31, 32, 37, 
    41, 43, 47, 49, 53, 59, 61, 64, 67, 71, 73, 79, 81, 83, 89, 97}], 
  TapComment["The number of distinct factors of successive numbers:"], 
- TapTestSameBROKEN[HoldComplete[ListPlot[Table[Length[FactorInteger[n]], 
+ TapTestSame[HoldComplete[ListPlot[Table[Length[FactorInteger[n]], 
      {n, 100}]]], $Failed], 
  TapComment["The highest power of a prime in numbers up to 100: "], 
  TapTestSame[Table[Max[Last /@ FactorInteger[n]], {n, 2, 100}], 
@@ -46,10 +46,10 @@ factorization of n! only to the first power:"],
    2, 1, 3, 1, 3, 1, 1, 1, 2, 1, 1, 2, 6, 1, 1, 1, 2, 1, 1, 1, 3, 1, 1, 2, 2, 
    1, 1, 1, 4, 4, 1, 1, 2, 1, 1, 1, 3, 1, 2, 1, 2, 1, 1, 1, 5, 1, 2, 2, 2}], 
  TapComment["The number of factors with Gaussian integers allowed:"], 
- TapTestSameBROKEN[HoldComplete[
-   ListPlot[Table[Length[FactorInteger[n, GaussianIntegers -> True]], 
-     {n, 100}]]], $Failed], TapComment["Timings can increase rapidly and \
-unpredictably with the size of the input:"], 
- TapTestSameBROKEN[Table[Timing[FactorInteger[2^n - 1]; n], 
-   {n, 50, 300, 50}], {{4.41314/10^15, 50}, {4.41314/10^15, 100}, 
-   {0.031, 150}, {0.016, 200}, {0.656, 250}, {0.031, 300}}]]
+ TapTestSame[HoldComplete[ListPlot[
+    Table[Length[FactorInteger[n, GaussianIntegers -> True]], {n, 100}]]], 
+  $Failed], TapComment["Timings can increase rapidly and unpredictably with \
+the size of the input:"], TapTestSameBROKEN[
+  Table[Timing[FactorInteger[2^n - 1]; n], {n, 50, 300, 50}], 
+  {{4.41314/10^15, 50}, {4.41314/10^15, 100}, {0.031, 150}, {0.016, 200}, 
+   {0.656, 250}, {0.031, 300}}]]

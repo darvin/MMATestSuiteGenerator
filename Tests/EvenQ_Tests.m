@@ -16,6 +16,9 @@ RefLink[OddQ,paclet:ref/OddQ] to check that an integer is odd:"],
   "The generating function of the even integers is (2 x)/(x-1)^2:"], 
  TapTestSame[Series[2*(x/(x - 1)^2), {x, 0, 10}], 
   2*x + 4*x^2 + 6*x^3 + 8*x^4 + 10*x^5 + 12*x^6 + 14*x^7 + 16*x^8 + 18*x^9 + 
-   20*x^10 + O[x]^11], TapTestSame[EvenQ[x], False], 
+   20*x^10 + O[x]^11], TapComment["Expressions that represent even integers \
+but do not evaluate explicitly will still give \
+RefLink[False,paclet:ref/False]:"], TapTestSameBROKEN[
+  x = 2*(GoldenRatio - 1/GoldenRatio) ;; EvenQ[x], False], 
  TapComment["It is necessary to use symbolic simplification first:"], 
  TapTestSameBROKEN[FullSimplify[x], 2]]

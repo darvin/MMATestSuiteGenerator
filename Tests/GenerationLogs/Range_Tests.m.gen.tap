@@ -1,19 +1,34 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Range.nb output/Tests/Range_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Range.nb
 # WRITING OUTPUT TO:     output/Tests/Range_Tests.m
-ok  Range[4]    ==>     {1,2,3,4}
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/Range.html; Range[4]
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{Range, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`http://reference.wolfram.com/language/ref/Range.html; Range[4]\)
+#!                                                                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/Range.html; Range[4]    ==>     {1,2,3,4}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Range[1.2,2.2,0.15]    ==>     {1.2,1.35,1.5,1.65,1.8,1.95,2.1}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  Range[x,x+4]    ==>     {x,1+x,2+x,3+x,4+x}
 ok  Range[1,10,2]    ==>     {1,3,5,7,9}
 ok  Range[10,1,-1]    ==>     {10,9,8,7,6,5,4,3,2,1}
 ok  Range[0,10,\[Pi]]    ==>     {0,\[Pi],2 \[Pi],3 \[Pi]}
-not ok  Range[0,10,N[\[Pi]]]    ==>     {0.,3.14159,6.28319,9.42478}
-ok  Range[0,10, N[\[Pi], 24]]    ==>     {0,3.14159265358979323846264,6.28318530717958647692529,9.42477796076937971538793}
+ok  Range[0,10,N[\[Pi]]]    ==>     {0.,3.14159,6.28319,9.42478}
+not ok  Range[0,10, N[\[Pi], 24]]    ==>     {0,3.14159265358979323846264,6.28318530717958647692529,9.42477796076937971538793}
 ok  Range[2^225,2^225 + 5]    ==>     {53919893334301279589334030174039261347274288845081144962207220498432,53919893334301279589334030174039261347274288845081144962207220498433,53919893334301279589334030174039261347274288845081144962207220498434,53919893334301279589334030174039261347274288845081144962207220498435,53919893334301279589334030174039261347274288845081144962207220498436,53919893334301279589334030174039261347274288845081144962207220498437}
 ok  Range[a,b,(b-a)/4]    ==>     {a,a+1/4 (-a+b),a+1/2 (-a+b),a+3/4 (-a+b),b}
 ok  Range[{5,2,6,3}]    ==>     {{1,2,3,4,5},{1,2},{1,2,3,4,5,6},{1,2,3}}
 ok  q^Range[5]    ==>     {q,q^2,q^3,q^4,q^5}
-not ok  poly = coeff.x^Range[0,Length[coeff]-1]    ==>     -2+9 x+5 x^2+3 x^3-3 x^4-6 x^5-7 x^6-4 x^7+8 x^8+3 x^9
+#! TextForm[ColonForm[MessageName[Set, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Span], 3], Short[HoldForm[Span[{-2, 9, 5, 3, -3, -6, -7, -4, 8, 3}, poly]], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+not ok  coeff = {-2,9,5,3,-3,-6,-7,-4,8,3};; poly = coeff.x^Range[0,Length[coeff]-1]    ==>     -2+9 x+5 x^2+3 x^3-3 x^4-6 x^5-7 x^6-4 x^7+8 x^8+3 x^9
 not ok  RandomSample[Range[10]]    ==>     {10,6,8,1,9,7,3,5,4,2}
 not ok  perm = RandomSample[Range[10]]    ==>     {4,2,8,1,10,5,3,6,9,7}
 not ok  inverse = perm;
@@ -22,23 +37,21 @@ not ok  inverse = perm;
 ok  Range[-4,9,3]    ==>     {-4,-1,2,5,8}
 ok  Table[i,{i,-4,9,3}]    ==>     {-4,-1,2,5,8}
 #! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[list[[{1, 3, 5}]]], 3]]]]
-not ok  list[[Range[1,5,2]]]    ==>     {a,c,e}
-#! TextForm[ColonForm[MessageName[Part, take], StringForm[Cannot take positions `1` through `2` in `3`., Short[HoldForm[1], 3], Short[HoldForm[5], 3], Short[HoldForm[list], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+not ok  list={a,b,c,d,e};; list[[Range[1,5,2]]]    ==>     {a,c,e}
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$RecursionLimit, reclim]], 3]]]]
 not ok  list[[1;;5;;2]]    ==>     {a,c,e}
 ok  Range[0,10,3]    ==>     {0,3,6,9}
 ok  Range[0,1,.1]    ==>     {0.,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.}
 ok  Range[Range[5]]    ==>     {{1},{1,2},{1,2,3},{1,2,3,4},{1,2,3,4,5}}
 ok  Range[Range[Range[3]]]    ==>     {{{1}},{{1},{1,2}},{{1},{1,2},{1,2,3}}}
 ok  Nest[Range,3,6]    ==>     {{{{{{1}}}}},{{{{{1}}}},{{{{1}}},{{{1}},{{1},{1,2}}}}},{{{{{1}}}},{{{{1}}},{{{1}},{{1},{1,2}}}},{{{{1}}},{{{1}},{{1},{1,2}}},{{{1}},{{1},{1,2}},{{1},{1,2},{1,2,3}}}}}}
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->Scaled[0.1]]\)\)
 #!                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->Scaled[0.1]]\)\)
-#!                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
 not ok  TreeForm[%]    ==>     \!\(\*
 #! GraphicsBox[
 #! TagBox[GraphicsComplexBox[CompressedData["

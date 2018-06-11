@@ -1,8 +1,14 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Numerator.nb output/Tests/Numerator_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Numerator.nb
 # WRITING OUTPUT TO:     output/Tests/Numerator_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Numerator[2/3]    ==>     2
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Numerator[(x-1)(x-2)/(x-3)^2]    ==>     (-2+x) (-1+x)
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  Numerator[3/7]    ==>     3
 ok  Numerator[(x-1)^2/((x-2)(x-3))]    ==>     (-1+x)^2
 ok  expr=a x^n y^-m Exp[a-b-2c+3d]    ==>     a E^(a-b-2 c+3 d) x^n y^-m
@@ -13,8 +19,9 @@ ok  Numerator[{1,2,3,4,5,6}/3]    ==>     {1,2,1,4,5,2}
 ok  Numerator[(1/3 x+3/4 y)/(3/5x-1/2y),Modulus->7]    ==>     5 x+6 y
 ok  Numerator[{Sin[x],Cos[x],Tan[x],Csc[x],Sec[x],Cot[x]},Trig->True]    ==>     {Sin[x],Cos[x],Sin[x],1,1,Cos[x]}
 ok  Denominator[2/3(x-1)/(x-2)]    ==>     3 (-2+x)
-not ok  num=Numerator[expr]    ==>     5 a^b (-1+x)^2
+#! TextForm[ColonForm[MessageName[Set, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Span], 3], Short[HoldForm[Span[(5*a^b*(-1 + x)^2)/(7*c^d*(-2 + x)^3), num]], 3]]]]
+not ok  expr=5/7(x-1)^2/(x-2)^3a^b c^-d;; num=Numerator[expr]    ==>     5 a^b (-1+x)^2
 not ok  den=Denominator[expr]    ==>     7 c^d (-2+x)^3
-ok  expr===num/den    ==>     True
+not ok  expr===num/den    ==>     True
 ok  Cancel[(x-1)(x-2)/(x^2-1)]    ==>     (-2+x)/(1+x)
 ok  Together[x (x-2)/(x^2-1)+x/(x^2-1)-2/(x^2-1)]    ==>     (-2+x)/(-1+x)

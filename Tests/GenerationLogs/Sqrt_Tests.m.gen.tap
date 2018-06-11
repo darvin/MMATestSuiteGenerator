@@ -1,19 +1,29 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Sqrt.nb output/Tests/Sqrt_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Sqrt.nb
 # WRITING OUTPUT TO:     output/Tests/Sqrt_Tests.m
-ok  Sqrt[2]    ==>     Sqrt[2]
-ok  N[Sqrt[2],50]    ==>     1.4142135623730950488016887242096980785696718753769
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/Sqrt.html; Sqrt[2]
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{Sqrt, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`http://reference.wolfram.com/language/ref/Sqrt.html; Sqrt[2]\)
+#!                                                                                 ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/Sqrt.html; Sqrt[2]    ==>     Sqrt[2]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+not ok  N[Sqrt[2],50]    ==>     1.4142135623730950488016887242096980785696718753769
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  Sqrt[-25]    ==>     5 I
 ok  Sqrt[{2,3,4,5}]    ==>     {Sqrt[2],Sqrt[3],2,Sqrt[5]}
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Ticks->{Automatic, Automatic}]\)\)
 #!                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Ticks->{Automatic, Automatic}]\)\)
-#!                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-not ok  Plot[Sqrt[x],{x,0,10}]    ==>     \!\(\*
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+ok  Plot[Sqrt[x],{x,0,10}]    ==>     \!\(\*
 #! GraphicsBox[{{}, {}, 
 #! {RGBColor[0.368417, 0.506779, 0.709798], AbsoluteThickness[1.6], Opacity[1.], LineBox[CompressedData["
 #! 1:eJwVj3k41Ykexg/HwS9qsu+c/OTaH26SbN+vOboS06JkSYOyl0yHnshMWZMl
@@ -73,23 +83,16 @@ not ok  Plot[Sqrt[x],{x,0,10}]    ==>     \!\(\*
 #! PlotRangePadding->{{Scaled[0.02], Scaled[0.02]}, {Scaled[0.05], Scaled[0.05]}},
 #! Ticks->{Automatic, Automatic}]\)
 ok  Sqrt[x^2]    ==>     Sqrt[x^2]
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  Simplify[%,x>0]    ==>     x
 ok  Sqrt[100]    ==>     10
 ok  Sqrt[8]    ==>     2 Sqrt[2]
-not ok  Sqrt[2.5+I]    ==>     1.6113+0.310308 I
+ok  Sqrt[2.5+I]    ==>     1.6113+0.310308 I
 ok  Reduce[a x^2+b x+c==0,x]    ==>     (a!=0&&(x==(-b-Sqrt[b^2-4 a c])/(2 a)||x==(-b+Sqrt[b^2-4 a c])/(2 a)))||(a==0&&b!=0&&x==-(c/b))||(c==0&&b==0&&a==0)
 ok  ContinuedFraction[Sqrt[19]]    ==>     {4,{2,1,3,1,2,8}}
 ok  ContinuedFraction[Sqrt[19],20]    ==>     {4,2,1,3,1,2,8,2,1,3,1,2,8,2,1,3,1,2,8,2}
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 #! TextForm[ColonForm[MessageName[ListPlot, lpn], StringForm[`1` is not a list of numbers or pairs of numbers., Short[HoldForm[Hold[Out[$Line - 1]]], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Ticks->{Automatic, Automatic}]\)\)
-#!                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ListPlot[%,Filling->Axis]    ==>     \!\(\*
+ok  ListPlot[%,Filling->Axis]    ==>     \!\(\*
 #! GraphicsBox[{{}, GraphicsComplexBox[CompressedData["
 #! 1:eJzt0rsJgDAUheFgZWlhkcIiigQRkfgoBTODIwjWru4IKiaCPxYOYEAuX47n
 #! VknndVoCIcRwfOe8zjZeM7LuAjO07//5+xi5RD9xU2H6PEM/x36NvEC/xN4K
@@ -117,8 +120,6 @@ ok  RootReduce[Sqrt[2]+Sqrt[3]]    ==>     Root[1-10 #1^2+#1^4&,4]
 ok  Series[Sqrt[Sin[x]],{x,0,5}]    ==>     Sqrt[x]-x^(5/2)/12+x^(9/2)/1440+O[x]^(11/2)
 ok  ComplexExpand[Sqrt[x+I y]]    ==>     (x^2+y^2)^(1/4) Cos[1/2 Arg[x+I y]]+I (x^2+y^2)^(1/4) Sin[1/2 Arg[x+I y]]
 ok  Expand[(x+Sqrt[2])^2]    ==>     2+2 Sqrt[2] x+x^2
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 not ok  Factor[%,Extension->Automatic]    ==>     (Sqrt[2]+x)^2
 ok  Simplify[Sqrt[1+Sqrt[x^2]],x>0]    ==>     Sqrt[1+x]
 ok  FunctionExpand[Sqrt[-z^2]]    ==>     Sqrt[-z] Sqrt[z]
@@ -127,8 +128,7 @@ ok  PowerExpand[Sqrt[x y]]    ==>     Sqrt[x] Sqrt[y]
 ok  {1,Sqrt[2],3+Sqrt[5]}\[Element]Algebraics    ==>     True
 ok  Limit[Sqrt[-1+I x],x->0,Direction->1]    ==>     -I
 ok  Limit[Sqrt[-1+I x],x->0,Direction->-1]    ==>     I
-not ok  {Sqrt[-1+0.01I],Sqrt[-1-0.01I]}    ==>     {0.00499994+1.00001 I,0.00499994-1.00001 I}
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+ok  {Sqrt[-1+0.01I],Sqrt[-1-0.01I]}    ==>     {0.00499994+1.00001 I,0.00499994-1.00001 I}
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  Plot3D[Im[Sqrt[x+I y]],{x,-1,1},{y,-1,1}]    ==>     \!\(\*
 #! GraphicsBox[
@@ -390,7 +390,6 @@ ok  PowerExpand[Sqrt[x^2]]    ==>     x
 ok  {1/Sqrt[z],Sqrt[1/z]}/.z->-1    ==>     {-I,I}
 ok  Nest[Sqrt[1+#]&,1,10]    ==>     Sqrt[1+Sqrt[1+Sqrt[1+Sqrt[1+Sqrt[1+Sqrt[1+Sqrt[1+Sqrt[1+Sqrt[1+Sqrt[2]]]]]]]]]]
 not ok  N[%]    ==>     1.61803
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  ParametricPlot3D[{x^2-y^2,2x y,x},{x,-1,1},{y,-1,1}]    ==>     \!\(\*
 #! GraphicsBox[

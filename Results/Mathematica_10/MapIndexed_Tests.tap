@@ -1,13 +1,12 @@
 #! DOCKER > wolfram -script output/Tests/MapIndexed_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[MapIndexed, argtu], StringForm[`1` called with 1 argument; `2` or `3` arguments are expected., Short[HoldForm[MapIndexed], 3], Short[HoldForm[2], 3], Short[HoldForm[3], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: MapIndexed_Tests
-ok  MapIndexed[f, {a, b, c, d}]    ==>     {f[a, {1}], f[b, {2}], f[c, {3}], f[d, {4}]}
-    ---
-    data:
-        got: {f[a, {1}], f[b, {2}], f[c, {3}], f[d, {4}]}
-        expect: {f[a, {1}], f[b, {2}], f[c, {3}], f[d, {4}]}
-        expect_evaluated: {f[a, {1}], f[b, {2}], f[c, {3}], f[d, {4}]}
-    ...
+ok  $Failed    ==>     HoldComplete[{f[a, {1}], f[b, {2}], f[c, {3}], f[d, {4}]}] # skip
 # #2 gives the indices of each part:
 ok  MapIndexed[First[#2] + f[#1] & , {a, b, c, d}]    ==>     {1 + f[a], 2 + f[b], 3 + f[c], 4 + f[d]}
     ---
@@ -184,9 +183,11 @@ ok  MapIndexed[Tooltip, Integrate[1/(x^4 - 1), x], Infinity]    ==>     (-(1/2))
 ok  Total[MapIndexed[#1*x^First[#2] & , {a, b, c, d, e}]]    ==>     a*x + b*x^2 + c*x^3 + d*x^4 + e*x^5
     ---
     data:
-        got: a*x + b*x^2 + c*x^3 + d*x^4 + e*x^5
+        got:          2      3      4      5
+#! a x + b x  + c x  + d x  + e x
         expect: a*x + b*x^2 + c*x^3 + d*x^4 + e*x^5
-        expect_evaluated: a*x + b*x^2 + c*x^3 + d*x^4 + e*x^5
+        expect_evaluated:          2      3      4      5
+#! a x + b x  + c x  + d x  + e x
     ...
 # Rotate lists based on position:
 ok  MapIndexed[RotateLeft, Table[{a, b, c}, {6}]]    ==>     {{b, c, a}, {c, a, b}, {a, b, c}, {b, c, a}, {c, a, b}, {a, b, c}}

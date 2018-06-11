@@ -6,22 +6,26 @@ TapSuite[TapComment["Evaluate inside a RefLink[Hold,paclet:ref/Hold]:"],
 symbol with attributes RefLink[HoldAll,paclet:ref/HoldAll], \
 RefLink[HoldFirst,paclet:ref/HoldFirst], or \
 RefLink[HoldRest,paclet:ref/HoldRest]:"], TapTestSame[Attributes[Attributes], 
-  {HoldAll, Listable, Protected}], TapTestSameBROKEN[
-  {Attributes[x], Attributes[Evaluate[x]]}, 
+  {HoldAll, Listable, Protected}], TapComment["Since \
+RefLink[Attributes,paclet:ref/Attributes] is \
+RefLink[HoldAll,paclet:ref/HoldAll], use \
+RefLink[Evaluate,paclet:ref/Evaluate] to find the properties of the value of \
+x: "], TapTestSameBROKEN[
+  x = Plus ;; {Attributes[x], Attributes[Evaluate[x]]}, 
   {{}, {Flat, Listable, NumericFunction, OneIdentity, Orderless, 
     Protected}}], TapComment[
   "Unprotect a system symbol to make a definition for it:"], 
- TapTestSameBROKEN[protected = Unprotect[Sqrt], {Sqrt}], 
- TapComment["Restore protection:"], TapTestSameBROKEN[
-  Protect[Evaluate[protected]], {Sqrt}], 
- TapComment["Force evaluation of the right-hand side of a delayed \
-definition:"], TapTestSame[Expand[(1 + x)^3], 1 + 3*x + 3*x^2 + x^3], 
- TapTestSameBROKEN[f[x_] := 1 + 3*x + 3*x^2 + x^3, 
+ TapTestSame[protected = Unprotect[Sqrt], {Sqrt}], 
+ TapComment["Restore protection:"], TapTestSame[Protect[Evaluate[protected]], 
+  {Sqrt}], TapComment[
+  "Force evaluation of the right-hand side of a delayed definition:"], 
+ TapTestSame[Expand[(1 + x)^3], 1 + 3*x + 3*x^2 + x^3], 
+ TapTestSameBROKEN[f[x_] := Evaluate[%]; f[x_] := 1 + 3*x + 3*x^2 + x^3, 
   f[x_] := 1 + 3*x + 3*x^2 + x^3], 
  TapComment["Build a function from an expression:"], 
  TapTestSame[ch = ChebyshevT[5, x], 5*x - 20*x^3 + 16*x^5], 
  TapTestSameBROKEN[Function[x, Evaluate[ch]], 
-  Function[x, 5*x - 20*x^3 + 16*x^5]], TapTestSameBROKEN[%[10], 1580050], 
+  Function[x, 5*x - 20*x^3 + 16*x^5]], TapTestSame[%[10], 1580050], 
  TapComment["RefLink[Evaluate,paclet:ref/Evaluate] does not work inside \
 functions with attribute \
 RefLink[HoldAllComplete,paclet:ref/HoldAllComplete]:"], 

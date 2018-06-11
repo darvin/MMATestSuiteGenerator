@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/End_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: End_Tests
 # Define a function f in the MyContext` RefLink[Context,paclet:ref/Context]:
@@ -7,10 +11,10 @@ ok  HoldComplete[Begin["MyContext`"]]    ==>     $Failed # skip
 # Restore the context:
 ok  HoldComplete[End[]]    ==>     $Failed # skip
 # The context is now what it was before RefLink[Begin,paclet:ref/Begin] was used:
-not ok  Context[] === originalcontext    ==>     True
+ok  Context[] === originalcontext    ==>     True
     ---
     data:
-        got: False
+        got: True
         expect: True
         expect_evaluated: True
     ...

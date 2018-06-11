@@ -1,6 +1,6 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSameBROKEN[abs /@ {-1, 0, 1}, {1, 0, 1}], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[{1, 0, 1}]], 
  TapComment["If the condition is neither RefLink[True,paclet:ref/True] nor \
 RefLink[False,paclet:ref/False], RefLink[If,paclet:ref/If] remains \
 unevaluated:"], TapTestSame[If[a < b, 1, 0], If[a < b, 1, 0]], 
@@ -18,7 +18,7 @@ it into piecewise normal form: "], TapTestSameBROKEN[
     Less, 3/2] || 2 <= x <= 5/2 || Inequality[3, LessEqual, x, Less, 7/2] || 
    4 <= x <= 9/2 || x <= (1/2)*x*True], 
  TapComment["Perform several different symbolic operations: "], 
- TapTestSameBROKEN[Reduce[f < 5 && 0 < x < 10, x, Reals], 
+ TapTestSame[Reduce[f < 5 && 0 < x < 10, x, Reals], 
   0 < x < 11/2 || 6 <= x <= 13/2 || Inequality[7, LessEqual, x, Less, 
     15/2] || 8 <= x <= 17/2 || Inequality[9, LessEqual, x, Less, 19/2]], 
  TapTestSame[Integrate[f, {x, 0, 10}], 5/2], 
@@ -30,10 +30,18 @@ it into piecewise normal form: "], TapTestSameBROKEN[
  TapTestSame[y = If[x < 0, -x, x], 2], 
  TapComment["Only the branch actually taken is evaluated:"], 
  TapTestSame[x = 1; If[x != 0, 1/x, Indeterminate], 1], 
- TapTestSameBROKEN[sign /@ {-1, 0, 1, I}, {-1, 1, 1, If[I < 0, -1, 1]}], 
- TapTestSameBROKEN[sign2 /@ {-1, 0, 1, I}, {-1, 0, 1, sign2[I]}], 
- TapTestSameBROKEN[cut /@ {-2, -1, 0, 1, 2}, {-1, -1, 0, 1, 1}], 
- TapTestSameBROKEN[cut2 /@ {-2, -1, 0, 1, 2}, {-1, -1, 0, 1, 1}], 
+ TapComment["Define a function by cases:"], 
+ TapTestSame[sign[x_] := If[x < 0, -1, 1]; sign /@ {-1, 0, 1, I}, 
+  {-1, 1, 1, If[I < 0, -1, 1]}], 
+ TapComment["Alternatively, use several conditional definitions:"], 
+ TapTestSame[sign2[x_ /; x < 0] := -sign2[x_ /; x >= 0] := x; 
+   sign2 /@ {-1, 0, 1, I}, {-1, 0, 1, sign2[I]}], 
+ TapComment["Use RefLink[Which,paclet:ref/Which] rather than a nested \
+if-then-elsif chain:"], TapTestSame[
+  cut[x_] := If[x < -1, -1, If[x < 1, x, 1]]; cut /@ {-2, -1, 0, 1, 2}, 
+  {-1, -1, 0, 1, 1}], TapTestSame[
+  cut2[x_] := Which[x < -1, -1, x < 1, x, True, 1]; 
+   cut2 /@ {-2, -1, 0, 1, 2}, {-1, -1, 0, 1, 1}], 
  TapComment["Use RefLink[PiecewiseExpand,paclet:ref/PiecewiseExpand] to \
 convert RefLink[If,paclet:ref/If] to \
 RefLink[Piecewise,paclet:ref/Piecewise]:"], 

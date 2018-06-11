@@ -13,12 +13,22 @@ TapSuite[TapComment["Attributes for an existing symbol: "],
    {Listable, NumericFunction, Protected}}], 
  TapComment["The symbol can be given as a string:"], 
  TapTestSame[Attributes["Set"], {HoldFirst, Protected, SequenceHold}], 
- TapTestSameBROKEN[Attributes[{f, g}], {{HoldAll, Listable}, {HoldAll}}], 
- TapTestSameBROKEN[Attributes[f] = {Listable}, Attributes[f] = {Listable}], 
- TapTestSameBROKEN[Attributes[f], {Protected}], 
- TapTestSameBROKEN[Attributes[f], {}], TapComment["RefLink[Attributes,paclet:\
-ref/Attributes] has the attribute RefLink[HoldAll,paclet:ref/HoldAll]:"], 
- TapTestSame[Attributes[Attributes], {HoldAll, Listable, Protected}], 
+ TapComment["RefLink[SetAttributes,paclet:ref/SetAttributes] adds to the \
+already existing attributes; \
+RefLink[Attributes,paclet:ref/Attributes][g]={..} resets the list:"], 
+ TapTestSameBROKEN[SetAttributes[f, HoldAll]; 
+   Attributes[g] = HoldAll ;; Attributes[{f, g}], 
+  {{HoldAll, Listable}, {HoldAll}}], TapComment["An assignment to \
+RefLink[Attributes,paclet:ref/Attributes] is associated with f, not with \
+RefLink[Attributes,paclet:ref/Attributes]:"], 
+ TapTestSameBROKEN[Attributes[f] = Listable ;; Attributes[f] = {Listable}, 
+  Attributes[f] = {Listable}], TapComment["Protecting a symbol is equivalent \
+to setting the RefLink[Protected,paclet:ref/Protected] attribute:"], 
+ TapTestSameBROKEN[Protect[f] ;; Attributes[f], {Protected}], 
+ TapTestSameBROKEN[Unprotect[f] ;; Attributes[f], {}], 
+ TapComment["RefLink[Attributes,paclet:ref/Attributes] has the attribute \
+RefLink[HoldAll,paclet:ref/HoldAll]:"], TapTestSame[Attributes[Attributes], 
+  {HoldAll, Listable, Protected}], 
  TapComment["This gives the attributes of the symbol syms itself:"], 
  TapTestSame[Attributes[syms], {}], 
  TapComment["This gives the attributes of all symbols in the list syms:"], 

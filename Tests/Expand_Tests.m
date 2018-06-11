@@ -51,8 +51,8 @@ more terms than are needed:"], TapTestSame[Distribute[Factor[x^6 - 1], Plus,
    Times, List, Times], {-1, -x, -x^2, x, x^2, x^3, -x^2, -x^3, -x^4, -x, 
    -x^2, -x^3, x^2, x^3, x^4, -x^3, -x^4, -x^5, x, x^2, x^3, -x^2, -x^3, 
    -x^4, x^3, x^4, x^5, x^2, x^3, x^4, -x^3, -x^4, -x^5, x^4, x^5, x^6}], 
- TapTestSameBROKEN[Total[%], -1 + x^6], TapTestSameBROKEN[
-  Style[Expand[(\[HappySmiley] + \[SadSmiley])^5], 20], 
+ TapTestSameBROKEN[Total[%], -1 + x^6], 
+ TapTestSame[Style[Expand[(\[HappySmiley] + \[SadSmiley])^5], 20], 
   \[HappySmiley]^5 + 5*\[HappySmiley]^4*\[SadSmiley] + 
    10*\[HappySmiley]^3*\[SadSmiley]^2 + 10*\[HappySmiley]^2*\[SadSmiley]^3 + 
    5*\[HappySmiley]*\[SadSmiley]^4 + \[SadSmiley]^5], 

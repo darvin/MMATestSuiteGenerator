@@ -1,8 +1,7 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[FoldList[f, x, {a, b, c, d}], 
-  {x, f[x, a], f[f[x, a], b], f[f[f[x, a], b], c], 
-   f[f[f[f[x, a], b], c], d]}], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[{x, f[x, a], f[f[x, a], b], 
+    f[f[f[x, a], b], c], f[f[f[f[x, a], b], c], d]}]], 
  TapComment["Cumulative sums of the elements of the list:"], 
  TapTestSame[FoldList[Plus, 0, {a, b, c, d}], {0, a, a + b, a + b + c, 
    a + b + c + d}], TapComment["Cumulative powers:"], 
@@ -86,4 +85,7 @@ RefLink[FoldList,paclet:ref/FoldList] with RefLink[Plus,paclet:ref/Plus]:"],
  TapTestSame[Rest[FoldList[Plus, 0, {a, b, c, d}]], 
   {a, a + b, a + b + c, a + b + c + d}], 
  TapTestSame[Accumulate[{a, b, c, d}], {a, a + b, a + b + c, a + b + c + d}], 
- TapTestSameBROKEN[makeChange[1.63], {6, 1, 0, 3}]]
+ TapComment["Compute the minimum number of coins of different value needed to \
+make up an amount d:"], TapTestSame[
+  makeChange[d_] := Quotient[FoldList[Mod, 100*d, {25, 10, 5}], 
+     {25, 10, 5, 1}]; makeChange[1.63], {6, 1, 0, 3}]]

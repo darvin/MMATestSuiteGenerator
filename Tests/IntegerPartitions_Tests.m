@@ -62,8 +62,7 @@ RefLink[Sort,paclet:ref/Sort] order:"], TapTestSame[IntegerPartitions[5],
   {{5}, {3, 2}, {4, 1}, {2, 2, 1}, {3, 1, 1}, {2, 1, 1, 1}, 
    {1, 1, 1, 1, 1}}], TapComment["For integers below 10, generate \
 RefLink[IntegerPartitions,paclet:ref/IntegerPartitions] order by converting \
-to strings:"], TapTestSameBROKEN[
-  Reverse[Sort[ToString /@ IntegerPartitions[5]]], 
+to strings:"], TapTestSame[Reverse[Sort[ToString /@ IntegerPartitions[5]]], 
   {{5}, {4, 1}, {3, 2}, {3, 1, 1}, {2, 2, 1}, {2, 1, 1, 1}, 
    {1, 1, 1, 1, 1}}], TapComment["RefLink[FrobeniusSolve,paclet:ref/Frobenius\
 Solve] gives coefficient lists for \
@@ -83,4 +82,6 @@ f/IntegerPartitions] cannot give an infinite list of partitions:"],
   {{1/3, 1/6}, {1/6, 1/6, 1/6}}], TapComment["If all items requested by the \
 fourth argument are not present, a warning message is issued:"], 
  TapTestSame[IntegerPartitions[3, All, All, 7], {{3}, {2, 1}, {1, 1, 1}}], 
- TapTestSame[IntegerPartitions[3, All, All, 7], {{3}, {2, 1}, {1, 1, 1}}]]
+ TapComment["To suppress the message, use RefLink[Off,paclet:ref/Off]:"], 
+ TapTestSame[Off[IntegerPartitions::take]; IntegerPartitions[3, All, All, 7], 
+  {{3}, {2, 1}, {1, 1, 1}}]]

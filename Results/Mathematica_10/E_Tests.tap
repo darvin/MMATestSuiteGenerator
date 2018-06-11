@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/E_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: E_Tests
 # RefLink[E,paclet:ref/E] can be entered as Esc\[ThinSpace]ee\[ThinSpace]Esc (for "exponential e"):
@@ -10,13 +14,7 @@ ok  E    ==>     E
         expect_evaluated: E
     ...
 # Evaluate to any precision:
-ok  N[E, 50]    ==>     2.7182818284590452353602874713526624977572470937`49.43429448190326
-    ---
-    data:
-        got: 2.718281828459045235360287471352662497757247093699959574958422296476`50.
-        expect: 2.7182818284590452353602874713526624977572470937`49.43429448190326
-        expect_evaluated: 2.7182818284590452353602874713526624977572470937`49.43429448190326
-    ...
+ok  N[E, 50]    ==>     2.7182818284590452353602874713526624977572470937`49.43429448190326 # skip
 # Do an exact numerical computation:
 ok  Round[E^100]    ==>     26881171418161354484126255515800135873611119
     ---
@@ -61,17 +59,21 @@ ok  Limit[(1 + z)^(1/z), z -> 0]    ==>     E
 ok  Maximize[{x^(1/x), x > 0}, x]    ==>     {E^(1/E), {x -> E}}
     ---
     data:
-        got: {E^E^(-1), {x -> E}}
+        got:   1/E
+#! {E   , {x -> E}}
         expect: {E^(1/E), {x -> E}}
-        expect_evaluated: {E^E^(-1), {x -> E}}
+        expect_evaluated:   1/E
+#! {E   , {x -> E}}
     ...
 # RefLink[Exp,paclet:ref/Exp][z] is automatically converted to E^z:
 ok  Exp[z]    ==>     E^z
     ---
     data:
-        got: E^z
+        got:  z
+#! E
         expect: E^z
-        expect_evaluated: E^z
+        expect_evaluated:  z
+#! E
     ...
 # E is not an algebraic number:
 ok  Element[E, Algebraics]    ==>     False
@@ -85,9 +87,13 @@ ok  Element[E, Algebraics]    ==>     False
 ok  TrigToExp[Sinh[1]]    ==>     -(1/(2*E)) + E/2
     ---
     data:
-        got: -1/(2*E) + E/2
+        got: -1    E
+#! --- + -
+#! 2 E   2
         expect: -(1/(2*E)) + E/2
-        expect_evaluated: -1/(2*E) + E/2
+        expect_evaluated: -1    E
+#! --- + -
+#! 2 E   2
     ...
 # Find twenty base-10 digits after the millionth one:
 ok  RealDigits[E, 10, 20, -1000000]    ==>     {{8, 8, 3, 7, 4, 7, 1, 1, 5, 1, 5, 6, 2, 3, 9, 6, 8, 2, 7, 1}, -999999}

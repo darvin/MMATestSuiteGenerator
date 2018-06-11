@@ -1,20 +1,12 @@
 #! DOCKER > wolfram -script output/Tests/SubtractFrom_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: SubtractFrom_Tests
-ok  k = 1; k -= 5    ==>     -4
-    ---
-    data:
-        got: -4
-        expect: -4
-        expect_evaluated: -4
-    ...
-ok  k    ==>     -4
-    ---
-    data:
-        got: -4
-        expect: -4
-        expect_evaluated: -4
-    ...
+ok  $Failed    ==>     HoldComplete[-4] # skip
+ok  k    ==>     -4 # skip
 # Subtract from a numerical value:
 ok  x = 1.5; x -= 0.75; x    ==>     0.75
     ---

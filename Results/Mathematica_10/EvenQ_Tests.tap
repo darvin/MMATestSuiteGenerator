@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/EvenQ_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: EvenQ_Tests
 # Test whether 8 is even:
@@ -66,16 +70,13 @@ ok  Divisible[12, 2]    ==>     True
 ok  Series[2*(x/(x - 1)^2), {x, 0, 10}]    ==>     2*x + 4*x^2 + 6*x^3 + 8*x^4 + 10*x^5 + 12*x^6 + 14*x^7 + 16*x^8 + 18*x^9 + 20*x^10 + O[x]^11
     ---
     data:
-        got: SeriesData[x, 0, {2, 4, 6, 8, 10, 12, 14, 16, 18, 20}, 1, 11, 1]
+        got:          2      3      4       5       6       7       8       9       10       11
+#! 2 x + 4 x  + 6 x  + 8 x  + 10 x  + 12 x  + 14 x  + 16 x  + 18 x  + 20 x   + O[x]
         expect: 2*x + 4*x^2 + 6*x^3 + 8*x^4 + 10*x^5 + 12*x^6 + 14*x^7 + 16*x^8 + 18*x^9 + 20*x^10 + O[x]^11
-        expect_evaluated: SeriesData[x, 0, {2, 4, 6, 8, 10, 12, 14, 16, 18, 20}, 1, 11, 1]
+        expect_evaluated:          2      3      4       5       6       7       8       9       10       11
+#! 2 x + 4 x  + 6 x  + 8 x  + 10 x  + 12 x  + 14 x  + 16 x  + 18 x  + 20 x   + O[x]
     ...
-ok  EvenQ[x]    ==>     False
-    ---
-    data:
-        got: False
-        expect: False
-        expect_evaluated: False
-    ...
+# Expressions that represent even integers but do not evaluate explicitly will still give RefLink[False,paclet:ref/False]:
+ok  x = 2*(GoldenRatio - 1/GoldenRatio) ;; EvenQ[x]    ==>     False # skip
 # It is necessary to use symbolic simplification first:
 ok  FullSimplify[x]    ==>     2 # skip

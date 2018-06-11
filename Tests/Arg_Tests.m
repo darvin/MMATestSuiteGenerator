@@ -4,10 +4,10 @@ TapSuite[TapComment["The result is given in radians:"],
  TapTestSame[Arg[-1], Pi], TapTestSame[Arg[1 + I], Pi/4], 
  TapTestSameBROKEN[HoldComplete[Plot3D[Arg[x + I*y], {x, -3, 3}, 
     {y, -3, 3}]], $Failed], TapTestSame[Arg[1.2], 0], 
- TapTestSameBROKEN[Arg[-3.2*I], -1.5708], TapTestSameBROKEN[Arg[1.6 + I], 
-  0.558599], TapTestSame[Arg[1.6`23.204119982655925 + I], 
+ TapTestSame[Arg[-3.2*I], -1.5708], TapTestSame[Arg[1.6 + I], 0.558599], 
+ TapTestSameBROKEN[Arg[1.6`23.204119982655925 + I], 
   0.55859931534356243597151`22.74710039906514], 
- TapTestSameBROKEN[Arg[{1.2, 1.5*I, -1.8*I}], {0, 1.5708, -1.5708}], 
+ TapTestSame[Arg[{1.2, 1.5*I, -1.8*I}], {0, 1.5708, -1.5708}], 
  TapTestSameBROKEN[Arg[1*u*v - I], {{0, Arg[u]}, {Arg[v], -(Pi/2)}}], 
  TapTestSame[Arg[2 + I*Pi], ArcTan[Pi/2]], TapTestSame[Arg[Infinity], 0], 
  TapTestSame[Arg[-Infinity], Pi], TapTestSameBROKEN[
@@ -50,17 +50,16 @@ simplify this expression: "], TapTestSame[
   a = Arg[-1 - 2*E - E^2 + (1 + E)^2 - I*Exp[-Exp[2*Pi]]], 
   ArcTan[-1 - 2*E - E^2 + (1 + E)^2, -E^(-E^(2*Pi))]], 
  TapComment["The machine-precision result is incorrect: "], 
- TapTestSameBROKEN[N[a], -3.14159], TapComment["The arbitrary-precision \
-result indicates that the result may be incorrect: "], 
- TapTestSame[N[a, 20], 0.], TapComment["Using a larger setting for \
+ TapTestSame[N[a], -3.14159], TapComment["The arbitrary-precision result \
+indicates that the result may be incorrect: "], 
+ TapTestSameBROKEN[N[a, 20], 0.], TapComment["Using a larger setting for \
 RefLink[$MaxExtraPrecision,paclet:ref/$MaxExtraPrecision] gives the correct \
-result: "], TapTestSame[Block[{$MaxExtraPrecision = 1000}, N[a, 20]], 
+result: "], TapTestSameBROKEN[Block[{$MaxExtraPrecision = 1000}, N[a, 20]], 
   -1.57079632679489661920000000001`19.196119877030153], 
  TapComment["The input contains a hidden zero, and simplifying the argument \
 gets the correct answer:"], TapTestSame[
   Arg[Simplify[-1 - 2*E - E^2 + (1 + E)^2 - I*Exp[-Exp[2*Pi]]]], -(Pi/2)], 
- TapTestSameBROKEN[HoldComplete[
-   Plot[Arg[1/(((3/2)*Exp[I*\[CurlyPhi]])^4 - 1)], {\[CurlyPhi], 0, 2*Pi}]], 
-  $Failed], TapTestSameBROKEN[HoldComplete[Plot3D[Arg[1/((x + I*y)^8 - 1)], 
-    {x, -2, 2}, {y, -2, 2}, Mesh -> False, RegionFunction -> 
-     (Norm[{#1, #2}] < 2 & )]], $Failed]]
+ TapTestSame[HoldComplete[Plot[Arg[1/(((3/2)*Exp[I*\[CurlyPhi]])^4 - 1)], 
+    {\[CurlyPhi], 0, 2*Pi}]], $Failed], TapTestSameBROKEN[
+  HoldComplete[Plot3D[Arg[1/((x + I*y)^8 - 1)], {x, -2, 2}, {y, -2, 2}, 
+    Mesh -> False, RegionFunction -> (Norm[{#1, #2}] < 2 & )]], $Failed]]

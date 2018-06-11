@@ -1,4 +1,12 @@
 #! DOCKER > wolfram -script output/Tests/Mod_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Out, intm], StringForm[Machine-sized integer expected at position `2` in `1`., Short[HoldForm[Out[-1.]], 3], Short[HoldForm[1], 3]]]]
+#! TextForm[ColonForm[MessageName[Out, intm], StringForm[Machine-sized integer expected at position `2` in `1`., Short[HoldForm[Out[-1.]], 3], Short[HoldForm[1], 3]]]]
+#! TextForm[ColonForm[MessageName[Out, intm], StringForm[Machine-sized integer expected at position `2` in `1`., Short[HoldForm[Out[-2.`30.]], 3], Short[HoldForm[1], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Out, intm]], 3]]]]
 #! TextForm[ColonForm[MessageName[Floor, meprec], StringForm[Internal precision limit $MaxExtraPrecision = `1` reached while evaluating `2`., Short[HoldForm[50.], 3], Short[HoldForm[Floor[GoldenRatio^1000]], 3]]]]
 #! TextForm[ColonForm[MessageName[Floor, meprec], StringForm[Internal precision limit $MaxExtraPrecision = `1` reached while evaluating `2`., Short[HoldForm[50.], 3], Short[HoldForm[Floor[GoldenRatio^1000]], 3]]]]
 # SYSTEM: Mathematica_10
@@ -20,35 +28,55 @@ ok  Mod[{1, 2, 3, 4, 5, 6, 7}, 3, 1]    ==>     {1, 2, 3, 1, 2, 3, 1}
         expect_evaluated: {1, 2, 3, 1, 2, 3, 1}
     ...
 # Plot the sequence with fixed modulus: 
-ok  HoldComplete[DiscretePlot[Mod[n, 8], {n, 50}]]    ==>     $Failed # skip
+not ok  HoldComplete[DiscretePlot[Mod[n, 8], {n, 50}]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Plot the sequence, varying the modulus: 
-ok  HoldComplete[DiscretePlot[Mod[100, m], {m, 50}]]    ==>     $Failed # skip
+not ok  HoldComplete[DiscretePlot[Mod[100, m], {m, 50}]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Reduce an approximate number:
-ok  Mod[4.56, 2]    ==>     0.56 # skip
+ok  Mod[4.56, 2]    ==>     0.56
+    ---
+    data:
+        got: 0.56
+        expect: 0.56
+        expect_evaluated: 0.56
+    ...
 # Reduce an exact numeric quantity:
 ok  Mod[Exp[Pi], 2]    ==>     -22 + E^Pi
     ---
     data:
-        got: -22 + E^Pi
+        got:        Pi
+#! -22 + E
         expect: -22 + E^Pi
-        expect_evaluated: -22 + E^Pi
+        expect_evaluated:        Pi
+#! -22 + E
     ...
 ok  N[%]    ==>     1.14069 # skip
 # Reduce mod \[Pi]:
 ok  Mod[20, Pi]    ==>     20 - 6*Pi
     ---
     data:
-        got: 20 - 6*Pi
+        got: 20 - 6 Pi
         expect: 20 - 6*Pi
-        expect_evaluated: 20 - 6*Pi
+        expect_evaluated: 20 - 6 Pi
     ...
 # Complex number:
 ok  Mod[Sqrt[-113], 2]    ==>     -10*I + I*Sqrt[113]
     ---
     data:
-        got: -10*I + I*Sqrt[113]
+        got: -10 I + I Sqrt[113]
         expect: -10*I + I*Sqrt[113]
-        expect_evaluated: -10*I + I*Sqrt[113]
+        expect_evaluated: -10 I + I Sqrt[113]
     ...
 ok  Simplify[Mod[2*n + 1, 2], Element[n, Integers]]    ==>     1
     ---
@@ -60,9 +88,11 @@ ok  Simplify[Mod[2*n + 1, 2], Element[n, Integers]]    ==>     1
 ok  Simplify[Mod[(1 + x)^16, 2], Element[x, Integers]]    ==>     Mod[1 + x^8, 2]
     ---
     data:
-        got: Mod[1 + x^8, 2]
+        got:          8
+#! Mod[1 + x , 2]
         expect: Mod[1 + x^8, 2]
-        expect_evaluated: Mod[1 + x^8, 2]
+        expect_evaluated:          8
+#! Mod[1 + x , 2]
     ...
 # Wilson's theorem:
 ok  FunctionExpand[Mod[(p - 1)!, p], Element[p, Primes]]    ==>     -1 + p
@@ -84,9 +114,13 @@ ok  Reduce[Mod[2*x + 1, 5] == Mod[x, 7] && 0 < x < 50, x]    ==>     x == 4 || x
 ok  Integrate[Mod[x^2, 2], {x, 0, 4}]    ==>     (2/3)*(-46 + 9*Sqrt[2] + 6*Sqrt[3] + 3*Sqrt[6] + 3*Sqrt[10] + 3*Sqrt[14])
     ---
     data:
-        got: (2*(-46 + 9*Sqrt[2] + 6*Sqrt[3] + 3*Sqrt[6] + 3*Sqrt[10] + 3*Sqrt[14]))/3
+        got: 2 (-46 + 9 Sqrt[2] + 6 Sqrt[3] + 3 Sqrt[6] + 3 Sqrt[10] + 3 Sqrt[14])
+#! ---------------------------------------------------------------------
+#!                                   3
         expect: (2/3)*(-46 + 9*Sqrt[2] + 6*Sqrt[3] + 3*Sqrt[6] + 3*Sqrt[10] + 3*Sqrt[14])
-        expect_evaluated: (2*(-46 + 9*Sqrt[2] + 6*Sqrt[3] + 3*Sqrt[6] + 3*Sqrt[10] + 3*Sqrt[14]))/3
+        expect_evaluated: 2 (-46 + 9 Sqrt[2] + 6 Sqrt[3] + 3 Sqrt[6] + 3 Sqrt[10] + 3 Sqrt[14])
+#! ---------------------------------------------------------------------
+#!                                   3
     ...
 # Extract parts cyclically:
 ok  {a, b, c}[[Mod[Range[10], 3, 1]]]    ==>     {a, b, c, a, b, c, a, b, c, a}
@@ -106,7 +140,14 @@ ok  Select[Array[Prime, PrimePi[100]], Mod[#1, 6] == 1 & ]    ==>     {7, 13, 19
     ...
 # Simulate a particle bouncing in a non-commensurate box:
 ok  HoldComplete[Graphics[Line[Table[Mod[t, {Sqrt[2], 1}], {t, 0, 20, 0.001}]]]]    ==>     $Failed # skip
-ok  (1 (+) 0) (+) 1    ==>     0 # skip
+# Define a notation for addition mod 2:
+ok  (x_) (+) (y_) := Mod[x + y, 2]; (1 (+) 0) (+) 1    ==>     0
+    ---
+    data:
+        got: 0
+        expect: 0
+        expect_evaluated: 0
+    ...
 # The results have the same sign as the second argument:
 ok  Mod[{-3, -2, -1, 0, 1, 2, 3}, 3]    ==>     {0, 1, 2, 0, 1, 2, 0}
     ---
@@ -122,14 +163,22 @@ ok  Mod[{-3, -2, -1, 0, 1, 2, 3}, -3]    ==>     {0, -2, -1, 0, -2, -1, 0}
         expect: {0, -2, -1, 0, -2, -1, 0}
         expect_evaluated: {0, -2, -1, 0, -2, -1, 0}
     ...
-ok  HoldComplete[Plot[Mod[x, 2], {x, -6, 6}]]    ==>     $Failed # skip
+not ok  HoldComplete[Plot[Mod[x, 2], {x, -6, 6}]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Expressions generated by RefLink[Mod,paclet:ref/Mod] can be difficult to evaluate with machine precision:
 ok  Mod[GoldenRatio^100, 1]    ==>     -792070839848372253126 + GoldenRatio^100
     ---
     data:
-        got: -792070839848372253126 + GoldenRatio^100
+        got:                                     100
+#! -792070839848372253126 + GoldenRatio
         expect: -792070839848372253126 + GoldenRatio^100
-        expect_evaluated: -792070839848372253126 + GoldenRatio^100
+        expect_evaluated:                                     100
+#! -792070839848372253126 + GoldenRatio
     ...
 # Machine-precision numerical evaluation gives the wrong answer:
 ok  N[%]    ==>     2.62144*10^6 # skip
@@ -139,19 +188,41 @@ ok  N[%%, 30]    ==>     0.999999999999999999998737486662`30. # skip
 ok  Mod[GoldenRatio^1000, 1]    ==>     GoldenRatio^1000 - Floor[GoldenRatio^1000]
     ---
     data:
-        got: GoldenRatio^1000 - Floor[GoldenRatio^1000]
+        got:            1000                    1000
+#! GoldenRatio     - Floor[GoldenRatio    ]
         expect: GoldenRatio^1000 - Floor[GoldenRatio^1000]
-        expect_evaluated: GoldenRatio^1000 - Floor[GoldenRatio^1000]
+        expect_evaluated:            1000                    1000
+#! GoldenRatio     - Floor[GoldenRatio    ]
     ...
 ok  Block[{$MaxExtraPrecision = Infinity}, Mod[GoldenRatio^1000, 1]]    ==>     -97194177735908175207981982079326473737797879155345685082728081084772518818444815269080619149045968297679578305403209347401163036907660573971740862463751801641201490284097309096322681531675707666695323797578126 + GoldenRatio^1000
     ---
     data:
-        got: -97194177735908175207981982079326473737797879155345685082728081084772518818444815269080619149045968297679578305403209347401163036907660573971740862463751801641201490284097309096322681531675707666695323797578126 + GoldenRatio^1000
+        got:                                                                                                                                                                                                                                 1000
+#! -97194177735908175207981982079326473737797879155345685082728081084772518818444815269080619149045968297679578305403209347401163036907660573971740862463751801641201490284097309096322681531675707666695323797578126 + GoldenRatio
         expect: -97194177735908175207981982079326473737797879155345685082728081084772518818444815269080619149045968297679578305403209347401163036907660573971740862463751801641201490284097309096322681531675707666695323797578126 + GoldenRatio^1000
-        expect_evaluated: -97194177735908175207981982079326473737797879155345685082728081084772518818444815269080619149045968297679578305403209347401163036907660573971740862463751801641201490284097309096322681531675707666695323797578126 + GoldenRatio^1000
+        expect_evaluated:                                                                                                                                                                                                                                 1000
+#! -97194177735908175207981982079326473737797879155345685082728081084772518818444815269080619149045968297679578305403209347401163036907660573971740862463751801641201490284097309096322681531675707666695323797578126 + GoldenRatio
     ...
-ok  HoldComplete[ArrayPlot[Table[Mod[i, j], {i, 30}, {j, 30}]]]    ==>     $Failed # skip
+not ok  HoldComplete[ArrayPlot[Table[Mod[i, j], {i, 30}, {j, 30}]]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Binomial coefficients mod 2:
-ok  HoldComplete[ArrayPlot[Table[Mod[Binomial[i, j], 2], {i, 0, 63}, {j, 0, 63}]]]    ==>     $Failed # skip
+not ok  HoldComplete[ArrayPlot[Table[Mod[Binomial[i, j], 2], {i, 0, 63}, {j, 0, 63}]]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Mod 4 additive cellular automaton:
-ok  HoldComplete[ArrayPlot[CellularAutomaton[{Mod[Total[#1], 4] & , {}, 1}, {{1}, 0}, 50]]]    ==>     $Failed # skip
+not ok  HoldComplete[ArrayPlot[CellularAutomaton[{Mod[Total[#1], 4] & , {}, 1}, {{1}, 0}, 50]]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...

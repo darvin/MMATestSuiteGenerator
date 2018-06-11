@@ -3,7 +3,7 @@ Import["CompatTests.m"];
 TapSuite[TapComment["RefLink[E,paclet:ref/E] can be entered as \
 Esc\\[ThinSpace]ee\\[ThinSpace]Esc (for \"exponential e\"):"], 
  TapTestSame[E, E], TapComment["Evaluate to any precision:"], 
- TapTestSame[N[E, 50], 
+ TapTestSameBROKEN[N[E, 50], 
   2.7182818284590452353602874713526624977572470937`49.43429448190326], 
  TapComment["Do an exact numerical computation:"], 
  TapTestSame[Round[E^100], 26881171418161354484126255515800135873611119], 

@@ -5,8 +5,8 @@
         "passes": 4,
         "pending": 0,
         "failures": 0,
-        "start": "2018-06-03T23:01:31.129Z",
-        "end": "2018-06-03T23:01:31.129Z",
+        "start": "2018-06-11T04:13:35.169Z",
+        "end": "2018-06-11T04:13:35.169Z",
         "duration": 0,
         "testsRegistered": 4,
         "passPercent": 100,
@@ -33,11 +33,11 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "25bc3fd1-e47a-48b4-bcad-9310f87cde8e",
-                "parentUUID": "d4d263f7-e116-40bb-bfaa-1d5b57b760d5",
+                "uuid": "7460c15c-cb5e-4cbd-93ac-1190e5e58ad9",
+                "parentUUID": "6e1d83dc-2e75-4195-a6cb-2fe3ffdfa800",
                 "skipped": false,
                 "isHook": false,
-                "context": "\"#! DOCKER > wolfram -script output/Tests/Blank_Tests.m\\n# SYSTEM: Mathematica_10\\n# TEST: Blank_Tests\\n# A pattern that matches any expression:\\n\\n\\ndata: \\n  got:              true\\n  expect:           true\\n  expect_evaluated: true\"",
+                "context": "\"#! DOCKER > wolfram -script output/Tests/Blank_Tests.m\\n#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]\\n# SYSTEM: Mathematica_10\\n# TEST: Blank_Tests\\n# A pattern that matches any expression:\\n\\n\\ndata: \\n  got:              true\\n  expect:           true\\n  expect_evaluated: true\"",
                 "state": "passed",
                 "err": {
                     "name": "",
@@ -58,8 +58,8 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "7ba28aaf-bf98-47c1-a5ff-726ab8add0e4",
-                "parentUUID": "d4d263f7-e116-40bb-bfaa-1d5b57b760d5",
+                "uuid": "64ca72cb-d2a5-4565-af70-b55a33f2a664",
+                "parentUUID": "6e1d83dc-2e75-4195-a6cb-2fe3ffdfa800",
                 "skipped": false,
                 "isHook": false,
                 "context": "\"# A pattern that matches any symbol:\\n\\n\\ndata: \\n  got:              true\\n  expect:           true\\n  expect_evaluated: true\"",
@@ -73,8 +73,8 @@
                 }
             },
             {
-                "title": "{f[1], f[a + b*c]}    ➡️     {4, (1 + a + b*c)^2}",
-                "fullTitle": "{f[1], f[a + b*c]}    ➡️     {4, (1 + a + b*c)^2}",
+                "title": "f[x_] := (x + 1)^2; {f[1], f[a + b*c]}    ➡️     {4, (1 + a + b*c)^2}",
+                "fullTitle": "f[x_] := (x + 1)^2; {f[1], f[a + b*c]}    ➡️     {4, (1 + a + b*c)^2}",
                 "timedOut": false,
                 "duration": 0,
                 "speed": "fast",
@@ -83,17 +83,26 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "634579a4-8bfe-4f4f-9d0d-a03ef1e82726",
-                "parentUUID": "d4d263f7-e116-40bb-bfaa-1d5b57b760d5",
-                "skipped": true,
+                "uuid": "d29f7f52-008f-46bf-a6bd-403004aef089",
+                "parentUUID": "6e1d83dc-2e75-4195-a6cb-2fe3ffdfa800",
+                "skipped": false,
                 "isHook": false,
-                "context": "\"\"",
+                "context": "\"# A function definition that will take any single argument:\\n\\n\\ndata: \\n  got:              2\\n  expect: \\n    4:               null\\n    (1 + a + b*c)^2: null\\n  expect_evaluated: 2\"",
                 "state": "passed",
-                "err": {}
+                "err": {
+                    "name": "",
+                    "message": "",
+                    "showDiff": true,
+                    "actual": 2,
+                    "expected": {
+                        "4": null,
+                        "(1 + a + b*c)^2": null
+                    }
+                }
             },
             {
-                "title": "{g[10], g[z]}    ➡️     {19, g[z]}",
-                "fullTitle": "{g[10], g[z]}    ➡️     {19, g[z]}",
+                "title": "g[x_Integer] := Prime[x] - x; {g[10], g[z]}    ➡️     {19, g[z]}",
+                "fullTitle": "g[x_Integer] := Prime[x] - x; {g[10], g[z]}    ➡️     {19, g[z]}",
                 "timedOut": false,
                 "duration": 0,
                 "speed": "fast",
@@ -102,11 +111,11 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "4f878615-58a5-4009-859a-00c0baffe689",
-                "parentUUID": "d4d263f7-e116-40bb-bfaa-1d5b57b760d5",
-                "skipped": true,
+                "uuid": "dad8c55e-d499-4240-aa11-437efac15770",
+                "parentUUID": "6e1d83dc-2e75-4195-a6cb-2fe3ffdfa800",
+                "skipped": false,
                 "isHook": false,
-                "context": "\"\"",
+                "context": "\"#! {4, (1 + a + b c) }\\n#! {4, (1 + a + b c) }\\n# A function definition for integer arguments only:\\n\"",
                 "state": "passed",
                 "err": {}
             }
@@ -116,20 +125,17 @@
         "file": "",
         "pending": [],
         "passes": [
-            "25bc3fd1-e47a-48b4-bcad-9310f87cde8e",
-            "7ba28aaf-bf98-47c1-a5ff-726ab8add0e4",
-            "634579a4-8bfe-4f4f-9d0d-a03ef1e82726",
-            "4f878615-58a5-4009-859a-00c0baffe689"
+            "7460c15c-cb5e-4cbd-93ac-1190e5e58ad9",
+            "64ca72cb-d2a5-4565-af70-b55a33f2a664",
+            "d29f7f52-008f-46bf-a6bd-403004aef089",
+            "dad8c55e-d499-4240-aa11-437efac15770"
         ],
         "failures": [],
-        "skipped": [
-            "634579a4-8bfe-4f4f-9d0d-a03ef1e82726",
-            "4f878615-58a5-4009-859a-00c0baffe689"
-        ],
+        "skipped": [],
         "duration": 0,
         "rootEmpty": false,
         "_timeout": 0,
-        "uuid": "d4d263f7-e116-40bb-bfaa-1d5b57b760d5",
+        "uuid": "6e1d83dc-2e75-4195-a6cb-2fe3ffdfa800",
         "beforeHooks": [],
         "afterHooks": []
     },

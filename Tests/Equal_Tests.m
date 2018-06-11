@@ -2,11 +2,11 @@
 Import["CompatTests.m"]; 
 TapSuite[TapComment["Test equality:"], TapTestSame[2 + 2 == 4, True], 
  TapComment["Represent an equation:"], TapTestSame[x^2 == 1 + x, 
-  x^2 == 1 + x], TapTestSameBROKEN[Solve[%, x], 
-  {{x -> (1/2)*(1 - Sqrt[5])}, {x -> (1/2)*(1 + Sqrt[5])}}], 
- TapComment["Test equality of numbers:"], TapTestSame[3/2 == 5/3, False], 
- TapComment["Approximate numbers that differ in their last seven binary \
-digits are considered equal:"], TapTestSame[1.`18.06179973983887 == 
+  x^2 == 1 + x], TapTestSame[Solve[%, x], {{x -> (1/2)*(1 - Sqrt[5])}, 
+   {x -> (1/2)*(1 + Sqrt[5])}}], TapComment["Test equality of numbers:"], 
+ TapTestSame[3/2 == 5/3, False], TapComment["Approximate numbers that differ \
+in their last seven binary digits are considered equal:"], 
+ TapTestSame[1.`18.06179973983887 == 
    1.00000000000000011015494072453`18.06179973983887, True], 
  TapComment[
   "Compare an exact numeric expression and an approximate number:"], 
@@ -41,26 +41,25 @@ this identity:"], TapTestSame[(x + 1)^2 == x^2 + 2*x + 1,
  TapTestSameBROKEN[Expand[%], True], TapComment["A symbolic equation:"], 
  TapTestSame[a*x == b, a*x == b], 
  TapComment["Use RefLink[Solve,paclet:ref/Solve] to solve the equation:"], 
- TapTestSameBROKEN[Solve[%, x], {{x -> b/a}}], 
- TapComment["RefLink[Reduce,paclet:ref/Reduce] gives all solutions, including \
-the ones that require nongeneric values of parameters:"], 
- TapTestSameBROKEN[Reduce[%%, x], (b == 0 && a == 0) || 
-   (a != 0 && x == b/a)], TapComment["Compare more than two expressions:"], 
+ TapTestSame[Solve[%, x], {{x -> b/a}}], TapComment["RefLink[Reduce,paclet:re\
+f/Reduce] gives all solutions, including the ones that require nongeneric \
+values of parameters:"], TapTestSameBROKEN[Reduce[%%, x], 
+  (b == 0 && a == 0) || (a != 0 && x == b/a)], 
+ TapComment["Compare more than two expressions:"], 
  TapTestSame[3 == 3. == 3., True], 
  TapTestSame[x + y + z == x^2 - y^2 - z^2 == x*y*z == 3, 
   x + y + z == x^2 - y^2 - z^2 == x*y*z == 3], 
- TapTestSameBROKEN[Reduce[%, {x, y, z}], 
-  x == 1 && (y == (1/2)*(2 - 2*I*Sqrt[2]) || y == (1/2)*(2 + 2*I*Sqrt[2])) && 
-   z == 2 - y], TapComment["Compare lists:"], TapTestSame[{1, 2} == {1, 2}, 
-  True], TapTestSame[{a, b, c} == {d, e}, False], 
- TapComment["Compare strings:"], TapTestSame["abc" == "ABC", False], 
- TapComment["The negation of two-argument RefLink[Equal,paclet:ref/Equal] is \
-RefLink[Unequal,paclet:ref/Unequal]:"], TapTestSame[ !x == y, x != y], 
- TapComment["The negation of three-argument RefLink[Equal,paclet:ref/Equal] \
-does not simplify automatically:"], TapTestSame[ !x == y == z, 
-   !x == y == z], TapComment["Use \
-RefLink[LogicalExpand,paclet:ref/LogicalExpand] to express it in terms of \
-two-argument RefLink[Unequal,paclet:ref/Unequal]:"], 
+ TapTestSame[Reduce[%, {x, y, z}], x == 1 && (y == (1/2)*(2 - 2*I*Sqrt[2]) || 
+    y == (1/2)*(2 + 2*I*Sqrt[2])) && z == 2 - y], 
+ TapComment["Compare lists:"], TapTestSame[{1, 2} == {1, 2}, True], 
+ TapTestSame[{a, b, c} == {d, e}, False], TapComment["Compare strings:"], 
+ TapTestSame["abc" == "ABC", False], TapComment["The negation of two-argument \
+RefLink[Equal,paclet:ref/Equal] is RefLink[Unequal,paclet:ref/Unequal]:"], 
+ TapTestSame[ !x == y, x != y], TapComment["The negation of three-argument \
+RefLink[Equal,paclet:ref/Equal] does not simplify automatically:"], 
+ TapTestSame[ !x == y == z,  !x == y == z], 
+ TapComment["Use RefLink[LogicalExpand,paclet:ref/LogicalExpand] to express \
+it in terms of two-argument RefLink[Unequal,paclet:ref/Unequal]:"], 
  TapTestSameBROKEN[LogicalExpand[%], y != x || z != x], 
  TapComment["The negation of three-argument RefLink[Equal,paclet:ref/Equal] \
 is not equivalent to three-argument RefLink[Unequal,paclet:ref/Unequal]:"], 
@@ -95,12 +94,12 @@ values:"], TapTestSameBROKEN[Reduce[a*x^2 + b*x + c == 0, x],
      x == (-b + Sqrt[b^2 - 4*a*c])/(2*a))) || (a == 0 && b != 0 && 
     x == -(c/b)) || (c == 0 && b == 0 && a == 0)], 
  TapComment["Use RefLink[Reduce,paclet:ref/Reduce] to solve equations over \
-specified domains:"], TapTestSameBROKEN[Reduce[x^2 + y^2 == 5, {x, y}, 
-   Reals], -Sqrt[5] <= x <= Sqrt[5] && (y == -Sqrt[5 - x^2] || 
-    y == Sqrt[5 - x^2])], TapTestSame[Reduce[x^2 + y^2 == 5, {x, y}, 
-   Integers], (x == -2 && y == -1) || (x == -2 && y == 1) || 
-   (x == -1 && y == -2) || (x == -1 && y == 2) || (x == 1 && y == -2) || 
-   (x == 1 && y == 2) || (x == 2 && y == -1) || (x == 2 && y == 1)], 
+specified domains:"], TapTestSame[Reduce[x^2 + y^2 == 5, {x, y}, Reals], 
+  -Sqrt[5] <= x <= Sqrt[5] && (y == -Sqrt[5 - x^2] || y == Sqrt[5 - x^2])], 
+ TapTestSame[Reduce[x^2 + y^2 == 5, {x, y}, Integers], 
+  (x == -2 && y == -1) || (x == -2 && y == 1) || (x == -1 && y == -2) || 
+   (x == -1 && y == 2) || (x == 1 && y == -2) || (x == 1 && y == 2) || 
+   (x == 2 && y == -1) || (x == 2 && y == 1)], 
  TapComment[
   "Equality for machine-precision approximate numbers can be subtle: "], 
  TapTestSame[2.00006 - 2.00005 == 0.00001, False], 
@@ -111,15 +110,17 @@ specified domains:"], TapTestSameBROKEN[Reduce[x^2 + y^2 == 5, {x, y},
  TapTestSame[2.00006`16. - 2.00005000000000000000000000001`16. == 1.`16.*^-5, 
   True], TapComment["Thanks to automatic precision tracking \
 RefLink[Equal,paclet:ref/Equal] knows to look only at the first ten digits:"]\
-, TapTestSameBROKEN[Precision[2.00006`16. - 
-    2.00005000000000000000000000001`16.], 10.3979], 
- TapComment["In this case, the equality test for machine numbers succeeds:"], 
+, TapTestSame[Precision[2.00006`16. - 2.00005000000000000000000000001`16.], 
+  10.3979], TapComment[
+  "In this case, the equality test for machine numbers succeeds:"], 
  TapTestSame[2.6 - 2.5 == 0.1, True], TapComment["The extra digits in this \
 case are ignored by RefLink[Equal,paclet:ref/Equal]:"], 
  TapTestSameBROKEN[InputForm[2.6 - 2.5], 0.10000000000000009], 
- TapTestSameBROKEN[x == y, True], TapTestSameBROKEN[y == z, True], 
- TapTestSameBROKEN[x == z, False], TapComment["RefLink[Equal,paclet:ref/Equal\
-] is not treated as the Boolean equivalence operator:"], 
- TapTestSame[FullSimplify[(p || q) == (q || p)], (p || q) == (q || p)], 
- TapComment["Use RefLink[Equivalent,paclet:ref/Equivalent] instead:"], 
+ TapComment["Equality may not be transitive for approximate numbers:"], 
+ TapTestSameBROKEN[{x, y, z} = {1. - 1.*^-14, 1., 1. + 1.*^-14} ;; x == y, 
+  True], TapTestSameBROKEN[y == z, True], TapTestSameBROKEN[x == z, False], 
+ TapComment["RefLink[Equal,paclet:ref/Equal] is not treated as the Boolean \
+equivalence operator:"], TapTestSame[FullSimplify[(p || q) == (q || p)], 
+  (p || q) == (q || p)], TapComment[
+  "Use RefLink[Equivalent,paclet:ref/Equivalent] instead:"], 
  TapTestSame[FullSimplify[Equivalent[p || q, q || p]], True]]

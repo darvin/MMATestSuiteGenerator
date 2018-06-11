@@ -23,16 +23,16 @@ corresponding to key \"a\":"],
  TapTestSame[\[LeftAssociation] 2 -> b, 1 -> a \[RightAssociation][[Key[1]]], 
   a], TapComment[
   "Take several parts in an RefLink[Association,paclet:ref/Association]:"], 
- TapTestSameBROKEN[HoldComplete[\[LeftAssociation] "a" -> 1, "b" -> 2, 
-     "c" -> 3, "d" -> 4 \[RightAssociation][[1 ;; 2]]], $Failed], 
- TapComment["Extract parts by keys:"], TapTestSameBROKEN[
-  HoldComplete[\[LeftAssociation] "a" -> 1, "b" -> 2, 
+ TapTestSame[HoldComplete[\[LeftAssociation] "a" -> 1, "b" -> 2, "c" -> 3, 
+     "d" -> 4 \[RightAssociation][[1 ;; 2]]], $Failed], 
+ TapComment["Extract parts by keys:"], 
+ TapTestSame[HoldComplete[\[LeftAssociation] "a" -> 1, "b" -> 2, 
      "c" -> 3 \[RightAssociation][[{Key["a"], Key["c"]}]]], $Failed], 
  TapComment["Extract subexpressions from an \
 RefLink[Association,paclet:ref/Association]:"], 
- TapTestSameBROKEN[HoldComplete[
-   \[LeftAssociation] "a" -> \[LeftAssociation] 
-       1 -> "a1" \[RightAssociation], "b" -> \[LeftAssociation] 
+ TapTestSame[HoldComplete[\[LeftAssociation] 
+     "a" -> \[LeftAssociation] 1 -> "a1" \[RightAssociation], 
+     "b" -> \[LeftAssociation] 
        1 -> "b1" \[RightAssociation] \[RightAssociation][[All,Key[1]]]], 
   $Failed], TapComment["Reassign a part:"], TapTestSame[m = {{a, b}, {c, d}}, 
   {{a, b}, {c, d}}], TapTestSame[m[[2,2]] = x, x], 
@@ -74,10 +74,14 @@ Esc\\[ThinSpace][[\\[ThinSpace]Esc and Esc\\[ThinSpace]]]\\[ThinSpace]Esc:"],
  TapTestSame[m[[{2, 3}]] = x, x], TapTestSame[m, {a, x, x, d}], 
  TapComment["Assign different values to parts 1, 3, and 4:"], 
  TapTestSame[m[[{1, 3, 4}]] = {s, t, u}, {s, t, u}], 
- TapTestSame[m, {s, x, t, u}], TapTestSameBROKEN[m[[2]] += x, b + x], 
- TapTestSameBROKEN[m, {a, b + x, c, d}], TapTestSameBROKEN[
-  m[[{1, 2}]] = m[[{3, 1}]], {c, a}], TapTestSameBROKEN[m, {c, a, c, d}], 
- TapComment["For RefLink[SparseArray,paclet:ref/SparseArray] objects, \
+ TapTestSame[m, {s, x, t, u}], 
+ TapComment["All standard assignment operations work on parts:"], 
+ TapTestSameBROKEN[m = {a, b, c, d} ;; m[[2]] += x, b + x], 
+ TapTestSameBROKEN[m, {a, b + x, c, d}], 
+ TapComment["Rearrange elements by reassigning parts:"], 
+ TapTestSameBROKEN[m = {a, b, c, d} ;; m[[{1, 2}]] = m[[{3, 1}]], {c, a}], 
+ TapTestSameBROKEN[m, {c, a, c, d}], TapComment["For \
+RefLink[SparseArray,paclet:ref/SparseArray] objects, \
 RefLink[Part,paclet:ref/Part] gives the parts in the corresponding ordinary \
 array:"], TapTestSameBROKEN[HoldComplete[
    s = SparseArray[{{i_, j_} /; Abs[i - j] == 1 -> i - j}, {4, 4}]], 
@@ -102,7 +106,10 @@ parts are extracted:"], TapTestSame[f[a, b, c][[{2, 3}]], f[b, c]],
  TapTestSame[Solve[x^2 + 5*x + 1 == 0, x], {{x -> (1/2)*(-5 - Sqrt[21])}, 
    {x -> (1/2)*(-5 + Sqrt[21])}}], TapTestSameBROKEN[%[[All,1,2]], 
   {(1/2)*(-5 - Sqrt[21]), (1/2)*(-5 + Sqrt[21])}], 
- TapTestSameBROKEN[m, {245, 1, 253, 0, 1, 0, 254, 0, 246, 0}], 
+ TapComment["Go through the first 1000 primes, and count how many lie in each \
+possible \"mod 10 bin\":"], TapTestSameBROKEN[
+  m = Table[0, {10}] ;; Do[m[[Mod[Prime[i], 10, 1]]]++, {i, 1000}]; m, 
+  {245, 1, 253, 0, 1, 0, 254, 0, 246, 0}], 
  TapComment["Another way to get the same result:"], 
  TapTestSame[Table[Count[Table[Mod[Prime[i], 10], {i, 1000}], j], {j, 0, 9}], 
   {0, 245, 1, 253, 0, 1, 0, 254, 0, 246}], 

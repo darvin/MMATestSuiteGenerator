@@ -1,8 +1,21 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Fold.nb output/Tests/Fold_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Fold.nb
 # WRITING OUTPUT TO:     output/Tests/Fold_Tests.m
-ok  Fold[f,x,{a,b,c,d}]    ==>     f[f[f[f[x,a],b],c],d]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/Fold.html; Fold[f,x,{a,b,c,d}]
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{Fold, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`http://reference.wolfram.com/language/ref/Fold.html; Fold[f,x,{a,b,c,d}]\)
+#!                                                                                             ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/Fold.html; Fold[f,x,{a,b,c,d}]    ==>     f[f[f[f[x,a],b],c],d]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Fold[List,x,{a,b,c,d}]    ==>     {{{{x,a},b},c},d}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  Fold[Times,1,{a,b,c,d}]    ==>     a b c d
 ok  Fold[#1^#2&,x,{a,b,c,d}]    ==>     (((x^a)^b)^c)^d
 ok  Fold[f,x,p[a,b,c,d]]    ==>     f[f[f[f[x,a],b],c],d]
@@ -19,7 +32,6 @@ ok  Fold[{#2,#1}&,x,{a,b,c,d}]    ==>     {d,{c,{b,{a,x}}}}
 ok  Fold[#2[#1]&,x,{a,b,c,d}]    ==>     d[c[b[a[x]]]]
 ok  Fold[{f[#,#],g[#]}[[#2]]&,e,{1,1,2,1,2}]    ==>     g[f[g[f[f[e,e],f[e,e]]],g[f[f[e,e],f[e,e]]]]]
 ok  Fold[Partition,Range[30],{2,4,3}]    ==>     {{{{1,2},{3,4},{5,6},{7,8}},{{9,10},{11,12},{13,14},{15,16}},{{17,18},{19,20},{21,22},{23,24}}}}
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  Dimensions[%]    ==>     {1,3,4,2}
 ok  Fold[f,x,{}]    ==>     x
 ok  Fold[f,x,{a,b,c}]    ==>     f[f[f[x,a],b],c]

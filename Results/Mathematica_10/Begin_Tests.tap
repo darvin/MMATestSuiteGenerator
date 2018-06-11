@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/Begin_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Begin_Tests
 # Define a function f in the MyContext` RefLink[Context,paclet:ref/Context]:
@@ -11,6 +15,7 @@ ok  MyContext`f[a + b]    ==>     1 + (a + b)^2 # skip
 ok  HoldComplete[BeginPackage["MyPackage`"]]    ==>     $Failed # skip
 # When the context given to RefLink[Begin,paclet:ref/Begin] starts with ` it extends from the current context:
 ok  HoldComplete[Begin["`Private`"]]    ==>     $Failed # skip
-ok  HoldComplete[End[]]    ==>     $Failed # skip
+ok  HoldComplete[f[x_] := x^2 + 1 ;; End[]]    ==>     $Failed # skip
 # Since the symbol f is in the package context, the function works after RefLink[EndPackage,paclet:ref/EndPackage]:
-ok  f[a + b]    ==>     1 + (a + b)^2 # skip
+ok  Global`f[Global`a + Global`b]    ==>     1 + (Global`a + Global`b)^2 # skip
+#! TextForm[ColonForm[MessageName[Get, bebal], StringForm[Unterminated uses of BeginPackage or Begin in `1`., Short[HoldForm[<< output/Tests/Begin_Tests.m], 3]]]]

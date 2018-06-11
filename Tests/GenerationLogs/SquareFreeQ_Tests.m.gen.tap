@@ -1,8 +1,21 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/SquareFreeQ.nb output/Tests/SquareFreeQ_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/SquareFreeQ.nb
 # WRITING OUTPUT TO:     output/Tests/SquareFreeQ_Tests.m
-ok  SquareFreeQ[10]    ==>     True
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/SquareFreeQ.html; SquareFreeQ[10]
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{SquareFreeQ, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`http://reference.wolfram.com/language/ref/SquareFreeQ.html; SquareFreeQ[10]\)
+#!                                                                                                ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/SquareFreeQ.html; SquareFreeQ[10]    ==>     True
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  SquareFreeQ[12]    ==>     False
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  SquareFreeQ[x^4-1]    ==>     True
 ok  SquareFreeQ[x^4-2x^2+1]    ==>     False
 ok  SquareFreeQ[20]    ==>     False
@@ -25,18 +38,15 @@ ok  SquareFreeQ[x^2-3,Modulus->0]    ==>     True
 ok  Or @@ Table[SquareFreeQ[Binomial[2n,n]],{n,5,2^10}]    ==>     False
 ok  SquareFreeQ[Expand[(x+1)^3(x+2)^2(x+3)^2]]    ==>     False
 ok  FactorSquareFreeList[Expand[(x+1)^3(x+2)^2(x+3)^2]]    ==>     {{1,1},{1+x,3},{6+5 x+x^2,2}}
-ok  SquareFreeQ[Cancel[p/PolynomialGCD[p,D[p,x]]]]    ==>     True
+not ok  p=Expand[(x+1)^3(x+2)^2(x+3)^2];; SquareFreeQ[Cancel[p/PolynomialGCD[p,D[p,x]]]]    ==>     True
 ok  MoebiusMu[12]    ==>     0
 ok  SquareFreeQ[12]    ==>     False
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[FrameTicks->{{None, None}, {None, None}}]\)\)
 #!                                              ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[FrameTicks->{{None, None}, {None, None}}]\)\)
-#!                                              ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-not ok  ArrayPlot[Partition[Table[Boole@SquareFreeQ[i],{i,300^2}],300]]    ==>     \!\(\*
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+ok  ArrayPlot[Partition[Table[Boole@SquareFreeQ[i],{i,300^2}],300]]    ==>     \!\(\*
 #! GraphicsBox[RasterBox[CompressedData["
 #! 1:eJy1eVuy5EpsozA7mX+vZpbgDXj/fxN2H2WSeDBTp9vRcW/VUVEkCAJUSfV/
 #! //O//t9//p/nef4Df/57Hvz3/8t/AP4cxP/8+zm2Pv85Bvp7xWC/TzHvcaQY
@@ -243,12 +253,7 @@ not ok  ArrayPlot[Partition[Table[Boole@SquareFreeQ[i],{i,300^2}],300]]    ==>  
 #! FrameLabel->{None, None},
 #! FrameTicks->{{None, None}, {None, None}}]\)
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[FrameTicks->{{None, None}, {None, None}}]\)\)
-#!                                              ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ArrayPlot[Table[Boole[SquareFreeQ[x+I y,GaussianIntegers->True]], {x,300},{y,300}]]    ==>     \!\(\*
+ok  ArrayPlot[Table[Boole[SquareFreeQ[x+I y,GaussianIntegers->True]], {x,300},{y,300}]]    ==>     \!\(\*
 #! GraphicsBox[RasterBox[CompressedData["
 #! 1:eJzdWFuC7MqJFN7J/M9qvARvwPv/88zpkpJHBI+U1N3HpXtPqzIyAAECsv7n
 #! X//+57/+cRzH/8rX/4fgS8g6R3MGkzJj9XbLmNHU8efz+aNvhQGU4b7JmNEE

@@ -1,6 +1,6 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[{x, x^2, y, z} /. x -> a, {a, a^2, y, z}], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[{a, a^2, y, z}]], 
  TapTestSame[{x, x^2, y, z} /. x -> {a, b}, {{a, b}, {a^2, b^2}, y, z}], 
  TapTestSame[Sin[x] /. Sin -> Cos, Cos[x]], 
  TapTestSame[1 + x^2 + x^4 /. x^(p_) -> f[p], 1 + f[2] + f[4]], 

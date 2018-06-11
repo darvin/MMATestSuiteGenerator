@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/Scan_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 #! a
 #! b
 #! c
@@ -12,7 +16,14 @@ ok  Catch[Scan[If[#1 > 5, Throw[#1]] & , {2, 4, 6, 8}]]    ==>     6
         expect: 6
         expect_evaluated: 6
     ...
-ok  {u[76], u[77], u[78]}    ==>     {u[76], x, u[78]} # skip
+# Make assignments based on data:
+ok  Scan[(u[#1] = x) & , {55, 11, 77, 88}]; {u[76], u[77], u[78]}    ==>     {u[76], x, u[78]}
+    ---
+    data:
+        got: {u[76], x, u[78]}
+        expect: {u[76], x, u[78]}
+        expect_evaluated: {u[76], x, u[78]}
+    ...
 # Find all leaves in an expression:
 ok  Integrate[1/(x^3 - 1), x]    ==>     -(ArcTan[(1 + 2*x)/Sqrt[3]]/Sqrt[3]) + (1/3)*Log[-1 + x] - (1/6)*Log[1 + x + x^2] # skip
 ok  Reap[Scan[Sow, %, {-1}]][[2,1]]    ==>     {-1, 3, -(1/2), 3, -(1/2), 1, 2, x, 1/3, -1, x, -(1/6), 1, x, x, 2} # skip
@@ -28,7 +39,11 @@ ok  Print /@ {a, b, c}    ==>     {Null, Null, Null}
 ok  Reap[Scan[If[#1 > 0, Sow[#1]] & , {1, {-2, Pi}, -Sqrt[3]}, Infinity]][[2,1]]    ==>     {1, Pi, 3, 1/2, Sqrt[3]}
     ---
     data:
-        got: {1, Pi, 3, 1/2, Sqrt[3]}
+        got:            1
+#! {1, Pi, 3, -, Sqrt[3]}
+#!            2
         expect: {1, Pi, 3, 1/2, Sqrt[3]}
-        expect_evaluated: {1, Pi, 3, 1/2, Sqrt[3]}
+        expect_evaluated:            1
+#! {1, Pi, 3, -, Sqrt[3]}
+#!            2
     ...

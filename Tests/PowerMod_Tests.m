@@ -1,6 +1,7 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[PowerMod[2, 10, 3], 1], TapTestSame[Mod[2^10, 3], 1], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[1]], 
+ TapTestSame[Mod[2^10, 3], 1], 
  TapComment["Compute the multiplicative inverse of 3 modulo 7:"], 
  TapTestSame[PowerMod[3, -1, 7], 5], TapComment["Check the result:"], 
  TapTestSame[Mod[3*5, 7], 1], TapComment["RefLink[PowerMod,paclet:ref/PowerMo\

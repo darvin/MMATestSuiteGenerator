@@ -1,68 +1,173 @@
 #! DOCKER > wolfram -script output/Tests/SetDelayed_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[RuleDelayed, rhs], StringForm[Pattern `1` appears on the right-hand side of rule `2`., Short[HoldForm[x_], 3], Short[HoldForm[unit[x_ /; x < 0] :> (0*unit[x_ /; x >= 0] := 1)], 3]]]]
+#! TextForm[ColonForm[MessageName[SetDelayed, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Times], 3], Short[HoldForm[0*unit[Pattern[-2, _] /; -2 >= 0]], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Power], 3], Short[HoldForm[N[(x_)^2, {MachinePrecision, MachinePrecision}]], 3]]]]
+#! TextForm[ColonForm[MessageName[SetDelayed, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Span], 3], Short[HoldForm[Span[5, Span[0.19102456325257583, {Span[17, 25], Span[17, 25], Span[17, 25]}]^2]], 3]]]]
+#! TextForm[ColonForm[MessageName[SetDelayed, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Span], 3], Short[HoldForm[Span[5, $Failed^2]], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[SetDelayed, write]], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$RecursionLimit, reclim]], 3]]]]
+#! TextForm[ColonForm[MessageName[ReplaceRepeated, rrlim], StringForm[Exiting after `1` scanned `2` times., Short[HoldForm[2*$Failed^2], 3], Short[HoldForm[65536], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Span], 3], Short[HoldForm[Span[1, 1]], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, nosym], StringForm[`1` does not contain a symbol to attach a rule to., Short[HoldForm[sym_], 3]]]]
+#! TextForm[ColonForm[MessageName[Unset, norep], StringForm[Assignment on `2` for `1` not found., Short[HoldForm[f[-1]], 3], Short[HoldForm[f], 3]]]]
+#! TextForm[ColonForm[MessageName[Attributes, attnf], StringForm[`1` is not a known attribute., Short[HoldForm[$Failed], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Times], 3], Short[HoldForm[0*Hold[Out[$Line - 1]]], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Set, write]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: SetDelayed_Tests
-ok  f[a + b]    ==>     a^2 + 2*a*b + b^2 # skip
-ok  {r, r, r}    ==>     {0.964064, 0.797772, 0.472486} # skip
-ok  fact[10]    ==>     3628800 # skip
-ok  {f[2], f[-2]}    ==>     {2, f[-2]} # skip
-ok  {unit[-2], unit[0], unit[1], unit[a]}    ==>     {0, 1, 1, unit[a]} # skip
-ok  OwnValues[r]    ==>     {HoldPattern[r] :> Random[]} # skip
-ok  DownValues[f]    ==>     {HoldPattern[f[x_]] :> x^2} # skip
-ok  SubValues[derivative]    ==>     {HoldPattern[derivative[1][f][x_]] :> fg[x]} # skip
-ok  UpValues[mod]    ==>     {HoldPattern[(a_mod) + (b_mod)] :> modPlus[a, b]} # skip
-ok  NValues[f]    ==>     {HoldPattern[N[f[x_], {MachinePrecision, MachinePrecision}]] :> (1 - 1/x^10)*(1 - 1/x^9)*(1 - 1/x^8)*(1 - 1/x^7)*(1 - 1/x^6)*(1 - 1/x^5)*(1 - 1/x^4)*(1 - 1/x^3)*(1 - 1/x^2)} # skip
+ok  $Failed    ==>     HoldComplete[a^2 + 2*a*b + b^2] # skip
+# A variable defined with RefLink[SetDelayed,paclet:ref/SetDelayed] is evaluated every time it is used:
+ok  r := Random[]; {r, r, r}    ==>     {0.964064, 0.797772, 0.472486} # skip
+# Make definitions for special and general cases using immediate and delayed assignments:
+ok  fact[1] = 1; fact[n_] := n*fact[n - 1]; fact[10]    ==>     3628800
+    ---
+    data:
+        got: 3628800
+        expect: 3628800
+        expect_evaluated: 3628800
+    ...
+# Make conditional definitions:
+ok  f[x_ /; x > 0] := Sqrt[2*x]; {f[2], f[-2]}    ==>     {2, f[-2]}
+    ---
+    data:
+        got: {2, f[-2]}
+        expect: {2, f[-2]}
+        expect_evaluated: {2, f[-2]}
+    ...
+# Define a function by several conditional cases:
+not ok  unit[x_ /; x < 0] := 0*unit[x_ /; x >= 0] := 1; {unit[-2], unit[0], unit[1], unit[a]}    ==>     {0, 1, 1, unit[a]}
+    ---
+    data:
+        got: {$Failed, unit[0], unit[1], unit[a]}
+        expect: {0, 1, 1, unit[a]}
+        expect_evaluated: {0, 1, 1, unit[a]}
+    ...
+# Ownvalues:
+not ok  r := Random[]; OwnValues[r]    ==>     {HoldPattern[r] :> Random[]}
+    ---
+    data:
+        got: {0.842303 :> Random[]}
+        expect: {HoldPattern[r] :> Random[]}
+        expect_evaluated: {0.141817 :> Random[]}
+    ...
+# Downvalues:
+ok  f[x_] := x^2; DownValues[f]    ==>     {HoldPattern[f[x_]] :> x^2} # skip
+# Subvalues:
+ok  derivative[1][f][x_] = fg[x] ;; SubValues[derivative]    ==>     {HoldPattern[derivative[1][f][x_]] :> fg[x]} # skip
+# Upvalues:
+ok  mod /: (a_mod) + (b_mod) := modPlus[a, b]; UpValues[mod]    ==>     {HoldPattern[(a_mod) + (b_mod)] :> modPlus[a, b]}
+    ---
+    data:
+        got: {(a_mod) + (b_mod) :> modPlus[a, b]}
+        expect: {HoldPattern[(a_mod) + (b_mod)] :> modPlus[a, b]}
+        expect_evaluated: {(a_mod) + (b_mod) :> modPlus[a, b]}
+    ...
+# Numerical values:
+ok  N[f[x_]] = Product[1 - x^(-i), {i, 2, 10}] ;; NValues[f]    ==>     {HoldPattern[N[f[x_], {MachinePrecision, MachinePrecision}]] :> (1 - 1/x^10)*(1 - 1/x^9)*(1 - 1/x^8)*(1 - 1/x^7)*(1 - 1/x^6)*(1 - 1/x^5)*(1 - 1/x^4)*(1 - 1/x^3)*(1 - 1/x^2)} # skip
 ok  N[f[2]]    ==>     0.578141 # skip
-ok  newton[5.]    ==>     2.23607 # skip
-ok  pi2    ==>     9.8696044010893586188344909998761511353136994072408`49.994299745388275 # skip
+# Define a procedure that computes a square root with Newton's method:
+ok  newton[r_] := FixedPoint[Function[x, (x + r/x)/2], r]; newton[5.]    ==>     2.23607
+    ---
+    data:
+        got: 2.23607
+        expect: 2.23607
+        expect_evaluated: 2.23607
+    ...
+# Perform a calculation on demand and cache the result:
+ok  pi2 := pi2 = N[Pi^2, 50]; pi2    ==>     9.8696044010893586188344909998761511353136994072408`49.994299745388275 # skip
 ok  pi2 = 9.8696044010893586188344909998761511353136994072408`49.994299745388275    ==>     pi2 = 9.8696044010893586188344909998761511353136994072408`49.994299745388275 # skip
-ok  f[x, 5]    ==>     25 # skip
+# Definitions for unevaluated expressions can implement call-by-name semantics:
+ok  SetAttributes[f, HoldFirst]; f[sym_, val_] := sym = val^2; x = 17 ;; f[x, 5]    ==>     25 # skip
 # The global variable has been modified:
 ok  x    ==>     25 # skip
-ok  {x, x, x}    ==>     {0.446837, 0.446837, 0.446837} # skip
-ok  {y, y, y}    ==>     {0.72466, 0.646934, 0.872933} # skip
-ok  Attributes[f] = {Listable}*f[5] := 17*f[x_] := %    ==>     f[5] := 17 # skip
-ok  f[2]    ==>     8 # skip
-ok  Attributes[f] = {Listable}*f[5] := 17*f[x_] := %    ==>     f[x$_] := x^2 # skip
+# The right side of an immediate definition is evaluated when the definition is made: 
+ok  x = Random[] ;; {x, x, x}    ==>     {0.446837, 0.446837, 0.446837} # skip
+# The right side of a delayed definition is evaluated each time the definition is used: 
+ok  y := Random[] ;; {y, y, y}    ==>     {0.72466, 0.646934, 0.872933} # skip
+# The arguments of the left side of a definition are evaluated before the definition is made:
+ok  x = 5 ;; f[x] := 17; f[$Failed] := x^2*f[x_] := f[Floor[x/2]] + 1    ==>     f[5] := 17 # skip
+# Definitions with the same left side overwrite earlier ones:
+ok  f[x_] := x^2; f[x_] := x^3; f[2]    ==>     8 # skip
+# The pattern variable is renamed if necessary inside a nested scope:
+ok  makedef[z_] := (f[x_] := z^2; ); makedef[x]; f[$Failed] := x^2*f[x_] := f[Floor[x/2]] + 1    ==>     f[x$_] := x^2 # skip
 ok  f[5]    ==>     x^2 # skip
-ok  {f[2], x}    ==>     {4, 5} # skip
-ok  {g[2], x}    ==>     {25, 5} # skip
+# Delayed assignment introduces a scope that is not affected by global variables:
+ok  x = 5 ;; f[x_] := x^2; {f[2], x}    ==>     {4, 5} # skip
+# Immediate assignment does not introduce a scope:
+ok  g[x_] = x^2 ;; {g[2], x}    ==>     {25, 5} # skip
 # Use a rule to do a transformation to a particular expression:
 ok  f[2*x*y] + f[x*y] //. f[(a_)*(b_)] :> f[a] + f[b]    ==>     f[2] + 2*f[x] + 2*f[y] # skip
-ok  g[2*x*y] + g[x*y] + f[x*y]    ==>     f[x*y] + g[2] + 2*g[x] + 2*g[y] # skip
-ok  fact[1] = $Failed    ==>     fact[1] = 1*fact[n_] := n*fact[n - 1] # skip
-ok  fact[10]    ==>     3628800 # skip
-ok  Attributes[f] = {Listable}*f[5] := 17*f[x_] := %    ==>     f[x_] := x^2 # skip
+# Use a definition to do a transformation automatically for all expressions involving g:
+ok  g[(a_)*(b_)] := g[a] + g[b]; g[2*x*y] + g[x*y] + f[x*y]    ==>     f[x*y] + g[2] + 2*g[x] + 2*g[y] # skip
+# More specific definitions are put in front of more general ones:
+ok  fact[n_] := n*fact[n - 1]; fact[1] = 1 ;; fact[1] = 1*fact[n_] := n*fact[n - 1]    ==>     fact[1] = 1*fact[n_] := n*fact[n - 1] # skip
+not ok  fact[10]    ==>     3628800
+    ---
+    data:
+        got: 3628800 $Failed
+        expect: 3628800
+        expect_evaluated: 3628800
+    ...
+# RefLink[Definition,paclet:ref/Definition] prints definitions associated with a symbol:
+ok  f[x_] := x^2; f[$Failed] := x^2*f[x_] := f[Floor[x/2]] + 1    ==>     f[x_] := x^2 # skip
 # RefLink[DownValues,paclet:ref/DownValues] returns a list of rules corresponding to any downvalues defined:
 ok  DownValues[f]    ==>     {HoldPattern[f[x_]] :> x^2} # skip
-ok  Attributes[f] = {Listable}*f[5] := 17*f[x_] := %    ==>     Attributes[f] = {Listable}*f[x_] := x^2 # skip
-ok  Attributes[f] = {Listable}*f[5] := 17*f[x_] := %    ==>     Attributes[f] = {Listable} # skip
-ok  Attributes[f] = {Listable}*f[5] := 17*f[x_] := %    ==>     Null # skip
-ok  {f[x], g[x]}    ==>     {x^2, x^2} # skip
+# Use RefLink[Unset,paclet:ref/Unset] (=.) to clear definitions with a particular left-hand side:
+ok  f[-1] =. ; f[$Failed] := x^2*f[x_] := f[Floor[x/2]] + 1    ==>     Attributes[f] = {Listable}*f[x_] := x^2 # skip
+# Clear any definitions, but not attributes:
+ok  Clear[f]; f[$Failed] := x^2*f[x_] := f[Floor[x/2]] + 1    ==>     Attributes[f] = {Listable} # skip
+# Use RefLink[ClearAll,paclet:ref/ClearAll] to clear attributes, too:
+ok  ClearAll[f]; f[$Failed] := x^2*f[x_] := f[Floor[x/2]] + 1    ==>     Null
+    ---
+    data:
+        got: Null
+        expect: Null
+        expect_evaluated: Null
+    ...
+# Omitting the _ defines a transformation only for a literal value, rather than a function:
+ok  f[x] := x^2; g[x_] := x^2 ;; {f[x], g[x]}    ==>     {x^2, x^2} # skip
 ok  {f[2], g[2]}    ==>     {f[2], 4} # skip
 # Using delayed definitions may have unexpected consequences:
 ok  Expand[(x + 1)^3]    ==>     1 + 3*x + 3*x^2 + x^3
     ---
     data:
-        got: 1 + 3*x + 3*x^2 + x^3
+        got:                          2          3
+#! 1 + 3 $Failed + 3 $Failed  + $Failed
         expect: 1 + 3*x + 3*x^2 + x^3
-        expect_evaluated: 1 + 3*x + 3*x^2 + x^3
+        expect_evaluated:                          2          3
+#! 1 + 3 $Failed + 3 $Failed  + $Failed
     ...
 # The definition actually made and its behavior: 
-ok  Attributes[f] = {Listable}*f[5] := 17*f[x_] := %    ==>     f[x_] := % # skip
-ok  f[1]    ==>     f[x_] := % # skip
+ok  f[$Failed] := x^2*f[x_] := f[Floor[x/2]] + 1    ==>     f[x_] := % # skip
+ok  f[1]    ==>     f[x_] := %
+    ---
+    data:
+        got: Null
+        expect: f[x_] := %
+        expect_evaluated: Null
+    ...
 # Use RefLink[Evaluate,paclet:ref/Evaluate] to force evaluation of the right-hand side: 
 ok  Expand[(x + 1)^3]    ==>     1 + 3*x + 3*x^2 + x^3
     ---
     data:
-        got: 1 + 3*x + 3*x^2 + x^3
+        got:                          2          3
+#! 1 + 3 $Failed + 3 $Failed  + $Failed
         expect: 1 + 3*x + 3*x^2 + x^3
-        expect_evaluated: 1 + 3*x + 3*x^2 + x^3
+        expect_evaluated:                          2          3
+#! 1 + 3 $Failed + 3 $Failed  + $Failed
     ...
-ok  g[x_] := 1 + 3*x + 3*x^2 + x^3    ==>     g[x_] := 1 + 3*x + 3*x^2 + x^3 # skip
+ok  g[x_] := Evaluate[%]; g[1] = 0*g[10] = 10*g[(a_)*(b_)] := g[a] + g[b]*g[x_] := g[Floor[x/2]] + 1    ==>     g[x_] := 1 + 3*x + 3*x^2 + x^3 # skip
 not ok  g[1]    ==>     8
     ---
     data:
-        got: g[1]
+        got: $Failed
         expect: 8
         expect_evaluated: 8
     ...
@@ -70,23 +175,50 @@ not ok  g[1]    ==>     8
 ok  Expand[(x + 1)^3]    ==>     1 + 3*x + 3*x^2 + x^3
     ---
     data:
-        got: 1 + 3*x + 3*x^2 + x^3
+        got:                          2          3
+#! 1 + 3 $Failed + 3 $Failed  + $Failed
         expect: 1 + 3*x + 3*x^2 + x^3
-        expect_evaluated: 1 + 3*x + 3*x^2 + x^3
+        expect_evaluated:                          2          3
+#! 1 + 3 $Failed + 3 $Failed  + $Failed
     ...
-ok  h[x_] = %    ==>     1 + 3*x + 3*x^2 + x^3 # skip
-ok  h[x_] = 1 + 3*x + 3*x^2 + x^3    ==>     h[x_] = 1 + 3*x + 3*x^2 + x^3 # skip
-not ok  h[1]    ==>     8
+ok  h[x_] = %    ==>     1 + 3*x + 3*x^2 + x^3
     ---
     data:
-        got: h[1]
-        expect: 8
-        expect_evaluated: 8
+        got:                          2          3
+#! 1 + 3 $Failed + 3 $Failed  + $Failed
+        expect: 1 + 3*x + 3*x^2 + x^3
+        expect_evaluated:                          2          3
+#! 1 + 3 $Failed + 3 $Failed  + $Failed
     ...
-ok  f[1]    ==>     Hold[f[4096 + 1]] # skip
-ok  g[1]    ==>     10 # skip
-ok  f[10]    ==>     255 + Hold[Hold[f[Floor[0/2]]]] # skip
-ok  g[10]    ==>     3 # skip
-ok  fib[5]    ==>     5 # skip
+ok  h[x_] = 1 + 3*$Failed + 3*$Failed^2 + $Failed^3    ==>     h[x_] = 1 + 3*x + 3*x^2 + x^3 # skip
+ok  h[1]    ==>     8 # skip
+# An iterative runaway definition: 
+ok  f[x_] := f[x + 1]; f[1]    ==>     Hold[f[4096 + 1]]
+    ---
+    data:
+        got: Hold[f[8191 + 1]]
+        expect: Hold[f[4096 + 1]]
+        expect_evaluated: Hold[f[8191 + 1]]
+    ...
+# By providing a base case, the iteration terminates:
+not ok  g[10] = 10; g[x_] := g[x + 1]; g[1]    ==>     10
+    ---
+    data:
+        got: $Failed
+        expect: 10
+        expect_evaluated: 10
+    ...
+# A recursive runaway definition: 
+ok  f[x_] := f[Floor[x/2]] + 1; f[10]    ==>     255 + Hold[Hold[f[Floor[0/2]]]] # skip
+# By providing a base case, the recursion terminates: 
+ok  g[1] = 0; g[x_] := g[Floor[x/2]] + 1; g[10]    ==>     3 # skip
+# Dynamic programming for the Fibonacci sequence:
+ok  fib[1] = fib[2] = 1; fib[n_] := fib[n] = fib[n - 1] + fib[n - 2]; fib[5]    ==>     5
+    ---
+    data:
+        got: 5
+        expect: 5
+        expect_evaluated: 5
+    ...
 # New definitions have been added during the calculation:
-ok  fib[1] = $Failed    ==>     fib[1] = 1*fib[2] = 1*fib[3] = 2*fib[4] = 3*fib[5] = 5*fib[n_] := fib[n] = fib[n - 1] + fib[n - 2] # skip
+ok  fib[1] = 1*fib[2] = 1*fib[3] = 2*fib[4] = 3*fib[5] = 5*fib[n_] := fib[n] = fib[n - 1] + fib[n - 2]    ==>     fib[1] = 1*fib[2] = 1*fib[3] = 2*fib[4] = 3*fib[5] = 5*fib[n_] := fib[n] = fib[n - 1] + fib[n - 2] # skip

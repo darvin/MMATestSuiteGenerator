@@ -4,17 +4,24 @@ TapSuite[TapComment["RefLink[NumericQ,paclet:ref/NumericQ] tests whether an \
 object is a numeric quantity:"], TapTestSame[NumericQ[Sin[Sqrt[2]]], True], 
  TapComment["In most cases, RefLink[NumericQ,paclet:ref/NumericQ][expr] gives \
 RefLink[True,paclet:ref/True] whenever RefLink[N,paclet:ref/N][expr] yields \
-an explicit number: "], TapTestSameBROKEN[N[Sin[Sqrt[2]]], 0.987766], 
- TapTestSame[NumericQ[expr], False], 
+an explicit number: "], TapTestSame[N[Sin[Sqrt[2]]], 0.987766], 
+ TapComment["An object is numeric if all its constituents are numeric:"], 
+ TapTestSameBROKEN[expr = BesselJ[2, Sin[Exp[Log[3] + 4]] + x] ;; 
+    NumericQ[expr], False], 
  TapComment["Some parts of the expression are numeric:"], 
  TapTestSameBROKEN[TableForm[({#1, NumericQ[#1]} & ) /@ 
     Level[expr, {0, Infinity}], TableHeadings -> {{}, {"e", "NumericQ[e]"}}], 
   \[Null]*e*NumericQ[e]*\[Null]*2*True*\[Null]*x*False*\[Null]*3*True*\[Null]*
     E*True*\[Null]*4*True*\[Null]*E^4*True*\[Null]*3*E^4*True*\[Null]*
     Sin[3*E^4]*True*\[Null]*x + Sin[3*E^4]*False*\[Null]*
-    BesselJ[2, x + Sin[3*E^4]]*False], TapTestSameBROKEN[
-  NumericQ[f[Pi, Sin[1 + I]]], True], TapTestSameBROKEN[
-  constants = Select[ssymb, MemberQ[Attributes[#1], Constant] & ], 
+    BesselJ[2, x + Sin[3*E^4]]*False], TapComment["When f has the \
+RefLink[NumericFunction,paclet:ref/NumericFunction] attribute then f[args] is \
+numeric when args are numeric:"], 
+ TapTestSame[SetAttributes[f, NumericFunction]; NumericQ[f[Pi, Sin[1 + I]]], 
+  True], TapComment[
+  "The system symbols that represent numerical constants:"], 
+ TapTestSameBROKEN[ssymb = Names["System`*"] ;; constants = 
+    Select[ssymb, MemberQ[Attributes[#1], Constant] & ], 
   {Catalan, ChampernowneNumber, Degree, E, EulerGamma, Glaisher, GoldenRatio, 
    Khinchin, MachinePrecision, Pi}], TapComment["The system symbols with the \
 RefLink[NumericFunction,paclet:ref/NumericFunction] attribute:"], 
@@ -83,16 +90,25 @@ numeric:"], TapTestSameBROKEN[
   True], TapComment["In most cases, RefLink[N,paclet:ref/N][e] will not be a \
 number since it is improbable that the arguments are correct:"], 
  TapTestSameBROKEN[Quiet[N[e]], Indeterminate], 
- TapTestSameBROKEN[MatrixQ[m, NumericQ], True], TapTestSame[f[a], f[a]], 
- TapTestSameBROKEN[f[Sqrt[2]], -0.5 + 1.07899*I], 
- TapTestSameBROKEN[HoldComplete[Plot[{Re[f[a]], Im[f[a]]}, {a, -2, 2}]], 
-  $Failed], TapTestSameBROKEN[f[Exp[1] + Exp[-1]], 3.08616], 
- TapTestSameBROKEN[f[Exp[x] + Exp[-x]], 2*Cosh[x]], 
- TapComment["RefLink[NumericQ,paclet:ref/NumericQ][e] does not always imply \
-that RefLink[N,paclet:ref/N][e] will yield a number:"], 
- TapTestSame[e = 1/(Sin[1]^2 + Cos[1]^2 - 1), 1/(-1 + Cos[1]^2 + Sin[1]^2)], 
- TapTestSame[NumericQ[e], True], TapTestSameBROKEN[N[e], ComplexInfinity], 
- TapTestSame[NumberQ[%], False], TapComment["This can also happen when the \
-arguments for the function are given incorrectly:"], 
- TapTestSame[e = Sin[1, 2], Sin[1, 2]], TapTestSame[NumericQ[e], True], 
- TapTestSame[NumberQ[N[e]], False]]
+ TapComment["Test if a matrix consists of numeric entries:"], 
+ TapTestSameBROKEN[m = {{Cos[1], Sin[1]}, {-Sin[1], Cos[1]}} ;; 
+    MatrixQ[m, NumericQ], True], 
+ TapComment[
+  "Define a function that only evaluates when its argument is numeric:"], 
+ TapTestSame[f[(a_)?NumericQ] := Module[{g, x}, 
+     Quiet[g[x_] = x^2 + x + a; r = x /. FindRoot[g[x], {x, 1}]; 
+       If[Abs[g[r]] < 10^(-4), r, x /. FindRoot[g[x], {x, 1 + I}]]]]; f[a], 
+  f[a]], TapTestSame[f[Sqrt[2]], -0.5 + 1.07899*I], 
+ TapTestSame[HoldComplete[Plot[{Re[f[a]], Im[f[a]]}, {a, -2, 2}]], $Failed], 
+ TapComment[
+  "Define a function that has a special case for numeric arguments:"], 
+ TapTestSameBROKEN[f[(x_)?NumericQ, prec_:MachinePrecision] := N[x, prec]; 
+   f[x_] := FullSimplify[x]; f[Exp[1] + Exp[-1]], 3.08616], 
+ TapTestSame[f[Exp[x] + Exp[-x]], 2*Cosh[x]], TapComment["RefLink[NumericQ,pa\
+clet:ref/NumericQ][e] does not always imply that RefLink[N,paclet:ref/N][e] \
+will yield a number:"], TapTestSame[e = 1/(Sin[1]^2 + Cos[1]^2 - 1), 
+  1/(-1 + Cos[1]^2 + Sin[1]^2)], TapTestSame[NumericQ[e], True], 
+ TapTestSameBROKEN[N[e], ComplexInfinity], TapTestSame[NumberQ[%], False], 
+ TapComment["This can also happen when the arguments for the function are \
+given incorrectly:"], TapTestSame[e = Sin[1, 2], Sin[1, 2]], 
+ TapTestSame[NumericQ[e], True], TapTestSame[NumberQ[N[e]], False]]

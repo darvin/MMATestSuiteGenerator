@@ -1,8 +1,14 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Together.nb output/Tests/Together_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Together.nb
 # WRITING OUTPUT TO:     output/Tests/Together_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Together[a/b+c/d]    ==>     (b c+a d)/(b d)
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Together[x^2/(x^2-1)+x/(x^2-1)]    ==>     x/(-1+x)
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  Together[1/x+1/(x+1)+1/(x+2)+1/(x+3)]    ==>     (2 (3+11 x+9 x^2+2 x^3))/(x (1+x) (2+x) (3+x))
 ok  Together[x^2/(x-y)-x y/(x-y)]    ==>     x
 ok  Together[1<1/x+1/(1+x)<2]    ==>     1<(1+2 x)/(x (1+x))<2
@@ -16,11 +22,15 @@ ok  Together[1/x+1/(1+x),Modulus->2]    ==>     1/(x (1+x))
 ok  Together[(x-1)(x-2)/((x-3)(x-4)(x-5)),Modulus->2]    ==>     1/(1+x)
 ok  Together[1/Sin[x]+1/Cos[x]]    ==>     Csc[x]+Sec[x]
 ok  Together[1/Sin[x]+1/Cos[x],Trig->True]    ==>     Csc[x] Sec[x] (Cos[x]+Sin[x])
-not ok  rationalFunctionQ[1/x+y/x,{x,y}]    ==>     True
+not ok  rationalFunctionQ[e_,vars_]:=
+#! Module[{r=Together[e]},
+#! Apply[And,PolynomialQ[#,vars]&/@{Denominator[r],Numerator[r]}]
+#! ];; rationalFunctionQ[1/x+y/x,{x,y}]    ==>     True
 ok  Together[a/b+c/d]    ==>     (b c+a d)/(b d)
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  Apart[%]    ==>     a/b+c/d
-not ok  Together[r]    ==>     (3+2 x)/((1+x) (2+x))
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+not ok  r=(x-1)/(x^2-1)+(x-2)/(x^2-4);; Together[r]    ==>     (3+2 x)/((1+x) (2+x))
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
 not ok  Cancel[r]    ==>     1/(1+x)+1/(2+x)
 ok  expr=Together[1/x+1/y]    ==>     (x+y)/(x y)
 ok  Numerator[expr]    ==>     x+y

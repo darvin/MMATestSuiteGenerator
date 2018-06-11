@@ -32,8 +32,8 @@ which the condition was still RefLink[True,paclet:ref/True]:"],
   1021], TapComment[
   "Find the index of the first Fibonacci number above a million:"], 
  TapTestSame[NestWhile[#1 + 1 & , 1, Fibonacci[#1] <= 10^6 & ], 31], 
- TapTestSameBROKEN[Fibonacci[%], 1346269], 
- TapTestSameBROKEN[HoldComplete[ListLinePlot[
+ TapTestSame[Fibonacci[%], 1346269], 
+ TapTestSame[HoldComplete[ListLinePlot[
     Table[NestWhile[#1 + 1 & , 1, Fibonacci[#1] <= n & ], {n, 200}]]], 
   $Failed], TapComment[
   "Find the index of the last Fibonacci number below a million:"], 
@@ -48,12 +48,11 @@ returns anything other then RefLink[True,paclet:ref/True]:"],
 RefLink[True,paclet:ref/True] or RefLink[False,paclet:ref/False]:"], 
  TapTestSame[Positive[a], Positive[a]], TapComment["RefLink[FixedPoint,paclet\
 :ref/FixedPoint] always compares the last two values; these two forms are \
-equivalent:"], TapTestSameBROKEN[NestWhile[Cos, 1., UnsameQ, 2], 0.739085], 
- TapTestSameBROKEN[FixedPoint[Cos, 1.], 0.739085], 
- TapComment["RefLink[NestWhileList,paclet:ref/NestWhileList] applies the same \
-stopping criteria, but returns all values generated:"], 
- TapTestSameBROKEN[NestWhileList[(#1 + 3/#1)/2 & , 1., Unequal, 2], 
-  {1., 2., 1.75, 1.73214, 1.73205, 1.73205, 1.73205}], 
+equivalent:"], TapTestSame[NestWhile[Cos, 1., UnsameQ, 2], 0.739085], 
+ TapTestSame[FixedPoint[Cos, 1.], 0.739085], TapComment["RefLink[NestWhileLis\
+t,paclet:ref/NestWhileList] applies the same stopping criteria, but returns \
+all values generated:"], TapTestSame[NestWhileList[(#1 + 3/#1)/2 & , 1., 
+   Unequal, 2], {1., 2., 1.75, 1.73214, 1.73205, 1.73205, 1.73205}], 
  TapComment["RefLink[NestWhile,paclet:ref/NestWhile] can be expressed in \
 terms of a RefLink[While,paclet:ref/While] loop:"], 
  TapTestSame[NestWhile[Floor[#1/2] & , 10, #1 > 0 & ], 0], 

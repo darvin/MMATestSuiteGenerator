@@ -1,15 +1,21 @@
 #! DOCKER > wolfram -script output/Tests/AtomQ_Tests.m
-#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[s[[2,2]]], 3]]]]
-#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[s[[2,2]]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: AtomQ_Tests
 # Test if an expression cannot be subdivided:
 ok  e = x + 22/7    ==>     22/7 + x
     ---
     data:
-        got: 22/7 + x
+        got: 22
+#! -- + x
+#! 7
         expect: 22/7 + x
-        expect_evaluated: 22/7 + x
+        expect_evaluated: 22
+#! -- + x
+#! 7
     ...
 ok  AtomQ[e]    ==>     False
     ---
@@ -22,9 +28,13 @@ ok  AtomQ[e]    ==>     False
 ok  e[[1]]    ==>     22/7
     ---
     data:
-        got: 22/7
+        got: 22
+#! --
+#! 7
         expect: 22/7
-        expect_evaluated: 22/7
+        expect_evaluated: 22
+#! --
+#! 7
     ...
 # This is a number that is an atom:
 ok  AtomQ[%]    ==>     True # skip
@@ -98,24 +108,24 @@ ok  AtomQ[s]    ==>     True
         expect_evaluated: True
     ...
 # Commands that work with RefLink[SparseArray,paclet:ref/SparseArray] objects typically do so on the represented array:
-not ok  a = Normal[s]    ==>     {{1, 0, 0}, {0, 2, 0}, {0, 0, 3}}
+ok  a = Normal[s]    ==>     {{1, 0, 0}, {0, 2, 0}, {0, 0, 3}}
     ---
     data:
-        got: s
+        got: {{1, 0, 0}, {0, 2, 0}, {0, 0, 3}}
         expect: {{1, 0, 0}, {0, 2, 0}, {0, 0, 3}}
         expect_evaluated: {{1, 0, 0}, {0, 2, 0}, {0, 0, 3}}
     ...
-not ok  s[[2,2]]    ==>     2
+ok  s[[2,2]]    ==>     2
     ---
     data:
-        got: s[[2,2]]
+        got: 2
         expect: 2
         expect_evaluated: 2
     ...
-not ok  a[[2,2]]    ==>     2
+ok  a[[2,2]]    ==>     2
     ---
     data:
-        got: s[[2,2]]
+        got: 2
         expect: 2
         expect_evaluated: 2
     ...
@@ -143,8 +153,21 @@ ok  LeafCount[e]    ==>     11
 ok  leaves[e, Heads -> False]    ==>     6 # skip
 # This corresponds to the dangling leaves you see with RefLink[TreeForm,paclet:ref/TreeForm]:
 ok  HoldComplete[TreeForm[e]]    ==>     $Failed # skip
-ok  depth[1 + x + 2*x^2]    ==>     {1, 3} # skip
-ok  depth[{{1, 2}, {3, 4}}]    ==>     {2, 2} # skip
+# Find the minimum and maximum "depth" of an expression:
+ok  depth[expr_] := Block[{mind = Infinity, maxd = 0, burrow, d}, burrow[(e_)?AtomQ, d_] := (mind = Min[d, mind]; maxd = Max[d, maxd]); burrow[e_, d_] := Scan[burrow[#1, d + 1] & , e]; burrow[expr, 0]; {mind, maxd}]; depth[1 + x + 2*x^2]    ==>     {1, 3}
+    ---
+    data:
+        got: {1, 3}
+        expect: {1, 3}
+        expect_evaluated: {1, 3}
+    ...
+ok  depth[{{1, 2}, {3, 4}}]    ==>     {2, 2}
+    ---
+    data:
+        got: {2, 2}
+        expect: {2, 2}
+        expect_evaluated: {2, 2}
+    ...
 # RefLink[Depth,paclet:ref/Depth] gives the maximum depth plus 1:
 ok  Depth[1 + x + 2*x^2]    ==>     4
     ---
@@ -157,14 +180,19 @@ ok  Depth[1 + x + 2*x^2]    ==>     4
 ok  Map[f, 1 + x + 2*x^2, {-1}]    ==>     f[1] + f[x] + f[2]*f[x]^f[2]
     ---
     data:
-        got: f[1] + f[x] + f[2]*f[x]^f[2]
+        got:                        f[2]
+#! f[1] + f[x] + f[2] f[x]
         expect: f[1] + f[x] + f[2]*f[x]^f[2]
-        expect_evaluated: f[1] + f[x] + f[2]*f[x]^f[2]
+        expect_evaluated:                        f[2]
+#! f[1] + f[x] + f[2] f[x]
     ...
-ok  Map[f, 1 + x + 2*x^2, {-1}]    ==>     f[1] + f[x] + f[2]*f[x]^f[2]
+# This is equivalent to the following recursive function:
+ok  mapf[(e_)?AtomQ] := f[e]; mapf[(head_)[args___]] := head @@ Table[mapf[arg], {arg, {args}}]; Map[f, 1 + x + 2*x^2, {-1}]    ==>     f[1] + f[x] + f[2]*f[x]^f[2]
     ---
     data:
-        got: f[1] + f[x] + f[2]*f[x]^f[2]
+        got:                        f[2]
+#! f[1] + f[x] + f[2] f[x]
         expect: f[1] + f[x] + f[2]*f[x]^f[2]
-        expect_evaluated: f[1] + f[x] + f[2]*f[x]^f[2]
+        expect_evaluated:                        f[2]
+#! f[1] + f[x] + f[2] f[x]
     ...

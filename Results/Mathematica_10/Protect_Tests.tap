@@ -1,0 +1,62 @@
+#! DOCKER > wolfram -script output/Tests/Protect_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[SetDelayed, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[f], 3], Short[HoldForm[f[x_]], 3]]]]
+#! TextForm[ColonForm[MessageName[SetDelayed, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[g], 3], Short[HoldForm[g[x_]], 3]]]]
+#! TextForm[ColonForm[MessageName[SetDelayed, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[f], 3], Short[HoldForm[f[x_]], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[SetDelayed, write]], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, wrsym], StringForm[Symbol `1` is Protected., Short[HoldForm[syms], 3]]]]
+# SYSTEM: Mathematica_10
+# TEST: Protect_Tests
+# The function definition can no longer be changed: 
+ok  f[x_, y_] := x + y    ==>     $Failed # skip
+# Protect several symbols:
+ok  Protect[f, g, h]    ==>     {f, g, h}
+    ---
+    data:
+        got: {f, g, h}
+        expect: {f, g, h}
+        expect_evaluated: {f, g, h}
+    ...
+# Protect all symbols matching a string pattern:
+ok  f1[x_] := x^2; f2[x_] := x^3 ;; Protect["f*"]    ==>     {f1, f2} # skip
+# Protect all symbols in the current context:
+ok  f[x_] := x^2; g[x_] := x^3 ;; Protect["`*"] ;; Attributes[{f, g}]    ==>     {{Protected}, {Protected}} # skip
+# Protecting a symbol is equivalent to setting the RefLink[Protected,paclet:ref/Protected] attribute:
+ok  Protect[f]; SetAttributes[g, Protected] ;; Attributes[{f, g}]    ==>     {{Protected}, {Protected}} # skip
+ok  Unprotect[f]; ClearAttributes[g, Protected] ;; Attributes[{f, g}]    ==>     {{}, {}} # skip
+# RefLink[Protect,paclet:ref/Protect] returns the list of symbols actually protected:
+ok  Protect[f, g]    ==>     {f, g}
+    ---
+    data:
+        got: {f, g}
+        expect: {f, g}
+        expect_evaluated: {f, g}
+    ...
+# If a symbol is already protected, it is not protected again:
+ok  Protect[f]    ==>     {}
+    ---
+    data:
+        got: {}
+        expect: {}
+        expect_evaluated: {}
+    ...
+# No more definitions can be made for a protected symbol:
+ok  f[x_] := x^3; Protect[f] ;; f[x_] := x^2    ==>     $Failed
+    ---
+    data:
+        got: $Failed
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
+# To protect all symbols given in a variable, use RefLink[Evaluate,paclet:ref/Evaluate]:
+ok  syms = {f, g, h} ;; Protect[Evaluate[syms]]    ==>     {f, g, h} # skip
+ok  Attributes[f]    ==>     {Protected}
+    ---
+    data:
+        got: {Protected}
+        expect: {Protected}
+        expect_evaluated: {Protected}
+    ...

@@ -1,6 +1,19 @@
 #! DOCKER > wolfram -script output/Tests/Equal_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Solve, naqs], StringForm[`1` is not a quantified system of equations and inequalities., Short[HoldForm[Hold[Out[$Line - 1]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Solve, naqs], StringForm[`1` is not a quantified system of equations and inequalities., Short[HoldForm[Hold[Out[$Line - 1]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Solve, naqs], StringForm[`1` is not a quantified system of equations and inequalities., Short[HoldForm[Hold[Out[$Line - 1]]], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Solve, naqs]], 3]]]]
+#! TextForm[ColonForm[MessageName[Reduce, naqs], StringForm[`1` is not a quantified system of equations and inequalities., Short[HoldForm[Hold[Out[$Line - 2]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Reduce, naqs], StringForm[`1` is not a quantified system of equations and inequalities., Short[HoldForm[Hold[Out[$Line - 2]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Reduce, naqs], StringForm[`1` is not a quantified system of equations and inequalities., Short[HoldForm[Hold[Out[$Line - 1]]], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Reduce, naqs]], 3]]]]
 #! TextForm[ColonForm[MessageName[PossibleZeroQ, ztest1], StringForm[Unable to decide whether numeric quantity `1` is equal to zero. Assuming it is., Short[HoldForm[Log[Sqrt[2] + Sqrt[3]] - Log[5 + 2*Sqrt[6]]/2], 3]]]]
 #! TextForm[ColonForm[MessageName[PossibleZeroQ, ztest1], StringForm[Unable to decide whether numeric quantity `1` is equal to zero. Assuming it is., Short[HoldForm[1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Log[Sqrt[2] + Sqrt[3]] - Log[5 + 2*Sqrt[6]]/2], 3]]]]
+#! TextForm[ColonForm[MessageName[Set, shape], StringForm[Lists `1` and `2` are not the same shape., Short[HoldForm[{x, y, z}], 3], Short[HoldForm[Span[{0.99999999999999, 1., 1.00000000000001}, x] == y], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Equal_Tests
 # Test equality:
@@ -15,11 +28,23 @@ ok  2 + 2 == 4    ==>     True
 ok  x^2 == 1 + x    ==>     x^2 == 1 + x
     ---
     data:
-        got: x^2 == 1 + x
+        got:  2
+#! x  == 1 + x
         expect: x^2 == 1 + x
-        expect_evaluated: x^2 == 1 + x
+        expect_evaluated:  2
+#! x  == 1 + x
     ...
-ok  Solve[%, x]    ==>     {{x -> (1/2)*(1 - Sqrt[5])}, {x -> (1/2)*(1 + Sqrt[5])}} # skip
+ok  Solve[%, x]    ==>     {{x -> (1/2)*(1 - Sqrt[5])}, {x -> (1/2)*(1 + Sqrt[5])}}
+    ---
+    data:
+        got:        1 - Sqrt[5]         1 + Sqrt[5]
+#! {{x -> -----------}, {x -> -----------}}
+#!             2                   2
+        expect: {{x -> (1/2)*(1 - Sqrt[5])}, {x -> (1/2)*(1 + Sqrt[5])}}
+        expect_evaluated:        1 - Sqrt[5]         1 + Sqrt[5]
+#! {{x -> -----------}, {x -> -----------}}
+#!             2                   2
+    ...
 # Test equality of numbers:
 ok  3/2 == 5/3    ==>     False
     ---
@@ -71,9 +96,11 @@ ok  Sqrt[2] + Sqrt[3] == Sqrt[5 + 2*Sqrt[6]]    ==>     True
 ok  Sqrt[2] + Sqrt[3] == Root[#1^4 - 10*#1^2 + 1 & , 4]    ==>     Sqrt[2] + Sqrt[3] == Root[1 - 10*#1^2 + #1^4 & , 4]
     ---
     data:
-        got: Sqrt[2] + Sqrt[3] == Root[1 - 10*#1^2 + #1^4 & , 4, 0]
+        got:                                    2     4
+#! Sqrt[2] + Sqrt[3] == Root[1 - 10 #1  + #1  & , 4]
         expect: Sqrt[2] + Sqrt[3] == Root[1 - 10*#1^2 + #1^4 & , 4]
-        expect_evaluated: Sqrt[2] + Sqrt[3] == Root[1 - 10*#1^2 + #1^4 & , 4, 0]
+        expect_evaluated:                                    2     4
+#! Sqrt[2] + Sqrt[3] == Root[1 - 10 #1  + #1  & , 4]
     ...
 # Use RefLink[RootReduce,paclet:ref/RootReduce] to decide whether two algebraic numbers are equal:
 ok  RootReduce[%]    ==>     True # skip
@@ -81,9 +108,13 @@ ok  RootReduce[%]    ==>     True # skip
 ok  Sqrt[2] + Sqrt[3] == Root[#1^4 - 10*#1^2 + 1 & , 4] + 10^(-100)    ==>     Sqrt[2] + Sqrt[3] == 1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Root[1 - 10*#1^2 + #1^4 & , 4]
     ---
     data:
-        got: Sqrt[2] + Sqrt[3] == 1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Root[1 - 10*#1^2 + #1^4 & , 4, 0]
+        got:                                                                        1                                                                   2     4
+#! Sqrt[2] + Sqrt[3] == ----------------------------------------------------------------------------------------------------- + Root[1 - 10 #1  + #1  & , 4]
+#!                      10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
         expect: Sqrt[2] + Sqrt[3] == 1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Root[1 - 10*#1^2 + #1^4 & , 4]
-        expect_evaluated: Sqrt[2] + Sqrt[3] == 1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Root[1 - 10*#1^2 + #1^4 & , 4, 0]
+        expect_evaluated:                                                                        1                                                                   2     4
+#! Sqrt[2] + Sqrt[3] == ----------------------------------------------------------------------------------------------------- + Root[1 - 10 #1  + #1  & , 4]
+#!                      10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     ...
 # RefLink[RootReduce,paclet:ref/RootReduce] proves that the two algebraic numbers are not equal:
 ok  RootReduce[%]    ==>     False # skip
@@ -107,9 +138,11 @@ ok  x == x    ==>     True
 ok  (x + 1)^2 == x^2 + 2*x + 1    ==>     (1 + x)^2 == 1 + 2*x + x^2
     ---
     data:
-        got: (1 + x)^2 == 1 + 2*x + x^2
+        got:        2               2
+#! (1 + x)  == 1 + 2 x + x
         expect: (1 + x)^2 == 1 + 2*x + x^2
-        expect_evaluated: (1 + x)^2 == 1 + 2*x + x^2
+        expect_evaluated:        2               2
+#! (1 + x)  == 1 + 2 x + x
     ...
 # Use RefLink[Expand,paclet:ref/Expand] to prove it:
 ok  Expand[%]    ==>     True # skip
@@ -117,12 +150,22 @@ ok  Expand[%]    ==>     True # skip
 ok  a*x == b    ==>     a*x == b
     ---
     data:
-        got: a*x == b
+        got: a x == b
         expect: a*x == b
-        expect_evaluated: a*x == b
+        expect_evaluated: a x == b
     ...
 # Use RefLink[Solve,paclet:ref/Solve] to solve the equation:
-ok  Solve[%, x]    ==>     {{x -> b/a}} # skip
+ok  Solve[%, x]    ==>     {{x -> b/a}}
+    ---
+    data:
+        got:        b
+#! {{x -> -}}
+       a
+        expect: {{x -> b/a}}
+        expect_evaluated:        b
+#! {{x -> -}}
+       a
+    ...
 # RefLink[Reduce,paclet:ref/Reduce] gives all solutions, including the ones that require nongeneric values of parameters:
 ok  Reduce[%%, x]    ==>     (b == 0 && a == 0) || (a != 0 && x == b/a) # skip
 # Compare more than two expressions:
@@ -136,11 +179,23 @@ ok  3 == 3. == 3.    ==>     True
 ok  x + y + z == x^2 - y^2 - z^2 == x*y*z == 3    ==>     x + y + z == x^2 - y^2 - z^2 == x*y*z == 3
     ---
     data:
-        got: x + y + z == x^2 - y^2 - z^2 == x*y*z == 3
+        got:               2    2    2
+#! x + y + z == x  - y  - z  == x y z == 3
         expect: x + y + z == x^2 - y^2 - z^2 == x*y*z == 3
-        expect_evaluated: x + y + z == x^2 - y^2 - z^2 == x*y*z == 3
+        expect_evaluated:               2    2    2
+#! x + y + z == x  - y  - z  == x y z == 3
     ...
-ok  Reduce[%, {x, y, z}]    ==>     x == 1 && (y == (1/2)*(2 - 2*I*Sqrt[2]) || y == (1/2)*(2 + 2*I*Sqrt[2])) && z == 2 - y # skip
+ok  Reduce[%, {x, y, z}]    ==>     x == 1 && (y == (1/2)*(2 - 2*I*Sqrt[2]) || y == (1/2)*(2 + 2*I*Sqrt[2])) && z == 2 - y
+    ---
+    data:
+        got:                 2 - (2 I) Sqrt[2]         2 + (2 I) Sqrt[2]
+#! x == 1 && (y == ----------------- || y == -----------------) && z == 2 - y
+#!                         2                         2
+        expect: x == 1 && (y == (1/2)*(2 - 2*I*Sqrt[2]) || y == (1/2)*(2 + 2*I*Sqrt[2])) && z == 2 - y
+        expect_evaluated:                 2 - (2 I) Sqrt[2]         2 + (2 I) Sqrt[2]
+#! x == 1 && (y == ----------------- || y == -----------------) && z == 2 - y
+#!                         2                         2
+    ...
 # Compare lists:
 ok  {1, 2} == {1, 2}    ==>     True
     ---
@@ -176,9 +231,9 @@ ok   !x == y    ==>     x != y
 ok   !x == y == z    ==>      !x == y == z
     ---
     data:
-        got:  !x == y == z
+        got: !x == y == z
         expect:  !x == y == z
-        expect_evaluated:  !x == y == z
+        expect_evaluated: !x == y == z
     ...
 # Use RefLink[LogicalExpand,paclet:ref/LogicalExpand] to express it in terms of two-argument RefLink[Unequal,paclet:ref/Unequal]:
 ok  LogicalExpand[%]    ==>     y != x || z != x # skip
@@ -210,9 +265,13 @@ ok  {x === x, x === y, Sqrt[2] + Sqrt[3] === Sqrt[5 + 2*Sqrt[6]], Pi === N[Pi]} 
 ok  a = Log[Sqrt[2] + Sqrt[3]]; b = Log[5 + 2*Sqrt[6]]/2; a == b    ==>     Log[Sqrt[2] + Sqrt[3]] == (1/2)*Log[5 + 2*Sqrt[6]]
     ---
     data:
-        got: Log[Sqrt[2] + Sqrt[3]] == Log[5 + 2*Sqrt[6]]/2
+        got:                           Log[5 + 2 Sqrt[6]]
+#! Log[Sqrt[2] + Sqrt[3]] == ------------------
+#!                                   2
         expect: Log[Sqrt[2] + Sqrt[3]] == (1/2)*Log[5 + 2*Sqrt[6]]
-        expect_evaluated: Log[Sqrt[2] + Sqrt[3]] == Log[5 + 2*Sqrt[6]]/2
+        expect_evaluated:                           Log[5 + 2 Sqrt[6]]
+#! Log[Sqrt[2] + Sqrt[3]] == ------------------
+#!                                   2
     ...
 # RefLink[FullSimplify,paclet:ref/FullSimplify] uses exact symbolic transformations to prove the equality:
 ok  FullSimplify[a == b]    ==>     True
@@ -243,7 +302,15 @@ ok  Solve[a*x^2 + b*x + c == 0, x]    ==>     {{x -> (-b - Sqrt[b^2 - 4*a*c])/(2
 # RefLink[Reduce,paclet:ref/Reduce] gives all solutions, including those with nongeneric parameter values:
 ok  Reduce[a*x^2 + b*x + c == 0, x]    ==>     (a != 0 && (x == (-b - Sqrt[b^2 - 4*a*c])/(2*a) || x == (-b + Sqrt[b^2 - 4*a*c])/(2*a))) || (a == 0 && b != 0 && x == -(c/b)) || (c == 0 && b == 0 && a == 0) # skip
 # Use RefLink[Reduce,paclet:ref/Reduce] to solve equations over specified domains:
-ok  Reduce[x^2 + y^2 == 5, {x, y}, Reals]    ==>     -Sqrt[5] <= x <= Sqrt[5] && (y == -Sqrt[5 - x^2] || y == Sqrt[5 - x^2]) # skip
+ok  Reduce[x^2 + y^2 == 5, {x, y}, Reals]    ==>     -Sqrt[5] <= x <= Sqrt[5] && (y == -Sqrt[5 - x^2] || y == Sqrt[5 - x^2])
+    ---
+    data:
+        got:                                              2                    2
+#! -Sqrt[5] <= x <= Sqrt[5] && (y == -Sqrt[5 - x ] || y == Sqrt[5 - x ])
+        expect: -Sqrt[5] <= x <= Sqrt[5] && (y == -Sqrt[5 - x^2] || y == Sqrt[5 - x^2])
+        expect_evaluated:                                              2                    2
+#! -Sqrt[5] <= x <= Sqrt[5] && (y == -Sqrt[5 - x ] || y == Sqrt[5 - x ])
+    ...
 ok  Reduce[x^2 + y^2 == 5, {x, y}, Integers]    ==>     (x == -2 && y == -1) || (x == -2 && y == 1) || (x == -1 && y == -2) || (x == -1 && y == 2) || (x == 1 && y == -2) || (x == 1 && y == 2) || (x == 2 && y == -1) || (x == 2 && y == 1)
     ---
     data:
@@ -270,7 +337,13 @@ ok  2.00006`16. - 2.00005000000000000000000000001`16. == 1.`16.*^-5    ==>     T
         expect_evaluated: True
     ...
 # Thanks to automatic precision tracking RefLink[Equal,paclet:ref/Equal] knows to look only at the first ten digits:
-ok  Precision[2.00006`16. - 2.00005000000000000000000000001`16.]    ==>     10.3979 # skip
+ok  Precision[2.00006`16. - 2.00005000000000000000000000001`16.]    ==>     10.3979
+    ---
+    data:
+        got: 10.3979
+        expect: 10.3979
+        expect_evaluated: 10.3979
+    ...
 # In this case, the equality test for machine numbers succeeds:
 ok  2.6 - 2.5 == 0.1    ==>     True
     ---
@@ -281,7 +354,8 @@ ok  2.6 - 2.5 == 0.1    ==>     True
     ...
 # The extra digits in this case are ignored by RefLink[Equal,paclet:ref/Equal]:
 ok  InputForm[2.6 - 2.5]    ==>     0.10000000000000009 # skip
-ok  x == y    ==>     True # skip
+# Equality may not be transitive for approximate numbers:
+ok  {x, y, z} = {1. - 1.*^-14, 1., 1. + 1.*^-14} ;; x == y    ==>     True # skip
 ok  y == z    ==>     True # skip
 ok  x == z    ==>     False # skip
 # RefLink[Equal,paclet:ref/Equal] is not treated as the Boolean equivalence operator:

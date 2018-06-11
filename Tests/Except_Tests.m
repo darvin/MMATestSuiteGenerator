@@ -3,12 +3,12 @@ Import["CompatTests.m"];
 TapSuite[TapComment["This gives all elements except 0:"], 
  TapTestSame[Cases[{1, 0, 2, 0, 3}, Except[0]], {1, 2, 3}], 
  TapComment["Delete all nonvowel characters from a string:"], 
- TapTestSameBROKEN[StringReplace["the cat in the hat", 
+ TapTestSame[StringReplace["the cat in the hat", 
    Except[Characters["aeiou"]] -> ""], eaiea], 
  TapComment[
   "RefLink[Except,paclet:ref/Except] works with patterns and string \
 patterns:"], TapTestSame[Cases[{a, b, 0, 1, 2, x, y}, Except[_Integer]], 
-  {a, b, x, y}], TapTestSameBROKEN[StringReplace["1a2b3c4", 
+  {a, b, x, y}], TapTestSame[StringReplace["1a2b3c4", 
    Except[DigitCharacter].. -> ""], 1234], 
  TapComment["Constraints on patterns:"], 
  TapTestSame[Cases[{a, b, 0, 1, 2, x, y}, Except[0, _Integer]], {1, 2}], 

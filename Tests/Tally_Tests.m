@@ -16,9 +16,11 @@ RefLink[Head,paclet:ref/Head]:"],
   "Elements of the list can be any expression:"], 
  TapTestSame[Tally[{{a, b}, {w, x, y, z}, E, {w, x, y, z}, E}], 
   {{{a, b}, 1}, {{w, x, y, z}, 2}, {E, 2}}], 
- TapTestSameBROKEN[HoldComplete[Tally[Characters[s]]], $Failed], 
- TapComment["Elements with highest frequencies are given by \
-RefLink[Commonest,paclet:ref/Commonest]:"], 
+ TapComment["Count occurrences of characters in a string:"], 
+ TapTestSameBROKEN[HoldComplete[
+   s = "Tally[list] lists distinct elements in the order they appear in \
+list." ;; Tally[Characters[s]]], $Failed], TapComment["Elements with highest \
+frequencies are given by RefLink[Commonest,paclet:ref/Commonest]:"], 
  TapTestSame[Tally[{b, a, c, b, a, c, b, a}], {{b, 3}, {a, 3}, {c, 2}}], 
  TapTestSame[Commonest[{b, a, c, b, a, c, b, a}], {b, a}], 
  TapComment["A sorted RefLink[Tally,paclet:ref/Tally] is equivalent to a list \

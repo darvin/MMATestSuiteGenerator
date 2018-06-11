@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/DeleteCases_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: DeleteCases_Tests
 # Delete cases that match integers:
@@ -18,11 +22,29 @@ ok  DeleteCases[_Integer][{1, 1, x, 2, 3, y, 9, y}]    ==>     {x, y, y}
         expect_evaluated: {x, y, y}
     ...
 # Delete elements from RefLink[Association,paclet:ref/Association]:
-ok  DeleteCases[<| "a" -> 1, "b" -> 2, c -> "3", d -> 4 |>, _Integer]    ==>     <| c -> 3 |> # skip
+ok  DeleteCases[<| "a" -> 1, "b" -> 2, c -> "3", d -> 4 |>, _Integer]    ==>     <| c -> 3 |>
+    ---
+    data:
+        got: <|c -> 3|>
+        expect: <| c -> 3 |>
+        expect_evaluated: <|c -> 3|>
+    ...
 # RefLink[DeleteCases,paclet:ref/DeleteCases] can access parts of the elements of an RefLink[Association,paclet:ref/Association]:
-ok  DeleteCases[<| "a" -> 1, "b" -> 2, c -> {"3", 4}, d -> 4 |>, _Integer, {2}]    ==>     <| a -> 1, b -> 2, c -> {3}, d -> 4 |> # skip
+ok  DeleteCases[<| "a" -> 1, "b" -> 2, c -> {"3", 4}, d -> 4 |>, _Integer, {2}]    ==>     <| a -> 1, b -> 2, c -> {3}, d -> 4 |>
+    ---
+    data:
+        got: <|a -> 1, b -> 2, c -> {3}, d -> 4|>
+        expect: <| a -> 1, b -> 2, c -> {3}, d -> 4 |>
+        expect_evaluated: <|a -> 1, b -> 2, c -> {3}, d -> 4|>
+    ...
 # Deleting elements from a nested RefLink[Association,paclet:ref/Association]:
-ok  DeleteCases[<| "a" -> 1, "b" -> <| "3" -> 3, "4" -> "4", "5" -> <| f -> 1 |> |>, "c" -> 4 |>, _Integer, {2, 3}]    ==>     <| a -> 1, b -> <| 4 -> 4, 5 -> <|  |> |>, c -> 4 |> # skip
+ok  DeleteCases[<| "a" -> 1, "b" -> <| "3" -> 3, "4" -> "4", "5" -> <| f -> 1 |> |>, "c" -> 4 |>, _Integer, {2, 3}]    ==>     <| a -> 1, b -> <| 4 -> 4, 5 -> <|  |> |>, c -> 4 |>
+    ---
+    data:
+        got: <|a -> 1, b -> <|4 -> 4, 5 -> <||>|>, c -> 4|>
+        expect: <| a -> 1, b -> <| 4 -> 4, 5 -> <|  |> |>, c -> 4 |>
+        expect_evaluated: <|a -> 1, b -> <|4 -> 4, 5 -> <||>|>, c -> 4|>
+    ...
 # Deleting the head f effectively flattens:
 ok  DeleteCases[{1, f[2, 3], 4}, f, {2}, Heads -> True]    ==>     {1, 2, 3, 4}
     ---
@@ -40,4 +62,10 @@ ok  DeleteCases[{1, f[2, 3], 4}, f, {2}, Heads -> True]    ==>     {1, 2, 3, 4}
         expect_evaluated: {1, 2, 3, 4}
     ...
 # Deleting the head in RefLink[Association,paclet:ref/Association] removes the entry:
-ok  DeleteCases[<| "a" -> 1, "b" -> f["2", 3], "c" -> 4 |>, f, {2}, Heads -> True]    ==>     <| a -> 1, c -> 4 |> # skip
+ok  DeleteCases[<| "a" -> 1, "b" -> f["2", 3], "c" -> 4 |>, f, {2}, Heads -> True]    ==>     <| a -> 1, c -> 4 |>
+    ---
+    data:
+        got: <|a -> 1, c -> 4|>
+        expect: <| a -> 1, c -> 4 |>
+        expect_evaluated: <|a -> 1, c -> 4|>
+    ...

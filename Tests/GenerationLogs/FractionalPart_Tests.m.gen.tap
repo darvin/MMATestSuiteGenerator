@@ -1,16 +1,16 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/FractionalPart.nb output/Tests/FractionalPart_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/FractionalPart.nb
 # WRITING OUTPUT TO:     output/Tests/FractionalPart_Tests.m
-not ok  FractionalPart[2.4]    ==>     0.4
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+ok  FractionalPart[2.4]    ==>     0.4
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Ticks->{Automatic, Automatic}]\)\)
 #!                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Ticks->{Automatic, Automatic}]\)\)
-#!                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-not ok  Plot[FractionalPart[x],{x,-2,2},Filling->Axis]    ==>     \!\(\*
+ok  Plot[FractionalPart[x],{x,-2,2},Filling->Axis]    ==>     \!\(\*
 #! GraphicsBox[GraphicsComplexBox[CompressedData["
 #! 1:eJxd1gk0VdsbAHBK0UBeL5VSKITKvzKl8JVKZinKUJkq0oRGEpeiiWTMXLmm
 #! ylDokYV9UxJ6JYTGpwzJvfece2+ovDjvvJ6z1/q7a93123vdfb5vn+9++6yj
@@ -80,13 +80,15 @@ not ok  Plot[FractionalPart[x],{x,-2,2},Filling->Axis]    ==>     \!\(\*
 #! PlotRangeClipping->True,
 #! PlotRangePadding->{{Scaled[0.02], Scaled[0.02]}, {Scaled[0.05], Scaled[0.05]}},
 #! Ticks->{Automatic, Automatic}]\)
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  FractionalPart[Pi^20]    ==>     -8769956796+\[Pi]^20
-not ok  FractionalPart[{2.4,2.5,2.6}]    ==>     {0.4,0.5,0.6}
+ok  FractionalPart[{2.4,2.5,2.6}]    ==>     {0.4,0.5,0.6}
 ok  FullSimplify[FractionalPart[x]+FractionalPart[x+1/2], 0<x<1/3]    ==>     1/2+2 x
 ok  Reduce[FractionalPart[x]+FractionalPart[2x-1]==0&&0<x<4,x,Reals]    ==>     x==1/3||x==1||x==2||x==3
 ok  Integrate[FractionalPart[x^2],{x,0,3}]    ==>     -12+3 Sqrt[2]+Sqrt[3]+Sqrt[5]+Sqrt[6]+Sqrt[7]
 not ok  FractionalPart[x]//TraditionalForm    ==>     frac(x)
-not ok  FractionalPart[{-2.4,-2.5,-3.0}]    ==>     {-0.4,-0.5,0.}
+ok  FractionalPart[{-2.4,-2.5,-3.0}]    ==>     {-0.4,-0.5,0.}
 ok  FractionalPart[4/(1+3I)]    ==>     2/5-I/5
 ok  FractionalPart[Infinity]    ==>     Interval[{0,1}]
 #! TextForm[ColonForm[MessageName[Piecewise, pairs], StringForm[The first argument `1` of Piecewise is not a list of pairs., Short[HoldForm[1], 3]]]]
@@ -98,9 +100,7 @@ not ok  Series[FractionalPart[x^2],{x,1,2}, Assumptions->Element[x, Reals]]    =
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Ticks->{Automatic, Automatic}]\)\)
 #!                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ListPlot[Table[FractionalPart[(3/2)^n],{n,100}]]    ==>     \!\(\*
+ok  ListPlot[Table[FractionalPart[(3/2)^n],{n,100}]]    ==>     \!\(\*
 #! GraphicsBox[{{}, 
 #! {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.01388888888888889], AbsoluteThickness[1.6], PointBox[CompressedData["
 #! 1:eJw11A1MU1cUB/CXRiZb6EaAbC4Y2rlpjEM+FNSpkzNhtNCWftJWF1fC2hlT
@@ -143,8 +143,11 @@ not ok  ListPlot[Table[FractionalPart[(3/2)^n],{n,100}]]    ==>     \!\(\*
 #! PlotRangePadding->{{Scaled[0.02], Scaled[0.02]}, {Scaled[0.02], Scaled[0.05]}},
 #! Ticks->{Automatic, Automatic}]\)
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ListPlot[Table[N[FractionalPart[GoldenRatio^n],20],{n,100}]]    ==>     \!\(\*
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Ticks->{Automatic, Automatic}]\)\)
+#!                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+ok  ListPlot[Table[N[FractionalPart[GoldenRatio^n],20],{n,100}]]    ==>     \!\(\*
 #! GraphicsBox[{{}, 
 #! {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.01388888888888889], AbsoluteThickness[1.6], PointBox[CompressedData["
 #! 1:eJxdywtMU2cYxvGqEYx4AcWAFxTrRDQGFDarUuhTSqEX0V5OC97wMiYOVBSF
@@ -185,8 +188,7 @@ not ok  ListPlot[Table[N[FractionalPart[GoldenRatio^n],20],{n,100}]]    ==>     
 #! PlotRangePadding->{{Scaled[0.02], Scaled[0.02]}, {Scaled[0.02], Scaled[0.05]}},
 #! Ticks->{Automatic, Automatic}]\)
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ListPlot[Table[FractionalPart[Root[-1-#1+#1^3&,1]^n],{n,100}]]    ==>     \!\(\*
+ok  ListPlot[Table[FractionalPart[Root[-1-#1+#1^3&,1]^n],{n,100}]]    ==>     \!\(\*
 #! GraphicsBox[
 #! {Hue[0.67, 0.6, 0.6], PointBox[CompressedData["
 #! 1:eJxd1FlIVHEUx/GTuRUtWoIDFU0LNolZrpmW/rUabXXXsYYaqilLQakeCjUu
@@ -216,7 +218,6 @@ not ok  ListPlot[Table[FractionalPart[Root[-1-#1+#1^3&,1]^n],{n,100}]]    ==>   
 not ok  ListPlot[NestList[FractionalPart[2#]&,1/11,10]]    ==>     {1/11,2/11,4/11,8/11,5/11,10/11,9/11,7/11,3/11,6/11,1/11}
 ok  NestList[FractionalPart[2#]&,Pi/4,10]//Expand    ==>     {\[Pi]/4,-1+\[Pi]/2,-3+\[Pi],-6+2 \[Pi],-12+4 \[Pi],-25+8 \[Pi],-50+16 \[Pi],-100+32 \[Pi],-201+64 \[Pi],-402+128 \[Pi],-804+256 \[Pi]}
 not ok  NestList[FractionalPart[2#]&,N[Pi/4,8],30]    ==>     {0.78539816,0.5707963,0.1415927,0.2831853,0.566371,0.132741,0.265482,0.53096,0.06193,0.12386,0.24772,0.4954,0.9909,0.9818,0.964,0.927,0.854,0.71,0.42,0.83,0.66,0.3,0.7,0.3,0.*10^-1,0.*10^-1,0.*10^-1,0.,0.,0.,0.}
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  Plot[FractionalPart[x+x^2],{x,-3,3}]    ==>     \!\(\*
 #! GraphicsBox[
@@ -469,7 +470,6 @@ ok+WRg+XL7MAlrO/nw5bj0+d4FNBUhHFZKKjOZuJgWuBAbbrGG9QIRwRvKhI
 #! ImageSize->Automatic,
 #! ImageSizeRaw->{225, 139},
 #! PlotRange->{{0, 225}, {0, 139}}]\)
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  Plot3D[Abs[FractionalPart[x+I y]],{x,-3,3},{y,-3,3}]    ==>     \!\(\*
 #! GraphicsBox[
@@ -1440,7 +1440,6 @@ not ok  Plot3D[Abs[FractionalPart[x+I y]],{x,-3,3},{y,-3,3}]    ==>     \!\(\*
 #! ImageSizeRaw->{300, 234},
 #! PlotRange->{{0, 300}, {0, 234}}]\)
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  Plot[BernoulliB[12, FractionalPart[x]], {x, 0, 12}]    ==>     \!\(\*
 #! GraphicsBox[
 #! TagBox[RasterBox[CompressedData["
@@ -1722,8 +1721,7 @@ not ok  Plot[BernoulliB[12, FractionalPart[x]], {x, 0, 12}]    ==>     \!\(\*
 #! ImageSizeRaw->{225, 128},
 #! PlotRange->{{0, 225}, {0, 128}}]\)
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  Plot[FractionalPart[x],{x,-3,3}]    ==>     \!\(\*
+ok  Plot[FractionalPart[x],{x,-3,3}]    ==>     \!\(\*
 #! GraphicsBox[{{{}, {}, 
 #! {RGBColor[0.368417, 0.506779, 0.709798], AbsoluteThickness[1.6], Opacity[1.], LineBox[CompressedData["
 #! 1:eJwdzGtIk3EUBvB3Onu9kFh5nZnO4cRcZlau0G6SJl1Gmrl1QU3zAkUORY1h
@@ -1843,8 +1841,8 @@ not ok  PiecewiseExpand[FractionalPart[x+1/3+FractionalPart[1-x/2]^3],x\[Element
 #! 1/24 (8+24 x-3 x^3)	-8 x+x^3>-(16/3)&&x<=0
 #! 1/24 (-16-12 x+18 x^2-3 x^3)	4 x-6 x^2+x^3<=-(16/3)&&x>0
 #! 1/24 (8-12 x+18 x^2-3 x^3)	True
-ok  FractionalPart[1`100 - 10^-110]    ==>     1.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-ok  FractionalPart[1`100 + 10^-110]    ==>     0.*10^-101
+not ok  FractionalPart[1`100 - 10^-110]    ==>     1.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+not ok  FractionalPart[1`100 + 10^-110]    ==>     0.*10^-101
 ok  1`100 - 10^-110 === 1`100 + 10^-110    ==>     True
 #! TextForm[ColonForm[MessageName[IntegerPart, meprec], StringForm[Internal precision limit $MaxExtraPrecision = `1` reached while evaluating `2`., Short[HoldForm[50.], 3], Short[HoldForm[IntegerPart[1 + E^(-E^(2*E))]], 3]]]]
 #! TextForm[ColonForm[MessageName[IntegerPart, meprec], StringForm[Internal precision limit $MaxExtraPrecision = `1` reached while evaluating `2`., Short[HoldForm[50.], 3], Short[HoldForm[IntegerPart[1 + E^(-E^(2*E))]], 3]]]]

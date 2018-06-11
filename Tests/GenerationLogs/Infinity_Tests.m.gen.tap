@@ -1,15 +1,21 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Infinity.nb output/Tests/Infinity_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Infinity.nb
 # WRITING OUTPUT TO:     output/Tests/Infinity_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Sum[1/n^2,{n,Infinity}]    ==>     \[Pi]^2/6
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  1/Infinity    ==>     0
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  Limit[1/x,x->\[Infinity]]    ==>     0
 #! TextForm[ColonForm[MessageName[SeriesData, sdatv], StringForm[First argument `1` is not a valid variable., Short[HoldForm[x^(-1)], 3]]]]
 not ok  Series[1/(x^2+x+1),{x,Infinity,5}]    ==>     (1/x)^2-(1/x)^3+(1/x)^5+O[1/x]^6
 ok  Integrate[Exp[-x^2],{x,-Infinity,Infinity}]    ==>     Sqrt[\[Pi]]
-not ok  NIntegrate[Exp[-x^4/(x^2+1)],{x,-Infinity,Infinity}]    ==>     2.31402
+ok  NIntegrate[Exp[-x^4/(x^2+1)],{x,-Infinity,Infinity}]    ==>     2.31402
 ok  Sum[Exp[-n^2],{n,-Infinity,Infinity}]    ==>     EllipticTheta[3,0,1/E]
-not ok  NSum[Exp[-n^4/(n^2+1)],{n,-Infinity,Infinity}]    ==>     2.29519
+ok  NSum[Exp[-n^4/(n^2+1)],{n,-Infinity,Infinity}]    ==>     2.29519
 ok  Infinity Infinity    ==>     \[Infinity]
 #! TextForm[ColonForm[MessageName[Infinity, indet], StringForm[Indeterminate expression `1` encountered., Short[HoldForm[-Infinity + Infinity], 3]]]]
 ok  2 Infinity-Infinity    ==>     Indeterminate
@@ -32,16 +38,11 @@ ok  Cases[e,_Gamma,Infinity]    ==>     {Gamma[x],Gamma[1+x^2]}
 #! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[SeriesData, sdatv]], 3]]]]
 not ok  Series[n!,{n,Infinity,2}]    ==>     E^(-1-Log[1/n]) n+O[1/n]^3 (Sqrt[2 \[Pi]] Sqrt[n]+Sqrt[\[Pi]/2]/(6 Sqrt[n])+Sqrt[\[Pi]/2]/(144 n^(3/2))+O[1/n]^(5/2))
 ok  SetPrecision[3.14,Infinity]    ==>     7070651414971679/2251799813685248
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  N[%]    ==>     3.14
 #! TextForm[ColonForm[MessageName[CylindricalDecomposition, nrtpi], StringForm[`1` is not a logical formula consisting of polynomial equations and inequalities in `2` with rational number coefficients., Short[HoldForm[2.5*x^2 + y^2 < 1.5], 3], Short[HoldForm[{x, y}], 3]]]]
 #! TextForm[ColonForm[MessageName[CylindricalDecomposition, nrtpi], StringForm[`1` is not a logical formula consisting of polynomial equations and inequalities in `2` with rational number coefficients., Short[HoldForm[2.5*x^2 + y^2 < 1.5], 3], Short[HoldForm[{x, y}], 3]]]]
 ok  CylindricalDecomposition[y^2+2.5 x^2<1.5,{x,y}]    ==>     CylindricalDecomposition[2.5 x^2+y^2<1.5,{x,y}]
-not ok  CylindricalDecomposition[SetPrecision[y^2+2.5 x^2<1.5,Infinity],{x,y}]    ==>     -Sqrt[(3/5)]<x<Sqrt[3/5]&&-(Sqrt[3-5 x^2]/Sqrt[2])<y<Sqrt[3-5 x^2]/Sqrt[2]
-#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{{}]]], 3], Short[HoldForm[DisplayForm[RowBox[{Graphics[{{}, {}, {Hue[0.67, 0.6, 0.6], Line[{{5.*^-7, 1.000001}, {0.4809021994374947, 1.9618043988749894}, {0.9999995, 2.999999}}]}}, AspectRatio -> 0.6180339887498948, Axes -> True, AxesOrigin -> {0, 1.}, PlotRange -> {{0, 1}, {1.000001, 2.999999}}, PlotRangeClipping -> True, PlotRangePadding -> {Scaled[0.02], Scaled[0.02]}], ,, RowBox[{{, RowBox[{{, RowBox[{RowBox[{4722366482869645, /, 9444732965739290427392}], ,, RowBox[{2165790966188353, /, 4503599627370496}], ,, RowBox[{9007194751141365, /, 9007199254740992}]}], }}], }}], }}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\),{{4722366482869645/9444732965739290427392,2165790966188353/4503599627370496,9007194751141365/9007199254740992}}}\)
-#!                                                                                                                                                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
+ok  CylindricalDecomposition[SetPrecision[y^2+2.5 x^2<1.5,Infinity],{x,y}]    ==>     -Sqrt[(3/5)]<x<Sqrt[3/5]&&-(Sqrt[3-5 x^2]/Sqrt[2])<y<Sqrt[3-5 x^2]/Sqrt[2]
 #! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{{}]]], 3], Short[HoldForm[DisplayForm[RowBox[{Graphics[{{}, {}, {Hue[0.67, 0.6, 0.6], Line[{{5.*^-7, 1.000001}, {0.4809021994374947, 1.9618043988749894}, {0.9999995, 2.999999}}]}}, AspectRatio -> 0.6180339887498948, Axes -> True, AxesOrigin -> {0, 1.}, PlotRange -> {{0, 1}, {1.000001, 2.999999}}, PlotRangeClipping -> True, PlotRangePadding -> {Scaled[0.02], Scaled[0.02]}], ,, RowBox[{{, RowBox[{{, RowBox[{RowBox[{4722366482869645, /, 9444732965739290427392}], ,, RowBox[{2165790966188353, /, 4503599627370496}], ,, RowBox[{9007194751141365, /, 9007199254740992}]}], }}], }}], }}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\),{{4722366482869645/9444732965739290427392,2165790966188353/4503599627370496,9007194751141365/9007199254740992}}}\)
 #!                                                                                                                                                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
@@ -59,9 +60,7 @@ not ok  Reap[Plot[2x+1,{x,0,1},WorkingPrecision->Infinity,EvaluationMonitor:>Sow
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
 #!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  Plot[Numerator[x],{x,0,10},WorkingPrecision->Infinity,PlotPoints->1000,MaxRecursion->0 ]    ==>     \!\(\*
+ok  Plot[Numerator[x],{x,0,10},WorkingPrecision->Infinity,PlotPoints->1000,MaxRecursion->0 ]    ==>     \!\(\*
 #! GraphicsBox[{{}, {}, 
 #! {Hue[0.67, 0.6, 0.6], LineBox[CompressedData["
 #! 1:eJwt2HVYVVkXB2AaJC9cOm8ggtS9dO/l/aljoI6dY2Ar1igGOhY2Jtgz5tg5

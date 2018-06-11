@@ -5,8 +5,8 @@
         "passes": 3,
         "pending": 0,
         "failures": 0,
-        "start": "2018-06-03T23:01:43.002Z",
-        "end": "2018-06-03T23:01:43.002Z",
+        "start": "2018-06-11T04:13:48.661Z",
+        "end": "2018-06-11T04:13:48.661Z",
         "duration": 0,
         "testsRegistered": 3,
         "passPercent": 100,
@@ -33,17 +33,17 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "4cdff6d5-8ac6-4aa9-8869-824936c5ca35",
-                "parentUUID": "ebce04ee-3f01-4327-bf31-8278cbed1e08",
+                "uuid": "8f0e9c54-f2ca-478f-8e0f-64ad5c617f4e",
+                "parentUUID": "d9d3d757-6531-4c07-9ae1-98c3bda5138a",
                 "skipped": false,
                 "isHook": false,
-                "context": "\"#! DOCKER > wolfram -script output/Tests/ExpandAll_Tests.m\\n# SYSTEM: Mathematica_10\\n# TEST: ExpandAll_Tests\\n# Expand polynomials anywhere inside an expression: \\n\\n\\ndata: \\n  got:              (1 + 3*x + 3*x^2 + x^3)^(-1) + Sin[1 + 3*x + 3*x^2 + x^3]\\n  expect:           1/(1 + 3*x + 3*x^2 + x^3) + Sin[1 + 3*x + 3*x^2 + x^3]\\n  expect_evaluated: (1 + 3*x + 3*x^2 + x^3)^(-1) + Sin[1 + 3*x + 3*x^2 + x^3]\"",
+                "context": "\"#! DOCKER > wolfram -script output/Tests/ExpandAll_Tests.m\\n#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]\\n# SYSTEM: Mathematica_10\\n# TEST: ExpandAll_Tests\\n# Expand polynomials anywhere inside an expression: \\n\\n\\ndata: \\n  got:              1                             2    3\\n  expect:           1/(1 + 3*x + 3*x^2 + x^3) + Sin[1 + 3*x + 3*x^2 + x^3]\\n  expect_evaluated: 1                             2    3\"",
                 "state": "passed",
                 "err": {
                     "name": "",
                     "message": "",
                     "showDiff": true,
-                    "actual": "(1 + 3*x + 3*x^2 + x^3)^(-1) + Sin[1 + 3*x + 3*x^2 + x^3]",
+                    "actual": "1                             2    3",
                     "expected": "1/(1 + 3*x + 3*x^2 + x^3) + Sin[1 + 3*x + 3*x^2 + x^3]"
                 }
             },
@@ -58,17 +58,17 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "1457da5a-675a-47e7-9603-e376fafc3103",
-                "parentUUID": "ebce04ee-3f01-4327-bf31-8278cbed1e08",
+                "uuid": "8e3fc1e5-3c39-43ac-b692-c0f2f5c3591f",
+                "parentUUID": "d9d3d757-6531-4c07-9ae1-98c3bda5138a",
                 "skipped": false,
                 "isHook": false,
-                "context": "\"\\n\\ndata: \\n  got:              (1 + x)^(-3) + Sin[(1 + x)^3]\\n  expect:           1/(1 + x)^3 + Sin[(1 + x)^3]\\n  expect_evaluated: (1 + x)^(-3) + Sin[(1 + x)^3]\"",
+                "context": "\"#! ------------------- + Sin[1 + 3 x + 3 x  + x ]\\n#!              2    3\\n#! 1 + 3 x + 3 x  + x\\n#! ------------------- + Sin[1 + 3 x + 3 x  + x ]\\n#!              2    3\\n#! 1 + 3 x + 3 x  + x\\n\\n\\ndata: \\n  got:              -3              3\\n  expect:           1/(1 + x)^3 + Sin[(1 + x)^3]\\n  expect_evaluated: -3              3\"",
                 "state": "passed",
                 "err": {
                     "name": "",
                     "message": "",
                     "showDiff": true,
-                    "actual": "(1 + x)^(-3) + Sin[(1 + x)^3]",
+                    "actual": "-3              3",
                     "expected": "1/(1 + x)^3 + Sin[(1 + x)^3]"
                 }
             },
@@ -83,17 +83,17 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "ad457a81-6f0b-426b-8701-29e550d890ff",
-                "parentUUID": "ebce04ee-3f01-4327-bf31-8278cbed1e08",
+                "uuid": "38fed742-4782-4ccb-9dc1-7ab2abd4faf7",
+                "parentUUID": "d9d3d757-6531-4c07-9ae1-98c3bda5138a",
                 "skipped": false,
                 "isHook": false,
-                "context": "\"# RefLink[ExpandAll,paclet:ref/ExpandAll] goes into heads:\\n\\n\\ndata: \\n  got:              (1 + a + b + a*b)[x]\\n  expect:           (1 + a + b + a*b)[x]\\n  expect_evaluated: (1 + a + b + a*b)[x]\"",
+                "context": "\"#! (1 + x)   + Sin[(1 + x) ]\\n#! (1 + x)   + Sin[(1 + x) ]\\n# RefLink[ExpandAll,paclet:ref/ExpandAll] goes into heads:\\n\\n\\ndata: \\n  got:              (1 + a + b + a b)[x]\\n  expect:           (1 + a + b + a*b)[x]\\n  expect_evaluated: (1 + a + b + a b)[x]\"",
                 "state": "passed",
                 "err": {
                     "name": "",
                     "message": "",
                     "showDiff": true,
-                    "actual": "(1 + a + b + a*b)[x]",
+                    "actual": "(1 + a + b + a b)[x]",
                     "expected": "(1 + a + b + a*b)[x]"
                 }
             }
@@ -103,16 +103,16 @@
         "file": "",
         "pending": [],
         "passes": [
-            "4cdff6d5-8ac6-4aa9-8869-824936c5ca35",
-            "1457da5a-675a-47e7-9603-e376fafc3103",
-            "ad457a81-6f0b-426b-8701-29e550d890ff"
+            "8f0e9c54-f2ca-478f-8e0f-64ad5c617f4e",
+            "8e3fc1e5-3c39-43ac-b692-c0f2f5c3591f",
+            "38fed742-4782-4ccb-9dc1-7ab2abd4faf7"
         ],
         "failures": [],
         "skipped": [],
         "duration": 0,
         "rootEmpty": false,
         "_timeout": 0,
-        "uuid": "ebce04ee-3f01-4327-bf31-8278cbed1e08",
+        "uuid": "d9d3d757-6531-4c07-9ae1-98c3bda5138a",
         "beforeHooks": [],
         "afterHooks": []
     },

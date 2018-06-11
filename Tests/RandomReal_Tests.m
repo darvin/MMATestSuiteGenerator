@@ -31,21 +31,20 @@ TapSuite[TapComment["A random real number in the range 0 to 1:"],
   0.31918832523749509908670507276463385641549235623071`49.504046998036905], 
  TapTestSameBROKEN[RandomReal[{-1, 1}, WorkingPrecision -> 50], 
   -0.47915048778086224644991844244514281568096945072073`49.680471934601414], 
- TapComment["A random walk:"], TapTestSameBROKEN[
-  HoldComplete[ListLinePlot[Accumulate[RandomReal[{-1, 1}, 100]]]], $Failed], 
- TapComment["Circles at random positions:"], 
- TapTestSameBROKEN[HoldComplete[Graphics[Circle /@ RandomReal[10, {40, 2}]]], 
+ TapComment["A random walk:"], 
+ TapTestSame[HoldComplete[ListLinePlot[Accumulate[RandomReal[{-1, 1}, 
+      100]]]], $Failed], TapComment["Circles at random positions:"], 
+ TapTestSame[HoldComplete[Graphics[Circle /@ RandomReal[10, {40, 2}]]], 
   $Failed], TapComment["Random array of gray levels:"], 
  TapTestSameBROKEN[HoldComplete[ArrayPlot[RandomReal[1, {30, 40}]]], 
   $Failed], TapComment["Spheres at random positions:"], 
- TapTestSameBROKEN[HoldComplete[Graphics3D[
-    Sphere /@ RandomReal[10, {50, 3}]]], $Failed], 
- TapComment["2D random walk:"], TapTestSameBROKEN[
-  HoldComplete[Graphics[Line[Accumulate[RandomReal[{-1, 1}, {500, 2}]]]]], 
-  $Failed], TapComment["3D random walk:"], 
- TapTestSameBROKEN[HoldComplete[Graphics3D[
-    Line[Accumulate[RandomReal[{-1, 1}, {500, 3}]]]]], $Failed], 
- TapComment["Determinants of random 100*100 matrices:"], 
+ TapTestSame[HoldComplete[Graphics3D[Sphere /@ RandomReal[10, {50, 3}]]], 
+  $Failed], TapComment["2D random walk:"], 
+ TapTestSame[HoldComplete[Graphics[
+    Line[Accumulate[RandomReal[{-1, 1}, {500, 2}]]]]], $Failed], 
+ TapComment["3D random walk:"], TapTestSameBROKEN[
+  HoldComplete[Graphics3D[Line[Accumulate[RandomReal[{-1, 1}, {500, 3}]]]]], 
+  $Failed], TapComment["Determinants of random 100*100 matrices:"], 
  TapTestSameBROKEN[Table[Det[RandomReal[1, {100, 100}]], {10}], 
   {-5.92492*10^25, -1.08144*10^24, 5.3019*10^25, 1.81258*10^25, 
    -2.80605*10^26, -6.23121*10^24, -1.05716*10^25, -4.32509*10^24, 
@@ -58,22 +57,22 @@ TapSuite[TapComment["A random real number in the range 0 to 1:"],
    0.377257 + 0.364522*I, 0.709416 + 0.668859*I}], 
  TapComment["Use RefLink[SeedRandom,paclet:ref/SeedRandom] to get repeatable \
 random values:"], TapTestSameBROKEN[{RandomReal[], RandomReal[]}, 
-  {0.199285, 0.662607}], TapTestSameBROKEN[{SeedRandom[1234]; RandomReal[], 
+  {0.199285, 0.662607}], TapTestSame[{SeedRandom[1234]; RandomReal[], 
    SeedRandom[1234]; RandomReal[]}, {0.876608, 0.876608}], 
  TapComment["Use RefLink[BlockRandom,paclet:ref/BlockRandom] to block one use \
 of RefLink[RandomReal,paclet:ref/RandomReal] from affecting others:"], 
- TapTestSameBROKEN[{BlockRandom[RandomReal[]], RandomReal[]}, 
+ TapTestSame[{BlockRandom[RandomReal[]], RandomReal[]}, 
   {0.521964, 0.521964}], TapComment["With the same seed, \
 RefLink[RandomReal,paclet:ref/RandomReal] generates the \"same\" number, \
-regardless of precision:"], TapTestSame[
+regardless of precision:"], TapTestSameBROKEN[
   Table[SeedRandom[4567]; RandomReal[WorkingPrecision -> p], {p, 10}], 
   {0.5, 0.52, 0.521, 0.522, 0.52199, 0.521992, 0.521992, 0.521992, 
    0.521992002, 0.5219920025}], TapComment["RefLink[RandomReal,paclet:ref/Ran\
 domReal] generates a uniform distribution, here with mean 0.5:"], 
- TapTestSameBROKEN[Mean[RandomReal[1, 10000]], 0.497923], 
+ TapTestSame[Mean[RandomReal[1, 10000]], 0.497923], 
  TapComment["RefLink[RandomReal,paclet:ref/RandomReal] generates white \
-noise:"], TapTestSameBROKEN[HoldComplete[
-   ListLinePlot[Abs[Fourier[RandomReal[{-1, 1}, 1000]]]]], $Failed], 
+noise:"], TapTestSame[HoldComplete[ListLinePlot[
+    Abs[Fourier[RandomReal[{-1, 1}, 1000]]]]], $Failed], 
  TapComment["Construct a surface from random heights:"], 
  TapTestSameBROKEN[HoldComplete[ListPlot3D[Log[RandomReal[1, {50, 50}]]]], 
   $Failed]]

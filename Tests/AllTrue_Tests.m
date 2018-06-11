@@ -35,9 +35,9 @@ position][RefLink[Not,paclet:ref/Not],f]]:"],
    f[x] && f[y] && f[z]}], TapComment["RefLink[AllTrue,paclet:ref/AllTrue][li\
 st,f] is equivalent to RefLink[VectorQ,paclet:ref/VectorQ][list,f] when f \
 evaluates to RefLink[True,paclet:ref/True] or \
-RefLink[False,paclet:ref/False]:"], TapTestSameBROKEN[
-  AllTrue[Range[10], IntegerQ]*VectorQ[Range[10], IntegerQ], True], 
- TapTestSameBROKEN[AllTrue[{x, y, z}, #1 < 10 & ]*
+RefLink[False,paclet:ref/False]:"], 
+ TapTestSame[AllTrue[Range[10], IntegerQ]*VectorQ[Range[10], IntegerQ], 
+  True], TapTestSameBROKEN[AllTrue[{x, y, z}, #1 < 10 & ]*
    VectorQ[{x, y, z}, #1 < 10 & ], x < 10 && y < 10 && z < 10], 
  TapComment["RefLink[AllTrue,paclet:ref/AllTrue][list,f] works efficiently on \
 sparse vectors:"], TapTestSameBROKEN[

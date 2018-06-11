@@ -1,13 +1,19 @@
 #! DOCKER > wolfram -script output/Tests/FactorTermsList_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: FactorTermsList_Tests
 # Pull out an overall numerical factor, but do no further factoring:
 ok  FactorTermsList[2*x^2 - 2]    ==>     {2, -1 + x^2}
     ---
     data:
-        got: {2, -1 + x^2}
+        got:           2
+#! {2, -1 + x }
         expect: {2, -1 + x^2}
-        expect_evaluated: {2, -1 + x^2}
+        expect_evaluated:           2
+#! {2, -1 + x }
     ...
 # Pull out an overall numerical factor:
 ok  FactorTermsList[f]    ==>     {2, -6 - 6*a + 2*x^2 + 2*a*x^2 - 3*y + a*y + 4*a^2*y + x^2*y + a*x^2*y + 2*a*y^2 + 2*a^2*y^2} # skip
@@ -19,9 +25,11 @@ ok  FactorTermsList[f, {x, y}]    ==>     {2, 1 + a, 2 + y, -3 + x^2 + 2*a*y} # 
 ok  FactorTermsList[2*x^2 - 1]    ==>     {1, -1 + 2*x^2}
     ---
     data:
-        got: {1, -1 + 2*x^2}
+        got:             2
+#! {1, -1 + 2 x }
         expect: {1, -1 + 2*x^2}
-        expect_evaluated: {1, -1 + 2*x^2}
+        expect_evaluated:             2
+#! {1, -1 + 2 x }
     ...
 # Pull out overall numerical factor over integers modulo 7:
 ok  FactorTermsList[3*x + 10, Modulus -> 7]    ==>     {3, 1 + x}
@@ -35,9 +43,9 @@ ok  FactorTermsList[3*x + 10, Modulus -> 7]    ==>     {3, 1 + x}
 ok  FactorTermsList[14*x + 21*y + 35*x*y + 63]    ==>     {7, 9 + 2*x + 3*y + 5*x*y}
     ---
     data:
-        got: {7, 9 + 2*x + 3*y + 5*x*y}
+        got: {7, 9 + 2 x + 3 y + 5 x y}
         expect: {7, 9 + 2*x + 3*y + 5*x*y}
-        expect_evaluated: {7, 9 + 2*x + 3*y + 5*x*y}
+        expect_evaluated: {7, 9 + 2 x + 3 y + 5 x y}
     ...
 # This multiplies the factors together:
 ok  Times @@ %    ==>     7*(9 + 2*x + 3*y + 5*x*y) # skip
@@ -45,9 +53,9 @@ ok  Times @@ %    ==>     7*(9 + 2*x + 3*y + 5*x*y) # skip
 ok  FactorTerms[14*x + 21*y + 35*x*y + 63]    ==>     7*(9 + 2*x + 3*y + 5*x*y)
     ---
     data:
-        got: 7*(9 + 2*x + 3*y + 5*x*y)
+        got: 7 (9 + 2 x + 3 y + 5 x y)
         expect: 7*(9 + 2*x + 3*y + 5*x*y)
-        expect_evaluated: 7*(9 + 2*x + 3*y + 5*x*y)
+        expect_evaluated: 7 (9 + 2 x + 3 y + 5 x y)
     ...
 # RefLink[Expand,paclet:ref/Expand] combines the factors back together:
 ok  Expand[%]    ==>     63 + 14*x + 21*y + 35*x*y # skip
@@ -55,14 +63,18 @@ ok  Expand[%]    ==>     63 + 14*x + 21*y + 35*x*y # skip
 ok  FactorTermsList[4*x^3 - 4]    ==>     {4, -1 + x^3}
     ---
     data:
-        got: {4, -1 + x^3}
+        got:           3
+#! {4, -1 + x }
         expect: {4, -1 + x^3}
-        expect_evaluated: {4, -1 + x^3}
+        expect_evaluated:           3
+#! {4, -1 + x }
     ...
 ok  FactorList[4*x^3 - 4]    ==>     {{4, 1}, {-1 + x, 1}, {1 + x + x^2, 1}}
     ---
     data:
-        got: {{4, 1}, {-1 + x, 1}, {1 + x + x^2, 1}}
+        got:                                 2
+#! {{4, 1}, {-1 + x, 1}, {1 + x + x , 1}}
         expect: {{4, 1}, {-1 + x, 1}, {1 + x + x^2, 1}}
-        expect_evaluated: {{4, 1}, {-1 + x, 1}, {1 + x + x^2, 1}}
+        expect_evaluated:                                 2
+#! {{4, 1}, {-1 + x, 1}, {1 + x + x , 1}}
     ...

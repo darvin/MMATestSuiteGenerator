@@ -1,28 +1,2 @@
 #! DOCKER > wolfram -script output/Tests/DeleteDuplicates_Tests.m
-# SYSTEM: Mathematica_10
-# TEST: DeleteDuplicates_Tests
-# Delete duplicated elements: 
-ok  DeleteDuplicates[{1, 7, 8, 4, 3, 4, 1, 9, 9, 2}]    ==>     {1, 7, 8, 4, 3, 9, 2}
-    ---
-    data:
-        got: {1, 7, 8, 4, 3, 9, 2}
-        expect: {1, 7, 8, 4, 3, 9, 2}
-        expect_evaluated: {1, 7, 8, 4, 3, 9, 2}
-    ...
-# Delete elements whose values duplicate those earlier in the association:
-ok  HoldComplete[DeleteDuplicates[<| a -> 1, b -> 2, c -> 1, d -> 3, e -> 2 |>]]    ==>     $Failed # skip
-# Delete elements unless they are larger than ones that came before:
-ok  DeleteDuplicates[{1, 7, 8, 4, 3, 4, 1, 9, 9, 2}, Greater]    ==>     {1, 7, 8, 9, 9}
-    ---
-    data:
-        got: {1, 7, 8, 9, 9}
-        expect: {1, 7, 8, 9, 9}
-        expect_evaluated: {1, 7, 8, 9, 9}
-    ...
-ok  Union[list]    ==>     {0, 2, 3, 4, 5, 6, 7, 8, 9} # skip
-ok  DeleteDuplicates[list]    ==>     {9, 0, 3, 2, 6, 8, 4, 5, 7} # skip
-ok  Sort[%]    ==>     {0, 2, 3, 4, 5, 6, 7, 8, 9} # skip
-ok  {First[Timing[DeleteDuplicates[list]]], First[Timing[Union[list]]]}    ==>     {0.031, 5.367} # skip
-ok  DeleteDuplicates[list, Total[#1] == Total[#2] & ]    ==>     {{0, 0, 0, 1, 0}, {1, 0, 1, 0, 1}, {1, 1, 1, 0, 1}} # skip
-# RefLink[DeleteDuplicatesBy,paclet:ref/DeleteDuplicatesBy] can be used to achieve the same result:
-ok  DeleteDuplicatesBy[list, Total]    ==>     {{0, 0, 0, 1, 0}, {1, 0, 1, 0, 1}, {1, 1, 1, 0, 1}} # skip
+#! TextForm[ColonForm[MessageName[Get, noopen], StringForm[Cannot open `1`., Short[HoldForm[output/Tests/DeleteDuplicates_Tests.m], 3]]]]

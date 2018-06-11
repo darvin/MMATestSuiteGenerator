@@ -1,7 +1,7 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[k = 1; k -= 5, -4], TapTestSame[k, -4], 
- TapComment["Subtract from a numerical value:"], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[-4]], 
+ TapTestSameBROKEN[k, -4], TapComment["Subtract from a numerical value:"], 
  TapTestSame[x = 1.5; x -= 0.75; x, 0.75], 
  TapComment["Subtract from a symbolic value:"], 
  TapTestSame[v = a; v -= b; v, a - b], 

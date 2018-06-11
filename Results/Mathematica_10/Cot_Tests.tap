@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/Cot_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 #! TextForm[ColonForm[MessageName[N, meprec], StringForm[Internal precision limit $MaxExtraPrecision = `1` reached while evaluating `2`., Short[HoldForm[50.], 3], Short[HoldForm[Cot[10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Cot_Tests
@@ -6,57 +10,71 @@
 ok  Cot[Pi/3]    ==>     1/Sqrt[3]
     ---
     data:
-        got: 1/Sqrt[3]
+        got:    1
+#! -------
+#! Sqrt[3]
         expect: 1/Sqrt[3]
-        expect_evaluated: 1/Sqrt[3]
+        expect_evaluated:    1
+#! -------
+#! Sqrt[3]
     ...
 # Use RefLink[Degree,paclet:ref/Degree] to specify an argument in degrees:
 ok  Cot[60*Degree]    ==>     1/Sqrt[3]
     ---
     data:
-        got: 1/Sqrt[3]
+        got:    1
+#! -------
+#! Sqrt[3]
         expect: 1/Sqrt[3]
-        expect_evaluated: 1/Sqrt[3]
+        expect_evaluated:    1
+#! -------
+#! Sqrt[3]
     ...
 ok  HoldComplete[Plot[Cot[x], {x, -Pi, Pi}]]    ==>     $Failed # skip
 ok  Series[Cot[x], {x, 0, 10}]    ==>     1/x - x/3 - x^3/45 - (2*x^5)/945 - x^7/4725 - (2*x^9)/93555 + O[x]^11
     ---
     data:
-        got: SeriesData[x, 0, {1, 0, -1/3, 0, -1/45, 0, -2/945, 0, -1/4725, 0, -2/93555}, -1, 11, 1]
+        got:          3      5     7       9
+#! 1   x   x    2 x     x     2 x         11
+#! - - - - -- - ---- - ---- - ----- + O[x]
+#! x   3   45   945    4725   93555
         expect: 1/x - x/3 - x^3/45 - (2*x^5)/945 - x^7/4725 - (2*x^9)/93555 + O[x]^11
-        expect_evaluated: SeriesData[x, 0, {1, 0, -1/3, 0, -1/45, 0, -2/945, 0, -1/4725, 0, -2/93555}, -1, 11, 1]
+        expect_evaluated:          3      5     7       9
+#! 1   x   x    2 x     x     2 x         11
+#! - - - - -- - ---- - ---- - ----- + O[x]
+#! x   3   45   945    4725   93555
     ...
 # Evaluate numerically:
-ok  Cot[1.2]    ==>     0.38878 # skip
+ok  Cot[1.2]    ==>     0.38878
+    ---
+    data:
+        got: 0.38878
+        expect: 0.38878
+        expect_evaluated: 0.38878
+    ...
 # Evaluate to high precision:
-ok  N[Cot[12/10], 50]    ==>     0.38877956936820491163419150497190340959498492594098`49.589703434382365
-    ---
-    data:
-        got: 0.3887795693682049116341915049719034095949849259409758245726565785777`50.
-        expect: 0.38877956936820491163419150497190340959498492594098`49.589703434382365
-        expect_evaluated: 0.38877956936820491163419150497190340959498492594098`49.589703434382365
-    ...
+ok  N[Cot[12/10], 50]    ==>     0.38877956936820491163419150497190340959498492594098`49.589703434382365 # skip
 # The precision of the output tracks the precision of the input:
-ok  Cot[1.2`23.07918124604763]    ==>     0.3887795693682049116342`21.589703434382365
-    ---
-    data:
-        got: 0.3887795693682049116341915049719034123`22.52857168497864
-        expect: 0.3887795693682049116342`21.589703434382365
-        expect_evaluated: 0.3887795693682049116342`21.589703434382365
-    ...
+ok  Cot[1.2`23.07918124604763]    ==>     0.3887795693682049116342`21.589703434382365 # skip
 # The precision of the output can be much smaller than the precision of the input:
-ok  Cot[1.5707963267948966192213216916397514421`37.196119877030156]    ==>     1./10^20
+ok  Cot[1.5707963267948966192213216916397514421`37.196119877030156]    ==>     1./10^20 # skip
+# RefLink[Cot,paclet:ref/Cot] threads element-wise over lists and matrices:
+ok  Cot[{1.2, 1.5, 1.8}]    ==>     {0.38878, 0.0709148, -0.233304}
     ---
     data:
-        got: 9.999999999999999998584699688`17.*^-21
-        expect: 1./10^20
-        expect_evaluated: 1.*^-20
+        got: {0.38878, 0.0709148, -0.233304}
+        expect: {0.38878, 0.0709148, -0.233304}
+        expect_evaluated: {0.38878, 0.0709148, -0.233304}
     ...
-# RefLink[Cot,paclet:ref/Cot] threads element-wise over lists and matrices:
-ok  Cot[{1.2, 1.5, 1.8}]    ==>     {0.38878, 0.0709148, -0.233304} # skip
 ok  Cot[(Pi/2)*u*v*(Pi/3)]    ==>     {{0, Cot[u]}, {Cot[v], 1/Sqrt[3]}} # skip
 # Evaluate for complex arguments:
-ok  Cot[2.5 + I]    ==>     -0.275669 - 1.04264*I # skip
+ok  Cot[2.5 + I]    ==>     -0.275669 - 1.04264*I
+    ---
+    data:
+        got: -0.275669 - 1.04264 I
+        expect: -0.275669 - 1.04264*I
+        expect_evaluated: -0.275669 - 1.04264 I
+    ...
 # Simple exact values are generated automatically:
 ok  Cot[Pi/6]    ==>     Sqrt[3]
     ---
@@ -69,43 +87,67 @@ ok  Cot[Pi/6]    ==>     Sqrt[3]
 ok  Cot[Pi/8]    ==>     Cot[Pi/8]
     ---
     data:
-        got: Cot[Pi/8]
+        got:     Pi
+#! Cot[--]
+    8
         expect: Cot[Pi/8]
-        expect_evaluated: Cot[Pi/8]
+        expect_evaluated:     Pi
+#! Cot[--]
+    8
     ...
 ok  FunctionExpand[%]    ==>     Sqrt[(2 + Sqrt[2])/(2 - Sqrt[2])] # skip
 # Convert multiple-angle expressions:
 ok  TrigExpand[Cot[4*x]]    ==>     Cos[x]^4/(4*Cos[x]^3*Sin[x] - 4*Cos[x]*Sin[x]^3) - (6*Cos[x]^2*Sin[x]^2)/(4*Cos[x]^3*Sin[x] - 4*Cos[x]*Sin[x]^3) + Sin[x]^4/(4*Cos[x]^3*Sin[x] - 4*Cos[x]*Sin[x]^3)
     ---
     data:
-        got: Cos[x]^4/(4*Cos[x]^3*Sin[x] - 4*Cos[x]*Sin[x]^3) - (6*Cos[x]^2*Sin[x]^2)/(4*Cos[x]^3*Sin[x] - 4*Cos[x]*Sin[x]^3) + Sin[x]^4/(4*Cos[x]^3*Sin[x] - 4*Cos[x]*Sin[x]^3)
+        got:                     4                                  2       2                                4
+#!               Cos[x]                           6 Cos[x]  Sin[x]                           Sin[x]
+#! ----------------------------------- - ----------------------------------- + -----------------------------------
+        3                         3           3                         3           3                         3
+#! 4 Cos[x]  Sin[x] - 4 Cos[x] Sin[x]    4 Cos[x]  Sin[x] - 4 Cos[x] Sin[x]    4 Cos[x]  Sin[x] - 4 Cos[x] Sin[x]
         expect: Cos[x]^4/(4*Cos[x]^3*Sin[x] - 4*Cos[x]*Sin[x]^3) - (6*Cos[x]^2*Sin[x]^2)/(4*Cos[x]^3*Sin[x] - 4*Cos[x]*Sin[x]^3) + Sin[x]^4/(4*Cos[x]^3*Sin[x] - 4*Cos[x]*Sin[x]^3)
-        expect_evaluated: Cos[x]^4/(4*Cos[x]^3*Sin[x] - 4*Cos[x]*Sin[x]^3) - (6*Cos[x]^2*Sin[x]^2)/(4*Cos[x]^3*Sin[x] - 4*Cos[x]*Sin[x]^3) + Sin[x]^4/(4*Cos[x]^3*Sin[x] - 4*Cos[x]*Sin[x]^3)
+        expect_evaluated:                     4                                  2       2                                4
+#!               Cos[x]                           6 Cos[x]  Sin[x]                           Sin[x]
+#! ----------------------------------- - ----------------------------------- + -----------------------------------
+        3                         3           3                         3           3                         3
+#! 4 Cos[x]  Sin[x] - 4 Cos[x] Sin[x]    4 Cos[x]  Sin[x] - 4 Cos[x] Sin[x]    4 Cos[x]  Sin[x] - 4 Cos[x] Sin[x]
     ...
 ok  TrigReduce[%]    ==>     Cot[4*x] # skip
 # Convert sums of trigonometric functions to products:
 ok  TrigFactor[Cot[x] + Cot[y]]    ==>     Csc[x]*Csc[y]*Sin[x + y]
     ---
     data:
-        got: Csc[x]*Csc[y]*Sin[x + y]
+        got: Csc[x] Csc[y] Sin[x + y]
         expect: Csc[x]*Csc[y]*Sin[x + y]
-        expect_evaluated: Csc[x]*Csc[y]*Sin[x + y]
+        expect_evaluated: Csc[x] Csc[y] Sin[x + y]
     ...
 # Expand assuming real variables:
 ok  ComplexExpand[Cot[x + I*y]]    ==>     -(Sin[2*x]/(Cos[2*x] - Cosh[2*y])) + (I*Sinh[2*y])/(Cos[2*x] - Cosh[2*y])
     ---
     data:
-        got: -(Sin[2*x]/(Cos[2*x] - Cosh[2*y])) + (I*Sinh[2*y])/(Cos[2*x] - Cosh[2*y])
+        got:         Sin[2 x]              I Sinh[2 y]
+#! -(--------------------) + --------------------
+#!   Cos[2 x] - Cosh[2 y]    Cos[2 x] - Cosh[2 y]
         expect: -(Sin[2*x]/(Cos[2*x] - Cosh[2*y])) + (I*Sinh[2*y])/(Cos[2*x] - Cosh[2*y])
-        expect_evaluated: -(Sin[2*x]/(Cos[2*x] - Cosh[2*y])) + (I*Sinh[2*y])/(Cos[2*x] - Cosh[2*y])
+        expect_evaluated:         Sin[2 x]              I Sinh[2 y]
+#! -(--------------------) + --------------------
+#!   Cos[2 x] - Cosh[2 y]    Cos[2 x] - Cosh[2 y]
     ...
 # Convert to complex exponentials:
 ok  TrigToExp[Cot[z]]    ==>     -((I*(E^((-I)*z) + E^(I*z)))/(E^((-I)*z) - E^(I*z)))
     ---
     data:
-        got: ((-I)*(E^((-I)*z) + E^(I*z)))/(E^((-I)*z) - E^(I*z))
+        got:      -I z    I z
+#! -I (E     + E   )
+#! -----------------
+#!    -I z    I z
+#!   E     - E
         expect: -((I*(E^((-I)*z) + E^(I*z)))/(E^((-I)*z) - E^(I*z)))
-        expect_evaluated: ((-I)*(E^((-I)*z) + E^(I*z)))/(E^((-I)*z) - E^(I*z))
+        expect_evaluated:      -I z    I z
+#! -I (E     + E   )
+#! -----------------
+#!    -I z    I z
+#!   E     - E
     ...
 # RefLink[TraditionalForm,paclet:ref/TraditionalForm] formatting:
 ok  cot*z    ==>     cot*z # skip
@@ -113,9 +155,13 @@ ok  cot*z    ==>     cot*z # skip
 ok  Cot[Interval[{Pi/6, Pi/3}]]    ==>     Interval[{1/Sqrt[3], Sqrt[3]}]
     ---
     data:
-        got: Interval[{1/Sqrt[3], Sqrt[3]}]
+        got:              1
+#! Interval[{-------, Sqrt[3]}]
+#!           Sqrt[3]
         expect: Interval[{1/Sqrt[3], Sqrt[3]}]
-        expect_evaluated: Interval[{1/Sqrt[3], Sqrt[3]}]
+        expect_evaluated:              1
+#! Interval[{-------, Sqrt[3]}]
+#!           Sqrt[3]
     ...
 # Infinite arguments give symbolic results:
 ok  Cot[Infinity]    ==>     Interval[{-Infinity, Infinity}]
@@ -136,9 +182,15 @@ ok  Cot[ComplexInfinity]    ==>     Indeterminate
 ok  Cot[Pi/2 + x + x^2/2 + x^3/3 + O[x]^4]    ==>     -x - x^2/2 - (2*x^3)/3 + O[x]^4
     ---
     data:
-        got: SeriesData[x, 0, {-1, -1/2, -2/3}, 1, 4, 1]
+        got:       2      3
+     x    2 x        4
+#! -x - -- - ---- + O[x]
+     2     3
         expect: -x - x^2/2 - (2*x^3)/3 + O[x]^4
-        expect_evaluated: SeriesData[x, 0, {-1, -1/2, -2/3}, 1, 4, 1]
+        expect_evaluated:       2      3
+     x    2 x        4
+#! -x - -- - ---- + O[x]
+     2     3
     ...
 # RefLink[Cot,paclet:ref/Cot] threads element-wise over sparse arrays as well as lists: 
 ok  HoldComplete[SparseArray[{{1, 1} -> Pi/2, {1, 3} -> Pi/3, {3, 3} -> Pi/12, {4, 2} -> Pi/4, {_, _} -> Pi/2}]]    ==>     $Failed # skip
@@ -168,9 +220,9 @@ ok  Cot[-x]    ==>     -Cot[x]
 ok  Cot[I*x]    ==>     (-I)*Coth[x]
     ---
     data:
-        got: (-I)*Coth[x]
+        got: -I Coth[x]
         expect: (-I)*Coth[x]
-        expect_evaluated: (-I)*Coth[x]
+        expect_evaluated: -I Coth[x]
     ...
 ok  1/Cot[x]    ==>     Tan[x]
     ---
@@ -207,60 +259,88 @@ ok  Simplify[%]    ==>     Csc[z]*Sec[z] # skip
 ok  Cot[-x + k*Pi]    ==>     Cot[k*Pi - x]
     ---
     data:
-        got: Cot[k*Pi - x]
+        got: Cot[k Pi - x]
         expect: Cot[k*Pi - x]
-        expect_evaluated: Cot[k*Pi - x]
+        expect_evaluated: Cot[k Pi - x]
     ...
 ok  Simplify[%, Element[k, Integers]]    ==>     -Cot[x] # skip
 # Compose with inverse functions:
 ok  {Cot[ArcCot[z]], Cot[2*ArcCot[z]], Cot[3*ArcCot[z]]}    ==>     {z, Cot[2*ArcCot[z]], Cot[3*ArcCot[z]]}
     ---
     data:
-        got: {z, Cot[2*ArcCot[z]], Cot[3*ArcCot[z]]}
+        got: {z, Cot[2 ArcCot[z]], Cot[3 ArcCot[z]]}
         expect: {z, Cot[2*ArcCot[z]], Cot[3*ArcCot[z]]}
-        expect_evaluated: {z, Cot[2*ArcCot[z]], Cot[3*ArcCot[z]]}
+        expect_evaluated: {z, Cot[2 ArcCot[z]], Cot[3 ArcCot[z]]}
     ...
 ok  Together[FunctionExpand[%]]    ==>     {z, (-1 + z^2)/(2*z), (z*(-3 + z^2))/(-1 + 3*z^2)} # skip
 # Solve a trigonometric equation:
 ok  Reduce[Cot[z]^2 - 2*Cot[z + Pi/4] == 4, z]    ==>     Element[C[1], Integers] && (z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 1]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 2]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 3]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 4]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 5]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 6]] + 2*Pi*C[1])
     ---
     data:
-        got: Element[C[1], Integers] && (z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 1, 0]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 2, 0]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 3, 0]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 4, 0]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 5, 0]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 6, 0]] + 2*Pi*C[1])
+        got:                                                         2        3        4       5     6                                                            2        3        4       5     6                                                            2        3        4       5     6                                                            2        3        4       5     6                                                            2        3        4       5     6                                                            2        3        4       5     6
+#! C[1] \[Element] Integers && (z == 2 ArcTan[Root[-1 - 2 #1 + 27 #1  + 20 #1  - 27 #1  - 2 #1  + #1  & , 1]] + 2 Pi C[1] || z == 2 ArcTan[Root[-1 - 2 #1 + 27 #1  + 20 #1  - 27 #1  - 2 #1  + #1  & , 2]] + 2 Pi C[1] || z == 2 ArcTan[Root[-1 - 2 #1 + 27 #1  + 20 #1  - 27 #1  - 2 #1  + #1  & , 3]] + 2 Pi C[1] || z == 2 ArcTan[Root[-1 - 2 #1 + 27 #1  + 20 #1  - 27 #1  - 2 #1  + #1  & , 4]] + 2 Pi C[1] || z == 2 ArcTan[Root[-1 - 2 #1 + 27 #1  + 20 #1  - 27 #1  - 2 #1  + #1  & , 5]] + 2 Pi C[1] || z == 2 ArcTan[Root[-1 - 2 #1 + 27 #1  + 20 #1  - 27 #1  - 2 #1  + #1  & , 6]] + 2 Pi C[1])
         expect: Element[C[1], Integers] && (z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 1]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 2]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 3]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 4]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 5]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 6]] + 2*Pi*C[1])
-        expect_evaluated: Element[C[1], Integers] && (z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 1, 0]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 2, 0]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 3, 0]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 4, 0]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 5, 0]] + 2*Pi*C[1] || z == 2*ArcTan[Root[-1 - 2*#1 + 27*#1^2 + 20*#1^3 - 27*#1^4 - 2*#1^5 + #1^6 & , 6, 0]] + 2*Pi*C[1])
+        expect_evaluated:                                                         2        3        4       5     6                                                            2        3        4       5     6                                                            2        3        4       5     6                                                            2        3        4       5     6                                                            2        3        4       5     6                                                            2        3        4       5     6
+#! C[1] \[Element] Integers && (z == 2 ArcTan[Root[-1 - 2 #1 + 27 #1  + 20 #1  - 27 #1  - 2 #1  + #1  & , 1]] + 2 Pi C[1] || z == 2 ArcTan[Root[-1 - 2 #1 + 27 #1  + 20 #1  - 27 #1  - 2 #1  + #1  & , 2]] + 2 Pi C[1] || z == 2 ArcTan[Root[-1 - 2 #1 + 27 #1  + 20 #1  - 27 #1  - 2 #1  + #1  & , 3]] + 2 Pi C[1] || z == 2 ArcTan[Root[-1 - 2 #1 + 27 #1  + 20 #1  - 27 #1  - 2 #1  + #1  & , 4]] + 2 Pi C[1] || z == 2 ArcTan[Root[-1 - 2 #1 + 27 #1  + 20 #1  - 27 #1  - 2 #1  + #1  & , 5]] + 2 Pi C[1] || z == 2 ArcTan[Root[-1 - 2 #1 + 27 #1  + 20 #1  - 27 #1  - 2 #1  + #1  & , 6]] + 2 Pi C[1])
     ...
 # Solve for zeros and poles: 
 ok  Reduce[Cot[\[Alpha]*x + \[Beta]] == 0, x]    ==>     Element[C[1], Integers] && ((\[Alpha] == 0 && \[Beta] == Pi/2 + Pi*C[1]) || (\[Alpha] != 0 && x == (Pi/2 - \[Beta] + Pi*C[1])/\[Alpha]))
     ---
     data:
-        got: Element[C[1], Integers] && ((\[Alpha] == 0 && \[Beta] == Pi/2 + Pi*C[1]) || (\[Alpha] != 0 && x == (Pi/2 - \[Beta] + Pi*C[1])/\[Alpha]))
+        got:                                                                      Pi
+#!                                                                      -- - \[Beta] + Pi C[1]
+#!                                     Pi                               2
+#! C[1] \[Element] Integers && ((\[Alpha] == 0 && \[Beta] == -- + Pi C[1]) || (\[Alpha] != 0 && x == ----------------))
+#!                                     2                                       \[Alpha]
         expect: Element[C[1], Integers] && ((\[Alpha] == 0 && \[Beta] == Pi/2 + Pi*C[1]) || (\[Alpha] != 0 && x == (Pi/2 - \[Beta] + Pi*C[1])/\[Alpha]))
-        expect_evaluated: Element[C[1], Integers] && ((\[Alpha] == 0 && \[Beta] == Pi/2 + Pi*C[1]) || (\[Alpha] != 0 && x == (Pi/2 - \[Beta] + Pi*C[1])/\[Alpha]))
+        expect_evaluated:                                                                      Pi
+#!                                                                      -- - \[Beta] + Pi C[1]
+#!                                     Pi                               2
+#! C[1] \[Element] Integers && ((\[Alpha] == 0 && \[Beta] == -- + Pi C[1]) || (\[Alpha] != 0 && x == ----------------))
+#!                                     2                                       \[Alpha]
     ...
 ok  Reduce[1/Cot[\[Alpha]*x + \[Beta]] == 0, x]    ==>     Element[C[1], Integers] && ((\[Alpha] == 0 && \[Beta] == Pi*C[1]) || (\[Alpha] != 0 && x == (-\[Beta] + Pi*C[1])/\[Alpha]))
     ---
     data:
-        got: Element[C[1], Integers] && ((\[Alpha] == 0 && \[Beta] == Pi*C[1]) || (\[Alpha] != 0 && x == (-\[Beta] + Pi*C[1])/\[Alpha]))
+        got:                                                                 -\[Beta] + Pi C[1]
+#! C[1] \[Element] Integers && ((\[Alpha] == 0 && \[Beta] == Pi C[1]) || (\[Alpha] != 0 && x == ------------))
+#!                                                                      \[Alpha]
         expect: Element[C[1], Integers] && ((\[Alpha] == 0 && \[Beta] == Pi*C[1]) || (\[Alpha] != 0 && x == (-\[Beta] + Pi*C[1])/\[Alpha]))
-        expect_evaluated: Element[C[1], Integers] && ((\[Alpha] == 0 && \[Beta] == Pi*C[1]) || (\[Alpha] != 0 && x == (-\[Beta] + Pi*C[1])/\[Alpha]))
+        expect_evaluated:                                                                 -\[Beta] + Pi C[1]
+#! C[1] \[Element] Integers && ((\[Alpha] == 0 && \[Beta] == Pi C[1]) || (\[Alpha] != 0 && x == ------------))
+#!                                                                      \[Alpha]
     ...
 # Numerically find a root of a transcendental equation:
-ok  FindRoot[Cot[z]^2 + 3*Cot[z + Pi/6] + z == 4, {z, 2}]    ==>     {z -> 0.615263} # skip
+ok  FindRoot[Cot[z]^2 + 3*Cot[z + Pi/6] + z == 4, {z, 2}]    ==>     {z -> 0.615263}
+    ---
+    data:
+        got: {z -> 0.615263}
+        expect: {z -> 0.615263}
+        expect_evaluated: {z -> 0.615263}
+    ...
 # Integrals:
 ok  Integrate[Cot[z]^a, z]    ==>     -((Cot[z]^(1 + a)*Hypergeometric2F1[(1 + a)/2, 1, 1 + (1 + a)/2, -Cot[z]^2])/(1 + a))
     ---
     data:
-        got: -((Cot[z]^(1 + a)*Hypergeometric2F1[1, (1 + a)/2, 1 + (1 + a)/2, -Cot[z]^2])/(1 + a))
+        got:         1 + a                      1 + a      1 + a         2
+#!   Cot[z]      Hypergeometric2F1[1, -----, 1 + -----, -Cot[z] ]
+#!                                      2          2
+#! -(------------------------------------------------------------)
+#!                              1 + a
         expect: -((Cot[z]^(1 + a)*Hypergeometric2F1[(1 + a)/2, 1, 1 + (1 + a)/2, -Cot[z]^2])/(1 + a))
-        expect_evaluated: -((Cot[z]^(1 + a)*Hypergeometric2F1[1, (1 + a)/2, 1 + (1 + a)/2, -Cot[z]^2])/(1 + a))
+        expect_evaluated:         1 + a                      1 + a      1 + a         2
+#!   Cot[z]      Hypergeometric2F1[1, -----, 1 + -----, -Cot[z] ]
+#!                                      2          2
+#! -(------------------------------------------------------------)
+#!                              1 + a
     ...
 # RefLink[Cot,paclet:ref/Cot] appears in special cases of many mathematical functions: 
 ok  {BesselJ[-(1/2), z]/BesselJ[1/2, z], MathieuC[1, 0, z]/MathieuS[1, 0, z], JacobiCS[z, 0], JacobiSC[Pi/2 - z, 0], JacobiNS[I*z, 1], JacobiSN[(Pi*I)/2 - I*z, 1], HypergeometricPFQ[{}, {1/2}, -z]/HypergeometricPFQ[{}, {3/2}, -z]}    ==>     {Cot[z], Cot[z], Cot[z], Cot[z], (-I)*Cot[z], I*Cot[z], 2*Sqrt[z]*Cot[2*Sqrt[z]]}
     ---
     data:
-        got: {Cot[z], Cot[z], Cot[z], Cot[z], (-I)*Cot[z], I*Cot[z], 2*Sqrt[z]*Cot[2*Sqrt[z]]}
+        got: {Cot[z], Cot[z], Cot[z], Cot[z], -I Cot[z], I Cot[z], 2 Sqrt[z] Cot[2 Sqrt[z]]}
         expect: {Cot[z], Cot[z], Cot[z], Cot[z], (-I)*Cot[z], I*Cot[z], 2*Sqrt[z]*Cot[2*Sqrt[z]]}
-        expect_evaluated: {Cot[z], Cot[z], Cot[z], Cot[z], (-I)*Cot[z], I*Cot[z], 2*Sqrt[z]*Cot[2*Sqrt[z]]}
+        expect_evaluated: {Cot[z], Cot[z], Cot[z], Cot[z], -I Cot[z], I Cot[z], 2 Sqrt[z] Cot[2 Sqrt[z]]}
     ...
 # Calculate residue symbolically and numerically: 
 ok  Table[Residue[Cot[z]^k, {z, 0}], {k, 10}]    ==>     {1, 0, -1, 0, 1, 0, -1, 0, 1, 0}
@@ -289,29 +369,19 @@ ok  NumericQ[Cot[2 + E]]    ==>     True
 # Machine-precision input is insufficient to give a correct answer:
 ok  Cot[10.^30]    ==>     -0.865133 # skip
 # With exact input, the answer is correct:
-ok  N[Cot[10^30], 20]    ==>     11.051547193404474785`19.043423082593154
-    ---
-    data:
-        got: 11.05154719340447478515848536935`20.
-        expect: 11.051547193404474785`19.043423082593154
-        expect_evaluated: 11.051547193404474785`19.043423082593154
-    ...
+ok  N[Cot[10^30], 20]    ==>     11.051547193404474785`19.043423082593154 # skip
 # A larger setting for RefLink[$MaxExtraPrecision,paclet:ref/$MaxExtraPrecision] is needed:
-ok  N[Cot[10^100], 20]    ==>     0.*10^30
+ok  N[Cot[10^100], 20]    ==>     0.*10^30 # skip
+ok  Block[{$MaxExtraPrecision = 200}, N[Cot[10^100], 20]]    ==>     2.4923238792798206949`19.39660447853459 # skip
+not ok  $Failed    ==>     HoldComplete[Csc[n*z]*Sin[n*(Pi/2 + z)]*Tan[z]]
     ---
     data:
-        got: 0``-30.
-        expect: 0.*10^30
-        expect_evaluated: 0.
+        got: $Failed
+        expect: HoldComplete[Csc[n*z]*Sin[n*(Pi/2 + z)]*Tan[z]]
+        expect_evaluated:                 Pi
+#! Csc[n z] Sin[n (-- + z)] Tan[z]
+#!                 2
     ...
-ok  Block[{$MaxExtraPrecision = 200}, N[Cot[10^100], 20]]    ==>     2.4923238792798206949`19.39660447853459
-    ---
-    data:
-        got: 2.49232387927982069486640543726040396169`20.
-        expect: 2.4923238792798206949`19.39660447853459
-        expect_evaluated: 2.4923238792798206949`19.39660447853459
-    ...
-ok  $Failed    ==>     HoldComplete[Csc[n*z]*Sin[n*(Pi/2 + z)]*Tan[z]] # skip
 ok  Simplify[%, Element[n/2, Integers]]    ==>     I^n*Tan[z] # skip
 ok  Simplify[%%, Element[(n - 1)/2, Integers]]    ==>     (-I)*I^n*Cot[n*z]*Tan[z] # skip
 ok  Integrate[Cot[ArcTan[z]], z]    ==>     Log[z]
@@ -322,13 +392,23 @@ ok  Integrate[Cot[ArcTan[z]], z]    ==>     Log[z]
         expect_evaluated: Log[z]
     ...
 # Plot RefLink[Cot,paclet:ref/Cot] at integer points:
-ok  HoldComplete[ArrayPlot[Table[ArcCot[Abs[Cot[x*y]]], {x, -20, 20}, {y, -20, 20}]]]    ==>     $Failed # skip
+not ok  HoldComplete[ArrayPlot[Table[ArcCot[Abs[Cot[x*y]]], {x, -20, 20}, {y, -20, 20}]]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 ok  FunctionExpand[Cot[Pi/2^12]]    ==>     Sqrt[(2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2]]]]]]]]]])/(2 - Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2]]]]]]]]]])]
     ---
     data:
-        got: Sqrt[(2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2]]]]]]]]]])/(2 - Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2]]]]]]]]]])]
+        got:      2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2]]]]]]]]]]
+#! Sqrt[-----------------------------------------------------------------------------------------------------]
+     2 - Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2]]]]]]]]]]
         expect: Sqrt[(2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2]]]]]]]]]])/(2 - Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2]]]]]]]]]])]
-        expect_evaluated: Sqrt[(2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2]]]]]]]]]])/(2 - Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2]]]]]]]]]])]
+        expect_evaluated:      2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2]]]]]]]]]]
+#! Sqrt[-----------------------------------------------------------------------------------------------------]
+     2 - Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2 + Sqrt[2]]]]]]]]]]
     ...
 # The continued fraction is highly regular:
 ok  ContinuedFraction[Cot[1], 22]    ==>     {0, 1, 1, 1, 3, 1, 5, 1, 7, 1, 9, 1, 11, 1, 13, 1, 15, 1, 17, 1, 19, 1}

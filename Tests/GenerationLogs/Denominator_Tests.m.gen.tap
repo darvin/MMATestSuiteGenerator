@@ -1,8 +1,14 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Denominator.nb output/Tests/Denominator_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Denominator.nb
 # WRITING OUTPUT TO:     output/Tests/Denominator_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Denominator[2/3]    ==>     3
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Denominator[(x-1)(x-2)/(x-3)^2]    ==>     (-3+x)^2
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  Denominator[3/7]    ==>     7
 ok  Denominator[(x-1)^2/((x-2)(x-3))]    ==>     (-3+x) (-2+x)
 ok  expr=a x^n y^-m Exp[a-b-2c+3d]    ==>     a E^(a-b-2 c+3 d) x^n y^-m
@@ -13,22 +19,21 @@ ok  Denominator[{1,2,3,4,5,6}/3]    ==>     {3,3,1,3,3,1}
 ok  Denominator[(1/3 x+3/4 y)/(3/5x-1/2y),Modulus->7]    ==>     2 x+3 y
 ok  Denominator[{Sin[x],Cos[x],Tan[x],Csc[x],Sec[x],Cot[x]},Trig->True]    ==>     {1,1,Cos[x],Sin[x],Cos[x],Sin[x]}
 ok  Numerator[2/3a (x-1)/(x-2)]    ==>     2 a (-1+x)
-not ok  num=Numerator[expr]    ==>     5 a^b (-1+x)^2
+#! TextForm[ColonForm[MessageName[Set, write], StringForm[Tag `1` in `2` is Protected., Short[HoldForm[Span], 3], Short[HoldForm[Span[(5*a^b*(-1 + x)^2)/(7*c^d*(-2 + x)^3), num]], 3]]]]
+not ok  expr=5/7(x-1)^2/(x-2)^3a^b c^-d;; num=Numerator[expr]    ==>     5 a^b (-1+x)^2
 not ok  den=Denominator[expr]    ==>     7 c^d (-2+x)^3
-ok  expr===num/den    ==>     True
+not ok  expr===num/den    ==>     True
 ok  Cancel[(x-1)(x-2)/(x^2-1)]    ==>     (-2+x)/(1+x)
 ok  Together[x (x-2)/(x^2-1)+x/(x^2-1)-2/(x^2-1)]    ==>     (-2+x)/(-1+x)
-not ok  ExpandDenominator[r]    ==>     (1+x)/(4+4 x+x^2)
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+not ok  r=(x+1)/(x+2)^2;; ExpandDenominator[r]    ==>     (1+x)/(4+4 x+x^2)
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
 not ok  Numerator[r]/Expand[Denominator[r]]    ==>     (1+x)/(4+4 x+x^2)
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangeClipping->True]\)\)
 #!                             ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangeClipping->True]\)\)
-#!                             ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-not ok  ArrayPlot[Table[Denominator[i/j],{i,30},{j,30}]]    ==>     \!\(\*
+ok  ArrayPlot[Table[Denominator[i/j],{i,30},{j,30}]]    ==>     \!\(\*
 #! GraphicsBox[RasterBox[CompressedData["
 #! 1:eJx1k2FymzAQRpFtSmJKQBFCWu1+nemVeoRcoPf/110hasZJZswvj3hvn5bf
 #! H3//fFy6rvvVHgACpMII4hO2iUdJYSjk4+L0Py6U0xbX8O6X+W36Od5fX4Yf
@@ -48,9 +53,7 @@ not ok  ArrayPlot[Table[Denominator[i/j],{i,30},{j,30}]]    ==>     \!\(\*
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
 #!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ListPlot[Flatten[Table[{i/j,Denominator[i/j]},{i,20},{j,20}],1]]    ==>     \!\(\*
+ok  ListPlot[Flatten[Table[{i/j,Denominator[i/j]},{i,20},{j,20}],1]]    ==>     \!\(\*
 #! GraphicsBox[{{}, 
 #! {Hue[0.67, 0.6, 0.6], PointBox[CompressedData["
 #! 1:eJx1mO1r1lUYx+d6oCdjNstVQ3StGiE2by0Mgx2wgt5IBb0J9MWg3vREEVb/

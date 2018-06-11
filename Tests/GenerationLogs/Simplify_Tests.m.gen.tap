@@ -1,8 +1,20 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Simplify.nb output/Tests/Simplify_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Simplify.nb
 # WRITING OUTPUT TO:     output/Tests/Simplify_Tests.m
-ok  D[Integrate[1/(x^3+1),x],x]    ==>     1/(3 (1+x))-(-1+2 x)/(6 (1-x+x^2))+2/(3 (1+1/3 (-1+2 x)^2))
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/Simplify.html; D[Integrate[1/(x^3+1),x],x]
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
 #! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{Simplify, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`http://reference.wolfram.com/language/ref/Simplify.html; D[Integrate[1/(x^3+1),x],x]\)
+#!                                                                                                         ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/Simplify.html; D[Integrate[1/(x^3+1),x],x]    ==>     1/(3 (1+x))-(-1+2 x)/(6 (1-x+x^2))+2/(3 (1+1/3 (-1+2 x)^2))
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 not ok  Simplify[%]    ==>     1/(1+x^3)
 ok  Simplify[Sin[x]^2+Cos[x]^2]    ==>     1
 ok  Simplify[Sqrt[x^2]]    ==>     Sqrt[x^2]
@@ -27,10 +39,6 @@ ok  Simplify[100 Log[2]]    ==>     100 Log[2]
 ok  Simplify[100 Log[2],ComplexityFunction->LeafCount]    ==>     Log[1267650600228229401496703205376]
 ok  Simplify[Abs[x],x<0]    ==>     Abs[x]
 not ok  Map[FullForm,{Abs[x],-x}]    ==>     {Abs[x],Times[-1,x]}
-#! TextForm[ColonForm[MessageName[Simplify, cfn], StringForm[The cost function `1` does not evaluate to a real number at `2`., Short[HoldForm[f], 3], Short[HoldForm[Abs[x]], 3]]]]
-#! TextForm[ColonForm[MessageName[Simplify, cfn], StringForm[The cost function `1` does not evaluate to a real number at `2`., Short[HoldForm[f], 3], Short[HoldForm[-x], 3]]]]
-#! TextForm[ColonForm[MessageName[Simplify, cfn], StringForm[The cost function `1` does not evaluate to a real number at `2`., Short[HoldForm[f], 3], Short[HoldForm[x], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Simplify, cfn]], 3]]]]
-ok  Simplify[Abs[x],x<0,ComplexityFunction->f]    ==>     -x
+ok  f[e_]:=100Count[e,_Abs,{0,Infinity}]+LeafCount[e]; Simplify[Abs[x],x<0,ComplexityFunction->f]    ==>     -x
 ok  Simplify[(x-1)(x+1)(x^2+1)(x-2)^10]    ==>     (-2+x)^10 (-1+x) (1+x) (1+x^2)
 ok  Simplify[(x-1)(x+1)(x^2+1)(x-2)^10,ExcludedForms->{(_Plus)^_}]    ==>     (-2+x)^10 (-1+x^4)

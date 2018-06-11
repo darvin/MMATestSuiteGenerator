@@ -1,13 +1,12 @@
 #! DOCKER > wolfram -script output/Tests/Order_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Order, argr], StringForm[`1` called with 1 argument; `2` arguments are expected., Short[HoldForm[Order], 3], Short[HoldForm[2], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Order_Tests
-ok  {Order[a, a], Order[a, b], Order[b, a]}    ==>     {0, 1, -1}
-    ---
-    data:
-        got: {0, 1, -1}
-        expect: {0, 1, -1}
-        expect_evaluated: {0, 1, -1}
-    ...
+ok  $Failed    ==>     HoldComplete[{0, 1, -1}] # skip
 # Find which tuples are in order:
 ok  Tuples[{0, 1, 2}, 2]    ==>     {{0, 0}, {0, 1}, {0, 2}, {1, 0}, {1, 1}, {1, 2}, {2, 0}, {2, 1}, {2, 2}}
     ---

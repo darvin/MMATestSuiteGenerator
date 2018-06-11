@@ -1,16 +1,16 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/EulerPhi.nb output/Tests/EulerPhi_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/EulerPhi.nb
 # WRITING OUTPUT TO:     output/Tests/EulerPhi_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Table[EulerPhi[k],{k,0,20}]    ==>     {0,1,1,2,2,4,2,6,4,6,4,10,4,12,6,8,8,16,6,18,8}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
 #!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)\)
-#!                                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-not ok  DiscretePlot[EulerPhi[k],{k,100}]    ==>     \!\(\*
+ok  DiscretePlot[EulerPhi[k],{k,100}]    ==>     \!\(\*
 #! GraphicsBox[GraphicsComplexBox[CompressedData["
 #! 1:eJzt1zlOBEEMheGGiJCAgIAAEEIIjRD7zkwx7DsMe4pEzBV8tDoSR0Bo/Iz8
 #! X4HupPTZuJbuoa2e+fgafI42TdMZaZrfcXh99/LYlOyxkuPj8ATik8hPIT6N
@@ -41,6 +41,8 @@ not ok  DiscretePlot[EulerPhi[k],{k,100}]    ==>     \!\(\*
 #! PlotRange->{{0., 100.}, {0., 96.}},
 #! PlotRangeClipping->True,
 #! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  EulerPhi[50!]    ==>     4218559200885839042679312107816703841788854953574400000000000000
 ok  EulerPhi[{2,4,6}]    ==>     {1,2,2}
 not ok  EulerPhi[n]//TraditionalForm    ==>     \[Phi](n)
@@ -52,9 +54,7 @@ ok  Table[EulerPhi[n],{n,15}]    ==>     {1,1,2,2,4,2,6,4,6,4,10,4,12,6,8}
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangeClipping->True]\)\)
 #!                             ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ListPlot[Accumulate[Table[EulerPhi[n],{n,50}]]]    ==>     \!\(\*
+ok  ListPlot[Accumulate[Table[EulerPhi[n],{n,50}]]]    ==>     \!\(\*
 #! GraphicsBox[
 #! {Hue[0.67, 0.6, 0.6], PointBox[CompressedData["
 #! 1:eJxd0slKQlEAx+FLq5YtWrRoYREREWE2j57mWgQiLWoTJhgU0UAlQQOH5qWP
@@ -70,11 +70,13 @@ not ok  ListPlot[Accumulate[Table[EulerPhi[n],{n,50}]]]    ==>     \!\(\*
 #! ImageMargins->0.,
 #! PlotRange->Automatic,
 #! PlotRangeClipping->True]\)
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 #! TextForm[ColonForm[MessageName[Show, gcomb], StringForm[Could not combine the graphics objects in `1`., Short[HoldForm[Show[Hold[Out[$Line - 1]], Graphics[{{{}, {}, {Directive[Opacity[1.], AbsoluteThickness[1.5], RGBColor[1, 0, 0]], Line[{{1.020408163265306*^-6, 3.164968252051367*^-13}, {0.015335895402068046, 0.00007148909263998851}, {0.030670770395972827, 0.00028593734412860164}, {0.04600564538987761, 0.0006433447547823363}, {0.06134052038378239, 0.0011437113246011924}, {0.07667539537768717, 0.0017870370535851697}, {0.09201027037159196, 0.0025733219417342695}, {0.10734514536549673, 0.00350256598904849}, {0.12268002035940151, 0.004574769195527831}, {0.1380148953533063, 0.005789931561172296}, {0.15334977034721106, 0.007148053085981878}, {0.16868464534111582, 0.008649133769956583}, {0.18401952033502061, 0.01029317361309641}, {0.1993543953289254, 0.01208017261540136}, {0.2146892703228302, 0.014010130776871434}, {0.24535902031063975, 0.01829892457730694}, {0.2606938953045445, 0.02065776021627237}, {0.2760287702984493, 0.02315955501440293}, {0.3066985202862589, 0.028592022088159415}, {0.32203339528016367, 0.03152269436378533}, {0.33736827027406846, 0.034596325798576376}, {0.368038020261878, 0.04117246614565381}, {0.3833728952557828, 0.04467497505794022}, {0.3987077702496875, 0.04832044312939175}, {0.4293775202374971, 0.05604025674979017}, {0.49071702021311625, 0.07319539390056848}, {0.506051895207021, 0.07784157608617583}, {0.5213867702009258, 0.08263071743094835}, {0.5520565201887353, 0.09263787759798871}, {0.6133960201643545, 0.11436770784205089}, {0.6287308951582593, 0.12015756330097926}, {0.644065770152164, 0.12609037791907274}, {0.6747355201399736, 0.13838488463275506}, {0.7360750201155928, 0.16468940797010115}, {0.7514098951094976, 0.1716229367023505}, {0.7667447701034024, 0.1786994245937649}, {0.7974145200912119, 0.19328127785408916}, {0.858754020066831, 0.22416049428471913}, {0.9814330200180692, 0.2927809667859048}, {0.9980577817488264, 0.30278397042928323}, {1.0146825434795836, 0.3129549946080586}, {1.0479320669410979, 0.33380110457179984}, {1.1144311138641267, 0.37750957092404547}, {1.2474292077101845, 0.47299148932758833}, {1.2640539694409418, 0.48568282153731734}, {1.280678731171699, 0.4985421742824431}, {1.3139282546332134, 0.5247649413788855}, {1.3804273015562423, 0.5792267219965332}, {1.5134253954023, 0.69621526893088}, {1.5300501571330574, 0.7115949297069595}, {1.5466749188638145, 0.7271426110184358}, {1.579924442325329, 0.7587420352475792}, {1.6464234892483578, 0.8239571301306289}, {1.7794215830944153, 0.9624523055957794}, {2.0454177707865306, 1.271702599322287}, {2.0609408377191025, 1.2910782329156476}, {2.076463904651675, 1.3106003560321147}, {2.1075100385168195, 1.3500840708343664}, {2.169602306247108, 1.430809374716138}, {2.293786841707685, 1.5992914795887616}, {2.5421559126288398, 1.964381677770326}, {2.5576789795614117, 1.9884449761030727}, {2.573202046493984, 2.0126547639589263}, {2.6042481803591286, 2.0615138082399507}, {2.666340448089417, 2.1609897710792674}, {2.7905249835499943, 2.3669731938669805}, {3.038894054471149, 2.8070660278787254}, {3.0541126204505487, 2.835251602596893}, {3.069331186429948, 2.863577976119788}, {3.0997683183887474, 2.920653119579765}, {3.1606425823063455, 3.0364929921564583}, {3.2823911101415426, 3.2749310799368123}, {3.525888165811936, 3.778840626005381}, {3.5411067317913356, 3.811531762474858}, {3.5563252977707354, 3.8443636977490647}, {3.5867624297295344, 3.910449964711661}, {3.647636693647133, 4.044312084293598}, {3.7693852214823296, 4.318794666084433}, {4.012882277152723, 4.89479320017397}, {4.029390729868975, 4.9351490680301175}, {4.045899182585227, 4.975670613658147}, {4.078916088017731, 5.057210738229842}, {4.144949898882739, 5.222279120635794}, {4.277017520612755, 5.56036841849793}, {4.5411527640727885, 6.268357146423144}, {5.069423250992854, 7.8115751310773165}, {5.08483000891092, 7.859128441865581}, {5.100236766828988, 7.9068260552093905}, {5.131050282665122, 8.002654189563637}, {5.19267731433739, 8.196042088938649}, {5.315931377681926, 8.589744410354731}, {5.562439504370998, 9.404855143851151}, {6.055455757749141, 11.145900973501004}, {7.124041015663984, 15.426746097521695}, {8.173138212575783, 20.30482242059065}, {9.151726942403739, 25.45819547308526}, {10.212868423390251, 31.70421341973016}, {11.20350143729292, 38.15303208350592}, {12.174646390192544, 45.05408992174043}, {13.228344094250724, 53.19030440265172}, {14.211533331225061, 61.39081307115877}, {15.277275319357953, 70.94361588323721}, {16.3235292464878, 80.99340041375895}, {17.299274706533808, 90.96562330474633}, {18.35757291773837, 102.43586360752762}, {19.345362661859088, 113.75624836924912}, {20.415705157138362, 126.69231717652272}, {21.46655959141459, 140.07041071703688}, {22.44690555860698, 153.1561596637268}, {23.509804276957922, 168.00396693099378}, {24.502194528225022, 182.48680868081672}, {25.475096718489077, 197.2664333166408}, {26.530551659911687, 213.95087668404005}, {27.515498134250453, 230.13160613379043}, {28.582997359747775, 248.33449392677986}, {29.631008524242056, 266.8789843491994}, {30.608511221652492, 284.77766315617015}, {31.668566670221484, 304.8444722370741}, {32.65811365170663, 324.19305088967883}, {33.62817257218873, 343.73839454601296}, {34.68078424382939, 365.5942265429476}, {35.66288744838621, 386.5934710663427}, {36.72754340410158, 410.0202165199081}, {37.721690892733115, 432.51762866498956}, {38.6963503203616, 455.15730943102636}, {39.75356249914864, 480.3675002007031}, {40.74026621085184, 504.509367391021}, {41.809522673713595, 531.3392863074121}, {42.85929107557231, 558.3563707876322}, {43.838551010347174, 584.1627921200236}, {44.9003636962806, 612.8034857716542}, {45.89166791513018, 640.1609725512809}, {46.86348407297671, 667.5605374463858}, {47.9178529819818, 697.9369813898685}, {48.901713423903054, 726.8916195454374}, {48.918874135710695, 727.4018743166761}, {48.93603484751833, 727.9123081163848}, {48.970356271133596, 728.9337128012132}, {49.038999118364146, 730.9786705125142}, {49.176284812825244, 735.077179301691}, {49.45085620174744, 743.3085703463435}, {49.468016913555076, 743.8245540286317}, {49.48517762536272, 744.3407167393906}, {49.51949904897799, 745.373579246319}, {49.58814189620854, 747.4414526018192}, {49.72542759066964, 751.5857926793948}, {49.74258830247727, 752.104640817208}, {49.759749014284914, 752.6236679834917}, {49.79407043790019, 753.6622594014698}, {49.86271328513074, 755.7415905790699}, {49.87987399693837, 756.2618709446456}, {49.89703470874601, 756.7823303386917}, {49.93135613236129, 757.8237862121949}, {49.94851684416892, 758.3447826916517}, {49.96567755597656, 758.8659581995793}, {49.9828382677842, 759.3873127359769}, {49.99999897959184, 759.9088463008447}}]}}}, {DisplayFunction -> Identity, AspectRatio -> GoldenRatio^(-1), Axes -> {True, True}, AxesLabel -> {None, None}, AxesOrigin -> {0, 0}, BaseStyle -> {FontFamily -> Arial}, DisplayFunction :> Identity, Frame -> {{False, False}, {False, False}}, FrameLabel -> {{None, None}, {None, None}}, FrameTicks -> {{Automatic, Automatic}, {Automatic, Automatic}}, GridLines -> {None, None}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], LabelStyle -> {FontFamily -> Arial}, Method -> {ScalingFunctions -> None}, PlotRange -> {{0., 49.99999897959184}, {0., 759.9088463008447}}, PlotRangeClipping -> True, PlotRangePadding -> {Scaled[0.02], Scaled[0.02]}, Ticks -> {Automatic, Automatic}}]]], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  Show[%,Plot[3/Pi^2 n^2,{n,0,50},PlotStyle->Red]]    ==>     \!\(\*
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRangeClipping->True]\)\)
+#!                             ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+ok  Show[%,Plot[3/Pi^2 n^2,{n,0,50},PlotStyle->Red]]    ==>     \!\(\*
 #! GraphicsBox[{
 #! {Hue[0.67, 0.6, 0.6], PointBox[CompressedData["
 #! 1:eJxd0slKQlEAx+FLq5YtWrRoYREREWE2j57mWgQiLWoTJhgU0UAlQQOH5qWP
@@ -148,15 +150,12 @@ not ok  Show[%,Plot[3/Pi^2 n^2,{n,0,50},PlotStyle->Red]]    ==>     \!\(\*
 #! PlotRange->Automatic,
 #! PlotRangeClipping->True]\)
 ok  Position[NonPositive[Accumulate[EulerPhi[Range[10^4]]]-3 (Range[10^4]/Pi)^2],True]//Flatten    ==>     {820,1276,1926,2080,2640,3160,3186,3250,4446,4720,4930,5370,6006,6546,7386,7450,7476,9066,9276}
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 #! TextForm[ColonForm[MessageName[Table, iterb], StringForm[Iterator `1` does not have appropriate bounds., Short[HoldForm[{n, Hold[Out[$Line - 1]]}], 3]]]]
 #! TextForm[ColonForm[MessageName[Table, iterb], StringForm[Iterator `1` does not have appropriate bounds., Short[HoldForm[{n, Hold[Out[$Line - 1]]}], 3]]]]
 #! TextForm[ColonForm[MessageName[NSum, nslim], StringForm[Limit of summation `1` is not a number., Short[HoldForm[n], 3]]]]
 #! TextForm[ColonForm[MessageName[Table, iterb], StringForm[Iterator `1` does not have appropriate bounds., Short[HoldForm[{n, Hold[Out[$Line - 1.]]}], 3]]]]
 #! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Table, iterb]], 3]]]]
 not ok  Table[Sum[EulerPhi[k],{k,1,n}]-3 n^2/Pi^2,{n,%}]//N    ==>     {-9.09164,-40.1585,-7.49704,-31.9067,-6.36454,-16.4341,-39.2042,-45.0067,-99.9782,-17.573,-103.709,-16.5217,-44.1517,-157.417,-86.3779,-80.9853,-239.944,-124.389,-443.274}
-#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{2}]]], 3], Short[HoldForm[DisplayForm[RowBox[{Sum[EulerPhi[k], {k, 1, Floor[x]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{2}]]], 3], Short[HoldForm[DisplayForm[RowBox[{Sum[EulerPhi[k], {k, 1, Floor[x]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 ok  ListLinePlot[Table[1/x^2 (-1+2\!\(
@@ -191,12 +190,10 @@ ok  ListLinePlot[Table[1/x^2 (-1+2\!\(
 #! PlotRange->{{0., 100.}, {0.6087, 0.6758995844875346}},
 #! PlotRangeClipping->True,
 #! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)
-not ok  N[1/Zeta[2]]    ==>     0.607927
-not ok  c[6,2]    ==>     14
+ok  N[1/Zeta[2]]    ==>     0.607927
+ok  c[n_,b_]:=Total[EulerPhi[#] b^(n/#)&[Divisors[n]]]/n; c[6,2]    ==>     14
 ok  Series[Total[EulerPhi[#] x^#/(1-x^#)&/@Divisors[10]],{x,0,20}]    ==>     x+2 x^2+x^3+2 x^4+5 x^5+2 x^6+x^7+2 x^8+x^9+10 x^10+x^11+2 x^12+x^13+2 x^14+5 x^15+2 x^16+x^17+2 x^18+x^19+10 x^20+O[x]^21
 ok  Sum[GCD[k,10] x^k,{k,1,20}]    ==>     x+2 x^2+x^3+2 x^4+5 x^5+2 x^6+x^7+2 x^8+x^9+10 x^10+x^11+2 x^12+x^13+2 x^14+5 x^15+2 x^16+x^17+2 x^18+x^19+10 x^20
-#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{{}]]], 3], Short[HoldForm[DisplayForm[RowBox[{Sum[Floor[EulerPhi[k]/(-1 + k)], {k, 2, Floor[x]}], ,, RowBox[{PrimePi, [, x, ]}], }}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{{}]]], 3], Short[HoldForm[DisplayForm[RowBox[{Sum[Floor[EulerPhi[k]/(-1 + k)], {k, 2, Floor[x]}], ,, RowBox[{PrimePi, [, x, ]}], }}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 ok  Plot[{\!\(
@@ -307,22 +304,22 @@ ok  Plot[{\!\(
 #! PlotRange->{{0, 50}, {0., 15.}},
 #! PlotRangeClipping->True,
 #! PlotRangePadding->{Scaled[0.02], Scaled[0.02]}]\)
-not ok  Table[FleckPhi[0,n],{n,12}]    ==>     {1,1,2,2,4,2,6,4,6,4,10,4}
+ok  FleckPhi[k_,n_]:=Times@@(Sum[(-1)^j Binomial[k,j]EulerPhi[#1^(#2-j)],{j,0,#2}]&@@@FactorInteger[n]); Table[FleckPhi[0,n],{n,12}]    ==>     {1,1,2,2,4,2,6,4,6,4,10,4}
 ok  Table[EulerPhi[n],{n,12}]    ==>     {1,1,2,2,4,2,6,4,6,4,10,4}
-not ok  Table[FleckPhi[-1,n]-n,{n,12}]    ==>     {1,0,0,0,0,0,0,0,0,0,0,0}
-not ok  Table[FleckPhi[-2,n]-DivisorSigma[1,n],{n,12}]    ==>     {2,0,0,0,0,0,0,0,0,0,0,0}
+ok  Table[FleckPhi[-1,n]-n,{n,12}]    ==>     {1,0,0,0,0,0,0,0,0,0,0,0}
+ok  Table[FleckPhi[-2,n]-DivisorSigma[1,n],{n,12}]    ==>     {2,0,0,0,0,0,0,0,0,0,0,0}
 ok  FullSimplify[EulerPhi[n]>=Sqrt[n], n\[Element]Integers &&n >6]    ==>     True
 ok  Table[EulerPhi[m]EulerPhi[n]==EulerPhi[m n]  EulerPhi[GCD[n,m]]/GCD[n,m],{m,4},{n,4}]    ==>     {{True,True,True,True},{True,True,True,True},{True,True,True,True},{True,True,True,True}}
-not ok  Table[\[Phi][n],{n,12}]    ==>     {0,1,2,2,4,2,6,4,6,4,10,4}
+ok  \[Phi][n_]:=n Times @@ (1-1/First/@FactorInteger[n]); Table[\[Phi][n],{n,12}]    ==>     {0,1,2,2,4,2,6,4,6,4,10,4}
 ok  Table[EulerPhi[n],{n,12}]    ==>     {1,1,2,2,4,2,6,4,6,4,10,4}
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  \!\(
+ok  \!\(
 #! \*UnderoverscriptBox[\(\[Sum]\), \(n = 1\), \(\[Infinity]\)]
 #! \*FractionBox[\(EulerPhi[n]\), 
 #! SuperscriptBox[\(n\), \(s\)]]\)    ==>     Zeta[-1+s]/Zeta[s]
 ok  EulerPhi[0]    ==>     0
-not ok  Table[\[Alpha][k],{k,5}]    ==>     {1,1/2,1/3,5/16,24414/78125}
+ok  d[j_]:=If[j==2,2,j^EulerPhi[d[j-1]]]
+#! \[Alpha][k_]:=Product[1-1/d[j],{j,2,k}]; Table[\[Alpha][k],{k,5}]    ==>     {1,1/2,1/3,5/16,24414/78125}
 not ok  Table[BaseForm[N[\[Alpha][6], 50],b],{b,2,24}] // TableForm    ==>     Subscript[0.01001111111111111111001010010100000001101011001010100001101010000101101111010100001111000010110011010110111110001001111110111001011011100100101100110111001101011111100, 2]
 #! Subscript[0.022102210220212221212122200110010200201020220222102101111111202200100222111100102000121221210001010202200, 3]
 #! Subscript[0.10333333330221100012230222012220112331100330023031123320213323211232102303130311332, 4]
@@ -347,8 +344,7 @@ not ok  Table[BaseForm[N[\[Alpha][6], 50],b],{b,2,24}] // TableForm    ==>     S
 #! Subscript[0.747420k7c17jg074911f4bjjha096bk24ibb2, 23]
 #! Subscript[0.7bnnhf2jhn5b3h32i1en85c5h9e2gifj1dcc, 24]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  With[{a=1.535,b=-0.5,m=3},ArrayPlot[Mod[FixedPointList[EulerPhi[Floor[a #+b]]&,Range[200],120],m]]]    ==>     \!\(\*
+ok  With[{a=1.535,b=-0.5,m=3},ArrayPlot[Mod[FixedPointList[EulerPhi[Floor[a #+b]]&,Range[200],120],m]]]    ==>     \!\(\*
 #! GraphicsBox[RasterBox[CompressedData["
 #! 1:eJztnOtx20AMhJfbSVpKCW4gv9Nhyop5eNKCLTkzsS6ZxcgyH7gjFh8A/tO3
 #! lx/fXwjg5+vfr9e/oxnzK//ZIdv12/t+xuPmTh2inWBcfqCdsILh7PEmrNvt
@@ -375,11 +371,8 @@ not ok  With[{a=1.535,b=-0.5,m=3},ArrayPlot[Mod[FixedPointList[EulerPhi[Floor[a 
 #! FrameTicks->{{None, None}, {None, None}},
 #! ImageMargins->0.]\)
 ok  Cases[Range[100],n_/;PrimePi[n]==EulerPhi[n]]    ==>     {2,3,4,8,10,14,20,90}
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  DiscretePlot[{PrimePi[n],EulerPhi[n]},{n,1,22},Epilog->{Red,PointSize[0.03],Point[{#,EulerPhi[#]}&/@%]}]    ==>     \!\(\*
+ok  DiscretePlot[{PrimePi[n],EulerPhi[n]},{n,1,22},Epilog->{Red,PointSize[0.03],Point[{#,EulerPhi[#]}&/@%]}]    ==>     \!\(\*
 #! GraphicsBox[GraphicsComplexBox[CompressedData["
 #! 1:eJzt1D0KgzAYxvHQydHBwSGDFZEQRIxfaz1Dj1Do3EP0wj2CLeUtvH8IFLp0
 #! SEDk98SQ8CA5Xm7n68EYc38+r/d7PE5Gj03n2abzHC42/V0JW6yr4Bpu4Bb7

@@ -1,13 +1,11 @@
 #! DOCKER > wolfram -script output/Tests/Prepend_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Prepend_Tests
-ok  Prepend[{a, b, c, d}, x]    ==>     {x, a, b, c, d}
-    ---
-    data:
-        got: {x, a, b, c, d}
-        expect: {x, a, b, c, d}
-        expect_evaluated: {x, a, b, c, d}
-    ...
+ok  $Failed    ==>     HoldComplete[{x, a, b, c, d}] # skip
 # Prepend to an RefLink[Association,paclet:ref/Association]:
 ok  Prepend[<| 1 -> a, 2 -> b |>, 3 -> d]    ==>     <| 3 -> d, 1 -> a, 2 -> b |>
     ---

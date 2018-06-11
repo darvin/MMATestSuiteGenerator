@@ -26,7 +26,7 @@ TapSuite[TapComment["Pad with 0 to make the list be of length 10:"],
  TapComment["Put a 1 at the center of a list of 0s:"], 
  TapTestSame[PadRight[{1}, 19, 0, 9], {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 
    0, 0, 0, 0, 0, 0}], TapComment["Lay out an array of tiles:"], 
- TapTestSameBROKEN[HoldComplete[ArrayPlot[PadRight[{{}}, {15, 15}, 
+ TapTestSame[HoldComplete[ArrayPlot[PadRight[{{}}, {15, 15}, 
      {{1, 0, 1}, {0, 1, 1}, {1, 0, 0}}], Mesh -> True]], $Failed], 
  TapComment["RefLink[PadLeft,paclet:ref/PadLeft][list,n] and \
 RefLink[PadRight,paclet:ref/PadRight][list,n] pad to make a list of length \

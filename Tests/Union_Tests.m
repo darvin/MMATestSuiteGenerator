@@ -52,12 +52,14 @@ elements and returns them in the original order:"],
  TapComment["The union is the sorted list of the elements returned by \
 RefLink[Tally,paclet:ref/Tally]:"], 
  TapTestSame[Union[ints] === Sort[tally[[All,1]]], True], 
- TapTestSameBROKEN[
-  Timing[Length[u = Union[ints, SameTest -> 
-       (Floor[#1/2] == Floor[#2/2] & )]]], {0.719, 429}], 
+ TapComment["For large sets RefLink[Union,paclet:ref/Union] may be slow with \
+RefLink[SameTest,paclet:ref/SameTest] since it requires all pairwise \
+comparisons:"], TapTestSameBROKEN[ints = RandomInteger[1000, 1000] ;; 
+    Timing[Length[u = Union[ints, SameTest -> 
+         (Floor[#1/2] == Floor[#2/2] & )]]], {0.719, 429}], 
  TapComment["When equivalence class representatives can be found, it may be \
 faster to use RefLink[Union,paclet:ref/Union] on these:"], 
  TapTestSameBROKEN[Timing[Length[fu = 2*Union[Floor[ints/2]]]], {0., 429}], 
  TapComment[
   "The results are the same except for the choice of representative:"], 
- TapTestSame[Union[u - fu], {0, 1}]]
+ TapTestSameBROKEN[Union[u - fu], {0, 1}]]

@@ -1,14 +1,12 @@
 #! DOCKER > wolfram -script output/Tests/Thread_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 #! TextForm[ColonForm[MessageName[D, dvar], StringForm[Multiple derivative specifier `1` does not have the form {variable, n}, where n is a non-negative machine integer., Short[HoldForm[{x, y, z}], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Thread_Tests
-ok  Thread[f[{a, b, c}]]    ==>     {f[a], f[b], f[c]}
-    ---
-    data:
-        got: {f[a], f[b], f[c]}
-        expect: {f[a], f[b], f[c]}
-        expect_evaluated: {f[a], f[b], f[c]}
-    ...
+ok  $Failed    ==>     HoldComplete[{f[a], f[b], f[c]}] # skip
 ok  Thread[f[{a, b, c}, x]]    ==>     {f[a, x], f[b, x], f[c, x]}
     ---
     data:

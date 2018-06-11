@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/Not_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Not_Tests
 # Negate assertions:
@@ -13,17 +17,17 @@ ok   !x > 1    ==>     x <= 1
 ok   !x    ==>      !x
     ---
     data:
-        got:  !x
+        got: !x
         expect:  !x
-        expect_evaluated:  !x
+        expect_evaluated: !x
     ...
 # Enter using Esc\[ThinSpace]not\[ThinSpace]Esc:
 ok   !p    ==>      !p
     ---
     data:
-        got:  !p
+        got: !p
         expect:  !p
-        expect_evaluated:  !p
+        expect_evaluated: !p
     ...
 # Double negation simplifies to the identity:
 ok   !( !a)    ==>     a
@@ -49,8 +53,20 @@ ok   !a >= b    ==>     a < b
         expect_evaluated: a < b
     ...
 # Negate quantifiers:
-ok  HoldComplete[ !Exists[x, f[x]]]    ==>     $Failed # skip
-ok  HoldComplete[ !ForAll[x, f[x]]]    ==>     $Failed # skip
+not ok  HoldComplete[ !Exists[x, f[x]]]    ==>     $Failed
+    ---
+    data:
+        got: ForAll[x, !f[x]]
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
+not ok  HoldComplete[ !ForAll[x, f[x]]]    ==>     $Failed
+    ---
+    data:
+        got: Exists[x, !f[x]]
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # RefLink[TraditionalForm,paclet:ref/TraditionalForm] formatting:
 ok   !x    ==>      !x # skip
 # Negate conditions in Wolfram Language code:
@@ -65,9 +81,13 @@ ok  Select[{1, Pi, 2.3, 3 + 7*I, x},  !NumberQ[#1] & ]    ==>     {Pi, x}
 ok  Integrate[Boole[ !y^2 - 4*x^2 + 4*x^4 <= 0], {x, -1, 1}, {y, -1, 1}]    ==>     4/3
     ---
     data:
-        got: 4/3
+        got: 4
+#! -
+#! 3
         expect: 4/3
-        expect_evaluated: 4/3
+        expect_evaluated: 4
+#! -
+#! 3
     ...
 # This shows the set:
 ok  HoldComplete[RegionPlot[ !y^2 - 4*x^2 + 4*x^4 <= 0, {x, -1, 1}, {y, -1, 1}]]    ==>     $Failed # skip
@@ -77,32 +97,32 @@ ok  TableForm[Not /@ {False, True}]    ==>     True*False # skip
 ok  BooleanConvert[ !Implies[a, b]]    ==>     a &&  !b
     ---
     data:
-        got: a &&  !b
+        got: a && !b
         expect: a &&  !b
-        expect_evaluated: a &&  !b
+        expect_evaluated: a && !b
     ...
 # De Morgan's laws relate RefLink[And,paclet:ref/And], RefLink[Or,paclet:ref/Or], and RefLink[Not,paclet:ref/Not]:
 ok  BooleanConvert[ !(a && b)]    ==>      !a ||  !b
     ---
     data:
-        got:  !a ||  !b
+        got: !a || !b
         expect:  !a ||  !b
-        expect_evaluated:  !a ||  !b
+        expect_evaluated: !a || !b
     ...
 ok  BooleanConvert[ !(a || b || c)]    ==>      !a &&  !b &&  !c
     ---
     data:
-        got:  !a &&  !b &&  !c
+        got: !a && !b && !c
         expect:  !a &&  !b &&  !c
-        expect_evaluated:  !a &&  !b &&  !c
+        expect_evaluated: !a && !b && !c
     ...
 # Negation of the condition for RefLink[Boole,paclet:ref/Boole] function:
 ok  Boole[ !a] == 1 - Boole[a]    ==>     Boole[ !a] == 1 - Boole[a]
     ---
     data:
-        got: Boole[ !a] == 1 - Boole[a]
+        got: Boole[!a] == 1 - Boole[a]
         expect: Boole[ !a] == 1 - Boole[a]
-        expect_evaluated: Boole[ !a] == 1 - Boole[a]
+        expect_evaluated: Boole[!a] == 1 - Boole[a]
     ...
 ok  Simplify[%]    ==>     True # skip
 # Use parentheses to ensure ! beginning a line is not taken as a shell escape when using a terminal interface: 

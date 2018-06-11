@@ -1,4 +1,9 @@
 #! DOCKER > wolfram -script output/Tests/AllTrue_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[SparseArray, adims], StringForm[Array dimension specification `1` should be Automatic, a non-negative machine integer, or a list of non-negative machine integers., Short[HoldForm[{1000000000000}], 3], Short[HoldForm[SparseArray[{1000 -> 2}, {1000000000000}]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: AllTrue_Tests
 # Test if all elements of a list satisfy a condition: 
@@ -24,7 +29,13 @@ ok  AllTrue[{x, y, z}, Composition[TrueQ, f]]    ==>     False # skip
 # RefLink[AllTrue,paclet:ref/AllTrue][list,f] is equivalent to RefLink[NoneTrue,paclet:ref/NoneTrue][list,RefLink[Composition,paclet:ref/Composition][RefLink[Not,paclet:ref/Not],f]]:
 ok  LogicalExpand /@ {AllTrue[{x, y, z}, f], NoneTrue[{x, y, z},  !f[#1] & ]}    ==>     {f[x] && f[y] && f[z], f[x] && f[y] && f[z]} # skip
 # RefLink[AllTrue,paclet:ref/AllTrue][list,f] is equivalent to RefLink[VectorQ,paclet:ref/VectorQ][list,f] when f evaluates to RefLink[True,paclet:ref/True] or RefLink[False,paclet:ref/False]:
-ok  AllTrue[Range[10], IntegerQ]*VectorQ[Range[10], IntegerQ]    ==>     True # skip
+not ok  AllTrue[Range[10], IntegerQ]*VectorQ[Range[10], IntegerQ]    ==>     True
+    ---
+    data:
+        got: True AllTrue[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, IntegerQ]
+        expect: True
+        expect_evaluated: True
+    ...
 ok  AllTrue[{x, y, z}, #1 < 10 & ]*VectorQ[{x, y, z}, #1 < 10 & ]    ==>     x < 10 && y < 10 && z < 10 # skip
 # RefLink[AllTrue,paclet:ref/AllTrue][list,f] works efficiently on sparse vectors:
 ok  AllTrue[SparseArray[{1000 -> 2}, {1000000000000}], EvenQ]    ==>     True # skip

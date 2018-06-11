@@ -1,26 +1,69 @@
 #! DOCKER > wolfram -script output/Tests/Inverse_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Inverse, matsq], StringForm[Argument `1` at position `2` is not a non-empty square matrix., Short[HoldForm[3360], 3], Short[HoldForm[1], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Inverse, matsq], StringForm[Argument `1` at position `2` is not a non-empty square matrix., Short[HoldForm[4], 3], Short[HoldForm[1], 3]]]]
+#! TextForm[ColonForm[MessageName[Inverse, sing], StringForm[Matrix `1` is singular., Short[HoldForm[{{1, 2}, {1, 2}}], 3]]]]
+#! TextForm[ColonForm[MessageName[PseudoInverse, matrix], StringForm[Argument `1` at position `2` is not a non-empty rectangular matrix., Short[HoldForm[4], 3], Short[HoldForm[1], 3]]]]
+#! TextForm[ColonForm[MessageName[Inverse, matsq], StringForm[Argument `1` at position `2` is not a non-empty square matrix., Short[HoldForm[48], 3], Short[HoldForm[1], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Inverse, matsq]], 3]]]]
+#! TextForm[ColonForm[MessageName[PseudoInverse, matrix], StringForm[Argument `1` at position `2` is not a non-empty rectangular matrix., Short[HoldForm[48], 3], Short[HoldForm[1], 3]]]]
+#! TextForm[ColonForm[MessageName[Inverse, luc], StringForm[Result for `1` of badly conditioned matrix `2` may contain significant numerical errors., Short[HoldForm[Inverse], 3], Short[HoldForm[{{1., 0.5, 0.3333333333333333, 0.25, 0.2, 0.16666666666666666, 0.14285714285714285, 0.125, 0.1111111111111111, 0.1, 0.09090909090909091, 0.08333333333333333, 0.07692307692307693, 0.07142857142857142, 0.06666666666666667}, {0.5, 0.3333333333333333, 0.25, 0.2, 0.16666666666666666, 0.14285714285714285, 0.125, 0.1111111111111111, 0.1, 0.09090909090909091, 0.08333333333333333, 0.07692307692307693, 0.07142857142857142, 0.06666666666666667, 0.0625}, {0.3333333333333333, 0.25, 0.2, 0.16666666666666666, 0.14285714285714285, 0.125, 0.1111111111111111, 0.1, 0.09090909090909091, 0.08333333333333333, 0.07692307692307693, 0.07142857142857142, 0.06666666666666667, 0.0625, 0.058823529411764705}, {0.25, 0.2, 0.16666666666666666, 0.14285714285714285, 0.125, 0.1111111111111111, 0.1, 0.09090909090909091, 0.08333333333333333, 0.07692307692307693, 0.07142857142857142, 0.06666666666666667, 0.0625, 0.058823529411764705, 0.05555555555555555}, {0.2, 0.16666666666666666, 0.14285714285714285, 0.125, 0.1111111111111111, 0.1, 0.09090909090909091, 0.08333333333333333, 0.07692307692307693, 0.07142857142857142, 0.06666666666666667, 0.0625, 0.058823529411764705, 0.05555555555555555, 0.05263157894736842}, {0.16666666666666666, 0.14285714285714285, 0.125, 0.1111111111111111, 0.1, 0.09090909090909091, 0.08333333333333333, 0.07692307692307693, 0.07142857142857142, 0.06666666666666667, 0.0625, 0.058823529411764705, 0.05555555555555555, 0.05263157894736842, 0.05}, {0.14285714285714285, 0.125, 0.1111111111111111, 0.1, 0.09090909090909091, 0.08333333333333333, 0.07692307692307693, 0.07142857142857142, 0.06666666666666667, 0.0625, 0.058823529411764705, 0.05555555555555555, 0.05263157894736842, 0.05, 0.047619047619047616}, {0.125, 0.1111111111111111, 0.1, 0.09090909090909091, 0.08333333333333333, 0.07692307692307693, 0.07142857142857142, 0.06666666666666667, 0.0625, 0.058823529411764705, 0.05555555555555555, 0.05263157894736842, 0.05, 0.047619047619047616, 0.045454545454545456}, {0.1111111111111111, 0.1, 0.09090909090909091, 0.08333333333333333, 0.07692307692307693, 0.07142857142857142, 0.06666666666666667, 0.0625, 0.058823529411764705, 0.05555555555555555, 0.05263157894736842, 0.05, 0.047619047619047616, 0.045454545454545456, 0.043478260869565216}, {0.1, 0.09090909090909091, 0.08333333333333333, 0.07692307692307693, 0.07142857142857142, 0.06666666666666667, 0.0625, 0.058823529411764705, 0.05555555555555555, 0.05263157894736842, 0.05, 0.047619047619047616, 0.045454545454545456, 0.043478260869565216, 0.041666666666666664}, {0.09090909090909091, 0.08333333333333333, 0.07692307692307693, 0.07142857142857142, 0.06666666666666667, 0.0625, 0.058823529411764705, 0.05555555555555555, 0.05263157894736842, 0.05, 0.047619047619047616, 0.045454545454545456, 0.043478260869565216, 0.041666666666666664, 0.04}, {0.08333333333333333, 0.07692307692307693, 0.07142857142857142, 0.06666666666666667, 0.0625, 0.058823529411764705, 0.05555555555555555, 0.05263157894736842, 0.05, 0.047619047619047616, 0.045454545454545456, 0.043478260869565216, 0.041666666666666664, 0.04, 0.038461538461538464}, {0.07692307692307693, 0.07142857142857142, 0.06666666666666667, 0.0625, 0.058823529411764705, 0.05555555555555555, 0.05263157894736842, 0.05, 0.047619047619047616, 0.045454545454545456, 0.043478260869565216, 0.041666666666666664, 0.04, 0.038461538461538464, 0.037037037037037035}, {0.07142857142857142, 0.06666666666666667, 0.0625, 0.058823529411764705, 0.05555555555555555, 0.05263157894736842, 0.05, 0.047619047619047616, 0.045454545454545456, 0.043478260869565216, 0.041666666666666664, 0.04, 0.038461538461538464, 0.037037037037037035, 0.03571428571428571}, {0.06666666666666667, 0.0625, 0.058823529411764705, 0.05555555555555555, 0.05263157894736842, 0.05, 0.047619047619047616, 0.045454545454545456, 0.043478260869565216, 0.041666666666666664, 0.04, 0.038461538461538464, 0.037037037037037035, 0.03571428571428571, 0.034482758620689655}}], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Inverse_Tests
 # Inverse of a 2*2 matrix:
-ok  Inverse[{{1.4, 2}, {3, -6.7}}]    ==>     {{0.435631, 0.130039}, {0.195059, -0.0910273}} # skip
+ok  Inverse[{{1.4, 2}, {3, -6.7}}]    ==>     {{0.435631, 0.130039}, {0.195059, -0.0910273}}
+    ---
+    data:
+        got: {{0.435631, 0.130039}, {0.195059, -0.0910273}}
+        expect: {{0.435631, 0.130039}, {0.195059, -0.0910273}}
+        expect_evaluated: {{0.435631, 0.130039}, {0.195059, -0.0910273}}
+    ...
 # Enter the matrix in a grid:
 ok  Inverse[1*2*3*4*2*2*5*1*7]    ==>     {{-(2/7), 11/42, 1/21}, {3/7, 4/21, -(5/21)}, {1/7, -(3/14), 1/7}} # skip
 # Inverse of a symbolic matrix:
 ok  Inverse[{{u, v}, {v, u}}]    ==>     {{u/(u^2 - v^2), -(v/(u^2 - v^2))}, {-(v/(u^2 - v^2)), u/(u^2 - v^2)}}
     ---
     data:
-        got: {{u/(u^2 - v^2), -(v/(u^2 - v^2))}, {-(v/(u^2 - v^2)), u/(u^2 - v^2)}}
+        got:      u          v             v         u
+#! {{-------, -(-------)}, {-(-------), -------}}
+#!    2    2     2    2        2    2    2    2
+#!   u  - v     u  - v        u  - v    u  - v
         expect: {{u/(u^2 - v^2), -(v/(u^2 - v^2))}, {-(v/(u^2 - v^2)), u/(u^2 - v^2)}}
-        expect_evaluated: {{u/(u^2 - v^2), -(v/(u^2 - v^2))}, {-(v/(u^2 - v^2)), u/(u^2 - v^2)}}
+        expect_evaluated:      u          v             v         u
+#! {{-------, -(-------)}, {-(-------), -------}}
+#!    2    2     2    2        2    2    2    2
+#!   u  - v     u  - v        u  - v    u  - v
     ...
 # Exact inverse of a Hilbert matrix:
 ok  MatrixForm[Inverse[HilbertMatrix[5]]]    ==>     25 - 300*1050 - 1400*630 - 300*4800 - 18900*26880 - 12600*1050 - 18900*79380 - 117600*56700 - 1400*26880 - 117600*179200 - 88200*630 - 12600*56700 - 88200*44100 # skip
-ok  HoldComplete[ArrayPlot[Inverse[HilbertMatrix[15]], Mesh -> True]]    ==>     $Failed # skip
+not ok  HoldComplete[ArrayPlot[Inverse[HilbertMatrix[15]], Mesh -> True]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Plot the imaginary parts of a Vandermonde matrix for a discrete Fourier transform: 
-ok  HoldComplete[ArrayPlot[Im[Inverse[Table[Exp[2*Pi*I*i*(j/26.)], {i, 25}, {j, 25}]]]]]    ==>     $Failed # skip
+not ok  HoldComplete[ArrayPlot[Im[Inverse[Table[Exp[2*Pi*I*i*(j/26.)], {i, 25}, {j, 25}]]]]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
 # Plot the inverse of a matrix, shading according to absolute value:
-ok  HoldComplete[ArrayPlot[Inverse[Table[(1 + Mod[i*j, 19])/(i + j), {i, 20}, {j, 20}]]]]    ==>     $Failed # skip
-ok  Inverse[m] . m    ==>     {{-((b*c)/((-b)*c + a*d)) + (a*d)/((-b)*c + a*d), 0}, {0, -((b*c)/((-b)*c + a*d)) + (a*d)/((-b)*c + a*d)}} # skip
+not ok  HoldComplete[ArrayPlot[Inverse[Table[(1 + Mod[i*j, 19])/(i + j), {i, 20}, {j, 20}]]]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...
+# Show positive entries as black and others as white:
+ok  $Failed    ==>     HoldComplete[{{-((b*c)/((-b)*c + a*d)) + (a*d)/((-b)*c + a*d), 0}, {0, -((b*c)/((-b)*c + a*d)) + (a*d)/((-b)*c + a*d)}}] # skip
 ok  Simplify[%]    ==>     {{1, 0}, {0, 1}} # skip
 # The inverse may not exist: 
 ok  Inverse[1*2*1*2]    ==>     Inverse[{{1, 2}, {1, 2}}] # skip

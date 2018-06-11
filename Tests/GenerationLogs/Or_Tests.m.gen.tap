@@ -1,8 +1,14 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Or.nb output/Tests/Or_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Or.nb
 # WRITING OUTPUT TO:     output/Tests/Or_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  1>2||Pi>3    ==>     True
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  a||b||!c    ==>     a||b||!c
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  x+2y==3||4x+5y==6    ==>     x+2 y==3||4 x+5 y==6
 ok  p\[Or]q    ==>     p||q
 ok  Or[x,y,z]    ==>     x||y||z
@@ -18,18 +24,14 @@ ok  x==0||y==1/x/.x->0    ==>     True
 #! TextForm[ColonForm[MessageName[Power, infy], StringForm[Infinite expression `1` encountered., Short[HoldForm[0^(-1)], 3]]]]
 ok  y==1/x||x==0/.x->0    ==>     True
 ok  z||y||y||x    ==>     z||y||y||x
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  Simplify[%]    ==>     x||y||z
 not ok  x||y||z//TraditionalForm    ==>     x\[Or]y\[Or]z
-not ok  NotRealNegativeQ[-2]    ==>     False
-not ok  NotRealNegativeQ[I]    ==>     True
-not ok  NotRealNegativeQ2[I]    ==>     True
+ok  NotRealNegativeQ[x_?NumberQ]:=Head[x]===Complex||x>=0; NotRealNegativeQ[-2]    ==>     False
+ok  NotRealNegativeQ[I]    ==>     True
+#! TextForm[ColonForm[MessageName[GreaterEqual, nord], StringForm[Invalid comparison with `1` attempted., Short[HoldForm[I], 3]]]]
+ok  NotRealNegativeQ2[x_?NumberQ]:=x>=0||Head[x]===Complex; NotRealNegativeQ2[I]    ==>     True
 ok  Refine[Sqrt[(x^2-1)^2],x<=-1||x>=1]    ==>     -1+x^2
 ok  Reduce[x^2==1||x^3<=1/8,x,Reals]    ==>     x<=1/2||x==1
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 126}, {0, 131}}]\)\)
-#!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 126}, {0, 131}}]\)\)
 #!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
@@ -86,8 +88,6 @@ not ok  RegionPlot[x^2+y^2<1||x+y>0,{x,-2,2},{y,-2,2}]    ==>     \!\(\*
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 211}, {0, 240}}]\)\)
 #!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  RegionPlot3D[x^2+y^2+z^2<1||(x-1)^2+y^2+z^2<1,{x,-1,2},{y,-1,1},{z,-1,1}]    ==>     \!\(\*
 #! GraphicsBox[
 #! TagBox[RasterBox[CompressedData["
@@ -890,8 +890,11 @@ not ok  RegionPlot3D[x^2+y^2+z^2<1||(x-1)^2+y^2+z^2<1,{x,-1,2},{y,-1,1},{z,-1,1}
 #! ImageSizeRaw->{211, 240},
 #! PlotRange->{{0, 211}, {0, 240}}]\)
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-not ok  ArrayPlot[Boole[CellularAutomaton[{Or@@#&,{}},{{True},False},20]]]    ==>     \!\(\*
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[Method->{"AxisPadding" -> 18.740000000000002`, "DefaultBoundaryStyle" -> Automatic, "DefaultPlotStyle" -> Automatic, "DomainPadding" -> 18.740000000000002`, "RangePadding" -> 46.85}]\)\)
+#!                                                                                                                                                                                           ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
+ok  ArrayPlot[Boole[CellularAutomaton[{Or@@#&,{}},{{True},False},20]]]    ==>     \!\(\*
 #! GraphicsBox[RasterBox[CompressedData["
 #! 1:eJyVysENgDAQA8FbeqAAnrRDCWmA/n9ECCEIvsSs5I81S9m3MkXEXLfGj3Ad
 #! ngRPgifBk+BJ8CR4kjbXJVI4KaUTMnEfmbpGdtxLdt1DDtwth+6Shjul5apU
@@ -904,7 +907,6 @@ not ok  ArrayPlot[Boole[CellularAutomaton[{Or@@#&,{}},{{True},False},20]]]    ==
 #! ImageMargins->0.,
 #! Method->{"AxisPadding" -> 18.740000000000002`, "DefaultBoundaryStyle" -> Automatic, "DefaultPlotStyle" -> Automatic, "DomainPadding" -> 18.740000000000002`, "RangePadding" -> 46.85}]\)
 ok  Integrate[Boole[x^2+y^2<1||(x-1)^2+y^2<2],{x,-Infinity,Infinity},{y,-Infinity,Infinity}]    ==>     1+2 \[Pi]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  RegionPlot[x^2+y^2<1||(x-1)^2+y^2<2,{x,-1.5,2.5},{y,-2,2}]    ==>     \!\(\*
 #! GraphicsBox[
@@ -998,11 +1000,8 @@ not ok  Outer[Or,{True,False},{True,False}]//Grid    ==>     True	True
 #! True	False
 not ok  p||q&&r//FullForm    ==>     Or[p,And[q,r]]
 ok  (a||b)&&(c||d||e)    ==>     (a||b)&&(c||d||e)
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  BooleanConvert[%]    ==>     (a&&c)||(a&&d)||(a&&e)||(b&&c)||(b&&d)||(b&&e)
 ok  BooleanConvert[!(a&&b)]    ==>     !a||!b
 ok  BooleanConvert[!(a||b||c)]    ==>     !a&&!b&&!c
 ok  Max[Boole[a],Boole[b]]-Boole[a||b]    ==>     -Boole[a||b]+Max[Boole[a],Boole[b]]
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 not ok  Simplify[%]    ==>     0

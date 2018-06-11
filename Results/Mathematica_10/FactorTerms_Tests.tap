@@ -1,13 +1,19 @@
 #! DOCKER > wolfram -script output/Tests/FactorTerms_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: FactorTerms_Tests
 # Pull out an overall numerical factor, but do no further factoring:
 ok  FactorTerms[3 + 6*x + 3*x^2]    ==>     3*(1 + 2*x + x^2)
     ---
     data:
-        got: 3*(1 + 2*x + x^2)
+        got:               2
+#! 3 (1 + 2 x + x )
         expect: 3*(1 + 2*x + x^2)
-        expect_evaluated: 3*(1 + 2*x + x^2)
+        expect_evaluated:               2
+#! 3 (1 + 2 x + x )
     ...
 # Pull out an overall numerical factor:
 ok  FactorTerms[f]    ==>     2*(-6 - 6*a + 2*x^2 + 2*a*x^2 - 3*y + a*y + 4*a^2*y + x^2*y + a*x^2*y + 2*a*y^2 + 2*a^2*y^2) # skip
@@ -19,33 +25,35 @@ ok  FactorTerms[f, {x, y}]    ==>     2*(1 + a)*(2 + y)*(-3 + x^2 + 2*a*y) # ski
 ok  FactorTerms[3*x + 10, Modulus -> 7]    ==>     3*(1 + x)
     ---
     data:
-        got: 3*(1 + x)
+        got: 3 (1 + x)
         expect: 3*(1 + x)
-        expect_evaluated: 3*(1 + x)
+        expect_evaluated: 3 (1 + x)
     ...
 # RefLink[Expand,paclet:ref/Expand] distributes the common factor over the terms, effectively reverting RefLink[FactorTerms,paclet:ref/FactorTerms]:
 ok  FactorTerms[14*x + 21*y + 35*x*y + 63]    ==>     7*(9 + 2*x + 3*y + 5*x*y)
     ---
     data:
-        got: 7*(9 + 2*x + 3*y + 5*x*y)
+        got: 7 (9 + 2 x + 3 y + 5 x y)
         expect: 7*(9 + 2*x + 3*y + 5*x*y)
-        expect_evaluated: 7*(9 + 2*x + 3*y + 5*x*y)
+        expect_evaluated: 7 (9 + 2 x + 3 y + 5 x y)
     ...
 ok  Expand[%]    ==>     63 + 14*x + 21*y + 35*x*y # skip
 # RefLink[FactorTermsList,paclet:ref/FactorTermsList] gives a list of factors:
 ok  FactorTermsList[14*x + 21*y + 35*x*y + 63]    ==>     {7, 9 + 2*x + 3*y + 5*x*y}
     ---
     data:
-        got: {7, 9 + 2*x + 3*y + 5*x*y}
+        got: {7, 9 + 2 x + 3 y + 5 x y}
         expect: {7, 9 + 2*x + 3*y + 5*x*y}
-        expect_evaluated: {7, 9 + 2*x + 3*y + 5*x*y}
+        expect_evaluated: {7, 9 + 2 x + 3 y + 5 x y}
     ...
 # RefLink[Factor,paclet:ref/Factor] performs a complete factorization:
 ok  FactorTerms[4*x^3 - 4]    ==>     4*(-1 + x^3)
     ---
     data:
-        got: 4*(-1 + x^3)
+        got:          3
+#! 4 (-1 + x )
         expect: 4*(-1 + x^3)
-        expect_evaluated: 4*(-1 + x^3)
+        expect_evaluated:          3
+#! 4 (-1 + x )
     ...
 ok  Factor[%]    ==>     4*(-1 + x)*(1 + x + x^2) # skip

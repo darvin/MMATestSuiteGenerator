@@ -1,8 +1,21 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/MapIndexed.nb output/Tests/MapIndexed_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/MapIndexed.nb
 # WRITING OUTPUT TO:     output/Tests/MapIndexed_Tests.m
-ok  MapIndexed[f,{a,b,c,d}]    ==>     {f[a,{1}],f[b,{2}],f[c,{3}],f[d,{4}]}
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/MapIndexed.html; MapIndexed[f,{a,b,c,d}]
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{MapIndexed, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`http://reference.wolfram.com/language/ref/MapIndexed.html; MapIndexed[f,{a,b,c,d}]\)
+#!                                                                                                       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/MapIndexed.html; MapIndexed[f,{a,b,c,d}]    ==>     {f[a,{1}],f[b,{2}],f[c,{3}],f[d,{4}]}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  MapIndexed[First[#2]+f[#1]&,{a,b,c,d}]    ==>     {1+f[a],2+f[b],3+f[c],4+f[d]}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  MapIndexed[f,{{a,b},{c,d,e}}]    ==>     {f[{a,b},{1}],f[{c,d,e},{2}]}
 ok  MapIndexed[f,{{a,b},{c,d,e}},{2}]    ==>     {{f[a,{1,1}],f[b,{1,2}]},{f[c,{2,1}],f[d,{2,2}],f[e,{2,3}]}}
 not ok  MapIndexed[f,<|"a"->1,a->2, 1->1|>]    ==>     <|a->f[1,{Key[a]}],a->f[2,{Key[a]}],1->f[1,{Key[1]}]|>
@@ -39,10 +52,7 @@ not ok  MapIndexed[Labeled,{x^2,x+y,y^2,y^3}]    ==>     {x^2
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 453}, {0, 79}}]\)\)
 #!                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 453}, {0, 79}}]\)\)
-#!                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
 not ok  MapIndexed[Framed[Labeled[#1,#2]]&,{x^2,x+y,y^2,y^3},Infinity]    ==>     \!\(\*
 #! GraphicsBox[
 #! TagBox[RasterBox[CompressedData["
@@ -136,11 +146,6 @@ not ok  MapIndexed[Framed[Labeled[#1,#2]]&,{x^2,x+y,y^2,y^3},Infinity]    ==>   
 not ok  MapIndexed[Tooltip,Integrate[1/(x^4-1),x],Infinity]    ==>     -(1/2) ArcTan[x]+1/4 Log[-1+x]+-(1/4) Log[1+x]
 ok  Total[MapIndexed[#1 x^First[#2]&,{a,b,c,d,e}]]    ==>     a x+b x^2+c x^3+d x^4+e x^5
 ok  MapIndexed[RotateLeft,Table[{a,b,c},{6}]]    ==>     {{b,c,a},{c,a,b},{a,b,c},{b,c,a},{c,a,b},{a,b,c}}
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 162}, {0, 96}}]\)\)
-#!                                    ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 not ok  MapIndexed[RotateLeft,Table[{{a,b},{c,d}},{3},{3}],{2}]//MatrixForm    ==>     \!\(\*
 #! GraphicsBox[

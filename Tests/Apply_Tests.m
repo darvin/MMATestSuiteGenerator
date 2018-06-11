@@ -1,6 +1,6 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[f @@ {a, b, c, d}, f[a, b, c, d]], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[f[a, b, c, d]]], 
  TapTestSame[f @@ {a, b, c, d}, f[a, b, c, d]], 
  TapTestSame[Plus @@ {a, b, c, d}, a + b + c + d], 
  TapComment["RefLink[Apply,paclet:ref/Apply] gets rid of a level of lists:"], 
@@ -64,7 +64,9 @@ RefLink[List,paclet:ref/List]:"], TapTestSame[Plus @@ g[x, y, z], x + y + z],
  TapComment["Create a table from a list of range specifications:"], 
  TapTestSame[(Table[i^j, ##1] & ) @@ {{i, 3}, {j, 4}}, 
   {{1, 1, 1, 1}, {2, 4, 8, 16}, {3, 9, 27, 81}}], 
- TapTestSameBROKEN[cplus[{a, b, c}], a + b + c], 
+ TapComment["Turn a function that takes several arguments into one that takes \
+a list of arguments:"], TapTestSame[cplus[list_] := Plus @@ list; 
+   cplus[{a, b, c}], a + b + c], 
  TapComment["Find random co-prime integers:"], 
  TapTestSameBROKEN[Select[RandomInteger[10, {20, 2}], Apply[CoprimeQ]], 
   {{5, 1}, {6, 7}, {9, 8}, {3, 10}, {7, 6}, {1, 8}, {1, 4}, {2, 3}, {1, 3}, 
@@ -85,5 +87,5 @@ RefLink[Apply,paclet:ref/Apply]:"], TapTestSame[Plus @@ {1, 2, 3, 4}, 10],
 f/Apply] takes the elements of the list as separate arguments:"], 
  TapTestSame[f @@ {a, b, c}, f[a, b, c]], TapComment["Applying to atomic \
 objects that do not have subparts effectively does nothing:"], 
- TapTestSame[f @@ a, a], TapTestSameBROKEN[Apply[f, {a, "string", 3}, {-1}], 
+ TapTestSame[f @@ a, a], TapTestSame[Apply[f, {a, "string", 3}, {-1}], 
   {a, string, 3}]]

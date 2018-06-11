@@ -1,6 +1,6 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[1 + 2 + 3, 6], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[6]], 
  TapComment[
   "RefLink[Plus,paclet:ref/Plus] threads element-wise over lists:"], 
  TapTestSame[{1, 2, 3} + x, {1 + x, 2 + x, 3 + x}], 

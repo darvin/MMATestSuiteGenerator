@@ -1,34 +1,33 @@
 #! DOCKER > wolfram -script output/Tests/SetAttributes_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[Attributes, attnf], StringForm[`1` is not a known attribute., Short[HoldForm[Span[HoldAll, {{HoldAll, Orderless}, {}}]], 3]]]]
+#! TextForm[ColonForm[MessageName[Thread, tdlen], StringForm[Objects of unequal length in `1` cannot be combined., Short[HoldForm[Times*{Flat, Listable, NumericFunction, OneIdentity, Orderless, Protected}*Plus*{Flat, Listable, NumericFunction, OneIdentity, Orderless, Protected}*Min*{Flat, NumericFunction, OneIdentity, Orderless, Protected}*Max*{Flat, NumericFunction, OneIdentity, Orderless, Protected}*LCM*{Flat, Listable, OneIdentity, Orderless, Protected}*GCD*{Flat, Listable, OneIdentity, Orderless, Protected}*BitXor*{Flat, Listable, OneIdentity, Orderless, Protected}*BitOr*{Flat, Listable, OneIdentity, Orderless, Protected}*BitAnd*{Flat, Listable, OneIdentity, Orderless, Protected}*ArithmeticGeometricMean*{Listable, NumericFunction, Orderless, Protected, ReadProtected}], 3]]]]
+#! TextForm[ColonForm[MessageName[Thread, tdlen], StringForm[Objects of unequal length in `1` cannot be combined., Short[HoldForm[ArithmeticGeometricMean*BitAnd*BitOr*BitXor*GCD*LCM*Max*Min*Plus*Times*{Flat^5, Listable^5, OneIdentity^5, Orderless^5, Protected^5}*{Flat^2, NumericFunction^2, OneIdentity^2, Orderless^2, Protected^2}*{Listable, NumericFunction, Orderless, Protected, ReadProtected}*{Flat^2, Listable^2, NumericFunction^2, OneIdentity^2, Orderless^2, Protected^2}], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: SetAttributes_Tests
-ok  f[1 + 2]    ==>     f[1 + 2]
+ok  $Failed    ==>     HoldComplete[f[1 + 2]] # skip
+ok  SetAttributes[plus, {Flat, Orderless}]; plus[a, plus[c, b]]    ==>     plus[a, b, c]
     ---
     data:
-        got: f[3]
-        expect: f[1 + 2]
-        expect_evaluated: f[3]
+        got: plus[a, b, c]
+        expect: plus[a, b, c]
+        expect_evaluated: plus[a, b, c]
     ...
-ok  plus[a, plus[c, b]]    ==>     plus[a, b, c] # skip
-ok  Attributes[f]    ==>     {Flat, Orderless} # skip
-ok  Attributes[{f, g}]    ==>     {{HoldAll, Listable}, {HoldAll}} # skip
+# Add more attributes; the previous ones are retained:
+ok  SetAttributes[f, Orderless]; Attributes[f]    ==>     {Flat, Orderless} # skip
+# RefLink[SetAttributes,paclet:ref/SetAttributes] adds to the already existing attributes; RefLink[Attributes,paclet:ref/Attributes][g]={..} resets the list:
+ok  SetAttributes[f, HoldAll]; Attributes[g] = HoldAll ;; Attributes[{f, g}]    ==>     {{HoldAll, Listable}, {HoldAll}} # skip
 # RefLink[SetAttributes,paclet:ref/SetAttributes] is equivalent to this assignment to the attributes:
-ok  Attributes[f] = Union[Attributes[f], {HoldFirst, NHoldFirst}]    ==>     {HoldFirst, NHoldFirst}
-    ---
-    data:
-        got: {HoldFirst, NHoldFirst}
-        expect: {HoldFirst, NHoldFirst}
-        expect_evaluated: {HoldFirst, NHoldFirst}
-    ...
-ok  Attributes[f]    ==>     {Flat, Orderless} # skip
-ok  Attributes[{f, g}]    ==>     {{Protected}, {Protected}} # skip
+ok  Attributes[f] = Union[Attributes[f], {HoldFirst, NHoldFirst}]    ==>     {HoldFirst, NHoldFirst} # skip
+# Use RefLink[ClearAttributes,paclet:ref/ClearAttributes] to clear a particular attribute:
+ok  SetAttributes[f, {Flat, Orderless, OneIdentity}]; ClearAttributes[f, OneIdentity]; Attributes[f]    ==>     {Flat, Orderless} # skip
+# Protecting a symbol is equivalent to setting the RefLink[Protected,paclet:ref/Protected] attribute:
+ok  Protect[f]; SetAttributes[g, Protected] ;; Attributes[{f, g}]    ==>     {{Protected}, {Protected}} # skip
 # A locked symbol can no longer be unprotected, as the RefLink[Protected,paclet:ref/Protected] attribute cannot be cleared:
-ok  Unprotect[f]    ==>     {}
-    ---
-    data:
-        got: {}
-        expect: {}
-        expect_evaluated: {}
-    ...
+ok  Unprotect[f]    ==>     {} # skip
 # RefLink[SetAttributes,paclet:ref/SetAttributes] has the attribute RefLink[HoldFirst,paclet:ref/HoldFirst]:
 ok  Attributes[SetAttributes]    ==>     {HoldFirst, Protected}
     ---
@@ -37,7 +36,15 @@ ok  Attributes[SetAttributes]    ==>     {HoldFirst, Protected}
         expect: {HoldFirst, Protected}
         expect_evaluated: {HoldFirst, Protected}
     ...
-ok  Attributes[syms]    ==>     {Protected} # skip
-ok  Attributes[{f, g, h}]    ==>     {{Protected}, {Protected}, {Protected}} # skip
+# This sets attributes of the symbol syms itself:
+ok  SetAttributes[syms, Protected]; Attributes[syms]    ==>     {Protected}
+    ---
+    data:
+        got: {Protected}
+        expect: {Protected}
+        expect_evaluated: {Protected}
+    ...
+# This sets the attributes of all symbols in the list syms:
+ok  SetAttributes[Evaluate[syms], Protected]; Attributes[{f, g, h}]    ==>     {{Protected}, {Protected}, {Protected}} # skip
 # The 10 system symbols with the most attributes:
 ok  TableForm[Take[Sort[({#1, Attributes[#1]} & ) /@ Names["System`*"], Length[#1[[2]]] > Length[#2[[2]]] & ], 10], TableDepth -> 2]    ==>     Times*{Flat, Listable, NumericFunction, OneIdentity, Orderless, Protected}*Plus*{Flat, Listable, NumericFunction, OneIdentity, Orderless, Protected}*Min*{Flat, NumericFunction, OneIdentity, Orderless, Protected}*Max*{Flat, NumericFunction, OneIdentity, Orderless, Protected}*LCM*{Flat, Listable, OneIdentity, Orderless, Protected}*GCD*{Flat, Listable, OneIdentity, Orderless, Protected}*BitXor*{Flat, Listable, OneIdentity, Orderless, Protected}*BitOr*{Flat, Listable, OneIdentity, Orderless, Protected}*BitAnd*{Flat, Listable, OneIdentity, Orderless, Protected}*ArithmeticGeometricMean*{Listable, NumericFunction, Orderless, Protected, ReadProtected} # skip

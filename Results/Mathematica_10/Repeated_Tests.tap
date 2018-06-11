@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/Repeated_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Repeated_Tests
 # Replace any list of a's by x:
@@ -57,7 +61,14 @@ ok  {{}, {a}, {a, a}, {a, a, a}, {a, a, a, a}} /. {Repeated[a, {3}]} -> x    ==>
         expect: {{}, {a}, {a, a}, x, {a, a, a, a}}
         expect_evaluated: {{}, {a}, {a, a}, x, {a, a, a, a}}
     ...
-ok  f[{{1, 1}, {1, 2}, {1, 3}}]    ==>     4.07914 # skip
+# Define a function that takes as an argument any list of pairs:
+ok  f[x:{{_, _}..}] := Norm[N[x]]; f[{{1, 1}, {1, 2}, {1, 3}}]    ==>     4.07914
+    ---
+    data:
+        got: 4.07914
+        expect: 4.07914
+        expect_evaluated: 4.07914
+    ...
 ok  f[{{1, 1, 1}, {1, 2}, {1, 3}}]    ==>     f[{{1, 1, 1}, {1, 2}, {1, 3}}]
     ---
     data:

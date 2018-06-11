@@ -16,7 +16,8 @@ computations:"], TapTestSame[PossibleZeroQ[2^(2*I) - 2^(-2*I) -
   "Test whether symbolic expressions are likely to be identically zero:"], 
  TapTestSame[PossibleZeroQ[1/x + 1/y - (x + y)/(x*y)], True], 
  TapTestSame[PossibleZeroQ[Sqrt[x^2] - x], False], 
- TapTestSame[PossibleZeroQ[f], False], 
+ TapComment["For arbitrary complex x, f is not identically zero:"], 
+ TapTestSameBROKEN[f = Sqrt[x^2] - x ;; PossibleZeroQ[f], False], 
  TapComment["When RefLink[Re,paclet:ref/Re][x]>0, f is identically zero:"], 
  TapTestSameBROKEN[PossibleZeroQ[f, Assumptions -> Re[x] > 0], True], 
  TapComment["By default, numeric approximations may be used to decide that an \
@@ -32,19 +33,35 @@ exact methods are used for explicit algebraic numbers:"],
  TapComment[
   "For explicit algebraic numbers the answer is provably correct:"], 
  TapTestSame[PossibleZeroQ[zero + 10^(-100), Method -> "ExactAlgebraics"], 
-  False], TapTestSameBROKEN[QuadraticRoots[
-   2*Log[2]*x^2 - Log[4]*x^2 + x - 1 == 0, x], x == 1], 
+  False], TapComment["Solving polynomial equations requires deciding whether \
+coefficients are zero:"], TapTestSame[
+  QuadraticRoots[eq_, x_] := Module[{a, b, c, \[CapitalDelta]}, 
+     {c, b, a} = CoefficientList[Subtract @@ eq, x]; 
+      If[ !PossibleZeroQ[a], \[CapitalDelta] = b^2 - 4*a*c; 
+        x == (-b - Sqrt[\[CapitalDelta]])/(2*a) || 
+         x == (-b + Sqrt[\[CapitalDelta]])/(2*a), If[ !PossibleZeroQ[b], 
+        x == -c/b, PossibleZeroQ[c]]]]; QuadraticRoots[
+    2*Log[2]*x^2 - Log[4]*x^2 + x - 1 == 0, x], x == 1], 
  TapComment[
   "Wolfram Language equation solvers use zero testing automatically:"], 
  TapTestSameBROKEN[Reduce[2*Log[2]*x^2 - Log[4]*x^2 + x - 1 == 0, x], 
-  x == 1], TapTestSame[e === 0, False], TapComment["RefLink[Equal,paclet:ref/\
-Equal][e,0] uses simple tests to decide whether e is zero:"], 
- TapTestSameBROKEN[e == 0, True], TapTestSameBROKEN[ee == 0, 
-  Log[4] - Log[2 - Sqrt[2]] + 2*Log[Sin[Pi/8]] == 0], 
+  x == 1], TapComment["RefLink[SameQ,paclet:ref/SameQ][e,0] returns \
+RefLink[True,paclet:ref/True] only if e is explicitly identical to zero:"], 
+ TapTestSame[e = (E + Pi)^2 - E^2 - Pi^2 - 2*E*Pi ;; e === 0, False], 
+ TapComment["RefLink[Equal,paclet:ref/Equal][e,0] uses simple tests to decide \
+whether e is zero:"], TapTestSameBROKEN[e == 0, True], 
+ TapComment["When RefLink[Equal,paclet:ref/Equal] cannot decide whether an \
+expression is zero it returns unchanged:"], 
+ TapTestSameBROKEN[ee = Log[4] + 2*Log[Sin[Pi/8]] - Log[2 - Sqrt[2]] ;; ee == 
+    0, Log[4] - Log[2 - Sqrt[2]] + 2*Log[Sin[Pi/8]] == 0], 
  TapComment["RefLink[PossibleZeroQ,paclet:ref/PossibleZeroQ] uses numeric \
 methods to test whether ee is zero:"], TapTestSameBROKEN[PossibleZeroQ[ee], 
   True], TapComment["RefLink[FullSimplify,paclet:ref/FullSimplify] proves \
 symbolically that ee is zero:"], TapTestSameBROKEN[FullSimplify[ee], 0], 
- TapTestSameBROKEN[PossibleZeroQ[e], True], 
- TapTestSameBROKEN[FullSimplify[e], 1/100000000000000000000000000000000000000\
-00000000000000000000000000000000000000000000000000000000000000]]
+ TapComment["RefLink[PossibleZeroQ,paclet:ref/PossibleZeroQ] may return \
+RefLink[True,paclet:ref/True] for nonzero numeric expressions that are close \
+to zero:"], TapTestSameBROKEN[
+  e = Sqrt[2] + Sqrt[3] - RootReduce[Sqrt[2] + Sqrt[3]] + 10^(-100) ;; 
+    PossibleZeroQ[e], True], TapTestSameBROKEN[FullSimplify[e], 
+  1/1000000000000000000000000000000000000000000000000000000000000000000000000\
+0000000000000000000000000000]]

@@ -1,14 +1,14 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[77/11, 7], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[7]], 
  TapComment["Enter in 2D form using Control+/:"], TapTestSame[77/11, 7], 
  TapComment[
   "RefLink[Divide,paclet:ref/Divide] reduces fractions to lowest terms:"], 
  TapTestSame[616/33, 56/3], 
  TapComment[
   "Force a numerical result by including a decimal point in the input:"], 
- TapTestSameBROKEN[616./33, 18.6667], 
- TapComment["/ is applied sequentially:"], TapTestSame[a/b/c/d, a/(b*c*d)], 
+ TapTestSame[616./33, 18.6667], TapComment["/ is applied sequentially:"], 
+ TapTestSame[a/b/c/d, a/(b*c*d)], 
  TapComment["x/y is always converted to products and powers:"], 
  TapTestSameBROKEN[FullForm[a^2/b^3], a^2/b^3], 
  TapComment["Enter / using Esc\\[ThinSpace]div\\[ThinSpace]Esc:"], 
@@ -40,5 +40,5 @@ TapSuite[TapTestSame[77/11, 7],
  TapTestSame[Array[Divide, {4, 4}], {{1, 1/2, 1/3, 1/4}, {2, 1, 2/3, 1/2}, 
    {3, 3/2, 1, 3/4}, {4, 2, 4/3, 1}}], 
  TapComment["Integers that divide exactly:"], 
- TapTestSameBROKEN[HoldComplete[ListPlot[Position[Array[Divide, {20, 20}], 
+ TapTestSame[HoldComplete[ListPlot[Position[Array[Divide, {20, 20}], 
      _Integer]]], $Failed]]

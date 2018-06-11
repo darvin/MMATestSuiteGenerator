@@ -12,9 +12,9 @@ TapSuite[TapComment["Use as iterator limit:"],
   (1/x)^2 - (1/x)^3 + (1/x)^5 + O[1/x]^6], 
  TapComment["Infinite limits of integration and summation:"], 
  TapTestSame[Integrate[Exp[-x^2], {x, -Infinity, Infinity}], Sqrt[Pi]], 
- TapTestSameBROKEN[NIntegrate[Exp[-x^4/(x^2 + 1)], {x, -Infinity, Infinity}], 
+ TapTestSame[NIntegrate[Exp[-x^4/(x^2 + 1)], {x, -Infinity, Infinity}], 
   2.31402], TapTestSame[Sum[Exp[-n^2], {n, -Infinity, Infinity}], 
-  EllipticTheta[3, 0, 1/E]], TapTestSameBROKEN[NSum[Exp[-n^4/(n^2 + 1)], 
+  EllipticTheta[3, 0, 1/E]], TapTestSame[NSum[Exp[-n^4/(n^2 + 1)], 
    {n, -Infinity, Infinity}], 2.29519], 
  TapComment["Extended arithmetic with infinite quantities:"], 
  TapTestSame[Infinity*Infinity, Infinity], TapTestSame[2*Infinity - Infinity, 
@@ -54,7 +54,7 @@ will produce a rational approximation:"],
   CylindricalDecomposition[2.5*x^2 + y^2 < 1.5, {x, y}]], 
  TapComment["Apply RefLink[SetPrecision,paclet:ref/SetPrecision] to the whole \
 expression to rationalize all inexact numbers:"], 
- TapTestSameBROKEN[CylindricalDecomposition[SetPrecision[y^2 + 2.5*x^2 < 1.5, 
+ TapTestSame[CylindricalDecomposition[SetPrecision[y^2 + 2.5*x^2 < 1.5, 
     Infinity], {x, y}], -Sqrt[3/5] < x < Sqrt[3/5] && 
    -(Sqrt[3 - 5*x^2]/Sqrt[2]) < y < Sqrt[3 - 5*x^2]/Sqrt[2]], 
  TapComment["Use an infinite \
@@ -62,6 +62,6 @@ RefLink[WorkingPrecision,paclet:ref/WorkingPrecision] in \
 RefLink[Plot,paclet:ref/Plot]:"], TapTestSameBROKEN[
   HoldComplete[Reap[Plot[2*x + 1, {x, 0, 1}, WorkingPrecision -> Infinity, 
      EvaluationMonitor :> Sow[x], PlotPoints -> 3, MaxRecursion -> 0]]], 
-  $Failed], TapTestSameBROKEN[HoldComplete[Plot[Numerator[x], {x, 0, 10}, 
+  $Failed], TapTestSame[HoldComplete[Plot[Numerator[x], {x, 0, 10}, 
     WorkingPrecision -> Infinity, PlotPoints -> 1000, MaxRecursion -> 0]], 
   $Failed]]

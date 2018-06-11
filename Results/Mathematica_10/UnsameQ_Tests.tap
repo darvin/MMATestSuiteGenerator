@@ -1,4 +1,8 @@
 #! DOCKER > wolfram -script output/Tests/UnsameQ_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: UnsameQ_Tests
 # Test whether two expressions are not identically the same:
@@ -57,7 +61,13 @@ ok  0. != 0    ==>     False
         expect_evaluated: False
     ...
 # Test whether multiple expressions are all distinct:
-ok  (x =!= x) =!= y    ==>     False # skip
+not ok  (x =!= x) =!= y    ==>     False
+    ---
+    data:
+        got: True
+        expect: False
+        expect_evaluated: False
+    ...
 ok  (x =!= y) =!= z    ==>     True
     ---
     data:

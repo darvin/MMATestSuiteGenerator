@@ -1,6 +1,6 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[Reverse[{a, b, c, d}], {d, c, b, a}], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[{d, c, b, a}]], 
  TapComment["Reverse an RefLink[Association,paclet:ref/Association]:"], 
  TapTestSameBROKEN[Reverse[\[LeftAssociation] a -> 1, b -> 2, 
     c -> 2 \[RightAssociation]], \[LeftAssociation] c -> 2, b -> 2, 
@@ -16,7 +16,7 @@ RefLink[List,paclet:ref/List]:"], TapTestSame[Reverse[f[a, b, c]],
  TapComment["RefLink[Reverse,paclet:ref/Reverse] operands:"], 
  TapTestSame[Reverse[a . b . c . d . e], e . d . c . b . a], 
  TapComment["Turn an array plot upside down:"], 
- TapTestSameBROKEN[HoldComplete[
-   ArrayPlot[Reverse[CellularAutomaton[30, {{1}, 0}, 20]]]], $Failed], 
- TapComment["RefLink[Reverse,paclet:ref/Reverse] is its own inverse:"], 
+ TapTestSame[HoldComplete[ArrayPlot[Reverse[CellularAutomaton[30, {{1}, 0}, 
+      20]]]], $Failed], TapComment[
+  "RefLink[Reverse,paclet:ref/Reverse] is its own inverse:"], 
  TapTestSame[Reverse[Reverse[{a, b, c, d}]], {a, b, c, d}]]

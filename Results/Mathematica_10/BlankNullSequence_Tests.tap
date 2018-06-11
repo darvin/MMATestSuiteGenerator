@@ -1,6 +1,25 @@
 #! DOCKER > wolfram -script output/Tests/BlankNullSequence_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: BlankNullSequence_Tests
-ok  {f[], f[1], f[1, a]}    ==>     {p[], p[1, 1], p[1, a, 1, a]} # skip
-ok  {f[], f[1], f[1, 2, 3], f[1, b, 3]}    ==>     {p[0], p[1, 1], p[1, 2, 3, 6], f[1, b, 3]} # skip
-ok  {f[1], f[1, 2.], f[1, 2., x], f[x, 1, y]}    ==>     {0, 2., 2. + x, f[x, 1, y]} # skip
+# A function that works with any number of arguments:
+ok  f[x___] := p[x, x]; {f[], f[1], f[1, a]}    ==>     {p[], p[1, 1], p[1, a, 1, a]}
+    ---
+    data:
+        got: {p[], p[1, 1], p[1, a, 1, a]}
+        expect: {p[], p[1, 1], p[1, a, 1, a]}
+        expect_evaluated: {p[], p[1, 1], p[1, a, 1, a]}
+    ...
+# A function that works with any number of integer arguments:
+ok  f[x___Integer] := p[x, Plus[x]]; {f[], f[1], f[1, 2, 3], f[1, b, 3]}    ==>     {p[0], p[1, 1], p[1, 2, 3, 6], f[1, b, 3]}
+    ---
+    data:
+        got: {p[0], p[1, 1], p[1, 2, 3, 6], p[1, b, 3, 1, b, 3]}
+        expect: {p[0], p[1, 1], p[1, 2, 3, 6], f[1, b, 3]}
+        expect_evaluated: {p[0], p[1, 1], p[1, 2, 3, 6], p[1, b, 3, 1, b, 3]}
+    ...
+# A function that works with an integer followed by any number of arguments:
+ok  f[x_Integer, y___] := (Plus[y])^x; {f[1], f[1, 2.], f[1, 2., x], f[x, 1, y]}    ==>     {0, 2., 2. + x, f[x, 1, y]} # skip

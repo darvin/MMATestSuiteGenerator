@@ -1,21 +1,27 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Tally.nb output/Tests/Tally_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Tally.nb
 # WRITING OUTPUT TO:     output/Tests/Tally_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Tally[{a,a,b,a,c,b,a}]    ==>     {{a,4},{b,2},{c,1}}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Tally[{{a,b},{w,x,y,z},E,{w,x,y,z},E},Head[#1]===Head[#2]&]    ==>     {{{a,b},3},{E,2}}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  Tally[{b,a,b,a,c,b,a}]    ==>     {{b,3},{a,3},{c,1}}
 not ok  Tally[RandomInteger[10,50]]    ==>     {{7,9},{2,6},{0,6},{8,2},{6,4},{5,2},{10,5},{1,2},{3,3},{4,4},{9,7}}
 ok  Tally[{{a,b},{w,x,y,z},E,{w,x,y,z},E}]    ==>     {{{a,b},1},{{w,x,y,z},2},{E,2}}
 #! TextForm[ColonForm[MessageName[Tally, list], StringForm[List expected at position `2` in `1`., Short[HoldForm[Tally[Characters[s]]], 3], Short[HoldForm[1], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, bktmop], StringForm[Expression "`1`" has no opening "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{FormBox[RowBox[{{, RowBox[{RowBox[{{, RowBox[{T, ,, 1}], }}], ,, RowBox[{{, RowBox[{a, ,, 3}], }}], ,, RowBox[{{, RowBox[{l, ,, 6}], }}], ,, RowBox[{{, RowBox[{y, ,, 2}], }}], ,, RowBox[{{, RowBox[{[, RowBox[{,, 1}]}], }}], ,, RowBox[{{, RowBox[{i, ,, 7}], }}], ,, RowBox[{{, RowBox[{s, ,, 6}], }}], ,, RowBox[{{, RowBox[{t, ,, 8}], }}], ,, {}]}], StandardForm], ]}]]], 3], Short[HoldForm[[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`{{T,1},{a,3},{l,6},{y,2},{[,1},{i,7},{s,6},{t,8},{],1},{ ,10},{d,2},{n,4},{c,1},{e,7},{m,1},{h,2},{o,1},{r,3},{p,2},{.,1}}\)
-#!                                                                                                                                               ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[{{T,1},{a,3},{l,6},{y,2},{[,1},{i,7},{s,6},{t,8},{],1},{ ,10},{d,2},{n,4},{c,1},{e,7},{m,1},{h,2},{o,1},{r,3},{p,2},{.,1}}
+#!                            ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, bktmop], StringForm[Expression "`1`" has no opening "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{FormBox[RowBox[{{, RowBox[{RowBox[{{, RowBox[{T, ,, 1}], }}], ,, RowBox[{{, RowBox[{a, ,, 3}], }}], ,, RowBox[{{, RowBox[{l, ,, 6}], }}], ,, RowBox[{{, RowBox[{y, ,, 2}], }}], ,, RowBox[{{, RowBox[{[, RowBox[{,, 1}]}], }}], ,, RowBox[{{, RowBox[{i, ,, 7}], }}], ,, RowBox[{{, RowBox[{s, ,, 6}], }}], ,, RowBox[{{, RowBox[{t, ,, 8}], }}], ,, {}]}], StandardForm], ]}]]], 3], Short[HoldForm[[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`{{T,1},{a,3},{l,6},{y,2},{[,1},{i,7},{s,6},{t,8},{],1},{ ,10},{d,2},{n,4},{c,1},{e,7},{m,1},{h,2},{o,1},{r,3},{p,2},{.,1}}\)
 #!                                                                                                                                               ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-not ok  Tally[Characters[s]]    ==>     {{T,1},{a,3},{l,6},{y,2},{[,1},{i,7},{s,6},{t,8},{],1},{ ,10},{d,2},{n,4},{c,1},{e,7},{m,1},{h,2},{o,1},{r,3},{p,2},{.,1}}
+not ok  s="Tally[list] lists distinct elements in the order they appear in list.";; Tally[Characters[s]]    ==>     {{T,1},{a,3},{l,6},{y,2},{[,1},{i,7},{s,6},{t,8},{],1},{ ,10},{d,2},{n,4},{c,1},{e,7},{m,1},{h,2},{o,1},{r,3},{p,2},{.,1}}
 ok  Tally[{b,a,c,b,a,c,b,a}]    ==>     {{b,3},{a,3},{c,2}}
 ok  Commonest[{b,a,c,b,a,c,b,a}]    ==>     {b,a}
 ok  Sort[Tally[{b,a,c,b,a,c,b,a}]]    ==>     {{a,3},{b,3},{c,2}}

@@ -1,30 +1,42 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Which.nb output/Tests/Which_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Which.nb
 # WRITING OUTPUT TO:     output/Tests/Which_Tests.m
-ok  a=2;Which[a==1,x,a==2,b]    ==>     b
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/Which.html; a=2;Which[a==1,x,a==2,b]
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{Which, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\!\(StandardForm\`http://reference.wolfram.com/language/ref/Which.html; a=2;Which[a==1,x,a==2,b]\)
+#!                                                                                                   ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/Which.html; a=2;Which[a==1,x,a==2,b]    ==>     b
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Which[a==1,x,a==2,b]    ==>     Which[a==1,x,a==2,b]
 #! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 not ok  %/.a->2    ==>     b
 ok  Which[1<0,a,
 #! x==0,b,
 #! 0<1,c]    ==>     Which[x==0,b,0<1,c]
-not ok  sign/@{-2,0,3}    ==>     {-1,Indeterminate,1}
-not ok  f=Which[x<-Pi/2,-1,-Pi/2<=x<=Pi/2,Sin[x],True,1]    ==>     Which[x<-(\[Pi]/2),-1,-(\[Pi]/2)<=x<=\[Pi]/2,Sin[x],True,1]
+ok  sign[x_]:=Which[
+#! x<0,-1,
+#! x>0,1,
+#! True,Indeterminate]; sign/@{-2,0,3}    ==>     {-1,Indeterminate,1}
+ok  f=Which[x<-Pi/2,-1,-Pi/2<=x<=Pi/2,Sin[x],True,1]    ==>     Which[x<-(\[Pi]/2),-1,-(\[Pi]/2)<=x<=\[Pi]/2,Sin[x],True,1]
 #! TextForm[ColonForm[MessageName[Piecewise, pairs], StringForm[The first argument `1` of Piecewise is not a list of pairs., Short[HoldForm[-1], 3]]]]
 not ok  PiecewiseExpand[f]    ==>     \[Piecewise]-1	x<-(\[Pi]/2)
 #! 1	x>\[Pi]/2
 #! Sin[x]	True
 ok  Reduce[f==1/2,x]    ==>     x==\[Pi]/6
 ok  Integrate[f,{x,0,3}]    ==>     (8-\[Pi])/2
-not ok  D[f,x]    ==>     Which[x<-(\[Pi]/2),0,-(\[Pi]/2)<=x<=\[Pi]/2,Cos[x],True,0]
+ok  D[f,x]    ==>     Which[x<-(\[Pi]/2),0,-(\[Pi]/2)<=x<=\[Pi]/2,Cos[x],True,0]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 240}, {0, 155}}]\)\)
 #!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
 #! ], 3]]]]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[PlotRange->{{0, 240}, {0, 155}}]\)\)
-#!                                     ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[ToExpression, sntx]], 3]]]]
 not ok  Plot[f,{x,-Pi,Pi}]    ==>     \!\(\*
 #! GraphicsBox[
 #! TagBox[RasterBox[CompressedData["
@@ -120,8 +132,11 @@ not ok  Plot[f,{x,-Pi,Pi}]    ==>     \!\(\*
 #! ImageSize->Automatic,
 #! ImageSizeRaw->{240, 155},
 #! PlotRange->{{0, 240}, {0, 155}}]\)
-not ok  cut1/@{-2,-1,0,1,2}    ==>     {-1,-1,0,1,1}
-not ok  cut2/@{-2,-1,0,1,2}    ==>     {-1,-1,0,1,1}
+ok  cut1[x_]:=If[x<-1,-1,If[x<1,x,1]]; cut1/@{-2,-1,0,1,2}    ==>     {-1,-1,0,1,1}
+ok  cut2[x_]:=Which[
+#! x<-1,-1,
+#! x<1,x,
+#! True,1]; cut2/@{-2,-1,0,1,2}    ==>     {-1,-1,0,1,1}
 #! TextForm[ColonForm[MessageName[Piecewise, pairs], StringForm[The first argument `1` of Piecewise is not a list of pairs., Short[HoldForm[a1], 3]]]]
 not ok  PiecewiseExpand[Which[c1,a1,c2,a2,True,a3]]    ==>     \[Piecewise]a1	c1
 #! a2	!c1&&c2

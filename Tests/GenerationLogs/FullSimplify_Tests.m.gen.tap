@@ -1,8 +1,14 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/FullSimplify.nb output/Tests/FullSimplify_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/FullSimplify.nb
 # WRITING OUTPUT TO:     output/Tests/FullSimplify_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  FullSimplify[x Gamma[x]]    ==>     Gamma[1+x]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  FullSimplify[ProductLog[x Log[x]],x>1/E]    ==>     Log[x]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  FullSimplify[f[f[u,f[v,w]],u]==f[u,f[f[v,w],u]],
 #! ForAll[{a,b,c},f[a,f[b,c]]==f[f[a,b],c]]]    ==>     True
 ok  FullSimplify[x^3-6x^2+11x-6]    ==>     (-3+x) (-2+x) (-1+x)
@@ -27,10 +33,6 @@ ok  Assuming[Re[x]>0,FullSimplify[E^LogGamma[x]]]    ==>     Gamma[x]
 ok  Assuming[x>0,FullSimplify[E^(LogGamma[x]+ LogGamma[y]),y>0]]    ==>     Gamma[x] Gamma[y]
 ok  Assuming[x>0,FullSimplify[E^(LogGamma[x]+ LogGamma[y]),Assumptions->y>0]]    ==>     Gamma[x] Gamma[y]
 ok  FullSimplify[ChebyshevT[n,x]]    ==>     ChebyshevT[n,x]
-#! TextForm[ColonForm[MessageName[FullSimplify, cfn], StringForm[The cost function `1` does not evaluate to a real number at `2`., Short[HoldForm[f], 3], Short[HoldForm[ChebyshevT[n, x]], 3]]]]
-#! TextForm[ColonForm[MessageName[FullSimplify, cfn], StringForm[The cost function `1` does not evaluate to a real number at `2`., Short[HoldForm[f], 3], Short[HoldForm[ChebyshevT[n, x]], 3]]]]
-#! TextForm[ColonForm[MessageName[FullSimplify, cfn], StringForm[The cost function `1` does not evaluate to a real number at `2`., Short[HoldForm[f], 3], Short[HoldForm[ChebyshevT[n, x]], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[FullSimplify, cfn]], 3]]]]
-not ok  FullSimplify[ChebyshevT[n,x],ComplexityFunction->f]    ==>     Cos[n ArcCos[x]]
+ok  f[e_]:=100Count[e,_ChebyshevT,{0,Infinity}]+LeafCount[e]; FullSimplify[ChebyshevT[n,x],ComplexityFunction->f]    ==>     Cos[n ArcCos[x]]
 ok  FullSimplify[Im[Log[x]+2 x-3y]-2Im[x]]    ==>     Arg[x]-3 Im[y]
 ok  FullSimplify[Im[Log[x]+2 x-3y]-2Im[x],ExcludedForms->{Log[_]}]    ==>     Im[-3 y+Log[x]]

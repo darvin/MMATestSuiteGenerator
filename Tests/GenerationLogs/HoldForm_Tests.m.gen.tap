@@ -1,19 +1,19 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/HoldForm.nb output/Tests/HoldForm_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/HoldForm.nb
 # WRITING OUTPUT TO:     output/Tests/HoldForm_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  HoldForm[1+1]    ==>     1+1
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  HoldForm[x=3]    ==>     x=3
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 not ok  HoldForm[34^78]    ==>     34^78
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-not ok  ReleaseHold[%]    ==>     285335317058486027411405324166464744463360460002598071329967949465250689557820764970048082035633315075321399848988573696
+ok  ReleaseHold[%]    ==>     285335317058486027411405324166464744463360460002598071329967949465250689557820764970048082035633315075321399848988573696
 #! TextForm[ColonForm[MessageName[Integrate, ilim], StringForm[Invalid integration variable or limit(s) in `1`., Short[HoldForm[3], 3]]]]
 #! TextForm[ColonForm[MessageName[Integrate, ilim], StringForm[Invalid integration variable or limit(s) in `1`., Short[HoldForm[3], 3]]]]
 not ok  HoldForm[Integrate[x^2 E^-x^2,x]]==Integrate[x^2 E^-x^2,x]    ==>     \[Integral]x^2 E^-x^2\[DifferentialD]x==-(1/2) E^-x^2 x+1/4 Sqrt[\[Pi]] Erf[x]
-#! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
-#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\*SuperscriptBox[\(#1\), \(2\)]] &)\)[i]\)\)\)
-#!                                               ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
-#! ], 3]]]]
 #! TextForm[ColonForm[MessageName[Syntax, sntxi], StringForm[Incomplete expression; more input is needed `4`., Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
 #! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[\*SuperscriptBox[\(#1\), \(2\)]] &)\)[i]\)\)\)
 #!                                               ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
@@ -22,7 +22,5 @@ not ok  \!\(
 #! \*UnderoverscriptBox[\(\[Sum]\), \(i = 1\), \(10\)]\(\((HoldForm[
 #! \*SuperscriptBox[\(#1\), \(2\)]] &)\)[i]\)\)    ==>     1^2+2^2+3^2+4^2+5^2+6^2+7^2+8^2+9^2+10^2
 not ok  HoldForm[1+1]    ==>     1+1
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 not ok  FullForm[%]    ==>     HoldForm[Plus[1,1]]
 ok  Hold[1+1]    ==>     Hold[1+1]

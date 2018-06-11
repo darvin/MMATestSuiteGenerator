@@ -1,6 +1,6 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[Append[{a, b, c, d}, x], {a, b, c, d, x}], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[{a, b, c, d, x}]], 
  TapComment["Append to an RefLink[Association,paclet:ref/Association]:"], 
  TapTestSame[Append[\[LeftAssociation] 1 -> a, 2 -> b \[RightAssociation], 
    3 -> d], \[LeftAssociation] 1 -> a, 2 -> b, 3 -> d \[RightAssociation]], 

@@ -10,7 +10,7 @@ TapSuite[TapComment[":> holds its right-hand side unevaluated:"],
  TapTestSame[n = 1; {x, x, a, b, x, x, c, d} /. x :> n++, 
   {1, 2, a, b, 3, 4, c, d}], TapComment["Evaluate the \
 RefLink[StepMonitor,paclet:ref/StepMonitor] expression separately each time \
-it is to be used:"], TapTestSameBROKEN[FindRoot[Cos[x] == x, {x, 1}, 
+it is to be used:"], TapTestSame[FindRoot[Cos[x] == x, {x, 1}, 
    StepMonitor :> Print[x]], {x -> 0.739085}], 
  TapComment["Generate a diagonal matrix with random elements:"], 
  TapTestSameBROKEN[MatrixForm[SparseArray[{{i_, i_} :> RandomReal[]}, 

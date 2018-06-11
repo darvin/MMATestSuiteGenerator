@@ -1,6 +1,15 @@
 #! DOCKER > wolfram -script output/Tests/PossibleZeroQ_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 #! TextForm[ColonForm[MessageName[PossibleZeroQ, ztest1], StringForm[Unable to decide whether numeric quantity `1` is equal to zero. Assuming it is., Short[HoldForm[Sqrt[2] + Sqrt[3] - Root[1 - 10*#1^2 + #1^4 & , 4, 0]], 3]]]]
 #! TextForm[ColonForm[MessageName[PossibleZeroQ, ztest1], StringForm[Unable to decide whether numeric quantity `1` is equal to zero. Assuming it is., Short[HoldForm[1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 + Sqrt[2] + Sqrt[3] - Root[1 - 10*#1^2 + #1^4 & , 4, 0]], 3]]]]
+#! TextForm[ColonForm[MessageName[Power, infy], StringForm[Infinite expression `1` encountered., Short[HoldForm[0^(-1)], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$RecursionLimit, reclim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: PossibleZeroQ_Tests
 # Test whether a numeric expression is zero:
@@ -58,22 +67,19 @@ ok  PossibleZeroQ[Sqrt[x^2] - x]    ==>     False
         expect: False
         expect_evaluated: False
     ...
-ok  PossibleZeroQ[f]    ==>     False
-    ---
-    data:
-        got: False
-        expect: False
-        expect_evaluated: False
-    ...
+# For arbitrary complex x, f is not identically zero:
+ok  f = Sqrt[x^2] - x ;; PossibleZeroQ[f]    ==>     False # skip
 # When RefLink[Re,paclet:ref/Re][x]>0, f is identically zero:
 ok  PossibleZeroQ[f, Assumptions -> Re[x] > 0]    ==>     True # skip
 # By default, numeric approximations may be used to decide that an algebraic number is zero:
 ok  zero = Sqrt[2] + Sqrt[3] - RootReduce[Sqrt[2] + Sqrt[3]]    ==>     Sqrt[2] + Sqrt[3] - Root[1 - 10*#1^2 + #1^4 & , 4]
     ---
     data:
-        got: Sqrt[2] + Sqrt[3] - Root[1 - 10*#1^2 + #1^4 & , 4, 0]
+        got:                                   2     4
+#! Sqrt[2] + Sqrt[3] - Root[1 - 10 #1  + #1  & , 4]
         expect: Sqrt[2] + Sqrt[3] - Root[1 - 10*#1^2 + #1^4 & , 4]
-        expect_evaluated: Sqrt[2] + Sqrt[3] - Root[1 - 10*#1^2 + #1^4 & , 4, 0]
+        expect_evaluated:                                   2     4
+#! Sqrt[2] + Sqrt[3] - Root[1 - 10 #1  + #1  & , 4]
     ...
 ok  PossibleZeroQ[zero]    ==>     True
     ---
@@ -106,10 +112,18 @@ ok  PossibleZeroQ[zero + 10^(-100), Method -> "ExactAlgebraics"]    ==>     Fals
         expect: False
         expect_evaluated: False
     ...
-ok  QuadraticRoots[2*Log[2]*x^2 - Log[4]*x^2 + x - 1 == 0, x]    ==>     x == 1 # skip
+# Solving polynomial equations requires deciding whether coefficients are zero:
+ok  QuadraticRoots[eq_, x_] := Module[{a, b, c, \[CapitalDelta]}, {c, b, a} = CoefficientList[Subtract @@ eq, x]; If[ !PossibleZeroQ[a], \[CapitalDelta] = b^2 - 4*a*c; x == (-b - Sqrt[\[CapitalDelta]])/(2*a) || x == (-b + Sqrt[\[CapitalDelta]])/(2*a), If[ !PossibleZeroQ[b], x == -(c/b), PossibleZeroQ[c]]]]; QuadraticRoots[2*Log[2]*x^2 - Log[4]*x^2 + x - 1 == 0, x]    ==>     x == 1
+    ---
+    data:
+        got: x == 1
+        expect: x == 1
+        expect_evaluated: x == 1
+    ...
 # Wolfram Language equation solvers use zero testing automatically:
 ok  Reduce[2*Log[2]*x^2 - Log[4]*x^2 + x - 1 == 0, x]    ==>     x == 1 # skip
-ok  e === 0    ==>     False
+# RefLink[SameQ,paclet:ref/SameQ][e,0] returns RefLink[True,paclet:ref/True] only if e is explicitly identical to zero:
+ok  e = (E + Pi)^2 - E^2 - Pi^2 - 2*E*Pi ;; e === 0    ==>     False
     ---
     data:
         got: False
@@ -118,10 +132,12 @@ ok  e === 0    ==>     False
     ...
 # RefLink[Equal,paclet:ref/Equal][e,0] uses simple tests to decide whether e is zero:
 ok  e == 0    ==>     True # skip
-ok  ee == 0    ==>     Log[4] - Log[2 - Sqrt[2]] + 2*Log[Sin[Pi/8]] == 0 # skip
+# When RefLink[Equal,paclet:ref/Equal] cannot decide whether an expression is zero it returns unchanged:
+ok  ee = Log[4] + 2*Log[Sin[Pi/8]] - Log[2 - Sqrt[2]] ;; ee == 0    ==>     Log[4] - Log[2 - Sqrt[2]] + 2*Log[Sin[Pi/8]] == 0 # skip
 # RefLink[PossibleZeroQ,paclet:ref/PossibleZeroQ] uses numeric methods to test whether ee is zero:
 ok  PossibleZeroQ[ee]    ==>     True # skip
 # RefLink[FullSimplify,paclet:ref/FullSimplify] proves symbolically that ee is zero:
 ok  FullSimplify[ee]    ==>     0 # skip
-ok  PossibleZeroQ[e]    ==>     True # skip
+# RefLink[PossibleZeroQ,paclet:ref/PossibleZeroQ] may return RefLink[True,paclet:ref/True] for nonzero numeric expressions that are close to zero:
+ok  e = Sqrt[2] + Sqrt[3] - RootReduce[Sqrt[2] + Sqrt[3]] + 10^(-100) ;; PossibleZeroQ[e]    ==>     True # skip
 ok  FullSimplify[e]    ==>     1/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 # skip

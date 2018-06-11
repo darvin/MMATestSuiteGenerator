@@ -8,7 +8,9 @@ TapSuite[TapComment["RefLink[Log,paclet:ref/Log] is listable:"],
  TapComment["Arguments that are not lists are replicated as needed:"], 
  TapTestSame[{a, b, c} + x, {a + x, b + x, c + x}], 
  TapTestSame[{{a, b}, {c, d}} + x, {{a + x, b + x}, {c + x, d + x}}], 
- TapTestSameBROKEN[f[{3, 0, -2}], {Sqrt[3], 0, Sqrt[2]}], 
+ TapComment["Define a function to be listable:"], 
+ TapTestSameBROKEN[f[x_] := If[x > 0, Sqrt[x], Sqrt[-x]]; 
+   SetAttributes[f, Listable] ;; f[{3, 0, -2}], {Sqrt[3], 0, Sqrt[2]}], 
  TapComment["Most built-in mathematical functions are listable:"], 
  TapTestSame[Attributes[Power], {Listable, NumericFunction, OneIdentity, 
    Protected}], TapTestSame[{a, b, c}^{1, 2, 3}, {a, b^2, c^3}], 
@@ -57,10 +59,17 @@ listability of arithmetic:"], TapTestSameBROKEN[
 of RefLink[UnitStep,paclet:ref/UnitStep]:"], 
  TapTestSameBROKEN[HoldComplete[init = UnitStep[x - 0.5]; 
     ListPlot[init, DataRange -> {0, 1}]], $Failed], 
- TapTestSameBROKEN[HoldComplete[ListPlot[sol, DataRange -> {0, 1}]], 
-  $Failed], TapTestSameBROKEN[f[{1, 2, 3}], {f[1], f[2], f[3]}], 
- TapTestSame[g[{1, 2, 3}], g[{1, 2, 3}]], TapTestSame[Thread[g[{1, 2, 3}]], 
-  {g[1], g[2], g[3]}], TapTestSameBROKEN[g[{1, 2, 3}], {1, 4, 9}], 
+ TapComment[
+  "Get the solution at t=10, h=0.01 using the backward Euler method:"], 
+ TapTestSameBROKEN[HoldComplete[sol = init; Do[sol = lu[sol], {10}]; 
+    ListPlot[sol, DataRange -> {0, 1}]], $Failed], 
+ TapComment["Listability is the same as automatic threading:"], 
+ TapTestSameBROKEN[SetAttributes[f, Listable] ;; f[{1, 2, 3}], 
+  {f[1], f[2], f[3]}], TapTestSame[g[{1, 2, 3}], g[{1, 2, 3}]], 
+ TapTestSame[Thread[g[{1, 2, 3}]], {g[1], g[2], g[3]}], 
+ TapComment["A function implemented in terms of a listable operation may not \
+need the RefLink[Listable,paclet:ref/Listable] attribute:"], 
+ TapTestSame[g[x_] := x^2; g[{1, 2, 3}], {1, 4, 9}], 
  TapTestSame[Attributes[Power], {Listable, NumericFunction, OneIdentity, 
    Protected}], TapComment["The system symbols with the \
 RefLink[Listable,paclet:ref/Listable] attribute: "], 

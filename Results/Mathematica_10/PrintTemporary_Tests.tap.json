@@ -5,8 +5,8 @@
         "passes": 1,
         "pending": 0,
         "failures": 0,
-        "start": "2018-06-03T23:02:14.554Z",
-        "end": "2018-06-03T23:02:14.554Z",
+        "start": "2018-06-11T04:14:23.143Z",
+        "end": "2018-06-11T04:14:23.143Z",
         "duration": 0,
         "testsRegistered": 1,
         "passPercent": 100,
@@ -33,11 +33,11 @@
                 "pending": false,
                 "code": "",
                 "isRoot": false,
-                "uuid": "59f8d5b0-a6c0-4040-8f0d-09e3e713ba71",
-                "parentUUID": "90342dc0-dfe3-4b20-a25b-f697e7223ec7",
+                "uuid": "2ef6578d-a96d-49b9-a144-04854aeef80d",
+                "parentUUID": "7e6da3bc-d09b-4618-95cf-326cbfa143bb",
                 "skipped": false,
                 "isHook": false,
-                "context": "\"#! DOCKER > wolfram -script output/Tests/PrintTemporary_Tests.m\\n#! text\\n# SYSTEM: Mathematica_10\\n# TEST: PrintTemporary_Tests\\n# Print a temporary cell during an evaluation: \\n\\n\\ndata: \\n  got:              17\\n  expect:           17\\n  expect_evaluated: 17\"",
+                "context": "\"#! DOCKER > wolfram -script output/Tests/PrintTemporary_Tests.m\\n#! text\\n#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]\\n# SYSTEM: Mathematica_10\\n# TEST: PrintTemporary_Tests\\n# Print a temporary cell during an evaluation: \\n\\n\\ndata: \\n  got:              17\\n  expect:           17\\n  expect_evaluated: 17\"",
                 "state": "passed",
                 "err": {
                     "name": "",
@@ -53,14 +53,14 @@
         "file": "",
         "pending": [],
         "passes": [
-            "59f8d5b0-a6c0-4040-8f0d-09e3e713ba71"
+            "2ef6578d-a96d-49b9-a144-04854aeef80d"
         ],
         "failures": [],
         "skipped": [],
         "duration": 0,
         "rootEmpty": false,
         "_timeout": 0,
-        "uuid": "90342dc0-dfe3-4b20-a25b-f697e7223ec7",
+        "uuid": "7e6da3bc-d09b-4618-95cf-326cbfa143bb",
         "beforeHooks": [],
         "afterHooks": []
     },

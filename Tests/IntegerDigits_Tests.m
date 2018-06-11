@@ -30,7 +30,7 @@ has a decimal expansion that is a concatenation of consecutive integers:"],
    1, 8, 1, 9, 2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5, 2, 6, 2, 7, 2, 8, 2, 9, 3, 
    0}], TapComment[
   "Compare to RefLink[ChampernowneNumber,paclet:ref/ChampernowneNumber]: "], 
- TapTestSame[N[ChampernowneNumber[10], Length[%]], 
+ TapTestSameBROKEN[N[ChampernowneNumber[10], Length[%]], 
   0.12345678910111213141516171819202122232425262728293`50.091514977524966], 
  TapComment["Cantor set construction:"], 
  TapTestSame[Table[If[FreeQ[IntegerDigits[n - 1, 3], 1], 1, 0], {n, 27}], 
@@ -47,5 +47,5 @@ has a decimal expansion that is a concatenation of consecutive integers:"],
    {1, 1, 0, 0, 1}}], TapComment["The sign is ignored:"], 
  TapTestSame[IntegerDigits[-3134], {3, 1, 3, 4}], 
  TapComment["Leading digits of factorials in base 100:"], 
- TapTestSameBROKEN[HoldComplete[ListLinePlot[
-    Table[First[IntegerDigits[n!, 100]], {n, 300}]]], $Failed]]
+ TapTestSame[HoldComplete[ListLinePlot[Table[First[IntegerDigits[n!, 100]], 
+     {n, 300}]]], $Failed]]

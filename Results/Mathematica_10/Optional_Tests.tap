@@ -1,4 +1,6 @@
 #! DOCKER > wolfram -script output/Tests/Optional_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: Optional_Tests
 # Use the function with both arguments specified explicitly:

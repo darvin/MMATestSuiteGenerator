@@ -1,28 +1,34 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/StringJoin.nb output/Tests/StringJoin_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/StringJoin.nb
 # WRITING OUTPUT TO:     output/Tests/StringJoin_Tests.m
-not ok  "abcd"<>"ABCD"<>"xyz"    ==>     abcdABCDxyz
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
 #! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-not ok  InputForm[%]    ==>     "abcdABCDxyz"
-not ok  StringJoin[{{"AB","CD"},"XY"}]    ==>     ABCDXY
+ok  "abcd"<>"ABCD"<>"xyz"    ==>     abcdABCDxyz
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+ok  InputForm[%]    ==>     "abcdABCDxyz"
+ok  StringJoin[{{"AB","CD"},"XY"}]    ==>     ABCDXY
 not ok  "\[Alpha]\[Beta]\[Gamma]"<>"\[CirclePlus]\[CircleTimes]"<>" \[ReturnIndicator]"    ==>     \[Alpha]\[Beta]\[Gamma]\[CirclePlus]\[CircleTimes] \[ReturnIndicator]
 not ok  "one"<>"\n"<>"two"    ==>     one
 #! two
-not ok  "red"<>"blue"    ==>     redblue
-not ok  NestList[#<>StringReverse[#]&,"AB",5]    ==>     {AB,ABBA,ABBAABBA,ABBAABBAABBAABBA,ABBAABBAABBAABBAABBAABBAABBAABBA,ABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBA}
-not ok  data=Partition[Characters["aabcaabc"],3,1]    ==>     {{a,a,b},{a,b,c},{b,c,a},{c,a,a},{a,a,b},{a,b,c}}
-not ok  StringJoin/@data    ==>     {aab,abc,bca,caa,aab,abc}
+ok  "red"<>"blue"    ==>     redblue
+ok  NestList[#<>StringReverse[#]&,"AB",5]    ==>     {AB,ABBA,ABBAABBA,ABBAABBAABBAABBA,ABBAABBAABBAABBAABBAABBAABBAABBA,ABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBAABBA}
+ok  data=Partition[Characters["aabcaabc"],3,1]    ==>     {{a,a,b},{a,b,c},{b,c,a},{c,a,a},{a,a,b},{a,b,c}}
+ok  StringJoin/@data    ==>     {aab,abc,bca,caa,aab,abc}
+#! TextForm[ColonForm[MessageName[Syntax, com], StringForm[Warning: comma encountered with no adjacent expression. The expression will be treated as Null. `1`., Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, com], StringForm[Warning: comma encountered with no adjacent expression. The expression will be treated as Null. `1`., Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, com], StringForm[Warning: comma encountered with no adjacent expression. The expression will be treated as Null. `1`., Short[HoldForm[
+#! ], 3]]]]
 not ok  Riffle[{"dog","cat","sheep","cow"}," "]    ==>     {dog, ,cat, ,sheep, ,cow}
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 #! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[Hold[Out[$Line - 1]]]], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[StringJoin, string]], 3]]]]
 not ok  StringJoin[%]    ==>     dog cat sheep cow
 ok  ToExpression[StringJoin["0.",ToString/@Range[30]]]    ==>     0.123456789101112131415161718192021222324252627282930
-not ok  Characters["abcdefg"]    ==>     {a,b,c,d,e,f,g}
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
-#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[Hold[Out[$Line - 1]]]], 3]]]]
+ok  Characters["abcdefg"]    ==>     {a,b,c,d,e,f,g}
 not ok  StringJoin[%]    ==>     abcdefg
-#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[2], 3], Short[HoldForm[StringJoin[item , 456]], 3]]]]
-#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[StringJoin, string]], 3]]]]
 not ok  "item "<>456    ==>     item <>456
 not ok  "item "<>ToString[456]    ==>     item 456

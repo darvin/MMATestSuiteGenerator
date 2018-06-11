@@ -1,100 +1,142 @@
 #! DOCKER > wolfram -script output/Tests/ComplexExpand_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 # SYSTEM: Mathematica_10
 # TEST: ComplexExpand_Tests
 # Assume both x and y are real:
 ok  ComplexExpand[Sin[x + I*y]]    ==>     Cosh[y]*Sin[x] + I*Cos[x]*Sinh[y]
     ---
     data:
-        got: Cosh[y]*Sin[x] + I*Cos[x]*Sinh[y]
+        got: Cosh[y] Sin[x] + I Cos[x] Sinh[y]
         expect: Cosh[y]*Sin[x] + I*Cos[x]*Sinh[y]
-        expect_evaluated: Cosh[y]*Sin[x] + I*Cos[x]*Sinh[y]
+        expect_evaluated: Cosh[y] Sin[x] + I Cos[x] Sinh[y]
     ...
 # Take x to be complex:
 ok  ComplexExpand[Sin[x], x]    ==>     Cosh[Im[x]]*Sin[Re[x]] + I*Cos[Re[x]]*Sinh[Im[x]]
     ---
     data:
-        got: Cosh[Im[x]]*Sin[Re[x]] + I*Cos[Re[x]]*Sinh[Im[x]]
+        got: Cosh[Im[x]] Sin[Re[x]] + I Cos[Re[x]] Sinh[Im[x]]
         expect: Cosh[Im[x]]*Sin[Re[x]] + I*Cos[Re[x]]*Sinh[Im[x]]
-        expect_evaluated: Cosh[Im[x]]*Sin[Re[x]] + I*Cos[Re[x]]*Sinh[Im[x]]
+        expect_evaluated: Cosh[Im[x]] Sin[Re[x]] + I Cos[Re[x]] Sinh[Im[x]]
     ...
 # Polynomials:
 ok  ComplexExpand[Re[z^5 - 2*z^3 - z + 1], z]    ==>     1 - Re[z] + 6*Im[z]^2*Re[z] + 5*Im[z]^4*Re[z] - 2*Re[z]^3 - 10*Im[z]^2*Re[z]^3 + Re[z]^5
     ---
     data:
-        got: 1 - Re[z] + 6*Im[z]^2*Re[z] + 5*Im[z]^4*Re[z] - 2*Re[z]^3 - 10*Im[z]^2*Re[z]^3 + Re[z]^5
+        got:                    2                4                3           2      3        5
+#! 1 - Re[z] + 6 Im[z]  Re[z] + 5 Im[z]  Re[z] - 2 Re[z]  - 10 Im[z]  Re[z]  + Re[z]
         expect: 1 - Re[z] + 6*Im[z]^2*Re[z] + 5*Im[z]^4*Re[z] - 2*Re[z]^3 - 10*Im[z]^2*Re[z]^3 + Re[z]^5
-        expect_evaluated: 1 - Re[z] + 6*Im[z]^2*Re[z] + 5*Im[z]^4*Re[z] - 2*Re[z]^3 - 10*Im[z]^2*Re[z]^3 + Re[z]^5
+        expect_evaluated:                    2                4                3           2      3        5
+#! 1 - Re[z] + 6 Im[z]  Re[z] + 5 Im[z]  Re[z] - 2 Re[z]  - 10 Im[z]  Re[z]  + Re[z]
     ...
 # Trigonometric and hyperbolic functions:
 ok  ComplexExpand[Cos[x + I*y] + Tanh[z], {z}]    ==>     Cos[x]*Cosh[y] + I*(Sin[2*Im[z]]/(Cos[2*Im[z]] + Cosh[2*Re[z]]) - Sin[x]*Sinh[y]) + Sinh[2*Re[z]]/(Cos[2*Im[z]] + Cosh[2*Re[z]])
     ---
     data:
-        got: Cos[x]*Cosh[y] + I*(Sin[2*Im[z]]/(Cos[2*Im[z]] + Cosh[2*Re[z]]) - Sin[x]*Sinh[y]) + Sinh[2*Re[z]]/(Cos[2*Im[z]] + Cosh[2*Re[z]])
+        got:                             Sin[2 Im[z]]                                    Sinh[2 Re[z]]
+#! Cos[x] Cosh[y] + I (---------------------------- - Sin[x] Sinh[y]) + ----------------------------
+#!                     Cos[2 Im[z]] + Cosh[2 Re[z]]                     Cos[2 Im[z]] + Cosh[2 Re[z]]
         expect: Cos[x]*Cosh[y] + I*(Sin[2*Im[z]]/(Cos[2*Im[z]] + Cosh[2*Re[z]]) - Sin[x]*Sinh[y]) + Sinh[2*Re[z]]/(Cos[2*Im[z]] + Cosh[2*Re[z]])
-        expect_evaluated: Cos[x]*Cosh[y] + I*(Sin[2*Im[z]]/(Cos[2*Im[z]] + Cosh[2*Re[z]]) - Sin[x]*Sinh[y]) + Sinh[2*Re[z]]/(Cos[2*Im[z]] + Cosh[2*Re[z]])
+        expect_evaluated:                             Sin[2 Im[z]]                                    Sinh[2 Re[z]]
+#! Cos[x] Cosh[y] + I (---------------------------- - Sin[x] Sinh[y]) + ----------------------------
+#!                     Cos[2 Im[z]] + Cosh[2 Re[z]]                     Cos[2 Im[z]] + Cosh[2 Re[z]]
     ...
 # Inverse trigonometric and inverse hyperbolic functions:
 ok  ComplexExpand[Re[ArcCot[x + I*y]] + Im[ArcSinh[x - I*y]]]    ==>     (-(1/2))*Arg[1 - I/(x + I*y)] + (1/2)*Arg[1 + I/(x + I*y)] + Arg[x + Sqrt[1 + (x - I*y)^2] - I*y]
     ---
     data:
-        got: -Arg[1 - I/(x + I*y)]/2 + Arg[1 + I/(x + I*y)]/2 + Arg[x + Sqrt[1 + (x - I*y)^2] - I*y]
+        got:             I                  I
+#! -Arg[1 - -------]   Arg[1 + -------]
+         x + I y            x + I y                              2
+#! ----------------- + ---------------- + Arg[x + Sqrt[1 + (x - I y) ] - I y]
+        2                  2
         expect: (-(1/2))*Arg[1 - I/(x + I*y)] + (1/2)*Arg[1 + I/(x + I*y)] + Arg[x + Sqrt[1 + (x - I*y)^2] - I*y]
-        expect_evaluated: -Arg[1 - I/(x + I*y)]/2 + Arg[1 + I/(x + I*y)]/2 + Arg[x + Sqrt[1 + (x - I*y)^2] - I*y]
+        expect_evaluated:             I                  I
+#! -Arg[1 - -------]   Arg[1 + -------]
+         x + I y            x + I y                              2
+#! ----------------- + ---------------- + Arg[x + Sqrt[1 + (x - I y) ] - I y]
+        2                  2
     ...
 # Exponential and logarithmic functions:
 ok  ComplexExpand[Abs[2^z*Log[2*z]], z]    ==>     2^Re[z]*Sqrt[Arg[z]^2 + (Log[2] + (1/2)*Log[Im[z]^2 + Re[z]^2])^2]
     ---
     data:
-        got: 2^Re[z]*Sqrt[Arg[z]^2 + (Log[2] + Log[Im[z]^2 + Re[z]^2]/2)^2]
+        got:                                          2        2
+#!  Re[z]            2             Log[Im[z]  + Re[z] ] 2
+#! 2      Sqrt[Arg[z]  + (Log[2] + --------------------) ]
+#!                                          2
         expect: 2^Re[z]*Sqrt[Arg[z]^2 + (Log[2] + (1/2)*Log[Im[z]^2 + Re[z]^2])^2]
-        expect_evaluated: 2^Re[z]*Sqrt[Arg[z]^2 + (Log[2] + Log[Im[z]^2 + Re[z]^2]/2)^2]
+        expect_evaluated:                                          2        2
+#!  Re[z]            2             Log[Im[z]  + Re[z] ] 2
+#! 2      Sqrt[Arg[z]  + (Log[2] + --------------------) ]
+#!                                          2
     ...
 # Composition of functions:
 ok  ComplexExpand[Re[Log[Sin[Exp[x + I*y]^2]]]]    ==>     (1/2)*Log[Cosh[E^(2*x)*Sin[2*y]]^2*Sin[E^(2*x)*Cos[2*y]]^2 + Cos[E^(2*x)*Cos[2*y]]^2*Sinh[E^(2*x)*Sin[2*y]]^2]
     ---
     data:
-        got: Log[Cosh[E^(2*x)*Sin[2*y]]^2*Sin[E^(2*x)*Cos[2*y]]^2 + Cos[E^(2*x)*Cos[2*y]]^2*Sinh[E^(2*x)*Sin[2*y]]^2]/2
+        got:           2 x          2      2 x          2        2 x          2       2 x          2
+#! Log[Cosh[E    Sin[2 y]]  Sin[E    Cos[2 y]]  + Cos[E    Cos[2 y]]  Sinh[E    Sin[2 y]] ]
+#! ----------------------------------------------------------------------------------------
+#!                                            2
         expect: (1/2)*Log[Cosh[E^(2*x)*Sin[2*y]]^2*Sin[E^(2*x)*Cos[2*y]]^2 + Cos[E^(2*x)*Cos[2*y]]^2*Sinh[E^(2*x)*Sin[2*y]]^2]
-        expect_evaluated: Log[Cosh[E^(2*x)*Sin[2*y]]^2*Sin[E^(2*x)*Cos[2*y]]^2 + Cos[E^(2*x)*Cos[2*y]]^2*Sinh[E^(2*x)*Sin[2*y]]^2]/2
+        expect_evaluated:           2 x          2      2 x          2        2 x          2       2 x          2
+#! Log[Cosh[E    Sin[2 y]]  Sin[E    Cos[2 y]]  + Cos[E    Cos[2 y]]  Sinh[E    Sin[2 y]] ]
+#! ----------------------------------------------------------------------------------------
+#!                                            2
     ...
 # This gives an answer in terms of RefLink[Re,paclet:ref/Re][z] and RefLink[Im,paclet:ref/Im][z]:
 ok  ComplexExpand[Re[Tan[z]], z]    ==>     Sin[2*Re[z]]/(Cos[2*Re[z]] + Cosh[2*Im[z]])
     ---
     data:
-        got: Sin[2*Re[z]]/(Cos[2*Re[z]] + Cosh[2*Im[z]])
+        got:         Sin[2 Re[z]]
+#! ----------------------------
+#! Cos[2 Re[z]] + Cosh[2 Im[z]]
         expect: Sin[2*Re[z]]/(Cos[2*Re[z]] + Cosh[2*Im[z]])
-        expect_evaluated: Sin[2*Re[z]]/(Cos[2*Re[z]] + Cosh[2*Im[z]])
+        expect_evaluated:         Sin[2 Re[z]]
+#! ----------------------------
+#! Cos[2 Re[z]] + Cosh[2 Im[z]]
     ...
 # With RefLink[TargetFunctions,paclet:ref/TargetFunctions]->{RefLink[Abs,paclet:ref/Abs], RefLink[Arg,paclet:ref/Arg]}, the answer is given in terms of RefLink[Abs,paclet:ref/Abs][z] and RefLink[Arg,paclet:ref/Arg][z]:
 ok  ComplexExpand[Re[Tan[z]], z, TargetFunctions -> {Abs, Arg}]    ==>     Sin[2*Abs[z]*Cos[Arg[z]]]/(Cos[2*Abs[z]*Cos[Arg[z]]] + Cosh[2*Abs[z]*Sin[Arg[z]]])
     ---
     data:
-        got: Sin[2*Abs[z]*Cos[Arg[z]]]/(Cos[2*Abs[z]*Cos[Arg[z]]] + Cosh[2*Abs[z]*Sin[Arg[z]]])
+        got:               Sin[2 Abs[z] Cos[Arg[z]]]
+#! ------------------------------------------------------
+#! Cos[2 Abs[z] Cos[Arg[z]]] + Cosh[2 Abs[z] Sin[Arg[z]]]
         expect: Sin[2*Abs[z]*Cos[Arg[z]]]/(Cos[2*Abs[z]*Cos[Arg[z]]] + Cosh[2*Abs[z]*Sin[Arg[z]]])
-        expect_evaluated: Sin[2*Abs[z]*Cos[Arg[z]]]/(Cos[2*Abs[z]*Cos[Arg[z]]] + Cosh[2*Abs[z]*Sin[Arg[z]]])
+        expect_evaluated:               Sin[2 Abs[z] Cos[Arg[z]]]
+#! ------------------------------------------------------
+#! Cos[2 Abs[z] Cos[Arg[z]]] + Cosh[2 Abs[z] Sin[Arg[z]]]
     ...
 # Use RefLink[Conjugate,paclet:ref/Conjugate] as the target function:
 ok  ComplexExpand[Re[Tan[z]], z, TargetFunctions -> Conjugate]    ==>     Sin[z + Conjugate[z]]/(Cos[z - Conjugate[z]] + Cos[z + Conjugate[z]])
     ---
     data:
-        got: Sin[z + Conjugate[z]]/(Cos[z - Conjugate[z]] + Cos[z + Conjugate[z]])
+        got:             Sin[z + Conjugate[z]]
+#! ---------------------------------------------
+#! Cos[z - Conjugate[z]] + Cos[z + Conjugate[z]]
         expect: Sin[z + Conjugate[z]]/(Cos[z - Conjugate[z]] + Cos[z + Conjugate[z]])
-        expect_evaluated: Sin[z + Conjugate[z]]/(Cos[z - Conjugate[z]] + Cos[z + Conjugate[z]])
+        expect_evaluated:             Sin[z + Conjugate[z]]
+#! ---------------------------------------------
+#! Cos[z - Conjugate[z]] + Cos[z + Conjugate[z]]
     ...
 # This computes RefLink[Re,paclet:ref/Re][RefLink[Sin,paclet:ref/Sin][x+RefLink[I,paclet:ref/I] y]] assuming that x and y are real:
 ok  ComplexExpand[Re[Sin[x + I*y]]]    ==>     Cosh[y]*Sin[x]
     ---
     data:
-        got: Cosh[y]*Sin[x]
+        got: Cosh[y] Sin[x]
         expect: Cosh[y]*Sin[x]
-        expect_evaluated: Cosh[y]*Sin[x]
+        expect_evaluated: Cosh[y] Sin[x]
     ...
 # The same computation can be done using RefLink[TrigExpand,paclet:ref/TrigExpand] and RefLink[Refine,paclet:ref/Refine]:
 ok  TrigExpand[Sin[x + I*y]]    ==>     Cosh[y]*Sin[x] + I*Cos[x]*Sinh[y]
     ---
     data:
-        got: Cosh[y]*Sin[x] + I*Cos[x]*Sinh[y]
+        got: Cosh[y] Sin[x] + I Cos[x] Sinh[y]
         expect: Cosh[y]*Sin[x] + I*Cos[x]*Sinh[y]
-        expect_evaluated: Cosh[y]*Sin[x] + I*Cos[x]*Sinh[y]
+        expect_evaluated: Cosh[y] Sin[x] + I Cos[x] Sinh[y]
     ...
 ok  Refine[Re[%], Element[x | y, Reals]]    ==>     Cosh[y]*Sin[x] # skip

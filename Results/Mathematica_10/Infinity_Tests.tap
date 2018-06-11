@@ -1,6 +1,15 @@
 #! DOCKER > wolfram -script output/Tests/Infinity_Tests.m
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+#! TextForm[ColonForm[MessageName[SeriesData, sdatv], StringForm[First argument `1` is not a valid variable., Short[HoldForm[x^(-1)], 3]]]]
 #! TextForm[ColonForm[MessageName[Infinity, indet], StringForm[Indeterminate expression `1` encountered., Short[HoldForm[-Infinity + Infinity], 3]]]]
 #! TextForm[ColonForm[MessageName[Infinity, indet], StringForm[Indeterminate expression `1` encountered., Short[HoldForm[E^DirectedInfinity[I]], 3]]]]
+#! TextForm[ColonForm[MessageName[SeriesData, sdatv], StringForm[First argument `1` is not a valid variable., Short[HoldForm[n^(-1)], 3]]]]
+#! TextForm[ColonForm[MessageName[SeriesData, sdatv], StringForm[First argument `1` is not a valid variable., Short[HoldForm[n^(-1)], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[SeriesData, sdatv]], 3]]]]
+#! TextForm[ColonForm[MessageName[Out, intm], StringForm[Machine-sized integer expected at position `2` in `1`., Short[HoldForm[Out[-1.]], 3], Short[HoldForm[1], 3]]]]
 #! TextForm[ColonForm[MessageName[CylindricalDecomposition, nrtpi], StringForm[`1` is not a logical formula consisting of polynomial equations and inequalities in `2` with rational number coefficients., Short[HoldForm[2.5*x^2 + y^2 < 1.5], 3], Short[HoldForm[{x, y}], 3]]]]
 #! TextForm[ColonForm[MessageName[CylindricalDecomposition, nrtpi], StringForm[`1` is not a logical formula consisting of polynomial equations and inequalities in `2` with rational number coefficients., Short[HoldForm[2.5*x^2 + y^2 < 1.5], 3], Short[HoldForm[{x, y}], 3]]]]
 # SYSTEM: Mathematica_10
@@ -9,9 +18,15 @@
 ok  Sum[1/n^2, {n, Infinity}]    ==>     Pi^2/6
     ---
     data:
-        got: Pi^2/6
+        got:   2
+#! Pi
+#! ---
+#!  6
         expect: Pi^2/6
-        expect_evaluated: Pi^2/6
+        expect_evaluated:   2
+#! Pi
+#! ---
+#!  6
     ...
 # Do arithmetic with infinite quantities:
 ok  1/Infinity    ==>     0
@@ -39,15 +54,31 @@ ok  Integrate[Exp[-x^2], {x, -Infinity, Infinity}]    ==>     Sqrt[Pi]
         expect: Sqrt[Pi]
         expect_evaluated: Sqrt[Pi]
     ...
-ok  NIntegrate[Exp[-(x^4/(x^2 + 1))], {x, -Infinity, Infinity}]    ==>     2.31402 # skip
+ok  NIntegrate[Exp[-(x^4/(x^2 + 1))], {x, -Infinity, Infinity}]    ==>     2.31402
+    ---
+    data:
+        got: 2.31402
+        expect: 2.31402
+        expect_evaluated: 2.31402
+    ...
 ok  Sum[Exp[-n^2], {n, -Infinity, Infinity}]    ==>     EllipticTheta[3, 0, 1/E]
     ---
     data:
-        got: EllipticTheta[3, 0, E^(-1)]
+        got:                     1
+#! EllipticTheta[3, 0, -]
+#!                     E
         expect: EllipticTheta[3, 0, 1/E]
-        expect_evaluated: EllipticTheta[3, 0, E^(-1)]
+        expect_evaluated:                     1
+#! EllipticTheta[3, 0, -]
+#!                     E
     ...
-ok  NSum[Exp[-(n^4/(n^2 + 1))], {n, -Infinity, Infinity}]    ==>     2.29519 # skip
+ok  NSum[Exp[-(n^4/(n^2 + 1))], {n, -Infinity, Infinity}]    ==>     2.29519
+    ---
+    data:
+        got: 2.29519
+        expect: 2.29519
+        expect_evaluated: 2.29519
+    ...
 # Extended arithmetic with infinite quantities:
 ok  Infinity*Infinity    ==>     Infinity
     ---
@@ -143,9 +174,11 @@ ok  Gamma[0]    ==>     ComplexInfinity
 ok  e = x*Gamma[x] + (x + 1)*Gamma[x^2 + 1]    ==>     x*Gamma[x] + (1 + x)*Gamma[1 + x^2]
     ---
     data:
-        got: x*Gamma[x] + (1 + x)*Gamma[1 + x^2]
+        got:                                 2
+#! x Gamma[x] + (1 + x) Gamma[1 + x ]
         expect: x*Gamma[x] + (1 + x)*Gamma[1 + x^2]
-        expect_evaluated: x*Gamma[x] + (1 + x)*Gamma[1 + x^2]
+        expect_evaluated:                                 2
+#! x Gamma[x] + (1 + x) Gamma[1 + x ]
     ...
 ok  Cases[e, _Gamma]    ==>     {}
     ---
@@ -158,9 +191,11 @@ ok  Cases[e, _Gamma]    ==>     {}
 ok  Cases[e, _Gamma, Infinity]    ==>     {Gamma[x], Gamma[1 + x^2]}
     ---
     data:
-        got: {Gamma[x], Gamma[1 + x^2]}
+        got:                       2
+#! {Gamma[x], Gamma[1 + x ]}
         expect: {Gamma[x], Gamma[1 + x^2]}
-        expect_evaluated: {Gamma[x], Gamma[1 + x^2]}
+        expect_evaluated:                       2
+#! {Gamma[x], Gamma[1 + x ]}
     ...
 # Stirling's asymptotic approximation:
 ok  Series[n!, {n, Infinity, 2}]    ==>     E^(-1 - Log[1/n])*n + O[1/n]^3*(Sqrt[2*Pi]*Sqrt[n] + Sqrt[Pi/2]/(6*Sqrt[n]) + Sqrt[Pi/2]/(144*n^(3/2)) + O[1/n]^(5/2)) # skip
@@ -168,21 +203,45 @@ ok  Series[n!, {n, Infinity, 2}]    ==>     E^(-1 - Log[1/n])*n + O[1/n]^3*(Sqrt
 ok  SetPrecision[3.14, Infinity]    ==>     7070651414971679/2251799813685248
     ---
     data:
-        got: 7070651414971679/2251799813685248
+        got: 7070651414971679
+#! ----------------
+#! 2251799813685248
         expect: 7070651414971679/2251799813685248
-        expect_evaluated: 7070651414971679/2251799813685248
+        expect_evaluated: 7070651414971679
+#! ----------------
+#! 2251799813685248
     ...
 ok  N[%]    ==>     3.14 # skip
 # Some functions require infinite precision or exact input:
 ok  CylindricalDecomposition[y^2 + 2.5*x^2 < 1.5, {x, y}]    ==>     CylindricalDecomposition[2.5*x^2 + y^2 < 1.5, {x, y}]
     ---
     data:
-        got: CylindricalDecomposition[2.5*x^2 + y^2 < 1.5, {x, y}]
+        got:                               2    2
+#! CylindricalDecomposition[2.5 x  + y  < 1.5, {x, y}]
         expect: CylindricalDecomposition[2.5*x^2 + y^2 < 1.5, {x, y}]
-        expect_evaluated: CylindricalDecomposition[2.5*x^2 + y^2 < 1.5, {x, y}]
+        expect_evaluated:                               2    2
+#! CylindricalDecomposition[2.5 x  + y  < 1.5, {x, y}]
     ...
 # Apply RefLink[SetPrecision,paclet:ref/SetPrecision] to the whole expression to rationalize all inexact numbers:
-ok  CylindricalDecomposition[SetPrecision[y^2 + 2.5*x^2 < 1.5, Infinity], {x, y}]    ==>     -Sqrt[3/5] < x < Sqrt[3/5] && -(Sqrt[3 - 5*x^2]/Sqrt[2]) < y < Sqrt[3 - 5*x^2]/Sqrt[2] # skip
+ok  CylindricalDecomposition[SetPrecision[y^2 + 2.5*x^2 < 1.5, Infinity], {x, y}]    ==>     -Sqrt[3/5] < x < Sqrt[3/5] && -(Sqrt[3 - 5*x^2]/Sqrt[2]) < y < Sqrt[3 - 5*x^2]/Sqrt[2]
+    ---
+    data:
+        got:                                         2                     2
+      3             3       Sqrt[3 - 5 x ]        Sqrt[3 - 5 x ]
+#! -Sqrt[-] < x < Sqrt[-] && -(--------------) < y < --------------
+      5             5          Sqrt[2]               Sqrt[2]
+        expect: -Sqrt[3/5] < x < Sqrt[3/5] && -(Sqrt[3 - 5*x^2]/Sqrt[2]) < y < Sqrt[3 - 5*x^2]/Sqrt[2]
+        expect_evaluated:                                         2                     2
+      3             3       Sqrt[3 - 5 x ]        Sqrt[3 - 5 x ]
+#! -Sqrt[-] < x < Sqrt[-] && -(--------------) < y < --------------
+      5             5          Sqrt[2]               Sqrt[2]
+    ...
 # Use an infinite RefLink[WorkingPrecision,paclet:ref/WorkingPrecision] in RefLink[Plot,paclet:ref/Plot]:
 ok  HoldComplete[Reap[Plot[2*x + 1, {x, 0, 1}, WorkingPrecision -> Infinity, EvaluationMonitor :> Sow[x], PlotPoints -> 3, MaxRecursion -> 0]]]    ==>     $Failed # skip
-ok  HoldComplete[Plot[Numerator[x], {x, 0, 10}, WorkingPrecision -> Infinity, PlotPoints -> 1000, MaxRecursion -> 0]]    ==>     $Failed # skip
+not ok  HoldComplete[Plot[Numerator[x], {x, 0, 10}, WorkingPrecision -> Infinity, PlotPoints -> 1000, MaxRecursion -> 0]]    ==>     $Failed
+    ---
+    data:
+        got: -Graphics-
+        expect: $Failed
+        expect_evaluated: $Failed
+    ...

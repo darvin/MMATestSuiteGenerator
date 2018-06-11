@@ -1,6 +1,6 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
-TapSuite[TapTestSame[Rest[{a, b, c, d}], {b, c, d}], 
+TapSuite[TapTestSameBROKEN[$Failed, HoldComplete[{b, c, d}]], 
  TapTestSame[Rest[\[LeftAssociation] 1 :> a, 2 -> b, 
     3 :> c \[RightAssociation]], \[LeftAssociation] 2 -> b, 
    3 :> c \[RightAssociation]], 

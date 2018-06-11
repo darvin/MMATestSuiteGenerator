@@ -6,17 +6,17 @@ TapSuite[TapComment["Delete cases that match integers:"],
  TapTestSame[DeleteCases[_Integer][{1, 1, x, 2, 3, y, 9, y}], {x, y, y}], 
  TapComment[
   "Delete elements from RefLink[Association,paclet:ref/Association]:"], 
- TapTestSameBROKEN[DeleteCases[\[LeftAssociation] "a" -> 1, "b" -> 2, 
-    c -> "3", d -> 4 \[RightAssociation], _Integer], 
-  \[LeftAssociation] c -> 3 \[RightAssociation]], 
- TapComment["RefLink[DeleteCases,paclet:ref/DeleteCases] can access parts of \
-the elements of an RefLink[Association,paclet:ref/Association]:"], 
- TapTestSameBROKEN[DeleteCases[\[LeftAssociation] "a" -> 1, "b" -> 2, 
+ TapTestSame[DeleteCases[\[LeftAssociation] "a" -> 1, "b" -> 2, c -> "3", 
+    d -> 4 \[RightAssociation], _Integer], \[LeftAssociation] 
+   c -> 3 \[RightAssociation]], TapComment["RefLink[DeleteCases,paclet:ref/De\
+leteCases] can access parts of the elements of an \
+RefLink[Association,paclet:ref/Association]:"], 
+ TapTestSame[DeleteCases[\[LeftAssociation] "a" -> 1, "b" -> 2, 
     c -> {"3", 4}, d -> 4 \[RightAssociation], _Integer, {2}], 
   \[LeftAssociation] a -> 1, b -> 2, c -> {3}, d -> 4 \[RightAssociation]], 
  TapComment["Deleting elements from a nested \
 RefLink[Association,paclet:ref/Association]:"], 
- TapTestSameBROKEN[DeleteCases[\[LeftAssociation] "a" -> 1, 
+ TapTestSame[DeleteCases[\[LeftAssociation] "a" -> 1, 
     "b" -> \[LeftAssociation] "3" -> 3, "4" -> "4", 
       "5" -> \[LeftAssociation] 
         f -> 1 \[RightAssociation] \[RightAssociation], 
@@ -31,6 +31,6 @@ RefLink[Association,paclet:ref/Association]:"],
  TapTestSame[DeleteCases[{1, f[2, 3], 4}, f, {2}, Heads -> True], 
   {1, 2, 3, 4}], TapComment["Deleting the head in \
 RefLink[Association,paclet:ref/Association] removes the entry:"], 
- TapTestSameBROKEN[DeleteCases[\[LeftAssociation] "a" -> 1, "b" -> f["2", 3], 
+ TapTestSame[DeleteCases[\[LeftAssociation] "a" -> 1, "b" -> f["2", 3], 
     "c" -> 4 \[RightAssociation], f, {2}, Heads -> True], 
   \[LeftAssociation] a -> 1, c -> 4 \[RightAssociation]]]

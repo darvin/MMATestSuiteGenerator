@@ -1,15 +1,41 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Module.nb output/Tests/Module_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Module.nb
 # WRITING OUTPUT TO:     output/Tests/Module_Tests.m
-not ok  f[2.0]    ==>     -0.366513
-not ok  fib[5]    ==>     5
-not ok  gcd[18,21]    ==>     3
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[http://reference.wolfram.com/language/ref/Module.html; f[x0_]:=
+       ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[Syntax, sntxf], StringForm["`1`" cannot be followed by "`2`"`4`., Short[HoldForm[DisplayForm[RowBox[{RowBox[{http, :}]}]]], 3], Short[HoldForm[DisplayForm[RowBox[{//, RowBox[{RowBox[{RowBox[{RowBox[{reference, ., wolfram, ., com}], /, language}], /, ref}], /, RowBox[{Module, ., html}]}]}]]], 3], Short[HoldForm[], 3], Short[HoldForm[], 3]]]]
+#! TextForm[ColonForm[MessageName[ToExpression, sntx], StringForm[Invalid syntax in or before "`1`"`4`., Short[HoldForm[]; f[2.0]\)
+#!            ^], 3], Short[HoldForm[], 3], Short[HoldForm[], 3], Short[HoldForm[
+#! ], 3]]]]
+not ok  http://reference.wolfram.com/language/ref/Module.html; f[x0_]:=
+#! Module[{x=x0},
+#! While[x>0,x=Log[x]];
+#! x
+#! ]; f[2.0]    ==>     -0.366513
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+ok  fib[n_]:=
+#! Module[{f},
+#! f[1]=f[2]=1;
+#! f[i_]:=f[i]=f[i-1]+f[i-2];
+#! f[n]
+#! ]; fib[5]    ==>     5
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
+ok  gcd[m0_,n0_]:=
+#! Module[{m=m0,n=n0},
+#! While[n!=0,{m,n}={n,Mod[m,n]}];
+#! m
+#! ]; gcd[18,21]    ==>     3
 not ok  {Module[{x},x],Module[{x},x]}    ==>     {x$100,x$101}
-#! x$575
+#! x$587
 ok  Module[{x},Print[x];Attributes[x]]    ==>     {Temporary}
 not ok  Names["x$*"]    ==>     {}
 not ok  {$ModuleNumber,Module[{x},x],$ModuleNumber}    ==>     {37,x$37,38}
-not ok  With[{x=2.0},Sqrt[x]+1]    ==>     2.41421
+ok  With[{x=2.0},Sqrt[x]+1]    ==>     2.41421
 not ok  Timing[Do[Module[{x=5},x;],{10^5}]]    ==>     {0.312,Null}
 not ok  Timing[Do[With[{x=5},x;],{10^5}]]    ==>     {0.093,Null}
 #! 5
@@ -20,17 +46,16 @@ not ok  {Unique[x],Module[{x},x]}    ==>     {x$949,x$950}
 ok  x=17;
 #! Module[{x=x},x=x+1;x]    ==>     18
 ok  x    ==>     17
-not ok  Module[{x=5},x+y]    ==>     5+x^2
+#! TextForm[ColonForm[MessageName[$RecursionLimit, reclim], StringForm[Recursion depth of `1` exceeded., Short[HoldForm[1024], 3]]]]
+not ok  y=x^2;; Module[{x=5},x+y]    ==>     5+x^2
 not ok  Module[{e=Expand[(1+x)^5]},Function[x,e]]    ==>     Function[x$,e$100477]
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 not ok  %[10]    ==>     1+5 x+10 x^2+10 x^3+5 x^4+x^5
 #! TextForm[ColonForm[MessageName[Function, flpar], StringForm[Parameter specification `1` in `2` should be a symbol or a list of symbols., Short[HoldForm[17], 3], Short[HoldForm[Function[17, 1889568]], 3]]]]
 not ok  Module[{e=Expand[(1+x)^5]},Function@@{x,e}]    ==>     Function[x,1+5 x+10 x^2+10 x^3+5 x^4+x^5]
-#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
-not ok  %[10]    ==>     161051
+ok  %[10]    ==>     161051
 #! TextForm[ColonForm[MessageName[Module, lvset], StringForm[Local variable specification `1` contains `2`, which is an assignment to `3`; only assignments to symbols are allowed., Short[HoldForm[{{x, y} = v}], 3], Short[HoldForm[{x, y} = v], 3], Short[HoldForm[{x, y}], 3]]]]
 #! TextForm[ColonForm[MessageName[Module, lvset], StringForm[Local variable specification `1` contains `2`, which is an assignment to `3`; only assignments to symbols are allowed., Short[HoldForm[{{x, y} = v}], 3], Short[HoldForm[{x, y} = v], 3], Short[HoldForm[{x, y}], 3]]]]
-ok  Module[{{x,y}=v},x^2+y^2]    ==>     Module[{{x,y}=v},x^2+y^2]
-#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[v[[1]]], 3]]]]
-#! TextForm[ColonForm[MessageName[Part, partd], StringForm[Part specification `1` is longer than depth of object., Short[HoldForm[v[[2]]], 3]]]]
+#! TextForm[ColonForm[MessageName[Module, lvset], StringForm[Local variable specification `1` contains `2`, which is an assignment to `3`; only assignments to symbols are allowed., Short[HoldForm[{{x, y} = v}], 3], Short[HoldForm[{x, y} = v], 3], Short[HoldForm[{x, y}], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[Module, lvset]], 3]]]]
+not ok  v={a,b};; Module[{{x,y}=v},x^2+y^2]    ==>     Module[{{x,y}=v},x^2+y^2]
 not ok  Module[{x=v[[1]],y=v[[2]]},x^2+y^2]    ==>     a^2+b^2

@@ -1,36 +1,35 @@
 (* Created by Wolfram Mathematica 10.0 : www.wolfram.com *)
 Import["CompatTests.m"]; 
 TapSuite[TapComment["Take the first 6 characters in a string:"], 
- TapTestSameBROKEN[StringTake["abcdefghijklm", 6], abcdef], 
+ TapTestSame[StringTake["abcdefghijklm", 6], abcdef], 
  TapComment["Use RefLink[InputForm,paclet:ref/InputForm] to show quotes:"], 
- TapTestSameBROKEN[InputForm[%], "abcdef"], 
+ TapTestSame[InputForm[%], "abcdef"], 
  TapComment["Take from the end of the string:"], 
- TapTestSameBROKEN[StringTake["abcdefghijklm", -4], jklm], 
+ TapTestSame[StringTake["abcdefghijklm", -4], jklm], 
  TapComment["Take characters 5 through 10:"], 
- TapTestSameBROKEN[StringTake["abcdefghijklm", {5, 10}], efghij], 
+ TapTestSame[StringTake["abcdefghijklm", {5, 10}], efghij], 
  TapComment["Find character 6 in a string:"], 
- TapTestSameBROKEN[StringTake["abcdefghijklm", {6}], f], 
- TapTestSameBROKEN[InputForm[%], "f"], 
- TapComment["Take every other character:"], 
- TapTestSameBROKEN[StringTake["abcdefghijklm", {1, -1, 2}], acegikm], 
+ TapTestSame[StringTake["abcdefghijklm", {6}], f], 
+ TapTestSame[InputForm[%], "f"], TapComment["Take every other character:"], 
+ TapTestSame[StringTake["abcdefghijklm", {1, -1, 2}], acegikm], 
  TapComment["Take the last 2 characters from several strings:"], 
- TapTestSameBROKEN[StringTake[{"abcdef", "stuv", "xyzw"}, -2], {ef, uv, zw}], 
+ TapTestSame[StringTake[{"abcdef", "stuv", "xyzw"}, -2], {ef, uv, zw}], 
  TapComment[
   "RefLink[StringTake,paclet:ref/StringTake] works with special characters:"]\
-, TapTestSameBROKEN[StringTake["\[FilledDiamond]\[Alpha]\[Beta]\[Gamma]\
+, TapTestSame[StringTake["\[FilledDiamond]\[Alpha]\[Beta]\[Gamma]\
 \[LongLeftRightArrow]\[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC]\
 \[ReturnIndicator]", -4], 
   \[ScriptCapitalA]\[ScriptCapitalB]\[ScriptCapitalC]\[ReturnIndicator]], 
  TapComment["Newline (\\n) counts as a single character:"], 
  TapTestSameBROKEN[StringTake["abc\ndef", 5], abc*d], 
  TapComment["RefLink[StringTake,paclet:ref/StringTake] can effectively do \
-\"part\" extraction in strings:"], TapTestSameBROKEN[
-  Characters["abcdefghijklm"][[6]], f], TapTestSameBROKEN[
-  StringTake["abcdefghijklm", {6}], f], TapComment["RefLink[StringTake,paclet\
-:ref/StringTake] works like applying RefLink[Take,paclet:ref/Take] to the \
-list of characters:"], TapTestSameBROKEN[Take[Characters["abcdefghijklm"], 
-   {5, -4}], {e, f, g, h, i, j}], TapTestSameBROKEN[
-  StringTake["abcdefghijklm", {5, -4}], efghij], 
+\"part\" extraction in strings:"], 
+ TapTestSame[Characters["abcdefghijklm"][[6]], f], 
+ TapTestSame[StringTake["abcdefghijklm", {6}], f], 
+ TapComment["RefLink[StringTake,paclet:ref/StringTake] works like applying \
+RefLink[Take,paclet:ref/Take] to the list of characters:"], 
+ TapTestSame[Take[Characters["abcdefghijklm"], {5, -4}], {e, f, g, h, i, j}], 
+ TapTestSame[StringTake["abcdefghijklm", {5, -4}], efghij], 
  TapComment["Taking between positions 1 and 0 gives a zero-length string:"], 
  TapTestSameBROKEN[StringTake["abcdef", {1, 0}], Null], 
  TapTestSameBROKEN[FullForm[%], ""], TapComment["RefLink[StringTake,paclet:re\

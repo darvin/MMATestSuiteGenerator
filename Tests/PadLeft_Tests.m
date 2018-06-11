@@ -30,7 +30,7 @@ TapSuite[TapComment["Pad with 0 to make the list be of length 10:"],
  TapTestSame[PadLeft[Table[IntegerDigits[i^2, 2], {i, 5}]], 
   {{0, 0, 0, 0, 1}, {0, 0, 1, 0, 0}, {0, 1, 0, 0, 1}, {1, 0, 0, 0, 0}, 
    {1, 1, 0, 0, 1}}], TapComment["Lay out an array of tiles:"], 
- TapTestSameBROKEN[HoldComplete[ArrayPlot[PadLeft[{{}}, {15, 15}, 
+ TapTestSame[HoldComplete[ArrayPlot[PadLeft[{{}}, {15, 15}, 
      {{1, 0, 1}, {0, 1, 1}, {1, 0, 0}}], Mesh -> True]], $Failed], 
  TapComment["RefLink[PadLeft,paclet:ref/PadLeft][list,n] and \
 RefLink[PadRight,paclet:ref/PadRight][list,n] pad to make a list of length \

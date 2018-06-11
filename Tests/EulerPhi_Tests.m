@@ -3,8 +3,8 @@ Import["CompatTests.m"];
 TapSuite[TapComment["Table of values:"], 
  TapTestSame[Table[EulerPhi[k], {k, 0, 20}], {0, 1, 1, 2, 2, 4, 2, 6, 4, 6, 
    4, 10, 4, 12, 6, 8, 8, 16, 6, 18, 8}], TapComment["Plot the sequence: "], 
- TapTestSameBROKEN[HoldComplete[DiscretePlot[EulerPhi[k], {k, 100}]], 
-  $Failed], TapComment["Evaluate for large arguments:"], 
+ TapTestSame[HoldComplete[DiscretePlot[EulerPhi[k], {k, 100}]], $Failed], 
+ TapComment["Evaluate for large arguments:"], 
  TapTestSame[EulerPhi[50!], 
   4218559200885839042679312107816703841788854953574400000000000000], 
  TapTestSame[EulerPhi[{2, 4, 6}], {1, 2, 2}], 
@@ -20,10 +20,10 @@ TapSuite[TapComment["Table of values:"],
   Table[Length[Select[Range[n]/n, Denominator[#1] == n & ]], {n, 15}], 
   {1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 4, 12, 6, 8}], 
  TapTestSame[Table[EulerPhi[n], {n, 15}], {1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 
-   4, 12, 6, 8}], TapTestSameBROKEN[HoldComplete[
+   4, 12, 6, 8}], TapTestSame[HoldComplete[
    ListPlot[Accumulate[Table[EulerPhi[n], {n, 50}]]]], $Failed], 
  TapComment["Compare with an asymptotic approximation:"], 
- TapTestSameBROKEN[HoldComplete[Show[%, Plot[(3/Pi^2)*n^2, {n, 0, 50}, 
+ TapTestSame[HoldComplete[Show[%, Plot[(3/Pi^2)*n^2, {n, 0, 50}, 
      PlotStyle -> Red]]], $Failed], TapComment["First several n-s where the \
 difference \\!\\(\n\\*UnderoverscriptBox[\\(\\[Sum]\\), \\(k = 1\\), \
 \\(n\\)]\\*\nTemplateBox[{\"k\"},\n\"EulerPhi\"]\\)-3 n^2/\\[Pi]^2 is \
@@ -38,24 +38,30 @@ negative:"], TapTestSame[
    -86.3779, -80.9853, -239.944, -124.389, -443.274}], 
  TapTestSame[$Failed, $Failed], 
  TapComment["Compare with the asymptotic limit:"], 
- TapTestSameBROKEN[N[1/Zeta[2]], 0.607927], TapTestSameBROKEN[c[6, 2], 14], 
- TapTestSame[Series[Total[(EulerPhi[#1]*(x^#1/(1 - x^#1)) & ) /@ 
-     Divisors[10]], {x, 0, 20}], x + 2*x^2 + x^3 + 2*x^4 + 5*x^5 + 2*x^6 + 
-   x^7 + 2*x^8 + x^9 + 10*x^10 + x^11 + 2*x^12 + x^13 + 2*x^14 + 5*x^15 + 
-   2*x^16 + x^17 + 2*x^18 + x^19 + 10*x^20 + O[x]^21], 
+ TapTestSame[N[1/Zeta[2]], 0.607927], 
+ TapTestSame[c[n_, b_] := Total[(EulerPhi[#1]*b^(n/#1) & )[Divisors[n]]]/n; 
+   c[6, 2], 14], TapTestSame[
+  Series[Total[(EulerPhi[#1]*(x^#1/(1 - x^#1)) & ) /@ Divisors[10]], 
+   {x, 0, 20}], x + 2*x^2 + x^3 + 2*x^4 + 5*x^5 + 2*x^6 + x^7 + 2*x^8 + x^9 + 
+   10*x^10 + x^11 + 2*x^12 + x^13 + 2*x^14 + 5*x^15 + 2*x^16 + x^17 + 
+   2*x^18 + x^19 + 10*x^20 + O[x]^21], 
  TapTestSame[Sum[GCD[k, 10]*x^k, {k, 1, 20}], x + 2*x^2 + x^3 + 2*x^4 + 
    5*x^5 + 2*x^6 + x^7 + 2*x^8 + x^9 + 10*x^10 + x^11 + 2*x^12 + x^13 + 
    2*x^14 + 5*x^15 + 2*x^16 + x^17 + 2*x^18 + x^19 + 10*x^20], 
  TapComment[
   "Count the number of primes using RefLink[EulerPhi,paclet:ref/EulerPhi]:"], 
- TapTestSame[$Failed, $Failed], TapTestSameBROKEN[
-  Table[FleckPhi[0, n], {n, 12}], {1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 4}], 
+ TapTestSame[$Failed, $Failed], 
+ TapComment["Model Fleck's totient function:"], 
+ TapTestSame[FleckPhi[k_, n_] := 
+    Times @@ Apply[Sum[(-1)^j*Binomial[k, j]*EulerPhi[#1^(#2 - j)], 
+        {j, 0, #2}] & , FactorInteger[n], {1}]; Table[FleckPhi[0, n], 
+    {n, 12}], {1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 4}], 
  TapComment["k=0 reproduces the Euler totient function:"], 
  TapTestSame[Table[EulerPhi[n], {n, 12}], {1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 
    4}], TapComment["Generalizations and closed forms:"], 
- TapTestSameBROKEN[Table[FleckPhi[-1, n] - n, {n, 12}], 
-  {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}], TapTestSameBROKEN[
-  Table[FleckPhi[-2, n] - DivisorSigma[1, n], {n, 12}], 
+ TapTestSame[Table[FleckPhi[-1, n] - n, {n, 12}], 
+  {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}], 
+ TapTestSame[Table[FleckPhi[-2, n] - DivisorSigma[1, n], {n, 12}], 
   {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}], 
  TapTestSame[FullSimplify[EulerPhi[n] >= Sqrt[n], 
    Element[n, Integers] && n > 6], True], 
@@ -63,11 +69,13 @@ negative:"], TapTestSame[
     EulerPhi[m*n]*(EulerPhi[GCD[n, m]]/GCD[n, m]), {m, 4}, {n, 4}], 
   {{True, True, True, True}, {True, True, True, True}, 
    {True, True, True, True}, {True, True, True, True}}], 
- TapTestSameBROKEN[Table[\[Phi][n], {n, 12}], {0, 1, 2, 2, 4, 2, 6, 4, 6, 4, 
-   10, 4}], TapTestSame[Table[EulerPhi[n], {n, 12}], 
-  {1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 4}], TapTestSameBROKEN[$Failed, 
-  HoldComplete[Zeta[-1 + s]/Zeta[s]]], TapTestSame[EulerPhi[0], 0], 
- TapTestSameBROKEN[Table[\[Alpha][k], {k, 5}], 
+ TapTestSame[\[Phi][n_] := n*Times @@ (1 - 1/First /@ FactorInteger[n]); 
+   Table[\[Phi][n], {n, 12}], {0, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 4}], 
+ TapTestSame[Table[EulerPhi[n], {n, 12}], {1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 
+   4}], TapTestSame[$Failed, HoldComplete[Zeta[-1 + s]/Zeta[s]]], 
+ TapTestSame[EulerPhi[0], 0], TapTestSame[
+  d[j_] := If[j == 2, 2, j^EulerPhi[d[j - 1]]]*\[Alpha][k_] := 
+     Product[1 - 1/d[j], {j, 2, k}]; Table[\[Alpha][k], {k, 5}], 
   {1, 1/2, 1/3, 5/16, 24414/78125}], TapTestSameBROKEN[
   TableForm[Table[BaseForm[N[\[Alpha][6], 50], b], {b, 2, 24}]], 
   Subscript[0.010011111111111111110010100101000000011010110010101000011010100\
@@ -100,12 +108,12 @@ negative:"], TapTestSame[
    Subscript[0.6*j5ahj6b6dgj3bg7jab7e2dedi1j53il02a89, 22]*
    Subscript[0.74742*k7c17jg074911f4bjjha096bk24ibb2, 23]*
    Subscript[0.7*bnnhf2jhn5b3h32i1en85c5h9e2gifj1dcc, 24]], 
- TapTestSameBROKEN[HoldComplete[With[{a = 1.535, b = -0.5, m = 3}, 
+ TapTestSame[HoldComplete[With[{a = 1.535, b = -0.5, m = 3}, 
     ArrayPlot[Mod[FixedPointList[EulerPhi[Floor[a*#1 + b]] & , Range[200], 
        120], m]]]], $Failed], 
  TapComment["The only 8 solutions of \\[Pi](x)==\\[Phi](x):"], 
  TapTestSame[Cases[Range[100], n_ /; PrimePi[n] == EulerPhi[n]], 
-  {2, 3, 4, 8, 10, 14, 20, 90}], TapTestSameBROKEN[
-  HoldComplete[DiscretePlot[{PrimePi[n], EulerPhi[n]}, {n, 1, 22}, 
+  {2, 3, 4, 8, 10, 14, 20, 90}], 
+ TapTestSame[HoldComplete[DiscretePlot[{PrimePi[n], EulerPhi[n]}, {n, 1, 22}, 
     Epilog -> {Red, PointSize[0.03], Point[({#1, EulerPhi[#1]} & ) /@ %]}]], 
   $Failed]]

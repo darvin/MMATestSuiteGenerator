@@ -1,16 +1,25 @@
 #! DOCKER > wolfram -script ./export_tests_from_docs.m build_docs/ReferencePages/Symbols/Attributes.nb output/Tests/Attributes_Tests.m
 # GENERATING TESTS FROM: build_docs/ReferencePages/Symbols/Attributes.nb
 # WRITING OUTPUT TO:     output/Tests/Attributes_Tests.m
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[1], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[StringJoin, string], StringForm[String expected at position `1` in `2`., Short[HoldForm[3], 3], Short[HoldForm[StringJoin[inNew, ; , inOld]], 3]]]]
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Attributes[Plus]    ==>     {Flat,Listable,NumericFunction,OneIdentity,Orderless,Protected}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
 ok  Attributes[f]={Listable,Protected}    ==>     {Listable,Protected}
+#! TextForm[ColonForm[MessageName[$IterationLimit, itlim], StringForm[Iteration limit of `1` exceeded., Short[HoldForm[4096], 3]]]]
+#! TextForm[ColonForm[MessageName[General, stop], StringForm[Further output of `1` will be suppressed during this calculation., Short[HoldForm[MessageName[$IterationLimit, itlim]], 3]]]]
 ok  Attributes[f]    ==>     {Listable,Protected}
 ok  Attributes[Plus]    ==>     {Flat,Listable,NumericFunction,OneIdentity,Orderless,Protected}
 ok  Attributes[{Plus,Minus}]    ==>     {{Flat,Listable,NumericFunction,OneIdentity,Orderless,Protected},{Listable,NumericFunction,Protected}}
 ok  Attributes["Set"]    ==>     {HoldFirst,Protected,SequenceHold}
-not ok  Attributes[{f,g}]    ==>     {{HoldAll,Listable},{HoldAll}}
-not ok  Definition[f]    ==>     Attributes[f]={Listable}
-not ok  Attributes[f]    ==>     {Protected}
-not ok  Attributes[f]    ==>     {}
+#! TextForm[ColonForm[MessageName[Attributes, attnf], StringForm[`1` is not a known attribute., Short[HoldForm[Span[HoldAll, {{HoldAll, Listable, Protected}, {}}]], 3]]]]
+not ok  SetAttributes[f,HoldAll];
+#! Attributes[g]=HoldAll;; Attributes[{f,g}]    ==>     {{HoldAll,Listable},{HoldAll}}
+#! TextForm[ColonForm[MessageName[Attributes, attnf], StringForm[`1` is not a known attribute., Short[HoldForm[Span[Listable, Attributes[f] = {HoldAll, Listable, Protected}]], 3]]]]
+not ok  Attributes[f]=Listable;; Definition[f]    ==>     Attributes[f]={Listable}
+not ok  Protect[f];; Attributes[f]    ==>     {Protected}
+not ok  Unprotect[f];; Attributes[f]    ==>     {}
 ok  Attributes[Attributes]    ==>     {HoldAll,Listable,Protected}
 ok  Attributes[syms]    ==>     {}
 not ok  Attributes[Evaluate[syms]]    ==>     {{Flat,Listable,NumericFunction,OneIdentity,Orderless,Protected},{Flat,Listable,NumericFunction,OneIdentity,Orderless,Protected},{Listable,NumericFunction,OneIdentity,Protected}}
