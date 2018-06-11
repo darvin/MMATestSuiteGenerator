@@ -19,6 +19,7 @@ SetAttributes[TapTestSameBROKEN, HoldAllComplete];
 SetAttributes[TapTestSameDISABLED, HoldAllComplete];
 
 TapComment[txt_] := {"Comment", txt};
+lastOutputVar = Null;
 
 TapTestSame[in_, out_, isDisabled_] := 
   Module[{inExpr, outExpr, inStrEvaluated, outStrEvaluated, inStr, 
@@ -26,12 +27,12 @@ TapTestSame[in_, out_, isDisabled_] :=
    result = False;
    inStr = ToString[Unevaluated@InputForm[in]];
    outStr = ToString[Unevaluated@InputForm[out]];
-   If[! isDisabled, (inExpr = ReleaseHold[in];
+     inExpr = ReleaseHold[in]  /. % -> lastOutputVar;
      outExpr = ReleaseHold[out];
-     result = inExpr === outExpr;
-     inStrEvaluated = ToString[InputForm[inExpr]];
-     outStrEvaluated = ToString[InputForm[outExpr]];
-     )];
+     lastOutputVar = outExpr;
+     inStrEvaluated = ToString[inExpr, OutputForm];
+     outStrEvaluated = ToString[outExpr, OutputForm];
+     result = inStrEvaluated === outStrEvaluated;
    {"Test", inStr, outStr, inStrEvaluated, outStrEvaluated, 
     isDisabled, result}];
 TapTestSame[in_, out_] := TapTestSame[in, out, False];
