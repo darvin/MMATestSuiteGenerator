@@ -29,6 +29,11 @@ getExamplesFromNotebook[nbImported_] :=
        Infinity}];
     nb = nb //. {p___, TEMPIn[in_], TEMPOut[out_], n___} -> {p, 
         TEMPExample[in, out], n};
+
+    nb = nb //. {p___, TEMPIn[inNew_], TEMPExample[inOld_, out_], n___} -> {p, 
+        TEMPExample[inNew <> "; " <> inOld, out], n};
+
+
     nb = nb //. {p___, TEMPTxt[txt_], TEMPExample[in_, out_], 
         n___} -> {p, TEMPExample[in, out, txt], n};
     nb = Select[nb, MatchQ[#, _TEMPExample] &];
@@ -38,7 +43,6 @@ Clear[testFunc, exportTests, lastOutputVar];
 lastOutputVar = Null;
 testFunc[in_, out_, noBroken_] := 
   Module[{isGood, inExpr, outExpr, inResStr, outResStr, inInact, outInact}, 
-   
    inExpr = ToExpression[in] /. % -> lastOutputVar;
    outExpr = ToExpression[out];
    lastOutputVar = outExpr;
@@ -55,6 +59,7 @@ testFunc[in_, out_, noBroken_] :=
    If[isGood, TapTestSame[inInact, outInact], 
     If[! noBroken, TapTestSameBROKEN[inInact, outInact], 
      Unevaluated@Sequence[]]]];
+
 
 SetAttributes[TapSuite, HoldAllComplete];
 exportTests[fileName_, noBroken_] := 
